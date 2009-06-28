@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<include file="struts-default.xml"></include>
+
+	<package name="gameif" extends="struts-default">
+
+		<action name="*Member" class="memberInfoAction" method="{1}">
+			<interceptor-ref name="scopedModelDriven">
+				<param name="scope">request</param>
+				<param name="name">member</param>
+				<param name="className">com.gameif.portal.entity.MemberInfo</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			
+			<result name="success">/pages/portal/mem_menu.jsp</result>
+			<result name="input">/pages/portal/mem_login.jsp</result>
+			<result name="new">/pages/portal/mem_edit.jsp</result>
+		</action>
+
+		<action name="*MemberInfoControl" class="memberInfoControlAction"
+			method="{1}">
+			<interceptor-ref name="scopedModelDriven">
+				<param name="scope">request</param>
+				<param name="name">memberInfo</param>
+				<param name="className">com.gameif.portal.entity.MemberInfo</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			
+			<result name="success">/pages/portal/mem_menu.jsp</result>
+		</action>
+	</package>
+</struts>
