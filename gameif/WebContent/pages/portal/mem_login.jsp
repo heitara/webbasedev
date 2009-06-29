@@ -46,4 +46,5 @@
 	</table>
 </s:form>
 </body>
+<s:include value="../common/footer.jsp"></s:include>
 </html>
