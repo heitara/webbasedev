@@ -10,46 +10,51 @@
 	<link rel="stylesheet" type="text/css" media="screen" href="css/common/screen.css" />
 	<script src="js/jquery/jquery.js" type="text/javascript"></script>
 	<script src="js/portal/mem_login.js" type="text/javascript"></script>
+	<s:include value="../common/header.jsp"></s:include>
 </head>
 
 <body>
-<s:form name="frm_login" method="POST" action="loginMember">
-	<table>
-		<tr>
-			<s:actionerror />
-			<s:actionmessage />
-		</tr>
-		<tr>
-			<td><s:property value="%{getText('mem_id')}" /></td>
-			<td></td>
-			<td><s:textfield name="memId"></s:textfield></td>
-		</tr>
-		<tr>
-			<td><s:property value="%{getText('passwd')}" /></td>
-			<td></td>
-			<td><s:password name="mempwd" /></td>
-		</tr>
-		<tr />
-		<tr>
-			<td><s:url id="reget" action="regetMember" /> <s:a
-				href="%{reget}">
-				<s:property value="%{getText('reget')}" />
-			</s:a></td>
-			<td />
-			<td>
-				<s:submit value="%{getText('log_in')}"></s:submit>
-			</td>
-		</tr>
-		<tr>
-			<td><s:url id="new" action="creatMember" /> <s:a
-				href="%{new}">
-				<s:property value="%{getText('new')}" />
-			</s:a></td>
-			<td></td>
-			<td></td>
-		</tr>
-	</table>
-</s:form>
+	<div class="contents">
+		<s:form name="frm_login" method="POST" action="loginMember">
+			<table>
+				<tr>
+					<s:actionerror />
+					<s:actionmessage />
+				</tr>
+				<tr>
+					<td><s:property value="%{getText('mem_id')}" /></td>
+					<td></td>
+					<td><s:textfield name="memId"></s:textfield></td>
+				</tr>
+				<tr>
+					<td><s:property value="%{getText('passwd')}" /></td>
+					<td></td>
+					<td><s:password name="mempwd" /></td>
+				</tr>
+				<tr />
+				<tr>
+					<td><s:url id="reget" action="regetMember" /> <s:a
+						href="%{reget}">
+						<s:property value="%{getText('reget')}" />
+					</s:a></td>
+					<td />
+					<td>
+						<s:submit value="%{getText('log_in')}"></s:submit>
+					</td>
+				</tr>
+				<tr>
+					<td><s:url id="new" action="creatMember" /> <s:a
+						href="%{new}">
+						<s:property value="%{getText('new')}" />
+					</s:a></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</table>
+		</s:form>
+	</div>
 </body>
+
 <s:include value="../common/footer.jsp"></s:include>
+
 </html>
