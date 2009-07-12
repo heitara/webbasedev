@@ -20,6 +20,7 @@
 			<result name="new">/pages/portal/mem_edit.jsp</result>
 			<result name="reget">/pages/portal/mem_forget_pwd.jsp</result>
 			<result name="changePwd">/pages/portal/mem_change_pwd.jsp</result>
+			<result name="relogin">/pages/portal/mem_login.jsp</result>
 		</action>
 
 		<action name="*MemberInfoControl" class="memberInfoControlAction"
