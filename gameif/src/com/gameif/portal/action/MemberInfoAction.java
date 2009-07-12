@@ -46,5 +46,15 @@ public class MemberInfoAction extends ModelDrivenActionSupport<MemberInfo> {
 	public String changePwd() {
 		return "changePwd";
 	}
+	
+	public String updatePwd(){
+		int rtn = memberInfoBusinessLogic.changePwd(this.getModel());
+		if (rtn != 0){
+			addActionError("Some errors was happened when update Password!");
+			return "relogin";
+		}else{
+			return SUCCESS;
+		}
+	}
 
 }

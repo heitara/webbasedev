@@ -20,7 +20,7 @@
 				<tr>
 					<td><s:url id="change_pwd" action="changePwdMember" /> <s:a
 						href="%{change_pwd}">
-						<s:property value="%{getText('reget')}" />
+						<s:property value="%{getText('mem_change_pwd_title')}" />
 					</s:a></td>
 				</tr>
 				<tr>
