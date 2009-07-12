@@ -27,4 +27,11 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		memberInfoDao.save(memberInfo);
 	}
 
+	public int changePwd(MemberInfo member) {
+		if (member.getNewpwd().equals(member.getConfirmpwd())){
+			memberInfoDao
+		}
+		return 0;
+	}
+
 }

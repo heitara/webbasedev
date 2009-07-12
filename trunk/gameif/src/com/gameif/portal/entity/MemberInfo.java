@@ -14,6 +14,21 @@ public class MemberInfo extends BaseEntity {
 	private String mempwd;
 	private String mailPc;
 	private String confirmpwd;
+	private String newpwd;
+
+	/**
+	 * @return the newpwd
+	 */
+	public String getNewpwd() {
+		return newpwd;
+	}
+
+	/**
+	 * @param newpwd the newpwd to set
+	 */
+	public void setNewpwd(String newpwd) {
+		this.newpwd = newpwd;
+	}
 
 	/**
 	 * @return the memNum

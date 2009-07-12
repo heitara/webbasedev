@@ -16,27 +16,24 @@
 
 <body>
 	<div class="contents">
-		<s:form name="frm_mem_change_pwd">
+		<s:form name="frm_mem_change_pwd" method="POST" action="changePwdMemberInfoControl">
 			<table>
 				<tr>
 					<td><s:property value="%{getText('current_passwd')}" /></td>
-					<td><s:password name="current_passwd" /></td>
+					<td><s:password name="mempwd" /></td>
 				</tr>
 				<tr>
 					<td><s:property value="%{getText('new_passwd')}" /></td>
-					<td><s:password name="new_passwd" /></td>
+					<td><s:password name="newpwd" /></td>
 				</tr>
 				<tr>
 					<td><s:property value="%{getText('confirm_passwd')}" /></td>
-					<td><s:password name="confirm_passwd" /></td>
+					<td><s:password name="mempwd" /></td>
 				</tr>
 				
 				<tr>
-					<td><s:url id="updatePwd" action="newUserInfo" /> <s:a
-						href="%{updatePwd}">
-						<s:property value="%{getText('update')}" />
-					</s:a></td>
-					<td />
+					<td><s:submit value="%{getText('update')}"></s:submit></td>
+					<td/>
 				</tr>
 			</table>
 		</s:form>

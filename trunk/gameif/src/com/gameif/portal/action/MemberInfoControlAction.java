@@ -28,5 +28,9 @@ public class MemberInfoControlAction extends
 		memberInfoBusinessLogic.saveMemberInfo(this.getModel());
 		return SUCCESS;
 	}
+	
+	public String changePwd(){
+		return SUCCESS;
+	}
 
 }
