@@ -16,7 +16,7 @@
 
 <body>
 	<div class="contents">
-		<s:form name="frm_mem_change_pwd" method="POST" action="changePwdMemberInfoControl">
+		<s:form name="frm_mem_change_pwd" method="POST" action="updatePwdMember">
 			<table>
 				<tr>
 					<td><s:property value="%{getText('current_passwd')}" /></td>
@@ -28,7 +28,7 @@
 				</tr>
 				<tr>
 					<td><s:property value="%{getText('confirm_passwd')}" /></td>
-					<td><s:password name="mempwd" /></td>
+					<td><s:password name="confirmpwd" /></td>
 				</tr>
 				
 				<tr>
