@@ -18,7 +18,7 @@
 		<s:form name="frm_mem_menu">
 			<table>
 				<tr>
-					<td><s:url id="change_pwd" action="changePwd" /> <s:a
+					<td><s:url id="change_pwd" action="changePwdMember" /> <s:a
 						href="%{change_pwd}">
 						<s:property value="%{getText('reget')}" />
 					</s:a></td>

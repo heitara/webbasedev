@@ -47,11 +47,25 @@
 		UPDATE
 			member_info
 		SET
-			mem_id = #memId#,
 		    mem_pwd = #mempwd#,
 		    mail_pc = #mailPc#
+		WHERE
+			mem_id = #memId#
       ]]>
-	</update> 
+	</update>
+	
+	<update id="updatePwd" parameterClass="member">
+      <![CDATA[
+		UPDATE
+			member_info
+		SET
+		    mem_pwd = #newpwd#
+		WHERE
+			mem_id = #memId#
+		AND
+			mem_pwd = #mempwd#
+      ]]>
+	</update>
 
 
 </sqlMap>

@@ -7,4 +7,6 @@ public interface IMemberInfoBusinessLogic {
 	public MemberInfo checkLoginInfo(MemberInfo ui);
 	
 	public void saveMemberInfo(MemberInfo memberInfo);
+	
+	public int changePwd(MemberInfo member);
 }

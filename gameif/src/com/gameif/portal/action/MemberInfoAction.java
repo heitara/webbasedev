@@ -35,8 +35,16 @@ public class MemberInfoAction extends ModelDrivenActionSupport<MemberInfo> {
 		}
 	}
 
+	public String reget() {
+		return "reget";
+	}
+
 	public String creat() {
 		return "new";
+	}
+
+	public String changePwd() {
+		return "changePwd";
 	}
 
 }
