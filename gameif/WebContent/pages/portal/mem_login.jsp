@@ -20,22 +20,24 @@
 	action="loginMember">
 	<table>
 		<tr>
-			<s:actionerror />
-			<s:actionmessage />
+			<td>
+				<s:actionerror />
+				<s:actionmessage />
+			</td>
 		</tr>
 		<tr>
 			<td><s:property value="%{getText('mem_id')}" /></td>
 			<td></td>
-			<td><s:fielderror>
-				<s:textfield name="memId"></s:textfield>
-			</s:fielderror></td>
+			<td>
+				<s:textfield name="memId"></s:textfield><s:fielderror><s:param name="model.memId" /></s:fielderror>
+			</td>
 		</tr>
 		<tr>
 			<td><s:property value="%{getText('passwd')}" /></td>
 			<td></td>
-			<td><s:fielderror>
-				<s:password name="mempwd" />
-			</s:fielderror></td>
+			<td>
+				<s:password name="mempwd" /><s:fielderror><s:param name="model.mempwd"/></s:fielderror>
+			</td>
 		</tr>
 		<tr />
 		<tr>
