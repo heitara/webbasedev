@@ -6,7 +6,7 @@
            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
 	<!-- userInfoBusinessLogic -->
 	<bean id="memberInfoBusinessLogic"
-		class="com.gameif.portal.businesslogic.impl.MemberInfoBusinessLogicImpl">
+		class="com.gameif.portal.businesslogic.login.impl.MemberInfoBusinessLogicImpl">
 		<property name="memberInfoDao">
 			<ref bean="memberInfoDao" />
 		</property>

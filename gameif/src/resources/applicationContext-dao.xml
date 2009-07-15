@@ -17,7 +17,7 @@
 	</bean>
 
 	<!-- userInfoDao -->
-	<bean id="memberInfoDao" class="com.gameif.portal.dao.impl.MemberInfoDaoImpl" parent="baseDao">
+	<bean id="memberInfoDao" class="com.gameif.portal.dao.login.impl.MemberInfoDaoImpl" parent="baseDao">
 		<property name="namespace">
 			<value>memberInfo</value>
 		</property>
