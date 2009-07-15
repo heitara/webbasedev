@@ -1,7 +1,7 @@
 package com.gameif.portal.action.inquiry;
 
 import com.gameif.common.action.ModelDrivenActionSupport;
-import com.gameif.portal.entity.InquiryInfo;
+import com.gameif.portal.entity.inquiry.InquiryInfo;
 
 public class InquiryInputAction extends ModelDrivenActionSupport<InquiryInfo> {
 

@@ -1,7 +1,7 @@
 package com.gameif.portal.action.login;
 
 import com.gameif.common.action.ModelDrivenActionSupport;
-import com.gameif.portal.businesslogic.IMemberInfoBusinessLogic;
+import com.gameif.portal.businesslogic.login.IMemberInfoBusinessLogic;
 import com.gameif.portal.entity.MemberInfo;
 
 public class MemberInfoAction extends ModelDrivenActionSupport<MemberInfo> {
