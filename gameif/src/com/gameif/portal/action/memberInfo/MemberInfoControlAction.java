@@ -1,4 +1,4 @@
-package com.gameif.portal.action;
+package com.gameif.portal.action.memberInfo;
 
 import com.gameif.common.action.ModelDrivenActionSupport;
 import com.gameif.portal.businesslogic.IMemberInfoBusinessLogic;
