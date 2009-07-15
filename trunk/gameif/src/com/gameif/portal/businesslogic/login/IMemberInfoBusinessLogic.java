@@ -1,4 +1,4 @@
-package com.gameif.portal.businesslogic;
+package com.gameif.portal.businesslogic.login;
 
 import com.gameif.portal.entity.MemberInfo;
 

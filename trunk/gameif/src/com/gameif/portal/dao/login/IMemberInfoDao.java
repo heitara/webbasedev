@@ -1,4 +1,4 @@
-package com.gameif.portal.dao;
+package com.gameif.portal.dao.login;
 
 import com.gameif.common.dao.IBaseDao;
 import com.gameif.portal.entity.MemberInfo;
