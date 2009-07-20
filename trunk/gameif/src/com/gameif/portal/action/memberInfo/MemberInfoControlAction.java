@@ -1,7 +1,7 @@
 package com.gameif.portal.action.memberInfo;
 
 import com.gameif.common.action.ModelDrivenActionSupport;
-import com.gameif.portal.businesslogic.login.IMemberInfoBusinessLogic;
+import com.gameif.portal.businesslogic.login.ILoginInfoBusinessLogic;
 import com.gameif.portal.entity.MemberInfo;
 
 public class MemberInfoControlAction extends
@@ -12,24 +12,24 @@ public class MemberInfoControlAction extends
 	 */
 	private static final long serialVersionUID = 171926714928924158L;
 
-	private IMemberInfoBusinessLogic memberInfoBusinessLogic;
+	private ILoginInfoBusinessLogic memberInfoBusinessLogic;
 
 	/**
 	 * @param userInfoBusinessLogic
 	 *            the userInfoBusinessLogic to set
 	 */
 	public void setMemberInfoBusinessLogic(
-			IMemberInfoBusinessLogic memberInfoBusinessLogic) {
+			ILoginInfoBusinessLogic memberInfoBusinessLogic) {
 		this.memberInfoBusinessLogic = memberInfoBusinessLogic;
 	}
 
 	public String creatConfirm() {
 
-		memberInfoBusinessLogic.saveMemberInfo(this.getModel());
+		// memberInfoBusinessLogic.saveMemberInfo(this.getModel());
 		return SUCCESS;
 	}
-	
-	public String changePwd(){
+
+	public String changePwd() {
 		return SUCCESS;
 	}
 

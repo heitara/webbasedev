@@ -1,30 +1,30 @@
 package com.gameif.portal.action.login;
 
 import com.gameif.common.action.ModelDrivenActionSupport;
-import com.gameif.portal.businesslogic.login.IMemberInfoBusinessLogic;
-import com.gameif.portal.entity.MemberInfo;
+import com.gameif.portal.businesslogic.login.ILoginInfoBusinessLogic;
+import com.gameif.portal.entity.login.LoginInfo;
 
-public class MemberInfoAction extends ModelDrivenActionSupport<MemberInfo> {
+public class LoginInfoAction extends ModelDrivenActionSupport<LoginInfo> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 171926714928924158L;
 
-	private IMemberInfoBusinessLogic memberInfoBusinessLogic;
+	private ILoginInfoBusinessLogic loginInfoBusinessLogic;
 
 	/**
-	 * @param userInfoBusinessLogic
-	 *            the userInfoBusinessLogic to set
+	 * @param loginInfoBusinessLogic
+	 *            the loginInfoBusinessLogic to set
 	 */
-	public void setMemberInfoBusinessLogic(
-			IMemberInfoBusinessLogic memberInfoBusinessLogic) {
-		this.memberInfoBusinessLogic = memberInfoBusinessLogic;
+	public void setLoginInfoBusinessLogic(
+			ILoginInfoBusinessLogic loginInfoBusinessLogic) {
+		this.loginInfoBusinessLogic = loginInfoBusinessLogic;
 	}
 
 	public String login() {
 
-		MemberInfo result = memberInfoBusinessLogic.checkLoginInfo(this
+		LoginInfo result = loginInfoBusinessLogic.checkLoginInfo(this
 				.getModel());
 
 		if (result != null) {
@@ -46,13 +46,13 @@ public class MemberInfoAction extends ModelDrivenActionSupport<MemberInfo> {
 	public String changePwd() {
 		return "changePwd";
 	}
-	
-	public String updatePwd(){
-		int rtn = memberInfoBusinessLogic.changePwd(this.getModel());
-		if (rtn != 0){
+
+	public String updatePwd() {
+		int rtn = loginInfoBusinessLogic.changePwd(this.getModel());
+		if (rtn != 0) {
 			addActionError("Some errors was happened when update Password!");
 			return "relogin";
-		}else{
+		} else {
 			return SUCCESS;
 		}
 	}
