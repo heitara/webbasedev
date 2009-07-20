@@ -2,17 +2,17 @@
 <!DOCTYPE sqlMap      
     PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
     "http://ibatis.apache.org/dtd/sql-map-2.dtd">
-<sqlMap namespace="memberInfo">
-	<typeAlias alias="member" type="com.gameif.portal.entity.MemberInfo" />
+<sqlMap namespace="loginInfo">
+	<typeAlias alias="loginInfo" type="com.gameif.portal.entity.login.LoginInfo" />
 	
-	<resultMap class="com.gameif.portal.entity.MemberInfo" id="memberResult">
+	<resultMap class="com.gameif.portal.entity.login.LoginInfo" id="memberResult">
 		<result property="memNum" column="mem_num"/>
 		<result property="memId" column="mem_id"/>
 		<result property="mempwd" column="mem_pwd"/>
 		<result property="mailPc" column="mail_pc"/>
 	</resultMap>
 
-	<select id="selectByKey" parameterClass="member" resultMap="memberResult">   
+	<select id="selectByKey" parameterClass="loginInfo" resultMap="memberResult">   
         <![CDATA[
         SELECT
 			mem_num,
@@ -28,7 +28,7 @@
         ]]>
 	</select>
 
-	<insert id = "save" parameterClass="member">
+	<insert id = "save" parameterClass="loginInfo">
 		INSERT INTO
 			member_info
 			(mem_id,
@@ -42,7 +42,7 @@
 			'1')
 	</insert>
 	
-	<update id="updatePerson" parameterClass="member">
+	<update id="updatePerson" parameterClass="loginInfo">
       <![CDATA[
 		UPDATE
 			member_info
@@ -54,7 +54,7 @@
       ]]>
 	</update>
 	
-	<update id="updatePwd" parameterClass="member">
+	<update id="updatePwd" parameterClass="loginInfo">
       <![CDATA[
 		UPDATE
 			member_info

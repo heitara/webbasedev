@@ -6,15 +6,15 @@
            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
 
 	<!-- MemberInfoAction -->
-	<bean id="memberInfoAction" class="com.gameif.portal.action.login.MemberInfoAction">
-		<property name="memberInfoBusinessLogic">
-			<ref bean="memberInfoBusinessLogic" />
+	<bean id="memberInfoAction" class="com.gameif.portal.action.login.LoginInfoAction">
+		<property name="loginInfoBusinessLogic">
+			<ref bean="loginInfoBusinessLogic" />
 		</property>
 	</bean>
 	<!-- MemberInfoAction -->
 	<bean id="memberInfoControlAction" class="com.gameif.portal.action.memberInfo.MemberInfoControlAction">
 		<property name="memberInfoBusinessLogic">
-			<ref bean="memberInfoBusinessLogic" />
+			<ref bean="loginInfoBusinessLogic" />
 		</property>
 	</bean>
 </beans>
