@@ -7,11 +7,11 @@
 
 	<package name="gameif" extends="struts-default">
 
-		<action name="*Member" class="memberInfoAction" method="{1}">
+		<action name="*Member" class="loginInfoAction" method="{1}">
 			<interceptor-ref name="scopedModelDriven">
 				<param name="scope">request</param>
-				<param name="name">member</param>
-				<param name="className">com.gameif.portal.entity.MemberInfo</param>
+				<param name="name">loginInfo</param>
+				<param name="className">com.gameif.portal.entity.login.LoginInfo</param>
 			</interceptor-ref>
 			<interceptor-ref name="defaultStack"></interceptor-ref>
 			
@@ -23,12 +23,12 @@
 			<result name="relogin">/pages/portal/mem_login.jsp</result>
 		</action>
 
-		<action name="*MemberInfoControl" class="memberInfoControlAction"
+		<action name="*MemberInfoControl" class="memberInfoAction"
 			method="{1}">
 			<interceptor-ref name="scopedModelDriven">
 				<param name="scope">request</param>
 				<param name="name">memberInfo</param>
-				<param name="className">com.gameif.portal.entity.MemberInfo</param>
+				<param name="className">com.gameif.portal.entity.memberInfo.MemberInfo</param>
 			</interceptor-ref>
 			<interceptor-ref name="defaultStack"></interceptor-ref>
 			

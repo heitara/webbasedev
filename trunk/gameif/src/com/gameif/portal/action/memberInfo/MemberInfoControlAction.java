@@ -1,8 +1,8 @@
 package com.gameif.portal.action.memberInfo;
 
 import com.gameif.common.action.ModelDrivenActionSupport;
-import com.gameif.portal.businesslogic.login.ILoginInfoBusinessLogic;
-import com.gameif.portal.entity.MemberInfo;
+import com.gameif.portal.businesslogic.memberInfo.IMemberInfoBusinessLogic;
+import com.gameif.portal.entity.memberInfo.MemberInfo;
 
 public class MemberInfoControlAction extends
 		ModelDrivenActionSupport<MemberInfo> {
@@ -12,14 +12,14 @@ public class MemberInfoControlAction extends
 	 */
 	private static final long serialVersionUID = 171926714928924158L;
 
-	private ILoginInfoBusinessLogic memberInfoBusinessLogic;
+	private IMemberInfoBusinessLogic memberInfoBusinessLogic;
 
 	/**
-	 * @param userInfoBusinessLogic
-	 *            the userInfoBusinessLogic to set
+	 * @param memberInfoBusinessLogic
+	 *            the memberInfoBusinessLogic to set
 	 */
 	public void setMemberInfoBusinessLogic(
-			ILoginInfoBusinessLogic memberInfoBusinessLogic) {
+			IMemberInfoBusinessLogic memberInfoBusinessLogic) {
 		this.memberInfoBusinessLogic = memberInfoBusinessLogic;
 	}
 
@@ -30,7 +30,13 @@ public class MemberInfoControlAction extends
 	}
 
 	public String changePwd() {
-		return SUCCESS;
+		int rtn = memberInfoBusinessLogic.changePwd(this.getModel());
+		if (rtn != 0) {
+			addActionError("Some errors was happened when update Password!");
+			return "relogin";
+		} else {
+			return SUCCESS;
+		}
 	}
 
 }
