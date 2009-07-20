@@ -1,4 +1,4 @@
-package com.gameif.portal.entity;
+package com.gameif.portal.entity.memberInfo;
 
 import com.gameif.common.entity.BaseEntity;
 

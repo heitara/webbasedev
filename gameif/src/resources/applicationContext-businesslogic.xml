@@ -11,4 +11,12 @@
 			<ref bean="loginInfoDao" />
 		</property>
 	</bean>
+	
+	<!-- memberInfoBusinessLogic -->
+	<bean id="memberInfoBusinessLogic"
+		class="com.gameif.portal.businesslogic.memberInfo.impl.MemberInfoBusinessLogicImpl">
+		<property name="memberInfoDao">
+			<ref bean="memberInfoDao" />
+		</property>
+	</bean>
 </beans>

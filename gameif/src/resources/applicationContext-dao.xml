@@ -22,4 +22,11 @@
 			<value>loginInfo</value>
 		</property>
 	</bean>
+	
+	<!-- memberInfoDao -->
+	<bean id="memberInfoDao" class="com.gameif.portal.dao.memberInfo.impl.MemberInfoDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>memberInfo</value>
+		</property>
+	</bean>
 </beans>
