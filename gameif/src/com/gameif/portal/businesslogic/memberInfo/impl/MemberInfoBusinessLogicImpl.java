@@ -28,7 +28,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	}
 
 	public int changePwd(MemberInfo memberInfo) {
-		if (memberInfo.getNewpwd().equals(memberInfo.getConfirmpwd())) {
+		if (memberInfo.getNewPwd().equals(memberInfo.getConfirmPwd())) {
 			return memberInfoDao.updatePwd(memberInfo);
 		}
 		return -1;

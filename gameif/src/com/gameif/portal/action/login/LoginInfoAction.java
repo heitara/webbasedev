@@ -22,7 +22,7 @@ public class LoginInfoAction extends ModelDrivenActionSupport<LoginInfo> {
 		this.loginInfoBusinessLogic = loginInfoBusinessLogic;
 	}
 
-	public String login() {
+	public String execute() {
 
 		LoginInfo result = loginInfoBusinessLogic.checkLoginInfo(this
 				.getModel());
@@ -32,28 +32,6 @@ public class LoginInfoAction extends ModelDrivenActionSupport<LoginInfo> {
 		} else {
 			addActionError("Your MemberId or Password are not right! Please try again!");
 			return INPUT;
-		}
-	}
-
-	public String reget() {
-		return "reget";
-	}
-
-	public String creat() {
-		return "new";
-	}
-
-	public String changePwd() {
-		return "changePwd";
-	}
-
-	public String updatePwd() {
-		int rtn = loginInfoBusinessLogic.changePwd(this.getModel());
-		if (rtn != 0) {
-			addActionError("Some errors was happened when update Password!");
-			return "relogin";
-		} else {
-			return SUCCESS;
 		}
 	}
 

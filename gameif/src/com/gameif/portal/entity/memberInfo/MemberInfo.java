@@ -1,5 +1,7 @@
 package com.gameif.portal.entity.memberInfo;
 
+import java.util.Date;
+
 import com.gameif.common.entity.BaseEntity;
 
 public class MemberInfo extends BaseEntity {
@@ -11,24 +13,36 @@ public class MemberInfo extends BaseEntity {
 
 	private Integer memNum;
 	private String memId;
-	private String mempwd;
+	private String memName;
+	private String memPwd;
+	private String memKindCd;
+	private String memAtbtCd;
+	private Integer questionCd;
+	private String answer;
 	private String mailPc;
-	private String confirmpwd;
-	private String newpwd;
+	private String mailMobile;
+	private Integer sexCd;
+	private Date birthYmd;
+	private Integer divisCd;
+	private Integer occupCd;
+	private String area;
+	private String telNum;
+	private String mailmagReqCd;
+	private String mailmagObjCd;
+	private String note;
+	private String entryIp;
+	private Date entryYmd;
+	private String loginYmdIp;
+	private Date loginYmd;
+	private String loginFailIp;
+	private Date loginFailYmd;
+	private Integer loginFailCnt;
+	private String updateIp;
+	private Date updateYmd;
+	private Integer versionNo;
 
-	/**
-	 * @return the newpwd
-	 */
-	public String getNewpwd() {
-		return newpwd;
-	}
-
-	/**
-	 * @param newpwd the newpwd to set
-	 */
-	public void setNewpwd(String newpwd) {
-		this.newpwd = newpwd;
-	}
+	private String newPwd;
+	private String confirmPwd;
 
 	/**
 	 * @return the memNum
@@ -61,18 +75,93 @@ public class MemberInfo extends BaseEntity {
 	}
 
 	/**
-	 * @return the mempwd
+	 * @return the memName
 	 */
-	public String getMempwd() {
-		return mempwd;
+	public String getMemName() {
+		return memName;
 	}
 
 	/**
-	 * @param mempwd
-	 *            the mempwd to set
+	 * @param memName
+	 *            the memName to set
 	 */
-	public void setMempwd(String mempwd) {
-		this.mempwd = mempwd;
+	public void setMemName(String memName) {
+		this.memName = memName;
+	}
+
+	/**
+	 * @return the memPwd
+	 */
+	public String getMemPwd() {
+		return memPwd;
+	}
+
+	/**
+	 * @param memPwd
+	 *            the memPwd to set
+	 */
+	public void setMemPwd(String memPwd) {
+		this.memPwd = memPwd;
+	}
+
+	/**
+	 * @return the memKindCd
+	 */
+	public String getMemKindCd() {
+		return memKindCd;
+	}
+
+	/**
+	 * @param memKindCd
+	 *            the memKindCd to set
+	 */
+	public void setMemKindCd(String memKindCd) {
+		this.memKindCd = memKindCd;
+	}
+
+	/**
+	 * @return the memAtbtCd
+	 */
+	public String getMemAtbtCd() {
+		return memAtbtCd;
+	}
+
+	/**
+	 * @param memAtbtCd
+	 *            the memAtbtCd to set
+	 */
+	public void setMemAtbtCd(String memAtbtCd) {
+		this.memAtbtCd = memAtbtCd;
+	}
+
+	/**
+	 * @return the questionCd
+	 */
+	public Integer getQuestionCd() {
+		return questionCd;
+	}
+
+	/**
+	 * @param questionCd
+	 *            the questionCd to set
+	 */
+	public void setQuestionCd(Integer questionCd) {
+		this.questionCd = questionCd;
+	}
+
+	/**
+	 * @return the answer
+	 */
+	public String getAnswer() {
+		return answer;
+	}
+
+	/**
+	 * @param answer
+	 *            the answer to set
+	 */
+	public void setAnswer(String answer) {
+		this.answer = answer;
 	}
 
 	/**
@@ -91,18 +180,333 @@ public class MemberInfo extends BaseEntity {
 	}
 
 	/**
-	 * @return the confirmpwd
+	 * @return the mailMobile
 	 */
-	public String getConfirmpwd() {
-		return confirmpwd;
+	public String getMailMobile() {
+		return mailMobile;
 	}
 
 	/**
-	 * @param confirmpwd
-	 *            the confirmpwd to set
+	 * @param mailMobile
+	 *            the mailMobile to set
 	 */
-	public void setConfirmpwd(String confirmpwd) {
-		this.confirmpwd = confirmpwd;
+	public void setMailMobile(String mailMobile) {
+		this.mailMobile = mailMobile;
+	}
+
+	/**
+	 * @return the sexCd
+	 */
+	public Integer getSexCd() {
+		return sexCd;
+	}
+
+	/**
+	 * @param sexCd
+	 *            the sexCd to set
+	 */
+	public void setSexCd(Integer sexCd) {
+		this.sexCd = sexCd;
+	}
+
+	/**
+	 * @return the birthYmd
+	 */
+	public Date getBirthYmd() {
+		return birthYmd;
+	}
+
+	/**
+	 * @param birthYmd
+	 *            the birthYmd to set
+	 */
+	public void setBirthYmd(Date birthYmd) {
+		this.birthYmd = birthYmd;
+	}
+
+	/**
+	 * @return the divisCd
+	 */
+	public Integer getDivisCd() {
+		return divisCd;
+	}
+
+	/**
+	 * @param divisCd
+	 *            the divisCd to set
+	 */
+	public void setDivisCd(Integer divisCd) {
+		this.divisCd = divisCd;
+	}
+
+	/**
+	 * @return the occupCd
+	 */
+	public Integer getOccupCd() {
+		return occupCd;
+	}
+
+	/**
+	 * @param occupCd
+	 *            the occupCd to set
+	 */
+	public void setOccupCd(Integer occupCd) {
+		this.occupCd = occupCd;
+	}
+
+	/**
+	 * @return the area
+	 */
+	public String getArea() {
+		return area;
+	}
+
+	/**
+	 * @param area
+	 *            the area to set
+	 */
+	public void setArea(String area) {
+		this.area = area;
+	}
+
+	/**
+	 * @return the telNum
+	 */
+	public String getTelNum() {
+		return telNum;
+	}
+
+	/**
+	 * @param telNum
+	 *            the telNum to set
+	 */
+	public void setTelNum(String telNum) {
+		this.telNum = telNum;
+	}
+
+	/**
+	 * @return the mailmagReqCd
+	 */
+	public String getMailmagReqCd() {
+		return mailmagReqCd;
+	}
+
+	/**
+	 * @param mailmagReqCd
+	 *            the mailmagReqCd to set
+	 */
+	public void setMailmagReqCd(String mailmagReqCd) {
+		this.mailmagReqCd = mailmagReqCd;
+	}
+
+	/**
+	 * @return the mailmagObjCd
+	 */
+	public String getMailmagObjCd() {
+		return mailmagObjCd;
+	}
+
+	/**
+	 * @param mailmagObjCd
+	 *            the mailmagObjCd to set
+	 */
+	public void setMailmagObjCd(String mailmagObjCd) {
+		this.mailmagObjCd = mailmagObjCd;
+	}
+
+	/**
+	 * @return the note
+	 */
+	public String getNote() {
+		return note;
+	}
+
+	/**
+	 * @param note
+	 *            the note to set
+	 */
+	public void setNote(String note) {
+		this.note = note;
+	}
+
+	/**
+	 * @return the entryIp
+	 */
+	public String getEntryIp() {
+		return entryIp;
+	}
+
+	/**
+	 * @param entryIp
+	 *            the entryIp to set
+	 */
+	public void setEntryIp(String entryIp) {
+		this.entryIp = entryIp;
+	}
+
+	/**
+	 * @return the entryYmd
+	 */
+	public Date getEntryYmd() {
+		return entryYmd;
+	}
+
+	/**
+	 * @param entryYmd
+	 *            the entryYmd to set
+	 */
+	public void setEntryYmd(Date entryYmd) {
+		this.entryYmd = entryYmd;
+	}
+
+	/**
+	 * @return the loginYmdIp
+	 */
+	public String getLoginYmdIp() {
+		return loginYmdIp;
+	}
+
+	/**
+	 * @param loginYmdIp
+	 *            the loginYmdIp to set
+	 */
+	public void setLoginYmdIp(String loginYmdIp) {
+		this.loginYmdIp = loginYmdIp;
+	}
+
+	/**
+	 * @return the loginYmd
+	 */
+	public Date getLoginYmd() {
+		return loginYmd;
+	}
+
+	/**
+	 * @param loginYmd
+	 *            the loginYmd to set
+	 */
+	public void setLoginYmd(Date loginYmd) {
+		this.loginYmd = loginYmd;
+	}
+
+	/**
+	 * @return the loginFailIp
+	 */
+	public String getLoginFailIp() {
+		return loginFailIp;
+	}
+
+	/**
+	 * @param loginFailIp
+	 *            the loginFailIp to set
+	 */
+	public void setLoginFailIp(String loginFailIp) {
+		this.loginFailIp = loginFailIp;
+	}
+
+	/**
+	 * @return the loginFailYmd
+	 */
+	public Date getLoginFailYmd() {
+		return loginFailYmd;
+	}
+
+	/**
+	 * @param loginFailYmd
+	 *            the loginFailYmd to set
+	 */
+	public void setLoginFailYmd(Date loginFailYmd) {
+		this.loginFailYmd = loginFailYmd;
+	}
+
+	/**
+	 * @return the loginFailCnt
+	 */
+	public Integer getLoginFailCnt() {
+		return loginFailCnt;
+	}
+
+	/**
+	 * @param loginFailCnt
+	 *            the loginFailCnt to set
+	 */
+	public void setLoginFailCnt(Integer loginFailCnt) {
+		this.loginFailCnt = loginFailCnt;
+	}
+
+	/**
+	 * @return the updateIp
+	 */
+	public String getUpdateIp() {
+		return updateIp;
+	}
+
+	/**
+	 * @param updateIp
+	 *            the updateIp to set
+	 */
+	public void setUpdateIp(String updateIp) {
+		this.updateIp = updateIp;
+	}
+
+	/**
+	 * @return the updateYmd
+	 */
+	public Date getUpdateYmd() {
+		return updateYmd;
+	}
+
+	/**
+	 * @param updateYmd
+	 *            the updateYmd to set
+	 */
+	public void setUpdateYmd(Date updateYmd) {
+		this.updateYmd = updateYmd;
+	}
+
+	/**
+	 * @return the versionNo
+	 */
+	public Integer getVersionNo() {
+		return versionNo;
+	}
+
+	/**
+	 * @param versionNo
+	 *            the versionNo to set
+	 */
+	public void setVersionNo(Integer versionNo) {
+		this.versionNo = versionNo;
+	}
+
+	/**
+	 * @return the newPwd
+	 */
+	public String getNewPwd() {
+		return newPwd;
+	}
+
+	/**
+	 * @param newPwd
+	 *            the newPwd to set
+	 */
+	public void setNewPwd(String newPwd) {
+		this.newPwd = newPwd;
+	}
+
+	/**
+	 * @return the confirmPwd
+	 */
+	public String getConfirmPwd() {
+		return confirmPwd;
+	}
+
+	/**
+	 * @param confirmPwd
+	 *            the confirmPwd to set
+	 */
+	public void setConfirmPwd(String confirmPwd) {
+		this.confirmPwd = confirmPwd;
 	}
 
 }

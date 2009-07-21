@@ -22,11 +22,11 @@
 				</tr>
 				<tr>
 					<td><s:property value="%{getText('passwd')}" /></td>
-					<td><s:password name="mempwd" /></td>
+					<td><s:password name="memPwd" /></td>
 				</tr>
 				<tr>
 					<td><s:property value="%{getText('confirm_passwd')}" /></td>
-					<td><s:password name="confirmpwd" /></td>
+					<td><s:password name="confirmPwd" /></td>
 				</tr>
 				<tr>
 					<td><s:property value="%{getText('mail_address')}" /></td>
