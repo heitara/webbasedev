@@ -1,6 +1,6 @@
-package com.gameif.portal.businesslogic.memberInfo;
+package com.gameif.portal.businesslogic;
 
-import com.gameif.portal.entity.memberInfo.MemberInfo;
+import com.gameif.portal.entity.MemberInfo;
 
 public interface IMemberInfoBusinessLogic {
 

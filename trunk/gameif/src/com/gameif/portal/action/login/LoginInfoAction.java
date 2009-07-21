@@ -1,8 +1,8 @@
 package com.gameif.portal.action.login;
 
 import com.gameif.common.action.ModelDrivenActionSupport;
-import com.gameif.portal.businesslogic.login.ILoginInfoBusinessLogic;
-import com.gameif.portal.entity.login.LoginInfo;
+import com.gameif.portal.businesslogic.ILoginInfoBusinessLogic;
+import com.gameif.portal.entity.LoginInfo;
 
 public class LoginInfoAction extends ModelDrivenActionSupport<LoginInfo> {
 

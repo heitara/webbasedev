@@ -1,7 +1,7 @@
-package com.gameif.portal.dao.inquiry;
+package com.gameif.portal.dao;
 
 import com.gameif.common.dao.IBaseDao;
-import com.gameif.portal.entity.inquiry.InquiryInfo;
+import com.gameif.portal.entity.InquiryInfo;
 
 public interface IInquiryInfoDao extends IBaseDao<InquiryInfo, InquiryInfo> {
 

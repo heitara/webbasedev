@@ -1,4 +1,4 @@
-package com.gameif.portal.entity.memberInfo;
+package com.gameif.portal.entity;
 
 import java.util.Date;
 
