@@ -3,9 +3,9 @@
     PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
     "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="loginInfo">
-	<typeAlias alias="loginInfo" type="com.gameif.portal.entity.login.LoginInfo" />
+	<typeAlias alias="loginInfo" type="com.gameif.portal.entity.LoginInfo" />
 	
-	<resultMap class="com.gameif.portal.entity.login.LoginInfo" id="memberResult">
+	<resultMap class="com.gameif.portal.entity.LoginInfo" id="memberResult">
 		<result property="memNum" column="mem_num"/>
 		<result property="memId" column="mem_id"/>
 		<result property="mempwd" column="mem_pwd"/>
