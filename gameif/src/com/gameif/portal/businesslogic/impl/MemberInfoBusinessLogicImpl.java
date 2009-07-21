@@ -1,9 +1,9 @@
-package com.gameif.portal.businesslogic.memberInfo.impl;
+package com.gameif.portal.businesslogic.impl;
 
 import com.gameif.common.businesslogic.BaseBusinessLogic;
-import com.gameif.portal.businesslogic.memberInfo.IMemberInfoBusinessLogic;
-import com.gameif.portal.dao.memberInfo.IMemberInfoDao;
-import com.gameif.portal.entity.memberInfo.MemberInfo;
+import com.gameif.portal.businesslogic.IMemberInfoBusinessLogic;
+import com.gameif.portal.dao.IMemberInfoDao;
+import com.gameif.portal.entity.MemberInfo;
 
 public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		IMemberInfoBusinessLogic {

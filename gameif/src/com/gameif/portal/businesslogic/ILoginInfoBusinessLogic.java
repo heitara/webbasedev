@@ -1,6 +1,6 @@
-package com.gameif.portal.businesslogic.login;
+package com.gameif.portal.businesslogic;
 
-import com.gameif.portal.entity.login.LoginInfo;
+import com.gameif.portal.entity.LoginInfo;
 
 public interface ILoginInfoBusinessLogic {
 

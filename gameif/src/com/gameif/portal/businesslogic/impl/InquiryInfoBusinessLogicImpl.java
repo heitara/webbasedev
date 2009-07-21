@@ -1,7 +1,7 @@
-package com.gameif.portal.businesslogic.inquiry.impl;
+package com.gameif.portal.businesslogic.impl;
 
 import com.gameif.common.businesslogic.BaseBusinessLogic;
-import com.gameif.portal.businesslogic.inquiry.IInquiryInfoBusinessLogic;
+import com.gameif.portal.businesslogic.IInquiryInfoBusinessLogic;
 
 public class InquiryInfoBusinessLogicImpl extends BaseBusinessLogic implements
 IInquiryInfoBusinessLogic {

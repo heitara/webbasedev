@@ -1,8 +1,8 @@
-package com.gameif.portal.dao.login.impl;
+package com.gameif.portal.dao.impl;
 
 import com.gameif.common.dao.impl.AbstractBaseDao;
-import com.gameif.portal.dao.login.ILoginInfoDao;
-import com.gameif.portal.entity.login.LoginInfo;
+import com.gameif.portal.dao.ILoginInfoDao;
+import com.gameif.portal.entity.LoginInfo;
 
 public class LoginInfoDaoImpl extends AbstractBaseDao<LoginInfo, LoginInfo>
 		implements ILoginInfoDao {

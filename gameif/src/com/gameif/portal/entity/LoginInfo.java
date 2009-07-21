@@ -1,4 +1,4 @@
-package com.gameif.portal.entity.login;
+package com.gameif.portal.entity;
 
 import com.gameif.common.entity.BaseEntity;
 
