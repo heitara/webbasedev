@@ -17,7 +17,7 @@
 <body>
 <s:fielderror />
 <div class="contents"><s:form name="frm_login" method="POST"
-	action="loginLogin">
+	action="executeLogin">
 	<table>
 		<tr>
 			<td>
