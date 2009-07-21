@@ -25,7 +25,6 @@ public class MemberInfoControlAction extends
 
 	public String creatConfirm() {
 
-		// memberInfoBusinessLogic.saveMemberInfo(this.getModel());
 		return SUCCESS;
 	}
 
@@ -37,6 +36,18 @@ public class MemberInfoControlAction extends
 		} else {
 			return SUCCESS;
 		}
+	}
+
+	public String reget() {
+		return "reget";
+	}
+
+	public String creat() {
+		return "new";
+	}
+
+	public String changePwdUrl() {
+		return "changePwd";
 	}
 
 }

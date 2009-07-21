@@ -20,15 +20,15 @@
 			<table>
 				<tr>
 					<td><s:property value="%{getText('current_passwd')}" /></td>
-					<td><s:password name="mempwd" /></td>
+					<td><s:password name="memPwd" /></td>
 				</tr>
 				<tr>
 					<td><s:property value="%{getText('new_passwd')}" /></td>
-					<td><s:password name="newpwd" /></td>
+					<td><s:password name="newPwd" /></td>
 				</tr>
 				<tr>
 					<td><s:property value="%{getText('confirm_passwd')}" /></td>
-					<td><s:password name="confirmpwd" /></td>
+					<td><s:password name="confirmPwd" /></td>
 				</tr>
 				
 				<tr>
