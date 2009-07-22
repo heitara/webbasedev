@@ -29,8 +29,7 @@
 	</select>
 
 	<insert id = "save" parameterClass="loginInfo">
-		INSERT INTO
-			member_info
+		INSERT INTO member_info
 			(mem_id,
 			mem_pwd,
 			mail_pc,
