@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="memberInfo">
+	<typeAlias alias="memberInfo" type="com.gameif.portal.entity.MemberInfo" />
+
+	<resultMap class="com.gameif.portal.entity.MemberInfo" id="memberResult">
+		<result property="memNum" column="mem_num" />
+		<result property="memId" column="mem_id" />
+		<result property="memName" column="mem_name" />
+		<result property="memPwd" column="mem_pwd" />
+		<result property="memKindCd" column="mem_kind_cd" />
+		<result property="memAtbtCd" column="mem_atbt_cd" />
+		<result property="questionCd" column="question_cd" />
+		<result property="answer" column="answer" />
+		<result property="mailPc" column="mail_pc" />
+		<result property="mailMobile" column="mail_mobile" />
+		<result property="sexCd" column="sex_cd" />
+		<result property="birthYmd" column="birth_ymd" />
+		<result property="divisCd" column="divis_cd" />
+		<result property="occupCd" column="occup_cd" />
+		<result property="area" column="area" />
+		<result property="telNum" column="tel_num" />
+		<result property="mailmagReqCd" column="mailmag_req_cd" />
+		<result property="mailmagObjCd" column="mailmag_obj_cd" />
+		<result property="note" column="note" />
+		<result property="entryIp" column="entry_ip" />
+		<result property="entryYmd" column="entry_ymd" />
+		<result property="loginYmdIp" column="login_ymd_ip" />
+		<result property="loginYmd" column="login_ymd" />
+		<result property="loginFailIp" column="login_fail_ip" />
+		<result property="loginFailYmd" column="login_fail_ymd" />
+		<result property="loginFailCnt" column="login_fail_cnt" />
+		<result property="updateIp" column="update_ip" />
+		<result property="updateYmd" column="update_ymd" />
+		<result property="versionNo" column="version_no" />
+	</resultMap>
+
+	<select id="selectByKey" parameterClass="memberInfo" resultMap="memberResult">   
+        <![CDATA[
+        SELECT
+			mem_num,
+			mem_id,
+			mem_name,
+			mem_pwd,
+			mem_kind_cd,
+			mem_atbt_cd,
+			question_cd,
+			answer,
+			mail_pc,
+			mail_mobile,
+			sex_cd,
+			birth_ymd,
+			divis_cd,
+			occup_cd,
+			area,
+			tel_num,
+			mailmag_req_cd,
+			mailmag_obj_cd,
+			note,
+			entry_ip,
+			entry_ymd,
+			login_ymd_ip,
+			login_ymd,
+			login_fail_ip,
+			login_fail_ymd,
+			login_fail_cnt,
+			update_ip,
+			update_ymd,
+			version_no
+		FROM
+			member_info
+		WHERE
+			mem_num = #memNum#
+        ]]>
+	</select>
+
+	<insert id="save" parameterClass="memberInfo">
+		INSERT INTO member_info
+			(mem_id,
+			mem_name,
+			mem_pwd,
+			mem_kind_cd,
+			mem_atbt_cd,
+			question_cd,
+			answer,
+			mail_pc,
+			mail_mobile,
+			sex_cd,
+			birth_ymd,
+			divis_cd,
+			occup_cd,
+			area,
+			tel_num,
+			mailmag_req_cd,
+			mailmag_obj_cd,
+			note,
+			entry_ip,
+			entry_ymd,
+			login_ymd_ip,
+			login_ymd,
+			login_fail_ip,
+			login_fail_ymd,
+			login_fail_cnt,
+			update_ip,
+			update_ymd,
+			version_no)
+		VALUES
+			(#memNum#,
+			#memId#,
+			#memName#,
+			#memPwd#,
+			#memKindCd#,
+			#memAtbtCd#,
+			#questionCd#,
+			#answer#,
+			#mailPc#,
+			#mailMobile#,
+			#sexCd#,
+			#birthYmd#,
+			#divisCd#,
+			#occupCd#,
+			#area#,
+			#telNum#,
+			#mailmagReqCd#,
+			#mailmagObjCd#,
+			#note#,
+			#entryIp#,
+			#entryYmd#,
+			#loginYmdIp#,
+			#loginYmd#,
+			#loginFailIp#,
+			#loginFailYmd#,
+			#loginFailCnt#,
+			#updateIp#,
+			#updateYmd#,
+			#versionNo#)
+	</insert>
+
+	<update id="update" parameterClass="memberInfo">
+      <![CDATA[
+		UPDATE
+			member_info
+		SET
+		    mem_pwd = #mempwd#,
+		    mail_pc = #mailPc#
+		WHERE
+			mem_id = #memId#
+      ]]>
+	</update>
+
+</sqlMap>
