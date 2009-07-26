@@ -34,10 +34,12 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		return -1;
 	}
 
+	/**
+	 * get the detail member info
+	 */
 	@Override
 	public MemberInfo showDetail(MemberInfo memberInfo) {
-		// TODO Auto-generated method stub
-		return null;
+		return memberInfoDao.selectByKey(memberInfo);
 	}
 
 	@Override
