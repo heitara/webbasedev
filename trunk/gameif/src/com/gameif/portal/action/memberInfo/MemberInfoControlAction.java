@@ -14,6 +14,16 @@ public class MemberInfoControlAction extends
 
 	private IMemberInfoBusinessLogic memberInfoBusinessLogic;
 
+	private Integer memNum;
+
+	/**
+	 * @param memNum
+	 *            the memNum to set
+	 */
+	public void setMemNum(Integer memNum) {
+		this.memNum = memNum;
+	}
+
 	/**
 	 * @param memberInfoBusinessLogic
 	 *            the memberInfoBusinessLogic to set
@@ -48,6 +58,18 @@ public class MemberInfoControlAction extends
 
 	public String changePwdUrl() {
 		return "changePwd";
+	}
+
+	public String showTopPage() {
+		// search condition
+		MemberInfo search = new MemberInfo();
+		search.setMemNum(this.memNum);
+		// get the member info
+		MemberInfo memberInfo = memberInfoBusinessLogic.showDetail(search);
+
+		super.setModel(memberInfo);
+
+		return SUCCESS;
 	}
 
 }
