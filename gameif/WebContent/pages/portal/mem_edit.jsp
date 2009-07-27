@@ -41,7 +41,7 @@
 						<s:property value="%{getText('submit')}" />
 					</s:a></td>
 					<td>
-						<s:submit action="creatConfirmMemberInfoControl" formId="frm_mem_edit" value="%{getText('submit')}"></s:submit>
+						<s:submit action="createMember" formId="frm_mem_edit" value="%{getText('submit')}"></s:submit>
 					</td>
 					
 				</tr>

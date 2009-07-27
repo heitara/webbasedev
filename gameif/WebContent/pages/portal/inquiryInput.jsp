@@ -16,7 +16,7 @@
 
 <body>
 	<div class="contents">
-		<s:form name="frm_inquiry_input" method="POST" action="updatePwdMember">
+		<s:form name="frm_inquiry_input" method="POST" action="saveInquiry">
 			<table>
 				<tr>
 					<td><s:property value="%{getText('inquiry_kind_code')}" /></td>

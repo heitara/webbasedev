@@ -1,5 +1,7 @@
 package com.gameif.portal.businesslogic.impl;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.gameif.common.businesslogic.BaseBusinessLogic;
 import com.gameif.portal.businesslogic.IMemberInfoBusinessLogic;
 import com.gameif.portal.dao.IMemberInfoDao;
@@ -37,15 +39,14 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	/**
 	 * get the detail member info
 	 */
-	@Override
+	@Transactional
 	public MemberInfo showDetail(MemberInfo memberInfo) {
 		return memberInfoDao.selectByKey(memberInfo);
 	}
 
-	@Override
+	@Transactional
 	public int updateMemberInfo(MemberInfo memberInfo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return memberInfoDao.update(memberInfo);
 	}
 
 }
