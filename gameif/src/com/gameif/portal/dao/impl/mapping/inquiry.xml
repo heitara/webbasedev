@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="inquiryInfo">
+	<typeAlias alias="inquiryInfo" type="com.gameif.portal.entity.InquiryInfo" />
+	
+	<resultMap class="com.gameif.portal.entity.InquiryInfo" id="inquiryResult">
+		<result property="userName" column="user_name"/>
+		<result property="userMailadd" column="user_mailadd"/>
+		<result property="inquiryKindCode" column="inquiry_kind_code"/>
+		<result property="inquiryObject" column="inquiry_object"/>
+		<result property="inquiryContents" column="inquiry_contents"/>
+	</resultMap>
+	
+	<insert id = "save" parameterClass="inquiryInfo">
+		INSERT INTO inquiry_info
+			(inquiry_ymd,
+			user_name,
+			user_mailadd,
+			inquiry_kind_code,
+			inquiry_object,
+			inquiry_contents,
+			correspond_status,
+			CreatedDate,
+			LastModifiedDate)
+		VALUES
+			(select sysdate(),
+			#userName#,
+			#userMailadd#,
+			#inquiryKindCode#,
+			#inquiryObject#,
+			#inquiryContents#,
+			'0',
+			select sysdate(),
+			select sysdate())
+	</insert>
+
+
+</sqlMap>

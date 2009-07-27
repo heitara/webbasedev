@@ -29,4 +29,11 @@
 			<value>memberInfo</value>
 		</property>
 	</bean>
+	
+	<!-- inquiryInfoDao -->
+	<bean id="inquiryInfoDao" class="com.gameif.portal.dao.impl.InquiryInfoDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>inquiryInfo</value>
+		</property>
+	</bean>
 </beans>

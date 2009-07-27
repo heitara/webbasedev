@@ -17,4 +17,10 @@
 			<ref bean="memberInfoBusinessLogic" />
 		</property>
 	</bean>
+	<!-- InquiryInfoAction -->
+	<bean id="InquiryInfoAction" class="com.gameif.portal.action.inquiryInfo.InquiryInfoControlAction">
+		<property name="inquiryInfoBusinessLogic">
+			<ref bean="inquiryInfoBusinessLogic" />
+		</property>
+	</bean>
 </beans>
