@@ -7,7 +7,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title><s:property value="%{getText('mem_change_pwd_title')}" /></title>
+	<title><s:property value="%{getText('inquiry_input_title')}" /></title>
 	<link rel="stylesheet" type="text/css" media="screen" href="css/common/screen.css" />
 	<script src="js/jquery/jquery.js" type="text/javascript"></script>
 	<script src="js/portal/mem_login.js" type="text/javascript"></script>
@@ -16,27 +16,27 @@
 
 <body>
 	<div class="contents">
-		<s:form name="frm_mem_change_pwd" method="POST" action="updatePwdMember">
+		<s:form name="frm_inquiry_input" method="POST" action="updatePwdMember">
 			<table>
 				<tr>
-					<td><s:property value="%{getText('inquiry_kind')}" /></td>
-					<td><s:textfield name="inquiryKind" /></td>
+					<td><s:property value="%{getText('inquiry_kind_code')}" /></td>
+					<td><s:textfield name="inquiryKindCode" /></td>
 				</tr>
 				<tr>
-					<td><s:property value="%{getText('inquiry_name')}" /></td>
-					<td><s:textfield name="inquiryName" /></td>
+					<td><s:property value="%{getText('user_name')}" /></td>
+					<td><s:textfield name="userName" /></td>
 				</tr>
 				<tr>
-					<td><s:property value="%{getText('inquiry_mail')}" /></td>
-					<td><s:textfield name="inquiryMail" /></td>
+					<td><s:property value="%{getText('user_mailadd')}" /></td>
+					<td><s:textfield name="userMailadd" /></td>
 				</tr>
 				<tr>
-					<td><s:property value="%{getText('inquiry_title')}" /></td>
-					<td><s:textfield name="inquiryTitle" /></td>
+					<td><s:property value="%{getText('inquiry_object')}" /></td>
+					<td><s:textfield name="inquiryObject" /></td>
 				</tr>
 				<tr>
 					<td><s:property value="%{getText('inquiry_contents')}" /></td>
-					<td><s:textarea name="inquirycontens" /></td>
+					<td><s:textarea name="inquiryContents" /></td>
 				</tr>
 				
 				<tr>
