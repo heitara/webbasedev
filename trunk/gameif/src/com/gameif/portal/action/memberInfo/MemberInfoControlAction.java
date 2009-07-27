@@ -48,19 +48,16 @@ public class MemberInfoControlAction extends
 		}
 	}
 
-	public String reget() {
-		return "reget";
-	}
-
-	public String creat() {
-		return "new";
-	}
-
 	public String changePwdUrl() {
 		return "changePwd";
 	}
 
-	public String showTopPage() {
+	/**
+	 * Get the memberInfo
+	 * 
+	 * @return
+	 */
+	public String show() {
 		// search condition
 		MemberInfo search = new MemberInfo();
 		search.setMemNum(this.memNum);
@@ -69,6 +66,26 @@ public class MemberInfoControlAction extends
 
 		super.setModel(memberInfo);
 
+		return "showDetail";
+	}
+
+	/**
+	 * Update memberInfo
+	 * 
+	 * @return
+	 */
+	public String update() {
+		memberInfoBusinessLogic.updateMemberInfo(this.getModel());
+		return "showMenu";
+	}
+	
+	/**
+	 * Create a new member
+	 * 
+	 * @return
+	 */
+	public String create() {
+		memberInfoBusinessLogic.saveMemberInfo(this.getModel());
 		return SUCCESS;
 	}
 

@@ -25,15 +25,15 @@
 			CreatedDate,
 			LastModifiedDate)
 		VALUES
-			(select sysdate(),
+			(sysdate(),
 			#userName#,
 			#userMailadd#,
 			#inquiryKindCode#,
 			#inquiryObject#,
 			#inquiryContents#,
 			'0',
-			select sysdate(),
-			select sysdate())
+			sysdate(),
+			sysdate())
 	</insert>
 
 

@@ -27,10 +27,6 @@ public class LoginInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		return loginInfoDao.selectByKey(loginInfo);
 	}
 
-	public void saveMemberInfo(LoginInfo memberInfo) {
-		loginInfoDao.save(memberInfo);
-	}
-
 	public int changePwd(LoginInfo member) {
 		if (member.getNewpwd().equals(member.getConfirmpwd())) {
 			return loginInfoDao.updatePwd(member);

@@ -5,20 +5,26 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
 
-	<!-- MemberInfoAction -->
+	<!-- mainMenuAction -->
+	<bean id="mainMenuAction" class="com.gameif.portal.action.menu.MainMenu">
+	</bean>
+	
+	<!-- loginInfoAction -->
 	<bean id="loginInfoAction" class="com.gameif.portal.action.login.LoginInfoAction">
 		<property name="loginInfoBusinessLogic">
 			<ref bean="loginInfoBusinessLogic" />
 		</property>
 	</bean>
-	<!-- MemberInfoAction -->
+	
+	<!-- memberInfoAction -->
 	<bean id="memberInfoAction" class="com.gameif.portal.action.memberInfo.MemberInfoControlAction">
 		<property name="memberInfoBusinessLogic">
 			<ref bean="memberInfoBusinessLogic" />
 		</property>
 	</bean>
-	<!-- InquiryInfoAction -->
-	<bean id="InquiryInfoAction" class="com.gameif.portal.action.inquiryInfo.InquiryInfoControlAction">
+	
+	<!-- inquiryInfoAction -->
+	<bean id="inquiryInfoAction" class="com.gameif.portal.action.inquiry.InquiryInputAction">
 		<property name="inquiryInfoBusinessLogic">
 			<ref bean="inquiryInfoBusinessLogic" />
 		</property>
