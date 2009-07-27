@@ -19,4 +19,12 @@
 			<ref bean="memberInfoDao" />
 		</property>
 	</bean>
+	
+	<!-- inquiryInfoBusinessLogic -->
+	<bean id="inquiryInfoBusinessLogic"
+		class="com.gameif.portal.businesslogic.impl.InquiryInfoBusinessLogicImpl">
+		<property name="inquiryInfoDao">
+			<ref bean="inquiryInfoDao" />
+		</property>
+	</bean>
 </beans>
