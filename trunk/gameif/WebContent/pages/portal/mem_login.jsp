@@ -49,7 +49,7 @@
 			<td><s:submit value="%{getText('log_in')}"></s:submit></td>
 		</tr>
 		<tr>
-			<td><s:url id="new" action="creatMember" /> <s:a href="%{new}">
+			<td><s:url id="new" action="createCommon" /> <s:a href="%{new}">
 				<s:property value="%{getText('new')}" />
 			</s:a></td>
 			<td></td>

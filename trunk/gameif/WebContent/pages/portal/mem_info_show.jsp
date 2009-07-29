@@ -18,15 +18,7 @@
 			<table>
 				<tr>
 					<td><s:property value="%{getText('mem_id')}" /></td>
-					<td><s:textfield name="memId"></s:textfield></td>
-				</tr>
-				<tr>
-					<td><s:property value="%{getText('passwd')}" /></td>
-					<td><s:password name="memPwd" /></td>
-				</tr>
-				<tr>
-					<td><s:property value="%{getText('confirm_passwd')}" /></td>
-					<td><s:password name="confirmPwd" /></td>
+					<td><s:property value="mem_id}" /></td>
 				</tr>
 				<tr>
 					<td><s:property value="%{getText('mail_address')}" /></td>
@@ -38,7 +30,7 @@
 				<tr>
 					<td/>
 					<td>
-						<s:submit action="createMember" formId="frm_mem_edit" value="%{getText('submit')}"></s:submit>
+						<s:submit action="updateMember" formId="frm_mem_edit" value="%{getText('submit')}"></s:submit>
 					</td>
 				</tr>
 			</table>
