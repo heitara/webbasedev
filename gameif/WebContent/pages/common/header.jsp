@@ -8,15 +8,21 @@
 <div>
 	<ul>
 		<li>
-			<s:url id="create" action="createMenu" /> <s:a
+			<s:url id="create" action="createCommon" /> <s:a
 				href="%{create}">
 				<s:property value="%{getText('mem_new_tilte')}" />
 				</s:a>
 		</li>
 		<li>
-			<s:url id="inquiry" action="inquiryMenu" /> <s:a
+			<s:url id="inquiry" action="inquiryCommon" /> <s:a
 				href="%{inquiry}">
 				<s:property value="%{getText('inquiry_input_title')}" />
+				</s:a>
+		</li>
+		<li>
+			<s:url id="home" action="homeCommon" /> <s:a
+				href="%{home}">
+				<s:property value="%{getText('back_home')}" />
 				</s:a>
 		</li>
 	</ul>

@@ -3,9 +3,10 @@
 <%@taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title><s:property value="%{getText('mem_new_tilte')}" /></title>
+	<title><s:property value="%{getText('mem_menu_tilte')}" /></title>
 	<link rel="stylesheet" type="text/css" media="screen" href="css/common/screen.css" />
 	<script src="js/jquery/jquery.js" type="text/javascript"></script>
 	<script src="js/portal/mem_login.js" type="text/javascript"></script>
@@ -14,32 +15,19 @@
 
 <body>
 	<div class="contents">
-		<s:form name="frm_mem_edit" method="POST">
+		<s:form name="frm_mem_menu">
 			<table>
 				<tr>
-					<td><s:property value="%{getText('mem_id')}" /></td>
-					<td><s:textfield name="memId"></s:textfield></td>
+					<td><s:url id="change_pwd" action="changePwdMember" /> <s:a
+						href="%{change_pwd}">
+						<s:property value="%{getText('mem_change_pwd_title')}" />
+					</s:a></td>
 				</tr>
 				<tr>
-					<td><s:property value="%{getText('passwd')}" /></td>
-					<td><s:password name="memPwd" /></td>
-				</tr>
-				<tr>
-					<td><s:property value="%{getText('confirm_passwd')}" /></td>
-					<td><s:password name="confirmPwd" /></td>
-				</tr>
-				<tr>
-					<td><s:property value="%{getText('mail_address')}" /></td>
-					<td><s:textfield name="mailPc" /></td>
-				</tr>
-				<tr>
-					
-				</tr>
-				<tr>
-					<td/>
-					<td>
-						<s:submit action="createMember" formId="frm_mem_edit" value="%{getText('submit')}"></s:submit>
-					</td>
+					<td><s:url id="show_detail" action="loginUserInfo" /> <s:a
+						href="%{show_detail}">
+						<s:property value="%{getText('log_in')}" />
+					</s:a></td>
 				</tr>
 			</table>
 		</s:form>

@@ -13,5 +13,9 @@ public class MainMenu {
 	public String events() {
 		return "events_list";
 	}
+	
+	public String home(){
+		return "back_home";
+	}
 
 }
