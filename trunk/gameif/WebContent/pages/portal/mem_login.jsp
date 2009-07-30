@@ -46,7 +46,10 @@
 				<s:property value="%{getText('reget')}" />
 			</s:a></td>
 			<td />
-			<td><s:submit value="%{getText('log_in')}"></s:submit></td>
+			<td>
+				<s:submit value="%{getText('log_in')}" >
+				</s:submit>
+			</td>
 		</tr>
 		<tr>
 			<td><s:url id="new" action="createCommon" /> <s:a href="%{new}">

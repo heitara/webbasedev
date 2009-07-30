@@ -18,7 +18,7 @@
 			<table>
 				<tr>
 					<td><s:property value="%{getText('mem_id')}" /></td>
-					<td><s:property value="mem_id}" /></td>
+					<td><s:property value="memId" /></td>
 				</tr>
 				<tr>
 					<td><s:property value="%{getText('mail_address')}" /></td>
