@@ -20,7 +20,10 @@
 			</interceptor-ref>
 			<interceptor-ref name="defaultStack"></interceptor-ref>
 			
-			<result name="success">/pages/portal/mem_menu.jsp</result>
+			<result name="success" type="redirect-action">
+				<param name="actionName">inputMember</param>
+				<param name="memId">${memId}</param>
+			</result>
 			<result name="input">/pages/portal/mem_login.jsp</result>
 		</action>
 
@@ -33,11 +36,13 @@
 			</interceptor-ref>
 			<interceptor-ref name="defaultStack"></interceptor-ref>
 			
+			<result name="input">/pages/portal/mem_top_page.jsp</result>
 			<result name="success">/pages/portal/mem_menu.jsp</result>
 			<result name="new">/pages/portal/mem_edit.jsp</result>
 			<result name="reget">/pages/portal/mem_forget_pwd.jsp</result>
 			<result name="changePwd">/pages/portal/mem_change_pwd.jsp</result>
-			<result name="showDetail" type="chain">/pages/portal/mem_info_show.jsp</result>
+			<result name="showdetail">/pages/portal/mem_info_show.jsp</result>
+			<result name="login">/pages/portal/mem_login.jsp</result>
 		</action>
 		
 		<action name="*Inquiry" class="inquiryInfoAction"

@@ -72,11 +72,12 @@
 		FROM
 			member_info
 		WHERE
-			mem_num = #memNum#
+			mem_id = #memId#
         ]]>
 	</select>
 
 	<insert id="save" parameterClass="memberInfo">
+	<![CDATA[
 		INSERT INTO member_info
 			(mem_id,
 			mem_name,
@@ -136,6 +137,7 @@
 			#updateIp#,
 			#updateYmd#,
 			#versionNo#)
+	]]>
 	</insert>
 
 	<update id="update" parameterClass="memberInfo">

@@ -18,17 +18,22 @@
 		<s:form name="frm_mem_menu">
 			<table>
 				<tr>
-					<td><s:url id="change_pwd" action="changePwdMember" /> <s:a
-						href="%{change_pwd}">
-						<s:property value="%{getText('mem_change_pwd_title')}" />
-					</s:a></td>
+					<td>
+						<s:url id="change_pwd" action="changePwdMember"/>
+						<s:a href="%{change_pwd}">
+							<s:property value="%{getText('mem_change_pwd_title')}" />
+						</s:a>
+					</td>
 				</tr>
 				<tr>
-					<td><s:url id="show_detail" action="loginUserInfo" /> <s:a
-						href="%{show_detail}">
-						<s:property value="%{getText('log_in')}" />
-					</s:a></td>
+					<td>
+						<s:url id="show_detail" action="showMember"/>
+						<s:a href="%{show_detail}">
+							<s:property value="%{getText('mem_info_title')}" />
+						</s:a>
+					</td>
 				</tr>
+				<s:hidden id="memId" value="memId" />
 			</table>
 		</s:form>
 	</div>

@@ -35,11 +35,6 @@
 						<s:property value="%{getText('new')}" />
 					</s:a></td>
 				</tr>
-				<tr>
-					<td>
-						SUCCESS
-					</td>
-				</tr>
 			</table>
 		</s:form>
 	</div>

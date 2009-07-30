@@ -14,16 +14,6 @@ public class MemberInfoControlAction extends
 
 	private IMemberInfoBusinessLogic memberInfoBusinessLogic;
 
-	private Integer memNum;
-
-	/**
-	 * @param memNum
-	 *            the memNum to set
-	 */
-	public void setMemNum(Integer memNum) {
-		this.memNum = memNum;
-	}
-
 	/**
 	 * @param memberInfoBusinessLogic
 	 *            the memberInfoBusinessLogic to set
@@ -33,9 +23,8 @@ public class MemberInfoControlAction extends
 		this.memberInfoBusinessLogic = memberInfoBusinessLogic;
 	}
 
-	public String creatConfirm() {
-
-		return SUCCESS;
+	public String input() {
+		return INPUT;
 	}
 
 	public String changePwd() {
@@ -58,15 +47,17 @@ public class MemberInfoControlAction extends
 	 * @return
 	 */
 	public String show() {
-		// search condition
-		MemberInfo search = new MemberInfo();
-		search.setMemNum(this.memNum);
 		// get the member info
-		MemberInfo memberInfo = memberInfoBusinessLogic.showDetail(search);
+		MemberInfo memberInfo = memberInfoBusinessLogic.showDetail(this
+				.getModel());
 
-		super.setModel(memberInfo);
+		if (memberInfo != null) {
+			setModel(memberInfo);
+			return "showdetail";
+		} else {
+			return "login";
+		}
 
-		return "showDetail";
 	}
 
 	/**
@@ -78,7 +69,7 @@ public class MemberInfoControlAction extends
 		memberInfoBusinessLogic.updateMemberInfo(this.getModel());
 		return "showMenu";
 	}
-	
+
 	/**
 	 * Create a new member
 	 * 
