@@ -9,9 +9,11 @@
 		<a href="immunity.html" title="免責事項">免責事項</a> | 
 		<a href="privacy.html" title="プライバシーポリシー">プライバシーポリシー</a> | 
 		<a href="shop_info.html" title="特定商取引法に基づく表示内容">特定商取引法に基づく表示内容</a>
-		
+	</dt>
+	<dd>
 		このウェブサイトは、Internet Explorer 7.0 或いは Firefox3.0 以上のブラウザでご利用いただくことを推奨しております。<br/>
 			他のブラウザでは正常にご覧いただけない場合がございます。
-	</dt>
+	</dd>
+	
 	<dd>Copyright <span style="font-family:Arial;">&copy; </span>2009 - <s:property value="@java.util.Calendar@getInstance().get(@java.util.Calendar@YEAR)"/> Game-If Co.,Ltd. All Rights Reserved.</dd>
 </dl>
