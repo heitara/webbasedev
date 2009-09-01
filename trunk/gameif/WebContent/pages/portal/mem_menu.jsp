@@ -35,6 +35,12 @@
 						<s:property value="%{getText('new')}" />
 					</s:a></td>
 				</tr>
+				<tr>
+					<td><s:url id="inviteFriend" action="inputInvite" /> <s:a
+						href="%{inviteFriend}">
+						<s:property value="%{getText('invite_input_title')}" />
+					</s:a></td>
+				</tr>
 			</table>
 		</s:form>
 	</div>
