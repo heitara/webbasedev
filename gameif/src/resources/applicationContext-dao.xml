@@ -36,4 +36,11 @@
 			<value>inquiryInfo</value>
 		</property>
 	</bean>
+	
+	<!-- inviteInfoDao -->
+	<bean id="inviteInfoDao" class="com.gameif.portal.dao.impl.InviteInfoDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>inviteInfo</value>
+		</property>
+	</bean>
 </beans>
