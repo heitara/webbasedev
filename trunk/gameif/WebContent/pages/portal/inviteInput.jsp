@@ -15,7 +15,6 @@
 		<link type="text/css" href="css/main.css" rel="stylesheet"></link>
 		<script charset="UTF-8" src="js/portal/common.js" language="JavaScript" type="text/javascript"></script>
 	</head>
-	<s:include value="../common/header.jsp"></s:include>
 	<body>
 		<div id="page_main_box">
 			<div id="page_main_main">
@@ -79,7 +78,6 @@
 		</div>
 	</body>
 
-	<s:include value="../common/footer.jsp"></s:include>
 
 	</html>
 </s:i18n>
