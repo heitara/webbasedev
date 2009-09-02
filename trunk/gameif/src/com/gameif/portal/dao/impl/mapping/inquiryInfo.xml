@@ -22,8 +22,8 @@
 			inquiry_object,
 			inquiry_contents,
 			correspond_status,
-			CreatedDate,
-			LastModifiedDate)
+			create_date,
+			last_update_date)
 		VALUES
 			(sysdate(),
 			#userName#,

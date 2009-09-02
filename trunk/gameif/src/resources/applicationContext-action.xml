@@ -29,4 +29,11 @@
 			<ref bean="inquiryInfoBusinessLogic" />
 		</property>
 	</bean>
+	
+	<!-- inviteInputAction -->
+	<bean id="inviteInputAction" class="com.gameif.portal.action.invite.InviteInputAction">
+		<property name="inviteInfoBusinessLogic">
+			<ref bean="inviteInfoBusinessLogic" />
+		</property>
+	</bean>
 </beans>

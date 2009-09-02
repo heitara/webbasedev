@@ -27,4 +27,12 @@
 			<ref bean="inquiryInfoDao" />
 		</property>
 	</bean>
+	
+	<!-- inviteInfoBusinessLogic -->
+	<bean id="inviteInfoBusinessLogic"
+		class="com.gameif.portal.businesslogic.impl.InviteInfoBusinessLogicImpl">
+		<property name="inviteInfoDao">
+			<ref bean="inviteInfoDao" />
+		</property>
+	</bean>
 </beans>

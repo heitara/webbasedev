@@ -35,9 +35,9 @@ public class InquiryInfo extends BaseEntity {
 	private String correspondUserId;
 	private String correspondUserName;
 	private Date createdDate;
-	private String createdUserID;
+	private String createdUser;
 	private Date lastModifiedDate;
-	private String lastUpdateUserID;
+	private String lastUpdateUser;
 
 	/**
 	 * @return the inquiryNum
@@ -400,18 +400,18 @@ public class InquiryInfo extends BaseEntity {
 	}
 
 	/**
-	 * @return the createdUserID
+	 * @return the createdUser
 	 */
-	public String getCreatedUserID() {
-		return createdUserID;
+	public String getCreatedUser() {
+		return createdUser;
 	}
 
 	/**
-	 * @param createdUserID
-	 *            the createdUserID to set
+	 * @param createdUser
+	 *            the createdUser to set
 	 */
-	public void setCreatedUserID(String createdUserID) {
-		this.createdUserID = createdUserID;
+	public void setCreatedUser(String createdUser) {
+		this.createdUser = createdUser;
 	}
 
 	/**
@@ -430,18 +430,18 @@ public class InquiryInfo extends BaseEntity {
 	}
 
 	/**
-	 * @return the lastUpdateUserID
+	 * @return the lastUpdateUser
 	 */
-	public String getLastUpdateUserID() {
-		return lastUpdateUserID;
+	public String getLastUpdateUser() {
+		return lastUpdateUser;
 	}
 
 	/**
-	 * @param lastUpdateUserID
-	 *            the lastUpdateUserID to set
+	 * @param lastUpdateUser
+	 *            the lastUpdateUser to set
 	 */
-	public void setLastUpdateUserID(String lastUpdateUserID) {
-		this.lastUpdateUserID = lastUpdateUserID;
+	public void setLastUpdateUser(String lastUpdateUser) {
+		this.lastUpdateUser = lastUpdateUser;
 	}
 
 }
