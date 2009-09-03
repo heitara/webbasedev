@@ -6,46 +6,115 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title><s:property value="%{getText('mem_new_tilte')}" /></title>
-	<link rel="stylesheet" type="text/css" media="screen" href="css/common/screen.css" />
+	<link type="text/css" href="css/common/common.css" rel="stylesheet"></link>
+	<link type="text/css" href="css/common/main.css" rel="stylesheet"></link>
 	<script src="js/jquery/jquery.js" type="text/javascript"></script>
 	<script src="js/portal/mem_login.js" type="text/javascript"></script>
-	<s:include value="../common/header.jsp"></s:include>
 </head>
 
 <body>
-	<div class="contents">
-		<s:form name="frm_mem_edit" method="POST">
-			<table>
-				<tr>
-					<td><s:property value="%{getText('mem_id')}" /></td>
-					<td><s:textfield name="memId"></s:textfield></td>
-				</tr>
-				<tr>
-					<td><s:property value="%{getText('passwd')}" /></td>
-					<td><s:password name="memPwd" /></td>
-				</tr>
-				<tr>
-					<td><s:property value="%{getText('confirm_passwd')}" /></td>
-					<td><s:password name="confirmPwd" /></td>
-				</tr>
-				<tr>
-					<td><s:property value="%{getText('mail_address')}" /></td>
-					<td><s:textfield name="mailPc" /></td>
-				</tr>
-				<tr>
-					
-				</tr>
-				<tr>
-					<td/>
-					<td>
-						<s:submit action="createMember" formId="frm_mem_edit" value="%{getText('submit')}"></s:submit>
-					</td>
-				</tr>
-			</table>
-		</s:form>
+	<div id="page_main_box">
+		<div id="page_main_main">
+			<dl class="light_box tspace_n">
+				<dt><strong><s:property value="%{getText('mem_new_tilte')}" /></strong><span></span></dt>
+				<dd>
+					<s:form name="frm_mem_edit" method="POST" cssClass="entry">
+						<dl>
+							<dt><span class="required">*</span><s:property value="%{getText('mem_id')}" /></dt>
+							<dd>
+								<s:textfield name="memId" maxlength="20" cssClass="ime_mode_n" />
+								<img src="images/icn_check_ok.gif" class="input_check" align="texttop"/>
+								<br/>
+								<span class="explain">6～20桁の半角英数字で入力してください。</span>
+							</dd>
+							
+							<dt><span class="required">*</span><s:property value="%{getText('passwd')}" /></dt>
+							<dd>
+	
+								<s:password name="memPwd" maxlength="20" cssClass="ime_mode_n" />
+								<img src="images/icn_check_ok.gif" class="input_check" align="texttop"/>
+								<br/>
+								<span class="explain">6～桁の半角英数字で入力してください。</span>
+							</dd>
+							
+							<dt><span class="required">*</span><s:property value="%{getText('confirm_passwd')}" /></dt>
+							<dd>
+								<s:password name="confirmPwd" maxlength="20" cssClass="ime_mode_n" />
+								<img src="images/icn_check_ok.gif" class="input_check" align="texttop"/>
+								<br/>
+								<span class="explain">確認のためパスワードを再入力してください。</span>
+							</dd>
+							
+							<dt></dt>
+							<dd>&nbsp;</dd>
+	
+							<dt><span class="required">*</span><s:property value="%{getText('nickname')}" /></dt>
+							<dd>
+								<s:textfield name="nickname" maxlength="20" />
+								<img src="images/icn_check_ok.gif" class="input_check" align="texttop"/><br/>
+								<span class="explain">全角文字で入力してください。</span>
+							</dd>
+							
+							<dt><span class="required">*</span><s:property value="%{getText('mail')}" /></dt>
+							<dd>
+								<s:textfield name="mail" maxlength="100" cssClass="ime_mode_n" />
+								<img src="images/icn_check_ng.gif" class="input_check" align="texttop"/>
+								<span class="check_ng">既に使われているメールアドレスです。</span><br/>
+								<span class="explain">メールアドレスを小文字で入力してください。</span>
+							</dd>
+							
+							<dt></dt>
+							<dd>&nbsp;</dd>
+							
+							<dt><span class="required">*</span><s:property value="%{getText('question')}" /></dt>
+							<dd>
+							</dd>
+							
+							<dt><span class="required">*</span><s:property value="%{getText('answer')}" /></dt>
+							<dd>
+								<s:textfield name="answer" maxlength="20" />
+								<span class="explain">2～10桁の全角文字で入力してください。</span>
+							</dd>
+							
+							<dt></dt>
+							<dd>&nbsp;</dd>
+	
+							<dt><span class="required">*</span><s:property value="%{getText('capture')}" /></dt>
+							<dd>
+								<img src="images/capture.gif"/>
+								<a href="#"><img src="images/capture_update.gif"/></a><br/>
+								<s:textfield name="capture" maxlength="6"  cssClass="ime_mode_n" />
+								<br/>
+								<span class="explain">画像認証コードを入力してください。</span>
+							</dd>
+							
+							<dt></dt>
+							<dd>&nbsp;</dd>
+	
+							<dt></dt>
+							<dd>
+								<s:checkbox name="magazine" value="0"/>
+								<s:property value="%{getText('magazine')}" />
+							</dd>
+								
+							<dt></dt>
+							<dd>
+								<s:checkbox name="agreement" value="0"/>
+								<s:property value="%{getText('magazine')}" />
+								（ <a href="#" class="agreement">利用規約</a> 
+							</dd>
+							<dt></dt>
+							<dd></dd>
+						</dl>
+						<div class="submit">
+							<s:submit action="createMember" formId="frm_mem_edit" value="%{getText('submit')}"></s:submit>
+							<s:reset action="createMember" value="%{getText('clear')}"></s:reset>
+						</div>
+					</s:form>
+				</dd>
+			</dl>
+		</div>
 	</div>
 </body>
-
-<s:include value="../common/footer.jsp"></s:include>
 
 </html>
