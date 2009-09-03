@@ -12,7 +12,7 @@
 		<meta content="ブラウザゲーム(WEBGAME)のポータルサイト" name="description"/>
 		<title><s:property value="%{getText('invite_input_title')}" /></title>
 		<link type="text/css" href="css/common/common.css" rel="stylesheet"></link>
-		<link type="text/css" href="css/main.css" rel="stylesheet"></link>
+		<link type="text/css" href="css/common/main.css" rel="stylesheet"></link>
 		<script charset="UTF-8" src="js/portal/common.js" language="JavaScript" type="text/javascript"></script>
 	</head>
 	<body>
