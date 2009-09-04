@@ -5,6 +5,9 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta content="index, follow" name="robots"/>
+	<meta content="ゲームイフ,ブラウザゲーム,webgame,大人数同時プレイブラウザゲーム,オンラインゲーム,パブリッシング,プラットフォーム" name="keywords"/>
+	<meta content="ブラウザゲーム(WEBGAME)のポータルサイト" name="description"/>
 	<title><s:property value="%{getText('mem_new_tilte')}" /></title>
 	<link type="text/css" href="css/common/common.css" rel="stylesheet"></link>
 	<link type="text/css" href="css/common/main.css" rel="stylesheet"></link>
@@ -23,7 +26,7 @@
 							<dt><span class="required">*</span><s:property value="%{getText('mem_id')}" /></dt>
 							<dd>
 								<s:textfield name="memId" maxlength="20" cssClass="ime_mode_n" />
-								<img src="images/icn_check_ok.gif" class="input_check" align="texttop"/>
+								<img src="images/icn_check_ok.gif" class="input_check" align="top"/>
 								<br/>
 								<span class="explain">6～20桁の半角英数字で入力してください。</span>
 							</dd>
@@ -32,15 +35,15 @@
 							<dd>
 	
 								<s:password name="memPwd" maxlength="20" cssClass="ime_mode_n" />
-								<img src="images/icn_check_ok.gif" class="input_check" align="texttop"/>
+								<img src="images/icn_check_ok.gif" class="input_check" align="top"/>
 								<br/>
-								<span class="explain">6～桁の半角英数字で入力してください。</span>
+								<span class="explain">6～20桁の半角英数字で入力してください。</span>
 							</dd>
 							
 							<dt><span class="required">*</span><s:property value="%{getText('confirm_passwd')}" /></dt>
 							<dd>
 								<s:password name="confirmPwd" maxlength="20" cssClass="ime_mode_n" />
-								<img src="images/icn_check_ok.gif" class="input_check" align="texttop"/>
+								<img src="images/icn_check_ok.gif" class="input_check" align="top"/>
 								<br/>
 								<span class="explain">確認のためパスワードを再入力してください。</span>
 							</dd>
@@ -51,14 +54,14 @@
 							<dt><span class="required">*</span><s:property value="%{getText('nickname')}" /></dt>
 							<dd>
 								<s:textfield name="nickname" maxlength="20" />
-								<img src="images/icn_check_ok.gif" class="input_check" align="texttop"/><br/>
+								<img src="images/icn_check_ok.gif" class="input_check" align="top"/><br/>
 								<span class="explain">全角文字で入力してください。</span>
 							</dd>
 							
 							<dt><span class="required">*</span><s:property value="%{getText('mail')}" /></dt>
 							<dd>
 								<s:textfield name="mail" maxlength="100" cssClass="ime_mode_n" />
-								<img src="images/icn_check_ng.gif" class="input_check" align="texttop"/>
+								<img src="images/icn_check_ng.gif" class="input_check" align="top"/>
 								<span class="check_ng">既に使われているメールアドレスです。</span><br/>
 								<span class="explain">メールアドレスを小文字で入力してください。</span>
 							</dd>
