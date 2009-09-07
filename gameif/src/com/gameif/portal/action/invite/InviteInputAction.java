@@ -83,13 +83,13 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 		
 		info = new KeyValueInfo();
 		info.setKey("01");
-		info.setValue("„“ÊÀ»Õh");
+		info.setValue("test01");
 
 		list.add(info);
 
 		info = new KeyValueInfo();
 		info.setKey("02");
-		info.setValue("ÎäÁÖÈı¹ú");
+		info.setValue("test02");
 
 		list.add(info);
 
@@ -108,14 +108,14 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 
 		info = new KeyValueInfo();
 		info.setKey("01");
-		info.setValue("¤³¤³¤ËÃæ°×¤¤¥²©`¥à¤¬¤¢¤ê¤Ş¤¹¡£");
+		info.setValue("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¤ï¿½ï¿½ï¿½ï¿½`ï¿½à¤¬ï¿½ï¿½ï¿½ï¿½Ş¤ï¿½ï¿½ï¿½");
 
 		list.add(info);
 
 		info = new KeyValueInfo();
 
 		info.setKey("02");
-		info.setValue("¥²©`¥à¥¤¥Õ¤ËµÇåh¤·¤Æ¤ß¤Æ¤Í¡£");
+		info.setValue("test02");
 
 		list.add(info);
 
