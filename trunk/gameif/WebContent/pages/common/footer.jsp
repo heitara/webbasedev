@@ -15,5 +15,5 @@
 			他のブラウザでは正常にご覧いただけない場合がございます。
 	</dd>
 	
-	<dd>Copyright <span style="font-family:Arial;">&copy; </span>2009 - <s:property value="@java.util.Calendar@getInstance().get(@java.util.Calendar@YEAR)"/> Game-If Co.,Ltd. All Rights Reserved.</dd>
+	<dd>Copyright <span style="font-family:Arial;">&copy; </span>2009 Game-If Co.,Ltd. All Rights Reserved.</dd>
 </dl>
