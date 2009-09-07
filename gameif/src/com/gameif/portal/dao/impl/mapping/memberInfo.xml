@@ -8,7 +8,7 @@
 	<resultMap class="com.gameif.portal.entity.MemberInfo" id="memberResult">
 		<result property="memNum" column="mem_num" />
 		<result property="memId" column="mem_id" />
-		<result property="memName" column="mem_name" />
+		<result property="nickName" column="nick_name" />
 		<result property="memPwd" column="mem_pwd" />
 		<result property="memKindCd" column="mem_kind_cd" />
 		<result property="memAtbtCd" column="mem_atbt_cd" />
@@ -16,6 +16,10 @@
 		<result property="answer" column="answer" />
 		<result property="mailPc" column="mail_pc" />
 		<result property="mailMobile" column="mail_mobile" />
+		<result property="kanjiFname" column="kanji_fname" />
+		<result property="kanjiLname" column="kanji_lname" />
+		<result property="kanaFname" column="kana_fname" />
+		<result property="kanaLname" column="kana_lname" />
 		<result property="sexCd" column="sex_cd" />
 		<result property="birthYmd" column="birth_ymd" />
 		<result property="divisCd" column="divis_cd" />
@@ -32,8 +36,8 @@
 		<result property="loginFailIp" column="login_fail_ip" />
 		<result property="loginFailYmd" column="login_fail_ymd" />
 		<result property="loginFailCnt" column="login_fail_cnt" />
-		<result property="updateIp" column="update_ip" />
-		<result property="updateYmd" column="update_ymd" />
+		<result property="lastUpdateIp" column="last_update_ip" />
+		<result property="lastUpdateYmd" column="last_update_ymd" />
 		<result property="versionNo" column="version_no" />
 	</resultMap>
 
@@ -42,7 +46,7 @@
         SELECT
 			mem_num,
 			mem_id,
-			mem_name,
+			nick_name,
 			mem_pwd,
 			mem_kind_cd,
 			mem_atbt_cd,
@@ -50,6 +54,10 @@
 			answer,
 			mail_pc,
 			mail_mobile,
+			kanji_fname,
+			kanji_lname,
+			kana_fname,
+			kana_lname,
 			sex_cd,
 			birth_ymd,
 			divis_cd,
@@ -66,8 +74,8 @@
 			login_fail_ip,
 			login_fail_ymd,
 			login_fail_cnt,
-			update_ip,
-			update_ymd,
+			last_update_ip,
+			last_update_ymd,
 			version_no
 		FROM
 			member_info
@@ -79,8 +87,9 @@
 	<insert id="save" parameterClass="memberInfo">
 	<![CDATA[
 		INSERT INTO member_info
-			(mem_id,
-			mem_name,
+			(
+			mem_id,
+			nick_name,
 			mem_pwd,
 			mem_kind_cd,
 			mem_atbt_cd,
@@ -88,6 +97,10 @@
 			answer,
 			mail_pc,
 			mail_mobile,
+			kanji_fname,
+			kanji_lname,
+			kana_fname,
+			kana_lname,
 			sex_cd,
 			birth_ymd,
 			divis_cd,
@@ -104,13 +117,13 @@
 			login_fail_ip,
 			login_fail_ymd,
 			login_fail_cnt,
-			update_ip,
-			update_ymd,
+			last_update_ip,
+			last_update_ymd,
 			version_no)
 		VALUES
-			(#memNum#,
+			(
 			#memId#,
-			#memName#,
+			#nickName#,
 			#memPwd#,
 			#memKindCd#,
 			#memAtbtCd#,
@@ -118,6 +131,10 @@
 			#answer#,
 			#mailPc#,
 			#mailMobile#,
+			#kanjiFname#,
+			#kanjiLname#,
+			#kanaFname#,
+			#kanaLname#,
 			#sexCd#,
 			#birthYmd#,
 			#divisCd#,
@@ -134,9 +151,10 @@
 			#loginFailIp#,
 			#loginFailYmd#,
 			#loginFailCnt#,
-			#updateIp#,
-			#updateYmd#,
-			#versionNo#)
+			#lastUpdateIp#,
+			#lastUpdateYmd#,
+			#versionNo#
+			)
 	]]>
 	</insert>
 
