@@ -7,7 +7,7 @@
 
 	<package name="gameif" extends="struts-default">
 		<action name="*Common" class="mainMenuAction" method="{1}">
-			<result name="new_member_input">/pages/portal/mem_edit.jsp</result>
+			<result name="new_member_input">/pages/portal/newMemInfoInput.jsp</result>
 			<result name="inquiry_input">/pages/portal/inquiryInput.jsp</result>
 			<result name="back_home">/pages/portal/mem_login.jsp</result>
 		</action>
@@ -38,10 +38,10 @@
 			
 			<result name="input">/pages/portal/mem_top_page.jsp</result>
 			<result name="success">/pages/portal/mem_menu.jsp</result>
-			<result name="new">/pages/portal/mem_edit.jsp</result>
+			<result name="new">/pages/portal/newMemInfoInput.jsp</result>
 			<result name="reget">/pages/portal/mem_forget_pwd.jsp</result>
 			<result name="changePwd">/pages/portal/mem_change_pwd.jsp</result>
-			<result name="showdetail">/pages/portal/mem_info_show.jsp</result>
+			<result name="showdetail">/pages/portal/memInfoChangeInput.jsp</result>
 			<result name="login">/pages/portal/mem_login.jsp</result>
 		</action>
 		
