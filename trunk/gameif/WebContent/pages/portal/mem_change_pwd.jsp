@@ -39,7 +39,6 @@
 	</div>
 </body>
 
-<s:include value="../common/footer.jsp"></s:include>
 
 </html>
 </s:i18n>

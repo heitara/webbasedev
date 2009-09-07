@@ -12,10 +12,12 @@
 	<title><s:property value="%{getText('new_mem_tilte')}" /></title>
 	<script src="js/jquery/jquery.js" type="text/javascript"></script>
 	<script src="js/portal/mem_login.js" type="text/javascript"></script>
-	<SCRIPT type="text/javascript">
+	<script type="text/javascript">
 		function RefreshImg(){
+			set obj = document.getElementById("newKaptcha");
+			obj.src = "/images/capture_update.gif?" + Math.floor(Math.random()*100);
 		}
-	</SCRIPT>
+	</script>
 </head>
 
 <body>
@@ -88,8 +90,8 @@
 	
 							<dt><span class="required">*</span><s:property value="%{getText('capture')}" /></dt>
 							<dd>
-								<img src="images/capture.gif"/>
-								<img src="images/kaptcha.jpg" onclick="RefreshImg()"/><br/>
+								<img src="/images/kaptcha.jpg"/>
+								<img id="newKaptcha" src="/images/capture_update.gif" onclick="RefreshImg()" /><br/>
 								<s:textfield name="kaptcha" maxlength="6"  cssClass="ime_mode_n" />
 								<br/>
 								<span class="explain">画像認証コードを入力してください。</span>
