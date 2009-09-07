@@ -11,7 +11,6 @@
 	<link rel="stylesheet" type="text/css" media="screen" href="css/common/screen.css" />
 	<script src="js/jquery/jquery.js" type="text/javascript"></script>
 	<script src="js/portal/mem_login.js" type="text/javascript"></script>
-	<s:include value="../common/header.jsp"></s:include>
 </head>
 
 <body>
