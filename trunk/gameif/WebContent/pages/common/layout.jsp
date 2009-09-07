@@ -10,26 +10,31 @@
 		<meta content="index, follow" name="robots"/>
 		<meta content="ゲームイフ,ブラウザゲーム,webgame,大人数同時プレイブラウザゲーム,オンラインゲーム,パブリッシング,プラットフォーム" name="keywords"/>
 		<meta content="ブラウザゲーム(WEBGAME)のポータルサイト" name="description"/>
-		<title><decorator:title default="ゲームイフ | ブラウザゲームポータルサイト" /></title>
-        <decorator:head />   
+		<link type="text/css" href="css/common/common.css" rel="stylesheet"></link>
+		<link type="text/css" href="css/common/main.css" rel="stylesheet"></link>
+		<title><decorator:title default="ゲームイフ | ブラウザゲームポータルサイト"/></title>
+        <decorator:head />
     </head> 
+    
     <body>
     	<div>
-    		this is header!!!
+    		<jsp:include page="header.jsp" flush="true" />
     	</div>
     	<div>
-    		<table>
+    		<table width="100%">
     			<tr>
-    				<td>
-    					<decorator:body />  
+    				<td width="80%">
+						<decorator:body />  
     				</td>
-    				<td>
-						this is right menu!!
+    				<td width="20%">
+    					<jsp:include page="mainright.jsp" flush="true" />
     				</td>
     			</tr>
     		</table>
     	</div>
-    	<div>this is footer!!!</div>
+    	<div>
+    		<jsp:include page="footer.jsp" flush="true" />
+		</div>
     </body>
 
 </html>  
