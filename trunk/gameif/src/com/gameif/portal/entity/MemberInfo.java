@@ -13,7 +13,7 @@ public class MemberInfo extends BaseEntity {
 
 	private Integer memNum;
 	private String memId;
-	private String memName;
+	private String nickName;
 	private String memPwd;
 	private String memKindCd;
 	private String memAtbtCd;
@@ -21,6 +21,10 @@ public class MemberInfo extends BaseEntity {
 	private String answer;
 	private String mailPc;
 	private String mailMobile;
+	private String kanjiFname;
+	private String kanjiLname;
+	private String kanaFname;
+	private String kanaLname;
 	private Integer sexCd;
 	private Date birthYmd;
 	private Integer divisCd;
@@ -37,12 +41,15 @@ public class MemberInfo extends BaseEntity {
 	private String loginFailIp;
 	private Date loginFailYmd;
 	private Integer loginFailCnt;
-	private String updateIp;
-	private Date updateYmd;
+	private String lastUpdateIp;
+	private Date lastUpdateYmd;
 	private Integer versionNo;
 
 	private String newPwd;
 	private String confirmPwd;
+	private String capture;
+	private String magazine;
+	private String agreement;
 
 	/**
 	 * @return the memNum
@@ -75,18 +82,18 @@ public class MemberInfo extends BaseEntity {
 	}
 
 	/**
-	 * @return the memName
+	 * @return the nickName
 	 */
-	public String getMemName() {
-		return memName;
+	public String getNickName() {
+		return nickName;
 	}
 
 	/**
-	 * @param memName
-	 *            the memName to set
+	 * @param nickName
+	 *            the nickName to set
 	 */
-	public void setMemName(String memName) {
-		this.memName = memName;
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 
 	/**
@@ -192,6 +199,66 @@ public class MemberInfo extends BaseEntity {
 	 */
 	public void setMailMobile(String mailMobile) {
 		this.mailMobile = mailMobile;
+	}
+
+	/**
+	 * @return the kanjiFname
+	 */
+	public String getKanjiFname() {
+		return kanjiFname;
+	}
+
+	/**
+	 * @param kanjiFname
+	 *            the kanjiFname to set
+	 */
+	public void setKanjiFname(String kanjiFname) {
+		this.kanjiFname = kanjiFname;
+	}
+
+	/**
+	 * @return the kanjiLname
+	 */
+	public String getKanjiLname() {
+		return kanjiLname;
+	}
+
+	/**
+	 * @param kanjiLname
+	 *            the kanjiLname to set
+	 */
+	public void setKanjiLname(String kanjiLname) {
+		this.kanjiLname = kanjiLname;
+	}
+
+	/**
+	 * @return the kanaFname
+	 */
+	public String getKanaFname() {
+		return kanaFname;
+	}
+
+	/**
+	 * @param kanaFname
+	 *            the kanaFname to set
+	 */
+	public void setKanaFname(String kanaFname) {
+		this.kanaFname = kanaFname;
+	}
+
+	/**
+	 * @return the kanaLname
+	 */
+	public String getKanaLname() {
+		return kanaLname;
+	}
+
+	/**
+	 * @param kanaLname
+	 *            the kanaLname to set
+	 */
+	public void setKanaLname(String kanaLname) {
+		this.kanaLname = kanaLname;
 	}
 
 	/**
@@ -435,33 +502,33 @@ public class MemberInfo extends BaseEntity {
 	}
 
 	/**
-	 * @return the updateIp
+	 * @return the lastUpdateIp
 	 */
-	public String getUpdateIp() {
-		return updateIp;
+	public String getLastUpdateIp() {
+		return lastUpdateIp;
 	}
 
 	/**
-	 * @param updateIp
-	 *            the updateIp to set
+	 * @param lastUpdateIp
+	 *            the lastUpdateIp to set
 	 */
-	public void setUpdateIp(String updateIp) {
-		this.updateIp = updateIp;
+	public void setLastUpdateIp(String lastUpdateIp) {
+		this.lastUpdateIp = lastUpdateIp;
 	}
 
 	/**
-	 * @return the updateYmd
+	 * @return the lastUpdateYmd
 	 */
-	public Date getUpdateYmd() {
-		return updateYmd;
+	public Date getLastUpdateYmd() {
+		return lastUpdateYmd;
 	}
 
 	/**
-	 * @param updateYmd
-	 *            the updateYmd to set
+	 * @param lastUpdateYmd
+	 *            the lastUpdateYmd to set
 	 */
-	public void setUpdateYmd(Date updateYmd) {
-		this.updateYmd = updateYmd;
+	public void setLastUpdateYmd(Date lastUpdateYmd) {
+		this.lastUpdateYmd = lastUpdateYmd;
 	}
 
 	/**
@@ -507,6 +574,51 @@ public class MemberInfo extends BaseEntity {
 	 */
 	public void setConfirmPwd(String confirmPwd) {
 		this.confirmPwd = confirmPwd;
+	}
+
+	/**
+	 * @return the capture
+	 */
+	public String getCapture() {
+		return capture;
+	}
+
+	/**
+	 * @param capture
+	 *            the capture to set
+	 */
+	public void setCapture(String capture) {
+		this.capture = capture;
+	}
+
+	/**
+	 * @return the magazine
+	 */
+	public String getMagazine() {
+		return magazine;
+	}
+
+	/**
+	 * @param magazine
+	 *            the magazine to set
+	 */
+	public void setMagazine(String magazine) {
+		this.magazine = magazine;
+	}
+
+	/**
+	 * @return the agreement
+	 */
+	public String getAgreement() {
+		return agreement;
+	}
+
+	/**
+	 * @param agreement
+	 *            the agreement to set
+	 */
+	public void setAgreement(String agreement) {
+		this.agreement = agreement;
 	}
 
 }
