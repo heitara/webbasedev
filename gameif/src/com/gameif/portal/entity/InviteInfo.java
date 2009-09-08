@@ -15,10 +15,10 @@ public class InviteInfo extends BaseEntity {
 	private Long memNum;
 	private String inviteMailFrom;
 	private String inviteMailTo;
-	private Date inviteYmd;
+	private Date inviteDate;
 	private String inviteMsg;
 	private Integer titleId;
-	private Date friendCreateYmd;
+	private Date friendCreateDate;
 	private Date createdDate;
 	private String createdUser;
 	private Date lastUpdateDate;
@@ -85,18 +85,31 @@ public class InviteInfo extends BaseEntity {
 	}
 
 	/**
-	 * @return the inviteYmd
+	 * @return the inviteDate
 	 */
-	public Date getInviteYmd() {
-		return inviteYmd;
+	public Date getInviteDate() {
+		return inviteDate;
 	}
 
 	/**
-	 * @param inviteYmd
-	 *            the inviteYmd to set
+	 * @param inviteDate the inviteDate to set
 	 */
-	public void setInviteYmd(Date inviteYmd) {
-		this.inviteYmd = inviteYmd;
+	public void setInviteDate(Date inviteDate) {
+		this.inviteDate = inviteDate;
+	}
+
+	/**
+	 * @return the friendCreateDate
+	 */
+	public Date getFriendCreateDate() {
+		return friendCreateDate;
+	}
+
+	/**
+	 * @param friendCreateDate the friendCreateDate to set
+	 */
+	public void setFriendCreateDate(Date friendCreateDate) {
+		this.friendCreateDate = friendCreateDate;
 	}
 
 	/**
@@ -127,21 +140,6 @@ public class InviteInfo extends BaseEntity {
 	 */
 	public void setTitleId(Integer titleId) {
 		this.titleId = titleId;
-	}
-
-	/**
-	 * @return the friendCreateYmd
-	 */
-	public Date getFriendCreateYmd() {
-		return friendCreateYmd;
-	}
-
-	/**
-	 * @param friendCreateYmd
-	 *            the friendCreateYmd to set
-	 */
-	public void setFriendCreateYmd(Date friendCreateYmd) {
-		this.friendCreateYmd = friendCreateYmd;
 	}
 
 	/**
