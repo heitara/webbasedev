@@ -152,7 +152,7 @@ dl.title_box {
 dl.title_box > dt {
 	height:24px;
 	overflow:hidden;
-	background-image:url("../images/bg_portlet_title.gif");
+	background-image:url("../../images/bg_portlet_title.gif");
 	clear:both;
 }
 dl.title_box > dt > strong {
@@ -162,7 +162,7 @@ dl.title_box > dt > strong {
 	line-height:24px;
 	padding:0px 12px;
 	color:#FFF;
-	background:url("../images/bg_portlet_title_left.gif") left top no-repeat;
+	background:url("../../images/bg_portlet_title_left.gif") left top no-repeat;
 	letter-spacing:1px;
 }
 dl.title_box > dt > span {
@@ -170,7 +170,7 @@ dl.title_box > dt > span {
 	position:relative;
 	line-height:24px;
 	padding:0px 10px;
-	background:url("../images/bg_portlet_title_right.gif") right top no-repeat;
+	background:url("../../images/bg_portlet_title_right.gif") right top no-repeat;
 }
 dl.title_box > dt > span::after {
 	content:"\b";
@@ -197,7 +197,7 @@ dl.light_box {
 dl.light_box > dt {
 	height:24px;
 	overflow:hidden;
-	background-image:url("../images/bg_light_title.gif");
+	background-image:url("../../images/bg_light_title.gif");
 	clear:both;
 }
 dl.light_box > dt > strong {
@@ -206,7 +206,7 @@ dl.light_box > dt > strong {
 	height:24px;
 	line-height:24px;
 	padding:0px 12px;
-	background:url("../images/bg_light_title_left.gif") left top no-repeat;
+	background:url("../../images/bg_light_title_left.gif") left top no-repeat;
 	letter-spacing:1px;
 }
 dl.light_box > dt > span {
@@ -241,7 +241,7 @@ dl.warm_box {
 dl.warm_box > dt {
 	height:20px;
 	overflow:hidden;
-	background-image:url("../images/bg_portlet_title.gif");
+	background-image:url("../../images/bg_portlet_title.gif");
 	clear:both;
 }
 dl.warm_box > dt > strong {
@@ -253,14 +253,14 @@ dl.warm_box > dt > strong {
 	font-size:10px;
 	font-weight:bold;
 	color:#FFF;
-	background:url("../images/bg_portlet_title_left.gif") left top no-repeat;
+	background:url("../../images/bg_portlet_title_left.gif") left top no-repeat;
 }
 dl.warm_box > dt > span {
 	float:right;
 	position:relative;
 	line-height:20px;
 	padding:0px 10px;
-	background:url("../images/bg_portlet_title_right.gif") right top no-repeat;
+	background:url("../../images/bg_portlet_title_right.gif") right top no-repeat;
 }
 dl.warm_box > dt > span::after {
 	content:"\b";
