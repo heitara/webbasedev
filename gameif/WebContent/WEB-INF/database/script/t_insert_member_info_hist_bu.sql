@@ -1,5 +1,6 @@
+DROP TRIGGER t_insert_member_info_hist_bu; 
 DELIMITER $$
-CREATE TRIGGER T_insert_member_info_hist_bi AFTER INSERT ON member_info
+CREATE TRIGGER t_insert_member_info_hist_bu AFTER UPDATE ON member_info
 FOR EACH ROW
 BEGIN
   INSERT INTO member_info_hist (
@@ -29,11 +30,6 @@ BEGIN
     note,
     entry_ip,
     entry_date,
-    login_ip,
-    login_date,
-    login_fail_ip,
-    login_fail_date,
-    login_fail_cnt,
     last_update_ip,
     last_update_date,
     version_no
@@ -64,11 +60,6 @@ BEGIN
     NEW.note,
     NEW.entry_ip,
     NEW.entry_date,
-    NEW.login_ip,
-    NEW.login_date,
-    NEW.login_fail_ip,
-    NEW.login_fail_date,
-    NEW.login_fail_cnt,
     NEW.last_update_ip,
     NEW.last_update_date,
     NEW.version_no
