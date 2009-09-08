@@ -11,4 +11,6 @@ public interface IMemberInfoBusinessLogic {
 	public int updateMemberInfo(MemberInfo memberInfo);
 
 	public MemberInfo showDetail(MemberInfo memberInfo);
+	
+	public int countMembersByIPInTime(String clientIp, int checkTime);
 }
