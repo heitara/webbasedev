@@ -12,7 +12,7 @@ public class InquiryInfo extends BaseEntity {
 	private static final long serialVersionUID = -6447552112880293012L;
 
 	private Long inquiryNum;
-	private Date inquiryYmd;
+	private Date inquiryDate;
 	private String memId;
 	private String companyName;
 	private String companyMeidiaName;
@@ -25,7 +25,7 @@ public class InquiryInfo extends BaseEntity {
 	private Integer inquiryKindCode;
 	private String inquiryObject;
 	private String inquiryContents;
-	private Date responseYmd;
+	private Date responseDate;
 	private String responseSubject;
 	private String responseContents;
 	private String fromSubject;
@@ -52,21 +52,6 @@ public class InquiryInfo extends BaseEntity {
 	 */
 	public void setInquiryNum(Long inquiryNum) {
 		this.inquiryNum = inquiryNum;
-	}
-
-	/**
-	 * @return the inquiryYmd
-	 */
-	public Date getInquiryYmd() {
-		return inquiryYmd;
-	}
-
-	/**
-	 * @param inquiryYmd
-	 *            the inquiryYmd to set
-	 */
-	public void setInquiryYmd(Date inquiryYmd) {
-		this.inquiryYmd = inquiryYmd;
 	}
 
 	/**
@@ -250,18 +235,31 @@ public class InquiryInfo extends BaseEntity {
 	}
 
 	/**
-	 * @return the responseYmd
+	 * @return the inquiryDate
 	 */
-	public Date getResponseYmd() {
-		return responseYmd;
+	public Date getInquiryDate() {
+		return inquiryDate;
 	}
 
 	/**
-	 * @param responseYmd
-	 *            the responseYmd to set
+	 * @param inquiryDate the inquiryDate to set
 	 */
-	public void setResponseYmd(Date responseYmd) {
-		this.responseYmd = responseYmd;
+	public void setInquiryDate(Date inquiryDate) {
+		this.inquiryDate = inquiryDate;
+	}
+
+	/**
+	 * @return the responseDate
+	 */
+	public Date getResponseDate() {
+		return responseDate;
+	}
+
+	/**
+	 * @param responseDate the responseDate to set
+	 */
+	public void setResponseDate(Date responseDate) {
+		this.responseDate = responseDate;
 	}
 
 	/**
