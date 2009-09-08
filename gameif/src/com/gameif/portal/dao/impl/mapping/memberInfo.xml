@@ -24,20 +24,21 @@
 		<result property="birthYmd" column="birth_ymd" />
 		<result property="divisCd" column="divis_cd" />
 		<result property="occupCd" column="occup_cd" />
-		<result property="area" column="area" />
+		<result property="cityName" column="city_name" />
+		<result property="buildingName" column="building_name" />
 		<result property="telNum" column="tel_num" />
 		<result property="mailmagReqCd" column="mailmag_req_cd" />
 		<result property="mailmagObjCd" column="mailmag_obj_cd" />
 		<result property="note" column="note" />
 		<result property="entryIp" column="entry_ip" />
-		<result property="entryYmd" column="entry_ymd" />
-		<result property="loginYmdIp" column="login_ymd_ip" />
-		<result property="loginYmd" column="login_ymd" />
+		<result property="entryDate" column="entry_date" />
+		<result property="loginIp" column="login_ip" />
+		<result property="loginDate" column="login_date" />
 		<result property="loginFailIp" column="login_fail_ip" />
-		<result property="loginFailYmd" column="login_fail_ymd" />
+		<result property="loginFailDate" column="login_fail_date" />
 		<result property="loginFailCnt" column="login_fail_cnt" />
 		<result property="lastUpdateIp" column="last_update_ip" />
-		<result property="lastUpdateYmd" column="last_update_ymd" />
+		<result property="lastUpdateDate" column="last_update_date" />
 		<result property="versionNo" column="version_no" />
 	</resultMap>
 
@@ -62,20 +63,21 @@
 			birth_ymd,
 			divis_cd,
 			occup_cd,
-			area,
+			city_name,
+			building_name,
 			tel_num,
 			mailmag_req_cd,
 			mailmag_obj_cd,
 			note,
 			entry_ip,
-			entry_ymd,
-			login_ymd_ip,
-			login_ymd,
+			entry_date,
+			login_ip,
+			login_date,
 			login_fail_ip,
-			login_fail_ymd,
+			login_fail_date,
 			login_fail_cnt,
 			last_update_ip,
-			last_update_ymd,
+			last_update_date,
 			version_no
 		FROM
 			member_info
@@ -111,14 +113,14 @@
 			mailmag_obj_cd,
 			note,
 			entry_ip,
-			entry_ymd,
-			login_ymd_ip,
-			login_ymd,
+			entry_date,
+			login_ip,
+			login_date,
 			login_fail_ip,
-			login_fail_ymd,
+			login_fail_date,
 			login_fail_cnt,
 			last_update_ip,
-			last_update_ymd,
+			last_update_date,
 			version_no)
 		VALUES
 			(
@@ -139,20 +141,21 @@
 			#birthYmd#,
 			#divisCd#,
 			#occupCd#,
-			#area#,
+			#cityName#,
+			#buildingName#,
 			#telNum#,
 			#mailmagReqCd#,
 			#mailmagObjCd#,
 			#note#,
 			#entryIp#,
-			#entryYmd#,
-			#loginYmdIp#,
-			#loginYmd#,
+			#entryDate#,
+			#loginIp#,
+			#loginDate#,
 			#loginFailIp#,
-			#loginFailYmd#,
+			#loginFailDate#,
 			#loginFailCnt#,
 			#lastUpdateIp#,
-			#lastUpdateYmd#,
+			#lastUpdateDate#,
 			#versionNo#
 			)
 	]]>
