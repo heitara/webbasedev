@@ -6,6 +6,7 @@
 	<typeAlias alias="inviteInfo" type="com.gameif.portal.entity.InviteInfo" />
 	
 	<resultMap class="inviteInfo" id="inviteResult">
+		<result property="inviteId" column="invite_id"/>
 		<result property="memNum" column="mem_num"/>
 		<result property="inviteMailFrom" column="invite_mail_from"/>
 		<result property="inviteMailTo" column="invite_mail_to"/>
