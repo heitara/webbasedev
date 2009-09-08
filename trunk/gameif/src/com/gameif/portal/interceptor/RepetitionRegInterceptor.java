@@ -41,21 +41,21 @@ public class RepetitionRegInterceptor extends CommonInterceptor {
 	}
 
 	/**
-	 * “¯‚¶‚h‚o‚ÅucheckTimevŠÔˆÈ“à‚ÉA‰ïˆõ“o˜^‚ğ˜A‘±‚µ‚ÄurepetitionMaxv‰ñs‚Á‚½ê‡AƒGƒ‰[
+	 * åŒã˜ï¼©ï¼°ã§ã€ŒcheckTimeã€æ™‚é–“ä»¥å†…ã«ã€ä¼šå“¡ç™»éŒ²ã‚’é€£ç¶šã—ã¦ã€ŒrepetitionMaxã€å›è¡Œã£ãŸå ´åˆã€ã‚¨ãƒ©ãƒ¼
 	 */
 	@Override
 	public String intercept(ActionInvocation ai) throws Exception {
 		
 		String clientIp = ServletActionContext.getRequest().getRemoteAddr();
 		
-		//TODO: ‡@memberInfoBusinessLogic.countMembersByIPInTime()ƒƒ\ƒbƒh—vÀ‘•
-		//TODO: ‡Arepetion_error‚ÉŠY“–‚·‚éresult—v’è‹`AƒGƒ‰[‰æ–Ê—vì¬
+		//TODO: â‘ memberInfoBusinessLogic.countMembersByIPInTime()ãƒ¡ã‚½ãƒƒãƒ‰è¦å®Ÿè£…
+		//TODO: â‘¡repetion_errorã«è©²å½“ã™ã‚‹resultè¦å®šç¾©ã€ã‚¨ãƒ©ãƒ¼ç”»é¢è¦ä½œæˆ
 		int memberNum = 0;
 		//int memberNum = memberInfoBusinessLogic.countMembersByIPInTime(clientIp, checkTime);
 		
 		if (memberNum >= repetitionMax) {
 			
-			logger.warn(getRequestInfo(ai) + " | ‰ïˆõ“o˜^˜A‘±‚µ‚Äs‚¢‚Ü‚µ‚½B");
+			logger.warn(getRequestInfo(ai) + " | ä¼šå“¡ç™»éŒ²é€£ç¶šã—ã¦è¡Œã„ã¾ã—ãŸã€‚");
 			return "repetion_error";
 		}
 		
