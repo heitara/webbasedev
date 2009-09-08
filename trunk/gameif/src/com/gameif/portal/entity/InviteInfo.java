@@ -18,6 +18,7 @@ public class InviteInfo extends BaseEntity {
 	private Date inviteDate;
 	private String inviteMsg;
 	private Integer titleId;
+	private String inviteStatus;
 	private Date friendCreateDate;
 	private Date createdDate;
 	private String createdUser;
@@ -96,6 +97,20 @@ public class InviteInfo extends BaseEntity {
 	 */
 	public void setInviteDate(Date inviteDate) {
 		this.inviteDate = inviteDate;
+	}
+
+	/**
+	 * @return the inviteStatus
+	 */
+	public String getInviteStatus() {
+		return inviteStatus;
+	}
+
+	/**
+	 * @param inviteStatus the inviteStatus to set
+	 */
+	public void setInviteStatus(String inviteStatus) {
+		this.inviteStatus = inviteStatus;
 	}
 
 	/**
