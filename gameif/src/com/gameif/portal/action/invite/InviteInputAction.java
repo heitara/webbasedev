@@ -108,7 +108,7 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 
 		info = new KeyValueInfo();
 		info.setKey("01");
-		info.setValue("��������פ����`�ब����ޤ���");
+		info.setValue("test01");
 
 		list.add(info);
 

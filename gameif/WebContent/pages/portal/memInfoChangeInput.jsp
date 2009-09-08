@@ -28,13 +28,13 @@
 			<dd>
 				<s:form name="frm_change_mem" method="POST" action="updateMember" cssClass="entry">
 					<dl>
-						<dt><s:property value="%{getText('mem_id')}" /></dt>
+						<dt><label for="giid">アカウントID(GI-ID)：</label></dt>
 						<dd><span class="item">boxser</span></dd>
 						<dt></dt>
 						<dd>&nbsp;</dd>
 
 						<dt>
-							<span class="required">*</span><s:property value="%{getText('mem_name')}" />
+							<span class="required">*</span><label for="nickname">ニックネーム：</label>
 						</dt>
 						<dd>
 							<s:textfield name="memName" maxlength="20" ></s:textfield>
@@ -43,7 +43,7 @@
 
 						</dd>
 						<dt>
-							<span class="required">*</span><s:property value="%{getText('mail_pc')}" />
+							<span class="required">*</span><label for="mail">メールアドレス：</label>
 						</dt>
 						<dd>
 							<s:textfield name="mailPc" maxlength="100" cssClass="ime_mode_n"></s:textfield>
@@ -56,18 +56,18 @@
 						<dt></dt>
 						<dd>&nbsp;</dd>
 
-						<dt><s:property value="%{getText('kanji_name')}" /></dt>
+						<dt><label for="fname">氏名：</label></dt>
 						<dd>
-							<s:textfield name="kanji_fname" maxlength="10" cssClass="small"></s:textfield>
-							<s:textfield name="kanji_lname" maxlength="10" cssClass="small"></s:textfield>
+							<s:textfield name="kanjiFname" maxlength="10" cssClass="small"></s:textfield>
+							<s:textfield name="kanjiLname" maxlength="10" cssClass="small"></s:textfield>
 							<span class="explain">全角漢字で入力してください。</span>
 
 						</dd>
 
-						<dt><s:property value="%{getText('kana_name')}" /></dt>
+						<dt><label for="fname">フリカナ：</label></dt>
 						<dd>
-							<s:textfield name="kana_fname" maxlength="10" cssClass="small"></s:textfield>
-							<s:textfield name="kana_lname" maxlength="10" cssClass="small"></s:textfield>
+							<s:textfield name="kanaFname" maxlength="10" cssClass="small"></s:textfield>
+							<s:textfield name="kanaLname" maxlength="10" cssClass="small"></s:textfield>
 							<span class="explain">全角仮名で入力してください。</span>
 						</dd>
 
@@ -75,124 +75,66 @@
 						<dt></dt>
 						<dd>&nbsp;</dd>
 						
-						<dt><span class="required">*</span><s:property value="%{getText('sex_cd')}" /></dt>
+						<dt><span class="required">*</span><label for="mail">性別：</label></dt>
 						<dd>
 							<s:radio name="sexCd" list="listSexCd" listKey="key" listValue="value" cssClass="big"/>
 						</dd>
 						
-						<dt><span class="required">*</span><s:property value="%{getText('birth_ymd')}" /></dt>
+						<dt><span class="required">*</span><label for="birth_y">生年月日：</label></dt>
 						<dd>
-							<s:textfield name="birth_year" maxlength="4" cssClass="ime_mode_n min"></s:textfield>
-							<s:property value="%{getText('birth_year')}" />
-							<s:select name="birth_month" 
+							<s:textfield name="birthYear" maxlength="4" cssClass="ime_mode_n min"></s:textfield>年
+							<s:select name="birthMonth" 
 								list="#{'1':'1','2':'2','3':'4','4':'4','5':'5','6':'6','7':'7',
 										'8':'8','9':'9','10':'10','11':'11','12':'12'}"
-								listKey="key" listValue="value" cssClass="min" />
-							<s:property value="%{getText('birth_month')}" />
-							<s:select name="birth_day" 
+								listKey="key" listValue="value" cssClass="min" />月
+							<s:select name="birthDay" 
 								list="#{'1':'1','2':'2','3':'4','4':'4','5':'5','6':'6','7':'7',
 										'8':'8','9':'9','10':'10','11':'11','12':'12','13':'13',
 										'14':'14','15':'15','16':'16','17':'17','18':'18','19':'19',
 										'20':'20','21':'21','22':'22','23':'23','24':'24','25':'25',
 										'26':'26','27':'27','28':'28','29':'29','30':'30','31':'31',}"
-								listKey="key" listValue="value" cssClass="min" />
-							<s:property value="%{getText('birth_day')}" />
+								listKey="key" listValue="value" cssClass="min" />日
 						</dd>
-						<dt><span class="required">*</span><s:property value="%{getText('occup_cd')}" /></dt>
+						<dt><span class="required">*</span><label for="occupation">職業：</label></dt>
 						<dd>
 							<s:radio name="occupCd" list="listOccupCd" listKey="key" listValue="value" cssClass="big"/>
 						</dd>
 						<dt></dt>
 						<dd>&nbsp;</dd>
 						
-						<dt><span class="required">*</span> <label for="division">都道府県：</label></dt>
+						<dt><span class="required">*</span><label for="division">都道府県：</label></dt>
 						<dd>
-							<select id="division" name="division">
-
-								<option value="01">北海道</option>
-								<option value="02">青森県</option>
-								<option value="03">岩手県</option>
-								<option value="04">宮城県</option>
-								<option value="05">秋田県</option>
-								<option value="06">山形県</option>
-
-								<option value="07">福島県</option>
-								<option value="08">茨城県</option>
-								<option value="09">栃木県</option>
-								<option value="10">群馬県</option>
-								<option value="11">埼玉県</option>
-								<option value="12" selected="selected">千葉県</option>
-
-								<option value="13">東京都</option>
-								<option value="14">神奈川県</option>
-								<option value="15">新潟県</option>
-								<option value="16">富山県</option>
-								<option value="17">石川県</option>
-								<option value="18">福井県</option>
-
-								<option value="19">山梨県</option>
-								<option value="20">長野県</option>
-								<option value="21">岐阜県</option>
-								<option value="22">静岡県</option>
-								<option value="23">愛知県</option>
-								<option value="24">三重県</option>
-
-								<option value="25">滋賀県</option>
-								<option value="26">京都府</option>
-								<option value="27">大阪府</option>
-								<option value="28">兵庫県</option>
-								<option value="29">奈良県</option>
-								<option value="30">和歌山県</option>
-
-								<option value="31">鳥取県</option>
-								<option value="32">島根県</option>
-								<option value="33">岡山県</option>
-								<option value="34">広島県</option>
-								<option value="35">山口県</option>
-								<option value="36">徳島県</option>
-
-								<option value="37">香川県</option>
-								<option value="38">愛媛県</option>
-								<option value="39">高知県</option>
-								<option value="40">福岡県</option>
-								<option value="41">佐賀県</option>
-								<option value="42">長崎県</option>
-
-								<option value="43">熊本県</option>
-								<option value="44">大分県</option>
-								<option value="45">宮崎県</option>
-								<option value="46">鹿児島県</option>
-								<option value="47">沖縄県</option>
-								<option value="48">海外</option>
-
-							</select>
+							<s:select name="divisCd" list="listDivision" listKey="key" listValue="value"/>
 						</dd>
 
 						<dt><label for="city">市区町村：</label></dt>
 						<dd>
-							<input type="text" id="city" name="city" maxlength="50"/><br/>
+							<s:textfield name="cityName" maxlength="50"></s:textfield><br/>
 							<span class="explain">全角文字で入力してください。</span>
 						</dd>
 
 						<dt><label for="house">番地建物：</label></dt>
 						<dd>
-							<input type="text" id="house" name="house" maxlength="50"/><br/>
+							<s:textfield name="houseName" maxlength="50"></s:textfield><br/>
 							<span class="explain">全角文字で入力してください。</span>
 						</dd>
 						<dt><label for="tel">電話番号：</label></dt>
 						<dd>
-
-							<input type="text" id="tel" name="tel" maxlength="15" class="ime_mode_n"/><br/>
+							<s:textfield name="telNum" maxlength="15" cssClass="ime_mode_n"></s:textfield><br/>
 							<span class="explain">半角数字で入力してください。</span>
 						</dd>
 						<dt></dt>
 						<dd>&nbsp;</dd>
 
-						<dd><input type="checkbox" id="magazine" name="magazine" value="1"/> <label for="magazine">メルマガを受信する。</label></dd>
+						<dd>
+							<s:checkbox name="mailmagReqCd" value="false"/>
+							<label for="magazine">メルマガを受信する。</label>
+						</dd>
 
 					</dl>
 					<div class="submit">
-						<input type="submit" value="更新" class="submit"/> <input type="reset" value="クリア" class="submit"/>
+						<s:submit value="更新" cssClass="submit"></s:submit>
+						<s:submit value="クリア" cssClass="submit"></s:submit>
 					</div>
 
 				</s:form>

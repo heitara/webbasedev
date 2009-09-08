@@ -5,8 +5,6 @@
 <s:i18n name="characters">
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<meta content="index, follow" name="robots"/>
 	<meta content="ゲームイフ,ブラウザゲーム,webgame,大人数同時プレイブラウザゲーム,オンラインゲーム,パブリッシング,プラットフォーム" name="keywords"/>
 	<meta content="ブラウザゲーム(WEBGAME)のポータルサイト" name="description"/>
 	<title><s:property value="%{getText('new_mem_tilte')}" /></title>
@@ -24,11 +22,11 @@
 	<div id="page_main_box">
 		<div id="page_main_main">
 			<dl class="light_box tspace_n">
-				<dt><strong><s:property value="%{getText('new_mem_tilte')}" /></strong><span></span></dt>
+				<dt><strong>会員登録</strong><span></span></dt>
 				<dd>
 					<s:form name="frm_mem_edit" method="POST" cssClass="entry">
 						<dl>
-							<dt><span class="required">*</span><s:property value="%{getText('mem_id')}" /></dt>
+							<dt><span class="required">*</span><label for="giid">アカウントID(GI-ID)：</label></dt>
 							<dd>
 								<s:textfield name="memId" maxlength="20" cssClass="ime_mode_n" />
 								<img src="images/icn_check_ok.gif" class="input_check" align="top"/>
@@ -36,7 +34,7 @@
 								<span class="explain">6～20桁の半角英数字で入力してください。</span>
 							</dd>
 							
-							<dt><span class="required">*</span><s:property value="%{getText('passwd')}" /></dt>
+							<dt><span class="required">*</span><label for="passwd">パスワード：</label></dt>
 							<dd>
 	
 								<s:password name="memPwd" maxlength="20" cssClass="ime_mode_n" />
@@ -45,7 +43,7 @@
 								<span class="explain">6～20桁の半角英数字で入力してください。</span>
 							</dd>
 							
-							<dt><span class="required">*</span><s:property value="%{getText('confirm_passwd')}" /></dt>
+							<dt><span class="required">*</span><label for="passwd_crm">パスワード再入力：</label></dt>
 							<dd>
 								<s:password name="confirmPwd" maxlength="20" cssClass="ime_mode_n" />
 								<img src="images/icn_check_ok.gif" class="input_check" align="top"/>
@@ -56,14 +54,14 @@
 							<dt></dt>
 							<dd>&nbsp;</dd>
 	
-							<dt><span class="required">*</span><s:property value="%{getText('nick_name')}" /></dt>
+							<dt><span class="required">*</span><label for="nickname">ニックネーム：</label></dt>
 							<dd>
 								<s:textfield name="nickName" maxlength="20" />
 								<img src="images/icn_check_ok.gif" class="input_check" align="top"/><br/>
 								<span class="explain">全角文字で入力してください。</span>
 							</dd>
 							
-							<dt><span class="required">*</span><s:property value="%{getText('mailPc')}" /></dt>
+							<dt><span class="required">*</span><label for="mail">メールアドレス：</label></dt>
 							<dd>
 								<s:textfield name="mailPc" maxlength="100" cssClass="ime_mode_n" />
 								<img src="images/icn_check_ng.gif" class="input_check" align="top"/>
@@ -74,12 +72,12 @@
 							<dt></dt>
 							<dd>&nbsp;</dd>
 							
-							<dt><span class="required">*</span><s:property value="%{getText('question')}" /></dt>
+							<dt><span class="required">*</span><label for="question">秘密質問：</label></dt>
 							<dd>
 								<s:select name="questionCd" list="listQuestion" listKey="key" listValue="value" />
 							</dd>
 							
-							<dt><span class="required">*</span><s:property value="%{getText('answer')}" /></dt>
+							<dt><span class="required">*</span><label for="answer">秘密質問の答え：</label></dt>
 							<dd>
 								<s:textfield name="answer" maxlength="20" />
 								<span class="explain">2～10桁の全角文字で入力してください。</span>
@@ -88,7 +86,7 @@
 							<dt></dt>
 							<dd>&nbsp;</dd>
 	
-							<dt><span class="required">*</span><s:property value="%{getText('capture')}" /></dt>
+							<dt><span class="required">*</span><label for="capture">画像認証：</label></dt>
 							<dd>
 								<img src="/images/kaptcha.jpg"/>
 								<img id="newKaptcha" src="/images/capture_update.gif" onclick="RefreshImg()" /><br/>
@@ -103,21 +101,21 @@
 							<dt></dt>
 							<dd>
 								<s:checkbox name="magazine" value="0"/>
-								<s:property value="%{getText('magazine1')}" />
+								<label for="magazine">メルマガを受信する。</label>
 							</dd>
 								
 							<dt></dt>
 							<dd>
 								<s:checkbox name="agreement" value="0"/>
-								<s:property value="%{getText('magazine2')}" />
+								<label for="agreement">利用規約に同意する。</label>
 								(<a href="#" class="agreement">利用規約</a> )
 							</dd>
 							<dt></dt>
 							<dd></dd>
 						</dl>
 						<div class="submit">
-							<s:submit action="createMember" formId="frm_mem_edit" value="%{getText('submit')}"></s:submit>
-							<s:reset action="createMember" value="%{getText('clear')}"></s:reset>
+							<s:submit action="createMember" formId="frm_mem_edit" value="登録"></s:submit>
+							<s:reset action="createMember" value="クリア"></s:reset>
 						</div>
 					</s:form>
 				</dd>
