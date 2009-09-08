@@ -8,8 +8,7 @@ public interface IMemberLoginInfoDao extends IBaseDao<MemberLoginInfo, MemberLog
 	
 	/**
 	 * 同じIPで指定時間内に、会員連続登録回数を計算する
-	 * @param clientIp
-	 * @param checkTime
+	 * @param searchCondition
 	 * @return
 	 */
 	public int selectCountByIPAndTime(ComSearchCondition searchCondition);
