@@ -18,6 +18,9 @@
 		<property name="memberInfoDao">
 			<ref bean="memberInfoDao" />
 		</property>
+		<property name="memberLoginInfoDao">
+			<ref bean="memberLoginInfoDao" />
+		</property>
 	</bean>
 	
 	<!-- inquiryInfoBusinessLogic -->
@@ -33,6 +36,23 @@
 		class="com.gameif.portal.businesslogic.impl.InviteInfoBusinessLogicImpl">
 		<property name="inviteInfoDao">
 			<ref bean="inviteInfoDao" />
+		</property>
+	</bean>
+	
+	<!-- masterInfoBusinessLogic -->
+	<bean id="masterInfoBusinessLogic"
+		class="com.gameif.portal.businesslogic.impl.MasterInfoBusinessLogicImpl">
+		<property name="divisionMstDao">
+			<ref bean="divisionMstDao" />
+		</property>
+		<property name="occupationMstDao">
+			<ref bean="occupationMstDao" />
+		</property>
+		<property name="questionMstDao">
+			<ref bean="questionMstDao" />
+		</property>
+		<property name="titleMstDao">
+			<ref bean="titleMstDao" />
 		</property>
 	</bean>
 </beans>

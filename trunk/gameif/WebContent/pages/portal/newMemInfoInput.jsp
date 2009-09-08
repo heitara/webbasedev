@@ -26,6 +26,12 @@
 				<dd>
 					<s:form name="frm_mem_edit" method="POST" cssClass="entry">
 						<dl>
+							<dt></dt>
+							<dd>
+								<s:actionerror />
+								<s:actionmessage />
+							</dd>
+							
 							<dt><span class="required">*</span><label for="giid">アカウントID(GI-ID)：</label></dt>
 							<dd>
 								<s:textfield name="memId" maxlength="20" cssClass="ime_mode_n" />
