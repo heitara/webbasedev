@@ -5,6 +5,19 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
 
+	<bean id="actionLoggerInterceptor" class="com.gameif.portal.interceptor.ActionLogInterceptor" />
+	<!-- actionLoggerInterceptor：同ＩＰで短時間以内に連続して会員登録を行った場合、制限をかける -->
+	<bean id="repetitionRegInterceptor" class="com.gameif.portal.interceptor.RepetitionRegInterceptor">
+		<!-- 連続登録する最大回数 -->
+		<property name="repetitionMax">
+			<value>5</value>
+		</property>
+		<!-- チェックする時間単位（秒） -->
+		<property name="checkTime">
+			<value>300</value>
+		</property>
+	</bean>
+	
 	<!-- mainMenuAction -->
 	<bean id="mainMenuAction" class="com.gameif.portal.action.menu.MainMenu">
 	</bean>
