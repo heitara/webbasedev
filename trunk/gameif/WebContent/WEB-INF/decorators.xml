@@ -11,9 +11,10 @@
     -->
 
     <decorator name="layout" page="layout.jsp">
-        <pattern>*.action</pattern>
+        <pattern>/*</pattern>
     </decorator>
     <excludes>
         <pattern>/mem_login.jsp</pattern>
+        <pattern>/header.jsp</pattern>
     </excludes>
 </decorators>

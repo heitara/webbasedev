@@ -19,16 +19,16 @@
 		<div id="page_main_box">
 			<div id="page_main_main">
 				<dl class="light_box tspace_n">
-					<dt><strong><s:property value="%{getText('invite_bar_msg')}" /></strong><span><a href="friendhist.html"><s:property value="%{getText('invite_bar_history')}" /></a></span></dt>
+					<dt><strong>友達紹介</strong><span><a href="friendhist.html">► 友達紹介履歴</a></span></dt>
 					<dd>
 						<s:form action="saveInvite" method="post" cssClass="entry">
 							<dl>
-								<dt><span class="required">*</span><s:property value="%{getText('invite_from')}" /></dt>
+								<dt><span class="required">*</span><label for="mail_from">紹介者のメールアドレス：</label></dt>
 								<dd>
 									<s:textfield name="inviteFrom" maxlength="100" cssClass="big ime_mode_n"/>
 								</dd>
 								
-								<dt><span class="required">*</span><s:property value="%{getText('invite_to')}" /></dt>
+								<dt><span class="required">*</span><label for="friends">友達のメールアドレス：</label></dt>
 								<dd>
 									<s:textarea name="inviteTo" rows="8" cssClass="big ime_mode_n f_left"/>
 									<div class=" mail_import">
@@ -45,29 +45,28 @@
 								<dt></dt>
 								<dd>&nbsp;</dd>
 								
-								<dt><span class="required">*</span><s:property value="%{getText('invite_title')}" /></dt>
+								<dt><span class="required">*</span><label for="game">紹介するゲーム：</label></dt>
 								<dd>
 									<s:select name="titleId" list="listInviteTitle" listKey="key" listValue="value" cssClass="big"/>
 									<br/>
-									<span class="explain"><s:property value="%{getText('invite_title_msg')}" /></span>
+									<span class="explain">紹介するゲームを選んでください。</span>
 								</dd>
 								
-								<dt><s:property value="%{getText('invite_msg')}" /></dt>
+								<dt><label for="message_tmpl">招待メッセージ：</label></dt>
 								<dd>
-		
 									<s:select name="titleTemplate" list="listInviteTemplate" listKey="key" listValue="value" cssClass="big"/>
 									<br/>
-									<span class="explain"><s:property value="%{getText('invite_template_msg')}" /></span>
+									<span class="explain">テンプレートから選ぶと、大枠が自動的に入力されますので、<br/>入力時間を省けられます。</span>
 								</dd>
 								<dt/>
 								<dd>
 									<s:textarea name="inviteMsg" rows="8" cssClass="big ime_mode_n"/><br/>
-									<span class="explain"><s:property value="%{getText('invite_confirm_msg')}" /></span>
+									<span class="explain">招待メールの本文を入力してください。</span>
 								</dd>
 		
 							</dl>
 							<div class="submit">
-								<s:submit value="%{getText('sendMail')}" cssClass="submit"></s:submit><s:submit value="%{getText('clear')}" cssClass="submit"></s:submit>
+								<s:submit value="送信" cssClass="submit"></s:submit><s:submit value="クリア" cssClass="submit"></s:submit>
 							</div>
 		
 						</s:form>
