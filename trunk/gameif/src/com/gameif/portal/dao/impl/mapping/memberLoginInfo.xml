@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="memberLoginInfo">
+	<typeAlias alias="memberLoginInfo" type="com.gameif.portal.entity.MemberLoginInfo" />
+	<typeAlias alias="searchCondition" type="com.gameif.common.bean.ComSearchCondition" />
+
+	<resultMap class="com.gameif.portal.entity.MemberLoginInfo" id="memberLoginResult">
+		<result property="memNum" column="mem_num" />
+		<result property="memId" column="mem_id" />
+		<result property="nickName" column="nick_name" />
+		<result property="memPwd" column="mem_pwd" />
+		<result property="loginIp" column="login_ip" />
+		<result property="loginDate" column="login_date" />
+		<result property="loginFailIp" column="login_fail_ip" />
+		<result property="loginFailDate" column="login_fail_date" />
+		<result property="loginFailCnt" column="login_fail_cnt" />
+		<result property="lastUpdateIp" column="last_update_ip" />
+		<result property="lastUpdateDate" column="last_update_date" />
+		<result property="versionNo" column="version_no" />
+	</resultMap>
+
+	<select id="selectByKey" parameterClass="memberLoginInfo" resultMap="memberLoginResult">   
+        <![CDATA[
+        SELECT
+			mem_num,
+			mem_id,
+			nick_name,
+			mem_pwd,
+			login_ip,
+			login_date,
+			login_fail_ip,
+			login_fail_date,
+			login_fail_cnt,
+			last_update_ip,
+			last_update_date,
+			version_no
+		FROM
+			member_login_info
+		WHERE
+			mem_id = #memId#
+        ]]>
+	</select>
+
+	<insert id="save" parameterClass="memberLoginInfo">
+	<![CDATA[
+		INSERT INTO member_login_info
+			(
+			mem_num,
+			mem_id,
+			nick_name,
+			mem_pwd,
+			login_ip,
+			login_date,
+			login_fail_ip,
+			login_fail_date,
+			login_fail_cnt,
+			last_update_ip,
+			last_update_date,
+			version_no)
+		VALUES
+			(
+			#memNum#,
+			#memId#,
+			#nickName#,
+			#memPwd#,
+			#loginIp#,
+			#loginDate#,
+			#loginFailIp#,
+			#loginFailDate#,
+			#loginFailCnt#,
+			#lastUpdateIp#,
+			#lastUpdateDate#,
+			#versionNo#
+			)
+	]]>
+	</insert>
+
+	<update id="update" parameterClass="searchCondition" >
+      <![CDATA[
+		UPDATE
+			member_info
+		SET
+		    mem_pwd = #memPwd#,
+		    mail_pc = #mailPc#
+		WHERE
+			mem_id = #memId#
+      ]]>
+	</update>
+
+	<select id="selectCountByIPAndTime" parameterClass="searchCondition"  resultClass="int">
+      <![CDATA[
+        SELECT
+			count(mem_num)
+		FROM
+			member_login_hist
+		WHERE
+			last_update_date >= DATE_SUB(now(), INTERVAL #checkTime# SECOND)
+		AND last_update_ip = #clientIp#
+      ]]>
+	</select>
+
+</sqlMap>
