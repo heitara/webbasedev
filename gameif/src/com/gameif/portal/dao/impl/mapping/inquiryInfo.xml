@@ -15,7 +15,7 @@
 	
 	<insert id = "save" parameterClass="inquiryInfo">
 		INSERT INTO inquiry_info
-			(inquiry_ymd,
+			(inquiry_date,
 			user_name,
 			user_mailadd,
 			inquiry_kind_code,
