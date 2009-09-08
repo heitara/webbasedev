@@ -1,7 +1,7 @@
-create table member_infn (
+create table member_info (
 mem_num bigint not null auto_increment,
 mem_id varchar(20) not null,
-mem_name varchar(32),
+nick_name varchar(32),
 mem_pwd varchar(32) not null,
 mem_kind_cd varchar(1),
 mem_atbt_cd varchar(1) not null,
