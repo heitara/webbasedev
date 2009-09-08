@@ -115,7 +115,7 @@
 
 						<dt><label for="house">番地建物：</label></dt>
 						<dd>
-							<s:textfield name="houseName" maxlength="50"></s:textfield><br/>
+							<s:textfield name="buildingName" maxlength="50"></s:textfield><br/>
 							<span class="explain">全角文字で入力してください。</span>
 						</dd>
 						<dt><label for="tel">電話番号：</label></dt>

@@ -29,20 +29,21 @@ public class MemberInfo extends BaseEntity {
 	private Date birthYmd;
 	private Integer divisCd;
 	private Integer occupCd;
-	private String area;
+	private String cityName;
+	private String buildingName;
 	private String telNum;
 	private String mailmagReqCd;
 	private String mailmagObjCd;
 	private String note;
 	private String entryIp;
-	private Date entryYmd;
-	private String loginYmdIp;
-	private Date loginYmd;
+	private Date entryDate;
+	private String loginIp;
+	private Date loginDate;
 	private String loginFailIp;
-	private Date loginFailYmd;
+	private Date loginFailDate;
 	private Integer loginFailCnt;
 	private String lastUpdateIp;
-	private Date lastUpdateYmd;
+	private Date lastUpdateDate;
 	private Integer versionNo;
 
 	private String newPwd;
@@ -322,21 +323,6 @@ public class MemberInfo extends BaseEntity {
 	}
 
 	/**
-	 * @return the area
-	 */
-	public String getArea() {
-		return area;
-	}
-
-	/**
-	 * @param area
-	 *            the area to set
-	 */
-	public void setArea(String area) {
-		this.area = area;
-	}
-
-	/**
 	 * @return the telNum
 	 */
 	public String getTelNum() {
@@ -412,51 +398,6 @@ public class MemberInfo extends BaseEntity {
 	}
 
 	/**
-	 * @return the entryYmd
-	 */
-	public Date getEntryYmd() {
-		return entryYmd;
-	}
-
-	/**
-	 * @param entryYmd
-	 *            the entryYmd to set
-	 */
-	public void setEntryYmd(Date entryYmd) {
-		this.entryYmd = entryYmd;
-	}
-
-	/**
-	 * @return the loginYmdIp
-	 */
-	public String getLoginYmdIp() {
-		return loginYmdIp;
-	}
-
-	/**
-	 * @param loginYmdIp
-	 *            the loginYmdIp to set
-	 */
-	public void setLoginYmdIp(String loginYmdIp) {
-		this.loginYmdIp = loginYmdIp;
-	}
-
-	/**
-	 * @return the loginYmd
-	 */
-	public Date getLoginYmd() {
-		return loginYmd;
-	}
-
-	/**
-	 * @param loginYmd
-	 *            the loginYmd to set
-	 */
-	public void setLoginYmd(Date loginYmd) {
-		this.loginYmd = loginYmd;
-	}
-
-	/**
 	 * @return the loginFailIp
 	 */
 	public String getLoginFailIp() {
@@ -469,21 +410,6 @@ public class MemberInfo extends BaseEntity {
 	 */
 	public void setLoginFailIp(String loginFailIp) {
 		this.loginFailIp = loginFailIp;
-	}
-
-	/**
-	 * @return the loginFailYmd
-	 */
-	public Date getLoginFailYmd() {
-		return loginFailYmd;
-	}
-
-	/**
-	 * @param loginFailYmd
-	 *            the loginFailYmd to set
-	 */
-	public void setLoginFailYmd(Date loginFailYmd) {
-		this.loginFailYmd = loginFailYmd;
 	}
 
 	/**
@@ -517,21 +443,6 @@ public class MemberInfo extends BaseEntity {
 	}
 
 	/**
-	 * @return the lastUpdateYmd
-	 */
-	public Date getLastUpdateYmd() {
-		return lastUpdateYmd;
-	}
-
-	/**
-	 * @param lastUpdateYmd
-	 *            the lastUpdateYmd to set
-	 */
-	public void setLastUpdateYmd(Date lastUpdateYmd) {
-		this.lastUpdateYmd = lastUpdateYmd;
-	}
-
-	/**
 	 * @return the versionNo
 	 */
 	public Integer getVersionNo() {
@@ -559,6 +470,104 @@ public class MemberInfo extends BaseEntity {
 	 */
 	public void setNewPwd(String newPwd) {
 		this.newPwd = newPwd;
+	}
+
+	/**
+	 * @return the cityName
+	 */
+	public String getCityName() {
+		return cityName;
+	}
+
+	/**
+	 * @param cityName the cityName to set
+	 */
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
+	}
+
+	/**
+	 * @return the buildingName
+	 */
+	public String getBuildingName() {
+		return buildingName;
+	}
+
+	/**
+	 * @param buildingName the buildingName to set
+	 */
+	public void setBuildingName(String buildingName) {
+		this.buildingName = buildingName;
+	}
+
+	/**
+	 * @return the entryDate
+	 */
+	public Date getEntryDate() {
+		return entryDate;
+	}
+
+	/**
+	 * @param entryDate the entryDate to set
+	 */
+	public void setEntryDate(Date entryDate) {
+		this.entryDate = entryDate;
+	}
+
+	/**
+	 * @return the loginIp
+	 */
+	public String getLoginIp() {
+		return loginIp;
+	}
+
+	/**
+	 * @param loginIp the loginIp to set
+	 */
+	public void setLoginIp(String loginIp) {
+		this.loginIp = loginIp;
+	}
+
+	/**
+	 * @return the loginDate
+	 */
+	public Date getLoginDate() {
+		return loginDate;
+	}
+
+	/**
+	 * @param loginDate the loginDate to set
+	 */
+	public void setLoginDate(Date loginDate) {
+		this.loginDate = loginDate;
+	}
+
+	/**
+	 * @return the loginFailDate
+	 */
+	public Date getLoginFailDate() {
+		return loginFailDate;
+	}
+
+	/**
+	 * @param loginFailDate the loginFailDate to set
+	 */
+	public void setLoginFailDate(Date loginFailDate) {
+		this.loginFailDate = loginFailDate;
+	}
+
+	/**
+	 * @return the lastUpdateDate
+	 */
+	public Date getLastUpdateDate() {
+		return lastUpdateDate;
+	}
+
+	/**
+	 * @param lastUpdateDate the lastUpdateDate to set
+	 */
+	public void setLastUpdateDate(Date lastUpdateDate) {
+		this.lastUpdateDate = lastUpdateDate;
 	}
 
 	/**

@@ -30,13 +30,13 @@
 <!-- ページトップ：終了 -->
 <!-- ページメニュー：開始 -->
 <dl class="page_top_menu">
-	<dt><div>
+	<dt>
 		<a href="index.html" title="トップページ">トップ</a>
 		<a href="games.html" title="ゲーム">ゲーム</a>
 		<a href="point.html" title="ポイントチャージ">ポイントチャージ</a>
 		<a href="#" title="コミュニティ">コミュニティ</a>
 		<a href="#" title="お知らせ">お知らせ</a>
-	</div></dt>
+	</dt>
 </dl>
 <!-- ページメニュー：終了 -->
 <!-- ページメインエリア：開始 -->
