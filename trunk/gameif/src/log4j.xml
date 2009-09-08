@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd"> 
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+<appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+	<layout class="org.apache.log4j.PatternLayout">
+		<param name="ConversionPattern" value="%-5p | %d{yy/MM/dd HH:mm:ss} | %t | %m%n" />
+	</layout>
+	<filter class="org.apache.log4j.varia.LevelRangeFilter">
+		<param name="levelMin" value="info" />
+		<param name="levelMax" value="FATAL" />
+		<param name="AcceptOnMatch" value="true" />
+	</filter>
+</appender>
+
+<appender name="G_INFO" class="org.apache.log4j.DailyRollingFileAppender">
+	<param name="File" value="E:/Projects/Eclipse/gameif/log/gameif_info.log" />
+	<!-- <param name="File" value="/var/log/java/gameif_info.log" /> -->
+	<param name="Threshold" value="INFO" />
+	<param name="DatePattern" value="'.'yyMMdd'.log'" />
+	<layout class="org.apache.log4j.PatternLayout">  
+		<param name="ConversionPattern" value="%-5p | %d{yy/MM/dd HH:mm:ss} | %t | %m%n" />  
+	</layout>
+	<filter class="org.apache.log4j.varia.LevelRangeFilter">
+		<param name="LevelMin" value="INFO" />
+		<param name="LevelMax" value="INFO" />
+	</filter>
+ </appender>
+
+<appender name="G_WARN" class="org.apache.log4j.DailyRollingFileAppender">
+	<param name="File" value="E:/Projects/Eclipse/gameif/log/gameif_warn.log" />
+	<!-- <param name="File" value="/var/log/java/gameif_warn.log" /> -->
+	<param name="Threshold" value="INFO" />
+	<param name="DatePattern" value="'.'yyMMdd'.log'" />
+	<layout class="org.apache.log4j.PatternLayout">  
+		<param name="ConversionPattern" value="%-5p | %d{yy/MM/dd HH:mm:ss} | %t | %m%n" />  
+	</layout>
+	<filter class="org.apache.log4j.varia.LevelRangeFilter">
+		<param name="LevelMin" value="WARN" />
+		<param name="LevelMax" value="WARN" />
+	</filter>
+ </appender>
+
+<appender name="G_ERROR" class="org.apache.log4j.DailyRollingFileAppender">
+	<param name="File" value="E:/Projects/Eclipse/gameif/log/gameif_error.log" />
+	<!-- <param name="File" value="/var/log/java/gameif_error.log" /> -->
+	<param name="Threshold" value="INFO" />
+	<param name="DatePattern" value="'.'yyMMdd'.log'" />
+	<layout class="org.apache.log4j.PatternLayout">  
+		<param name="ConversionPattern" value="%-5p | %d{yy/MM/dd HH:mm:ss} | %t | %m%n" />  
+	</layout>
+	<filter class="org.apache.log4j.varia.LevelRangeFilter">
+		<param name="LevelMin" value="ERROR" />
+		<param name="LevelMax" value="FATAL" />
+	</filter>
+ </appender>
+
+<appender name="C_WARN" class="org.apache.log4j.DailyRollingFileAppender">
+	<param name="File" value="E:/Projects/Eclipse/gameif/log/common_warn.log" />
+	<!-- <param name="File" value="/var/log/java/common_warn.log" /> -->
+	<param name="Threshold" value="INFO" />
+	<param name="DatePattern" value="'.'yyMMdd'.log'" />
+	<layout class="org.apache.log4j.PatternLayout">  
+		<param name="ConversionPattern" value="%-5p | %d{yy/MM/dd HH:mm:ss} | %t | %m%n" />  
+	</layout>
+	<filter class="org.apache.log4j.varia.LevelRangeFilter">
+		<param name="LevelMin" value="WARN" />
+		<param name="LevelMax" value="WARN" />
+	</filter>
+ </appender>
+
+<appender name="C_ERROR" class="org.apache.log4j.DailyRollingFileAppender">
+	<param name="File" value="E:/Projects/Eclipse/gameif/log/common_error.log" />
+	<!-- <param name="File" value="/var/log/java/common_error.log" /> -->
+	<param name="Threshold" value="INFO" />
+	<param name="DatePattern" value="'.'yyMMdd'.log'" />
+	<layout class="org.apache.log4j.PatternLayout">  
+		<param name="ConversionPattern" value="%-5p | %d{yy/MM/dd HH:mm:ss} | %t | %m%n" />  
+	</layout>
+	<filter class="org.apache.log4j.varia.LevelRangeFilter">
+		<param name="LevelMin" value="ERROR" />
+		<param name="LevelMax" value="FATAL" />
+	</filter>
+ </appender>
+
+<category name="com.gameif" additivity="false">
+	<priority value ="INFO" />
+	<appender-ref ref="STDOUT" />
+	<appender-ref ref="G_INFO" />
+	<appender-ref ref="G_WARN" />
+	<appender-ref ref="G_ERROR" />
+</category>
+
+<root>
+	<priority value="WARN" />
+	<appender-ref ref="STDOUT" />
+	<appender-ref ref="C_WARN" />
+	<appender-ref ref="C_ERROR" />
+</root>
+
+</log4j:configuration>
