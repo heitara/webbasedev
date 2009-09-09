@@ -54,7 +54,7 @@
 	<!-- divisionMstDao -->
 	<bean id="divisionMstDao" class="com.gameif.portal.dao.impl.DivisionMstDaoImpl" parent="baseDao">
 		<property name="namespace">
-			<value>memberLoginInfo</value>
+			<value>divisionMst</value>
 		</property>
 	</bean>
 	
