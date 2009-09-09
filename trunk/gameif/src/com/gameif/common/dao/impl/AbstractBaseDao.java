@@ -15,8 +15,7 @@ public abstract class AbstractBaseDao<T, PK extends Serializable> extends
 	protected String namespace;
 
 	/**
-	 * @param namespace
-	 *            the namespace to set
+	 * @param namespace the namespace to set
 	 */
 	public void setNamespace(String namespace) {
 		this.namespace = namespace;
@@ -24,13 +23,11 @@ public abstract class AbstractBaseDao<T, PK extends Serializable> extends
 
 	@SuppressWarnings("unchecked")
 	public T selectByKey(PK pk) {
-		return (T) getSqlMapClientTemplate().queryForObject(
-				namespace + ".selectByKey", pk);
+		return (T) getSqlMapClientTemplate().queryForObject(namespace + ".selectByKey", pk);
 	}
 	@SuppressWarnings("unchecked")
 	public List<T> selectAll(PK pk) {
-		return getSqlMapClientTemplate().queryForList(namespace + ".selectAll",
-				pk);
+		return getSqlMapClientTemplate().queryForList(namespace + ".selectAll", pk);
 	}
 
 	public int update(PK pk) {
