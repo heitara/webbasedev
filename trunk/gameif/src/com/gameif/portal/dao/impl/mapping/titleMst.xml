@@ -3,8 +3,6 @@
     PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
     "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="titleMst">
-	<typeAlias alias="titleMst" type="com.gameif.portal.entity.TitleMst" />
-
 	<resultMap class="com.gameif.portal.entity.TitleMst" id="titleResult">
 		<result property="titleId" column="title_id" />
 		<result property="titleName" column="title_name" />
@@ -36,8 +34,8 @@
 		FROM
 			title_mst
 		WHERE
-			valid_start_date >= now()
-		AND valid_end_date <= now()
+			valid_start_date <= now()
+		AND valid_end_date >= now()
         ]]>
 	</select>
 
