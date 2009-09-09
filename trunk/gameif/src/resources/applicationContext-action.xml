@@ -48,5 +48,8 @@
 		<property name="inviteInfoBusinessLogic">
 			<ref bean="inviteInfoBusinessLogic" />
 		</property>
+		<property name="masterInfoBusinessLogic">
+			<ref bean="masterInfoBusinessLogic" />
+		</property>
 	</bean>
 </beans>

@@ -8,6 +8,7 @@ import com.gameif.portal.businesslogic.IMemberInfoBusinessLogic;
 import com.gameif.portal.dao.IMemberInfoDao;
 import com.gameif.portal.dao.IMemberLoginInfoDao;
 import com.gameif.portal.entity.MemberInfo;
+import com.gameif.portal.entity.MemberLoginInfo;
 
 public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		IMemberInfoBusinessLogic {
@@ -39,13 +40,36 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements
 
 	public int changePwd(MemberInfo memberInfo) {
 		if (memberInfo.getNewPwd().equals(memberInfo.getConfirmPwd())) {
-			return memberInfoDao.updatePwd(memberInfo);
+			MemberLoginInfo memberLoginInfo = new MemberLoginInfo();
+			memberLoginInfo.setMemNum(memberInfo.getMemNum());
+			memberLoginInfo.setMemId(memberInfo.getMemId());
+			memberLoginInfo.setMemPwd(memberInfo.getMemPwd());
+			
+			memberInfoDao.updatePwd(memberInfo);
+			
+			return memberLoginInfoDao.updatePwd(memberLoginInfo);
 		}
 		return -1;
 	}
 
 	public void saveMemberInfo(MemberInfo memberInfo) {
+//		HttpServletRequest request = null;
+//		memberInfo.setLastUpdateIp(request.getRemoteAddr());
+		/** 会員情報を登録する */
 		memberInfoDao.save(memberInfo);
+		
+		MemberInfo newMemberInfo = memberInfoDao.selectByKey(memberInfo);
+
+		/** 会員ログイン情報を登録する */
+		MemberLoginInfo memberLoginInfo = new MemberLoginInfo();
+		memberLoginInfo.setMemNum(newMemberInfo.getMemNum());
+		memberLoginInfo.setMemId(memberInfo.getMemId());
+		memberLoginInfo.setNickName(memberInfo.getNickName());
+		memberLoginInfo.setMemPwd(memberInfo.getMemPwd());
+		memberLoginInfo.setLoginIp(memberInfo.getLastUpdateIp());
+		memberLoginInfo.setLastUpdateIp(memberInfo.getLastUpdateIp());
+		
+		memberLoginInfoDao.save(memberLoginInfo);
 	}
 
 	/**

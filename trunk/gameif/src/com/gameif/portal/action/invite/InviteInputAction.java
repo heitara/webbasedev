@@ -6,7 +6,9 @@ import java.util.List;
 import com.gameif.common.action.ModelDrivenActionSupport;
 import com.gameif.common.bean.KeyValueInfo;
 import com.gameif.portal.businesslogic.IInviteInfoBusinessLogic;
+import com.gameif.portal.businesslogic.IMasterInfoBusinessLogic;
 import com.gameif.portal.entity.InviteInfo;
+import com.gameif.portal.entity.TitleMst;
 
 public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 
@@ -15,15 +17,16 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 	 */
 	private static final long serialVersionUID = 2224587269669764464L;
 
-	private List<KeyValueInfo> listInviteTitle;
+	private List<TitleMst> listInviteTitle;
 	private List<KeyValueInfo> listInviteTemplate;
 
 	private IInviteInfoBusinessLogic inviteInfoBusinessLogic;
+	private IMasterInfoBusinessLogic masterInfoBusinessLogic;
 
 	/**
 	 * @return the listInviteTitle
 	 */
-	public List<KeyValueInfo> getListInviteTitle() {
+	public List<TitleMst> getListInviteTitle() {
 		return listInviteTitle;
 	}
 
@@ -31,7 +34,7 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 	 * @param listInviteTitle
 	 *            the listInviteTitle to set
 	 */
-	public void setListInviteTitle(List<KeyValueInfo> listInviteTitle) {
+	public void setListInviteTitle(List<TitleMst> listInviteTitle) {
 		this.listInviteTitle = listInviteTitle;
 	}
 
@@ -59,6 +62,14 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 		this.inviteInfoBusinessLogic = inviteInfoBusinessLogic;
 	}
 
+	/**
+	 * @param masterInfoBusinessLogic the masterInfoBusinessLogic to set
+	 */
+	public void setMasterInfoBusinessLogic(
+			IMasterInfoBusinessLogic masterInfoBusinessLogic) {
+		this.masterInfoBusinessLogic = masterInfoBusinessLogic;
+	}
+
 	public String create() {
 		inviteInfoBusinessLogic.saveInviteInfo(this.getModel());
 		return SUCCESS;
@@ -66,35 +77,10 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 
 	public String inpute() {
 
-		setListInviteTitle(getTitleList());
+		setListInviteTitle(masterInfoBusinessLogic.selectValidTitleList());
 		setListInviteTemplate(getInviteTemplateList(""));
 
 		return INPUT;
-	}
-
-	private List<KeyValueInfo> getTitleList() {
-		List<KeyValueInfo> list = new ArrayList<KeyValueInfo>();
-		KeyValueInfo info = new KeyValueInfo();
-
-		info.setKey("00");
-		info.setValue(" ");
-
-		list.add(info);
-		
-		info = new KeyValueInfo();
-		info.setKey("01");
-		info.setValue("test01");
-
-		list.add(info);
-
-		info = new KeyValueInfo();
-		info.setKey("02");
-		info.setValue("test02");
-
-		list.add(info);
-
-		return list;
-
 	}
 
 	private List<KeyValueInfo> getInviteTemplateList(String titleId) {

@@ -11,7 +11,7 @@ public class MemberInfo extends BaseEntity {
 	 */
 	private static final long serialVersionUID = 300326522772761034L;
 
-	private Integer memNum;
+	private Long memNum;
 	private String memId;
 	private String nickName;
 	private String memPwd;
@@ -37,11 +37,6 @@ public class MemberInfo extends BaseEntity {
 	private String note;
 	private String entryIp;
 	private Date entryDate;
-	private String loginIp;
-	private Date loginDate;
-	private String loginFailIp;
-	private Date loginFailDate;
-	private Integer loginFailCnt;
 	private String lastUpdateIp;
 	private Date lastUpdateDate;
 	private Integer versionNo;
@@ -55,7 +50,7 @@ public class MemberInfo extends BaseEntity {
 	/**
 	 * @return the memNum
 	 */
-	public Integer getMemNum() {
+	public Long getMemNum() {
 		return memNum;
 	}
 
@@ -63,7 +58,7 @@ public class MemberInfo extends BaseEntity {
 	 * @param memNum
 	 *            the memNum to set
 	 */
-	public void setMemNum(Integer memNum) {
+	public void setMemNum(Long memNum) {
 		this.memNum = memNum;
 	}
 
@@ -398,36 +393,6 @@ public class MemberInfo extends BaseEntity {
 	}
 
 	/**
-	 * @return the loginFailIp
-	 */
-	public String getLoginFailIp() {
-		return loginFailIp;
-	}
-
-	/**
-	 * @param loginFailIp
-	 *            the loginFailIp to set
-	 */
-	public void setLoginFailIp(String loginFailIp) {
-		this.loginFailIp = loginFailIp;
-	}
-
-	/**
-	 * @return the loginFailCnt
-	 */
-	public Integer getLoginFailCnt() {
-		return loginFailCnt;
-	}
-
-	/**
-	 * @param loginFailCnt
-	 *            the loginFailCnt to set
-	 */
-	public void setLoginFailCnt(Integer loginFailCnt) {
-		this.loginFailCnt = loginFailCnt;
-	}
-
-	/**
 	 * @return the lastUpdateIp
 	 */
 	public String getLastUpdateIp() {
@@ -512,48 +477,6 @@ public class MemberInfo extends BaseEntity {
 	 */
 	public void setEntryDate(Date entryDate) {
 		this.entryDate = entryDate;
-	}
-
-	/**
-	 * @return the loginIp
-	 */
-	public String getLoginIp() {
-		return loginIp;
-	}
-
-	/**
-	 * @param loginIp the loginIp to set
-	 */
-	public void setLoginIp(String loginIp) {
-		this.loginIp = loginIp;
-	}
-
-	/**
-	 * @return the loginDate
-	 */
-	public Date getLoginDate() {
-		return loginDate;
-	}
-
-	/**
-	 * @param loginDate the loginDate to set
-	 */
-	public void setLoginDate(Date loginDate) {
-		this.loginDate = loginDate;
-	}
-
-	/**
-	 * @return the loginFailDate
-	 */
-	public Date getLoginFailDate() {
-		return loginFailDate;
-	}
-
-	/**
-	 * @param loginFailDate the loginFailDate to set
-	 */
-	public void setLoginFailDate(Date loginFailDate) {
-		this.loginFailDate = loginFailDate;
 	}
 
 	/**

@@ -32,11 +32,6 @@
 		<result property="note" column="note" />
 		<result property="entryIp" column="entry_ip" />
 		<result property="entryDate" column="entry_date" />
-		<result property="loginIp" column="login_ip" />
-		<result property="loginDate" column="login_date" />
-		<result property="loginFailIp" column="login_fail_ip" />
-		<result property="loginFailDate" column="login_fail_date" />
-		<result property="loginFailCnt" column="login_fail_cnt" />
 		<result property="lastUpdateIp" column="last_update_ip" />
 		<result property="lastUpdateDate" column="last_update_date" />
 		<result property="versionNo" column="version_no" />
@@ -71,11 +66,6 @@
 			note,
 			entry_ip,
 			entry_date,
-			login_ip,
-			login_date,
-			login_fail_ip,
-			login_fail_date,
-			login_fail_cnt,
 			last_update_ip,
 			last_update_date,
 			version_no
@@ -114,11 +104,6 @@
 			note,
 			entry_ip,
 			entry_date,
-			login_ip,
-			login_date,
-			login_fail_ip,
-			login_fail_date,
-			login_fail_cnt,
 			last_update_ip,
 			last_update_date,
 			version_no)
@@ -149,11 +134,6 @@
 			#note#,
 			#entryIp#,
 			#entryDate#,
-			#loginIp#,
-			#loginDate#,
-			#loginFailIp#,
-			#loginFailDate#,
-			#loginFailCnt#,
 			#lastUpdateIp#,
 			#lastUpdateDate#,
 			#versionNo#
@@ -168,6 +148,19 @@
 		SET
 		    mem_pwd = #memPwd#,
 		    mail_pc = #mailPc#
+		WHERE
+			mem_id = #memId#
+      ]]>
+	</update>
+
+	<update id="updatePwd" parameterClass="memberInfo">
+      <![CDATA[
+		UPDATE
+			member_info
+		SET
+		    mem_pwd = #memPwd#,
+			last_update_ip = #lastUpdateIp#,
+			last_update_date = now()
 		WHERE
 			mem_id = #memId#
       ]]>

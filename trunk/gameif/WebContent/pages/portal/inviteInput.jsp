@@ -25,12 +25,12 @@
 							<dl>
 								<dt><span class="required">*</span><label for="mail_from">紹介者のメールアドレス：</label></dt>
 								<dd>
-									<s:textfield name="inviteFrom" maxlength="100" cssClass="big ime_mode_n"/>
+									<s:textfield name="inviteMailFrom" maxlength="100" cssClass="big ime_mode_n"/>
 								</dd>
 								
 								<dt><span class="required">*</span><label for="friends">友達のメールアドレス：</label></dt>
 								<dd>
-									<s:textarea name="inviteTo" rows="8" cssClass="big ime_mode_n f_left"/>
+									<s:textarea name="inviteMailTo" rows="8" cssClass="big ime_mode_n f_left"/>
 									<div class=" mail_import">
 		
 										<span class="explain">下記のＷＥＢメールならアドレス帳から直接アドレスをインポートすることができます。</span><br/>
@@ -47,14 +47,14 @@
 								
 								<dt><span class="required">*</span><label for="game">紹介するゲーム：</label></dt>
 								<dd>
-									<s:select name="titleId" list="listInviteTitle" listKey="key" listValue="value" cssClass="big"/>
+									<s:select name="titleId" list="listInviteTitle" listKey="titleId" listValue="titleName" cssClass="big"/>
 									<br/>
 									<span class="explain">紹介するゲームを選んでください。</span>
 								</dd>
 								
 								<dt><label for="message_tmpl">招待メッセージ：</label></dt>
 								<dd>
-									<s:select name="titleTemplate" list="listInviteTemplate" listKey="key" listValue="value" cssClass="big"/>
+									<s:select name="inviteTemplate" list="listInviteTemplate" listKey="key" listValue="value" cssClass="big"/>
 									<br/>
 									<span class="explain">テンプレートから選ぶと、大枠が自動的に入力されますので、<br/>入力時間を省けられます。</span>
 								</dd>
@@ -66,7 +66,7 @@
 		
 							</dl>
 							<div class="submit">
-								<s:submit value="送信" cssClass="submit"></s:submit><s:submit value="クリア" cssClass="submit"></s:submit>
+								<s:submit value="送信" cssClass="submit"></s:submit><s:reset value="クリア" cssClass="submit"></s:reset>
 							</div>
 		
 						</s:form>

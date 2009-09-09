@@ -43,7 +43,7 @@
 
 					</dl>
 					<div class="submit">
-						<s:submit value="更新" cssClass="submit"></s:submit>
+						<s:submit action="changePwdMember" value="更新" formId="frm_mem_change_pwd" cssClass="submit"></s:submit>
 						<s:reset value="クリア" cssClass="submit"></s:reset>
 					</div>
 

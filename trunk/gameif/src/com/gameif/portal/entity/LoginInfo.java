@@ -8,7 +8,7 @@ public class LoginInfo extends BaseEntity {
 	 * 
 	 */
 	private static final long serialVersionUID = 3084374401153985882L;
-	private Integer memNum;
+	private Long memNum;
 	private String memId;
 	private String mempwd;
 	private String mailPc;
@@ -18,7 +18,7 @@ public class LoginInfo extends BaseEntity {
 	/**
 	 * @return the memNum
 	 */
-	public Integer getMemNum() {
+	public Long getMemNum() {
 		return memNum;
 	}
 
@@ -26,7 +26,7 @@ public class LoginInfo extends BaseEntity {
 	 * @param memNum
 	 *            the memNum to set
 	 */
-	public void setMemNum(Integer memNum) {
+	public void setMemNum(Long memNum) {
 		this.memNum = memNum;
 	}
 

@@ -133,8 +133,8 @@
 
 					</dl>
 					<div class="submit">
-						<s:submit value="更新" cssClass="submit"></s:submit>
-						<s:submit value="クリア" cssClass="submit"></s:submit>
+						<s:submit action="updateMember"  formId="frm_change_mem" value="更新" cssClass="submit"></s:submit>
+						<s:reset value="クリア" cssClass="submit"></s:reset>
 					</div>
 
 				</s:form>
