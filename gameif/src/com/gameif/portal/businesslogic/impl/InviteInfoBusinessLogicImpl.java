@@ -41,17 +41,16 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	 * @param inviteInfoDao
 	 */
 	public void saveInviteInfo(InviteInfo inviteInfo) {
-		inviteInfoDao.save(inviteInfo);
-	}
-
-	@Override
-	public List<KeyValueInfo> getTitleList() {
-		return null;
-	}
-
-	@Override
-	public List<KeyValueInfo> getInviteTemplateList() {
-		return null;
+		
+		/** 複数送信先の場合、メールアドレースを「,」で分割 */
+		String[] mailToList = inviteInfo.getInviteMailTo().split(",");
+		
+		InviteInfo newInviteInfo = new InviteInfo();
+		for (int i=0; i < mailToList.length; i++) {
+			newInviteInfo = inviteInfo;
+			newInviteInfo.setInviteMailTo(mailToList[i]);
+			inviteInfoDao.save(newInviteInfo);
+		}
 	}
 
 }

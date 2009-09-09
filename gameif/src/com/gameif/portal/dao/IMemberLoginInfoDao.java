@@ -12,5 +12,12 @@ public interface IMemberLoginInfoDao extends IBaseDao<MemberLoginInfo, MemberLog
 	 * @return
 	 */
 	public int selectCountByIPAndTime(ComSearchCondition searchCondition);
+	
+	/**
+	 * パスワードを更新する
+	 * @param memberLoginInfo
+	 * @return
+	 */
+	public int updatePwd(MemberLoginInfo memberLoginInfo);
 
 }

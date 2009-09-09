@@ -17,8 +17,20 @@ public class MemberLoginInfoDaoImpl extends
 	 */
 	@Override
 	public int selectCountByIPAndTime(ComSearchCondition searchCondition) {
-		return (Integer) (getSqlMapClientTemplate().queryForObject(
-				namespace + ".selectCountByIPAndTime", searchCondition));
+		return (Integer) (getSqlMapClientTemplate().queryForObject(namespace
+				+ ".selectCountByIPAndTime", searchCondition));
+	}
+
+	/**
+	 * パスワードを更新する
+	 * 
+	 * @param searchCondition
+	 * @return
+	 */
+	@Override
+	public int updatePwd(MemberLoginInfo memberLoginInfo) {
+		return this.getSqlMapClientTemplate().update(namespace + ".updatePwd",
+				memberLoginInfo);
 	}
 
 }

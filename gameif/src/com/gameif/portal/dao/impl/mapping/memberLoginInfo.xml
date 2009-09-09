@@ -4,6 +4,7 @@
     "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="memberLoginInfo">
 	<typeAlias alias="searchCondition" type="com.gameif.common.bean.ComSearchCondition" />
+	<typeAlias alias="memberLoginInfo" type="com.gameif.portal.entity.MemberLoginInfo" />
 	
 	<select id="selectCountByIPAndTime" parameterClass="searchCondition"  resultClass="int">
       <![CDATA[
@@ -16,5 +17,52 @@
 		AND last_update_ip = #clientIp#
       ]]>
 	</select>
+
+	<insert id="save" parameterClass="memberLoginInfo">
+	<![CDATA[
+		INSERT INTO member_login_info
+			(
+			mem_num,
+			mem_id,
+			nick_name,
+			mem_pwd,
+			login_ip,
+			login_date,
+			login_fail_ip,
+			login_fail_date,
+			login_fail_cnt,
+			last_update_ip,
+			last_update_date,
+			version_no)
+		VALUES
+			(
+			#memNum#,
+			#memId#,
+			#nickName#,
+			#memPwd#,
+			#loginIp#,
+			now(),
+			null,
+			null,
+			0,
+			#lastUpdateIp#,
+			now(),
+			#versionNo#
+			)
+	]]>
+	</insert>
+
+	<update id="updatePwd" parameterClass="memberLoginInfo">
+      <![CDATA[
+		UPDATE
+			member_login_info
+		SET
+		    mem_pwd = #memPwd#,
+			last_update_ip = #lastUpdateIp#,
+			last_update_date = now()
+		WHERE
+			mem_id = #memId#
+      ]]>
+	</update>
 
 </sqlMap>
