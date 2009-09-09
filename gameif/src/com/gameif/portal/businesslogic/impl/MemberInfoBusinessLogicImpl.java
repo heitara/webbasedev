@@ -1,5 +1,6 @@
 package com.gameif.portal.businesslogic.impl;
 
+import org.apache.struts2.ServletActionContext;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gameif.common.bean.ComSearchCondition;
@@ -40,24 +41,28 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements
 
 	public int changePwd(MemberInfo memberInfo) {
 		if (memberInfo.getNewPwd().equals(memberInfo.getConfirmPwd())) {
+			memberInfo.setLastUpdateIp(ServletActionContext.getRequest()
+					.getRemoteAddr());
+			
 			MemberLoginInfo memberLoginInfo = new MemberLoginInfo();
 			memberLoginInfo.setMemNum(memberInfo.getMemNum());
 			memberLoginInfo.setMemId(memberInfo.getMemId());
 			memberLoginInfo.setMemPwd(memberInfo.getMemPwd());
+			memberLoginInfo.setLastUpdateIp(memberInfo.getLastUpdateIp());
 			
 			memberInfoDao.updatePwd(memberInfo);
-			
+
 			return memberLoginInfoDao.updatePwd(memberLoginInfo);
 		}
 		return -1;
 	}
 
 	public void saveMemberInfo(MemberInfo memberInfo) {
-//		HttpServletRequest request = null;
-//		memberInfo.setLastUpdateIp(request.getRemoteAddr());
+		memberInfo.setLastUpdateIp(ServletActionContext.getRequest()
+				.getRemoteAddr());
 		/** 会員情報を登録する */
 		memberInfoDao.save(memberInfo);
-		
+
 		MemberInfo newMemberInfo = memberInfoDao.selectByKey(memberInfo);
 
 		/** 会員ログイン情報を登録する */
@@ -68,7 +73,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		memberLoginInfo.setMemPwd(memberInfo.getMemPwd());
 		memberLoginInfo.setLoginIp(memberInfo.getLastUpdateIp());
 		memberLoginInfo.setLastUpdateIp(memberInfo.getLastUpdateIp());
-		
+
 		memberLoginInfoDao.save(memberLoginInfo);
 	}
 
