@@ -21,7 +21,7 @@ public class TitleMst extends BaseEntity {
 	private Date createdDate;
 	private String createdUser;
 	private Date lastUpdateDate;
-	private String lastuUpdateUser;
+	private String lastUpdateUser;
 
 	/**
 	 * @return the titleId
@@ -174,18 +174,18 @@ public class TitleMst extends BaseEntity {
 	}
 
 	/**
-	 * @return the lastuUpdateUser
+	 * @return the lastUpdateUser
 	 */
-	public String getLastuUpdateUser() {
-		return lastuUpdateUser;
+	public String getLastUpdateUser() {
+		return lastUpdateUser;
 	}
 
 	/**
-	 * @param lastuUpdateUser
-	 *            the lastuUpdateUser to set
+	 * @param lastUpdateUser
+	 *            the lastUpdateUser to set
 	 */
-	public void setLastuUpdateUser(String lastuUpdateUser) {
-		this.lastuUpdateUser = lastuUpdateUser;
+	public void setLastUpdateUser(String lastUpdateUser) {
+		this.lastUpdateUser = lastUpdateUser;
 	}
 
 }
