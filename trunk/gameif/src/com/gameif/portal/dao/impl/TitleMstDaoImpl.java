@@ -9,9 +9,9 @@ import com.gameif.portal.entity.TitleMst;
 public class TitleMstDaoImpl extends
 	AbstractBaseDao<TitleMst, TitleMst> implements ITitleMstDao {
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<TitleMst> selectValidTitleList() {
-
 		return this.getSqlMapClientTemplate().queryForList(namespace + ".selectValidTitleList");
 	}
 }
