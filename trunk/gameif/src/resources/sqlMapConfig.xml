@@ -11,4 +11,9 @@
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/memberInfo.xml" />
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/inquiryInfo.xml" />
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/inviteInfo.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/divisionMst.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/memberLoginInfo.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/occupationMst.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/questionMst.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/titleMst.xml" />
 </sqlMapConfig>
