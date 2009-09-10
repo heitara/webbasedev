@@ -1,101 +1,245 @@
 package com.gameif.portal.businesslogic.impl;
 
+import java.util.Date;
+
 import org.apache.struts2.ServletActionContext;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gameif.common.bean.ComSearchCondition;
 import com.gameif.common.businesslogic.BaseBusinessLogic;
+import com.gameif.common.exception.DataNotExistsException;
+import com.gameif.common.exception.DataUpdatedException;
+import com.gameif.common.exception.LogicException;
+import com.gameif.common.util.ContextUtil;
+import com.gameif.common.util.SecurityUtil;
 import com.gameif.portal.businesslogic.IMemberInfoBusinessLogic;
+import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.dao.IMemberInfoDao;
 import com.gameif.portal.dao.IMemberLoginInfoDao;
 import com.gameif.portal.entity.MemberInfo;
 import com.gameif.portal.entity.MemberLoginInfo;
 
-public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements
-		IMemberInfoBusinessLogic {
+public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IMemberInfoBusinessLogic {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -1903255586967518866L;
 
 	private IMemberInfoDao memberInfoDao;
-
 	private IMemberLoginInfoDao memberLoginInfoDao;
 
 	/**
-	 * @param memberInfoDao
-	 *            the memberInfoDao to set
+	 * @param memberInfoDao the memberInfoDao to set
 	 */
 	public void setMemberInfoDao(IMemberInfoDao memberInfoDao) {
 		this.memberInfoDao = memberInfoDao;
 	}
 
 	/**
-	 * @param memberLoginInfoDao
-	 *            the memberLoginInfoDao to set
+	 * @param memberLoginInfoDao the memberLoginInfoDao to set
 	 */
 	public void setMemberLoginInfoDao(IMemberLoginInfoDao memberLoginInfoDao) {
 		this.memberLoginInfoDao = memberLoginInfoDao;
 	}
 
-	public int changePwd(MemberInfo memberInfo) {
-		if (memberInfo.getNewPwd().equals(memberInfo.getConfirmPwd())) {
-			memberInfo.setLastUpdateIp(ServletActionContext.getRequest()
-					.getRemoteAddr());
-			
-			MemberLoginInfo memberLoginInfo = new MemberLoginInfo();
-			memberLoginInfo.setMemNum(memberInfo.getMemNum());
-			memberLoginInfo.setMemId(memberInfo.getMemId());
-			memberLoginInfo.setMemPwd(memberInfo.getMemPwd());
-			memberLoginInfo.setLastUpdateIp(memberInfo.getLastUpdateIp());
-			
-			memberInfoDao.updatePwd(memberInfo);
-
-			return memberLoginInfoDao.updatePwd(memberLoginInfo);
-		}
-		return -1;
+	public MemberInfo getMemberInfo(MemberInfo memberInfo) {
+		
+		return memberInfoDao.selectByKey(memberInfo);
 	}
 
+	/**
+	 * 会員情報を登録する。
+	 * @param memberInfo 会員情報（新規登録時必要な項目が格納されていること）
+	 */
+	@Transactional
 	public void saveMemberInfo(MemberInfo memberInfo) {
-		memberInfo.setLastUpdateIp(ServletActionContext.getRequest()
-				.getRemoteAddr());
-		/** 会員情報を登録する */
+		
+		// アカウントＩＤとメールアドレスは小文字に変換、両辺スペース削除
+		memberInfo.setMemId(memberInfo.getMemId().trim().toLowerCase());
+		memberInfo.setMailPc(memberInfo.getMailPc().trim().toLowerCase());
+		// ニックネームは両辺スペース削除
+		memberInfo.setNickName(memberInfo.getNickName().trim());
+
+		// 会員種別：ゲームイフ会員
+		memberInfo.setMemKindCd(PortalConstants.MemberKindCd.GAMEIF);
+		// 会員属性：通常会員
+		memberInfo.setMemAtbtCd(PortalConstants.MemberAtbtCd.NORMAL);
+		// 会員有効区別：有効会員
+		memberInfo.setMemValidYNCd(PortalConstants.MemberValidYNCd.VALID);
+		// メルマガ対象：対象会員
+		memberInfo.setMailmagObjCd(PortalConstants.YES);
+
+		// パスワードと秘密質問をMD5アルゴリズムで暗号化する。
+		memberInfo.setMemPwd(SecurityUtil.getMD5String(memberInfo.getMemPwd()));
+		memberInfo.setAnswer(SecurityUtil.getMD5String(memberInfo.getAnswer()));
+		
+		memberInfo.setEntryDate(new Date());
+		memberInfo.setEntryIp(ServletActionContext.getRequest().getRemoteAddr());
+		memberInfo.setLastUpdateDate(memberInfo.getEntryDate());
+		memberInfo.setLastUpdateIp(memberInfo.getEntryIp());
+		
+		// 会員情報を登録する。
 		memberInfoDao.save(memberInfo);
 
-		MemberInfo newMemberInfo = memberInfoDao.selectByKey(memberInfo);
+		// 会員番号取得のため、アカウントＩＤで会員情報を検索する。
+		MemberInfo newMemberInfo = memberInfoDao.selectByMemId(memberInfo.getMemId());
 
-		/** 会員ログイン情報を登録する */
+		// 会員ログイン情報を登録する。
 		MemberLoginInfo memberLoginInfo = new MemberLoginInfo();
 		memberLoginInfo.setMemNum(newMemberInfo.getMemNum());
-		memberLoginInfo.setMemId(memberInfo.getMemId());
-		memberLoginInfo.setNickName(memberInfo.getNickName());
-		memberLoginInfo.setMemPwd(memberInfo.getMemPwd());
-		memberLoginInfo.setLoginIp(memberInfo.getLastUpdateIp());
-		memberLoginInfo.setLastUpdateIp(memberInfo.getLastUpdateIp());
-
+		memberLoginInfo.setMemId(newMemberInfo.getMemId());
+		memberLoginInfo.setNickName(newMemberInfo.getNickName());
+		memberLoginInfo.setMemPwd(newMemberInfo.getMemPwd());
+		memberLoginInfo.setMemValidYNCd(newMemberInfo.getMemValidYNCd());
+		
 		memberLoginInfoDao.save(memberLoginInfo);
 	}
 
 	/**
-	 * get the detail member info
+	 * 会員情報を変更する。
+	 * @param memberInfo 会員情報（会員番号と更新する項目が格納されていること）
+	 * @throws LogicException 存在しない異常、または排他異常
 	 */
 	@Transactional
-	public MemberInfo showDetail(MemberInfo memberInfo) {
-		return memberInfoDao.selectByKey(memberInfo);
+	public void updateMemberInfo(MemberInfo memberInfo) throws LogicException {
+
+		// 存在性と排他性チェック、行ロックをかけて既存会員情報を検索する。
+		MemberInfo oldMemberInfo = getMemberInfoWithCheck(memberInfo);
+		
+		// 画面から取得した変更項目を設定する。変更項目に増減がある場合、下記を修正すること。
+		oldMemberInfo.setNickName(memberInfo.getNickName());
+		oldMemberInfo.setMailPc(memberInfo.getMailPc());
+		oldMemberInfo.setKanjiFname(memberInfo.getKanjiFname());
+		oldMemberInfo.setKanjiLname(memberInfo.getKanjiLname());
+		oldMemberInfo.setKanaFname(memberInfo.getKanaFname());
+		oldMemberInfo.setKanaLname(memberInfo.getKanaLname());
+		oldMemberInfo.setSexCd(memberInfo.getSexCd());
+		oldMemberInfo.setBirthYmd(memberInfo.getBirthYmd());
+		oldMemberInfo.setOccupCd(memberInfo.getOccupCd());
+		oldMemberInfo.setDivisCd(memberInfo.getDivisCd());
+		oldMemberInfo.setCityName(memberInfo.getCityName());
+		oldMemberInfo.setBuildingName(memberInfo.getBuildingName());
+		oldMemberInfo.setTelNum(memberInfo.getTelNum());		
+		oldMemberInfo.setMailmagReqCd(memberInfo.getMailmagReqCd());
+		oldMemberInfo.setLastUpdateDate(new Date());
+		oldMemberInfo.setLastUpdateIp(ContextUtil.getClientIP());
+
+		// 会員情報を更新する。
+		memberInfoDao.update(oldMemberInfo);
+
+		// 会員ログイン関連情報が変更された場合、会員ログイン情報を更新する。
+		if (!oldMemberInfo.getMemId().equals(memberInfo.getMemId())
+				|| !oldMemberInfo.getMemPwd().equals(memberInfo.getMemPwd())
+				|| !oldMemberInfo.getNickName().equals(memberInfo.getNickName())
+				|| !oldMemberInfo.getMemValidYNCd().equals(memberInfo.getMemValidYNCd())) {
+			
+			updateLoginInfoByMemberInfo(oldMemberInfo);
+		}
 	}
 
+	/**
+	 * 会員パスワードを変更する。
+	 * @param memberInfo 会員情報（会員番号、新しいパスワードが格納されていること）
+	 * @throws LogicException 存在しない異常、または排他異常
+	 */
 	@Transactional
-	public int updateMemberInfo(MemberInfo memberInfo) {
-		return memberInfoDao.update(memberInfo);
+	public void changePasswd(MemberInfo memberInfo) throws LogicException {
+
+		// 存在性と排他性チェック、行ロックをかけて既存会員情報を検索する。
+		MemberInfo oldMemberInfo = getMemberInfoWithCheck(memberInfo);
+		
+		oldMemberInfo.setMemPwd(SecurityUtil.getMD5String(memberInfo.getMemPwd()));
+		oldMemberInfo.setLastUpdateDate(new Date());
+		oldMemberInfo.setLastUpdateIp(ContextUtil.getClientIP());
+
+		// 会員情報を更新する。
+		memberInfoDao.update(oldMemberInfo);
+
+		// 会員ログイン情報を更新する。
+		updateLoginInfoByMemberInfo(oldMemberInfo);
+	}
+
+	/**
+	 * 会員を退会させる。
+	 * @param memberInfo 会員情報（会員番号が格納されていること）
+	 * @throws LogicException 存在しない異常
+	 */
+	@Transactional
+	public void withdraw(MemberInfo memberInfo) throws LogicException {
+
+		// 存在性チェック、行ロックをかけて既存会員情報を検索する。
+		MemberInfo oldMemberInfo = getMemberInfoWithCheck(memberInfo, false);
+		
+		oldMemberInfo.setMemValidYNCd(PortalConstants.MemberValidYNCd.WITHDRAW);
+		oldMemberInfo.setWithdrawDate(new Date());
+		oldMemberInfo.setWithdrawIp(ContextUtil.getClientIP());
+
+		// 会員情報を更新する。
+		memberInfoDao.update(oldMemberInfo);
+
+		// 会員ログイン情報を更新する。
+		updateLoginInfoByMemberInfo(oldMemberInfo);
+	}
+
+	/**
+	 * 存在性チェックをかけて会員情報を取得する。<br/>
+	 * 検索時、会員情報に行ロックをかける。
+	 * @param memberInfo　検索条件のなる会員情報（会員番号が格納されていること）
+	 * @return 会員情報
+	 * @throws LogicException 存在しない異常
+	 */
+	private MemberInfo getMemberInfoWithCheck(MemberInfo memberInfo) throws LogicException {
+		
+		return getMemberInfoWithCheck(memberInfo, true);		
+	}
+
+	/**
+	 * 存在性チェックと排他性チェックをかけて会員情報を取得する。<br/>
+	 * 検索時、会員情報に行ロックをかける。
+	 * @param memberInfo　検索条件のなる会員情報（会員番号、排他性チェックの場合はバージョン番号も格納されている）
+	 * @param checkVersion　排他性チェックをかけるかの指定
+	 * @return 会員情報
+	 * @throws LogicException 存在しない異常、または排他異常
+	 */
+	private MemberInfo getMemberInfoWithCheck(MemberInfo memberInfo, boolean checkVersion) throws LogicException {
+		
+		MemberInfo oldMemberinfo = memberInfoDao.selectForUpdate(memberInfo.getMemNum());		
+		
+		if (oldMemberinfo == null) {
+			
+			// データが存在しない
+			throw new DataNotExistsException("Data not exists.");
+		}
+		
+		if (checkVersion && !oldMemberinfo.getVersionNo().equals(memberInfo.getVersionNo())) {
+
+			// 排他性異常（他者に更新された）
+			throw new DataUpdatedException("Data updated by the other.");
+		}
+		
+		return oldMemberinfo;		
+	}
+	
+	/**
+	 * 会員情報でログイン情報を更新する。
+	 * @param memberInfo　会員情報
+	 */
+	private void updateLoginInfoByMemberInfo(MemberInfo memberInfo) {
+		
+		MemberLoginInfo memberLoginInfo = new MemberLoginInfo();
+		
+		memberLoginInfo.setMemNum(memberInfo.getMemNum());
+		memberLoginInfo.setMemId(memberInfo.getMemId());
+		memberLoginInfo.setMemPwd(memberInfo.getMemPwd());
+		memberLoginInfo.setNickName(memberInfo.getNickName());
+		memberLoginInfo.setMemValidYNCd(memberInfo.getMemValidYNCd());
+		
+		memberLoginInfoDao.update(memberLoginInfo);
 	}
 
 	/**
 	 * 同じIPで指定時間内に、会員連続登録回数を計算する
-	 * 
-	 * @param clientIp
-	 * @param checkTime
-	 * @return
+	 * @param clientIp クライアントＩＰ
+	 * @param checkTime チェックする期間（秒単位）
+	 * @return 同ＩＰで登録したユーザ数
 	 */
 	public int countMembersByIPInTime(String clientIp, int checkTime) {
 
@@ -103,7 +247,36 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		searchCondition.setClientIp(clientIp);
 		searchCondition.setCheckTime(checkTime);
 
-		return memberLoginInfoDao.selectCountByIPAndTime(searchCondition);
+		return memberInfoDao.selectCountByIPAndTime(searchCondition);
+	}
+	
+	/**
+	 * 指定したアカウントＩＤを使っている会員数を取得する。
+	 * @param memId アカウントＩＤ
+	 * @return 指定したアカウントＩＤの使用者数
+	 */
+	public int countMembersByMemId(String memId) {
+
+		return memberInfoDao.selectCountByMemId(memId);
 	}
 
+	/**
+	 * 指定したニックネームを使っている会員数を取得する。
+	 * @param nickName ニックネーム
+	 * @return 指定したニックネームの使用者数
+	 */
+	public int countMembersByNickName(String nickName) {
+
+		return memberInfoDao.selectCountByNickName(nickName);
+	}
+
+	/**
+	 * 指定したメールアドレスを使っている会員数を取得する。
+	 * @param mailPc メールアドレス
+	 * @return 指定したメールアドレスの使用者数
+	 */
+	public int countMembersByMailPc(String mailPc) {
+
+		return memberInfoDao.selectCountByMailPc(mailPc);
+	}
 }
