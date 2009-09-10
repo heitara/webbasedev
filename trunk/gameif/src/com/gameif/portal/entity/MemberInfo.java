@@ -6,9 +6,6 @@ import com.gameif.common.entity.BaseEntity;
 
 public class MemberInfo extends BaseEntity {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 300326522772761034L;
 
 	private Long memNum;
@@ -17,6 +14,7 @@ public class MemberInfo extends BaseEntity {
 	private String memPwd;
 	private String memKindCd;
 	private String memAtbtCd;
+	private String memValidYNCd;
 	private Integer questionCd;
 	private String answer;
 	private String mailPc;
@@ -35,17 +33,13 @@ public class MemberInfo extends BaseEntity {
 	private String mailmagReqCd;
 	private String mailmagObjCd;
 	private String note;
-	private String entryIp;
 	private Date entryDate;
-	private String lastUpdateIp;
+	private String entryIp;
+	private Date withdrawDate;
+	private String withdrawIp;
 	private Date lastUpdateDate;
+	private String lastUpdateIp;
 	private Integer versionNo;
-
-	private String newPwd;
-	private String confirmPwd;
-	private String capture;
-	private String magazine;
-	private String agreement;
 
 	/**
 	 * @return the memNum
@@ -135,6 +129,14 @@ public class MemberInfo extends BaseEntity {
 	 */
 	public void setMemAtbtCd(String memAtbtCd) {
 		this.memAtbtCd = memAtbtCd;
+	}
+
+	public String getMemValidYNCd() {
+		return memValidYNCd;
+	}
+
+	public void setMemValidYNCd(String memValidYNCd) {
+		this.memValidYNCd = memValidYNCd;
 	}
 
 	/**
@@ -423,21 +425,6 @@ public class MemberInfo extends BaseEntity {
 	}
 
 	/**
-	 * @return the newPwd
-	 */
-	public String getNewPwd() {
-		return newPwd;
-	}
-
-	/**
-	 * @param newPwd
-	 *            the newPwd to set
-	 */
-	public void setNewPwd(String newPwd) {
-		this.newPwd = newPwd;
-	}
-
-	/**
 	 * @return the cityName
 	 */
 	public String getCityName() {
@@ -479,6 +466,22 @@ public class MemberInfo extends BaseEntity {
 		this.entryDate = entryDate;
 	}
 
+	public Date getWithdrawDate() {
+		return withdrawDate;
+	}
+
+	public void setWithdrawDate(Date withdrawDate) {
+		this.withdrawDate = withdrawDate;
+	}
+
+	public String getWithdrawIp() {
+		return withdrawIp;
+	}
+
+	public void setWithdrawIp(String withdrawIp) {
+		this.withdrawIp = withdrawIp;
+	}
+
 	/**
 	 * @return the lastUpdateDate
 	 */
@@ -492,65 +495,4 @@ public class MemberInfo extends BaseEntity {
 	public void setLastUpdateDate(Date lastUpdateDate) {
 		this.lastUpdateDate = lastUpdateDate;
 	}
-
-	/**
-	 * @return the confirmPwd
-	 */
-	public String getConfirmPwd() {
-		return confirmPwd;
-	}
-
-	/**
-	 * @param confirmPwd
-	 *            the confirmPwd to set
-	 */
-	public void setConfirmPwd(String confirmPwd) {
-		this.confirmPwd = confirmPwd;
-	}
-
-	/**
-	 * @return the capture
-	 */
-	public String getCapture() {
-		return capture;
-	}
-
-	/**
-	 * @param capture
-	 *            the capture to set
-	 */
-	public void setCapture(String capture) {
-		this.capture = capture;
-	}
-
-	/**
-	 * @return the magazine
-	 */
-	public String getMagazine() {
-		return magazine;
-	}
-
-	/**
-	 * @param magazine
-	 *            the magazine to set
-	 */
-	public void setMagazine(String magazine) {
-		this.magazine = magazine;
-	}
-
-	/**
-	 * @return the agreement
-	 */
-	public String getAgreement() {
-		return agreement;
-	}
-
-	/**
-	 * @param agreement
-	 *            the agreement to set
-	 */
-	public void setAgreement(String agreement) {
-		this.agreement = agreement;
-	}
-
 }
