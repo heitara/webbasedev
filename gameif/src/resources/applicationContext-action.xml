@@ -18,6 +18,8 @@
 		</property>
 	</bean>
 	
+	<bean id="indexAction" class="com.gameif.portal.action.menu.IndexAction" scope="prototype" />
+	
 	<bean id="displayAction" class="com.gameif.portal.action.menu.DisplayAction" scope="prototype">
 		<property name="portalProperties">
 			<ref bean="portalProperties" />
