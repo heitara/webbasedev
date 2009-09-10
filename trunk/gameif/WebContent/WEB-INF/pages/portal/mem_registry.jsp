@@ -20,7 +20,7 @@
 <dl class="light_box tspace_n">
 	<dt><strong>会員登録</strong><span></span></dt>
 	<dd>
-		<s:form name="frm_mem_edit" method="POST" cssClass="entry">
+		<s:form name="frm_mem_registry" method="POST" cssClass="entry">
 			<dl>
 				<dt><span class="required">*</span><label for="giid">アカウントID(GI-ID)：</label></dt>
 				<dd>
