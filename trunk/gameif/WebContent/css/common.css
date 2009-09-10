@@ -1,0 +1,315 @@
+/*********【共通】通常設定 ******************************************************/
+body {
+	color:#333;
+	font-size:12px;
+	font-family:'Arial','Courier','ＭＳ ゴシック',monospace;
+}
+a {
+	color:#333;
+	text-decoration:none;
+}
+a:hover {
+	color:#F90;
+}
+a img {
+	border:0px;
+}
+a img:hover {
+	opacity: 0.8;                    /* Firefox, Safari(WebKit), Opera */
+	-ms-filter: "alpha(opacity=80)"; /* IE 8 */
+	filter: alpha(opacity=80);       /* IE 4-7 */
+}
+div.clearbox {
+	height:0px;
+	clear: both;
+}
+input.ime_mode_n {
+	ime-mode:disabled;
+}
+.f_left {
+	float:left;
+}
+.f_right {
+	float:right;
+}
+.tspace_n {
+	margin-top:0px;
+}
+.tspace_y {
+	margin-top:15px;
+}
+.tspace_s {
+	margin-top:10px;
+}
+.tspace_b {
+	margin-top:20px;
+}
+.bottom_align {
+	position:absolute;
+	left:0px;
+	bottom:0px;
+}
+span.input_error {
+	margin-left:10px;
+	padding:0px;
+}
+span.input_error ul {
+	display:inline;
+	list-style:none;
+	margin:0px;
+	padding:0px;
+}
+span.input_error ul li {
+	display:inline;
+	margin:0px;
+	padding:0px;
+	font-size:10px;
+	color:#F00;
+}
+/*********【共通】フォーム関連 **************************************************/
+form {
+	margin:30px 10px;
+}
+input[type="text"], input[type="password"], textarea {
+	width:200px;
+	font-family:'ＭＳ ゴシック',serif;
+	font-size:13px;
+}
+input[type="text"].small, input[type="password"].small, textarea.small {
+	width:95px;
+}
+input[type="text"].min, input[type="password"].min, textarea.min {
+	width:60px;
+}
+input[type="text"].big, input[type="password"].big, textarea.big {
+	width:270px;
+	font-size:12px;
+}
+input[type="submit"], input[type="reset"], input[type="button"] {
+	width:100px;
+	height:24px;
+	paddint-top:2px;
+	font-size:12px;
+}
+input[type="submit"].big, input[type="reset"].big, input[type="button"].big {
+	width:180px;
+}
+input[type="text"], input[type="password"] {
+	height:15px;
+}
+select {
+	width:206px;
+	height:20px;
+	padding-top:2px;
+	font-family:'ＭＳ ゴシック',serif;
+	font-size:13px;
+}
+select.small {
+	width:120px;
+}
+select.min {
+	width:50px;
+}
+select.big {
+	width:276px;
+}
+form > dl > dt {
+	float:left;
+	width:180px;
+	text-align:right;
+	padding:2px;
+	padding-top:5px;
+}
+form > dl > dd {
+	margin-left:190px;
+	padding:2px;
+	padding-bottom:5px;
+}
+form span.item {
+	display:inline-block;
+	height:20px;
+	line-height:20px;
+}
+form span.required {
+	font:10px Verdana;
+	color:#f68622;
+}
+form span.explain {
+	color:#888;
+	font-size:10px;
+	display:inline-block;
+	margin:2px 0px 0px 0px;
+}
+form span.check_ok {
+	color:#090;
+}
+form span.check_ng {
+	color:#900;
+}
+form img.input_check {
+	margin:0px 5px;
+}
+form a {
+	color:#900;
+}
+form a:hover {
+	color:#F90;
+}
+form > div.submit {
+	margin:15px 0px 0px 190px;
+}
+
+/*********【共通】タイトル付ボックス ************************************************/
+dl.title_box {
+	 width:100%;
+	 overflow:hidden;
+	 text-align:left;
+}
+dl.title_box > dt {
+	height:24px;
+	overflow:hidden;
+	background-image:url("../../images/bg_portlet_title.gif");
+	clear:both;
+}
+dl.title_box > dt > strong {
+	float:left;
+	display:block;
+	height:24px;
+	line-height:24px;
+	padding:0px 12px;
+	color:#FFF;
+	background:url("../../images/bg_portlet_title_left.gif") left top no-repeat;
+	letter-spacing:1px;
+}
+dl.title_box > dt > span {
+	float:right;
+	position:relative;
+	line-height:24px;
+	padding:0px 10px;
+	background:url("../../images/bg_portlet_title_right.gif") right top no-repeat;
+}
+dl.title_box > dt > span::after {
+	content:"\b";
+}
+dl.title_box > dt > span a {
+	color:#FFF;
+	text-decoration:none;
+	font-size:9px;
+	font-weight:bold;
+}
+dl.title_box > dt > span a:hover {
+	color:#F90;
+}
+dl.title_box > dd {
+	display:block;
+	margin-left:0px;
+}
+/*********【共通】タイトル付ボックス(明) ********************************************/
+dl.light_box {
+	 width:100%;
+	 overflow:hidden;
+	 text-align:left;
+}
+dl.light_box > dt {
+	height:24px;
+	overflow:hidden;
+	background-image:url("../../images/bg_light_title.gif");
+	clear:both;
+}
+dl.light_box > dt > strong {
+	float:left;
+	display:block;
+	height:24px;
+	line-height:24px;
+	padding:0px 12px;
+	background:url("../../images/bg_light_title_left.gif") left top no-repeat;
+	letter-spacing:1px;
+}
+dl.light_box > dt > span {
+	float:right;
+	font-size:10px;
+	color:#850;
+	position:relative;
+	line-height:24px;
+	padding:0px 10px;
+	background:url("../../images/bg_light_title_right.gif") right top no-repeat;
+}
+dl.light_box > dt > span::after {
+	content:"\b";
+}
+dl.light_box > dt > span a {
+	font-size:10px;
+	color:#850;
+}
+dl.light_box > dt > span a:hover {
+	color:#FFF;
+}
+dl.light_box > dd {
+	display:block;
+	margin-left:0px;
+}
+/*********【共通】タイトル付ボックス(暖) ********************************************/
+dl.warm_box {
+	 width:100%;
+	 overflow:hidden;
+	 text-align:left;
+}
+dl.warm_box > dt {
+	height:20px;
+	overflow:hidden;
+	background-image:url("../../images/bg_portlet_title.gif");
+	clear:both;
+}
+dl.warm_box > dt > strong {
+	float:left;
+	display:block;
+	height:20px;
+	line-height:20px;
+	padding:0px 12px;
+	font-size:10px;
+	font-weight:bold;
+	color:#FFF;
+	background:url("../../images/bg_portlet_title_left.gif") left top no-repeat;
+}
+dl.warm_box > dt > span {
+	float:right;
+	position:relative;
+	line-height:20px;
+	padding:0px 10px;
+	background:url("../../images/bg_portlet_title_right.gif") right top no-repeat;
+}
+dl.warm_box > dt > span::after {
+	content:"\b";
+}
+dl.warm_box > dt > span a {
+	color:#FFF;
+	text-decoration:none;
+	font-size:9px;
+	font-weight:bold;
+}
+dl.warm_box > dt > span a:hover {
+	color:#F90;
+}
+dl.warm_box > dd {
+	display:block;
+	margin-left:0px;
+}
+
+/*********【共通】ラウンドボックス **************************************************/
+div.rbox_side {
+	border-top:1px solid #CCC;
+	height:0px;
+	margin:0px 2px;
+}
+div.rbox_round {
+	border:1px solid #CCC;
+	border-width:0px 1px;
+	margin:0px 1px;
+	height:1px;
+}
+div.rbox_main {
+	border:1px solid #CCC;
+	border-width:0px 1px;
+	overflow:hidden;
+	height:100%;
+}
