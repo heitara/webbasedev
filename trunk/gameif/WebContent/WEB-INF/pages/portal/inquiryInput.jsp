@@ -1,0 +1,51 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@taglib prefix="s" uri="/struts-tags"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<s:i18n name="characters">
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title><s:property value="%{getText('inquiry_input_title')}" /></title>
+	<link rel="stylesheet" type="text/css" media="screen" href="css/common/screen.css" />
+	<script src="js/jquery/jquery.js" type="text/javascript"></script>
+	<script src="js/portal/mem_login.js" type="text/javascript"></script>
+</head>
+
+<body>
+	<div class="contents">
+		<s:form name="frm_inquiry_input" method="POST" action="saveInquiry">
+			<table>
+				<tr>
+					<td><s:property value="%{getText('inquiry_kind_code')}" /></td>
+					<td><s:textfield name="inquiryKindCode" /></td>
+				</tr>
+				<tr>
+					<td><s:property value="%{getText('user_name')}" /></td>
+					<td><s:textfield name="userName" /></td>
+				</tr>
+				<tr>
+					<td><s:property value="%{getText('user_mailadd')}" /></td>
+					<td><s:textfield name="userMailadd" /></td>
+				</tr>
+				<tr>
+					<td><s:property value="%{getText('inquiry_object')}" /></td>
+					<td><s:textfield name="inquiryObject" /></td>
+				</tr>
+				<tr>
+					<td><s:property value="%{getText('inquiry_contents')}" /></td>
+					<td><s:textarea name="inquiryContents" /></td>
+				</tr>
+				
+				<tr>
+					<td><s:submit value="%{getText('insert')}"></s:submit></td>
+					<td/>
+				</tr>
+			</table>
+		</s:form>
+	</div>
+</body>
+
+</html>
+</s:i18n>
