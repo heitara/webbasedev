@@ -18,38 +18,44 @@
 		</property>
 	</bean>
 	
+	<bean id="displayAction" class="com.gameif.portal.action.menu.DisplayAction" scope="prototype">
+		<property name="portalProperties">
+			<ref bean="portalProperties" />
+		</property>
+	</bean>
+	
 	<!-- mainMenuAction -->
-	<bean id="mainMenuAction" class="com.gameif.portal.action.menu.MainMenu">
+	<bean id="mainMenuAction" class="com.gameif.portal.action.menu.MainMenu" scope="prototype">
 	</bean>
 	
 	<!-- loginInfoAction -->
-	<bean id="loginInfoAction" class="com.gameif.portal.action.login.LoginInfoAction">
+	<bean id="loginInfoAction" class="com.gameif.portal.action.login.LoginInfoAction" scope="prototype">
 		<property name="loginInfoBusinessLogic">
 			<ref bean="loginInfoBusinessLogic" />
 		</property>
 	</bean>
 	
 	<!-- memberInfoAction -->
-	<bean id="memberInfoAction" class="com.gameif.portal.action.memberInfo.MemberInfoControlAction">
+	<bean id="memberInfoAction" class="com.gameif.portal.action.memberInfo.MemberInfoControlAction" scope="prototype">
 		<property name="memberInfoBusinessLogic">
 			<ref bean="memberInfoBusinessLogic" />
+		</property>
+		<property name="portalProperties">
+			<ref bean="portalProperties" />
 		</property>
 	</bean>
 	
 	<!-- inquiryInfoAction -->
-	<bean id="inquiryInfoAction" class="com.gameif.portal.action.inquiry.InquiryInputAction">
+	<bean id="inquiryInfoAction" class="com.gameif.portal.action.inquiry.InquiryInputAction" scope="prototype">
 		<property name="inquiryInfoBusinessLogic">
 			<ref bean="inquiryInfoBusinessLogic" />
 		</property>
 	</bean>
 	
 	<!-- inviteInputAction -->
-	<bean id="inviteInputAction" class="com.gameif.portal.action.invite.InviteInputAction">
+	<bean id="inviteInputAction" class="com.gameif.portal.action.invite.InviteInputAction" scope="prototype">
 		<property name="inviteInfoBusinessLogic">
 			<ref bean="inviteInfoBusinessLogic" />
-		</property>
-		<property name="masterInfoBusinessLogic">
-			<ref bean="masterInfoBusinessLogic" />
 		</property>
 	</bean>
 </beans>
