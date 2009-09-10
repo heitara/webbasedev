@@ -17,7 +17,7 @@ public class ServerMst extends BaseEntity {
 	private Date createdDate;
 	private String createdUser;
 	private Date lastUpdateDate;
-	private String lastUpdateUser;
+	private String lastuUpdateUser;
 
 	/**
 	 * @return the serverId
@@ -110,18 +110,18 @@ public class ServerMst extends BaseEntity {
 	}
 
 	/**
-	 * @return the lastUpdateUser
+	 * @return the lastuUpdateUser
 	 */
-	public String getLastUpdateUser() {
-		return lastUpdateUser;
+	public String getLastuUpdateUser() {
+		return lastuUpdateUser;
 	}
 
 	/**
-	 * @param lastUpdateUser
-	 *            the lastUpdateUser to set
+	 * @param lastuUpdateUser
+	 *            the lastuUpdateUser to set
 	 */
-	public void setLastUpdateUser(String lastUpdateUser) {
-		this.lastUpdateUser = lastUpdateUser;
+	public void setLastuUpdateUser(String lastuUpdateUser) {
+		this.lastuUpdateUser = lastuUpdateUser;
 	}
 
 }
