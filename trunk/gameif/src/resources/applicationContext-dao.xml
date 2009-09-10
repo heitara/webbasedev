@@ -30,6 +30,13 @@
 		</property>
 	</bean>
 	
+	<!-- memberInfoDao -->
+	<bean id="memberLoginInfoDao" class="com.gameif.portal.dao.impl.MemberLoginInfoDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>memberLoginInfo</value>
+		</property>
+	</bean>
+	
 	<!-- inquiryInfoDao -->
 	<bean id="inquiryInfoDao" class="com.gameif.portal.dao.impl.InquiryInfoDaoImpl" parent="baseDao">
 		<property name="namespace">
@@ -41,41 +48,6 @@
 	<bean id="inviteInfoDao" class="com.gameif.portal.dao.impl.InviteInfoDaoImpl" parent="baseDao">
 		<property name="namespace">
 			<value>inviteInfo</value>
-		</property>
-	</bean>
-	
-	<!-- memberLoginInfoDao -->
-	<bean id="memberLoginInfoDao" class="com.gameif.portal.dao.impl.MemberLoginInfoDaoImpl" parent="baseDao">
-		<property name="namespace">
-			<value>memberLoginInfo</value>
-		</property>
-	</bean>
-	
-	<!-- divisionMstDao -->
-	<bean id="divisionMstDao" class="com.gameif.portal.dao.impl.DivisionMstDaoImpl" parent="baseDao">
-		<property name="namespace">
-			<value>divisionMst</value>
-		</property>
-	</bean>
-	
-	<!-- occupationMstDao -->
-	<bean id="occupationMstDao" class="com.gameif.portal.dao.impl.OccupationMstDaoImpl" parent="baseDao">
-		<property name="namespace">
-			<value>occupationMst</value>
-		</property>
-	</bean>
-	
-	<!-- questionMstDao -->
-	<bean id="questionMstDao" class="com.gameif.portal.dao.impl.QuestionMstDaoImpl" parent="baseDao">
-		<property name="namespace">
-			<value>questionMst</value>
-		</property>
-	</bean>
-	
-	<!-- titleMstDao -->
-	<bean id="titleMstDao" class="com.gameif.portal.dao.impl.TitleMstDaoImpl" parent="baseDao">
-		<property name="namespace">
-			<value>titleMst</value>
 		</property>
 	</bean>
 </beans>
