@@ -6,26 +6,20 @@ import com.gameif.common.entity.BaseEntity;
 
 public class MemberLoginInfo extends BaseEntity {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -4483423658582102343L;
 	
 	private Long memNum;
 	private String memId;
 	private String nickName;
 	private String memPwd;
-	private String loginIp;
+	private String memValidYNCd;
 	private Date loginDate;
-	private String loginFailIp;
+	private String loginIp;
 	private Date loginFailDate;
+	private String loginFailIp;
 	private Integer loginFailCnt;
-	private String lastUpdateIp;
-	private Date lastUpdateDate;
 	private Integer versionNo;
 
-	private String newPwd;
-	private String confirmPwd;
 	/**
 	 * @return the memNum
 	 */
@@ -73,6 +67,12 @@ public class MemberLoginInfo extends BaseEntity {
 	 */
 	public void setMemPwd(String memPwd) {
 		this.memPwd = memPwd;
+	}
+	public String getMemValidYNCd() {
+		return memValidYNCd;
+	}
+	public void setMemValidYNCd(String memValidYNCd) {
+		this.memValidYNCd = memValidYNCd;
 	}
 	/**
 	 * @return the loginIp
@@ -135,30 +135,6 @@ public class MemberLoginInfo extends BaseEntity {
 		this.loginFailCnt = loginFailCnt;
 	}
 	/**
-	 * @return the lastUpdateIp
-	 */
-	public String getLastUpdateIp() {
-		return lastUpdateIp;
-	}
-	/**
-	 * @param lastUpdateIp the lastUpdateIp to set
-	 */
-	public void setLastUpdateIp(String lastUpdateIp) {
-		this.lastUpdateIp = lastUpdateIp;
-	}
-	/**
-	 * @return the lastUpdateDate
-	 */
-	public Date getLastUpdateDate() {
-		return lastUpdateDate;
-	}
-	/**
-	 * @param lastUpdateDate the lastUpdateDate to set
-	 */
-	public void setLastUpdateDate(Date lastUpdateDate) {
-		this.lastUpdateDate = lastUpdateDate;
-	}
-	/**
 	 * @return the versionNo
 	 */
 	public Integer getVersionNo() {
@@ -170,29 +146,4 @@ public class MemberLoginInfo extends BaseEntity {
 	public void setVersionNo(Integer versionNo) {
 		this.versionNo = versionNo;
 	}
-	/**
-	 * @return the newPwd
-	 */
-	public String getNewPwd() {
-		return newPwd;
-	}
-	/**
-	 * @param newPwd the newPwd to set
-	 */
-	public void setNewPwd(String newPwd) {
-		this.newPwd = newPwd;
-	}
-	/**
-	 * @return the confirmPwd
-	 */
-	public String getConfirmPwd() {
-		return confirmPwd;
-	}
-	/**
-	 * @param confirmPwd the confirmPwd to set
-	 */
-	public void setConfirmPwd(String confirmPwd) {
-		this.confirmPwd = confirmPwd;
-	}
-
 }
