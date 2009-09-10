@@ -3,20 +3,8 @@
     PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
     "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="memberLoginInfo">
-	<typeAlias alias="searchCondition" type="com.gameif.common.bean.ComSearchCondition" />
+
 	<typeAlias alias="memberLoginInfo" type="com.gameif.portal.entity.MemberLoginInfo" />
-	
-	<select id="selectCountByIPAndTime" parameterClass="searchCondition"  resultClass="int">
-      <![CDATA[
-        SELECT
-			count(mem_num)
-		FROM
-			member_login_hist
-		WHERE
-			last_update_date >= DATE_SUB(now(), INTERVAL #checkTime# SECOND)
-		AND last_update_ip = #clientIp#
-      ]]>
-	</select>
 
 	<insert id="save" parameterClass="memberLoginInfo">
 	<![CDATA[
@@ -26,13 +14,12 @@
 			mem_id,
 			nick_name,
 			mem_pwd,
+			mem_valid_yn_cd,
 			login_ip,
 			login_date,
 			login_fail_ip,
 			login_fail_date,
 			login_fail_cnt,
-			last_update_ip,
-			last_update_date,
 			version_no)
 		VALUES
 			(
@@ -40,28 +27,29 @@
 			#memId#,
 			#nickName#,
 			#memPwd#,
-			#loginIp#,
-			now(),
+			#memValidYNCd#,
+			null,
+			null,
 			null,
 			null,
 			0,
-			#lastUpdateIp#,
-			now(),
-			#versionNo#
+			0
 			)
 	]]>
 	</insert>
 
-	<update id="updatePwd" parameterClass="memberLoginInfo">
+	<update id="update" parameterClass="memberLoginInfo">
       <![CDATA[
 		UPDATE
 			member_login_info
 		SET
-		    mem_pwd = #memPwd#,
-			last_update_ip = #lastUpdateIp#,
-			last_update_date = now()
+			mem_id = #memId#,
+			nick_name = #nickName#,
+			mem_pwd = #memPwd#,
+			mem_valid_yn_cd = #memValidYNCd#,
+			version_no = version_no + 1
 		WHERE
-			mem_id = #memId#
+			mem_num = #memNum#
       ]]>
 	</update>
 
