@@ -111,8 +111,8 @@
 			</dl>
 			<div class="submit">
 				<s:token />
-				<s:submit action="createMember" formId="frm_mem_edit" value="登録"></s:submit>
-				<s:reset action="createMember" value="クリア"></s:reset>
+				<s:submit action="createMember" formId="frm_mem_registry" value="登録"></s:submit>
+				<s:reset value="クリア"></s:reset>
 			</div>
 		</s:form>
 	</dd>
