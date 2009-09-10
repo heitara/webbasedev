@@ -17,10 +17,15 @@
 		</interceptors>
 		
 		<default-interceptor-ref name="gameifStack"/>
+		<default-action-ref name="index"/>
 		
 		<global-results>
 			<result name="unhandledException">/WEB-INF/pages/common/error.jsp</result>
 		</global-results>
+
+		<action name="index" class="indexAction">
+			<result name="index">/WEB-INF/pages/portal/index.jsp</result>
+		</action>
 
 		<action name="*Page" class="displayAction" method="{1}">
 			<result name="finish">/WEB-INF/pages/common/finish.jsp</result>
