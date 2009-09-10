@@ -1,0 +1,343 @@
+/*********【共通】***************************************************************/
+body {
+	margin:0px;
+	padding:0px;
+	text-align:center;
+}
+
+/*********【共通】トップ ********************************************************/
+dl.page_top {
+	width:980px;
+	height:35px;
+	margin:15px auto;
+}
+dl.page_top > dt {
+	float:left;
+}
+dl.page_top > dd {
+	float:right;
+	text-align:right;
+	height:35px;
+}
+dl.page_top > dd > a {
+	display:inline-block;
+	padding:0px 3px;
+}
+
+/*********【共通】トップメニュー ************************************************/
+dl.page_top_menu {
+	width:980px;
+	height:36px;
+	margin:0px auto;
+	overflow:hidden;
+	background-image:url("../../images/bg_top_menu.gif");
+}
+dl.page_top_menu > dt {
+	width:100%
+	height:36px;	
+	background:url("../../images/bg_top_menu_left.gif") left top no-repeat;
+}
+dl.page_top_menu > dt > div {
+	height:36px;
+	background:url("../../images/bg_top_menu_right.gif") right top no-repeat;
+}
+dl.page_top_menu > dt > div > a {
+	width:190px;
+	height:22px;
+	line-height:22px;
+	color:#FFF;
+	font-size:13px;
+	font-weight:bold;
+	display:inline-block;
+	margin-top:7px;
+}
+dl.page_top_menu > dt > div > a:hover {
+	color:#333;
+	background-color:#FC0;
+}
+
+/*********【共通】フッター ******************************************************/
+dl.page_bottom {
+	width:980px;
+	height:60px;
+	margin:40px auto 10px auto;
+	border-top:5px solid #3C2F2D;
+	padding-top:10px;
+}
+dl.page_bottom > dt {
+	float:left;
+	text-align:left;
+}
+dl.page_bottom > dt > a {
+	display:inline-block;
+	padding:0px 3px;
+	text-decoration:underline;
+}
+dl.page_bottom > dt > div {
+	color:#666;
+	font-size:10px;
+	margin-top:15px;
+}
+dl.page_bottom > dd {
+	float:right;
+	text-align:right;
+	height:60px;
+	font-size:10px;
+}
+
+/*********【共通】メイン ********************************************************/
+div#page_main_box {
+	width:980px;
+	margin:20px auto;
+}
+div#page_main_main {
+	float:left;
+	width:760px;
+}
+div#page_main_right {
+	float:right;
+	width:200px;
+}
+
+/*********【共通】右パネル・ショットカット **************************************/
+dl.quickstart {
+	height:107px;
+	clear: both;
+}
+dl.quickstart dt {
+	float:left;
+}
+dl.quickstart dd {
+	text-align:right;
+}
+
+/*********【共通】右パネル・初めての方へ ****************************************/
+dd.guide {
+	width:100%;
+}
+dd.guide a {
+	display:block;
+	width:185px;
+	height:36px;
+	line-height:36px;
+	font-size:12px;
+	color:#333;
+	text-decoration:none;
+	background-color:#F6F6F6;
+	border:1px solid #CCC;
+	border-top:0px;
+	padding-left:13px;
+	background-image: url("../../images/arrow02.gif");
+	background-repeat: no-repeat;
+	background-position: 180px 15px;
+}
+dd.guide a:hover {
+	background-color:#FFF;
+}
+
+/*********【共通】右パネル・マイゲーム ******************************************/
+dl.mygame {
+	overflow:hidden;
+}
+dl.mygame > dt {
+	float:left;
+	width:50px;
+	height:45px;
+}
+dl.mygame > dd > div {
+	height:24px;
+	font-size:14px;
+	font-weight:bold;
+	text-align:left;
+	overflow:hidden;
+	white-space:nowrap;
+}
+dl.mygame > dd > a {
+	display:inline-block;
+	width:46px;
+	height:20px;
+	line-height:20px;
+	font-size:10px;
+	text-align:center;
+	text-decoration:none;
+	background-image:url("../../images/bg_small_btn.gif");
+}
+dl.mygame > dd > a:hover {
+	color:#333;
+	opacity: 0.6;                    /* Firefox, Safari(WebKit), Opera */
+	-ms-filter: "alpha(opacity=60)"; /* IE 8 */
+	filter: alpha(opacity=60);       /* IE 4-7 */
+}
+
+div.mygame_select {
+	margin-top:10px;
+}
+div.mygame_select > fieldset ul {
+	list-style:none;
+	margin:5px 15px;
+	padding:0px;
+}
+div.mygame_select > fieldset > ul > li > a {
+	display:block;
+	height:20px;
+	line-height:20px;
+}
+
+/*********【トップ】イラスト：開始 **********************************************/
+div#illustration > div.rbox_main > div {
+	height:250px;
+	margin:2px 3px;
+	background-color:#F6F6F6;
+}
+
+/*********【トップ】お知らせ一覧 ************************************************/
+dd.news_list > ul {
+	list-style-type:none;
+	margin:5px 2px;
+	padding:0px;
+}
+dd.news_list > ul > li {
+	margin-left:0px;
+	line-height:30px;
+	border-bottom:1px dashed #DDD;
+}
+dd.news_list > ul > li > span{
+	font-size:12px;
+	float:right;
+}
+dd.news_list > ul > li > a {
+	color:#333;
+	font-size:13px;
+	text-decoration:none;
+}
+dd.news_list > ul > li > a:hover {
+	color:#F90;
+}
+
+/*********【完了画面】完了メッセージ ********************************************/
+dl.finish {
+	font-size:12px;
+	margin:30px 10px;
+}
+dl.finish > dt {
+	font-size:14px;
+	font-weight:bold;
+	margin:20px 0px;
+}
+dl.finish > dd > div {
+	margin:20px 8px;
+}
+
+/*********【友達紹介】メールアドレスインポート **********************************/
+div.mail_import {
+	margin-left:290px;
+}
+div.mail_import img {
+	margin:5px 0px 0px 5px;
+}
+
+/*********【友達紹介】友達紹介履歴 **********************************************/
+dl.friendhist {
+	height:30px;
+}
+dl.friendhist dt {
+	float:left;
+	height:30px;
+}
+dl.friendhist dd {
+	float:right;
+	height:30px;
+}
+table.friendhist {
+	width:100%;
+	font-size:13px;
+	text-align:center;
+	border-collapse:collapse;
+}
+table.friendhist tr {
+	height:30px;
+	border-bottom:1px dashed #DDD;
+}
+table.friendhist th {
+	height:32px;
+	background-color:#F6F6F6;
+}
+table.friendhist th.select {
+	width:40px;
+}
+table.friendhist th.friend, th.status {
+	width:140px;
+}
+table.friendhist th.present_ymd, th.entry_ymd  {
+	width:100px;
+}
+table.friendhist td.friend, td.mail {
+	text-align:left;
+}
+
+/*********【ゲーム】ゲーム一覧 **************************************************/
+table.games {
+	width:100%;
+	margin-top:30px;
+	border-collapse:collapse;
+}
+table.games tr.space {
+	height:30px;
+}
+table.games td {
+	vertical-align:top;
+	padding:0px;
+}
+table.games td.sidecell {
+	width:180px;
+}
+
+table.games div.g_title {
+	font-size:16px;
+	font-weight:bold;
+}
+table.games div.g_menu {
+	width:380px;
+	height:20px;
+	margin:0px 0px 20px 0px;
+	background:url("../../images/bg_game_menu.gif") left top no-repeat;
+	overflow:hidden;
+}
+table.games div.g_about {
+	font-size:12px;
+	margin:15px 0px;
+	line-height:20px;
+}
+table.games div.g_menu > a {
+	display:inline-block;
+	width:95px;
+	height:20px;
+	line-height:20px;
+	font-size:10px;
+	font-weight:bold;
+	text-align:center;
+	overflow:hidden;
+}
+table.games div.g_menu > a:hover {
+	color:#FFF;
+}
+table.games div.g_servers {
+	height:83px;
+	padding:1px;
+	background-color:#FFF;
+	border:1px solid #DDD;
+	border-top:0px;
+	overflow-y:auto;
+}
+table.games div.g_servers a {
+	display:block;
+	padding-left:5px;
+	height:18px;
+	line-height:18px;
+}
+table.games div.g_servers a:hover {
+	background-color:#006;
+	color:#FFF;
+}
+
+
