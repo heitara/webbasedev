@@ -6,9 +6,6 @@ import com.gameif.common.entity.BaseEntity;
 
 public class InquiryInfo extends BaseEntity {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -6447552112880293012L;
 
 	private Long inquiryNum;
@@ -36,7 +33,7 @@ public class InquiryInfo extends BaseEntity {
 	private String correspondUserName;
 	private Date createdDate;
 	private String createdUser;
-	private Date lastUpdateDate;
+	private Date lastModifiedDate;
 	private String lastUpdateUser;
 
 	/**
@@ -242,8 +239,7 @@ public class InquiryInfo extends BaseEntity {
 	}
 
 	/**
-	 * @param inquiryDate
-	 *            the inquiryDate to set
+	 * @param inquiryDate the inquiryDate to set
 	 */
 	public void setInquiryDate(Date inquiryDate) {
 		this.inquiryDate = inquiryDate;
@@ -257,8 +253,7 @@ public class InquiryInfo extends BaseEntity {
 	}
 
 	/**
-	 * @param responseDate
-	 *            the responseDate to set
+	 * @param responseDate the responseDate to set
 	 */
 	public void setResponseDate(Date responseDate) {
 		this.responseDate = responseDate;
@@ -415,18 +410,18 @@ public class InquiryInfo extends BaseEntity {
 	}
 
 	/**
-	 * @return the lastUpdateDate
+	 * @return the lastModifiedDate
 	 */
-	public Date getLastUpdateDate() {
-		return lastUpdateDate;
+	public Date getLastModifiedDate() {
+		return lastModifiedDate;
 	}
 
 	/**
-	 * @param lastUpdateDate
-	 *            the lastUpdateDate to set
+	 * @param lastModifiedDate
+	 *            the lastModifiedDate to set
 	 */
-	public void setLastUpdateDate(Date lastUpdateDate) {
-		this.lastUpdateDate = lastUpdateDate;
+	public void setLastModifiedDate(Date lastModifiedDate) {
+		this.lastModifiedDate = lastModifiedDate;
 	}
 
 	/**
