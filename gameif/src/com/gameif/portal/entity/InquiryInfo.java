@@ -36,7 +36,7 @@ public class InquiryInfo extends BaseEntity {
 	private String correspondUserName;
 	private Date createdDate;
 	private String createdUser;
-	private Date lastModifiedDate;
+	private Date lastUpdateDate;
 	private String lastUpdateUser;
 
 	/**
@@ -242,7 +242,8 @@ public class InquiryInfo extends BaseEntity {
 	}
 
 	/**
-	 * @param inquiryDate the inquiryDate to set
+	 * @param inquiryDate
+	 *            the inquiryDate to set
 	 */
 	public void setInquiryDate(Date inquiryDate) {
 		this.inquiryDate = inquiryDate;
@@ -256,7 +257,8 @@ public class InquiryInfo extends BaseEntity {
 	}
 
 	/**
-	 * @param responseDate the responseDate to set
+	 * @param responseDate
+	 *            the responseDate to set
 	 */
 	public void setResponseDate(Date responseDate) {
 		this.responseDate = responseDate;
@@ -413,18 +415,18 @@ public class InquiryInfo extends BaseEntity {
 	}
 
 	/**
-	 * @return the lastModifiedDate
+	 * @return the lastUpdateDate
 	 */
-	public Date getLastModifiedDate() {
-		return lastModifiedDate;
+	public Date getLastUpdateDate() {
+		return lastUpdateDate;
 	}
 
 	/**
-	 * @param lastModifiedDate
-	 *            the lastModifiedDate to set
+	 * @param lastUpdateDate
+	 *            the lastUpdateDate to set
 	 */
-	public void setLastModifiedDate(Date lastModifiedDate) {
-		this.lastModifiedDate = lastModifiedDate;
+	public void setLastUpdateDate(Date lastUpdateDate) {
+		this.lastUpdateDate = lastUpdateDate;
 	}
 
 	/**
