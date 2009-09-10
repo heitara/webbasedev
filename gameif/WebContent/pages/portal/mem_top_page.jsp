@@ -14,8 +14,14 @@
 
 <body>
 	<div class="contents">
-		<s:form name="frm_mem_menu">
+		<s:form name="frm_mem_menu" method="POST">
 			<table>
+				<tr>
+					<td>
+						<s:actionerror />
+						<s:actionmessage />
+					</td>
+				</tr>
 				<tr>
 					<td>
 						<s:property value="memId" />
@@ -23,8 +29,8 @@
 				</tr>
 				<tr>
 					<td>
-						<s:url id="change_pwd" action="changePwdMember"/>
-						<s:a href="%{change_pwd}">
+						<s:url id="changeMemberPwd" action="chgmemPwdUrlMember"/>
+						<s:a href="%{changeMemberPwd}">
 							<s:property value="%{getText('mem_change_pwd_title')}" />
 						</s:a>
 					</td>
