@@ -1,149 +1,153 @@
 package com.gameif.portal.action.memberInfo;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.struts2.ServletActionContext;
-
 import com.gameif.common.action.ModelDrivenActionSupport;
-import com.gameif.common.bean.KeyValueInfo;
+import com.gameif.common.exception.LogicException;
+import com.gameif.common.util.ContextUtil;
 import com.gameif.portal.businesslogic.IMemberInfoBusinessLogic;
 import com.gameif.portal.entity.MemberInfo;
-import com.opensymphony.xwork2.ActionContext;
+import com.gameif.portal.helper.PortalProperties;
 
-public class MemberInfoControlAction extends
-		ModelDrivenActionSupport<MemberInfo> {
+public class MemberInfoControlAction extends ModelDrivenActionSupport<MemberInfo> {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 171926714928924158L;
 
 	private IMemberInfoBusinessLogic memberInfoBusinessLogic;
+	private PortalProperties portalProperties;
+	
+	private String confirmPwd;
+	private String kaptcha;
+	private String agreement;
 
-	private List<KeyValueInfo> listquestion;
+	public String getConfirmPwd() {
+		return confirmPwd;
+	}
 
-	/**
-	 * @param memberInfoBusinessLogic
-	 *            the memberInfoBusinessLogic to set
-	 */
-	public void setMemberInfoBusinessLogic(
-			IMemberInfoBusinessLogic memberInfoBusinessLogic) {
+	public void setConfirmPwd(String confirmPwd) {
+		this.confirmPwd = confirmPwd;
+	}
+
+	public String getAgreement() {
+		return agreement;
+	}
+
+	public void setAgreement(String agreement) {
+		this.agreement = agreement;
+	}
+
+	public String getKaptcha() {
+		return kaptcha;
+	}
+
+	public void setKaptcha(String kaptcha) {
+		this.kaptcha = kaptcha;
+	}
+
+	public PortalProperties getPortalProperties() {
+		return portalProperties;
+	}
+
+	public void setPortalProperties(PortalProperties portalProperties) {
+		this.portalProperties = portalProperties;
+	}
+
+	public void setMemberInfoBusinessLogic(IMemberInfoBusinessLogic memberInfoBusinessLogic) {
 		this.memberInfoBusinessLogic = memberInfoBusinessLogic;
 	}
 
-	/**
-	 * @return the listquestion
-	 */
-	public List<KeyValueInfo> getListquestion() {
-		return listquestion;
+
+	public IMemberInfoBusinessLogic getMemberInfoBusinessLogic() {
+		return memberInfoBusinessLogic;
 	}
 
 	/**
-	 * @param listquestion
-	 *            the listquestion to set
+	 * 会員情報入力画面に案内する。
+	 * @return　会員情報入力画面コード
 	 */
-	public void setListquestion(List<KeyValueInfo> listquestion) {
-		this.listquestion = listquestion;
-	}
-
-	public String input() {
-		this.setListquestion(getQuestionList());
+	public String registry() {
+		
 		return INPUT;
 	}
-
-	public String changePwd() {
-		int rtn = memberInfoBusinessLogic.changePwd(this.getModel());
-		if (rtn != 0) {
-			addActionError("Some errors was happened when update Password!");
-			return "relogin";
-		} else {
-			return SUCCESS;
-		}
-	}
-
-	public String changePwdUrl() {
-		return "changePwd";
-	}
-
+	
 	/**
-	 * Get the memberInfo
-	 * 
-	 * @return
+	 * 会員情報を登録する。
+	 * @return　完了画面コード
 	 */
-	public String show() {
-		// get the member info
-		MemberInfo memberInfo = memberInfoBusinessLogic.showDetail(this
-				.getModel());
-
-		if (memberInfo != null) {
-			setModel(memberInfo);
-			return "showdetail";
-		} else {
-			return "login";
-		}
-
+	public String create() {
+		
+		memberInfoBusinessLogic.saveMemberInfo(getModel());
+		
+		//TODO:会員登録通知メール送信要実装
+		
+		return "successCreate";
 	}
 
 	/**
-	 * Update memberInfo
-	 * 
-	 * @return
+	 * 会員情報変更画面に案内する。
+	 * @return 会員情報変更画面または警告画面コード
+	 */
+	public String edit() {
+
+		MemberInfo memberInfo = memberInfoBusinessLogic.getMemberInfo(this.getModel());
+
+		if (memberInfo == null) {
+
+			return "warning";
+		}
+		
+		setModel(memberInfo);
+		
+		return "edit";
+	}
+
+	/**
+	 * Update 会員情報を更新する。
+	 * @return　完了画面または警告画面コード
 	 */
 	public String update() {
-		memberInfoBusinessLogic.updateMemberInfo(this.getModel());
+		
+		try {
+
+			memberInfoBusinessLogic.updateMemberInfo(this.getModel());
+			
+		} catch (LogicException lgex) {
+			
+			logger.warn(ContextUtil.getRequestBaseInfo() + " | " + lgex.getMessage());
+
+			return "warning";
+		}
+		
+		//TODO:会員情報変更通知メール送信要実装
+		
 		return "showMenu";
 	}
 
 	/**
-	 * Create a new member
-	 * 
-	 * @return
+	 * パスワード変更画面に案内する。
+	 * @return パスワード変更画面コード
 	 */
-	public String create() {
+	public String editPasswd() {
 		
-		HttpServletRequest request = ServletActionContext.getRequest();
-		String kaptchaExpected = (String)request.getSession()
-							.getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
-		
-		String kaptchaReceived = request.getParameter("kaptcha"); 
-		 
-		if (kaptchaReceived == null || !kaptchaReceived.equalsIgnoreCase(kaptchaExpected)) 
-		{ 
-			ActionContext ctx = ActionContext.getContext();
-//			ctx.put("kaptcha", getText(""));
-			ctx.put("kaptcha", "");
-			return INPUT;
-		}
-		
-		memberInfoBusinessLogic.saveMemberInfo(this.getModel());
-		return SUCCESS;
+		return "changePasswd";
 	}
 
-	private List<KeyValueInfo> getQuestionList() {
-		List<KeyValueInfo> infos = new ArrayList<KeyValueInfo>();
+	/**
+	 * Update パスワードを更新する。
+	 * @return　完了画面または警告画面コード
+	 */
+	public String updatePasswd() {
+		try {
 
-		KeyValueInfo info = new KeyValueInfo();
+			memberInfoBusinessLogic.changePasswd(this.getModel());
+			
+		} catch (LogicException lgex) {
+			
+			logger.warn(ContextUtil.getRequestBaseInfo() + " | " + lgex.getMessage());
 
-		info.setKey("00");
-		info.setValue(" ");
-
-		infos.add(info);
-
-		info = new KeyValueInfo();
-		info.setKey("11");
-		info.setValue("test11");
-
-		infos.add(info);
-
-		info = new KeyValueInfo();
-		info.setKey("12");
-		info.setValue("test12");
-
-		infos.add(info);
-
-		return infos;
+			return "warning";
+		}
+		
+		//TODO:パスワード変更通知メール送信要実装
+		
+		return SUCCESS;
 	}
 }
