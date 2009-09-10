@@ -3,7 +3,9 @@
     PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
     "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="memberInfo">
+
 	<typeAlias alias="memberInfo" type="com.gameif.portal.entity.MemberInfo" />
+	<typeAlias alias="searchCondition" type="com.gameif.common.bean.ComSearchCondition" />
 
 	<resultMap class="com.gameif.portal.entity.MemberInfo" id="memberResult">
 		<result property="memNum" column="mem_num" />
@@ -12,6 +14,7 @@
 		<result property="memPwd" column="mem_pwd" />
 		<result property="memKindCd" column="mem_kind_cd" />
 		<result property="memAtbtCd" column="mem_atbt_cd" />
+		<result property="memValidYNCd" column="mem_valid_yn_cd" />
 		<result property="questionCd" column="question_cd" />
 		<result property="answer" column="answer" />
 		<result property="mailPc" column="mail_pc" />
@@ -30,10 +33,12 @@
 		<result property="mailmagReqCd" column="mailmag_req_cd" />
 		<result property="mailmagObjCd" column="mailmag_obj_cd" />
 		<result property="note" column="note" />
-		<result property="entryIp" column="entry_ip" />
 		<result property="entryDate" column="entry_date" />
-		<result property="lastUpdateIp" column="last_update_ip" />
+		<result property="entryIp" column="entry_ip" />
+		<result property="withdrawDate" column="withdraw_date" />
+		<result property="withdrawIp" column="withdraw_ip" />
 		<result property="lastUpdateDate" column="last_update_date" />
+		<result property="lastUpdateIp" column="last_update_ip" />
 		<result property="versionNo" column="version_no" />
 	</resultMap>
 
@@ -46,6 +51,7 @@
 			mem_pwd,
 			mem_kind_cd,
 			mem_atbt_cd,
+			mem_valid_yn_cd,
 			question_cd,
 			answer,
 			mail_pc,
@@ -64,27 +70,73 @@
 			mailmag_req_cd,
 			mailmag_obj_cd,
 			note,
-			entry_ip,
 			entry_date,
-			last_update_ip,
+			entry_ip,
+			withdraw_date,
+			withdraw_ip,
 			last_update_date,
+			last_update_ip,
 			version_no
 		FROM
 			member_info
 		WHERE
-			mem_id = #memId#
+			mem_num = #memNum#
         ]]>
 	</select>
 
-	<insert id="save" parameterClass="memberInfo">
-	<![CDATA[
-		INSERT INTO member_info
-			(
+	<select id="selectForUpdate" resultMap="memberResult">
+        <![CDATA[
+			SELECT
+				mem_num,
+				mem_id,
+				nick_name,
+				mem_pwd,
+				mem_kind_cd,
+				mem_atbt_cd,
+				mem_valid_yn_cd,
+				question_cd,
+				answer,
+				mail_pc,
+				mail_mobile,
+				kanji_fname,
+				kanji_lname,
+				kana_fname,
+				kana_lname,
+				sex_cd,
+				birth_ymd,
+				divis_cd,
+				occup_cd,
+				city_name,
+				building_name,
+				tel_num,
+				mailmag_req_cd,
+				mailmag_obj_cd,
+				note,
+				entry_date,
+				entry_ip,
+				withdraw_date,
+				withdraw_ip,
+				last_update_date,
+				last_update_ip,
+				version_no
+			FROM
+				member_info
+			WHERE
+				mem_num = #memNum#
+			FOR UPDATE
+        ]]>
+	</select>
+
+	<select id="selectByMemId" resultMap="memberResult">   
+        <![CDATA[
+        SELECT
+			mem_num,
 			mem_id,
 			nick_name,
 			mem_pwd,
 			mem_kind_cd,
 			mem_atbt_cd,
+			mem_valid_yn_cd,
 			question_cd,
 			answer,
 			mail_pc,
@@ -97,15 +149,60 @@
 			birth_ymd,
 			divis_cd,
 			occup_cd,
-			area,
+			city_name,
+			building_name,
 			tel_num,
 			mailmag_req_cd,
 			mailmag_obj_cd,
 			note,
-			entry_ip,
 			entry_date,
-			last_update_ip,
+			entry_ip,
+			withdraw_date,
+			withdraw_ip,
 			last_update_date,
+			last_update_ip,
+			version_no
+		FROM
+			member_info
+		WHERE
+			mem_id = #value#
+        ]]>
+	</select>
+
+	<insert id="save" parameterClass="memberInfo">
+	<![CDATA[
+		INSERT INTO member_info
+			(
+			mem_id,
+			nick_name,
+			mem_pwd,
+			mem_kind_cd,
+			mem_atbt_cd,
+			mem_valid_yn_cd,
+			question_cd,
+			answer,
+			mail_pc,
+			mail_mobile,
+			kanji_fname,
+			kanji_lname,
+			kana_fname,
+			kana_lname,
+			sex_cd,
+			birth_ymd,
+			divis_cd,
+			occup_cd,
+			city_name,
+			building_name,
+			tel_num,
+			mailmag_req_cd,
+			mailmag_obj_cd,
+			note,
+			entry_date,
+			entry_ip,
+			withdraw_date,
+			withdraw_ip,
+			last_update_date,
+			last_update_ip,
 			version_no)
 		VALUES
 			(
@@ -114,6 +211,7 @@
 			#memPwd#,
 			#memKindCd#,
 			#memAtbtCd#,
+			#memValidYNCd#,
 			#questionCd#,
 			#answer#,
 			#mailPc#,
@@ -132,38 +230,99 @@
 			#mailmagReqCd#,
 			#mailmagObjCd#,
 			#note#,
-			#entryIp#,
 			#entryDate#,
-			#lastUpdateIp#,
+			#entryIp#,
+			#withdrawDate#,
+			#withdrawIp#,
 			#lastUpdateDate#,
-			#versionNo#
+			#lastUpdateIp#,
+			0
 			)
 	]]>
 	</insert>
 
 	<update id="update" parameterClass="memberInfo">
-      <![CDATA[
-		UPDATE
-			member_info
-		SET
-		    mem_pwd = #memPwd#,
-		    mail_pc = #mailPc#
-		WHERE
-			mem_id = #memId#
-      ]]>
-	</update>
-
-	<update id="updatePwd" parameterClass="memberInfo">
-      <![CDATA[
-		UPDATE
-			member_info
-		SET
-		    mem_pwd = #memPwd#,
+	<![CDATA[
+		UPDATE member_info
+		SET	mem_id = #memId#,
+			nick_name = #nickName#,
+			mem_pwd = #memPwd#,
+			mem_kind_cd = #memKindCd#,
+			mem_atbt_cd = #memAtbtCd#,
+			mem_valid_yn_cd = #memValidYNCd#,
+			question_cd = #questionCd#,
+			answer = #answer#,
+			mail_pc = #mailPc#,
+			mail_mobile = #mailMobile#,
+			kanji_fname = #kanjiFname#,
+			kanji_lname = #kanjiLname#,
+			kana_fname = #kanaFname#,
+			kana_lname = #kanaLname#,
+			sex_cd = #sexCd#,
+			birth_ymd = #birthYmd#,
+			divis_cd = #divisCd#,
+			occup_cd = #occupCd#,
+			city_name = #cityName#,
+			building_name = #buildingName#,
+			tel_num = #telNum#,
+			mailmag_req_cd = #mailmagReqCd#,
+			mailmag_obj_cd = #mailmagObjCd#,
+			note = #note#,
+			entry_date = #entryDate#,
+			entry_ip = #entryIp#,
+			withdraw_date = #withdrawDate#,
+			withdraw_ip = #withdrawIp#,
+			last_update_date = #lastUpdateDate#,
 			last_update_ip = #lastUpdateIp#,
-			last_update_date = now()
+			version_no = version_no + 1
 		WHERE
-			mem_id = #memId#
-      ]]>
+			mem_num = #memNum#
+	]]>
 	</update>
+	
+	<select id="selectCountByIPAndTime" parameterClass="searchCondition" resultClass="int">
+      <![CDATA[
+        SELECT
+			count(mem_num)
+		FROM
+			member_info
+		WHERE
+			last_update_ip = #clientIp#
+		AND last_update_date >= DATE_SUB(now(), INTERVAL #checkTime# SECOND)		
+      ]]>
+	</select>
+	
+	<select id="selectCountByMemId" resultClass="int">
+      <![CDATA[
+        SELECT
+			count(mem_num)
+		FROM
+			member_info
+		WHERE
+			mem_id = #value#	
+      ]]>
+	</select>
+	
+	<select id="selectCountByNickName" resultClass="int">
+      <![CDATA[
+        SELECT
+			count(mem_num)
+		FROM
+			member_info
+		WHERE
+			nick_name = #value#	
+      ]]>
+	</select>
+	
+	<select id="selectCountByMailPc" resultClass="int">
+      <![CDATA[
+        SELECT
+			count(mem_num)
+		FROM
+			member_info
+		WHERE
+			mail_pc = #value#	
+      ]]>
+	</select>
 
 </sqlMap>
