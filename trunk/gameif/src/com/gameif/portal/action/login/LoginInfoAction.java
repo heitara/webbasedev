@@ -23,6 +23,9 @@ public class LoginInfoAction extends ModelDrivenActionSupport<LoginInfo> {
 	}
 
 	public String execute() {
+		this.getActionErrors().clear();
+		this.getFieldErrors().clear();
+		this.getActionMessages().clear();
 
 		LoginInfo result = loginInfoBusinessLogic.checkLoginInfo(this
 				.getModel());
