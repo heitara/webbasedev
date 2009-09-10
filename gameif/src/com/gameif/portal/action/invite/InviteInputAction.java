@@ -70,17 +70,24 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 		this.masterInfoBusinessLogic = masterInfoBusinessLogic;
 	}
 
-	public String create() {
-		inviteInfoBusinessLogic.saveInviteInfo(this.getModel());
-		return SUCCESS;
-	}
-
-	public String inpute() {
-
+	/**
+	 * 友達紹介画面に案内する。
+	 * @return 友達紹介入力画面
+	 */
+	public String input() {
 		setListInviteTitle(masterInfoBusinessLogic.selectValidTitleList());
 		setListInviteTemplate(getInviteTemplateList(""));
 
 		return INPUT;
+	}
+
+	/**
+	 * データを友達紹介テーブルに登録する
+	 * @return　登録完了画面
+	 */
+	public String create() {
+		inviteInfoBusinessLogic.saveInviteInfo(this.getModel());
+		return SUCCESS;
 	}
 
 	private List<KeyValueInfo> getInviteTemplateList(String titleId) {

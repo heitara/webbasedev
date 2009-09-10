@@ -22,7 +22,7 @@
 	</resultMap>
 	
 	<insert id = "save" parameterClass="inviteInfo">
-		INSERT INTO inquiry_info
+		INSERT INTO invite_info
 			(mem_num,
 			invite_mail_from,
 			invite_mail_to,
