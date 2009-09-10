@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+	<bean id="portalProperties" class="com.gameif.portal.helper.PortalProperties" scope="singleton">
+		<property name="questionList">
+			<map>
+				<entry key="1" value="好きな食べ物は？"/>
+				<entry key="2" value="旅行で行きたい国は？"/>
+				<entry key="3" value="お母さんの旧姓は？"/>
+				<entry key="4" value="もっとも使っているニュースサイトは？"/>
+				<entry key="5" value="もっとも面白かった映画は？"/>
+			</map>
+		</property>
+		<property name="actionTitles">
+			<map>
+				<entry key="createMember" value="会員登録"/>
+				<entry key="updateMember" value="会員情報変更"/>
+				<entry key="updatePasswd" value="パスワード変更"/>
+			</map>
+		</property>
+	</bean>
+	
+</beans>
