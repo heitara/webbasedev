@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.gameif.common.businesslogic.BaseBusinessLogic;
 import com.gameif.portal.businesslogic.IInviteInfoBusinessLogic;
+import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.dao.IInviteInfoDao;
 import com.gameif.portal.entity.InviteInfo;
 import com.opensymphony.xwork2.ActionContext;
@@ -56,7 +57,8 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 			newInviteInfo.setInviteMsg(inviteInfo.getInviteMsg());
 			// タイトル
 			newInviteInfo.setTitleId(inviteInfo.getTitleId());
-			newInviteInfo.setInviteStatus("0");
+			// 友達登録ステータス
+			newInviteInfo.setInviteStatus(PortalConstants.InviteStatus.NO_RESPONSE);
 			newInviteInfo.setFriendCreateDate(null);
 			newInviteInfo.setCreatedDate(inviteDate);
 			newInviteInfo.setLastUpdateDate(inviteDate);
