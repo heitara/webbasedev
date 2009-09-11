@@ -30,12 +30,13 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	}
 
 	/**
+	 * 友達紹介情報を登録する。
 	 * @param inviteInfoDao
 	 */
 	@Transactional
 	public void saveInviteInfo(InviteInfo inviteInfo) {
 
-		/** 複数送信先の場合、メールアドレースを「,」で分割 */
+		/** 複数友達の場合、メールアドレースを「,」で分割 */
 		String[] mailToList = inviteInfo.getInviteMailTo().replace("\r\n", "\n")
 				.split("\n");
 		Date inviteDate = new Date();
