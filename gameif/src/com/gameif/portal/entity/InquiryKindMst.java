@@ -4,48 +4,48 @@ import java.util.Date;
 
 import com.gameif.common.entity.BaseEntity;
 
-public class InquireKindMst extends BaseEntity {
+public class InquiryKindMst extends BaseEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 3883627199763070005L;
 
-	private Integer inquireKindCode;
-	private String inquireKindName;
+	private Integer inquiryKindCode;
+	private String inquiryKindName;
 	private Date createdDate;
 	private String createdUser;
 	private Date lastUpdateDate;
 	private String lastUpdateUser;
 
 	/**
-	 * @return the inquireKindCode
+	 * @return the inquiryKindCode
 	 */
-	public Integer getInquireKindCode() {
-		return inquireKindCode;
+	public Integer getInquiryKindCode() {
+		return inquiryKindCode;
 	}
 
 	/**
-	 * @param inquireKindCode
-	 *            the inquireKindCode to set
+	 * @param inquiryKindCode
+	 *            the inquiryKindCode to set
 	 */
-	public void setInquireKindCode(Integer inquireKindCode) {
-		this.inquireKindCode = inquireKindCode;
+	public void setInquiryKindCode(Integer inquiryKindCode) {
+		this.inquiryKindCode = inquiryKindCode;
 	}
 
 	/**
-	 * @return the inquireKindName
+	 * @return the inquiryKindName
 	 */
-	public String getInquireKindName() {
-		return inquireKindName;
+	public String getInquiryKindName() {
+		return inquiryKindName;
 	}
 
 	/**
-	 * @param inquireKindName
-	 *            the inquireKindName to set
+	 * @param inquiryKindName
+	 *            the inquiryKindName to set
 	 */
-	public void setInquireKindName(String inquireKindName) {
-		this.inquireKindName = inquireKindName;
+	public void setInquiryKindName(String inquiryKindName) {
+		this.inquiryKindName = inquiryKindName;
 	}
 
 	/**
