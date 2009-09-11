@@ -12,6 +12,6 @@ public class TitleMstDaoImpl extends
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<TitleMst> selectValidTitleList() {
-		return this.getSqlMapClientTemplate().queryForList(namespace + ".selectValidTitleList");
+		return this.getSqlMapClientTemplate().queryForList(namespace + ".selectValidTitleList", null);
 	}
 }
