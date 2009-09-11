@@ -78,4 +78,11 @@
 			<value>titleMst</value>
 		</property>
 	</bean>
+	
+	<!-- inquiryKindMstDao -->
+	<bean id="inquiryKindMstDao" class="com.gameif.portal.dao.impl.InquiryKindMstDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>inquiryKindMst</value>
+		</property>
+	</bean>
 </beans>
