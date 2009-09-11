@@ -88,14 +88,13 @@ public class MemberInfoControlAction extends ModelDrivenActionSupport<MemberInfo
 	 */
 	public String edit() {
 
-		MemberInfo memberInfo = memberInfoBusinessLogic.getMemberInfo(this.getModel());
+		getModel().setMemNum(ContextUtil.getMemberNo());		
+		setModel(memberInfoBusinessLogic.getMemberInfo(getModel()));
 
-		if (memberInfo == null) {
+		if (getModel() == null) {
 
 			return "warning";
 		}
-		
-		setModel(memberInfo);
 		
 		return "edit";
 	}
