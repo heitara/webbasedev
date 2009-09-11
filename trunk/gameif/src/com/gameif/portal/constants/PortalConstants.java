@@ -36,4 +36,22 @@ public class PortalConstants {
 		/** 凍結 */
 		public final static String FREEZE = "3";
 	}
+	
+	/** 友達登録ステータス */
+	public class InviteStatus {
+		/** 応答なし */
+		public final static String NO_RESPONSE = "0";
+		/** 会員登録済 */
+		public final static String REGISTERED  = "1";
+	}
+
+	/** 問合せ種別 */
+	public class InquiryType {
+		/** 会員 */ 
+		public final static int MEMBER = 0;
+		/** メディア */ 
+		public final static int MEDIA = 1;
+		/** その他 */ 
+		public final static int OTHER = 2;
+	}
 }
