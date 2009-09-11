@@ -27,8 +27,10 @@
 	</bean>
 	
 	<!-- mainMenuAction -->
+	<!-- 
 	<bean id="mainMenuAction" class="com.gameif.portal.action.menu.MainMenu" scope="prototype">
 	</bean>
+	 -->
 	
 	<!-- loginInfoAction -->
 	<bean id="loginInfoAction" class="com.gameif.portal.action.login.LoginInfoAction" scope="prototype">
