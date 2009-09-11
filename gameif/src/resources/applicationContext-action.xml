@@ -54,6 +54,9 @@
 		<property name="inquiryInfoBusinessLogic">
 			<ref bean="inquiryInfoBusinessLogic" />
 		</property>
+		<property name="masterInfoBusinessLogic">
+			<ref bean="masterInfoBusinessLogic" />
+		</property>
 	</bean>
 	
 	<!-- inviteInputAction -->
