@@ -45,7 +45,7 @@
 				</tr>
 				<tr>
 					<td>
-						<s:url id="inviteFriend" action="inputeInvite" includeParams="none"/>
+						<s:url id="inviteFriend" action="inputInvite" includeParams="none"/>
 						<s:a href="%{inviteFriend}">
 							<s:property value="%{getText('invite_input_title')}" />
 						</s:a>
