@@ -19,15 +19,15 @@ CREATE TABLE IF NOT EXISTS `division_mst` (
 
 
 
-DROP TABLE IF EXISTS `inquire_kind_mst`;
-CREATE TABLE IF NOT EXISTS `inquire_kind_mst` (
-  `inquire_kind_code` int(11) NOT NULL,
-  `inquire_kind_name` varchar(30) DEFAULT NULL,
+DROP TABLE IF EXISTS `inquiry_kind_mst`;
+CREATE TABLE IF NOT EXISTS `inquiry_kind_mst` (
+  `inquiry_kind_code` int(11) NOT NULL,
+  `inquiry_kind_name` varchar(30) DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
   `created_user` varchar(50) DEFAULT NULL,
   `last_update_date` datetime DEFAULT NULL,
   `last_update_user` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`inquire_kind_code`)
+  PRIMARY KEY (`inquiry_kind_code`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
