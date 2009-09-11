@@ -188,7 +188,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	 */
 	private MemberInfo getMemberInfoWithCheck(MemberInfo memberInfo) throws LogicException {
 		
-		return getMemberInfoWithCheck(memberInfo, true);		
+		return getMemberInfoWithCheck(memberInfo, true);
 	}
 
 	/**
