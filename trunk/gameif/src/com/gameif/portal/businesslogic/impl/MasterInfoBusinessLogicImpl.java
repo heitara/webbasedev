@@ -5,10 +5,12 @@ import java.util.List;
 import com.gameif.common.businesslogic.BaseBusinessLogic;
 import com.gameif.portal.businesslogic.IMasterInfoBusinessLogic;
 import com.gameif.portal.dao.IDivisionMstDao;
+import com.gameif.portal.dao.IInquiryKindMstDao;
 import com.gameif.portal.dao.IOccupationMstDao;
 import com.gameif.portal.dao.IQuestionMstDao;
 import com.gameif.portal.dao.ITitleMstDao;
 import com.gameif.portal.entity.DivisionMst;
+import com.gameif.portal.entity.InquiryKindMst;
 import com.gameif.portal.entity.OccupationMst;
 import com.gameif.portal.entity.QuestionMst;
 import com.gameif.portal.entity.TitleMst;
@@ -25,6 +27,7 @@ public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	private IOccupationMstDao occupationMstDao;
 	private IQuestionMstDao questionMstDao;
 	private ITitleMstDao titleMstDao;
+	private IInquiryKindMstDao inquiryKindMstDao;
 
 	/**
 	 * @param divisionMstDao
@@ -58,24 +61,51 @@ public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		this.titleMstDao = titleMstDao;
 	}
 
+	/**
+	 * @param inquiryKindMstDao the inquiryKindMstDao to set
+	 */
+	public void setInquiryKindMstDao(IInquiryKindMstDao inquiryKindMstDao) {
+		this.inquiryKindMstDao = inquiryKindMstDao;
+	}
+
+	/**
+	 * 都道府県を取得する
+	 */
 	@Override
-	public List<DivisionMst> selectAllDivisionMst() {
+	public List<DivisionMst> selectAllDivisionList() {
 		return divisionMstDao.selectAll(null);
 	}
 
+	/**
+	 * 職業を取得する
+	 */
 	@Override
 	public List<OccupationMst> selectAllOccupationList() {
 		return occupationMstDao.selectAll(null);
 	}
 
+	/**
+	 * 秘密質問を取得する
+	 */
 	@Override
 	public List<QuestionMst> selectAllQuestionList() {
 		return questionMstDao.selectAll(null);
 	}
 
+	/**
+	 * 現時点で有効なタイトルを取得する
+	 */
 	@Override
 	public List<TitleMst> selectValidTitleList() {
 		return titleMstDao.selectValidTitleList();
+	}
+
+	/**
+	 * 問合せ種類を取得する
+	 */
+	@Override
+	public List<InquiryKindMst> selectAllInquiryKindList() {
+		return inquiryKindMstDao.selectAll(null);
 	}
 
 }
