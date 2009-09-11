@@ -6,6 +6,7 @@ import com.gameif.common.util.ContextUtil;
 import com.gameif.portal.businesslogic.IMemberInfoBusinessLogic;
 import com.gameif.portal.entity.MemberInfo;
 import com.gameif.portal.helper.PortalProperties;
+import com.opensymphony.xwork2.ActionContext;
 
 public class MemberInfoControlAction extends ModelDrivenActionSupport<MemberInfo> {
 
