@@ -15,18 +15,18 @@
 			<ref local="gameifSqlMapClient" />
 		</property>
 	</bean>
-
-	<!-- userInfoDao -->
-	<bean id="loginInfoDao" class="com.gameif.portal.dao.impl.LoginInfoDaoImpl" parent="baseDao">
-		<property name="namespace">
-			<value>loginInfo</value>
-		</property>
-	</bean>
 	
 	<!-- memberInfoDao -->
 	<bean id="memberInfoDao" class="com.gameif.portal.dao.impl.MemberInfoDaoImpl" parent="baseDao">
 		<property name="namespace">
 			<value>memberInfo</value>
+		</property>
+	</bean>
+	
+	<!-- memberLoginInfoDao -->
+	<bean id="memberLoginInfoDao" class="com.gameif.portal.dao.impl.MemberLoginInfoDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>memberLoginInfo</value>
 		</property>
 	</bean>
 	
@@ -41,13 +41,6 @@
 	<bean id="inviteInfoDao" class="com.gameif.portal.dao.impl.InviteInfoDaoImpl" parent="baseDao">
 		<property name="namespace">
 			<value>inviteInfo</value>
-		</property>
-	</bean>
-	
-	<!-- memberLoginInfoDao -->
-	<bean id="memberLoginInfoDao" class="com.gameif.portal.dao.impl.MemberLoginInfoDaoImpl" parent="baseDao">
-		<property name="namespace">
-			<value>memberLoginInfo</value>
 		</property>
 	</bean>
 	
