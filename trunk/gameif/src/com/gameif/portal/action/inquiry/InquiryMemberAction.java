@@ -10,12 +10,12 @@ import com.gameif.portal.entity.InquiryInfo;
 import com.gameif.portal.entity.InquiryKindMst;
 import com.gameif.portal.entity.TitleMst;
 
-public class InquiryInputAction extends ModelDrivenActionSupport<InquiryInfo> {
+public class InquiryMemberAction extends ModelDrivenActionSupport<InquiryInfo> {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 8550721373586405191L;
+	private static final long serialVersionUID = 1461256665888682255L;
 
 	private IInquiryInfoBusinessLogic inquiryInfoBusinessLogic;
 	private IMasterInfoBusinessLogic masterInfoBusinessLogic;
@@ -72,23 +72,24 @@ public class InquiryInputAction extends ModelDrivenActionSupport<InquiryInfo> {
 	 * その他問合せ画面に案内する。
 	 * @return その他問合せ画面
 	 */
-	public String input() {
+	public String inputMember() {
 		// 初期化処理
 		// 現時点で有効なタイトルを取得する
 		this.setListValidTitle(masterInfoBusinessLogic.selectValidTitleList());
 		// 問合せ種類を取得する
 		this.setListInquiryKind(masterInfoBusinessLogic.selectAllInquiryKindList());
 		
-		return INPUT;
+		return "inputMember";
 	}
 
 	/**
 	 * データを問合せテーブルに登録する
 	 * @return
 	 */
-	public String create() {
-		this.getModel().setInquiryType(PortalConstants.InquiryType.OTHER);
+	public String createMem() {
+		this.getModel().setInquiryType(PortalConstants.InquiryType.MEMBER);
 		inquiryInfoBusinessLogic.saveInquiryInfo(this.getModel());
 		return SUCCESS;
 	}
+
 }
