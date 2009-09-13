@@ -50,7 +50,7 @@
 			#memNum#)
 	</insert>
 
-	<select id="selectInviteHistByMemNum" resultMap="memberResult">   
+	<select id="selectInviteHistByMemNum" resultMap="inviteResult">   
         <![CDATA[
         SELECT
 			invite_id,
