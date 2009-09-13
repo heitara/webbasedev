@@ -10,6 +10,9 @@ public class PortalProperties {
 	/** アクションタイトルマップ */
 	private Map<String, String> actionTitles;
 
+	/** 友達登録ステータス */
+	private Map<String, String> inviteStatusList;
+
 	public Map<String, String> getQuestionList() {
 		return questionList;
 	}
@@ -24,5 +27,19 @@ public class PortalProperties {
 
 	public void setActionTitles(Map<String, String> actionTitles) {
 		this.actionTitles = actionTitles;
+	}
+
+	/**
+	 * @param inviteStatusList the inviteStatusList to set
+	 */
+	public void setInviteStatusList(Map<String, String> inviteStatusList) {
+		this.inviteStatusList = inviteStatusList;
+	}
+
+	/**
+	 * @return the inviteStatusList
+	 */
+	public Map<String, String> getInviteStatusList() {
+		return inviteStatusList;
 	}
 }
