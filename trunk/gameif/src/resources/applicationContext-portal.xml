@@ -22,6 +22,14 @@
 				<entry key="updatePasswd" value="パスワード変更"/>
 			</map>
 		</property>
+		<property name="inviteStatusList">
+			<map>
+				<entry key="00000" value="--- 状態選択 ---"/>
+				<entry key="99999" value="全て"/>
+				<entry key="0" value="応答なし"/>
+				<entry key="1" value="会員登録済"/>
+			</map>
+		</property>
 	</bean>
 	
 </beans>
