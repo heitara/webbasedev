@@ -15,7 +15,7 @@ public class InquiryInfo extends BaseEntity {
 	private Date inquiryDate;
 	private String memId;
 	private String companyName;
-	private String companyMeidiaName;
+	private String companyMediaName;
 	private String companyUserName;
 	private String userName;
 	private String userMailadd;
@@ -85,18 +85,18 @@ public class InquiryInfo extends BaseEntity {
 	}
 
 	/**
-	 * @return the companyMeidiaName
+	 * @return the companyMediaName
 	 */
-	public String getCompanyMeidiaName() {
-		return companyMeidiaName;
+	public String getCompanyMediaName() {
+		return companyMediaName;
 	}
 
 	/**
-	 * @param companyMeidiaName
-	 *            the companyMeidiaName to set
+	 * @param companyMediaName
+	 *            the companyMediaName to set
 	 */
-	public void setCompanyMeidiaName(String companyMeidiaName) {
-		this.companyMeidiaName = companyMeidiaName;
+	public void setCompanyMediaName(String companyMediaName) {
+		this.companyMediaName = companyMediaName;
 	}
 
 	/**
