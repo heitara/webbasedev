@@ -1,16 +1,17 @@
 <%@ page contentType="text/html; CHARSET=utf8" pageEncoding="utf-8"%> 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">  
 <%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator"%>   
-<%@ taglib prefix="page" uri="http://www.opensymphony.com/sitemesh/page" %>  
-<%@taglib prefix="s" uri="/struts-tags"%> 
-  
-<html>   
+<%@ taglib prefix="page" uri="http://www.opensymphony.com/sitemesh/page" %> 
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja-jp" lang="ja-jp" >
 <head>   
 	<meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
 	<meta content="index, follow" name="robots"/>
-	<base href="http://<%=request.getServerName()%><%if(request.getServerPort() != 80) out.print(":" + request.getServerPort());%><%=request.getContextPath()%>/"/>
-	<link type="text/css" href="css/common/common.css" rel="stylesheet"></link>
-	<link type="text/css" href="css/common/main.css" rel="stylesheet"></link>
+	<base href="<%=request.getScheme()%>://<%=request.getServerName()%><%if(request.getServerPort() != 80) out.print(":" + request.getServerPort());%><%=request.getContextPath()%>/"/>
+	<link type="text/css" href="css/common.css" rel="stylesheet"></link>
+	<link type="text/css" href="css/main.css" rel="stylesheet"></link>
+	<script src="js/jquery/jquery.js" type="text/javascript"></script>
+	<script src="js/portal/common.js" type="text/javascript"></script>
 	<title><decorator:title default="ゲームイフ | ブラウザゲームポータルサイト"/></title>
 	<decorator:head />
 </head>
@@ -20,8 +21,14 @@
 <dl class="page_top">
 	<dt><a href="http://www.game-if.com"><img src="images/logo.gif" title="WEBGAMEポータル ゲームイフ"/></a></dt>
 	<dd>
+		<%
+		if (session.getAttribute(edu.yale.its.tp.cas.client.filter.CASFilter.CAS_FILTER_USER) == null) {
+		%>
 		<a href="mypage.html" title="ログイン">ログイン</a> |
-		<a href="entry.html" title="会員登録">会員登録</a> |
+		<a href="registryMember.html" title="会員登録">会員登録</a> |
+		<%
+		}
+		%>
 		<a href="#" title="初心者ガイド">初心者ガイド</a> |
 		<a href="#" title="お問合せ">お問合せ</a> |
 		<a href="#" title="お気に入り">お気に入り</a>
@@ -30,13 +37,15 @@
 <!-- ページトップ：終了 -->
 <!-- ページメニュー：開始 -->
 <dl class="page_top_menu">
-	<dt><div>
-		<a href="index.html" title="トップページ">トップ</a>
-		<a href="games.html" title="ゲーム">ゲーム</a>
-		<a href="point.html" title="ポイントチャージ">ポイントチャージ</a>
-		<a href="#" title="コミュニティ">コミュニティ</a>
-		<a href="#" title="お知らせ">お知らせ</a>
-	</div></dt>
+	<dt>
+		<div>
+			<a href="index.html" title="トップページ">トップ</a>
+			<a href="games.html" title="ゲーム">ゲーム</a>
+			<a href="point.html" title="ポイントチャージ">ポイントチャージ</a>
+			<a href="#" title="コミュニティ">コミュニティ</a>
+			<a href="#" title="お知らせ">お知らせ</a>
+		</div>
+	</dt>
 </dl>
 <!-- ページメニュー：終了 -->
 <!-- ページメインエリア：開始 -->
@@ -48,6 +57,9 @@
 	<!-- ページメイン：終了 -->	
 	<!-- ページ右パネル：開始 -->
 	<div id="page_main_right">	
+	<%
+		if (session.getAttribute(edu.yale.its.tp.cas.client.filter.CASFilter.CAS_FILTER_USER) == null) {
+	%>
 		<!-- ショットカットボタンエリア：開始 -->
 		<dl class="quickstart tspace_n">
 			<dt><a href="mypage.html" title="ログイン"><img src="images/btn_b_login.gif" alt="ログイン"/></a></dt>
@@ -55,7 +67,7 @@
 		</dl>
 		<dl class="quickstart tspace_s">
 			<dt><a href="registryMember.html" title="会員登録"><img src="images/btn_b_entry.gif" alt="会員登録"/></a></dt>
-			<dd><a href="friend.html" title="友達招待"><img src="images/btn_b_friend.gif" alt="友達招待"/></a></dd>
+			<dd><a href="inputInvite.html" title="友達招待"><img src="images/btn_b_friend.gif" alt="友達招待"/></a></dd>
 		</dl>
 		<!-- ショットカットボタンエリア：終了 -->
 		
@@ -71,6 +83,65 @@
 			</dd>
 		</dl>
 		<!-- 初めての方へ：終了 -->
+	<%
+		} else {
+	%>
+		<!-- ショットカットボタンエリア：開始 -->
+		<dl class="quickstart tspace_n">
+			<dt><a href="point.html" title="ポイントチャージ"><img src="images/btn_b_point.gif" alt="ポイントチャージ"/></a></dt>
+			<dd><a href="friend.html" title="友達招待"><img src="images/btn_b_friend.gif" alt="友達招待"/></a></dd>
+		</dl>
+		<dl class="quickstart tspace_s">
+			<dt><a href="editMemberInfo.html" title="会員情報変更"><img src="images/btn_b_chinfo.gif" alt="会員情報変更"/></a></dt>
+			<dd><a href="editPassword.html" title="パスワード変更"><img src="images/btn_b_chpass.gif" alt="パスワード変更"/></a></dd>
+		</dl>
+
+		<!-- ショットカットボタンエリア：終了 -->		
+		<!-- マイゲーム：開始 -->
+		<dl class="title_box tspace_b">
+			<dt><strong>マイゲーム</strong><span></span></dt>
+			<dd>
+				<dl class="mygame tspace_y">
+					<dt><a class="mygame_icon" href="#" title="創世伝説"><img border="0px;" src="images/icn_ssds.gif" alt="創世伝説"/></a></dt>
+					<dd>
+						<div class="mygame_title">武林三国</div>
+
+						<a href="#" title="プレイ">プレイ</a>
+						<a href="#" title="公式">公式</a>
+						<a href="#" title="掲示板">掲示板</a>
+					</dd>
+				</dl>
+				<dl class="mygame tspace_y">
+					<dt><a class="mygame_icon" href="#" title="創世伝説"><img border="0px;" src="images/icn_ssds.gif" alt="創世伝説"/></a></dt>
+
+					<dd>
+						<div class="mygame_title">創世伝説</div>
+						<a href="#" title="プレイ">プレイ</a>
+						<a href="#" title="公式">公式</a>
+						<a href="#" title="掲示板">掲示板</a>
+					</dd>
+				</dl>
+
+				<div class="mygame_select">
+					<fieldset>
+						<legend>サーバ選択</legend>
+						<ul>
+							<li><a href="#">S01: 夢世界</a></li>
+							<li><a href="#">S02: 天下無敵</a></li>
+						</ul>
+
+					</fieldset>
+				</div>
+			</dd>
+		</dl>
+		<!-- マイゲーム：終了 -->
+
+	<%
+		}
+	%>
+
+		
+		
 	</div>
 	<!-- ページ右パネル：終了 -->
 	<div class="clearbox"></div>
