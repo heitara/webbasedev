@@ -22,9 +22,10 @@
         	<message>メールアドレスが不正です。</message>
         </field-validator>
     </field>
+    <!-- 
     <field name="titleId">
-        <field-validator type="requiredstring" short-circuit="true">
-			<param name="trim">true</param>
+        <field-validator type="fieldexpression">
+        	<param name="expression"><![CDATA[(titleId > 0)]]></param>
         	<message>対象タイトルを入力してください。</message>
         </field-validator>
     </field>
@@ -33,7 +34,7 @@
 			<param name="trim">true</param>
         	<message>お問合せ件名を入力してください。</message>
         </field-validator>
-    </field>
+    </field> -->
     <field name="inquiryContents">
         <field-validator type="requiredstring" short-circuit="true">
 			<param name="trim">true</param>
