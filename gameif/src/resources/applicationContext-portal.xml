@@ -6,20 +6,69 @@
            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
 
 	<bean id="portalProperties" class="com.gameif.portal.helper.PortalProperties" scope="singleton">
-		<property name="questionList">
-			<map>
-				<entry key="1" value="好きな食べ物は？"/>
-				<entry key="2" value="旅行で行きたい国は？"/>
-				<entry key="3" value="お母さんの旧姓は？"/>
-				<entry key="4" value="もっとも使っているニュースサイトは？"/>
-				<entry key="5" value="もっとも面白かった映画は？"/>
-			</map>
-		</property>
+
 		<property name="actionTitles">
 			<map>
 				<entry key="createMember" value="会員登録"/>
 				<entry key="updateMember" value="会員情報変更"/>
 				<entry key="updatePasswd" value="パスワード変更"/>
+			</map>
+		</property>
+		<property name="sexListMap">
+			<map>
+				<entry key="0" value="男"/>
+				<entry key="1" value="女"/>
+			</map>
+		</property>
+		<property name="monthListMap">
+			<map>
+				<entry key="1" value="1"/>
+				<entry key="2" value="2"/>
+				<entry key="3" value="3"/>
+				<entry key="4" value="4"/>
+				<entry key="5" value="5"/>
+				<entry key="6" value="6"/>
+				<entry key="7" value="7"/>
+				<entry key="8" value="8"/>
+				<entry key="9" value="9"/>
+				<entry key="10" value="10"/>
+				<entry key="11" value="11"/>
+				<entry key="12" value="12"/>
+			</map>
+		</property>
+		<property name="dayListMap">
+			<map>
+				<entry key="1" value="1"/>
+				<entry key="2" value="2"/>
+				<entry key="3" value="3"/>
+				<entry key="4" value="4"/>
+				<entry key="5" value="5"/>
+				<entry key="6" value="6"/>
+				<entry key="7" value="7"/>
+				<entry key="8" value="8"/>
+				<entry key="9" value="9"/>
+				<entry key="10" value="10"/>
+				<entry key="11" value="11"/>
+				<entry key="12" value="12"/>
+				<entry key="13" value="13"/>
+				<entry key="14" value="14"/>
+				<entry key="15" value="15"/>
+				<entry key="16" value="16"/>
+				<entry key="17" value="17"/>
+				<entry key="18" value="18"/>
+				<entry key="19" value="19"/>
+				<entry key="20" value="20"/>
+				<entry key="21" value="21"/>
+				<entry key="22" value="22"/>
+				<entry key="23" value="23"/>
+				<entry key="24" value="24"/>
+				<entry key="25" value="25"/>
+				<entry key="26" value="26"/>
+				<entry key="27" value="27"/>
+				<entry key="28" value="28"/>
+				<entry key="29" value="29"/>
+				<entry key="30" value="30"/>
+				<entry key="31" value="31"/>
 			</map>
 		</property>
 		<property name="inviteStatusList">
