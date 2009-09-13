@@ -6,13 +6,9 @@
 	<html>
 
 	<head>
-		<meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
-		<meta content="index, follow" name="robots"/>
 		<meta content="ゲームイフ,ブラウザゲーム,webgame,大人数同時プレイブラウザゲーム,オンラインゲーム,パブリッシング,プラットフォーム" name="keywords"/>
 		<meta content="ブラウザゲーム(WEBGAME)のポータルサイト" name="description"/>
 		<title><s:property value="%{getText('invite_input_title')}" /></title>
-		<link type="text/css" href="css/common/common.css" rel="stylesheet"></link>
-		<link type="text/css" href="css/common/main.css" rel="stylesheet"></link>
 		<script charset="UTF-8" src="js/portal/common.js" language="JavaScript" type="text/javascript"></script>
 	</head>
 	<body>
@@ -26,11 +22,13 @@
 								<dt><span class="required">*</span><label for="mail_from">紹介者のメールアドレス：</label></dt>
 								<dd>
 									<s:textfield name="inviteMailFrom" maxlength="100" cssClass="big ime_mode_n"/>
+									<span class="input_error"><s:fielderror><s:param>inviteMailFrom</s:param></s:fielderror></span><br/>
 								</dd>
 								
 								<dt><span class="required">*</span><label for="friends">友達のメールアドレス：</label></dt>
 								<dd>
 									<s:textarea name="inviteMailTo" rows="8" cssClass="big ime_mode_n f_left"/>
+									<span class="input_error"><s:fielderror><s:param>inviteMailTo</s:param></s:fielderror></span><br/>
 									<div class=" mail_import">
 		
 										<span class="explain">下記のＷＥＢメールならアドレス帳から直接アドレスをインポートすることができます。</span><br/>
@@ -48,6 +46,7 @@
 								<dt><span class="required">*</span><label for="game">紹介するゲーム：</label></dt>
 								<dd>
 									<s:select name="titleId" list="listInviteTitle" listKey="titleId" listValue="titleName" cssClass="big"/>
+									<span class="input_error"><s:fielderror><s:param>titleId</s:param></s:fielderror></span><br/>
 									<br/>
 									<span class="explain">紹介するゲームを選んでください。</span>
 								</dd>

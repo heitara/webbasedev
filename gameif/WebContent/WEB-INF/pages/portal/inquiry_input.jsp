@@ -22,18 +22,20 @@
 							<dt><span class="required">*</span><label for="user_name">お名前：</label></dt>
 							<dd>
 								<s:textfield name="userName" maxlength="20" cssClass="big ime_mode_n"/>
+								<span class="input_error"><s:fielderror><s:param>userName</s:param></s:fielderror></span><br/>
 							</dd>
 				
 							<dt><span class="required">*</span><label for="mail">メールアドレス：</label></dt>
 							<dd>
 								<s:textfield name="userMailadd" maxlength="100" cssClass="ime_mode_n" />
-								<span class="input_error"><s:fielderror><s:param>mailPc</s:param></s:fielderror></span><br/>
+								<span class="input_error"><s:fielderror><s:param>userMailadd</s:param></s:fielderror></span><br/>
 								<span class="explain">メールアドレスを小文字で入力してください。</span>
 							</dd>
 							
 							<dt><span class="required">*</span><label for="game">対象タイトル：</label></dt>
 							<dd>
 								<s:select name="titleId" list="listValidTitle" listKey="titleId" listValue="titleName" cssClass="big"/>
+								<span class="input_error"><s:fielderror><s:param>titleId</s:param></s:fielderror></span><br/>
 							</dd>
 							
 							<dt><label for="inquiry_kind">種類</label></dt>
@@ -44,11 +46,13 @@
 							<dt><span class="required">*</span><label for="object">お問合せ件名：</label></dt>
 							<dd>
 								<s:textfield name="inquiryObject" maxlength="100" cssClass="big ime_mode_n"/>
+								<span class="input_error"><s:fielderror><s:param>inquiryObject</s:param></s:fielderror></span><br/>
 							</dd>
 							
 							<dt><span class="required">*</span><label for="contents">内容：</label></dt>
 							<dd>
 								<s:textarea name="inquiryContents" rows="8" cssClass="big ime_mode_n f_left"/>
+								<span class="input_error"><s:fielderror><s:param>inquiryContents</s:param></s:fielderror></span><br/>
 							</dd>
 							<dt></dt>
 							<dd>&nbsp;</dd>
