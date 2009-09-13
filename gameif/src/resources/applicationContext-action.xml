@@ -34,6 +34,9 @@
 		<property name="portalProperties">
 			<ref bean="portalProperties" />
 		</property>
+		<property name="masterInfoBusinessLogic">
+			<ref bean="masterInfoBusinessLogic" />
+		</property>
 	</bean>
 	
 	<!-- inquiryInfoAction -->
