@@ -7,10 +7,8 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title><s:property value="%{getText('mem_menu_tilte')}" /></title>
-	<link rel="stylesheet" type="text/css" media="screen" href="css/common/screen.css" />
 	<script src="js/jquery/jquery.js" type="text/javascript"></script>
 	<script src="js/portal/mem_login.js" type="text/javascript"></script>
-	<s:include value="../common/header.jsp"></s:include>
 </head>
 
 <body>
@@ -45,7 +43,5 @@
 		</s:form>
 	</div>
 </body>
-
-<s:include value="../common/footer.jsp"></s:include>
 
 </html>
