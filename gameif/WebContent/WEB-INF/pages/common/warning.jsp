@@ -5,7 +5,7 @@
 <head>
 	<meta name="keywords" content="ゲームイフ,ブラウザゲーム,webgame,大人数同時プレイブラウザゲーム,オンラインゲーム,パブリッシング,プラットフォーム" />
 	<meta name="description" content="ブラウザゲーム(WEBGAME)のポータルサイト" />
-	<title>パスワード変更 | ゲームイフ | ブラウザゲームのポータルサイト</title>
+	<title>処理中断 | ゲームイフ | ブラウザゲームのポータルサイト</title>
 	<link rel="stylesheet" href="css/common/common.css" type="text/css" />
 	<link rel="stylesheet" href="css/common/main.css" type="text/css" />
 </head>

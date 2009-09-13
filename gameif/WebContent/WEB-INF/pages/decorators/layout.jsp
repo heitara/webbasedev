@@ -89,7 +89,7 @@
 		<!-- ショットカットボタンエリア：開始 -->
 		<dl class="quickstart tspace_n">
 			<dt><a href="point.html" title="ポイントチャージ"><img src="images/btn_b_point.gif" alt="ポイントチャージ"/></a></dt>
-			<dd><a href="friend.html" title="友達招待"><img src="images/btn_b_friend.gif" alt="友達招待"/></a></dd>
+			<dd><a href="inputInvite.html" title="友達招待"><img src="images/btn_b_friend.gif" alt="友達招待"/></a></dd>
 		</dl>
 		<dl class="quickstart tspace_s">
 			<dt><a href="editMemberInfo.html" title="会員情報変更"><img src="images/btn_b_chinfo.gif" alt="会員情報変更"/></a></dt>
