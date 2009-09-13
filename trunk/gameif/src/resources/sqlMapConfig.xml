@@ -7,7 +7,6 @@
 		useStatementNamespaces="true" maxRequests="32" maxSessions="10"
 		maxTransactions="5" />
 
-	<sqlMap resource="com/gameif/portal/dao/impl/mapping/loginInfo.xml" />
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/memberInfo.xml" />
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/inquiryInfo.xml" />
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/inviteInfo.xml" />
