@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0.2//EN" 
+	"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+
+<validators>
+    <field name="nickName">
+        <field-validator type="requiredstring" short-circuit="true">
+			<param name="trim">true</param>
+        	<message><![CDATA[<br/>ニックネームを入力してください。]]></message>
+        </field-validator>
+        <field-validator type="regex" short-circuit="true">
+        	<param name="expression"><![CDATA[([a-zA-Z0-9｡-ﾟぁ-ゞァ-ヶ一-龠Ａ-Ｚａ-ｚ]+)]]></param>
+        	<message><![CDATA[<br/>ニックネームに記号或いはスペースが含まれています。]]></message>
+        </field-validator>
+        <field-validator type="fieldexpression">
+        	<param name="expression"><![CDATA[(memberInfoBusinessLogic.countMembersByNickName(nickName, memNum) < 1)]]></param>
+        	<message><![CDATA[<br/>入力されたニックネームは既に使われています。]]></message>
+        </field-validator>
+    </field>
+    <field name="mailPc">
+        <field-validator type="requiredstring" short-circuit="true">
+			<param name="trim">true</param>
+        	<message><![CDATA[<br/>メールアドレスを入力してください。]]></message>
+        </field-validator>
+        <field-validator type="email" short-circuit="true">
+        	<message><![CDATA[<br/>メールアドレスが不正です。]]></message>
+        </field-validator>
+        <field-validator type="fieldexpression">
+        	<param name="expression"><![CDATA[(memberInfoBusinessLogic.countMembersByMailPc(mailPc, memNum) < 1)]]></param>
+        	<message><![CDATA[<br/>入力されたメールアドレスは既に使われています。]]></message>
+        </field-validator>
+    </field>
+    <field name="kanjiNameForCheck">
+        <field-validator type="regex" short-circuit="true">
+        	<param name="expression"><![CDATA[([一-龠]*)]]></param>
+        	<message><![CDATA[<br/>氏名は漢字で入力してください。]]></message>
+        </field-validator>
+    </field>
+    <field name="kanaNameForCheck">
+        <field-validator type="regex" short-circuit="true">
+        	<param name="expression"><![CDATA[([ァ-ヶ]*)]]></param>
+        	<message><![CDATA[<br/>氏名のフリカナは全角片仮名で入力してください。]]></message>
+        </field-validator>
+    </field>
+    <field name="sexCd">
+        <field-validator type="required" short-circuit="true">
+        	<message><![CDATA[<br/>性別をを選択してください。]]></message>
+        </field-validator>
+    </field>
+    <field name="birthdayForCheck">
+        <field-validator type="required" short-circuit="true">
+        	<message><![CDATA[<br/>生年月日を妥当に入力してください。]]></message>
+        </field-validator>
+    </field>
+    <field name="occupCd">
+        <field-validator type="fieldexpression">
+        	<param name="expression"><![CDATA[(occupCd > 0)]]></param>
+        	<message><![CDATA[<br/>職業を選択してください。]]></message>
+        </field-validator>
+    </field>
+    <field name="divisCd">
+        <field-validator type="fieldexpression">
+        	<param name="expression"><![CDATA[(divisCd > 0)]]></param>
+        	<message><![CDATA[<br/>都道府県を選択してください。]]></message>
+        </field-validator>
+    </field>
+    <field name="cityName">
+        <field-validator type="regex" short-circuit="true">
+        	<param name="expression"><![CDATA[([^ -~｡-ﾟ]*)]]></param>
+        	<message><![CDATA[<br/>市区町村は全角文字で入力してください。]]></message>
+        </field-validator>
+    </field>
+    <field name="buildingName">
+        <field-validator type="regex" short-circuit="true">
+        	<param name="expression"><![CDATA[([^ -~｡-ﾟ]*)]]></param>
+        	<message><![CDATA[<br/>番地建物は全角文字で入力してください。]]></message>
+        </field-validator>
+    </field>
+    <field name="telNum">
+        <field-validator type="regex" short-circuit="true">
+        	<param name="expression"><![CDATA[([0-9]{8,15})]]></param>
+        	<message><![CDATA[<br/>ハイフンなしの半角数字で入力してください。]]></message>
+        </field-validator>
+    </field>
+</validators>
