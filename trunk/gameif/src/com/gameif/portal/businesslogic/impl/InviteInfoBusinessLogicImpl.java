@@ -1,6 +1,7 @@
 package com.gameif.portal.businesslogic.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -66,6 +67,15 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 			
 			inviteInfoDao.save(newInviteInfo);
 		}
+	}
+
+	/**
+	 * 紹介者IDより、友達紹介履歴を取得する。
+	 * @param memNum
+	 */
+	@Override
+	public List<InviteInfo> selectInviteHistByMemNum(Long memNum) {
+		return inviteInfoDao.selectInviteHistByMemNum(memNum);
 	}
 
 }
