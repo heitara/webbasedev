@@ -21,6 +21,7 @@
 		
 		<global-results>
 			<result name="unhandledException">/WEB-INF/pages/common/error.jsp</result>
+			<result name="warning">/WEB-INF/pages/common/warning.jsp</result>
 		</global-results>
 
 		<action name="index" class="indexAction">
@@ -29,28 +30,6 @@
 
 		<action name="*Page" class="displayAction" method="{1}">
 			<result name="finish">/WEB-INF/pages/common/finish.jsp</result>
-			<result name="warning">/WEB-INF/pages/common/warning.jsp</result>
-		</action>
-
-		<action name="*Common" class="mainMenuAction" method="{1}">
-			<result name="new_member_input">/WEB-INF/pages/portal/mem_entry.jsp</result>
-			<result name="inquiry_input">/pages/portal/inquiryInput.jsp</result>
-			<result name="back_home">/pages/portal/mem_login.jsp</result>
-		</action>
-
-		<action name="*Login" class="loginInfoAction" method="{1}">
-			<interceptor-ref name="scopedModelDriven">
-				<param name="scope">request</param>
-				<param name="name">testEntity</param>
-				<param name="className">com.gameif.portal.entity.LoginInfo</param>
-			</interceptor-ref>
-			<interceptor-ref name="gameifStack" />
-			
-			<result name="success" type="redirect-action">
-				<param name="actionName">inputMember</param>
-				<param name="memId">${memId}</param>
-			</result>
-			<result name="input">/pages/portal/mem_login.jsp</result>
 		</action>
 
 		<action name="*Member" class="memberInfoAction" method="{1}">
@@ -62,18 +41,50 @@
 			<interceptor-ref name="checkbox">
 				<param name="uncheckedValue">0</param>
 			</interceptor-ref>
+			<!-- 
 			<interceptor-ref name="token">
-				<param name="includeMethods">create,update,updatePasswd</param>
+				<param name="includeMethods">create</param>
 			</interceptor-ref>
-			
-			<interceptor-ref name="gameifStack"></interceptor-ref>
-			
+			 -->			
+			<interceptor-ref name="gameifStack"></interceptor-ref>			
 			<result name="input">/WEB-INF/pages/portal/mem_registry.jsp</result>
-			<result name="successCreate" type="redirect">/finishedPage.html?action=createMember</result>
-			<result name="reget">/pages/portal/mem_forget_pwd.jsp</result>
-			<result name="changePwd">/pages/portal/mem_change_pwd.jsp</result>
-			<result name="showdetail">/pages/portal/memInfoChangeInput.jsp</result>
-			<result name="login">/pages/portal/mem_login.jsp</result>
+			<result name="success" type="redirect">/finishedPage.html?action=createMember</result>
+			<result name="invalid.token">/WEB-INF/pages/common/warning.jsp</result>
+		</action>
+
+		<action name="*MemberInfo" class="memberInfoAction" method="{1}MemberInfo">
+			<interceptor-ref name="scopedModelDriven">
+				<param name="scope">request</param>
+				<param name="name">memberInfo</param>
+				<param name="className">com.gameif.portal.entity.MemberInfo</param>
+			</interceptor-ref>
+			<interceptor-ref name="checkbox">
+				<param name="uncheckedValue">0</param>
+			</interceptor-ref>
+			<interceptor-ref name="token">
+				<param name="includeMethods">updateMemberInfo</param>
+			</interceptor-ref>			
+			<interceptor-ref name="gameifStack"></interceptor-ref>			
+			<result name="input">/WEB-INF/pages/portal/mem_info_edit.jsp</result>
+			<result name="success" type="redirect">/finishedPage.html?action=updateMember</result>
+			<result name="invalid.token">/WEB-INF/pages/common/warning.jsp</result>
+		</action>
+
+		<action name="*Password" class="memberInfoAction" method="{1}Password">
+			<interceptor-ref name="scopedModelDriven">
+				<param name="scope">request</param>
+				<param name="name">memberInfo</param>
+				<param name="className">com.gameif.portal.entity.MemberInfo</param>
+			</interceptor-ref>
+			<interceptor-ref name="checkbox">
+				<param name="uncheckedValue">0</param>
+			</interceptor-ref>
+			<interceptor-ref name="token">
+				<param name="includeMethods">updatePassword</param>
+			</interceptor-ref>			
+			<interceptor-ref name="gameifStack"></interceptor-ref>			
+			<result name="input">/WEB-INF/pages/portal/mem_passwd_edit.jsp</result>
+			<result name="success" type="redirect">/finishedPage.html?action=updatePasswd</result>
 			<result name="invalid.token">/WEB-INF/pages/common/warning.jsp</result>
 		</action>
 		
@@ -101,6 +112,12 @@
 			
 			<result name="success">/pages/portal/mem_login.jsp</result>
 			<result name="input">/pages/portal/inviteInput.jsp</result>
+		</action>
+	</package>
+	
+	<package name="gamejax" extends="json-default">
+		<action name="*Exist" class="existCheckAction" method="{1}">
+            <result type="json"></result>
 		</action>
 	</package>
 </struts>
