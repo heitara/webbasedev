@@ -104,7 +104,7 @@ CREATE TABLE IF NOT EXISTS `member_info` (
   `kanji_lname` varchar(10) DEFAULT NULL,
   `kana_fname` varchar(10) DEFAULT NULL,
   `kana_lname` varchar(10) DEFAULT NULL,
-  `sex_cd` int(11) DEFAULT NULL,
+  `sex_cd` char(1) DEFAULT NULL,
   `birth_ymd` datetime DEFAULT NULL,
   `divis_cd` int(11) DEFAULT NULL,
   `occup_cd` int(11) DEFAULT NULL,
