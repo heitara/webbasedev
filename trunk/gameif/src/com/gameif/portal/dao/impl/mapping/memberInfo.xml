@@ -6,7 +6,7 @@
 
 	<typeAlias alias="memberInfo" type="com.gameif.portal.entity.MemberInfo" />
 	<typeAlias alias="searchCondition" type="com.gameif.common.bean.ComSearchCondition" />
-
+	
 	<resultMap class="com.gameif.portal.entity.MemberInfo" id="memberResult">
 		<result property="memNum" column="mem_num" />
 		<result property="memId" column="mem_id" />
@@ -288,7 +288,7 @@
 			member_info
 		WHERE
 			last_update_ip = #clientIp#
-		AND last_update_date >= DATE_SUB(now(), INTERVAL #checkTime# SECOND)		
+		AND last_update_date >= DATE_SUB(now(), INTERVAL #checkTime# SECOND)
       ]]>
 	</select>
 	
@@ -303,6 +303,19 @@
       ]]>
 	</select>
 	
+	<select id="selectCountByMemIdForOther" parameterClass="searchCondition" resultClass="int">
+      <![CDATA[
+        SELECT
+			count(mem_num)
+		FROM
+			member_info
+		WHERE
+			mem_id = #memId#
+		AND
+			mem_num != #memNum#
+	]]>
+	</select>
+	
 	<select id="selectCountByNickName" resultClass="int">
       <![CDATA[
         SELECT
@@ -310,8 +323,21 @@
 		FROM
 			member_info
 		WHERE
-			nick_name = #value#	
+			nick_name = #value#
       ]]>
+	</select>
+	
+	<select id="selectCountByNickNameForOther" parameterClass="searchCondition" resultClass="int">
+      <![CDATA[
+        SELECT
+			count(mem_num)
+		FROM
+			member_info
+		WHERE
+			nick_name = #nickName#
+		AND
+			mem_num != #memNum#
+	]]>
 	</select>
 	
 	<select id="selectCountByMailPc" resultClass="int">
@@ -321,8 +347,21 @@
 		FROM
 			member_info
 		WHERE
-			mail_pc = #value#	
+			mail_pc = #value#
       ]]>
+	</select>
+	
+	<select id="selectCountByMailPcForOther" parameterClass="searchCondition" resultClass="int">
+      <![CDATA[
+        SELECT
+			count(mem_num)
+		FROM
+			member_info
+		WHERE
+			mail_pc = #mailPc#
+		AND
+			mem_num != #memNum#
+	]]>
 	</select>
 
 </sqlMap>
