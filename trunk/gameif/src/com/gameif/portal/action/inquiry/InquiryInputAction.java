@@ -74,9 +74,9 @@ public class InquiryInputAction extends ModelDrivenActionSupport<InquiryInfo> {
 	public String input() {
 		// 初期化処理
 		// 現時点で有効なタイトルを取得する
-		setListValidTitle(masterInfoBusinessLogic.selectValidTitleList());
+		this.setListValidTitle(masterInfoBusinessLogic.selectValidTitleList());
 		// 問合せ種類を取得する
-		setListInquiryKind(masterInfoBusinessLogic.selectAllInquiryKindList());
+		this.setListInquiryKind(masterInfoBusinessLogic.selectAllInquiryKindList());
 		
 		return INPUT;
 	}
