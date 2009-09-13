@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `inquiry_info` (
   `inquiry_date` datetime DEFAULT NULL,
   `mem_id` varchar(20) DEFAULT NULL,
   `company_name` varchar(40) DEFAULT NULL,
-  `company_meidia_name` varchar(40) DEFAULT NULL,
+  `company_media_name` varchar(40) DEFAULT NULL,
   `company_user_name` varchar(20) DEFAULT NULL,
   `user_name` varchar(20) DEFAULT NULL,
   `user_mailadd` varchar(100) DEFAULT NULL,
