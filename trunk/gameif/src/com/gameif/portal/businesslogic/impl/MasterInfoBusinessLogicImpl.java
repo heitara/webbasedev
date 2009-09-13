@@ -18,9 +18,6 @@ import com.gameif.portal.entity.TitleMst;
 public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		IMasterInfoBusinessLogic {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -105096134811999134L;
 
 	private IDivisionMstDao divisionMstDao;
@@ -72,7 +69,7 @@ public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	 * 都道府県を取得する
 	 */
 	@Override
-	public List<DivisionMst> selectAllDivisionList() {
+	public List<DivisionMst>getAllDivisionList() {
 		return divisionMstDao.selectAll(null);
 	}
 
@@ -80,7 +77,7 @@ public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	 * 職業を取得する
 	 */
 	@Override
-	public List<OccupationMst> selectAllOccupationList() {
+	public List<OccupationMst> getAllOccupationList() {
 		return occupationMstDao.selectAll(null);
 	}
 
@@ -88,7 +85,7 @@ public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	 * 秘密質問を取得する
 	 */
 	@Override
-	public List<QuestionMst> selectAllQuestionList() {
+	public List<QuestionMst> getAllQuestionList() {
 		return questionMstDao.selectAll(null);
 	}
 
@@ -96,7 +93,7 @@ public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	 * 現時点で有効なタイトルを取得する
 	 */
 	@Override
-	public List<TitleMst> selectValidTitleList() {
+	public List<TitleMst> getValidTitleList() {
 		return titleMstDao.selectValidTitleList();
 	}
 
@@ -104,7 +101,7 @@ public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	 * 問合せ種類を取得する
 	 */
 	@Override
-	public List<InquiryKindMst> selectAllInquiryKindList() {
+	public List<InquiryKindMst> getAllInquiryKindList() {
 		return inquiryKindMstDao.selectAll(null);
 	}
 
