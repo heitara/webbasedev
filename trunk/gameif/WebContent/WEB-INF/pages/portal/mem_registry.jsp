@@ -90,7 +90,7 @@
 				
 				<dt></dt>
 				<dd>
-					<s:checkbox name="mailmagReqCd" value="%{magazine == null ? true : (mailmagReqCd == 1 ? true : false)}"fieldValue="1" title="メルマガ受信" />
+					<s:checkbox name="mailmagReqCd" value="%{magazine == null ? true : (mailmagReqCd == 1 ? true : false)}" fieldValue="1" title="メルマガ受信" />
 					<label for="createMember_mailmagReqCd">メルマガを受信する。</label>
 				</dd>
 				
