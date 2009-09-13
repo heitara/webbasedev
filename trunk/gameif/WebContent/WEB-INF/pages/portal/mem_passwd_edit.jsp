@@ -1,44 +1,57 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="s" uri="/struts-tags"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<s:i18n name="characters">
-<html>
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja-jp" lang="ja-jp" >
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title><s:property value="%{getText('mem_change_pwd_title')}" /></title>
-	<link rel="stylesheet" type="text/css" media="screen" href="css/common/screen.css" />
-	<script src="js/jquery/jquery.js" type="text/javascript"></script>
-	<script src="js/portal/mem_login.js" type="text/javascript"></script>
+	<meta name="keywords" content="ゲームイフ,ブラウザゲーム,webgame,大人数同時プレイブラウザゲーム,オンラインゲーム,パブリッシング,プラットフォーム" />
+	<meta name="description" content="ブラウザゲーム(WEBGAME)のポータルサイト" />
+	<title>パスワード変更 | ゲームイフ | ブラウザゲームのポータルサイト</title>
+	<script src="js/portal/validate.js" type="text/javascript"></script>
 </head>
 
 <body>
-	<div class="contents">
-		<s:form name="frm_mem_change_pwd" method="POST" action="updatePwdMember">
-			<table>
-				<tr>
-					<td><s:property value="%{getText('current_passwd')}" /></td>
-					<td><s:password name="memPwd" /></td>
-				</tr>
-				<tr>
-					<td><s:property value="%{getText('new_passwd')}" /></td>
-					<td><s:password name="newPwd" /></td>
-				</tr>
-				<tr>
-					<td><s:property value="%{getText('confirm_passwd')}" /></td>
-					<td><s:password name="confirmPwd" /></td>
-				</tr>
+<!-- パスワード変更：開始 -->
+<dl class="light_box tspace_n">
+	<dt>
+		<strong>パスワード変更</strong>
+		<span><a href="editMemberInfo.html">► 会員情報変更</a></span>
+	</dt>
+	<dd>
+		<s:form action="updatePassword" method="post" cssClass="entry">
+			<dl>
+				<dt><span class="required">*</span> <label for="updatePassword_memPwd">旧いパスワード：</label></dt>
+
+				<dd>
+					<s:password name="memPwd" maxlength="20" cssClass="ime_mode_n" title="旧いパスワード" onblur="validate(this, 'REQ,ALN,LEN_6_20');"/>
+					<span class="explain">※ 6～20桁の半角英数字で入力してください。</span>
+					<span id="error_memPwd" class="input_error"><s:fielderror><s:param>memPwd</s:param></s:fielderror></span>
+				</dd>
 				
-				<tr>
-					<td><s:submit value="%{getText('update')}"></s:submit></td>
-					<td/>
-				</tr>
-			</table>
+				<dt><span class="required">*</span> <label for="updatePassword_newPwd">新しいパスワード：</label></dt>
+				<dd>
+					<s:password name="newPwd" maxlength="20" cssClass="ime_mode_n" title="新しいパスワード" onblur="validate(this, 'REQ,ALN,LEN_6_20');"/>
+					<span class="explain">※ 6～20桁の半角英数字で入力してください。</span>
+					<span id="error_newPwd" class="input_error"><s:fielderror><s:param>newPwd</s:param></s:fielderror></span>
+				</dd>
+				<dt><span class="required">*</span> <label for="updatePassword_confirmPwd">パスワード再入力：</label></dt>
+				<dd>
+					<s:password name="confirmPwd" maxlength="20" cssClass="ime_mode_n" title="パスワード再入力" onblur="validate(this, 'REQ,ALN,LEN_6_20,EQU_newPwd');"/>
+					<span class="explain">※ 確認のためパスワードを再入力してください。</span>
+					<span id="error_confirmPwd" class="input_error"><s:fielderror><s:param>confirmPwd</s:param></s:fielderror></span>
+				</dd>
+
+			</dl>
+			<div class="submit">
+				<s:token/>
+				<s:hidden name="model.versionNo"/>
+				<s:submit value="更新" cssClass="submit"/>
+				<s:reset value="クリア" cssClass="submit"/>
+			</div>
+
 		</s:form>
-	</div>
+	</dd>
+</dl>
+<!-- パスワード変更：終了 -->
+
 </body>
-
-
 </html>
-</s:i18n>
