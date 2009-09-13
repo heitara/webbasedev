@@ -3,23 +3,21 @@ package com.gameif.portal.helper;
 import java.util.Map;
 
 public class PortalProperties {
-	
-	/** 秘密質問リスト*/
-	private Map<String, String> questionList;
-	
+		
 	/** アクションタイトルマップ */
 	private Map<String, String> actionTitles;
 
+	/** 性別マップ */
+	private Map<String, String> sexListMap;
+
+	/** 月マップ */
+	private Map<String, String> monthListMap;
+
+	/** 日マップ */
+	private Map<String, String> dayListMap;
+	
 	/** 友達登録ステータス */
 	private Map<String, String> inviteStatusList;
-
-	public Map<String, String> getQuestionList() {
-		return questionList;
-	}
-
-	public void setQuestionList(Map<String, String> questionList) {
-		this.questionList = questionList;
-	}
 
 	public Map<String, String> getActionTitles() {
 		return actionTitles;
@@ -29,16 +27,34 @@ public class PortalProperties {
 		this.actionTitles = actionTitles;
 	}
 
-	/**
-	 * @param inviteStatusList the inviteStatusList to set
-	 */
+	public Map<String, String> getSexListMap() {
+		return sexListMap;
+	}
+
+	public void setSexListMap(Map<String, String> sexMap) {
+		this.sexListMap = sexMap;
+	}
+
+	public Map<String, String> getMonthListMap() {
+		return monthListMap;
+	}
+
+	public void setMonthListMap(Map<String, String> monthListMap) {
+		this.monthListMap = monthListMap;
+	}
+
+	public Map<String, String> getDayListMap() {
+		return dayListMap;
+	}
+
+	public void setDayListMap(Map<String, String> dayListMap) {
+		this.dayListMap = dayListMap;
+	}
+	
 	public void setInviteStatusList(Map<String, String> inviteStatusList) {
 		this.inviteStatusList = inviteStatusList;
 	}
 
-	/**
-	 * @return the inviteStatusList
-	 */
 	public Map<String, String> getInviteStatusList() {
 		return inviteStatusList;
 	}
