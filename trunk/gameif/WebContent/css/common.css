@@ -26,6 +26,9 @@ div.clearbox {
 input.ime_mode_n {
 	ime-mode:disabled;
 }
+input.ime_mode_y {
+	ime-mode:active;
+}
 .f_left {
 	float:left;
 }
@@ -50,8 +53,9 @@ input.ime_mode_n {
 	bottom:0px;
 }
 span.input_error {
-	margin-left:10px;
-	padding:0px;
+	color:#F00;
+	font-size:10px;
+	font-weight:bold;
 }
 span.input_error ul {
 	display:inline;
@@ -63,10 +67,13 @@ span.input_error ul li {
 	display:inline;
 	margin:0px;
 	padding:0px;
-	font-size:10px;
-	color:#F00;
 }
 /*********【共通】フォーム関連 **************************************************/
+label {
+	font-size:12px;
+	font-style: italic;
+	color:#666;
+}
 form {
 	margin:30px 10px;
 }
@@ -85,6 +92,9 @@ input[type="text"].big, input[type="password"].big, textarea.big {
 	width:270px;
 	font-size:12px;
 }
+input[type="text"].focuscolor, input[type="password"].focuscolor, textarea.focuscolor {
+	background-color:#FF9;
+}
 input[type="submit"], input[type="reset"], input[type="button"] {
 	width:100px;
 	height:24px;
@@ -95,11 +105,10 @@ input[type="submit"].big, input[type="reset"].big, input[type="button"].big {
 	width:180px;
 }
 input[type="text"], input[type="password"] {
-	height:15px;
+	height:16px;
 }
 select {
 	width:206px;
-	height:20px;
 	padding-top:2px;
 	font-family:'ＭＳ ゴシック',serif;
 	font-size:13px;
@@ -138,7 +147,7 @@ form span.explain {
 	color:#888;
 	font-size:10px;
 	display:inline-block;
-	margin:2px 0px 0px 0px;
+	margin:2px 0px 0px 10px;
 }
 form span.check_ok {
 	color:#090;
@@ -168,7 +177,7 @@ dl.title_box {
 dl.title_box > dt {
 	height:24px;
 	overflow:hidden;
-	background-image:url("../../images/bg_portlet_title.gif");
+	background-image:url("../images/bg_portlet_title.gif");
 	clear:both;
 }
 dl.title_box > dt > strong {
@@ -178,7 +187,7 @@ dl.title_box > dt > strong {
 	line-height:24px;
 	padding:0px 12px;
 	color:#FFF;
-	background:url("../../images/bg_portlet_title_left.gif") left top no-repeat;
+	background:url("../images/bg_portlet_title_left.gif") left top no-repeat;
 	letter-spacing:1px;
 }
 dl.title_box > dt > span {
@@ -186,7 +195,7 @@ dl.title_box > dt > span {
 	position:relative;
 	line-height:24px;
 	padding:0px 10px;
-	background:url("../../images/bg_portlet_title_right.gif") right top no-repeat;
+	background:url("../images/bg_portlet_title_right.gif") right top no-repeat;
 }
 dl.title_box > dt > span::after {
 	content:"\b";
@@ -213,7 +222,7 @@ dl.light_box {
 dl.light_box > dt {
 	height:24px;
 	overflow:hidden;
-	background-image:url("../../images/bg_light_title.gif");
+	background-image:url("../images/bg_light_title.gif");
 	clear:both;
 }
 dl.light_box > dt > strong {
@@ -222,7 +231,7 @@ dl.light_box > dt > strong {
 	height:24px;
 	line-height:24px;
 	padding:0px 12px;
-	background:url("../../images/bg_light_title_left.gif") left top no-repeat;
+	background:url("../images/bg_light_title_left.gif") left top no-repeat;
 	letter-spacing:1px;
 }
 dl.light_box > dt > span {
@@ -232,7 +241,7 @@ dl.light_box > dt > span {
 	position:relative;
 	line-height:24px;
 	padding:0px 10px;
-	background:url("../../images/bg_light_title_right.gif") right top no-repeat;
+	background:url("../images/bg_light_title_right.gif") right top no-repeat;
 }
 dl.light_box > dt > span::after {
 	content:"\b";
@@ -257,7 +266,7 @@ dl.warm_box {
 dl.warm_box > dt {
 	height:20px;
 	overflow:hidden;
-	background-image:url("../../images/bg_portlet_title.gif");
+	background-image:url("../images/bg_portlet_title.gif");
 	clear:both;
 }
 dl.warm_box > dt > strong {
@@ -269,14 +278,14 @@ dl.warm_box > dt > strong {
 	font-size:10px;
 	font-weight:bold;
 	color:#FFF;
-	background:url("../../images/bg_portlet_title_left.gif") left top no-repeat;
+	background:url("../images/bg_portlet_title_left.gif") left top no-repeat;
 }
 dl.warm_box > dt > span {
 	float:right;
 	position:relative;
 	line-height:20px;
 	padding:0px 10px;
-	background:url("../../images/bg_portlet_title_right.gif") right top no-repeat;
+	background:url("../images/bg_portlet_title_right.gif") right top no-repeat;
 }
 dl.warm_box > dt > span::after {
 	content:"\b";
