@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0.2//EN" 
+	"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+
+<validators>
+    <field name="userName">
+        <field-validator type="requiredstring" short-circuit="true">
+			<param name="trim">true</param>
+        	<message>お名前を入力してください。</message>
+        </field-validator>
+        <field-validator type="regex" short-circuit="true">
+        	<param name="expression"><![CDATA[(\w{1,20})]]></param>
+        	<message>お名前は20桁以内の半角英数字で入力してください。</message>
+        </field-validator>
+    </field>
+    <field name="userMailadd">
+        <field-validator type="requiredstring" short-circuit="true">
+			<param name="trim">true</param>
+        	<message>メールアドレスを入力してください。</message>
+        </field-validator>
+        <field-validator type="email" short-circuit="true">
+        	<message>メールアドレスが不正です。</message>
+        </field-validator>
+    </field>
+    <field name="titleId">
+        <field-validator type="requiredstring" short-circuit="true">
+			<param name="trim">true</param>
+        	<message>対象タイトルを入力してください。</message>
+        </field-validator>
+    </field>
+    <field name="inquiryObject">
+        <field-validator type="requiredstring" short-circuit="true">
+			<param name="trim">true</param>
+        	<message>お問合せ件名を入力してください。</message>
+        </field-validator>
+    </field>
+    <field name="inquiryContents">
+        <field-validator type="requiredstring" short-circuit="true">
+			<param name="trim">true</param>
+        	<message>内容を入力してください。</message>
+        </field-validator>
+        <field-validator type="regex" short-circuit="true">
+        	<param name="expression"><![CDATA[([a-zA-Z0-9｡-ﾟぁ-ゞァ-ヶ一-龠Ａ-Ｚａ-ｚ]+)]]></param>
+        	<message>内容に記号或いはスペースが含まれています。</message>
+        </field-validator>
+    </field>
+</validators>
