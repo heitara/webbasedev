@@ -75,7 +75,7 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 	 * @return 友達紹介入力画面
 	 */
 	public String input() {
-		setListInviteTitle(masterInfoBusinessLogic.selectValidTitleList());
+		setListInviteTitle(masterInfoBusinessLogic.getValidTitleList());
 		setListInviteTemplate(getInviteTemplateList(""));
 
 		return INPUT;
