@@ -5,8 +5,8 @@ import java.util.Date;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.gameif.common.bean.ComSearchCondition;
 import com.gameif.common.businesslogic.BaseBusinessLogic;
+import com.gameif.common.exception.AuthorityException;
 import com.gameif.common.exception.DataNotExistsException;
 import com.gameif.common.exception.DataUpdatedException;
 import com.gameif.common.exception.LogicException;
@@ -50,6 +50,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	 * @param memberInfo 会員情報（新規登録時必要な項目が格納されていること）
 	 */
 	@Transactional
+	@Override
 	public void saveMemberInfo(MemberInfo memberInfo) {
 		
 		// アカウントＩＤとメールアドレスは小文字に変換、両辺スペース削除
@@ -99,6 +100,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	 * @throws LogicException 存在しない異常、または排他異常
 	 */
 	@Transactional
+	@Override
 	public void updateMemberInfo(MemberInfo memberInfo) throws LogicException {
 
 		// 存在性と排他性チェック、行ロックをかけて既存会員情報を検索する。
@@ -140,11 +142,30 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	 * @param memberInfo 会員情報（会員番号、新しいパスワードが格納されていること）
 	 * @throws LogicException 存在しない異常、または排他異常
 	 */
-	@Transactional
+	@Override
 	public void changePasswd(MemberInfo memberInfo) throws LogicException {
+
+		changePasswd(memberInfo, null);
+	}
+
+	/**
+	 * 会員パスワードを変更する。
+	 * <br/>旧いパスワードが指定されると、一致チェックを行う。
+	 * @param memberInfo 会員情報（会員番号、新しいパスワードが格納されていること）
+	 * @param oldPassword 旧いパスワード
+	 * @throws LogicException 存在しない異常、排他異常、またはパスワード変更権限異常
+	 */
+	@Transactional
+	@Override
+	public void changePasswd(MemberInfo memberInfo, String oldPassword) throws LogicException {
 
 		// 存在性と排他性チェック、行ロックをかけて既存会員情報を検索する。
 		MemberInfo oldMemberInfo = getMemberInfoWithCheck(memberInfo);
+		
+		if (oldPassword != null && !SecurityUtil.getMD5String(oldPassword).equals(oldMemberInfo.getMemPwd())) {
+			
+			throw new AuthorityException("old password is failed.");
+		}
 		
 		oldMemberInfo.setMemPwd(SecurityUtil.getMD5String(memberInfo.getMemPwd()));
 		oldMemberInfo.setLastUpdateDate(new Date());
@@ -163,6 +184,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	 * @throws LogicException 存在しない異常
 	 */
 	@Transactional
+	@Override
 	public void withdraw(MemberInfo memberInfo) throws LogicException {
 
 		// 存在性チェック、行ロックをかけて既存会員情報を検索する。
@@ -241,13 +263,10 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	 * @param checkTime チェックする期間（秒単位）
 	 * @return 同ＩＰで登録したユーザ数
 	 */
+	@Override
 	public int countMembersByIPInTime(String clientIp, int checkTime) {
 
-		ComSearchCondition searchCondition = new ComSearchCondition();
-		searchCondition.setClientIp(clientIp);
-		searchCondition.setCheckTime(checkTime);
-
-		return memberInfoDao.selectCountByIPAndTime(searchCondition);
+		return memberInfoDao.selectCountByIPAndTime(clientIp, checkTime);
 	}
 	
 	/**
@@ -255,9 +274,23 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	 * @param memId アカウントＩＤ
 	 * @return 指定したアカウントＩＤの使用者数
 	 */
+	@Override
 	public int countMembersByMemId(String memId) {
 
 		return memberInfoDao.selectCountByMemId(memId);
+	}
+	
+	/**
+	 * 指定したアカウントＩＤを使っている会員数を取得する。
+	 * <br/>会員番号を指定した場合、その会員は対象外とする。
+	 * @param memId アカウントＩＤ象外とする。
+	 * @param memNum 会員番号
+	 * @return 指定したアカウントＩＤの使用者数
+	 */
+	@Override
+	public int countMembersByMemId(String memId, Long memberNum) {
+
+		return memberInfoDao.selectCountByMemId(memId, memberNum);
 	}
 
 	/**
@@ -265,9 +298,23 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	 * @param nickName ニックネーム
 	 * @return 指定したニックネームの使用者数
 	 */
+	@Override
 	public int countMembersByNickName(String nickName) {
 
 		return memberInfoDao.selectCountByNickName(nickName);
+	}
+
+	/**
+	 * 指定したニックネームを使っている会員数を取得する。
+	 * <br/>会員番号を指定した場合、その会員は対象外とする。
+	 * @param nickName ニックネーム
+	 * @param memNum 会員番号
+	 * @return 指定したニックネームの使用者数
+	 */
+	@Override
+	public int countMembersByNickName(String nickName, Long memberNum) {
+
+		return memberInfoDao.selectCountByNickName(nickName, memberNum);
 	}
 
 	/**
@@ -275,8 +322,22 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	 * @param mailPc メールアドレス
 	 * @return 指定したメールアドレスの使用者数
 	 */
+	@Override
 	public int countMembersByMailPc(String mailPc) {
 
 		return memberInfoDao.selectCountByMailPc(mailPc);
+	}
+
+	/**
+	 * 指定したメールアドレスを使っている会員数を取得する。
+	 * <br/>会員番号を指定した場合、その会員は対象外とする。
+	 * @param mailPc メールアドレス
+	 * @param memNum 会員番号
+	 * @return 指定したメールアドレスの使用者数
+	 */
+	@Override
+	public int countMembersByMailPc(String mailPc, Long memberNum) {
+
+		return memberInfoDao.selectCountByMailPc(mailPc, memberNum);
 	}
 }
