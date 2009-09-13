@@ -8,11 +8,51 @@ public class ComSearchCondition extends BaseEntity {
 	 * 
 	 */
 	private static final long serialVersionUID = 2310176065830515982L;
+	
+	private Long memNum;
+	
+	private String memId;
+	
+	private String nickName;
+	
+	private String mailPc;
 
 	/** クライドIP */
 	private String clientIp;
 	/** 限定時間 */
 	private int checkTime;
+
+	public Long getMemNum() {
+		return memNum;
+	}
+
+	public void setMemNum(Long memNum) {
+		this.memNum = memNum;
+	}
+
+	public String getMemId() {
+		return memId;
+	}
+
+	public void setMemId(String memId) {
+		this.memId = memId;
+	}
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
+	public String getMailPc() {
+		return mailPc;
+	}
+
+	public void setMailPc(String mailPc) {
+		this.mailPc = mailPc;
+	}
 
 	/**
 	 * 
