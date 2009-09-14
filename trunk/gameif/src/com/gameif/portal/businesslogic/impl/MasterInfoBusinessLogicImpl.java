@@ -6,11 +6,13 @@ import com.gameif.common.businesslogic.BaseBusinessLogic;
 import com.gameif.portal.businesslogic.IMasterInfoBusinessLogic;
 import com.gameif.portal.dao.IDivisionMstDao;
 import com.gameif.portal.dao.IInquiryKindMstDao;
+import com.gameif.portal.dao.IInviteTemplateDao;
 import com.gameif.portal.dao.IOccupationMstDao;
 import com.gameif.portal.dao.IQuestionMstDao;
 import com.gameif.portal.dao.ITitleMstDao;
 import com.gameif.portal.entity.DivisionMst;
 import com.gameif.portal.entity.InquiryKindMst;
+import com.gameif.portal.entity.InviteTemplateMst;
 import com.gameif.portal.entity.OccupationMst;
 import com.gameif.portal.entity.QuestionMst;
 import com.gameif.portal.entity.TitleMst;
@@ -25,6 +27,7 @@ public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	private IQuestionMstDao questionMstDao;
 	private ITitleMstDao titleMstDao;
 	private IInquiryKindMstDao inquiryKindMstDao;
+	private IInviteTemplateDao inviteTemplateDao;
 
 	/**
 	 * @param divisionMstDao
@@ -63,6 +66,10 @@ public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	 */
 	public void setInquiryKindMstDao(IInquiryKindMstDao inquiryKindMstDao) {
 		this.inquiryKindMstDao = inquiryKindMstDao;
+	}
+
+	public void setInviteTemplateDao(IInviteTemplateDao inviteTemplateDao) {
+		this.inviteTemplateDao = inviteTemplateDao;
 	}
 
 	/**
@@ -104,5 +111,14 @@ public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	public List<InquiryKindMst> getAllInquiryKindList() {
 		return inquiryKindMstDao.selectAll(null);
 	}
+
+	/**
+	 * 紹介テンプレートを取得する
+	 */
+	@Override
+	public List<InviteTemplateMst> getInviteTemplateByTitleId(Integer titleId) {
+		return inviteTemplateDao.selectInviteTemplateByTitleId(titleId);
+	}
+	
 
 }
