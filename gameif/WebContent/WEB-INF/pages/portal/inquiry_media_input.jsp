@@ -12,7 +12,7 @@
 
 <body>
 	<dl class="light_box tspace_n">
-		<dt><strong>メディア様のお問合せ</strong></dt>
+		<dt><strong>メディア様のお問合せ</strong><span><a href="inputInquiry.html">► その他問合せ</a></span></dt>
 		<dd>
 			<s:form name="frm_inquiry_media_input" method="post" cssClass="entry">
 				<dl>

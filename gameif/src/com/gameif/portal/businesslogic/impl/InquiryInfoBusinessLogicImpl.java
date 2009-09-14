@@ -5,7 +5,9 @@ import java.util.Date;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gameif.common.businesslogic.BaseBusinessLogic;
+import com.gameif.common.util.ContextUtil;
 import com.gameif.portal.businesslogic.IInquiryInfoBusinessLogic;
+import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.dao.IInquiryInfoDao;
 import com.gameif.portal.entity.InquiryInfo;
 import com.opensymphony.xwork2.ActionContext;
@@ -38,23 +40,14 @@ public class InquiryInfoBusinessLogicImpl extends BaseBusinessLogic implements
 
 		Date inquiryDate = new Date();
 
-		if (ActionContext.getContext().getSession().get("memId") == null
-				|| ActionContext.getContext().getSession().get("memId")
-						.toString().length() == 0) {
-			inquiryInfo.setMemId(null);
-			inquiryInfo.setCreatedUser(null);
-			inquiryInfo.setCreatedDate(inquiryDate);
-			inquiryInfo.setLastUpdateUser(null);
-			inquiryInfo.setLastUpdateDate(inquiryDate);
-		} else {
-			String memId = ActionContext.getContext().getSession().get("memId")
-					.toString().toString();
-			inquiryInfo.setMemId(memId);
-			inquiryInfo.setCreatedUser(memId);
-			inquiryInfo.setCreatedDate(inquiryDate);
-			inquiryInfo.setLastUpdateUser(memId);
-			inquiryInfo.setLastUpdateDate(inquiryDate);
+		// 会員の問合せの場合、会員情報を設定する
+		if (inquiryInfo.getInquiryType().equals(PortalConstants.InquiryType.MEMBER)) {
+			inquiryInfo.setMemId(ContextUtil.getAccountId());
+			inquiryInfo.setCreatedUser(ContextUtil.getAccountId());
+			inquiryInfo.setLastUpdateUser(ContextUtil.getAccountId());
 		}
+		inquiryInfo.setCreatedDate(inquiryDate);
+		inquiryInfo.setLastUpdateDate(inquiryDate);
 
 		inquiryInfoDao.save(inquiryInfo);
 	}

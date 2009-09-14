@@ -12,6 +12,8 @@
 				<entry key="createMember" value="会員登録"/>
 				<entry key="updateMember" value="会員情報変更"/>
 				<entry key="updatePasswd" value="パスワード変更"/>
+				<entry key="createInquiry" value="問合せ "/>
+				<entry key="createInvite" value="友達紹介"/>
 			</map>
 		</property>
 		<property name="sexListMap">
