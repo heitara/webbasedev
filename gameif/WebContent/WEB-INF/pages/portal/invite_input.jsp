@@ -1,14 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="s" uri="/struts-tags"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<s:i18n name="characters">
-	<html>
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja-jp" lang="ja-jp" >
 	<head>
 		<meta content="ゲームイフ,ブラウザゲーム,webgame,大人数同時プレイブラウザゲーム,オンラインゲーム,パブリッシング,プラットフォーム" name="keywords"/>
 		<meta content="ブラウザゲーム(WEBGAME)のポータルサイト" name="description"/>
-		<title><s:property value="%{getText('invite_input_title')}" /></title>
+		<title>友達紹介 | ゲームイフ | ブラウザゲームのポータルサイト</title>
 		<script charset="UTF-8" src="js/portal/common.js" language="JavaScript" type="text/javascript"></script>
 	</head>
 	<body>
@@ -43,7 +41,7 @@
 						
 						<dt><span class="required">*</span><label for="game">紹介するゲーム：</label></dt>
 						<dd>
-							<s:select name="titleId" list="listInviteTitle" listKey="titleId" listValue="titleName" cssClass="big"/>
+							<s:select name="titleId" list="masterInfoBusinessLogic.validTitleList" listKey="titleId" listValue="titleName"  headerKey="0" headerValue="" title="紹介するゲーム"  onblur="validate(this,'REQ');" />
 							<span class="input_error"><s:fielderror><s:param>titleId</s:param></s:fielderror></span><br/>
 							<br/>
 							<span class="explain">紹介するゲームを選んでください。</span>
@@ -51,7 +49,7 @@
 						
 						<dt><label for="message_tmpl">招待メッセージ：</label></dt>
 						<dd>
-							<s:select name="inviteTemplate" list="listInviteTemplate" listKey="key" listValue="value" cssClass="big"/>
+							<s:select name="inviteTemplate" list="masterInfoBusinessLogic.validTitleList" listKey="titleId" listValue="titleName"  headerKey="0" headerValue="" cssClass="big"/>
 							<br/>
 							<span class="explain">テンプレートから選ぶと、大枠が自動的に入力されますので、<br/>入力時間を省けられます。</span>
 						</dd>
@@ -71,7 +69,4 @@
 			</dd>
 		</dl>
 	</body>
-
-
-	</html>
-</s:i18n>
+</html>
