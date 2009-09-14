@@ -7,7 +7,7 @@
 		<meta content="ゲームイフ,ブラウザゲーム,webgame,大人数同時プレイブラウザゲーム,オンラインゲーム,パブリッシング,プラットフォーム" name="keywords"/>
 		<meta content="ブラウザゲーム(WEBGAME)のポータルサイト" name="description"/>
 		<title>友達紹介 | ゲームイフ | ブラウザゲームのポータルサイト</title>
-		<script charset="UTF-8" src="js/portal/common.js" language="JavaScript" type="text/javascript"></script>
+		<script src="js/portal/validate.js" type="text/javascript"></script>
 	</head>
 	<body>
 		<dl class="light_box tspace_n">
@@ -17,14 +17,14 @@
 					<dl>
 						<dt><span class="required">*</span><label for="mail_from">紹介者のメールアドレス：</label></dt>
 						<dd>
-							<s:textfield name="inviteMailFrom" maxlength="100" cssClass="big ime_mode_n"/>
-							<span class="input_error"><s:fielderror><s:param>inviteMailFrom</s:param></s:fielderror></span><br/>
+							<s:textfield name="inviteMailFrom" maxlength="100" cssClass="ime_mode_n" title="紹介者のメールアドレス" onblur="validate(this, 'REQ,EML');"/>
+							<span id="error_inviteMailFrom" class="input_error"><s:fielderror><s:param>inviteMailFrom</s:param></s:fielderror></span><br/>
 						</dd>
 						
 						<dt><span class="required">*</span><label for="friends">友達のメールアドレス：</label></dt>
 						<dd>
-							<s:textarea name="inviteMailTo" rows="8" cssClass="big ime_mode_n f_left"/>
-							<span class="input_error"><s:fielderror><s:param>inviteMailTo</s:param></s:fielderror></span><br/>
+							<s:textarea name="inviteMailTo" rows="10" cssClass="big ime_mode_n f_left" title="紹介者のメールアドレス" onblur="validate(this, 'REQ');"/>
+							<span id="error_inviteMailTo" class="input_error"><s:fielderror><s:param>inviteMailTo</s:param></s:fielderror></span><br/>
 							<div class=" mail_import">
 	
 								<span class="explain">下記のＷＥＢメールならアドレス帳から直接アドレスをインポートすることができます。</span><br/>
@@ -34,7 +34,7 @@
 								<input type="button" value="メールアドレスインポート" class="big" onclick="openPopup('fimsel.html', 600, 540);"/>
 							</div>
 							<div class="clearbox"></div>
-							<span class="explain">複数人の場合、一行に一件ずつ入力してください。</span>
+							<span class="explain">※複数人の場合、一行に一件ずつ入力してください。</span>
 						</dd>
 						<dt></dt>
 						<dd>&nbsp;</dd>
@@ -42,21 +42,21 @@
 						<dt><span class="required">*</span><label for="game">紹介するゲーム：</label></dt>
 						<dd>
 							<s:select name="titleId" list="masterInfoBusinessLogic.validTitleList" listKey="titleId" listValue="titleName"  headerKey="0" headerValue="" title="紹介するゲーム"  onblur="validate(this,'REQ');" />
-							<span class="input_error"><s:fielderror><s:param>titleId</s:param></s:fielderror></span><br/>
-							<br/>
-							<span class="explain">紹介するゲームを選んでください。</span>
+							<span id="error_titleId" class="input_error"><s:fielderror><s:param>titleId</s:param></s:fielderror></span><br/>
+							<span class="explain">※紹介するゲームを選んでください。</span>
 						</dd>
 						
-						<dt><label for="message_tmpl">招待メッセージ：</label></dt>
+						<dt><span class="required">*</span><label for="message_tmpl">招待メッセージ：</label></dt>
 						<dd>
 							<s:select name="inviteTemplate" list="masterInfoBusinessLogic.validTitleList" listKey="titleId" listValue="titleName"  headerKey="0" headerValue="" cssClass="big"/>
 							<br/>
-							<span class="explain">テンプレートから選ぶと、大枠が自動的に入力されますので、<br/>入力時間を省けられます。</span>
+							<span class="explain">※テンプレートから選ぶと、大枠が自動的に入力されますので、<br/>入力時間を省けられます。</span>
 						</dd>
 						<dt/>
 						<dd>
-							<s:textarea name="inviteMsg" rows="8" cssClass="big ime_mode_n"/><br/>
-							<span class="explain">招待メールの本文を入力してください。</span>
+							<s:textarea name="inviteMsg" rows="8" title="招待メッセージ"  cssClass="big ime_mode_n" onblur="validate(this, 'REQ,KOT');"/>
+							<span id="error_inviteMsg" class="input_error"><s:fielderror><s:param>inviteMsg</s:param></s:fielderror></span><br/>
+							<span class="explain">※招待メールの本文を入力してください。</span>
 						</dd>
 	
 					</dl>
