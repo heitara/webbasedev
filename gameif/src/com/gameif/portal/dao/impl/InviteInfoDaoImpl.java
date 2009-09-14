@@ -13,6 +13,7 @@ public class InviteInfoDaoImpl extends AbstractBaseDao<InviteInfo, InviteInfo>
 	 * 紹介者IDより、友達紹介履歴を取得する。
 	 * @param memNum
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<InviteInfo> selectInviteHistByMemNum(Long memNum) {
 		return (List<InviteInfo>) getSqlMapClientTemplate().queryForObject(namespace + ".selectInviteHistByMemNum", memNum);
