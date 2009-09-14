@@ -4,7 +4,7 @@
 
 <appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
 	<layout class="org.apache.log4j.PatternLayout">
-		<param name="ConversionPattern" value="%-5p | %d{yy/MM/dd HH:mm:ss} | %t | %m%n" />
+		<param name="ConversionPattern" value="%-5p | %d{yy/MM/dd HH:mm:ss SSS} | %t | %m%n" />
 	</layout>
 	<filter class="org.apache.log4j.varia.LevelRangeFilter">
 		<param name="levelMin" value="DEBUG" />
@@ -19,7 +19,7 @@
 	<param name="Threshold" value="INFO" />
 	<param name="DatePattern" value="'.'yyMMdd'.log'" />
 	<layout class="org.apache.log4j.PatternLayout">  
-		<param name="ConversionPattern" value="%-5p | %d{yy/MM/dd HH:mm:ss} | %t | %m%n" />  
+		<param name="ConversionPattern" value="%-5p | %d{yy/MM/dd HH:mm:ss SSS} | %t | %m%n" />  
 	</layout>
 	<filter class="org.apache.log4j.varia.LevelRangeFilter">
 		<param name="LevelMin" value="INFO" />
@@ -33,7 +33,7 @@
 	<param name="Threshold" value="INFO" />
 	<param name="DatePattern" value="'.'yyMMdd'.log'" />
 	<layout class="org.apache.log4j.PatternLayout">  
-		<param name="ConversionPattern" value="%-5p | %d{yy/MM/dd HH:mm:ss} | %t | %m%n" />  
+		<param name="ConversionPattern" value="%-5p | %d{yy/MM/dd HH:mm:ss SSS} | %t | %m%n" />  
 	</layout>
 	<filter class="org.apache.log4j.varia.LevelRangeFilter">
 		<param name="LevelMin" value="WARN" />
@@ -47,7 +47,7 @@
 	<param name="Threshold" value="INFO" />
 	<param name="DatePattern" value="'.'yyMMdd'.log'" />
 	<layout class="org.apache.log4j.PatternLayout">  
-		<param name="ConversionPattern" value="%-5p | %d{yy/MM/dd HH:mm:ss} | %t | %m%n" />  
+		<param name="ConversionPattern" value="%-5p | %d{yy/MM/dd HH:mm:ss SSS} | %t | %m%n" />  
 	</layout>
 	<filter class="org.apache.log4j.varia.LevelRangeFilter">
 		<param name="LevelMin" value="ERROR" />
@@ -61,7 +61,7 @@
 	<param name="Threshold" value="INFO" />
 	<param name="DatePattern" value="'.'yyMMdd'.log'" />
 	<layout class="org.apache.log4j.PatternLayout">  
-		<param name="ConversionPattern" value="%-5p | %d{yy/MM/dd HH:mm:ss} | %t | %m%n" />  
+		<param name="ConversionPattern" value="%-5p | %d{yy/MM/dd HH:mm:ss SSS} | %t | %m%n" />  
 	</layout>
 	<filter class="org.apache.log4j.varia.LevelRangeFilter">
 		<param name="LevelMin" value="WARN" />
@@ -75,7 +75,7 @@
 	<param name="Threshold" value="INFO" />
 	<param name="DatePattern" value="'.'yyMMdd'.log'" />
 	<layout class="org.apache.log4j.PatternLayout">  
-		<param name="ConversionPattern" value="%-5p | %d{yy/MM/dd HH:mm:ss} | %t | %m%n" />  
+		<param name="ConversionPattern" value="%-5p | %d{yy/MM/dd HH:mm:ss SSS} | %t | %m%n" />  
 	</layout>
 	<filter class="org.apache.log4j.varia.LevelRangeFilter">
 		<param name="LevelMin" value="ERROR" />
