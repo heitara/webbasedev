@@ -1,13 +1,14 @@
 package com.gameif.portal.interceptor;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.gameif.common.interceptor.CommonInterceptor;
 import com.opensymphony.xwork2.ActionInvocation;
 
 public class ActionLogInterceptor extends CommonInterceptor {
 
-        private final static Logger logger = Logger.getLogger(ActionLogInterceptor.class);
+        private final static Log logger = LogFactory.getLog(ActionLogInterceptor.class);
         
         private static final long serialVersionUID = -3936772203980270629L;
 

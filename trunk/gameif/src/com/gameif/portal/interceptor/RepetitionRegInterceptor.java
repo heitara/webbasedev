@@ -1,6 +1,7 @@
 package com.gameif.portal.interceptor;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
 
 import com.gameif.common.interceptor.CommonInterceptor;
@@ -10,7 +11,7 @@ import com.opensymphony.xwork2.ActionInvocation;
 public class RepetitionRegInterceptor extends CommonInterceptor {
 
         private static final long serialVersionUID = 4500488131766995696L;
-        private final static Logger logger = Logger.getLogger(RepetitionRegInterceptor.class);
+        private final static Log logger = LogFactory.getLog(RepetitionRegInterceptor.class);
         
         private IMemberInfoBusinessLogic memberInfoBusinessLogic;
         private int repetitionMax;
