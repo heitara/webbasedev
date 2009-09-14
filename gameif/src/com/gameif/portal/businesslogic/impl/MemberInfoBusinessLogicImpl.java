@@ -1,6 +1,7 @@
 package com.gameif.portal.businesslogic.impl;
 
 import java.util.Date;
+import java.util.HashMap;
 
 import org.apache.struts2.ServletActionContext;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,6 +11,7 @@ import com.gameif.common.exception.AuthorityException;
 import com.gameif.common.exception.DataNotExistsException;
 import com.gameif.common.exception.DataUpdatedException;
 import com.gameif.common.exception.LogicException;
+import com.gameif.common.helper.TemplateMailer;
 import com.gameif.common.util.ContextUtil;
 import com.gameif.common.util.SecurityUtil;
 import com.gameif.portal.businesslogic.IMemberInfoBusinessLogic;
@@ -25,25 +27,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 
 	private IMemberInfoDao memberInfoDao;
 	private IMemberLoginInfoDao memberLoginInfoDao;
-
-	/**
-	 * @param memberInfoDao the memberInfoDao to set
-	 */
-	public void setMemberInfoDao(IMemberInfoDao memberInfoDao) {
-		this.memberInfoDao = memberInfoDao;
-	}
-
-	/**
-	 * @param memberLoginInfoDao the memberLoginInfoDao to set
-	 */
-	public void setMemberLoginInfoDao(IMemberLoginInfoDao memberLoginInfoDao) {
-		this.memberLoginInfoDao = memberLoginInfoDao;
-	}
-
-	public MemberInfo getMemberInfo(MemberInfo memberInfo) {
-		
-		return memberInfoDao.selectByKey(memberInfo);
-	}
+	private TemplateMailer templateMailer;
 
 	/**
 	 * 会員情報を登録する。
@@ -92,6 +76,12 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		memberLoginInfo.setMemValidYNCd(newMemberInfo.getMemValidYNCd());
 		
 		memberLoginInfoDao.save(memberLoginInfo);
+
+		// お知らせメールを送信する。
+		HashMap<String, String> props = new HashMap<String, String>();		
+		props.put("memId", memberInfo.getMemId());
+		props.put("nickName", memberInfo.getNickName());		
+		templateMailer.sendAsyncMail(memberInfo.getMailPc(), "createMember", props);
 	}
 
 	/**
@@ -135,6 +125,12 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 			
 			updateLoginInfoByMemberInfo(oldMemberInfo);
 		}
+
+		// お知らせメールを送信する。
+		HashMap<String, String> props = new HashMap<String, String>();		
+		props.put("memId", oldMemberInfo.getMemId());
+		props.put("nickName", oldMemberInfo.getNickName());		
+		templateMailer.sendAsyncMail(oldMemberInfo.getMailPc(), "updateMemberInfo", props);
 	}
 
 	/**
@@ -176,6 +172,12 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 
 		// 会員ログイン情報を更新する。
 		updateLoginInfoByMemberInfo(oldMemberInfo);
+
+		// お知らせメールを送信する。
+		HashMap<String, String> props = new HashMap<String, String>();		
+		props.put("memId", oldMemberInfo.getMemId());
+		props.put("nickName", oldMemberInfo.getNickName());		
+		templateMailer.sendAsyncMail(oldMemberInfo.getMailPc(), "updatePassword", props);
 	}
 
 	/**
@@ -199,6 +201,12 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 
 		// 会員ログイン情報を更新する。
 		updateLoginInfoByMemberInfo(oldMemberInfo);
+
+		// お知らせメールを送信する。
+		HashMap<String, String> props = new HashMap<String, String>();		
+		props.put("memId", oldMemberInfo.getMemId());
+		props.put("nickName", oldMemberInfo.getNickName());		
+		templateMailer.sendAsyncMail(oldMemberInfo.getMailPc(), "withdraw", props);
 	}
 
 	/**
@@ -339,5 +347,25 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	public int countMembersByMailPc(String mailPc, Long memberNum) {
 
 		return memberInfoDao.selectCountByMailPc(mailPc, memberNum);
+	}
+
+	public void setMemberInfoDao(IMemberInfoDao memberInfoDao) {
+		
+		this.memberInfoDao = memberInfoDao;
+	}
+
+	public void setMemberLoginInfoDao(IMemberLoginInfoDao memberLoginInfoDao) {
+		
+		this.memberLoginInfoDao = memberLoginInfoDao;
+	}
+
+	public MemberInfo getMemberInfo(MemberInfo memberInfo) {
+		
+		return memberInfoDao.selectByKey(memberInfo);
+	}
+
+	public void setTemplateMailer(TemplateMailer templateMailer) {
+		
+		this.templateMailer = templateMailer;
 	}
 }
