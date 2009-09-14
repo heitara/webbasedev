@@ -10,6 +10,7 @@ public class InviteTemplateDaoImpl extends
 		AbstractBaseDao<InviteTemplateMst, InviteTemplateMst> implements
 		IInviteTemplateDao {
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<InviteTemplateMst> selectInviteTemplateByTitleId(Integer titleId) {
 		return getSqlMapClientTemplate().queryForList(
