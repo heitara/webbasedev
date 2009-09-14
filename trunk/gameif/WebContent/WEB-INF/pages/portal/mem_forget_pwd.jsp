@@ -1,15 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="s" uri="/struts-tags"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja-jp" lang="ja-jp" >
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title><s:property value="%{getText('mem_forget_pwd_tilte')}" /></title>
-	<link rel="stylesheet" type="text/css" media="screen" href="css/common/screen.css" />
-	<script src="js/jquery/jquery.js" type="text/javascript"></script>
-	<script src="js/portal/mem_login.js" type="text/javascript"></script>
-	<s:include value="../common/header.jsp"></s:include>
+	<meta content="ゲームイフ,ブラウザゲーム,webgame,大人数同時プレイブラウザゲーム,オンラインゲーム,パブリッシング,プラットフォーム" name="keywords"/>
+	<meta content="ブラウザゲーム(WEBGAME)のポータルサイト" name="description"/>
+	<title>パスワード再発行 | ゲームイフ | ブラウザゲームのポータルサイト</title>
+	<script charset="UTF-8" src="js/portal/common.js" language="JavaScript" type="text/javascript"></script>
 </head>
 
 <body>

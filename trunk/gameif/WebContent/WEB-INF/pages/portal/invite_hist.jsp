@@ -1,14 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="s" uri="/struts-tags"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<s:i18n name="characters">
-	<html>
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja-jp" lang="ja-jp" >
 	<head>	
 		<meta name="keywords" content="ゲームイフ,ブラウザゲーム,webgame,大人数同時プレイブラウザゲーム,オンラインゲーム,パブリッシング,プラットフォーム" />
 		<meta name="description" content="ブラウザゲーム(WEBGAME)のポータルサイト" />
-		<title>ゲームイフ | 友達紹介履歴</title>
+		<title>友達紹介履歴 | ゲームイフ | ブラウザゲームのポータルサイト</title>
 		<script charset="UTF-8" src="js/portal/common.js" language="JavaScript" type="text/javascript"></script>
 	</head>
 	<body>
@@ -53,7 +50,4 @@
 			</dd>
 		</dl>
 	</body>
-
-
-	</html>
-</s:i18n>
+</html>
