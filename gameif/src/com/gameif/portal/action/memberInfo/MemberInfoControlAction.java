@@ -90,8 +90,6 @@ public class MemberInfoControlAction extends ModelDrivenActionSupport<MemberInfo
 		
 		memberInfoBusinessLogic.saveMemberInfo(getModel());
 		
-		//TODO:会員登録通知メール送信要実装
-		
 		return SUCCESS;
 	}
 
@@ -134,8 +132,6 @@ public class MemberInfoControlAction extends ModelDrivenActionSupport<MemberInfo
 
 			return "warning";
 		}
-		
-		//TODO:会員情報変更通知メール送信要実装
 		
 		return SUCCESS;
 	}
@@ -187,8 +183,6 @@ public class MemberInfoControlAction extends ModelDrivenActionSupport<MemberInfo
 
 			return "warning";
 		}
-		
-		//TODO:パスワード変更通知メール送信要実装
 		
 		return SUCCESS;
 	}
