@@ -5,35 +5,61 @@
 <sqlMap namespace="inquiryInfo">
 	<typeAlias alias="inquiryInfo" type="com.gameif.portal.entity.InquiryInfo" />
 	
-	<resultMap class="com.gameif.portal.entity.InquiryInfo" id="inquiryResult">
-		<result property="userName" column="user_name"/>
-		<result property="userMailadd" column="user_mailadd"/>
-		<result property="inquiryKindCode" column="inquiry_kind_code"/>
-		<result property="inquiryObject" column="inquiry_object"/>
-		<result property="inquiryContents" column="inquiry_contents"/>
-	</resultMap>
-	
 	<insert id = "save" parameterClass="inquiryInfo">
 		INSERT INTO inquiry_info
 			(inquiry_date,
+			mem_id,
+			company_name,
+			company_media_name,
+			company_user_name,
 			user_name,
 			user_mailadd,
+			tel_num,
+			title_id,
+			inquiry_type,
 			inquiry_kind_code,
 			inquiry_object,
 			inquiry_contents,
+			response_date,
+			response_subject,
+			response_contents,
+			from_subject,
+			from_mailadd,
+			reply_to,
 			correspond_status,
-			create_date,
-			last_update_date)
+			correspond_user_id,
+			correspond_user_name,
+			created_date,
+			created_user,
+			last_update_date,
+			last_update_user)
 		VALUES
-			(sysdate(),
+			(#inquiryDate#,
+			#memId#,
+			#companyName#,
+			#companyMediaName#,
+			#companyUserName#,
 			#userName#,
 			#userMailadd#,
+			#telNum#,
+			#titleId#,
+			#inquiryType#,
 			#inquiryKindCode#,
 			#inquiryObject#,
 			#inquiryContents#,
-			'0',
-			sysdate(),
-			sysdate())
+			#responseDate#,
+			#responseSubject#,
+			#responseContents#,
+			#fromSubject#,
+			#fromMailadd#,
+			#replyTo#,
+			#correspondStatus#,
+			#correspondUserId#,
+			#correspondUserName#,
+			#createdDate#,
+			#createdUser#,
+			#lastUpdateDate#,
+			#lastUpdateUser#)
 	</insert>
 
 

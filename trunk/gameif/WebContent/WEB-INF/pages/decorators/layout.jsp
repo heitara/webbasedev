@@ -30,7 +30,17 @@
 		}
 		%>
 		<a href="#" title="初心者ガイド">初心者ガイド</a> |
-		<a href="#" title="お問合せ">お問合せ</a> |
+		<%
+		if (session.getAttribute(edu.yale.its.tp.cas.client.filter.CASFilter.CAS_FILTER_USER) == null) {
+		%>
+		<a href="inputInquiry.html" title="お問合せ">お問合せ</a> |
+		<%
+		} else {
+		%>
+		<a href="inputMemberInquiry.html" title="お問合せ">お問合せ</a> |
+		<%
+		}
+		%>
 		<a href="#" title="お気に入り">お気に入り</a>
 	</dd>
 </dl>

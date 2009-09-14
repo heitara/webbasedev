@@ -1,14 +1,10 @@
 package com.gameif.portal.action.inquiry;
 
-import java.util.List;
-
 import com.gameif.common.action.ModelDrivenActionSupport;
 import com.gameif.portal.businesslogic.IInquiryInfoBusinessLogic;
 import com.gameif.portal.businesslogic.IMasterInfoBusinessLogic;
 import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.entity.InquiryInfo;
-import com.gameif.portal.entity.InquiryKindMst;
-import com.gameif.portal.entity.TitleMst;
 
 public class InquiryInputAction extends ModelDrivenActionSupport<InquiryInfo> {
 
@@ -20,9 +16,6 @@ public class InquiryInputAction extends ModelDrivenActionSupport<InquiryInfo> {
 	private IInquiryInfoBusinessLogic inquiryInfoBusinessLogic;
 	private IMasterInfoBusinessLogic masterInfoBusinessLogic;
 
-	private List<TitleMst> listValidTitle;
-	private List<InquiryKindMst> listInquiryKind;
-
 	/**
 	 * @param inquiryInfoBusinessLogic
 	 *            the inquiryInfoBusinessLogic to set
@@ -33,35 +26,24 @@ public class InquiryInputAction extends ModelDrivenActionSupport<InquiryInfo> {
 	}
 
 	/**
-	 * @return the listValidTitle
+	 * 
+	 * @return
 	 */
-	public List<TitleMst> getListValidTitle() {
-		return listValidTitle;
+	public IInquiryInfoBusinessLogic getInquiryInfoBusinessLogic() {
+		return inquiryInfoBusinessLogic;
 	}
 
 	/**
-	 * @param listValidTitle the listValidTitle to set
+	 * 
+	 * @return
 	 */
-	public void setListValidTitle(List<TitleMst> listValidTitle) {
-		this.listValidTitle = listValidTitle;
+	public IMasterInfoBusinessLogic getMasterInfoBusinessLogic() {
+		return masterInfoBusinessLogic;
 	}
 
 	/**
-	 * @return the listInquiryKind
-	 */
-	public List<InquiryKindMst> getListInquiryKind() {
-		return listInquiryKind;
-	}
-
-	/**
-	 * @param listInquiryKind the listInquiryKind to set
-	 */
-	public void setListInquiryKind(List<InquiryKindMst> listInquiryKind) {
-		this.listInquiryKind = listInquiryKind;
-	}
-
-	/**
-	 * @param masterInfoBusinessLogic the masterInfoBusinessLogic to set
+	 * @param masterInfoBusinessLogic
+	 *            the masterInfoBusinessLogic to set
 	 */
 	public void setMasterInfoBusinessLogic(
 			IMasterInfoBusinessLogic masterInfoBusinessLogic) {
@@ -70,20 +52,16 @@ public class InquiryInputAction extends ModelDrivenActionSupport<InquiryInfo> {
 
 	/**
 	 * その他問合せ画面に案内する。
+	 * 
 	 * @return その他問合せ画面
 	 */
 	public String input() {
-		// 初期化処理
-		// 現時点で有効なタイトルを取得する
-		this.setListValidTitle(masterInfoBusinessLogic.getValidTitleList());
-		// 問合せ種類を取得する
-		this.setListInquiryKind(masterInfoBusinessLogic.getAllInquiryKindList());
-		
 		return INPUT;
 	}
 
 	/**
 	 * データを問合せテーブルに登録する
+	 * 
 	 * @return
 	 */
 	public String create() {

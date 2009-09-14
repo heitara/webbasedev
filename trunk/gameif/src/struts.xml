@@ -96,7 +96,10 @@
 			</interceptor-ref>
 			<interceptor-ref name="gameifStack" />
 			
-			<result name="success">/pages/portal/mem_login.jsp</result>
+			<result name="input">/WEB-INF/pages/portal/inquiry_input.jsp</result>
+			<result name="inputMedia">/WEB-INF/pages/portal/inquiry_media_input.jsp</result>
+			<result name="inputMember">/WEB-INF/pages/portal/inquiry_member_input.jsp</result>
+			<result name="success"  type="redirect">/finishedPage.html?action=createInquiry</result>
 		</action>
 		
 		<action name="*Invite" class="inviteInputAction" method="{1}">
@@ -110,8 +113,8 @@
 				<param name="operationMode">NONE</param>
 			</interceptor-ref>
 			
-			<result name="success">/pages/portal/mem_login.jsp</result>
-			<result name="input">/pages/portal/inviteInput.jsp</result>
+			<result name="input">/WEB-INF/pages/portal/invite_input.jsp</result>
+			<result name="success"  type="redirect">/finishedPage.html?action=createInvite</result>
 		</action>
 	</package>
 	
