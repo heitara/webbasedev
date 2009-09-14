@@ -2,11 +2,12 @@ package com.gameif.common.util;
 
 import java.security.MessageDigest;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class SecurityUtil {
 	
-	private final static Logger logger = Logger.getLogger(SecurityUtil.class);
+	private final static Log logger = LogFactory.getLog(SecurityUtil.class);
 
 	/**
 	 * 指定した文字列をMD5アルゴリズムで暗号化する。
