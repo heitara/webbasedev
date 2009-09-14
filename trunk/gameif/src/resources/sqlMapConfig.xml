@@ -22,5 +22,6 @@
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/questionMst.xml" />
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/titleMst.xml" />
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/inquiryKindMst.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/inviteTemplateMst.xml" />
 	
 </sqlMapConfig>

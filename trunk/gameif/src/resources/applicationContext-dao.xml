@@ -78,4 +78,11 @@
 			<value>inquiryKindMst</value>
 		</property>
 	</bean>
+	
+	<!-- inviteTemplateDao -->
+	<bean id="inviteTemplateDao" class="com.gameif.portal.dao.impl.InviteTemplateDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>inviteTemplateMst</value>
+		</property>
+	</bean>
 </beans>

@@ -50,5 +50,8 @@
 		<property name="inquiryKindMstDao">
 			<ref bean="inquiryKindMstDao" />
 		</property>
+		<property name="inviteTemplateDao">
+			<ref bean="inviteTemplateDao" />
+		</property>
 	</bean>
 </beans>
