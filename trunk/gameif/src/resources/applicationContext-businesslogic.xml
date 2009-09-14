@@ -14,6 +14,9 @@
 		<property name="memberLoginInfoDao">
 			<ref bean="memberLoginInfoDao" />
 		</property>
+		<property name="templateMailer">
+			<ref bean="templateMailer" />
+		</property>
 	</bean>
 	
 	<!-- inquiryInfoBusinessLogic -->
