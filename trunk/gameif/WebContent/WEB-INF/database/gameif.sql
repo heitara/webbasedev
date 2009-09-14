@@ -387,7 +387,7 @@ BEGIN
 			NEW.login_fail_date,
 			NEW.login_fail_ip,
 			'0'
-		);	
+		);
 	
 	END IF;
 END $$
