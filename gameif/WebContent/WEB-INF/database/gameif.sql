@@ -231,6 +231,15 @@ CREATE TABLE IF NOT EXISTS `server_mst` (
   `server_id` int(11) NOT NULL,
   `title_id` int(11) NOT NULL,
   `server_name` varchar(30) DEFAULT NULL,
+  `service_start_date` datetime DEFAULT NULL,
+  `service_end_date` datetime DEFAULT NULL,
+  `service_status` char(1) DEFAULT NULL,
+  `play_url` varchar(100) DEFAULT NULL,
+  `charge_url` varchar(100) DEFAULT NULL,
+  `order_num` int(11) NOT NULL,
+  `players_num` int(11) NOT NULL,
+  `popularity_flag` char(1) DEFAULT NULL,
+  `recommend_flag` char(1) DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
   `created_user` varchar(50) DEFAULT NULL,
   `last_update_date` datetime DEFAULT NULL,
@@ -246,17 +255,36 @@ DROP TABLE IF EXISTS `title_mst`;
 CREATE TABLE IF NOT EXISTS `title_mst` (
   `title_id` int(11) NOT NULL,
   `title_name` varchar(40) DEFAULT NULL,
-  `valid_start_date` datetime DEFAULT NULL,
-  `valid_end_date` datetime DEFAULT NULL,
-  `site_url` varchar(50) DEFAULT NULL,
-  `small_icon_url` varchar(50) DEFAULT NULL,
-  `big_icon_url` varchar(50) DEFAULT NULL,
+  `title_about` varchar(500) DEFAULT NULL,
+  `service_start_date` datetime DEFAULT NULL,
+  `service_end_date` datetime DEFAULT NULL,
+  `service_status` char(1) DEFAULT NULL,
+  `site_url` varchar(100) DEFAULT NULL,
+  `news_url` varchar(100) DEFAULT NULL,
+  `forum_url` varchar(100) DEFAULT NULL,
+  `payment_url` varchar(100) DEFAULT NULL,
+  `big_icon_url` varchar(100) DEFAULT NULL,
+  `small_icon_url` varchar(100) DEFAULT NULL,
+  `order_num` int(11) NOT NULL,
+  `players_num` int(11) NOT NULL,
+  `announce` varchar(500) DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
   `created_user` varchar(50) DEFAULT NULL,
   `last_update_date` datetime DEFAULT NULL,
   `last_update_user` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`title_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+DROP TABLE IF EXISTS `play_hist`;
+CREATE TABLE IF NOT EXISTS `play_hist` (
+  `mem_num` bigint(20) NOT NULL,
+  `title_id` int(11) NOT NULL,
+  `server_id` int(11) NOT NULL,
+  `start_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`mem_num`,`title_id`,`server_id`,`start_date`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 
 
 
