@@ -78,9 +78,9 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		memberLoginInfoDao.save(memberLoginInfo);
 
 		// お知らせメールを送信する。
-		HashMap<String, String> props = new HashMap<String, String>();		
+		HashMap<String, String> props = new HashMap<String, String>();
 		props.put("memId", memberInfo.getMemId());
-		props.put("nickName", memberInfo.getNickName());		
+		props.put("nickName", memberInfo.getNickName());
 		templateMailer.sendAsyncMail(memberInfo.getMailPc(), "createMember", props);
 	}
 
