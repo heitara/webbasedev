@@ -129,7 +129,7 @@ CREATE TABLE IF NOT EXISTS `member_info` (
 DROP TABLE IF EXISTS `member_info_hist`;
 CREATE TABLE IF NOT EXISTS `member_info_hist` (
   `mem_num` bigint(20) NOT NULL,
-  `update_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `backup_date` datetime NOT NULL,
   `mem_id` varchar(20) NOT NULL,
   `nick_name` varchar(32) DEFAULT NULL,
   `mem_pwd` varchar(32) NOT NULL,
@@ -260,38 +260,41 @@ CREATE TABLE IF NOT EXISTS `title_mst` (
 
 
 
---
--- Definition of trigger `t_insert_member_info_hist_bu`
---
-DROP TRIGGER /*!50030 IF EXISTS */ `t_insert_member_info_hist_bu`;
+DROP TRIGGER IF EXISTS `t_insert_member_info_hist_bu`;
 DELIMITER $$
 CREATE TRIGGER `t_insert_member_info_hist_bu` AFTER UPDATE ON `member_info` FOR EACH ROW BEGIN
-  IF ( mem_pwd <> NEW.mem_pwd
-    || mem_kind_cd <> NEW.mem_kind_cd
-    || mem_atbt_cd <> NEW.mem_atbt_cd
-    || mem_valid_yn_cd <> NEW.mem_valid_yn_cd
-    || question_cd <> NEW.question_cd
-    || answer <> NEW.answer
-    || mail_pc <> NEW.mail_pc
-    || mail_mobile <> NEW.mail_mobile
-    || kanji_fname <> NEW.kanji_fname
-    || kanji_lname <> NEW.kanji_lname
-    || kana_fname <> NEW.kana_fname
-    || kana_lname <> NEW.kana_lname
-    || sex_cd <> NEW.sex_cd
-    || birth_ymd <> NEW.birth_ymd
-    || divis_cd <> NEW.divis_cd
-    || occup_cd <> NEW.occup_cd
-    || city_name <> NEW.city_name
-    || building_name <> NEW.building_name
-    || tel_num <> NEW.tel_num
-    || mailmag_req_cd <> NEW.mailmag_req_cd
-    || mailmag_obj_cd <> NEW.mailmag_obj_cd
-    || note <> NEW.note
-    || last_update_date <> NEW.last_update_date
-    || last_update_ip <> NEW.last_update_ip )
+  IF ( OLD.mem_id <> NEW.mem_id
+    || OLD.nick_name <> NEW.nick_name
+    || OLD.mem_pwd <> NEW.mem_pwd
+    || OLD.mem_kind_cd <> NEW.mem_kind_cd
+    || OLD.mem_atbt_cd <> NEW.mem_atbt_cd
+    || OLD.mem_valid_yn_cd <> NEW.mem_valid_yn_cd
+    || OLD.question_cd <> NEW.question_cd
+    || OLD.answer <> NEW.answer
+    || OLD.mail_pc <> NEW.mail_pc
+    || OLD.mail_mobile <> NEW.mail_mobile
+    || OLD.kanji_fname <> NEW.kanji_fname
+    || OLD.kanji_lname <> NEW.kanji_lname
+    || OLD.kana_fname <> NEW.kana_fname
+    || OLD.kana_lname <> NEW.kana_lname
+    || OLD.sex_cd <> NEW.sex_cd
+    || OLD.birth_ymd <> NEW.birth_ymd
+    || OLD.divis_cd <> NEW.divis_cd
+    || OLD.occup_cd <> NEW.occup_cd
+    || OLD.city_name <> NEW.city_name
+    || OLD.building_name <> NEW.building_name
+    || OLD.tel_num <> NEW.tel_num
+    || OLD.mailmag_req_cd <> NEW.mailmag_req_cd
+    || OLD.mailmag_obj_cd <> NEW.mailmag_obj_cd
+    || OLD.note <> NEW.note
+    || OLD.last_update_date <> NEW.last_update_date
+    || OLD.last_update_ip <> NEW.last_update_ip )
   THEN
     INSERT INTO member_info_hist (
+      mem_num,
+      backup_date,
+      mem_id,
+      nick_name,
       mem_pwd,
       mem_kind_cd,
       mem_atbt_cd,
@@ -317,30 +320,34 @@ CREATE TRIGGER `t_insert_member_info_hist_bu` AFTER UPDATE ON `member_info` FOR 
       last_update_date,
       last_update_ip
     ) VALUES (
-      NEW.mem_pwd,
-      NEW.mem_kind_cd,
-      NEW.mem_atbt_cd,
-      NEW.mem_valid_yn_cd,
-      NEW.question_cd,
-      NEW.answer,
-      NEW.mail_pc,
-      NEW.mail_mobile,
-      NEW.kanji_fname,
-      NEW.kanji_lname,
-      NEW.kana_fname,
-      NEW.kana_lname,
-      NEW.sex_cd,
-      NEW.birth_ymd,
-      NEW.divis_cd,
-      NEW.occup_cd,
-      NEW.city_name,
-      NEW.building_name,
-      NEW.tel_num,
-      NEW.mailmag_req_cd,
-      NEW.mailmag_obj_cd,
-      NEW.note,
+      OLD.mem_num,
       NEW.last_update_date,
-      NEW.last_update_ip
+      OLD.mem_id,
+      OLD.nick_name,
+      OLD.mem_pwd,
+      OLD.mem_kind_cd,
+      OLD.mem_atbt_cd,
+      OLD.mem_valid_yn_cd,
+      OLD.question_cd,
+      OLD.answer,
+      OLD.mail_pc,
+      OLD.mail_mobile,
+      OLD.kanji_fname,
+      OLD.kanji_lname,
+      OLD.kana_fname,
+      OLD.kana_lname,
+      OLD.sex_cd,
+      OLD.birth_ymd,
+      OLD.divis_cd,
+      OLD.occup_cd,
+      OLD.city_name,
+      OLD.building_name,
+      OLD.tel_num,
+      OLD.mailmag_req_cd,
+      OLD.mailmag_obj_cd,
+      OLD.note,
+      OLD.last_update_date,
+      OLD.last_update_ip
     );
    END IF;
 END $$
@@ -348,38 +355,40 @@ DELIMITER ;
 
 
 
-
---
--- Definition of trigger `t_insert_member_login_hist_bu`
---
-DROP TRIGGER /*!50030 IF EXISTS */ `t_insert_member_login_hist_bu`;
+DROP TRIGGER  IF EXISTS `t_insert_member_login_hist_bu`;
 DELIMITER $$
 CREATE TRIGGER t_insert_member_login_hist_bu AFTER UPDATE ON member_login_info
 FOR EACH ROW
 BEGIN
-  Declare succFlag char(1);
-  IF ( NEW.login_date <> login_date || NEW.login_fail_date <> login_fail_date ) THEN
-
-      IF NEW.login_date <> login_date THEN
-          SET succFlag = '1';
-      ELSEIF NEW.login_fail_date <> login_fail_date THEN
-          SET succFlag = '0';
-      END IF;
-
-      INSERT INTO member_login_hist (
-        mem_num,
-        login_date,
-        login_ip,
-        success_flg
-      ) VALUES (
-        NEW.mem_num,
-        NEW.login_date,
-        NEW.login_ip,
-        succFlag
-      );
-
-  END IF;
+	
+	IF (NEW.login_date <> OLD.login_date) THEN
+	
+		INSERT INTO member_login_hist (		
+			mem_num,
+			login_date,
+			login_ip,
+			success_flg
+		) VALUES (
+			NEW.mem_num,
+			NEW.login_date,
+			NEW.login_ip,
+			'1'
+		);
+	
+	ELSEIF (NEW.login_fail_date <> OLD.login_fail_date) THEN	
+	
+		INSERT INTO member_login_hist (		
+			mem_num,
+			login_date,
+			login_ip,
+			success_flg
+		) VALUES (
+			NEW.mem_num,
+			NEW.login_fail_date,
+			NEW.login_fail_ip,
+			'0'
+		);	
+	
+	END IF;
 END $$
 DELIMITER;
-
-
