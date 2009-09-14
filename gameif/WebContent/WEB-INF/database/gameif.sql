@@ -266,7 +266,7 @@ CREATE TABLE IF NOT EXISTS `title_mst` (
 DROP TRIGGER /*!50030 IF EXISTS */ `t_insert_member_info_hist_bu`;
 DELIMITER $$
 CREATE TRIGGER `t_insert_member_info_hist_bu` AFTER UPDATE ON `member_info` FOR EACH ROW BEGIN
-  IF mem_pwd <> NEW.mem_pwd
+  IF ( mem_pwd <> NEW.mem_pwd
     || mem_kind_cd <> NEW.mem_kind_cd
     || mem_atbt_cd <> NEW.mem_atbt_cd
     || mem_valid_yn_cd <> NEW.mem_valid_yn_cd
@@ -289,7 +289,7 @@ CREATE TRIGGER `t_insert_member_info_hist_bu` AFTER UPDATE ON `member_info` FOR 
     || mailmag_obj_cd <> NEW.mailmag_obj_cd
     || note <> NEW.note
     || last_update_date <> NEW.last_update_date
-    || last_update_ip <> NEW.last_update_ip
+    || last_update_ip <> NEW.last_update_ip )
   THEN
     INSERT INTO member_info_hist (
       mem_pwd,
@@ -358,7 +358,7 @@ CREATE TRIGGER t_insert_member_login_hist_bu AFTER UPDATE ON member_login_info
 FOR EACH ROW
 BEGIN
   Declare succFlag char(1);
-  IF NEW.login_date <> login_date || NEW.login_fail_date <> login_fail_date THEN
+  IF ( NEW.login_date <> login_date || NEW.login_fail_date <> login_fail_date ) THEN
 
       IF NEW.login_date <> login_date THEN
           SET succFlag = '1';
