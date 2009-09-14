@@ -41,16 +41,16 @@ public final class QueryDatabaseAuthenticationHandler extends
 	@NotNull
 	private String countFailByIPSql;
 	
-	/** ƒƒOƒCƒ“¸”s‚ğƒ`ƒFƒbƒN‚·‚éŠÔ */
+	/** ãƒ­ã‚°ã‚¤ãƒ³å¤±æ•—ã‚’ãƒã‚§ãƒƒã‚¯ã™ã‚‹æ™‚é–“ */
 	private int failCheckTime;
 	
-	/** “¯‚¶‚h‚c‚Å˜A‘±¸”s‚·‚éÅ‘å‰ñ” */
+	/** åŒã˜ï¼©ï¼¤ã§é€£ç¶šå¤±æ•—ã™ã‚‹æœ€å¤§å›æ•° */
 	private int failMaxCountByID;
 	
-	/** “¯‚¶‚h‚o‚Å¸”s‚·‚é—İŒvÅ‘å‰ñ” */
+	/** åŒã˜ï¼©ï¼°ã§å¤±æ•—ã™ã‚‹ç´¯è¨ˆæœ€å¤§å›æ•° */
 	private int failMaxCountByIp;
 
-	/* ¥ 2009-09-11 —› ’Ç‰Á ********************************************/
+	/* â–¼ 2009-09-11 æ è¿½åŠ  ********************************************/
 	@SuppressWarnings("unchecked")
 	protected final boolean authenticateUsernamePasswordInternal(
 		final UsernamePasswordCredentials credentials)
@@ -76,12 +76,12 @@ public final class QueryDatabaseAuthenticationHandler extends
 				
 				if (userNo != null) {
 
-					// ƒƒOƒCƒ“¸”s‰ñ”‚ª˜A‘±10‰ñˆÈãŠ‚ÂÅV‚Ì¸”sŠÔ‚ª24ŠÔˆÈ“à‚Ìê‡‚ÍAƒƒOƒCƒ“‹Ö~
+					// ãƒ­ã‚°ã‚¤ãƒ³å¤±æ•—å›æ•°ãŒé€£ç¶š10å›ä»¥ä¸Šä¸”ã¤æœ€æ–°ã®å¤±æ•—æ™‚é–“ãŒ24æ™‚é–“ä»¥å†…ã®å ´åˆã¯ã€ãƒ­ã‚°ã‚¤ãƒ³ç¦æ­¢
 					if (loginFailCnt >= failMaxCountByID && loginFailDt.getTime() + 1000 * 60 * 60 * failCheckTime > System.currentTimeMillis()) {
 
 						doFileLog(username, "login failed over " + failMaxCountByID + " times by ID.", false);
 
-					// 24ŠÔˆÈ“à‚É“¯‚¶‚h‚o‚ÅƒƒOƒCƒ“¸”s‚µ‚½‰ñ”‚ª—İŒv20‰ñˆÈã‚Ìê‡AƒƒOƒCƒ“‹Ö~
+					// 24æ™‚é–“ä»¥å†…ã«åŒã˜ï¼©ï¼°ã§ãƒ­ã‚°ã‚¤ãƒ³å¤±æ•—ã—ãŸå›æ•°ãŒç´¯è¨ˆ20å›ä»¥ä¸Šã®å ´åˆã€ãƒ­ã‚°ã‚¤ãƒ³ç¦æ­¢
 					} else if (!checkLoginFailIP()) {
 
 						doFileLog(username, "login failed over " + failMaxCountByIp + " times by IP.", false);
@@ -95,14 +95,14 @@ public final class QueryDatabaseAuthenticationHandler extends
 							credentials.setUserNo(userNo);
 							credentials.setNickName(nickName);
 
-							// ƒƒOƒCƒ“¬Œ÷ƒƒOo—Í
+							// ãƒ­ã‚°ã‚¤ãƒ³æˆåŠŸãƒ­ã‚°å‡ºåŠ›
 							doFileLog(username, "login successed.", true);
-							// ƒƒOƒCƒ“¬Œ÷ó‘ÔiƒƒOƒCƒ“ŠÔAƒƒOƒCƒ“‚h‚oj•ÏX
+							// ãƒ­ã‚°ã‚¤ãƒ³æˆåŠŸçŠ¶æ…‹ï¼ˆãƒ­ã‚°ã‚¤ãƒ³æ™‚é–“ã€ãƒ­ã‚°ã‚¤ãƒ³ï¼©ï¼°ï¼‰å¤‰æ›´
 							doDBLogForSuccess(userNo);
 							
 						} else {
 
-							// ƒƒOƒCƒ“¸”só‘ÔiƒƒOƒCƒ“¸”sŠÔAƒƒOƒCƒ“¸”s‚h‚oj•ÏX
+							// ãƒ­ã‚°ã‚¤ãƒ³å¤±æ•—çŠ¶æ…‹ï¼ˆãƒ­ã‚°ã‚¤ãƒ³å¤±æ•—æ™‚é–“ã€ãƒ­ã‚°ã‚¤ãƒ³å¤±æ•—ï¼©ï¼°ï¼‰å¤‰æ›´
 							doDBLogForFail(userNo);
 						}
 					}
@@ -111,7 +111,7 @@ public final class QueryDatabaseAuthenticationHandler extends
 			
 			if (!success) {
 
-				// ƒƒOƒCƒ“¸”sƒƒOo—Í
+				// ãƒ­ã‚°ã‚¤ãƒ³å¤±æ•—ãƒ­ã‚°å‡ºåŠ›
 				doFileLog(username, "login failed.", false);
 			}
 			
@@ -124,10 +124,10 @@ public final class QueryDatabaseAuthenticationHandler extends
 	}
 	
 	/**
-	 * ƒƒOƒCƒ“¬Œ÷¸”s‚ğƒƒO‚Éo—Í‚·‚éB
-	 * @param username ‰ïˆõ”Ô†
-	 * @param message o—ÍƒƒbƒZ[ƒW
-	 * @param success ¬Œ÷ƒtƒ‰ƒO
+	 * ãƒ­ã‚°ã‚¤ãƒ³æˆåŠŸå¤±æ•—ã‚’ãƒ­ã‚°ã«å‡ºåŠ›ã™ã‚‹ã€‚
+	 * @param username ä¼šå“¡ç•ªå·
+	 * @param message å‡ºåŠ›ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
+	 * @param success æˆåŠŸãƒ•ãƒ©ã‚°
 	 */
 	private final void doFileLog(String username, String message, boolean success) {
 
@@ -151,9 +151,9 @@ public final class QueryDatabaseAuthenticationHandler extends
 	}
 	
 	/**
-	 * 24ŠÔˆÈ“à‚É“¯‚¶‚h‚o‚ÅƒƒOƒCƒ“¸”s‚µ‚½‰ñ”‚ª—İŒv20‰ñˆÈã‚Æ‚È‚Á‚Ä‚¢‚é‚©ƒ`ƒFƒbƒN‚·‚éB<br/>
-	 * ”’l‚Ìİ’è‚ÍudeployerConfigContext.xmlv‚Å•ÏX‰Â”\B
-	 * @return@true:‚È‚Á‚Ä‚¢‚é, false:‚È‚Á‚Ä‚¢‚È‚¢
+	 * 24æ™‚é–“ä»¥å†…ã«åŒã˜ï¼©ï¼°ã§ãƒ­ã‚°ã‚¤ãƒ³å¤±æ•—ã—ãŸå›æ•°ãŒç´¯è¨ˆ20å›ä»¥ä¸Šã¨ãªã£ã¦ã„ã‚‹ã‹ãƒã‚§ãƒƒã‚¯ã™ã‚‹ã€‚<br/>
+	 * æ•°å€¤ã®è¨­å®šã¯ã€ŒdeployerConfigContext.xmlã€ã§å¤‰æ›´å¯èƒ½ã€‚
+	 * @returnã€€true:ãªã£ã¦ã„ã‚‹, false:ãªã£ã¦ã„ãªã„
 	 */
 	private final boolean checkLoginFailIP() {
 		
@@ -170,22 +170,22 @@ public final class QueryDatabaseAuthenticationHandler extends
 	}
 	
 	/**
-	 * ‚c‚a‚ÅƒƒOƒCƒ“¬Œ÷ó‘ÔiƒƒOƒCƒ“ŠÔAƒƒOƒCƒ“‚h‚oj‚ğ•ÏX‚·‚éB
-	 * @param userNo@‰ïˆõ”Ô†
+	 * ï¼¤ï¼¢ã§ãƒ­ã‚°ã‚¤ãƒ³æˆåŠŸçŠ¶æ…‹ï¼ˆãƒ­ã‚°ã‚¤ãƒ³æ™‚é–“ã€ãƒ­ã‚°ã‚¤ãƒ³ï¼©ï¼°ï¼‰ã‚’å¤‰æ›´ã™ã‚‹ã€‚
+	 * @param userNoã€€ä¼šå“¡ç•ªå·
 	 */
 	private final void doDBLogForSuccess(Long userNo) {
 
-		// ƒƒOƒCƒ“¬Œ÷ó‘ÔiƒƒOƒCƒ“ŠÔAƒƒOƒCƒ“‚h‚oj•ÏX
+		// ãƒ­ã‚°ã‚¤ãƒ³æˆåŠŸçŠ¶æ…‹ï¼ˆãƒ­ã‚°ã‚¤ãƒ³æ™‚é–“ã€ãƒ­ã‚°ã‚¤ãƒ³ï¼©ï¼°ï¼‰å¤‰æ›´
 		getJdbcTemplate().update(successUpSql, new Object[] {new Date(), ClientInfoHolder.getClientInfo().getClientIpAddress(), userNo});
 	}
 	
 	/**
-	 * ‚c‚a‚ÅƒƒOƒCƒ“¸”só‘ÔiƒƒOƒCƒ“¸”sŠÔAƒƒOƒCƒ“¸”s‚h‚oj‚ğ•ÏX‚·‚éB
-	 * @param userNo@‰ïˆõ”Ô†
+	 * ï¼¤ï¼¢ã§ãƒ­ã‚°ã‚¤ãƒ³å¤±æ•—çŠ¶æ…‹ï¼ˆãƒ­ã‚°ã‚¤ãƒ³å¤±æ•—æ™‚é–“ã€ãƒ­ã‚°ã‚¤ãƒ³å¤±æ•—ï¼©ï¼°ï¼‰ã‚’å¤‰æ›´ã™ã‚‹ã€‚
+	 * @param userNoã€€ä¼šå“¡ç•ªå·
 	 */
 	private final void doDBLogForFail(Long userNo) {
 
-		// ƒƒOƒCƒ“¸”só‘ÔiƒƒOƒCƒ“¸”sŠÔAƒƒOƒCƒ“¸”s‚h‚oj•ÏX
+		// ãƒ­ã‚°ã‚¤ãƒ³å¤±æ•—çŠ¶æ…‹ï¼ˆãƒ­ã‚°ã‚¤ãƒ³å¤±æ•—æ™‚é–“ã€ãƒ­ã‚°ã‚¤ãƒ³å¤±æ•—ï¼©ï¼°ï¼‰å¤‰æ›´
 		getJdbcTemplate().update(failUpSql, new Object[] {new Date(), ClientInfoHolder.getClientInfo().getClientIpAddress(), userNo});
 	}
 	
@@ -218,9 +218,9 @@ public final class QueryDatabaseAuthenticationHandler extends
 	public void setFailMaxCountByIp(int failMaxCountByIp) {
 		this.failMaxCountByIp = failMaxCountByIp;
 	}
-	/* £ 2009-09-11 —› ’Ç‰Á *******************************************/
+	/* â–² 2009-09-11 æ è¿½åŠ  *******************************************/
 
-	/* ¥ 2009-09-11 —› íœ********************************************/
+	/* â–¼ 2009-09-11 æ å‰Šé™¤********************************************/
 	/*
 	protected final boolean authenticateUsernamePasswordInternal(
 		final UsernamePasswordCredentials credentials)
@@ -240,5 +240,5 @@ public final class QueryDatabaseAuthenticationHandler extends
 		}
 	}
 	*/
-	/* £ 2009-09-11 —› íœ *******************************************/
+	/* â–² 2009-09-11 æ å‰Šé™¤ *******************************************/
 }
