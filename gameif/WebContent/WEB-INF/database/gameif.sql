@@ -354,8 +354,18 @@ DELIMITER ;
 --
 DROP TRIGGER /*!50030 IF EXISTS */ `t_insert_member_login_hist_bu`;
 DELIMITER $$
-CREATE TRIGGER `t_insert_member_login_hist_bu` AFTER UPDATE ON `member_login_info` FOR EACH ROW BEGIN
-  IF NEW.login_date <> login_date THEN
+CREATE TRIGGER t_insert_member_login_hist_bu AFTER UPDATE ON member_login_info
+FOR EACH ROW
+BEGIN
+  Declare succFlag char(1);
+  IF NEW.login_date <> login_date || NEW.login_fail_date <> login_fail_date THEN
+
+      IF NEW.login_date <> login_date THEN
+          SET succFlag = '1';
+      ELSEIF NEW.login_fail_date <> login_fail_date THEN
+          SET succFlag = '0';
+      END IF;
+
       INSERT INTO member_login_hist (
         mem_num,
         login_date,
@@ -365,22 +375,11 @@ CREATE TRIGGER `t_insert_member_login_hist_bu` AFTER UPDATE ON `member_login_inf
         NEW.mem_num,
         NEW.login_date,
         NEW.login_ip,
-        '1'
+        succFlag
       );
-  ELSEIF NEW.login_fail_date <> login_fail_date THEN
-      INSERT INTO member_login_hist (
-        mem_num,
-        login_date,
-        login_ip,
-        success_flg
-      ) VALUES (
-        NEW.mem_num,
-        NEW.login_date,
-        NEW.login_ip,
-        '0'
-      );
+
   END IF;
 END $$
-DELIMITER ;
+DELIMITER;
 
 
