@@ -8,6 +8,11 @@
 	<meta content="ブラウザゲーム(WEBGAME)のポータルサイト" name="description"/>
 	<title>問合せ | ゲームイフ | ブラウザゲームのポータルサイト</title>
 	<script src="js/portal/validate.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		function RefreshImg(){
+			$("#kaptchaPic").attr({src: "images/kaptcha.jpg?" + new Date().getSeconds()});
+		}
+	</script>
 </head>
 
 <body>
@@ -43,22 +48,30 @@
 					
 					<dt><span class="required">*</span><label for="object">お問合せ件名：</label></dt>
 					<dd>
-						<s:textfield name="inquiryObject" maxlength="100"  title="お問合せ件名" onblur="validate(this, 'REQ,KOT');" /></br>
+						<s:textfield name="inquiryObject" maxlength="100"  title="お問合せ件名" onblur="validate(this, 'REQ,KOT');" />
 						<span class="explain">※ 記号とスペース以外の文字で入力してください。</span>
 						<span id="error_inquiryObject" class="input_error"><s:fielderror><s:param>inquiryObject</s:param></s:fielderror></span>
 					</dd>
 					
 					<dt><span class="required">*</span><label for="contents">内容：</label></dt>
 					<dd>
-						<s:textarea name="inquiryContents" rows="8" cssClass="big ime_mode_n f_left" title="内容" onblur="validate(this, 'REQ,KOT');" /></br>
+						<s:textarea name="inquiryContents" rows="8" cssClass="big ime_mode_n f_left" title="内容" onblur="validate(this, 'REQ,KOT');" />
 						<span class="explain">※ 記号とスペース以外の文字で入力してください。</span>
 						<span id="error_inquiryContents" class="input_error"><s:fielderror><s:param>inquiryContents</s:param></s:fielderror></span>
 					</dd>
-					<dt></dt>
-					<dd>&nbsp;</dd>
+
+					<dt><span class="required">*</span><label for="createMember_kaptcha">画像認証：</label></dt>
+					<dd>
+						<img id="kaptchaPic" src="images/kaptcha.jpg"/>
+						<a href="javascript:RefreshImg();"><img id="newKaptcha" src="images/capture_update.gif"/></a><br/>
+						<s:textfield name="kaptcha" maxlength="20"  cssClass="ime_mode_n" title="画像認証" onblur="validate(this,'REQ,ALN');"/>
+						<span class="explain">※ 画像認証コードを入力してください。</span>
+						<span id="error_kaptcha" class="input_error"><s:fielderror><s:param>kaptcha</s:param></s:fielderror></span>
+					</dd>
 
 				</dl>
 				<div class="submit">
+					<s:token />
 					<s:submit action="createInquiry" value="送信" cssClass="submit"></s:submit>
 					<s:reset value="クリア" cssClass="submit"></s:reset>
 				</div>
