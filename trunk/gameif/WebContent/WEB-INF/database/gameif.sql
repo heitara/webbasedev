@@ -281,7 +281,7 @@ CREATE TABLE IF NOT EXISTS `play_hist` (
   `mem_num` bigint(20) NOT NULL,
   `title_id` int(11) NOT NULL,
   `server_id` int(11) NOT NULL,
-  `start_date` datetime DEFAULT NULL,
+  `play_date` datetime DEFAULT NULL,
   PRIMARY KEY (`mem_num`,`title_id`,`server_id`,`start_date`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
