@@ -16,6 +16,8 @@ public class InquiryInputAction extends ModelDrivenActionSupport<InquiryInfo> {
 	private IInquiryInfoBusinessLogic inquiryInfoBusinessLogic;
 	private IMasterInfoBusinessLogic masterInfoBusinessLogic;
 
+	private String kaptcha;
+
 	/**
 	 * @param inquiryInfoBusinessLogic
 	 *            the inquiryInfoBusinessLogic to set
@@ -51,6 +53,22 @@ public class InquiryInputAction extends ModelDrivenActionSupport<InquiryInfo> {
 	}
 
 	/**
+	 * 
+	 * @return
+	 */
+	public String getKaptcha() {
+		return kaptcha;
+	}
+
+	/**
+	 * 
+	 * @param kaptcha
+	 */
+	public void setKaptcha(String kaptcha) {
+		this.kaptcha = kaptcha;
+	}
+
+	/**
 	 * その他問合せ画面に案内する。
 	 * 
 	 * @return その他問合せ画面
@@ -60,12 +78,33 @@ public class InquiryInputAction extends ModelDrivenActionSupport<InquiryInfo> {
 	}
 
 	/**
+	 * その他問合せ画面に案内する。
+	 * 
+	 * @return その他問合せ画面
+	 */
+	public String inputMedia() {
+
+		return "inputMedia";
+	}
+
+	/**
 	 * データを問合せテーブルに登録する
 	 * 
 	 * @return
 	 */
 	public String create() {
 		this.getModel().setInquiryType(PortalConstants.InquiryType.OTHER);
+		inquiryInfoBusinessLogic.saveInquiryInfo(this.getModel());
+		return SUCCESS;
+	}
+
+	/**
+	 * データを問合せテーブルに登録する
+	 * 
+	 * @return
+	 */
+	public String createMedia() {
+		this.getModel().setInquiryType(PortalConstants.InquiryType.MEDIA);
 		inquiryInfoBusinessLogic.saveInquiryInfo(this.getModel());
 		return SUCCESS;
 	}

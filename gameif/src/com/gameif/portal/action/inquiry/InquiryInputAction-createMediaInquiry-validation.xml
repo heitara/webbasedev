@@ -3,29 +3,49 @@
 	"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
 
 <validators>
-    <field name="userName">
+    <field name="companyName">
         <field-validator type="requiredstring" short-circuit="true">
 			<param name="trim">true</param>
-        	<message>お名前を入力してください。</message>
+        	<message><![CDATA[<br/>御社名を入力してください。]]></message>
         </field-validator>
         <field-validator type="regex" short-circuit="true">
         	<param name="expression"><![CDATA[([^ -~｡-ﾟ]*)]]></param>
-        	<message><![CDATA[<br/>お名前は全角文字で入力してください。]]></message>
+        	<message><![CDATA[<br/>御社名は全角文字で入力してください。]]></message>
+        </field-validator>
+    </field>
+    <field name="companyMediaName">
+        <field-validator type="requiredstring" short-circuit="true">
+			<param name="trim">true</param>
+        	<message><![CDATA[<br/>御社媒体名を入力してください。]]></message>
+        </field-validator>
+        <field-validator type="regex" short-circuit="true">
+        	<param name="expression"><![CDATA[([^ -~｡-ﾟ]*)]]></param>
+        	<message><![CDATA[<br/>御社媒体名は全角文字で入力してください。]]></message>
+        </field-validator>
+    </field>
+    <field name="companyUserName">
+        <field-validator type="requiredstring" short-circuit="true">
+			<param name="trim">true</param>
+        	<message><![CDATA[<br/>担当者名を入力してください。]]></message>
+        </field-validator>
+        <field-validator type="regex" short-circuit="true">
+        	<param name="expression"><![CDATA[([^ -~｡-ﾟ]*)]]></param>
+        	<message><![CDATA[<br/>担当者名は全角文字で入力してください。]]></message>
         </field-validator>
     </field>
     <field name="userMailadd">
         <field-validator type="requiredstring" short-circuit="true">
 			<param name="trim">true</param>
-        	<message>メールアドレスを入力してください。</message>
+        	<message><![CDATA[<br/>メールアドレスを入力してください。]]></message>
         </field-validator>
         <field-validator type="email" short-circuit="true">
-        	<message>メールアドレスが不正です。</message>
+        	<message><![CDATA[<br/>メールアドレスが不正です。]]></message>
         </field-validator>
     </field>
-    <field name="titleId">
-        <field-validator type="fieldexpression">
-        	<param name="expression"><![CDATA[(titleId > 0)]]></param>
-        	<message><![CDATA[<br/>対象タイトルを入力してください。]]></message>
+    <field name="telNum">
+        <field-validator type="regex" short-circuit="true">
+        	<param name="expression"><![CDATA[([0-9]{8,15})]]></param>
+        	<message><![CDATA[<br/>ハイフンなしの半角数字で入力してください。]]></message>
         </field-validator>
     </field>
     <field name="inquiryObject">
