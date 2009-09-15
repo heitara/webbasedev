@@ -54,7 +54,7 @@
 			#lastUpdateUser#)
 	</insert>
 
-	<select id="selectInviteHistByMemNum" resultMap="inviteResult">   
+	<select id="selectInviteHistByMemNum" parameterClass="inviteInfo" resultMap="inviteResult">   
         <![CDATA[
         SELECT
 			invite_id,
@@ -74,9 +74,15 @@
 		FROM
 			invite_info
 		WHERE
-			mem_num = #value#
+			mem_num = #memNum#
 		AND delete_flag = '0'
         ]]>
+        <isEqual compareProperty="inviteStatus" compareValue="0">
+        	AND invite_status = '0'
+        </isEqual>
+        <isEqual compareProperty="inviteStatus" compareValue="1">
+        	AND invite_status = '1'
+        </isEqual>
 	</select>
 	
 	<delete id="deleteInvalidInvite" parameterClass="deleteCondition">  

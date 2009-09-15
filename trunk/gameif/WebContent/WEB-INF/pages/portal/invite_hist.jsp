@@ -35,10 +35,24 @@
 					</tr>
 					<s:iterator value="listInviteHist" id="inviteId" status="st">
 						<tr <s:if test="#st.odd">class="odd"</s:if>>
-							<td><s:checkbox name="selSingle" value="false" fieldValue="1"></s:checkbox></td>
+							<td>
+								<s:if test='inviteStatus.equals("0")'>
+									<s:checkbox name="selSingle" value="false" fieldValue="1"></s:checkbox>
+								</s:if>
+								<s:else>
+									<s:checkbox name="selSingle" value="false" fieldValue="1" disabled="true"></s:checkbox>
+								</s:else>
+							</td>
 							<td class="friend"><s:property value="inviteMailTo"/></td>
 							<td class="mail"><s:property value="inviteMailTo"/></td>
-							<td><s:property value="inviteStatus"/></td>
+							<td>
+								<s:if test='inviteStatus.equals("0")'>
+									応答無し
+								</s:if>
+								<s:else>
+									会員登録済
+								</s:else>
+							</td>
 							<td><s:property value="inviteDate"/></td>
 							<td><s:property value="friendCreateDate"/></td>
 						</tr>

@@ -32,21 +32,22 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 
 	/**
 	 * 友達紹介情報を登録する。
+	 * 
 	 * @param inviteInfoDao
 	 */
 	@Transactional
 	public void saveInviteInfo(InviteInfo inviteInfo) {
 
 		/** 複数友達の場合、メールアドレースを「,」で分割 */
-		String[] mailToList = inviteInfo.getInviteMailTo().replace("\r\n", "\n")
-				.split("\n");
+		String[] mailToList = inviteInfo.getInviteMailTo()
+				.replace("\r\n", "\n").split("\n");
 		Date inviteDate = new Date();
 
 		InviteInfo newInviteInfo = null;
 		for (int i = 0; i < mailToList.length; i++) {
-			
+
 			newInviteInfo = new InviteInfo();
-			
+
 			newInviteInfo.setMemNum(ContextUtil.getMemberNo());
 			// 紹介者のメールアドレス
 			newInviteInfo.setInviteMailFrom(inviteInfo.getInviteMailFrom());
@@ -59,29 +60,36 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 			// タイトル
 			newInviteInfo.setTitleId(inviteInfo.getTitleId());
 			// 友達登録ステータス
-			newInviteInfo.setInviteStatus(PortalConstants.InviteStatus.NO_RESPONSE);
+			newInviteInfo
+					.setInviteStatus(PortalConstants.InviteStatus.NO_RESPONSE);
 			// 削除フラグ
 			newInviteInfo.setDeleteFlag(PortalConstants.DeleteFlag.NORMAL);
-			
+
 			newInviteInfo.setCreatedDate(inviteDate);
 			newInviteInfo.setCreatedUser(ContextUtil.getAccountId());
 			newInviteInfo.setLastUpdateDate(inviteDate);
 			newInviteInfo.setLastUpdateUser(ContextUtil.getAccountId());
-			
+
 			inviteInfoDao.save(newInviteInfo);
 		}
 		// days: select from XMl
-//		inviteInfoDao.deleteInvalidInvite(ContextUtil.getMemberNo(), days);
-		inviteInfoDao.deleteInvalidInvite(ContextUtil.getMemberNo(), new Integer(2));
+		// inviteInfoDao.deleteInvalidInvite(ContextUtil.getMemberNo(), days);
+		inviteInfoDao.deleteInvalidInvite(ContextUtil.getMemberNo(),
+				new Integer(2));
 	}
 
 	/**
 	 * 紹介者IDより、友達紹介履歴を取得する。
-	 * @param memNum
+	 * 
+	 * @param inviteStatus
 	 */
 	@Override
-	public List<InviteInfo> selectInviteHistByMemNum() {
-		return inviteInfoDao.selectInviteHistByMemNum(ContextUtil.getMemberNo());
+	public List<InviteInfo> selectInviteHistByMemNum(String inviteStatus) {
+		InviteInfo condition = new InviteInfo();
+		condition.setMemNum(ContextUtil.getMemberNo());
+		condition.setInviteStatus(inviteStatus);
+
+		return inviteInfoDao.selectInviteHistByMemNum(condition);
 	}
 
 }

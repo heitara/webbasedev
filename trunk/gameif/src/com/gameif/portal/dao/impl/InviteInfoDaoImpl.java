@@ -17,9 +17,9 @@ public class InviteInfoDaoImpl extends AbstractBaseDao<InviteInfo, InviteInfo>
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<InviteInfo> selectInviteHistByMemNum(Long memNum) {
+	public List<InviteInfo> selectInviteHistByMemNum(InviteInfo entity) {
 		return (List<InviteInfo>) getSqlMapClientTemplate().queryForList(
-				namespace + ".selectInviteHistByMemNum", memNum);
+				namespace + ".selectInviteHistByMemNum", entity);
 	}
 
 	@Override
