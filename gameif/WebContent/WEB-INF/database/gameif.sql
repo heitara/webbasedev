@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `inquiry_info` (
   `company_user_name` varchar(20) DEFAULT NULL,
   `user_name` varchar(20) DEFAULT NULL,
   `user_mailadd` varchar(100) DEFAULT NULL,
-  `tel_num` varchar(10) DEFAULT NULL,
+  `tel_num` varchar(20) DEFAULT NULL,
   `title_id` int(11) DEFAULT NULL,
   `inquiry_type` int(11) DEFAULT NULL,
   `inquiry_kind_code` int(11) DEFAULT NULL,
@@ -84,6 +84,25 @@ CREATE TABLE IF NOT EXISTS `invite_template_mst` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
+
+DROP TABLE IF EXISTS `gameif_portal`.`invite_info`;
+CREATE TABLE  `gameif_portal`.`invite_info` (
+  `invite_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `mem_num` bigint(20) NOT NULL,
+  `invite_mail_from` varchar(100) DEFAULT NULL,
+  `invite_mail_to` varchar(100) DEFAULT NULL,
+  `invite_date` datetime NOT NULL,
+  `invite_msg` varchar(2000) DEFAULT NULL,
+  `title_id` int(11) DEFAULT NULL,
+  `invite_status` char(1) DEFAULT NULL,
+  `friend_create_date` datetime DEFAULT NULL,
+  `delete_flag` char(1) DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `created_user` varchar(50) DEFAULT NULL,
+  `last_update_date` datetime DEFAULT NULL,
+  `last_update_user` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`invite_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
