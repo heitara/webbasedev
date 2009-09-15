@@ -54,4 +54,12 @@ public class PortalConstants {
 		/** その他 */ 
 		public final static int OTHER = 2;
 	}
+
+	/** 削除フラグ */
+	public class DeleteFlag {
+		/** 正常データ */ 
+		public final static String NORMAL = "0";
+		/** 削除されたデータ */ 
+		public final static String DELETEED = "1";
+	}
 }
