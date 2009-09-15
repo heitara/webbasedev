@@ -21,6 +21,8 @@ public class InviteHistAction extends ModelDrivenActionSupport<InviteInfo> {
 
 	private List<KeyValueInfo> inviteStatusList;
 
+	private String inviteStatusSelect;
+
 	/**
 	 * @return the listInviteHist
 	 */
@@ -46,26 +48,41 @@ public class InviteHistAction extends ModelDrivenActionSupport<InviteInfo> {
 	}
 
 	/**
+	 * @return the inviteStatusSelect
+	 */
+	public String getInviteStatusSelect() {
+		return inviteStatusSelect;
+	}
+
+	/**
+	 * @param inviteStatusSelect
+	 *            the inviteStatusSelect to set
+	 */
+	public void setInviteStatusSelect(String inviteStatusSelect) {
+		this.inviteStatusSelect = inviteStatusSelect;
+	}
+
+	/**
 	 * @return the inviteStatusList
 	 */
 	public List<KeyValueInfo> getInviteStatusList() {
 		this.inviteStatusList = new ArrayList<KeyValueInfo>();
 		KeyValueInfo kvi = new KeyValueInfo();
-		kvi.setKey("0");
+		kvi.setKey("99");
 		kvi.setValue("全て");
-		
+
 		this.inviteStatusList.add(kvi);
-		
+
 		kvi = new KeyValueInfo();
-		kvi.setKey("1");
+		kvi.setKey("0");
 		kvi.setValue("応答無し");
 		this.inviteStatusList.add(kvi);
-		
+
 		kvi = new KeyValueInfo();
-		kvi.setKey("2");
+		kvi.setKey("1");
 		kvi.setValue("会員登録済");
 		this.inviteStatusList.add(kvi);
-		
+
 		return inviteStatusList;
 	}
 
@@ -82,8 +99,9 @@ public class InviteHistAction extends ModelDrivenActionSupport<InviteInfo> {
 	 * 
 	 * @return 友達紹介履歴画面
 	 */
-	public String showHist() {
-		setListInviteHist(inviteInfoBusinessLogic.selectInviteHistByMemNum());
+	public String show() {
+		setListInviteHist(inviteInfoBusinessLogic
+				.selectInviteHistByMemNum(inviteStatusSelect));
 		return INPUT;
 	}
 
