@@ -15,6 +15,7 @@
 		<result property="titleId" column="title_id"/>
 		<result property="inviteStatus" column="invite_status"/>
 		<result property="friendCreateDate" column="friend_create_date"/>
+		<result property="deleteFlag" column="delete_flag"/>
 		<result property="createdDate" column="created_date"/>
 		<result property="createdUser" column="created_user"/>
 		<result property="lastUpdateDate" column="last_update_date"/>
@@ -31,6 +32,7 @@
 			title_id,
 			invite_status,
 			friend_create_date,
+			delete_flag,
 			created_date,
 			created_user,
 			last_update_date,
@@ -39,15 +41,16 @@
 			(#memNum#,
 			#inviteMailFrom#,
 			#inviteMailTo#,
-			sysdate(),
+			#inviteDate#,
 			#inviteMsg#,
 			#titleId#,
-			'0',
-			null,
-			sysdate(),
-			#memNum#,
-			sysdate(),
-			#memNum#)
+			#inviteStatus#,
+			#friendCreateDate#,
+			#deleteFlag#,
+			#createdDate#,
+			#createdUser#,
+			#lastUpdateDate#,
+			#lastUpdateUser#)
 	</insert>
 
 	<select id="selectInviteHistByMemNum" resultMap="inviteResult">   
