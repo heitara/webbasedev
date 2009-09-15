@@ -59,13 +59,6 @@
 		</property>
 	</bean>
 	
-	<!-- InquiryMediaAction -->
-	<bean id="InquiryMediaAction" class="com.gameif.portal.action.inquiry.InquiryMediaAction" scope="prototype">
-		<property name="inquiryInfoBusinessLogic">
-			<ref bean="inquiryInfoBusinessLogic" />
-		</property>
-	</bean>
-	
 	<!-- inviteInputAction -->
 	<bean id="inviteInputAction" class="com.gameif.portal.action.invite.InviteInputAction" scope="prototype">
 		<property name="inviteInfoBusinessLogic">
