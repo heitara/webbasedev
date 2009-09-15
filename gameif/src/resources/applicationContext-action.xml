@@ -72,6 +72,13 @@
 		</property>
 	</bean>
 	
+	<!-- inviteHistAction -->
+	<bean id="inviteHistAction" class="com.gameif.portal.action.invite.InviteHistAction" scope="prototype">
+		<property name="inviteInfoBusinessLogic">
+			<ref bean="inviteInfoBusinessLogic" />
+		</property>
+	</bean>
+	
 	<!-- existCheckAction -->
 	<bean id="existCheckAction" class="com.gameif.portal.action.memberInfo.MemberInfoExistCheckAction" scope="prototype">
 		<property name="memberInfoBusinessLogic">

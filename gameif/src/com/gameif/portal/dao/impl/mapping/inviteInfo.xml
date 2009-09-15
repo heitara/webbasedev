@@ -4,6 +4,7 @@
     "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="inviteInfo">
 	<typeAlias alias="inviteInfo" type="com.gameif.portal.entity.InviteInfo" />
+	<typeAlias alias="deleteCondition" type="com.gameif.common.bean.ComSearchCondition" />
 	
 	<resultMap class="inviteInfo" id="inviteResult">
 		<result property="inviteId" column="invite_id"/>
@@ -64,13 +65,32 @@
 			invite_msg,
 			title_id,
 			invite_status,
-			friend_create_date
+			friend_create_date,
+			delete_flag,
+			created_date,
+			created_user,
+			last_update_date,
+			last_update_user
 		FROM
 			invite_info
 		WHERE
 			mem_num = #value#
+		AND delete_flag = '0'
         ]]>
 	</select>
+	
+	<delete id="deleteInvalidInvite" parameterClass="deleteCondition">  
+        <![CDATA[
+        DELETE
+		FROM
+			invite_info
+		WHERE
+			mem_num = #memNum#
+		AND delete_flag = '1'
+		AND last_update_date < DATE_SUB(now(), INTERVAL #checkTime# DAY)
+		
+        ]]>
+	</delete>
 
 
 </sqlMap>
