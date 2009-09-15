@@ -20,6 +20,7 @@ public class InviteInfo extends BaseEntity {
 	private Integer titleId;
 	private String inviteStatus;
 	private Date friendCreateDate;
+	private String deleteFlag;
 	private Date createdDate;
 	private String createdUser;
 	private Date lastUpdateDate;
@@ -155,6 +156,14 @@ public class InviteInfo extends BaseEntity {
 	 */
 	public void setTitleId(Integer titleId) {
 		this.titleId = titleId;
+	}
+
+	public String getDeleteFlag() {
+		return deleteFlag;
+	}
+
+	public void setDeleteFlag(String deleteFlag) {
+		this.deleteFlag = deleteFlag;
 	}
 
 	/**
