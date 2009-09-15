@@ -6,11 +6,11 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gameif.common.businesslogic.BaseBusinessLogic;
+import com.gameif.common.util.ContextUtil;
 import com.gameif.portal.businesslogic.IInviteInfoBusinessLogic;
 import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.dao.IInviteInfoDao;
 import com.gameif.portal.entity.InviteInfo;
-import com.opensymphony.xwork2.ActionContext;
 
 public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		IInviteInfoBusinessLogic {
@@ -47,8 +47,7 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 			
 			newInviteInfo = new InviteInfo();
 			
-			newInviteInfo.setMemNum((Long) ActionContext.getContext()
-					.getSession().get("memNum"));
+			newInviteInfo.setMemNum(ContextUtil.getMemberNo());
 			// 紹介者のメールアドレス
 			newInviteInfo.setInviteMailFrom(inviteInfo.getInviteMailFrom());
 			// 友達のメールアドレス
@@ -61,12 +60,19 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 			newInviteInfo.setTitleId(inviteInfo.getTitleId());
 			// 友達登録ステータス
 			newInviteInfo.setInviteStatus(PortalConstants.InviteStatus.NO_RESPONSE);
-			newInviteInfo.setFriendCreateDate(null);
+			// 削除フラグ
+			newInviteInfo.setDeleteFlag(PortalConstants.DeleteFlag.NORMAL);
+			
 			newInviteInfo.setCreatedDate(inviteDate);
+			newInviteInfo.setCreatedUser(ContextUtil.getAccountId());
 			newInviteInfo.setLastUpdateDate(inviteDate);
+			newInviteInfo.setLastUpdateUser(ContextUtil.getAccountId());
 			
 			inviteInfoDao.save(newInviteInfo);
 		}
+		// days: select from XMl
+//		inviteInfoDao.deleteInvalidInvite(ContextUtil.getMemberNo(), days);
+		inviteInfoDao.deleteInvalidInvite(ContextUtil.getMemberNo(), new Integer(2));
 	}
 
 	/**
@@ -74,8 +80,8 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	 * @param memNum
 	 */
 	@Override
-	public List<InviteInfo> selectInviteHistByMemNum(Long memNum) {
-		return inviteInfoDao.selectInviteHistByMemNum(memNum);
+	public List<InviteInfo> selectInviteHistByMemNum() {
+		return inviteInfoDao.selectInviteHistByMemNum(ContextUtil.getMemberNo());
 	}
 
 }

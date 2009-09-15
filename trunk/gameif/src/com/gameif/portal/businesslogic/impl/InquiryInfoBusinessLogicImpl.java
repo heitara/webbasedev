@@ -10,7 +10,6 @@ import com.gameif.portal.businesslogic.IInquiryInfoBusinessLogic;
 import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.dao.IInquiryInfoDao;
 import com.gameif.portal.entity.InquiryInfo;
-import com.opensymphony.xwork2.ActionContext;
 
 public class InquiryInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		IInquiryInfoBusinessLogic {
@@ -41,7 +40,8 @@ public class InquiryInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		Date inquiryDate = new Date();
 
 		// 会員の問合せの場合、会員情報を設定する
-		if (inquiryInfo.getInquiryType().equals(PortalConstants.InquiryType.MEMBER)) {
+		if (inquiryInfo.getInquiryType().equals(
+				PortalConstants.InquiryType.MEMBER)) {
 			inquiryInfo.setMemId(ContextUtil.getAccountId());
 			inquiryInfo.setCreatedUser(ContextUtil.getAccountId());
 			inquiryInfo.setLastUpdateUser(ContextUtil.getAccountId());

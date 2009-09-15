@@ -28,7 +28,7 @@
 						<th class="friend">友達</th>
 						<th class="mail">メールアドレス</th>
 						<th class="status">
-							<s:select name="questionCd" list="portalProperties.questionList" headerKey="00000" headerValue="" />
+							<s:select name="inviteStatusSelect" list="inviteStatusList" key="inviteStatusList.key" value="inviteStatusList.value" />
 						</th>
 						<th class="present_ymd">紹介日</th>
 						<th class="entry_ymd">会員登録日</th>
@@ -38,7 +38,7 @@
 							<td><s:checkbox name="selSingle" value="false" fieldValue="1"></s:checkbox></td>
 							<td class="friend"><s:property value="inviteMailTo"/></td>
 							<td class="mail"><s:property value="inviteMailTo"/></td>
-							<td><s:property value="inviteMailTo"/></td>
+							<td><s:property value="inviteStatus"/></td>
 							<td><s:property value="inviteDate"/></td>
 							<td><s:property value="friendCreateDate"/></td>
 						</tr>

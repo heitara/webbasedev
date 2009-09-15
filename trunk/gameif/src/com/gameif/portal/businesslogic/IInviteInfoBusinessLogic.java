@@ -7,5 +7,5 @@ import com.gameif.portal.entity.InviteInfo;
 public interface IInviteInfoBusinessLogic {
 
 	public void saveInviteInfo(InviteInfo inviteInfo);
-	public List<InviteInfo> selectInviteHistByMemNum(Long memNum);
+	public List<InviteInfo> selectInviteHistByMemNum();
 }

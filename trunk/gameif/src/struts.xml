@@ -96,6 +96,13 @@
 			</interceptor-ref>
 			<interceptor-ref name="gameifStack" />
 			
+			<!-- 
+			<interceptor-ref name="token">
+				<param name="includeMethods">create</param>
+				<param name="includeMethods">createMedia</param>
+			</interceptor-ref>
+			 -->
+			 
 			<result name="input">/WEB-INF/pages/portal/inquiry_input.jsp</result>
 			<result name="inputMedia">/WEB-INF/pages/portal/inquiry_media_input.jsp</result>
 			<result name="inputMember">/WEB-INF/pages/portal/inquiry_member_input.jsp</result>
@@ -116,6 +123,37 @@
 			<result name="input">/WEB-INF/pages/portal/invite_input.jsp</result>
 			<result name="success"  type="redirect">/finishedPage.html?action=createInvite</result>
 		</action>
+		
+		<action name="*Invite" class="inviteInputAction" method="{1}">
+			<interceptor-ref name="scopedModelDriven">
+				<param name="scope">request</param>
+				<param name="name">inviteInfo</param>
+				<param name="className">com.gameif.portal.entity.InviteInfo</param>
+			</interceptor-ref>
+			<interceptor-ref name="gameifStack" />
+			<interceptor-ref name="store">
+				<param name="operationMode">NONE</param>
+			</interceptor-ref>
+			
+			<result name="input">/WEB-INF/pages/portal/invite_input.jsp</result>
+			<result name="success"  type="redirect">/finishedPage.html?action=createInvite</result>
+		</action>
+		
+		<action name="*InviteHist" class="inviteHistAction" method="{1}">
+			<interceptor-ref name="scopedModelDriven">
+				<param name="scope">request</param>
+				<param name="name">inviteInfo</param>
+				<param name="className">com.gameif.portal.entity.InviteInfo</param>
+			</interceptor-ref>
+			<interceptor-ref name="gameifStack" />
+			<interceptor-ref name="store">
+				<param name="operationMode">NONE</param>
+			</interceptor-ref>
+			
+			<result name="input">/WEB-INF/pages/portal/invite_hist.jsp</result>
+			<result name="success"  type="redirect">/finishedPage.html?action=createInvite</result>
+		</action>
+		
 	</package>
 	
 	<package name="gamejax" extends="json-default">
