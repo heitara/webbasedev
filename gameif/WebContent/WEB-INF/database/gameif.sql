@@ -234,6 +234,7 @@ CREATE TABLE IF NOT EXISTS `server_mst` (
   `service_start_date` datetime DEFAULT NULL,
   `service_end_date` datetime DEFAULT NULL,
   `service_status` char(1) DEFAULT NULL,
+  `server_domain` varchar(50) DEFAULT NULL,
   `play_url` varchar(100) DEFAULT NULL,
   `charge_url` varchar(100) DEFAULT NULL,
   `order_num` int(11) NOT NULL,
