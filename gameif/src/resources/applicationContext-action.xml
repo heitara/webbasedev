@@ -47,6 +47,9 @@
 		<property name="masterInfoBusinessLogic">
 			<ref bean="masterInfoBusinessLogic" />
 		</property>
+		<property name="memberInfoBusinessLogic">
+			<ref bean="memberInfoBusinessLogic" />
+		</property>
 	</bean>
 	
 	<!-- inviteInputAction -->
