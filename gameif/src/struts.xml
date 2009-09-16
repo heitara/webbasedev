@@ -144,6 +144,10 @@
 			<result name="login" type="redirect">https://auth.test.game-if.com:8443/cas/login?service=${service4Login}</result>
 			<result name="select" type="redirectAction">listGame</result>
 		</action>
+
+		<action name="games" class="titleSelectControlAction">
+			<result name="success">/WEB-INF/pages/portal/title_list.jsp</result>
+		</action>
 		
 	</package>
 	
