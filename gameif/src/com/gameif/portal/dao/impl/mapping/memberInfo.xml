@@ -39,6 +39,7 @@
 		<result property="withdrawIp" column="withdraw_ip" />
 		<result property="lastUpdateDate" column="last_update_date" />
 		<result property="lastUpdateIp" column="last_update_ip" />
+		<result property="lastUpdateUser" column="last_update_user" />
 		<result property="versionNo" column="version_no" />
 	</resultMap>
 
@@ -76,6 +77,7 @@
 			withdraw_ip,
 			last_update_date,
 			last_update_ip,
+			last_update_user,
 			version_no
 		FROM
 			member_info
@@ -118,6 +120,7 @@
 				withdraw_ip,
 				last_update_date,
 				last_update_ip,
+				last_update_user,
 				version_no
 			FROM
 				member_info
@@ -161,6 +164,7 @@
 			withdraw_ip,
 			last_update_date,
 			last_update_ip,
+			last_update_user,
 			version_no
 		FROM
 			member_info
@@ -203,6 +207,7 @@
 			withdraw_ip,
 			last_update_date,
 			last_update_ip,
+			last_update_user,
 			version_no)
 		VALUES
 			(
@@ -236,6 +241,7 @@
 			#withdrawIp#,
 			#lastUpdateDate#,
 			#lastUpdateIp#,
+			#lastUpdateUser#,
 			0
 			)
 	]]>
@@ -274,6 +280,7 @@
 			withdraw_ip = #withdrawIp#,
 			last_update_date = #lastUpdateDate#,
 			last_update_ip = #lastUpdateIp#,
+			last_update_user = #lastUpdateUser#,
 			version_no = version_no + 1
 		WHERE
 			mem_num = #memNum#
