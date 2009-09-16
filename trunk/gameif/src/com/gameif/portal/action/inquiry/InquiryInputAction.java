@@ -1,10 +1,13 @@
 package com.gameif.portal.action.inquiry;
 
 import com.gameif.common.action.ModelDrivenActionSupport;
+import com.gameif.common.util.ContextUtil;
 import com.gameif.portal.businesslogic.IInquiryInfoBusinessLogic;
 import com.gameif.portal.businesslogic.IMasterInfoBusinessLogic;
+import com.gameif.portal.businesslogic.IMemberInfoBusinessLogic;
 import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.entity.InquiryInfo;
+import com.gameif.portal.entity.MemberInfo;
 
 public class InquiryInputAction extends ModelDrivenActionSupport<InquiryInfo> {
 
@@ -15,6 +18,7 @@ public class InquiryInputAction extends ModelDrivenActionSupport<InquiryInfo> {
 
 	private IInquiryInfoBusinessLogic inquiryInfoBusinessLogic;
 	private IMasterInfoBusinessLogic masterInfoBusinessLogic;
+	private IMemberInfoBusinessLogic memberInfoBusinessLogic;
 
 	private String kaptcha;
 
@@ -50,6 +54,21 @@ public class InquiryInputAction extends ModelDrivenActionSupport<InquiryInfo> {
 	public void setMasterInfoBusinessLogic(
 			IMasterInfoBusinessLogic masterInfoBusinessLogic) {
 		this.masterInfoBusinessLogic = masterInfoBusinessLogic;
+	}
+
+	/**
+	 * @return the memberInfoBusinessLogic
+	 */
+	public IMemberInfoBusinessLogic getMemberInfoBusinessLogic() {
+		return memberInfoBusinessLogic;
+	}
+
+	/**
+	 * @param memberInfoBusinessLogic the memberInfoBusinessLogic to set
+	 */
+	public void setMemberInfoBusinessLogic(
+			IMemberInfoBusinessLogic memberInfoBusinessLogic) {
+		this.memberInfoBusinessLogic = memberInfoBusinessLogic;
 	}
 
 	/**
@@ -92,7 +111,17 @@ public class InquiryInputAction extends ModelDrivenActionSupport<InquiryInfo> {
 	 * @return その他問合せ画面
 	 */
 	public String inputMember() {
+		// 会員問合せの会員番号
+		getModel().setMemNum(ContextUtil.getMemberNo());
 		
+		MemberInfo memberInfo = new MemberInfo();
+		memberInfo.setMemNum(getModel().getMemNum());
+		// 会員番号により、会員情報を取得する
+		memberInfo = memberInfoBusinessLogic.getMemberInfo(memberInfo);
+		if (memberInfo != null) {
+			// メールアドレスを紹介者のメールアドレスに設定する
+			getModel().setUserMailadd(memberInfo.getMailPc());
+		}
 		return "inputMember";
 	}
 

@@ -66,9 +66,9 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 			newInviteInfo.setDeleteFlag(PortalConstants.DeleteFlag.NORMAL);
 
 			newInviteInfo.setCreatedDate(inviteDate);
-			newInviteInfo.setCreatedUser(ContextUtil.getAccountId());
+			newInviteInfo.setCreatedUser(ContextUtil.getMemberNo().toString());
 			newInviteInfo.setLastUpdateDate(inviteDate);
-			newInviteInfo.setLastUpdateUser(ContextUtil.getAccountId());
+			newInviteInfo.setLastUpdateUser(ContextUtil.getMemberNo().toString());
 
 			inviteInfoDao.save(newInviteInfo);
 		}

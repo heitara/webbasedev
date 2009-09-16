@@ -6,33 +6,37 @@
     <field name="inviteMailFrom">
         <field-validator type="requiredstring" short-circuit="true">
 			<param name="trim">true</param>
-        	<message>紹介者のメールアドレスを入力してください。</message>
+        	<message><![CDATA[<br/>紹介者のメールアドレスを入力してください。]]></message>
         </field-validator>
         <field-validator type="email" short-circuit="true">
-        	<message>紹介者のメールアドレスが不正です。</message>
+        	<message><![CDATA[<br/>紹介者のメールアドレスが不正です。]]></message>
         </field-validator>
     </field>
     <field name="inviteMailTo">
         <field-validator type="requiredstring" short-circuit="true">
 			<param name="trim">true</param>
-        	<message>友達のメールアドレスを入力してください。</message>
+        	<message><![CDATA[<br/>友達のメールアドレスを入力してください。]]></message>
         </field-validator>
         <!-- 
         <field-validator type="email" short-circuit="true">
-        	<message>友達のメールアドレスが不正です。</message>
+        	<message>友達のメールアドレスが不正です。]]></message>
         </field-validator> 
         -->
     </field>
     <field name="titleId">
         <field-validator type="fieldexpression">
         	<param name="expression"><![CDATA[(titleId > 0)]]></param>
-        	<message>紹介するゲームを入力してください。</message>
+        	<message><![CDATA[<br/>紹介するゲームを入力してください。]]></message>
         </field-validator>
     </field>
     <field name="inviteMsg">
         <field-validator type="requiredstring" short-circuit="true">
 			<param name="trim">true</param>
-        	<message>招待メッセージを入力してください。</message>
+        	<message><![CDATA[<br/>招待メッセージを入力してください。]]></message>
+        </field-validator>
+        <field-validator type="regex" short-circuit="true">
+        	<param name="expression"><![CDATA[([^ -~｡-ﾟ]*)]]></param>
+        	<message><![CDATA[<br/>招待メッセージは全角文字で入力してください。]]></message>
         </field-validator>
     </field>
 </validators>

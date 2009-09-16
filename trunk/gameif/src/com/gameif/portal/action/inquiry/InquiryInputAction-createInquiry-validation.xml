@@ -44,8 +44,8 @@
         	<message><![CDATA[<br/>内容を入力してください。]]></message>
         </field-validator>
         <field-validator type="regex" short-circuit="true">
-        	<param name="expression"><![CDATA[([a-zA-Z0-9｡-ﾟぁ-ゞァ-ヶ一-龠Ａ-Ｚａ-ｚ]+)]]></param>
-        	<message><![CDATA[<br/>内容に記号或いはスペースが含まれています。]]></message>
+        	<param name="expression"><![CDATA[([^ -~｡-ﾟ]*)]]></param>
+        	<message><![CDATA[<br/>内容は全角文字で入力してください。]]></message>
         </field-validator>
     </field>
     <field name="kaptcha">

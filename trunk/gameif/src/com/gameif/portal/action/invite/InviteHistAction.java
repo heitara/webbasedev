@@ -1,12 +1,11 @@
 package com.gameif.portal.action.invite;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.gameif.common.action.ModelDrivenActionSupport;
-import com.gameif.common.bean.KeyValueInfo;
 import com.gameif.portal.businesslogic.IInviteInfoBusinessLogic;
 import com.gameif.portal.entity.InviteInfo;
+import com.gameif.portal.helper.PortalProperties;
 
 public class InviteHistAction extends ModelDrivenActionSupport<InviteInfo> {
 
@@ -18,10 +17,23 @@ public class InviteHistAction extends ModelDrivenActionSupport<InviteInfo> {
 	private List<InviteInfo> listInviteHist;
 
 	private IInviteInfoBusinessLogic inviteInfoBusinessLogic;
-
-	private List<KeyValueInfo> inviteStatusList;
+	private PortalProperties portalProperties;
 
 	private String inviteStatusSelect;
+
+	/**
+	 * @return the portalProperties
+	 */
+	public PortalProperties getPortalProperties() {
+		return portalProperties;
+	}
+
+	/**
+	 * @param portalProperties the portalProperties to set
+	 */
+	public void setPortalProperties(PortalProperties portalProperties) {
+		this.portalProperties = portalProperties;
+	}
 
 	/**
 	 * @return the listInviteHist
@@ -60,38 +72,6 @@ public class InviteHistAction extends ModelDrivenActionSupport<InviteInfo> {
 	 */
 	public void setInviteStatusSelect(String inviteStatusSelect) {
 		this.inviteStatusSelect = inviteStatusSelect;
-	}
-
-	/**
-	 * @return the inviteStatusList
-	 */
-	public List<KeyValueInfo> getInviteStatusList() {
-		this.inviteStatusList = new ArrayList<KeyValueInfo>();
-		KeyValueInfo kvi = new KeyValueInfo();
-		kvi.setKey("99");
-		kvi.setValue("全て");
-
-		this.inviteStatusList.add(kvi);
-
-		kvi = new KeyValueInfo();
-		kvi.setKey("0");
-		kvi.setValue("応答無し");
-		this.inviteStatusList.add(kvi);
-
-		kvi = new KeyValueInfo();
-		kvi.setKey("1");
-		kvi.setValue("会員登録済");
-		this.inviteStatusList.add(kvi);
-
-		return inviteStatusList;
-	}
-
-	/**
-	 * @param inviteStatusList
-	 *            the inviteStatusList to set
-	 */
-	public void setInviteStatusList(List<KeyValueInfo> inviteStatusList) {
-		this.inviteStatusList = inviteStatusList;
 	}
 
 	/**

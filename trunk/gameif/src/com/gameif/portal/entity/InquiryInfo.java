@@ -13,7 +13,7 @@ public class InquiryInfo extends BaseEntity {
 
 	private Long inquiryNum;
 	private Date inquiryDate;
-	private String memId;
+	private Long memNum;
 	private String companyName;
 	private String companyMediaName;
 	private String companyUserName;
@@ -22,6 +22,7 @@ public class InquiryInfo extends BaseEntity {
 	private String telNum;
 	private Integer titleId;
 	private Integer inquiryType;
+	private String inquiryIp;
 	private Integer inquiryKindCode;
 	private String inquiryObject;
 	private String inquiryContents;
@@ -55,18 +56,17 @@ public class InquiryInfo extends BaseEntity {
 	}
 
 	/**
-	 * @return the memId
+	 * @return the memNum
 	 */
-	public String getMemId() {
-		return memId;
+	public Long getMemNum() {
+		return memNum;
 	}
 
 	/**
-	 * @param memId
-	 *            the memId to set
+	 * @param memNum the memNum to set
 	 */
-	public void setMemId(String memId) {
-		this.memId = memId;
+	public void setMemNum(Long memNum) {
+		this.memNum = memNum;
 	}
 
 	/**
@@ -172,6 +172,20 @@ public class InquiryInfo extends BaseEntity {
 	 */
 	public void setTitleId(Integer titleId) {
 		this.titleId = titleId;
+	}
+
+	/**
+	 * @return the inquiryIp
+	 */
+	public String getInquiryIp() {
+		return inquiryIp;
+	}
+
+	/**
+	 * @param inquiryIp the inquiryIp to set
+	 */
+	public void setInquiryIp(String inquiryIp) {
+		this.inquiryIp = inquiryIp;
 	}
 
 	/**
