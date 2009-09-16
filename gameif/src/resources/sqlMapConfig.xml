@@ -25,5 +25,6 @@
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/serverMst.xml" />
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/inquiryKindMst.xml" />
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/inviteTemplateMst.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/tempPwdInfo.xml" />
 	
 </sqlMapConfig>
