@@ -39,6 +39,7 @@ public class MemberInfo extends BaseEntity {
 	private String withdrawIp;
 	private Date lastUpdateDate;
 	private String lastUpdateIp;
+	private String lastUpdateUser;
 	private Integer versionNo;
 
 	/**
@@ -432,7 +433,8 @@ public class MemberInfo extends BaseEntity {
 	}
 
 	/**
-	 * @param cityName the cityName to set
+	 * @param cityName
+	 *            the cityName to set
 	 */
 	public void setCityName(String cityName) {
 		this.cityName = cityName;
@@ -446,7 +448,8 @@ public class MemberInfo extends BaseEntity {
 	}
 
 	/**
-	 * @param buildingName the buildingName to set
+	 * @param buildingName
+	 *            the buildingName to set
 	 */
 	public void setBuildingName(String buildingName) {
 		this.buildingName = buildingName;
@@ -460,7 +463,8 @@ public class MemberInfo extends BaseEntity {
 	}
 
 	/**
-	 * @param entryDate the entryDate to set
+	 * @param entryDate
+	 *            the entryDate to set
 	 */
 	public void setEntryDate(Date entryDate) {
 		this.entryDate = entryDate;
@@ -490,9 +494,25 @@ public class MemberInfo extends BaseEntity {
 	}
 
 	/**
-	 * @param lastUpdateDate the lastUpdateDate to set
+	 * @param lastUpdateDate
+	 *            the lastUpdateDate to set
 	 */
 	public void setLastUpdateDate(Date lastUpdateDate) {
 		this.lastUpdateDate = lastUpdateDate;
+	}
+
+	/**
+	 * @return the lastUpdateUser
+	 */
+	public String getLastUpdateUser() {
+		return lastUpdateUser;
+	}
+
+	/**
+	 * @param lastUpdateUser
+	 *            the lastUpdateUser to set
+	 */
+	public void setLastUpdateUser(String lastUpdateUser) {
+		this.lastUpdateUser = lastUpdateUser;
 	}
 }
