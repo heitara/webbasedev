@@ -75,4 +75,17 @@
 			<ref bean="memberInfoBusinessLogic" />
 		</property>
 	</bean>
+	
+	<!-- titlePlayControlAction -->
+	<bean id="titlePlayControlAction" class="com.gameif.portal.action.titleif.TitlePlayControlAction" scope="prototype">
+		<property name="masterInfoBusinessLogic">
+			<ref bean="masterInfoBusinessLogic" />
+		</property>
+		<property name="titlePlayBusinessLogic">
+			<ref bean="titlePlayBusinessLogic" />
+		</property>
+		<property name="titleEntry">
+			<ref bean="titleEntry" />
+		</property>
+	</bean>
 </beans>
