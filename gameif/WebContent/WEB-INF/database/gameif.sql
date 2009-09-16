@@ -178,7 +178,7 @@ CREATE TABLE IF NOT EXISTS `member_info_hist` (
   `last_update_date` datetime DEFAULT NULL,
   `last_update_ip` varchar(15) DEFAULT NULL,
   `last_update_user` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`mem_num`,`update_date`)
+  PRIMARY KEY (`mem_num`,`backup_date`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
