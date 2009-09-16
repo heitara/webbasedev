@@ -113,6 +113,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		oldMemberInfo.setMailmagReqCd(memberInfo.getMailmagReqCd());
 		oldMemberInfo.setLastUpdateDate(new Date());
 		oldMemberInfo.setLastUpdateIp(ContextUtil.getClientIP());
+		oldMemberInfo.setLastUpdateUser(ContextUtil.getMemberNo().toString());
 
 		// 会員情報を更新する。
 		memberInfoDao.update(oldMemberInfo);
@@ -166,6 +167,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		oldMemberInfo.setMemPwd(SecurityUtil.getMD5String(memberInfo.getMemPwd()));
 		oldMemberInfo.setLastUpdateDate(new Date());
 		oldMemberInfo.setLastUpdateIp(ContextUtil.getClientIP());
+		oldMemberInfo.setLastUpdateUser(ContextUtil.getMemberNo().toString());
 
 		// 会員情報を更新する。
 		memberInfoDao.update(oldMemberInfo);
@@ -195,6 +197,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		oldMemberInfo.setMemValidYNCd(PortalConstants.MemberValidYNCd.WITHDRAW);
 		oldMemberInfo.setWithdrawDate(new Date());
 		oldMemberInfo.setWithdrawIp(ContextUtil.getClientIP());
+		oldMemberInfo.setLastUpdateUser(ContextUtil.getMemberNo().toString());
 
 		// 会員情報を更新する。
 		memberInfoDao.update(oldMemberInfo);
