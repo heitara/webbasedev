@@ -4,15 +4,13 @@ import java.util.Date;
 
 import com.gameif.common.entity.BaseEntity;
 
-public class TitleMst extends BaseEntity {
+public class MyTitle extends BaseEntity {
 	
 	private static final long serialVersionUID = 1495023899031741425L;
 
 	private Integer titleId;
 	private String titleName;
 	private String titleAbout;
-	private Date ServiceStartDate;
-	private Date ServiceEndDate;
 	private String ServiceStatus;
 	private String siteUrl;
 	private String newsUrl;
@@ -23,11 +21,9 @@ public class TitleMst extends BaseEntity {
 	private Integer orderNum;
 	private Integer playersNum;
 	private String announce;
-	private Date createdDate;
-	private String createdUser;
-	private Date lastUpdateDate;
-	private String lastUpdateUser;
-
+	private Date playDate;
+	private Integer playCount;
+	
 	public Integer getTitleId() {
 		return titleId;
 	}
@@ -45,18 +41,6 @@ public class TitleMst extends BaseEntity {
 	}
 	public void setTitleAbout(String titleAbout) {
 		this.titleAbout = titleAbout;
-	}
-	public Date getServiceStartDate() {
-		return ServiceStartDate;
-	}
-	public void setServiceStartDate(Date serviceStartDate) {
-		ServiceStartDate = serviceStartDate;
-	}
-	public Date getServiceEndDate() {
-		return ServiceEndDate;
-	}
-	public void setServiceEndDate(Date serviceEndDate) {
-		ServiceEndDate = serviceEndDate;
 	}
 	public String getServiceStatus() {
 		return ServiceStatus;
@@ -118,30 +102,16 @@ public class TitleMst extends BaseEntity {
 	public void setAnnounce(String announce) {
 		this.announce = announce;
 	}
-	public Date getCreatedDate() {
-		return createdDate;
+	public Date getPlayDate() {
+		return playDate;
 	}
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
+	public void setPlayDate(Date playDate) {
+		this.playDate = playDate;
 	}
-	public String getCreatedUser() {
-		return createdUser;
+	public Integer getPlayCount() {
+		return playCount;
 	}
-	public void setCreatedUser(String createdUser) {
-		this.createdUser = createdUser;
+	public void setPlayCount(Integer playCount) {
+		this.playCount = playCount;
 	}
-	public Date getLastUpdateDate() {
-		return lastUpdateDate;
-	}
-	public void setLastUpdateDate(Date lastUpdateDate) {
-		this.lastUpdateDate = lastUpdateDate;
-	}
-	public String getLastUpdateUser() {
-		return lastUpdateUser;
-	}
-	public void setLastUpdateUser(String lastUpdateUser) {
-		this.lastUpdateUser = lastUpdateUser;
-	}
-
-
 }
