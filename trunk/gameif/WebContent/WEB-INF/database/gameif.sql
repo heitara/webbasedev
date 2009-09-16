@@ -339,7 +339,8 @@ CREATE TRIGGER `t_insert_member_info_hist_bu` AFTER UPDATE ON `member_info` FOR 
     || OLD.mailmag_obj_cd <> NEW.mailmag_obj_cd
     || OLD.note <> NEW.note
     || OLD.last_update_date <> NEW.last_update_date
-    || OLD.last_update_ip <> NEW.last_update_ip )
+    || OLD.last_update_ip <> NEW.last_update_ip 
+    || OLD.last_update_user <> NEW.last_update_user )
   THEN
     INSERT INTO member_info_hist (
       mem_num,
