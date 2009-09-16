@@ -1,5 +1,7 @@
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
+
+
 INSERT INTO `division_mst` (`division_code`, `division_name`, `created_date`, `created_user`, `last_update_date`, `last_update_user`) VALUES
 (11, '北海道', '2009-09-13 20:41:56', 'lee', '2009-09-13 20:41:56', 'lee'),
 (12, '青森県', '2009-09-13 20:41:56', 'lee', '2009-09-13 20:41:56', 'lee'),
@@ -51,6 +53,21 @@ INSERT INTO `division_mst` (`division_code`, `division_name`, `created_date`, `c
 (58, '海外', '2009-09-13 20:41:58', 'lee', '2009-09-13 20:41:58', 'lee');
 
 
+
+INSERT INTO `inquiry_kind_mst` (`inquiry_kind_code`, `inquiry_kind_name`, `created_date`, `created_user`, `last_update_date`, `last_update_user`) VALUES
+(1, '会員登録について', '2009-09-16 16:32:35', 'lee', '2009-09-16 16:32:38', 'lee'),
+(2, '友達紹介について', '2009-09-16 16:33:01', 'lee', '2009-09-16 16:33:04', 'lee'),
+(3, 'ポイントチャージについて', '2009-09-16 16:33:01', 'lee', '2009-09-16 16:33:01', 'lee'),
+(4, 'サービスポイントについて', '2009-09-16 16:37:01', 'lee', '2009-09-16 16:37:04', 'lee'),
+(5, 'ゲーム内アイテムについて', '2009-09-16 16:52:41', 'lee', '2009-09-16 16:52:41', 'lee'),
+(6, 'イベント・キャンペーンについて', '2009-09-16 16:52:41', 'lee', '2009-09-16 16:52:41', 'lee'),
+(7, 'ＩＤ紛失・盗用について', '2009-09-16 16:37:01', 'lee', '2009-09-16 16:37:01', 'lee'),
+(8, '不正・迷惑ユーザの報告', '2009-09-16 16:56:39', 'lee', '2009-09-16 16:56:42', 'lee'),
+(9, 'バグ・不具合の報告', '2009-09-16 16:39:11', 'lee', '2009-09-16 16:39:13', 'lee'),
+(10, 'その他', '2009-09-16 16:39:11', 'lee', '2009-09-16 16:39:11', 'lee');
+
+
+
 INSERT INTO `occupation_mst` (`occup_code`, `occup_name`, `created_date`, `created_user`, `last_update_date`, `last_update_user`) VALUES
 (11, '会社員', '2009-09-13 20:47:36', 'lee', '2009-09-13 20:47:36', 'lee'),
 (12, '会社経営', '2009-09-13 20:47:36', 'lee', '2009-09-13 20:47:36', 'lee'),
@@ -68,9 +85,18 @@ INSERT INTO `occupation_mst` (`occup_code`, `occup_name`, `created_date`, `creat
 (24, 'その他', '2009-09-13 20:47:37', 'lee', '2009-09-13 20:47:37', 'lee');
 
 
+
 INSERT INTO `question_mst` (`question_code`, `question_name`, `created_date`, `created_user`, `last_update_date`, `last_update_user`) VALUES
 (1, '好きな食べ物は？', '2009-09-13 10:53:15', 'lee', '2009-09-13 10:53:15', 'lee'),
 (2, '旅行で行きたい国は？', '2009-09-13 10:53:15', 'lee', '2009-09-13 10:53:15', 'lee'),
 (3, 'お母さんの旧姓は？', '2009-09-13 10:54:25', 'lee', '2009-09-13 10:54:25', 'lee'),
 (4, 'もっとも使っているニュースサイトは？', '2009-09-13 10:54:25', 'lee', '2009-09-13 10:54:25', 'lee'),
 (5, 'もっとも面白かった映画は？', '2009-09-13 10:55:04', 'lee', '2009-09-13 10:55:04', 'lee');
+
+
+INSERT INTO `server_mst` (`server_id`, `title_id`, `server_name`, `service_start_date`, `service_end_date`, `service_status`, `server_domain`, `play_url`, `charge_url`, `order_num`, `players_num`, `popularity_flag`, `recommend_flag`, `created_date`, `created_user`, `last_update_date`, `last_update_user`) VALUES
+(1, 1, 'マジックゲート', '2009-09-01 01:56:59', '2015-12-31 01:57:02', '0', 'jpcscs.game-if.jp', 'http://jpcscs.game-if.jp/index.htm', 'http://jpcscs.game-if.jp/module/pay.asp', 1, 53546, '2', '1', '2009-09-16 01:59:20', 'lee', '2009-09-16 01:59:23', 'lee');
+
+
+INSERT INTO `title_mst` (`title_id`, `title_name`, `title_about`, `service_start_date`, `service_end_date`, `service_status`, `site_url`, `news_url`, `forum_url`, `payment_url`, `big_icon_url`, `small_icon_url`, `order_num`, `players_num`, `announce`, `created_date`, `created_user`, `last_update_date`, `last_update_user`) VALUES
+(1, '創世伝説', 'ネットブック、ＭＡＣでも快適にプレイできる本格ＳＲＰＧブラウザゲーム。', '2009-09-01 01:51:53', '2014-12-31 01:51:59', '1', 'http://cs.game-if.com', 'http://info.game-if.com/cs', 'http://forum.game-if.com/cs', 'http://www.game-if.com/pointCharge.html?title=1&server=1', 'images/game/icon/cs_big.gif', 'images/game/icon/cs_small.gif', 1, 53145, '友達紹介でサービスポイント獲得！', '2009-09-16 01:55:25', 'lee', '2009-09-16 01:55:28', 'lee');
