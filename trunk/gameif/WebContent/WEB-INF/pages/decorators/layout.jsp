@@ -2,27 +2,42 @@
 <%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator"%>   
 <%@ taglib prefix="page" uri="http://www.opensymphony.com/sitemesh/page" %> 
 <%@ taglib prefix="s" uri="/struts-tags"%>
+<%@page import="org.springframework.context.ApplicationContext"%>
+<%@page import="org.springframework.web.context.support.WebApplicationContextUtils"%>
+<%@page import="java.util.List"%>
+<%@page import="com.gameif.portal.businesslogic.ITitlePlayBusinessLogic"%>
+<%@page import="com.gameif.common.util.ContextUtil"%>
+<%@page import="edu.yale.its.tp.cas.client.filter.CASFilter"%>
+<%@page import="com.gameif.portal.entity.MyTitle"%>
+<%@page import="com.gameif.portal.constants.PortalConstants"%>
+<%@page import="com.gameif.portal.entity.MyServer"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja-jp" lang="ja-jp" >
-<head>   
+<head>
 	<meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
 	<meta content="index, follow" name="robots"/>
-	<base href="<%=request.getScheme()%>://<%=request.getServerName()%><%if(request.getServerPort() != 80) out.print(":" + request.getServerPort());%><%=request.getContextPath()%>/"/>
+	<base href="<%=request.getScheme()%>://<%=request.getServerName()%><%if(request.getServerPort() != 80 && request.getServerPort() != 443) out.print(":" + request.getServerPort());%><%=request.getContextPath()%>/"/>
 	<link type="text/css" href="css/common.css" rel="stylesheet"></link>
 	<link type="text/css" href="css/main.css" rel="stylesheet"></link>
 	<script src="js/jquery/jquery.js" type="text/javascript"></script>
 	<script src="js/portal/common.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	function selectServer(titleId) {
+		var serverSel = document.getElementById("game_sel_" + titleId);
+		serverSel.style.display = serverSel.style.display == "none" ? "block" : "none";
+	}
+	
+	</script>
 	<title><decorator:title default="ゲームイフ | ブラウザゲームポータルサイト"/></title>
 	<decorator:head />
-</head>
-    
+</head>    
 <body>
 <!-- ページトップ：開始 -->
 <dl class="page_top">
 	<dt><a href="http://www.game-if.com"><img src="images/logo.gif" title="WEBGAMEポータル ゲームイフ"/></a></dt>
 	<dd>
 		<%
-		if (session.getAttribute(edu.yale.its.tp.cas.client.filter.CASFilter.CAS_FILTER_USER) == null) {
+		if (session.getAttribute(CASFilter.CAS_FILTER_USER) == null) {
 		%>
 		<a href="mypage.html" title="ログイン">ログイン</a> |
 		<a href="registryMember.html" title="会員登録">会員登録</a> |
@@ -31,7 +46,7 @@
 		%>
 		<a href="#" title="初心者ガイド">初心者ガイド</a> |
 		<%
-		if (session.getAttribute(edu.yale.its.tp.cas.client.filter.CASFilter.CAS_FILTER_USER) == null) {
+		if (session.getAttribute(CASFilter.CAS_FILTER_USER) == null) {
 		%>
 		<a href="inputInquiry.html" title="お問合せ">お問合せ</a> |
 		<%
@@ -68,7 +83,7 @@
 	<!-- ページ右パネル：開始 -->
 	<div id="page_main_right">	
 	<%
-		if (session.getAttribute(edu.yale.its.tp.cas.client.filter.CASFilter.CAS_FILTER_USER) == null) {
+		if (session.getAttribute(CASFilter.CAS_FILTER_USER) == null) {
 	%>
 		<!-- ショットカットボタンエリア：開始 -->
 		<dl class="quickstart tspace_n">
@@ -106,52 +121,67 @@
 			<dd><a href="editPassword.html" title="パスワード変更"><img src="images/btn_b_chpass.gif" alt="パスワード変更"/></a></dd>
 		</dl>
 
-		<!-- ショットカットボタンエリア：終了 -->		
+		<!-- ショットカットボタンエリア：終了 -->
+			<%
+			Long memNum = ContextUtil.getMemberNo((String)session.getAttribute(CASFilter.CAS_FILTER_USER));
+			
+			ApplicationContext ctxt = WebApplicationContextUtils.getWebApplicationContext(request.getSession().getServletContext());
+			ITitlePlayBusinessLogic mstLogic = (ITitlePlayBusinessLogic)ctxt.getBean("titlePlayBusinessLogic");
+			
+			List<MyTitle> titles = mstLogic.getPlayedTitles(memNum);
+			
+			if (!titles.isEmpty()) {%>
 		<!-- マイゲーム：開始 -->
 		<dl class="title_box tspace_b">
 			<dt><strong>マイゲーム</strong><span></span></dt>
-			<dd>
+			<dd><%
+				for (int i = 0; i < titles.size(); i++) {
+					MyTitle title = titles.get(i);
+					List<MyServer> servers = mstLogic.getPlayedServers(memNum, title.getTitleId());%>
 				<dl class="mygame tspace_y">
-					<dt><a class="mygame_icon" href="#" title="創世伝説"><img border="0px;" src="images/icn_ssds.gif" alt="創世伝説"/></a></dt>
+					<dt><a class="mygame_icon" href="<%=title.getSiteUrl()%>" title="<%=title.getTitleName()%>"><img border="0px;" src="<%=title.getSmallIconUrl()%>" alt="<%=title.getTitleName()%>"/></a></dt>
 					<dd>
-						<div class="mygame_title">武林三国</div>
-
-						<a href="playGame.html?server=jpcscs.game-if.jp" title="プレイ">プレイ</a>
-						<a href="#" title="公式">公式</a>
-						<a href="#" title="掲示板">掲示板</a>
+						<div class="mygame_title"><%=title.getTitleName()%></div>
+						<a href="javascript:selectServer(<%=title.getTitleId()%>);" title="プレイ">プレイ</a>
+						<a href="<%=title.getSiteUrl()%>" title="公式">公式</a>
+						<a href="<%=title.getForumUrl()%>" title="掲示板">掲示板</a>
 					</dd>
 				</dl>
-				<dl class="mygame tspace_y">
-					<dt><a class="mygame_icon" href="#" title="創世伝説"><img border="0px;" src="images/icn_ssds.gif" alt="創世伝説"/></a></dt>
-
-					<dd>
-						<div class="mygame_title">創世伝説</div>
-						<a href="playGame.html?serverId=1&titleId=1" title="プレイ">プレイ</a>
-						<a href="#" title="公式">公式</a>
-						<a href="#" title="掲示板">掲示板</a>
-					</dd>
-				</dl>
-
-				<div class="mygame_select">
+				<div id="game_sel_<%=title.getTitleId()%>" class="mygame_select" style="display: none;">
 					<fieldset>
 						<legend>サーバ選択</legend>
-						<ul>
-							<li><a href="playGame.html?serverId=1&titleId=1">S01: 夢世界</a></li>
-							<li><a href="playGame.html?serverId=1&titleId=1">S02: 天下無敵</a></li>
+					<%
+					if (PortalConstants.ServerStatus.MAINTENANCE.equals(title.getServiceStatus())) {%>
+						<ul><li style="color:#666;font-size:10px;">このタイトルは、はただいま<br/>メンテナンスしております。	</li></ul>
+					<%
+					} else {
+					%>
+						<ul><%
+						for (int j = 0; j < servers.size(); j++) {
+							MyServer server = servers.get(j);
+							String serverNo = "00" + server.getServerId();
+							serverNo = serverNo.substring(serverNo.length() - 2);
+							
+							if (PortalConstants.ServerStatus.MAINTENANCE.equals(server.getServiceStatus())) {%>
+							<li title="このサーバはただいまメンテナンスしております。">S<%=serverNo%> <%=server.getServerName()%><span style="color:#900;font-size:10px;">（メンテ）</span></li>
+							<%
+							} else {
+								
+							%>
+							<li><a href="playGame.html?serverId=<%=server.getServerId()%>&titleId=<%=server.getTitleId()%>" title="サーバ「<%=server.getServerName()%>」で「<%=title.getTitleName()%>」をプレイする。">S<%=serverNo%> <%=server.getServerName()%></a></li><%
+							}
+						}%>
 						</ul>
-
+						<%
+					}%>
 					</fieldset>
-				</div>
+				</div><%
+				}%>
 			</dd>
 		</dl>
-		<!-- マイゲーム：終了 -->
-
-	<%
-		}
-	%>
-
-		
-		
+		<!-- マイゲーム：終了 --><%
+			}
+		}%>
 	</div>
 	<!-- ページ右パネル：終了 -->
 	<div class="clearbox"></div>
