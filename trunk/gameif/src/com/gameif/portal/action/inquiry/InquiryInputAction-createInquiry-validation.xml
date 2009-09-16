@@ -22,12 +22,14 @@
         	<message>メールアドレスが不正です。</message>
         </field-validator>
     </field>
+    <!-- 
     <field name="titleId">
         <field-validator type="fieldexpression">
         	<param name="expression"><![CDATA[(titleId > 0)]]></param>
         	<message><![CDATA[<br/>対象タイトルを入力してください。]]></message>
         </field-validator>
     </field>
+    -->
     <field name="inquiryObject">
         <field-validator type="requiredstring" short-circuit="true">
 			<param name="trim">true</param>
