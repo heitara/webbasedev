@@ -47,6 +47,7 @@ CREATE TABLE IF NOT EXISTS `inquiry_info` (
   `tel_num` varchar(20) DEFAULT NULL,
   `title_id` int(11) DEFAULT NULL,
   `inquiry_type` int(11) DEFAULT NULL,
+  `inquiry_ip` varchar(15) DEFAULT NULL,
   `inquiry_kind_code` int(11) DEFAULT NULL,
   `inquiry_object` varchar(240) DEFAULT NULL,
   `inquiry_contents` text,
