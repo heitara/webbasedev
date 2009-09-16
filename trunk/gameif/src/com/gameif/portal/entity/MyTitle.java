@@ -11,7 +11,7 @@ public class MyTitle extends BaseEntity {
 	private Integer titleId;
 	private String titleName;
 	private String titleAbout;
-	private String ServiceStatus;
+	private String serviceStatus;
 	private String siteUrl;
 	private String newsUrl;
 	private String forumUrl;
@@ -43,10 +43,10 @@ public class MyTitle extends BaseEntity {
 		this.titleAbout = titleAbout;
 	}
 	public String getServiceStatus() {
-		return ServiceStatus;
+		return serviceStatus;
 	}
 	public void setServiceStatus(String serviceStatus) {
-		ServiceStatus = serviceStatus;
+		this.serviceStatus = serviceStatus;
 	}
 	public String getSiteUrl() {
 		return siteUrl;
