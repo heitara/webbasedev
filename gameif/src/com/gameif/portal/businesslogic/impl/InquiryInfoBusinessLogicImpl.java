@@ -2,6 +2,7 @@ package com.gameif.portal.businesslogic.impl;
 
 import java.util.Date;
 
+import org.apache.struts2.ServletActionContext;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gameif.common.businesslogic.BaseBusinessLogic;
@@ -42,10 +43,14 @@ public class InquiryInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		// 会員の問合せの場合、会員情報を設定する
 		if (inquiryInfo.getInquiryType().equals(
 				PortalConstants.InquiryType.MEMBER)) {
-			inquiryInfo.setMemId(ContextUtil.getAccountId());
-			inquiryInfo.setCreatedUser(ContextUtil.getAccountId());
-			inquiryInfo.setLastUpdateUser(ContextUtil.getAccountId());
+			inquiryInfo.setMemNum(ContextUtil.getMemberNo());
+			inquiryInfo.setCreatedUser(ContextUtil.getMemberNo().toString());
+			inquiryInfo.setLastUpdateUser(ContextUtil.getMemberNo().toString());
 		}
+		// 登録IP
+		inquiryInfo.setInquiryIp(ServletActionContext.getRequest().getRemoteAddr());
+		// 問合せ日時
+		inquiryInfo.setInquiryDate(inquiryDate);
 		inquiryInfo.setCreatedDate(inquiryDate);
 		inquiryInfo.setLastUpdateDate(inquiryDate);
 
