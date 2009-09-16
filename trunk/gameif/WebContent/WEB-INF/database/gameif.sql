@@ -143,7 +143,7 @@ CREATE TABLE IF NOT EXISTS `member_info` (
   `last_update_user` varchar(50) DEFAULT NULL,
   `version_no` int(11) DEFAULT 0,
   PRIMARY KEY (`mem_num`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
 
@@ -307,6 +307,17 @@ CREATE TABLE IF NOT EXISTS `play_hist` (
   `play_date` datetime DEFAULT NULL,
   PRIMARY KEY (`mem_num`,`title_id`,`server_id`,`play_date`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+DROP TABLE IF EXISTS `temp_pwd_info`;
+CREATE TABLE  `temp_pwd_info` (
+  `mail_pc` varchar(100) NOT NULL,
+  `created_date` datetime NOT NULL,
+  `mem_num` bigint(20) NOT NULL,
+  `temp_key` varchar(32) NOT NULL,
+  PRIMARY KEY (`mail_pc`,`created_date`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
 

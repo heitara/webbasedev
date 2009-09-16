@@ -149,6 +149,21 @@
 			<result name="success">/WEB-INF/pages/portal/title_list.jsp</result>
 		</action>
 		
+		<action name="*PwdReget" class="memberPwdRegetAction" method="{1}">
+			<interceptor-ref name="scopedModelDriven">
+				<param name="scope">request</param>
+				<param name="name">tempPwdInfo</param>
+				<param name="className">com.gameif.portal.entity.TempPwdInfo</param>
+			</interceptor-ref>
+			<interceptor-ref name="gameifStack" />
+			<interceptor-ref name="store">
+				<param name="operationMode">NONE</param>
+			</interceptor-ref>
+			
+			<result name="input">/WEB-INF/pages/portal/mem_pwd_reget.jsp</result>
+			<result name="success"  type="redirect">/finishedPage.html?action=createPwdReget</result>
+		</action>
+		
 	</package>
 	
 	<package name="gamejax" extends="json-default">

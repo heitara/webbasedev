@@ -101,4 +101,14 @@
 			<ref bean="titlePlayBusinessLogic" />
 		</property>
 	</bean>
+	
+	<!-- memberPwdRegetAction -->
+	<bean id="memberPwdRegetAction" class="com.gameif.portal.action.pwdReget.MemberPwdRegetAction" scope="prototype">
+		<property name="tempPwdRegetBusinessLogic">
+			<ref bean="tempPwdRegetBusinessLogic" />
+		</property>
+		<property name="masterInfoBusinessLogic">
+			<ref bean="masterInfoBusinessLogic" />
+		</property>
+	</bean>
 </beans>

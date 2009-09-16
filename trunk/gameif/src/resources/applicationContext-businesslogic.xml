@@ -70,4 +70,12 @@
 			<ref bean="playHistDao" />
 		</property>
 	</bean>
+	
+	<!-- tempPwdRegetBusinessLogic -->
+	<bean id="tempPwdRegetBusinessLogic"
+		class="com.gameif.portal.businesslogic.impl.TempPwdRegetBusinessLogicImpl">
+		<property name="tempPwdInfoDao">
+			<ref bean="tempPwdInfoDao" />
+		</property>
+	</bean>
 </beans>
