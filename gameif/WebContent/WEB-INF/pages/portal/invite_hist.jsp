@@ -28,7 +28,7 @@
 						<th class="friend">友達</th>
 						<th class="mail">メールアドレス</th>
 						<th class="status">
-							<s:select name="inviteStatusSelect" list="inviteStatusList" key="inviteStatusList.key" value="inviteStatusList.value" />
+							<s:select name="inviteStatusSelect" list="portalProperties.inviteStatusList"  headerKey="9999" headerValue="全て" />
 						</th>
 						<th class="present_ymd">紹介日</th>
 						<th class="entry_ymd">会員登録日</th>
