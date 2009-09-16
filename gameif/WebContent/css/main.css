@@ -174,7 +174,7 @@ div.mygame_select {
 }
 div.mygame_select > fieldset ul {
 	list-style:none;
-	margin:5px 15px;
+	margin:7px 5px;
 	padding:0px;
 }
 div.mygame_select > fieldset > ul > li > a {
@@ -318,14 +318,20 @@ table.games div.g_title {
 table.games div.g_menu {
 	width:380px;
 	height:20px;
-	margin:0px 0px 20px 0px;
+	margin:0px 20px 20px 0px;
 	background:url("../images/bg_game_menu.gif") left top no-repeat;
 	overflow:hidden;
 }
 table.games div.g_about {
 	font-size:12px;
-	margin:15px 0px;
-	line-height:20px;
+	height:18px;
+	margin:18px 0px 5px 0px;
+	overflow:hidden;
+}
+table.games div.g_announce {
+	font-size:12px;
+	height:18px;
+	overflow:hidden;
 }
 table.games div.g_menu > a {
 	display:inline-block;
@@ -341,7 +347,7 @@ table.games div.g_menu > a:hover {
 	color:#FFF;
 }
 table.games div.g_servers {
-	height:83px;
+	height:95px;
 	padding:1px;
 	background-color:#FFF;
 	border:1px solid #DDD;
