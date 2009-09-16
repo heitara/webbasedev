@@ -23,7 +23,7 @@
 						
 						<dt><span class="required">*</span><label for="friends">友達のメールアドレス：</label></dt>
 						<dd>
-							<s:textarea name="inviteMailTo" rows="10" cssClass="big ime_mode_n f_left" title="紹介者のメールアドレス" onblur="validate(this, 'REQ');"/>
+							<s:textarea name="inviteMailTo" rows="10" cssClass="big ime_mode_n f_left" title="友達のメールアドレス" onblur="validate(this, 'REQ');"/>
 							<span id="error_inviteMailTo" class="input_error"><s:fielderror><s:param>inviteMailTo</s:param></s:fielderror></span><br/>
 							<div class=" mail_import">
 	
@@ -54,7 +54,7 @@
 						</dd>
 						<dt/>
 						<dd>
-							<s:textarea name="inviteMsg" rows="8" title="招待メッセージ"  cssClass="big ime_mode_n" onblur="validate(this, 'REQ,KOT');"/>
+							<s:textarea name="inviteMsg" rows="15" cssClass="big ime_mode_n" cssStyle="width:360px;" title="招待メッセージ" onblur="validate(this, 'REQ,ZEN,LEN_10_1000');" />
 							<span id="error_inviteMsg" class="input_error"><s:fielderror><s:param>inviteMsg</s:param></s:fielderror></span><br/>
 							<span class="explain">※招待メールの本文を入力してください。</span>
 						</dd>
