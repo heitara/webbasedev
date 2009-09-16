@@ -140,6 +140,7 @@ CREATE TABLE IF NOT EXISTS `member_info` (
   `withdraw_ip` varchar(15) DEFAULT NULL,
   `last_update_date` datetime DEFAULT NULL,
   `last_update_ip` varchar(15) DEFAULT NULL,
+  `last_update_user` varchar(50) DEFAULT NULL,
   `version_no` int(11) DEFAULT 0,
   PRIMARY KEY (`mem_num`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
@@ -176,6 +177,7 @@ CREATE TABLE IF NOT EXISTS `member_info_hist` (
   `note` varchar(255) DEFAULT NULL,
   `last_update_date` datetime DEFAULT NULL,
   `last_update_ip` varchar(15) DEFAULT NULL,
+  `last_update_user` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`mem_num`,`update_date`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -367,7 +369,8 @@ CREATE TRIGGER `t_insert_member_info_hist_bu` AFTER UPDATE ON `member_info` FOR 
       mailmag_obj_cd,
       note,
       last_update_date,
-      last_update_ip
+      last_update_ip,
+      last_update_user
     ) VALUES (
       OLD.mem_num,
       NEW.last_update_date,
@@ -396,7 +399,8 @@ CREATE TRIGGER `t_insert_member_info_hist_bu` AFTER UPDATE ON `member_info` FOR 
       OLD.mailmag_obj_cd,
       OLD.note,
       OLD.last_update_date,
-      OLD.last_update_ip
+      OLD.last_update_ip,
+      OLD.last_update_user
     );
    END IF;
 END $$
