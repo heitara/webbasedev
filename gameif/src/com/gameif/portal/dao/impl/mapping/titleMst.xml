@@ -3,30 +3,47 @@
     PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
     "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="titleMst">
+
 	<resultMap class="com.gameif.portal.entity.TitleMst" id="titleResult">
 		<result property="titleId" column="title_id" />
 		<result property="titleName" column="title_name" />
-		<result property="validStartDate" column="valid_start_date" />
-		<result property="validEndDate" column="valid_end_date" />
+		<result property="titleAbout" column="title_about" />
+		<result property="serviceStartDate" column="service_start_date" />
+		<result property="serviceEndDate" column="service_end_date" />
+		<result property="serviceStatus" column="service_status" />
 		<result property="siteUrl" column="site_url" />
-		<result property="smallIconUrl" column="small_icon_url" />
+		<result property="newsUrl" column="news_url" />
+		<result property="forumUrl" column="forum_url" />
+		<result property="paymentUrl" column="payment_url" />
 		<result property="bigIconUrl" column="big_icon_url" />
+		<result property="smallIconUrl" column="small_icon_url" />
+		<result property="orderNum" column="order_num" />
+		<result property="playersNum" column="players_num" />
+		<result property="announce" column="announce" />
 		<result property="createdDate" column="created_date"/>
 		<result property="createdUser" column="created_user"/>
 		<result property="lastUpdateDate" column="last_update_date"/>
 		<result property="lastUpdateUser" column="last_update_user"/>
 	</resultMap>
 
-	<select id="selectValidTitleList" resultMap="titleResult">   
+	<select id="selectValidTitleList" resultMap="titleResult">
         <![CDATA[
         SELECT
 			title_id,
 			title_name,
-			valid_start_date,
-			valid_end_date,
+			title_about,
+			service_start_date,
+			service_end_date,
+			service_status,
 			site_url,
-			small_icon_url,
+			news_url,
+			forum_url,
+			payment_url,
 			big_icon_url,
+			small_icon_url,
+			order_num,
+			players_num,
+			announce,
 			created_date,
 			created_user,
 			last_update_date,
@@ -34,8 +51,8 @@
 		FROM
 			title_mst
 		WHERE
-			valid_start_date <= now()
-		AND valid_end_date >= now()
+			service_start_date <= now()
+		AND service_end_date >= now()
         ]]>
 	</select>
 
