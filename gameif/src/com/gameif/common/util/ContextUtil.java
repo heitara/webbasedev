@@ -2,12 +2,28 @@ package com.gameif.common.util;
 
 import org.apache.struts2.ServletActionContext;
 
+import com.gameif.portal.entity.MemberInfo;
 import com.opensymphony.xwork2.ActionContext;
 
 import edu.yale.its.tp.cas.client.filter.CASFilter;
 
 public class ContextUtil {
 
+	/**
+	 * セッションから会員情報（会員番号、アカウントＩＤ、ニックネーム包含）を取得する。
+	 * @return　会員情報
+	 */
+	public final static MemberInfo getMemberInfo() {
+		
+		MemberInfo memberInfo = new MemberInfo();
+		
+		memberInfo.setMemNum(ContextUtil.getMemberNo());
+		memberInfo.setMemId(ContextUtil.getAccountId());
+		memberInfo.setNickName(ContextUtil.getNickName());
+		
+		return memberInfo;
+	}
+	
 	/**
 	 * セッションから会員番号を取得する。
 	 * @return　アカウントＩＤ
