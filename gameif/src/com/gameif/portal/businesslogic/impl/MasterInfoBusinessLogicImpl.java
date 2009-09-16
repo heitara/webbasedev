@@ -9,12 +9,14 @@ import com.gameif.portal.dao.IInquiryKindMstDao;
 import com.gameif.portal.dao.IInviteTemplateDao;
 import com.gameif.portal.dao.IOccupationMstDao;
 import com.gameif.portal.dao.IQuestionMstDao;
+import com.gameif.portal.dao.IServerMstDao;
 import com.gameif.portal.dao.ITitleMstDao;
 import com.gameif.portal.entity.DivisionMst;
 import com.gameif.portal.entity.InquiryKindMst;
 import com.gameif.portal.entity.InviteTemplateMst;
 import com.gameif.portal.entity.OccupationMst;
 import com.gameif.portal.entity.QuestionMst;
+import com.gameif.portal.entity.ServerMst;
 import com.gameif.portal.entity.TitleMst;
 
 public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
@@ -26,6 +28,7 @@ public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	private IOccupationMstDao occupationMstDao;
 	private IQuestionMstDao questionMstDao;
 	private ITitleMstDao titleMstDao;
+	private IServerMstDao serverMstDao;
 	private IInquiryKindMstDao inquiryKindMstDao;
 	private IInviteTemplateDao inviteTemplateDao;
 
@@ -59,6 +62,10 @@ public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	 */
 	public void setTitleMstDao(ITitleMstDao titleMstDao) {
 		this.titleMstDao = titleMstDao;
+	}
+
+	public void setServerMstDao(IServerMstDao serverMstDao) {
+		this.serverMstDao = serverMstDao;
 	}
 
 	/**
@@ -120,5 +127,27 @@ public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		return inviteTemplateDao.selectInviteTemplateByTitleId(titleId);
 	}
 	
+	@Override
+	public ServerMst getServer(ServerMst serverMst) {
+		
+		return serverMstDao.selectByKey(serverMst);
+	}
 
+	@Override
+	public ServerMst getServerByDomain(String domain) {
+		
+		return serverMstDao.selectServerByDomain(domain);
+	}
+
+	@Override
+	public List<ServerMst> getAllValidServerList() {
+		
+		return serverMstDao.selectValidServerList();
+	}
+
+	@Override
+	public List<ServerMst> getAllValidServerListByTitle(Integer titleId) {
+		
+		return serverMstDao.selectValidServerListByTitle(titleId);
+	}
 }
