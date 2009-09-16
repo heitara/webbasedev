@@ -37,7 +37,7 @@
 					
 					<dt><span class="required">*</span><label for="game">対象タイトル：</label></dt>
 					<dd>
-						<s:select name="titleId" list="masterInfoBusinessLogic.validTitleList" listKey="titleId" listValue="titleName" cssClass="big" headerKey="0" headerValue="ポータルサイト" title="対象タイトル"  onblur="validate(this,'REQ');" />
+						<s:select name="titleId" list="masterInfoBusinessLogic.validTitleList" listKey="titleId" listValue="titleName" cssClass="big" headerKey="0" headerValue="ポータルサイト" title="対象タイトル" />
 						<span id="error_titleId" class="input_error"><s:fielderror><s:param>titleId</s:param></s:fielderror></span>
 					</dd>
 										
