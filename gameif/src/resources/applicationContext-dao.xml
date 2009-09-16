@@ -72,17 +72,24 @@
 		</property>
 	</bean>
 	
+	<!-- serverMstDao -->
+	<bean id="serverMstDao" class="com.gameif.portal.dao.impl.ServerMstDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>serverMst</value>
+		</property>
+	</bean>
+	
+	<!-- playHistDao -->
+	<bean id="playHistDao" class="com.gameif.portal.dao.impl.PlayHistDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>playHist</value>
+		</property>
+	</bean>
+	
 	<!-- inquiryKindMstDao -->
 	<bean id="inquiryKindMstDao" class="com.gameif.portal.dao.impl.InquiryKindMstDaoImpl" parent="baseDao">
 		<property name="namespace">
 			<value>inquiryKindMst</value>
-		</property>
-	</bean>
-	
-	<!-- inviteTemplateDao -->
-	<bean id="inviteTemplateDao" class="com.gameif.portal.dao.impl.InviteTemplateDaoImpl" parent="baseDao">
-		<property name="namespace">
-			<value>inviteTemplateMst</value>
 		</property>
 	</bean>
 </beans>
