@@ -6,7 +6,7 @@
 <head>
 	<meta content="ゲームイフ,ブラウザゲーム,webgame,大人数同時プレイブラウザゲーム,オンラインゲーム,パブリッシング,プラットフォーム" name="keywords"/>
 	<meta content="ブラウザゲーム(WEBGAME)のポータルサイト" name="description"/>
-	<title>問合せ | ゲームイフ | ブラウザゲームのポータルサイト</title>
+	<title>メディア様のお問合せ | ゲームイフ | ブラウザゲームのポータルサイト</title>
 	<script src="js/portal/validate.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		function RefreshImg(){
@@ -17,61 +17,58 @@
 
 <body>
 	<dl class="light_box tspace_n">
-		<dt><strong>メディア様のお問合せ</strong><span><a href="inputInquiry.html">► その他問合せ</a></span></dt>
+		<dt><strong>メディア様のお問合せ</strong><span><a href="inputInquiry.html">► 一般のお問合せ</a> &nbsp; <a href="inputMemberInquiry.html">► 会員様のお問合せ</a></span></dt>
 		<dd>
 			<s:form name="frm_inquiry_media_input" method="post" cssClass="entry">
 				<dl>
 					<dt><span class="required">*</span><label for="company_name">御社名：</label></dt>
 					<dd>
-						<s:textfield name="companyName" maxlength="40" cssClass="ime_mode_y" title="御社名" onblur="validate(this, 'REQ,ZEN');"/>
+						<s:textfield name="companyName" maxlength="40" cssClass="ime_mode_y big" title="御社名" onblur="validate(this, 'REQ,ZEN');"/>
 						<span class="explain">※ 全角文字で入力してください。</span>
 						<span id="error_companyName" class="input_error"><s:fielderror><s:param>companyName</s:param></s:fielderror></span>
 					</dd>
 					
 					<dt><span class="required">*</span><label for="company_media_name">御社媒体名：</label></dt>
 					<dd>
-						<s:textfield name="companyMediaName" maxlength="40" cssClass="ime_mode_y" title="御社媒体名" onblur="validate(this, 'REQ,ZEN');"/>
+						<s:textfield name="companyMediaName" maxlength="40" cssClass="ime_mode_y big" title="御社媒体名" onblur="validate(this, 'REQ,ZEN');"/>
 						<span class="explain">※ 全角文字で入力してください。</span>
 						<span id="error_companyMediaName" class="input_error"><s:fielderror><s:param>companyMediaName</s:param></s:fielderror></span>
 					</dd>
 					
 					<dt><span class="required">*</span><label for="company_user_name">担当者名：</label></dt>
 					<dd>
-						<s:textfield name="companyUserName" maxlength="20" cssClass="ime_mode_y" title="担当者名" onblur="validate(this, 'REQ,ZEN');"/>
+						<s:textfield name="companyUserName" maxlength="20" cssClass="ime_mode_y big" title="担当者名" onblur="validate(this, 'REQ,ZEN');"/>
 						<span class="explain">※ 全角文字で入力してください。</span>
 						<span id="error_companyUserName" class="input_error"><s:fielderror><s:param>companyUserName</s:param></s:fielderror></span>
 					</dd>
 		
 					<dt><span class="required">*</span><label for="mail">メールアドレス：</label></dt>
 					<dd>
-						<s:textfield name="userMailadd" maxlength="100" cssClass="ime_mode_n" title="メールアドレス" onblur="validate(this, 'REQ,EML');"/>
+						<s:textfield name="userMailadd" maxlength="100" cssClass="ime_mode_n big" title="メールアドレス" onblur="validate(this, 'REQ,EML');"/>
 						<span class="explain">※ メールアドレスを小文字で入力してください。</span>
 						<span id="error_userMailadd" class="input_error"><s:fielderror><s:param>mailPc</s:param></s:fielderror></span>
 					</dd>
 					
 					<dt><label for="tel_num">電話番号：</label></dt>
 					<dd>
-						<s:textfield name="telNum" maxlength="15" cssClass="ime_mode_n" title="電話番号" onblur="validate(this, 'NUM,LEN_8_15');"/>
+						<s:textfield name="telNum" maxlength="15" cssClass="ime_mode_n big" title="電話番号" onblur="validate(this, 'NUM,LEN_8_15');"/>
 						<span class="explain">※ ハイフンなしの半角数字で入力してください。</span><br/>
 						<span id="error_telNum" class="input_error"><s:fielderror><s:param>telNum</s:param></s:fielderror></span>
 					</dd>
 					
 					<dt><span class="required">*</span><label for="object">お問合せ件名：</label></dt>
 					<dd>
-						<s:textfield name="inquiryObject" maxlength="100"  title="お問合せ件名" onblur="validate(this, 'REQ,KOT');" />
-						<span class="explain">※ 記号とスペース以外の文字で入力してください。</span>
+						<s:textfield name="inquiryObject" maxlength="100" cssStyle="width:360px;" title="お問合せ件名" onblur="validate(this, 'REQ,ZEN');" />
+						<span class="explain">※ 全角文字で入力してください。</span>
 						<span id="error_inquiryObject" class="input_error"><s:fielderror><s:param>inquiryObject</s:param></s:fielderror></span>
 					</dd>
 					
 					<dt><span class="required">*</span><label for="contents">内容：</label></dt>
 					<dd>
-						<s:textarea name="inquiryContents" rows="8" cssClass="big ime_mode_n f_left" title="内容" onblur="validate(this, 'REQ,KOT');" />
-						<span class="explain">※ 記号とスペース以外の文字で入力してください。</span>
+						<s:textarea name="inquiryContents" rows="15" cssClass="big ime_mode_n" cssStyle="width:360px;" title="内容" onblur="validate(this, 'REQ,ZEN,LEN_10_1000');" />
+						<span class="explain">※ 全角文字で入力してください。</span>
 						<span id="error_inquiryContents" class="input_error"><s:fielderror><s:param>inquiryContents</s:param></s:fielderror></span>
 					</dd>
-					
-					<dt></dt>
-					<dd>&nbsp;</dd>
 
 					<dt><span class="required">*</span><label for="createMember_kaptcha">画像認証：</label></dt>
 					<dd>
