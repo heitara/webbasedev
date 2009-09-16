@@ -116,7 +116,7 @@
 					<dd>
 						<div class="mygame_title">武林三国</div>
 
-						<a href="#" title="プレイ">プレイ</a>
+						<a href="playGame.html?server=jpcscs.game-if.jp" title="プレイ">プレイ</a>
 						<a href="#" title="公式">公式</a>
 						<a href="#" title="掲示板">掲示板</a>
 					</dd>
@@ -126,7 +126,7 @@
 
 					<dd>
 						<div class="mygame_title">創世伝説</div>
-						<a href="#" title="プレイ">プレイ</a>
+						<a href="playGame.html?serverId=1&titleId=1" title="プレイ">プレイ</a>
 						<a href="#" title="公式">公式</a>
 						<a href="#" title="掲示板">掲示板</a>
 					</dd>
@@ -136,8 +136,8 @@
 					<fieldset>
 						<legend>サーバ選択</legend>
 						<ul>
-							<li><a href="#">S01: 夢世界</a></li>
-							<li><a href="#">S02: 天下無敵</a></li>
+							<li><a href="playGame.html?serverId=1&titleId=1">S01: 夢世界</a></li>
+							<li><a href="playGame.html?serverId=1&titleId=1">S02: 天下無敵</a></li>
 						</ul>
 
 					</fieldset>
