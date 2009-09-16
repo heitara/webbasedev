@@ -17,10 +17,13 @@ public class ComSearchCondition extends BaseEntity {
 	
 	private String mailPc;
 
-	/** クライドIP */
+	// クライドIP 
 	private String clientIp;
-	/** 限定時間 */
+	// 限定時間 
 	private int checkTime;
+	
+	// 限定日数前のデータ削除する
+	private Integer days;
 
 	public Long getMemNum() {
 		return memNum;
@@ -72,6 +75,14 @@ public class ComSearchCondition extends BaseEntity {
 
 	public int getCheckTime() {
 		return this.checkTime;
+	}
+
+	public Integer getDays() {
+		return days;
+	}
+
+	public void setDays(Integer days) {
+		this.days = days;
 	}
 
 }
