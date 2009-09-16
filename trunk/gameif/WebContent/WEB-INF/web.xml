@@ -67,7 +67,10 @@
 		<filter-name>CAS Filter</filter-name>
 		<url-pattern>/mypage.html</url-pattern>
 	</filter-mapping>
-
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/playGame.html</url-pattern>
+	</filter-mapping>
 	<filter-mapping>
 	    <filter-name>sitemesh</filter-name>
 	    <url-pattern>/*</url-pattern>
