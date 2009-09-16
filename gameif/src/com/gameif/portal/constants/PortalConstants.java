@@ -54,6 +54,13 @@ public class PortalConstants {
 		/** その他 */ 
 		public final static int OTHER = 2;
 	}
+	
+	/** サーバ稼動状態 */
+	public class ServerStatus {
+		/** サーバメンテナンス中 */
+		public final static String MAINTENANCE = "0";
+		/** サーバ稼動中 */
+		public final static String RUNNING = "1";
 
 	/** 削除フラグ */
 	public class DeleteFlag {
@@ -61,5 +68,6 @@ public class PortalConstants {
 		public final static String NORMAL = "0";
 		/** 削除されたデータ */ 
 		public final static String DELETEED = "1";
+	}
 	}
 }
