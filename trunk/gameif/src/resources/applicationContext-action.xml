@@ -67,6 +67,9 @@
 		<property name="inviteInfoBusinessLogic">
 			<ref bean="inviteInfoBusinessLogic" />
 		</property>
+		<property name="portalProperties">
+			<ref bean="portalProperties" />
+		</property>
 	</bean>
 	
 	<!-- existCheckAction -->
