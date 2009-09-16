@@ -94,4 +94,11 @@
 			<ref bean="titleEntry" />
 		</property>
 	</bean>
+	
+	<!-- titleSelectControlAction -->
+	<bean id="titleSelectControlAction" class="com.gameif.portal.action.titleif.TitleSelectControlAction" scope="prototype">
+		<property name="titlePlayBusinessLogic">
+			<ref bean="titlePlayBusinessLogic" />
+		</property>
+	</bean>
 </beans>
