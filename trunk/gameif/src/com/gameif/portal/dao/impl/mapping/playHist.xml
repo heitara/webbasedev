@@ -29,6 +29,22 @@
 		<result property="playDate" column="play_date"/>
 		<result property="playCount" column="play_count"/>
 	</resultMap>
+				
+	<resultMap class="com.gameif.portal.entity.MyServer" id="myServerResult">
+		<result property="serverId" column="server_id"/>
+		<result property="titleId" column="title_id"/>
+		<result property="serverName" column="server_name"/>
+		<result property="serviceStatus" column="service_status"/>
+		<result property="serverDomain" column="server_domain"/>
+		<result property="playUrl" column="play_url"/>
+		<result property="chargeUrl" column="charge_url"/>
+		<result property="orderNum" column="order_num"/>
+		<result property="playersNum" column="players_num"/>
+		<result property="popularity" column="popularity_flag"/>
+		<result property="recommend" column="recommend_flag"/>
+		<result property="playDate" column="play_date"/>
+		<result property="playCount" column="play_count"/>
+	</resultMap>
 
 	<insert id="save" parameterClass="com.gameif.portal.entity.PlayHist">
 	<![CDATA[
@@ -105,4 +121,58 @@
         ]]>
 	</select>
 
+	<select id="selectServersOnlyPlay" parameterClass="java.util.Map" resultMap="myServerResult">
+        <![CDATA[
+		SELECT	s.server_id,
+				s.title_id,
+				s.server_name,
+				s.service_status,
+				s.server_domain,
+				s.play_url,
+				s.charge_url,
+				s.order_num,
+				s.players_num,
+				s.popularity_flag,
+				s.recommend_flag,
+				p.play_date,
+				p.play_count
+		FROM	server_mst s INNER JOIN (
+					SELECT	server_id, MAX(play_date) AS play_date, COUNT(*) AS play_count
+					FROM	play_hist
+					WHERE	mem_num = #memNum#
+					AND		title_id = #titleId#
+					GROUP BY server_id
+				) p ON s.server_id = p.server_id
+		WHERE	s.title_id=#titleId#
+		ORDER BY p.play_date DESC, p.play_count DESC, s.order_num DESC
+        ]]>
+	</select>
+
+	<select id="selectServersWithPlay" parameterClass="java.util.Map" resultMap="myServerResult">
+        <![CDATA[
+		SELECT	s.server_id,
+				s.title_id,
+				s.server_name,
+				s.service_status,
+				s.server_domain,
+				s.play_url,
+				s.charge_url,
+				s.order_num,
+				s.players_num,
+				s.popularity_flag,
+				s.recommend_flag,
+				p.play_date,
+				p.play_count
+		FROM	server_mst s LEFT JOIN (
+					SELECT	server_id, MAX(play_date) AS play_date, COUNT(*) AS play_count
+					FROM	play_hist
+					WHERE	mem_num = #memNum#
+					AND		title_id = #titleId#
+					GROUP BY server_id
+				) p ON s.server_id = p.server_id
+		WHERE	s.title_id=#titleId#
+		ORDER BY p.play_date DESC, p.play_count DESC, s.order_num DESC
+        ]]>
+	</select>
+	
 </sqlMap>
