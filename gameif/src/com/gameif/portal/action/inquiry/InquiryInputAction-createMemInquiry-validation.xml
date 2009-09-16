@@ -6,32 +6,36 @@
     <field name="userMailadd">
         <field-validator type="requiredstring" short-circuit="true">
 			<param name="trim">true</param>
-        	<message>メールアドレスを入力してください。</message>
+        	<message><![CDATA[<br/>メールアドレスを入力してください。]]></message>
         </field-validator>
         <field-validator type="email" short-circuit="true">
-        	<message>メールアドレスが不正です。</message>
+        	<message><![CDATA[<br/>メールアドレスが不正です。]]></message>
         </field-validator>
     </field>
     <field name="titleId">
         <field-validator type="fieldexpression">
         	<param name="expression"><![CDATA[(titleId > 0)]]></param>
-        	<message>対象タイトルを入力してください。</message>
+        	<message><![CDATA[<br/>対象タイトルを入力してください。]]></message>
         </field-validator>
     </field>
     <field name="inquiryObject">
         <field-validator type="requiredstring" short-circuit="true">
 			<param name="trim">true</param>
-        	<message>お問合せ件名を入力してください。</message>
+        	<message><![CDATA[<br/>お問合せ件名を入力してください。]]></message>
+        </field-validator>
+        <field-validator type="regex" short-circuit="true">
+        	<param name="expression"><![CDATA[([a-zA-Z0-9｡-ﾟぁ-ゞァ-ヶ一-龠Ａ-Ｚａ-ｚ]+)]]></param>
+        	<message><![CDATA[<br/>お問合せ件名に記号或いはスペースが含まれています。]]></message>
         </field-validator>
     </field>
     <field name="inquiryContents">
         <field-validator type="requiredstring" short-circuit="true">
 			<param name="trim">true</param>
-        	<message>内容を入力してください。</message>
+        	<message><![CDATA[<br/>内容を入力してください。]]></message>
         </field-validator>
         <field-validator type="regex" short-circuit="true">
         	<param name="expression"><![CDATA[([a-zA-Z0-9｡-ﾟぁ-ゞァ-ヶ一-龠Ａ-Ｚａ-ｚ]+)]]></param>
-        	<message>内容に記号或いはスペースが含まれています。</message>
+        	<message><![CDATA[<br/>内容に記号或いはスペースが含まれています。]]></message>
         </field-validator>
     </field>
 </validators>

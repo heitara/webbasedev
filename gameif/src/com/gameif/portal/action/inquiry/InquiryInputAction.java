@@ -88,6 +88,15 @@ public class InquiryInputAction extends ModelDrivenActionSupport<InquiryInfo> {
 	}
 
 	/**
+	 * 会員問合せ画面に案内する。
+	 * @return その他問合せ画面
+	 */
+	public String inputMember() {
+		
+		return "inputMember";
+	}
+
+	/**
 	 * データを問合せテーブルに登録する
 	 * 
 	 * @return
@@ -105,6 +114,16 @@ public class InquiryInputAction extends ModelDrivenActionSupport<InquiryInfo> {
 	 */
 	public String createMedia() {
 		this.getModel().setInquiryType(PortalConstants.InquiryType.MEDIA);
+		inquiryInfoBusinessLogic.saveInquiryInfo(this.getModel());
+		return SUCCESS;
+	}
+
+	/**
+	 * データを問合せテーブルに登録する
+	 * @return
+	 */
+	public String createMem() {
+		this.getModel().setInquiryType(PortalConstants.InquiryType.MEMBER);
 		inquiryInfoBusinessLogic.saveInquiryInfo(this.getModel());
 		return SUCCESS;
 	}
