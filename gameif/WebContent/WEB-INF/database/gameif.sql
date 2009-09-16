@@ -38,7 +38,7 @@ DROP TABLE IF EXISTS `inquiry_info`;
 CREATE TABLE IF NOT EXISTS `inquiry_info` (
   `inquiry_num` bigint(20) NOT NULL AUTO_INCREMENT,
   `inquiry_date` datetime DEFAULT NULL,
-  `mem_id` varchar(20) DEFAULT NULL,
+  `mem_num` bigint(20) DEFAULT NULL,
   `company_name` varchar(40) DEFAULT NULL,
   `company_media_name` varchar(40) DEFAULT NULL,
   `company_user_name` varchar(20) DEFAULT NULL,
@@ -86,8 +86,8 @@ CREATE TABLE IF NOT EXISTS `invite_template_mst` (
 
 
 
-DROP TABLE IF EXISTS `gameif_portal`.`invite_info`;
-CREATE TABLE  `gameif_portal`.`invite_info` (
+DROP TABLE IF EXISTS `invite_info`;
+CREATE TABLE  `invite_info` (
   `invite_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `mem_num` bigint(20) NOT NULL,
   `invite_mail_from` varchar(100) DEFAULT NULL,
@@ -303,7 +303,7 @@ CREATE TABLE IF NOT EXISTS `play_hist` (
   `title_id` int(11) NOT NULL,
   `server_id` int(11) NOT NULL,
   `play_date` datetime DEFAULT NULL,
-  PRIMARY KEY (`mem_num`,`title_id`,`server_id`,`start_date`)
+  PRIMARY KEY (`mem_num`,`title_id`,`server_id`,`play_date`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
