@@ -79,6 +79,41 @@ public class ContextUtil {
 
 		return loginSessionInfo;
 	}
+
+	/**
+	 * セッションに設定されているＣＡＳのユーザ情報文字列から会員番号を抽出する。
+	 * @return　会員番号
+	 */
+	public final static Long getMemberNo(String mergedInfo) {
+		
+		Long memberNo = null;
+		
+		if (mergedInfo != null) {
+			
+			String memberNoStr = mergedInfo.split(",")[0];
+			
+			if (memberNoStr != null && !"".equals(memberNoStr.trim())) {
+
+				memberNo = Long.valueOf(mergedInfo.split(",")[0].trim());
+				
+				if (memberNo < 1) {
+					
+					memberNo = null;
+				}
+			}
+		}
+
+		return memberNo;
+	}
+
+	/**
+	 * セッションに設定されているＣＡＳのユーザ情報文字列からユーザのログイン状態を判断する。
+	 * @return　true:ログイン; false:未ログイン
+	 */
+	public final static boolean userIsLogin(String mergedInfo) {
+		
+		return getMemberNo(mergedInfo) != null;
+	}
 	
 	/**
 	 * ログイン状態を判断する。
@@ -86,7 +121,7 @@ public class ContextUtil {
 	 */
 	public final static boolean userIsLogin() {
 		
-		return getAccountId() == null ? false : true;
+		return getAccountId() != null;
 	}
 
 	/**
