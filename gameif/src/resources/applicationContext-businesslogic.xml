@@ -50,11 +50,24 @@
 		<property name="titleMstDao">
 			<ref bean="titleMstDao" />
 		</property>
+		<property name="serverMstDao">
+			<ref bean="serverMstDao" />
+		</property>
 		<property name="inquiryKindMstDao">
 			<ref bean="inquiryKindMstDao" />
 		</property>
+		<!-- 
 		<property name="inviteTemplateDao">
 			<ref bean="inviteTemplateDao" />
+		</property>
+		 -->
+	</bean>
+	
+	<!-- titlePlayBusinessLogic -->
+	<bean id="titlePlayBusinessLogic"
+		class="com.gameif.portal.businesslogic.impl.TitlePlayBusinessLogicImpl">
+		<property name="playHistDao">
+			<ref bean="playHistDao" />
 		</property>
 	</bean>
 </beans>
