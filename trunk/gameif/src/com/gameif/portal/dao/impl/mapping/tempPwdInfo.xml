@@ -22,4 +22,13 @@
         ]]>
 	</select>
 
+	<delete id="deleteByMemNum">
+	<![CDATA[
+		DELETE
+		FROM temp_pwd_info
+		WHERE
+			mem_num = #value#
+	]]>
+	</delete>
+
 </sqlMap>
