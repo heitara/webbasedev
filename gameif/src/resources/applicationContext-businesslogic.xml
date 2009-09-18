@@ -77,5 +77,11 @@
 		<property name="tempPwdInfoDao">
 			<ref bean="tempPwdInfoDao" />
 		</property>
+		<property name="memberInfoDao">
+			<ref bean="memberInfoDao" />
+		</property>
+		<property name="templateMailer">
+			<ref bean="templateMailer" />
+		</property>
 	</bean>
 </beans>

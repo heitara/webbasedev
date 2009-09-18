@@ -1,18 +1,32 @@
 package com.gameif.portal.businesslogic.impl;
 
+import java.util.Date;
+import java.util.HashMap;
+
+import org.springframework.transaction.annotation.Transactional;
+
 import com.gameif.common.businesslogic.BaseBusinessLogic;
+import com.gameif.common.exception.DataNotExistsException;
+import com.gameif.common.exception.LogicException;
+import com.gameif.common.helper.TemplateMailer;
+import com.gameif.common.util.SecurityUtil;
 import com.gameif.portal.businesslogic.ITempPwdRegetBusinessLogic;
+import com.gameif.portal.dao.IMemberInfoDao;
 import com.gameif.portal.dao.ITempPwdInfoDao;
+import com.gameif.portal.entity.MemberInfo;
 import com.gameif.portal.entity.TempPwdInfo;
 
-public class TempPwdRegetBusinessLogicImpl extends BaseBusinessLogic implements ITempPwdRegetBusinessLogic {
+public class TempPwdRegetBusinessLogicImpl extends BaseBusinessLogic implements
+		ITempPwdRegetBusinessLogic {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 5764703108289976473L;
-	
+
 	private ITempPwdInfoDao tempPwdInfoDao;
+	private IMemberInfoDao memberInfoDao;
+	private TemplateMailer templateMailer;
 
 	/**
 	 * @return the tempPwdInfoDao
@@ -21,18 +35,73 @@ public class TempPwdRegetBusinessLogicImpl extends BaseBusinessLogic implements 
 		return tempPwdInfoDao;
 	}
 
-
 	/**
-	 * @param tempPwdInfoDao the tempPwdInfoDao to set
+	 * @param tempPwdInfoDao
+	 *            the tempPwdInfoDao to set
 	 */
 	public void setTempPwdInfoDao(ITempPwdInfoDao tempPwdInfoDao) {
 		this.tempPwdInfoDao = tempPwdInfoDao;
 	}
 
-
-	@Override
-	public void saveTempPwdInfo(TempPwdInfo tempPwdInfo) {
-		
+	/**
+	 * @return the memberInfoDao
+	 */
+	public IMemberInfoDao getMemberInfoDao() {
+		return memberInfoDao;
 	}
 
+	/**
+	 * @param memberInfoDao
+	 *            the memberInfoDao to set
+	 */
+	public void setMemberInfoDao(IMemberInfoDao memberInfoDao) {
+		this.memberInfoDao = memberInfoDao;
+	}
+
+	/**
+	 * @return the templateMailer
+	 */
+	public TemplateMailer getTemplateMailer() {
+		return templateMailer;
+	}
+
+	/**
+	 * @param templateMailer the templateMailer to set
+	 */
+	public void setTemplateMailer(TemplateMailer templateMailer) {
+		this.templateMailer = templateMailer;
+	}
+
+	@Transactional
+	@Override
+	public void saveTempPwdInfo(TempPwdInfo tempPwdInfo, MemberInfo memberInfo)  throws LogicException {
+		memberInfo.setAnswer(SecurityUtil.getMD5String(memberInfo.getAnswer()));
+		
+		// 画面で入力したメールアドレースと質問と答えにより、会員情報を検索する
+		MemberInfo member = memberInfoDao.selectForPwdReget(memberInfo);	
+		if (member == null) {
+			
+			// データが存在しない
+			throw new DataNotExistsException("Data not exists.");
+		}
+		
+		// 該当会員に対して、残っているレコードを削除する。
+		tempPwdInfoDao.deleteByMemNum(member.getMemNum());
+		
+		// データを登録する。
+		tempPwdInfo.setCreatedDate(new Date());
+		tempPwdInfo.setMemNum(member.getMemNum());
+		// TODO:臨時認証キーを設定する
+		tempPwdInfo.setTempKey("");
+	
+		tempPwdInfoDao.save(tempPwdInfo);
+
+		// お知らせメールを送信する。
+		HashMap<String, String> props = new HashMap<String, String>();
+		props.put("nickName", member.getNickName());
+		props.put("authKey", tempPwdInfo.getTempKey());
+		// TODO:パスワード変更画面のURLを設定する
+		props.put("URL", "");
+		templateMailer.sendAsyncMail(memberInfo.getMailPc(), "createPwdReget", props);
+	}
 }
