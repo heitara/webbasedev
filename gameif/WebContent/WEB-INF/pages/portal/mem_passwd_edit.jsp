@@ -18,29 +18,32 @@
 	</dt>
 	<dd>
 		<s:form action="updatePassword" method="post" cssClass="entry">
-			<dl>
-				<dt><span class="required">*</span> <label for="updatePassword_memPwd">旧いパスワード：</label></dt>
-
-				<dd>
-					<s:password name="memPwd" maxlength="20" cssClass="ime_mode_n" title="旧いパスワード" onblur="validate(this, 'REQ,ALN,LEN_6_20');"/>
-					<span class="explain">※ 6～20桁の半角英数字で入力してください。</span>
-					<span id="error_memPwd" class="input_error"><s:fielderror><s:param>memPwd</s:param></s:fielderror></span>
-				</dd>
-				
-				<dt><span class="required">*</span> <label for="updatePassword_newPwd">新しいパスワード：</label></dt>
-				<dd>
-					<s:password name="newPwd" maxlength="20" cssClass="ime_mode_n" title="新しいパスワード" onblur="validate(this, 'REQ,ALN,LEN_6_20');"/>
-					<span class="explain">※ 6～20桁の半角英数字で入力してください。</span>
-					<span id="error_newPwd" class="input_error"><s:fielderror><s:param>newPwd</s:param></s:fielderror></span>
-				</dd>
-				<dt><span class="required">*</span> <label for="updatePassword_confirmPwd">パスワード再入力：</label></dt>
-				<dd>
-					<s:password name="confirmPwd" maxlength="20" cssClass="ime_mode_n" title="パスワード再入力" onblur="validate(this, 'REQ,ALN,LEN_6_20,EQU_newPwd');"/>
-					<span class="explain">※ 確認のためパスワードを再入力してください。</span>
-					<span id="error_confirmPwd" class="input_error"><s:fielderror><s:param>confirmPwd</s:param></s:fielderror></span>
-				</dd>
-
-			</dl>
+			<table>
+				<tr>
+					<th><span class="required">*</span> <label for="updatePassword_memPwd">旧いパスワード：</label></th>
+					<td>
+						<s:password name="memPwd" maxlength="20" cssClass="ime_mode_n" title="旧いパスワード" onblur="validate(this, 'REQ,ALN,LEN_6_20');"/>
+						<span class="explain">※ 6～20桁の半角英数字で入力してください。</span>
+						<span id="error_memPwd" class="input_error"><s:fielderror><s:param>memPwd</s:param></s:fielderror></span>
+					</td>
+				</tr>
+				<tr>
+					<th><span class="required">*</span> <label for="updatePassword_newPwd">新しいパスワード：</label></th>
+					<td>
+						<s:password name="newPwd" maxlength="20" cssClass="ime_mode_n" title="新しいパスワード" onblur="validate(this, 'REQ,ALN,LEN_6_20');"/>
+						<span class="explain">※ 6～20桁の半角英数字で入力してください。</span>
+						<span id="error_newPwd" class="input_error"><s:fielderror><s:param>newPwd</s:param></s:fielderror></span>
+					</td>
+				</tr>
+				<tr>
+					<th><span class="required">*</span> <label for="updatePassword_confirmPwd">パスワード再入力：</label></th>
+					<td>
+						<s:password name="confirmPwd" maxlength="20" cssClass="ime_mode_n" title="パスワード再入力" onblur="validate(this, 'REQ,ALN,LEN_6_20,EQU_newPwd');"/>
+						<span class="explain">※ 確認のためパスワードを再入力してください。</span>
+						<span id="error_confirmPwd" class="input_error"><s:fielderror><s:param>confirmPwd</s:param></s:fielderror></span>
+					</td>
+				</tr>
+			</table>
 			<div class="submit">
 				<s:token/>
 				<s:hidden name="model.versionNo"/>
