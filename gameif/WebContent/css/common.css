@@ -1,5 +1,7 @@
 /*********【共通】通常設定 ******************************************************/
 body {
+	margin:0px;
+	padding:0px;
 	color:#333;
 	font-size:12px;
 	font-family:'Arial','Courier','ＭＳ Ｐゴシック',monospace;
@@ -9,7 +11,7 @@ a {
 	text-decoration:none;
 }
 a:hover {
-	color:#F90;
+	color:#FC3;
 }
 a img {
 	border:0px;
@@ -122,18 +124,20 @@ select.min {
 select.big {
 	width:276px;
 }
-form > dl > dt {
-	float:left;
-	width:180px;
+
+form table th {
+	width:160px;
 	text-align:right;
 	padding:2px;
-	padding-top:5px;
+	font-weight:normal;
 }
-form > dl > dd {
-	margin-left:190px;
-	padding:2px;
-	padding-bottom:5px;
+form table tr.space_row {
+	height:15px;	
 }
+form div.submit {
+	margin:15px 0px 0px 170px;
+}
+
 form span.item {
 	display:inline-block;
 	height:20px;
@@ -164,9 +168,6 @@ form a {
 form a:hover {
 	color:#F90;
 }
-form > div.submit {
-	margin:15px 0px 0px 190px;
-}
 
 /*********【共通】タイトル付ボックス ************************************************/
 dl.title_box {
@@ -174,13 +175,13 @@ dl.title_box {
 	 overflow:hidden;
 	 text-align:left;
 }
-dl.title_box > dt {
+dl.title_box dt {
 	height:24px;
 	overflow:hidden;
 	background-image:url("../images/bg_portlet_title.gif");
 	clear:both;
 }
-dl.title_box > dt > strong {
+dl.title_box dt strong {
 	float:left;
 	display:block;
 	height:24px;
@@ -190,26 +191,26 @@ dl.title_box > dt > strong {
 	background:url("../images/bg_portlet_title_left.gif") left top no-repeat;
 	letter-spacing:1px;
 }
-dl.title_box > dt > span {
+dl.title_box dt span {
 	float:right;
 	position:relative;
 	line-height:24px;
 	padding:0px 10px;
 	background:url("../images/bg_portlet_title_right.gif") right top no-repeat;
 }
-dl.title_box > dt > span::after {
+dl.title_box dt span::after {
 	content:"\b";
 }
-dl.title_box > dt > span a {
+dl.title_box dt span a {
 	color:#FFF;
 	text-decoration:none;
 	font-size:9px;
 	font-weight:bold;
 }
-dl.title_box > dt > span a:hover {
+dl.title_box dt span a:hover {
 	color:#F90;
 }
-dl.title_box > dd {
+dl.title_box dd {
 	display:block;
 	margin-left:0px;
 }
@@ -219,13 +220,13 @@ dl.light_box {
 	 overflow:hidden;
 	 text-align:left;
 }
-dl.light_box > dt {
+dl.light_box dt {
 	height:24px;
 	overflow:hidden;
 	background-image:url("../images/bg_light_title.gif");
 	clear:both;
 }
-dl.light_box > dt > strong {
+dl.light_box dt strong {
 	float:left;
 	display:block;
 	height:24px;
@@ -234,7 +235,7 @@ dl.light_box > dt > strong {
 	background:url("../images/bg_light_title_left.gif") left top no-repeat;
 	letter-spacing:1px;
 }
-dl.light_box > dt > span {
+dl.light_box dt span {
 	float:right;
 	font-size:10px;
 	color:#850;
@@ -243,17 +244,17 @@ dl.light_box > dt > span {
 	padding:0px 10px;
 	background:url("../images/bg_light_title_right.gif") right top no-repeat;
 }
-dl.light_box > dt > span::after {
+dl.light_box dt span::after {
 	content:"\b";
 }
-dl.light_box > dt > span a {
+dl.light_box dt span a {
 	font-size:10px;
 	color:#850;
 }
-dl.light_box > dt > span a:hover {
+dl.light_box dt span a:hover {
 	color:#FFF;
 }
-dl.light_box > dd {
+dl.light_box dd {
 	display:block;
 	margin-left:0px;
 }
@@ -263,13 +264,13 @@ dl.warm_box {
 	 overflow:hidden;
 	 text-align:left;
 }
-dl.warm_box > dt {
+dl.warm_box dt {
 	height:20px;
 	overflow:hidden;
 	background-image:url("../images/bg_portlet_title.gif");
 	clear:both;
 }
-dl.warm_box > dt > strong {
+dl.warm_box dt strong {
 	float:left;
 	display:block;
 	height:20px;
@@ -280,26 +281,26 @@ dl.warm_box > dt > strong {
 	color:#FFF;
 	background:url("../images/bg_portlet_title_left.gif") left top no-repeat;
 }
-dl.warm_box > dt > span {
+dl.warm_box dt span {
 	float:right;
 	position:relative;
 	line-height:20px;
 	padding:0px 10px;
 	background:url("../images/bg_portlet_title_right.gif") right top no-repeat;
 }
-dl.warm_box > dt > span::after {
+dl.warm_box dt span::after {
 	content:"\b";
 }
-dl.warm_box > dt > span a {
+dl.warm_box dt span a {
 	color:#FFF;
 	text-decoration:none;
 	font-size:9px;
 	font-weight:bold;
 }
-dl.warm_box > dt > span a:hover {
+dl.warm_box dt span a:hover {
 	color:#F90;
 }
-dl.warm_box > dd {
+dl.warm_box dd {
 	display:block;
 	margin-left:0px;
 }
@@ -309,12 +310,14 @@ div.rbox_side {
 	border-top:1px solid #CCC;
 	height:0px;
 	margin:0px 2px;
+	overflow: hidden;
 }
 div.rbox_round {
 	border:1px solid #CCC;
 	border-width:0px 1px;
 	margin:0px 1px;
 	height:1px;
+	overflow: hidden;
 }
 div.rbox_main {
 	border:1px solid #CCC;
