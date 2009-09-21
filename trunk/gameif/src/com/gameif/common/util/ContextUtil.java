@@ -71,6 +71,7 @@ public class ContextUtil {
 		if (sessionInfo != null) {
 			
 			loginSessionInfo = sessionInfo.split(",");
+			loginSessionInfo[2] = ByteUtil.stringFromHexString(loginSessionInfo[2]);
 			
 		} else {
 			
