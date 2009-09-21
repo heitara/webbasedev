@@ -14,52 +14,56 @@
 			<dt><strong>友達紹介</strong><span><a href="showInviteHist.html">► 友達紹介履歴</a></span></dt>
 			<dd>
 				<s:form name="frm_invite_input" method="post" cssClass="entry">
-					<dl>
-						<dt><span class="required">*</span><label for="mail_from">紹介者のメールアドレス：</label></dt>
-						<dd>
-							<s:textfield name="inviteMailFrom" maxlength="100" cssClass="ime_mode_n" title="紹介者のメールアドレス" onblur="validate(this, 'REQ,EML');"/>
-							<span id="error_inviteMailFrom" class="input_error"><s:fielderror><s:param>inviteMailFrom</s:param></s:fielderror></span><br/>
-						</dd>
-						
-						<dt><span class="required">*</span><label for="friends">友達のメールアドレス：</label></dt>
-						<dd>
-							<s:textarea name="inviteMailTo" rows="10" cssClass="big ime_mode_n f_left" title="友達のメールアドレス" onblur="validate(this, 'REQ');"/>
-							<span id="error_inviteMailTo" class="input_error"><s:fielderror><s:param>inviteMailTo</s:param></s:fielderror></span><br/>
-							<div class=" mail_import">
-	
-								<span class="explain">下記のＷＥＢメールならアドレス帳から直接アドレスをインポートすることができます。</span><br/>
-								<a href="javascript:openPopup('fimsel.html', 600, 540);" title="hotmailアドレス帳からインポートする。"><img src="images/icon_hotmail.gif"/></a><br/>
-								<a href="javascript:openPopup('fimsel.html', 600, 540);" title="gmailアドレス帳からインポートする。"><img src="images/icon_gmail.gif"/></a><br/>
-								<a href="javascript:openPopup('fimsel.html', 600, 540);" title="Yahoo!メールアドレス帳からインポートする。"><img src="images/icon_yahoo_mail.gif"/></a><br/><br/>
-								<input type="button" value="メールアドレスインポート" class="big" onclick="openPopup('fimsel.html', 600, 540);"/>
-							</div>
-							<div class="clearbox"></div>
-							<span class="explain">※複数人の場合、一行に一件ずつ入力してください。</span>
-						</dd>
-						<dt></dt>
-						<dd>&nbsp;</dd>
-						
-						<dt><span class="required">*</span><label for="game">紹介するゲーム：</label></dt>
-						<dd>
-							<s:select name="titleId" list="masterInfoBusinessLogic.validTitleList" listKey="titleId" listValue="titleName"  headerKey="0" headerValue="" title="紹介するゲーム"  onblur="validate(this,'REQ');" />
-							<span id="error_titleId" class="input_error"><s:fielderror><s:param>titleId</s:param></s:fielderror></span><br/>
-							<span class="explain">※紹介するゲームを選んでください。</span>
-						</dd>
-						
-						<dt><span class="required">*</span><label for="message_tmpl">招待メッセージ：</label></dt>
-						<dd>
-							<s:select name="inviteTemplate" list="masterInfoBusinessLogic.validTitleList" listKey="titleId" listValue="titleName"  headerKey="0" headerValue="" cssClass="big"/>
-							<br/>
-							<span class="explain">※テンプレートから選ぶと、大枠が自動的に入力されますので、<br/>入力時間を省けられます。</span>
-						</dd>
-						<dt/>
-						<dd>
-							<s:textarea name="inviteMsg" rows="15" cssClass="big ime_mode_n" cssStyle="width:360px;" title="招待メッセージ" onblur="validate(this, 'REQ,ZEN,LEN_10_1000');" />
-							<span id="error_inviteMsg" class="input_error"><s:fielderror><s:param>inviteMsg</s:param></s:fielderror></span><br/>
-							<span class="explain">※招待メールの本文を入力してください。</span>
-						</dd>
-	
-					</dl>
+					<table>
+						<tr>
+							<th><span class="required">*</span><label for="mail_from">紹介者のメールアドレス：</label></th>
+							<td>
+								<s:textfield name="inviteMailFrom" maxlength="100" cssClass="ime_mode_n big" title="紹介者のメールアドレス" onblur="validate(this, 'REQ,EML');"/>
+								<span id="error_inviteMailFrom" class="input_error"><s:fielderror><s:param>inviteMailFrom</s:param></s:fielderror></span><br/>
+							</td>
+						</tr>						
+						<tr>
+							<th><span class="required">*</span><label for="friends">友達のメールアドレス：</label></th>
+							<td>
+								<s:textarea name="inviteMailTo" rows="10" cssClass="big ime_mode_n f_left" title="友達のメールアドレス" onblur="validate(this, 'REQ');"/>
+								<div class=" mail_import">
+									<span class="explain">下記のＷＥＢメールならアドレス帳から直接アドレスをインポートすることができます。</span><br/>
+									<a href="javascript:openPopup('fimsel.html', 600, 540);" title="hotmailアドレス帳からインポートする。"><img src="images/icon_hotmail.gif"/></a><br/>
+									<a href="javascript:openPopup('fimsel.html', 600, 540);" title="gmailアドレス帳からインポートする。"><img src="images/icon_gmail.gif"/></a><br/>
+									<a href="javascript:openPopup('fimsel.html', 600, 540);" title="Yahoo!メールアドレス帳からインポートする。"><img src="images/icon_yahoo_mail.gif"/></a><br/><br/>
+									<input type="button" value="メールアドレスインポート" class="big" onclick="openPopup('fimsel.html', 600, 540);"/>
+								</div>
+								<div class="clearbox"></div>
+								<span id="error_inviteMailTo" class="input_error"><s:fielderror><s:param>inviteMailTo</s:param></s:fielderror></span>
+								<span class="explain">※複数人の場合、一行に一件ずつ入力してください。</span>
+							</td>
+						</tr>
+						<tr class="space_row"><td colspan="2"></td></tr>
+						<tr>
+							<th><span class="required">*</span><label for="game">紹介するゲーム：</label></th>
+							<td>
+								<s:select name="titleId" cssClass="big" list="masterInfoBusinessLogic.validTitleList" listKey="titleId" listValue="titleName"  headerKey="0" headerValue="" title="紹介するゲーム"  onblur="validate(this,'REQ');" />
+								<span id="error_titleId" class="input_error"><s:fielderror><s:param>titleId</s:param></s:fielderror></span><br/>
+								<span class="explain">※紹介するゲームを選んでください。</span>
+							</td>
+						</tr>						
+						<tr>
+							<th><span class="required">*</span><label for="message_tmpl">招待メッセージ：</label></th>
+							<td>
+								<s:select name="inviteTemplate" list="masterInfoBusinessLogic.validTitleList" listKey="titleId" listValue="titleName"  headerKey="0" headerValue="" cssClass="big"/>
+								<br/>
+								<span class="explain">※テンプレートから選ぶと、大枠が自動的に入力されますので、<br/>入力時間を省けられます。</span>
+							</td>
+						</tr>
+						<tr>
+							<th></th>
+							<td>
+								<s:textarea name="inviteMsg" rows="15" cssClass="big ime_mode_n" cssStyle="width:360px;" title="招待メッセージ" onblur="validate(this, 'REQ,ZEN,LEN_10_1000');" />
+								<span id="error_inviteMsg" class="input_error"><s:fielderror><s:param>inviteMsg</s:param></s:fielderror></span><br/>
+								<span class="explain">※招待メールの本文を入力してください。</span>
+							</td>
+						</tr>
+					</table>
 					<div class="submit">
 						<s:submit action="createInvite" value="送信" cssClass="submit"></s:submit>
 						<s:reset value="クリア" cssClass="submit"></s:reset>

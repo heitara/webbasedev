@@ -1,3 +1,4 @@
+
 <%@ page contentType="text/html; CHARSET=utf8" pageEncoding="utf-8"%> 
 <%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator"%>   
 <%@ taglib prefix="page" uri="http://www.opensymphony.com/sitemesh/page" %> 
@@ -26,62 +27,60 @@
 		var serverSel = document.getElementById("game_sel_" + titleId);
 		serverSel.style.display = serverSel.style.display == "none" ? "block" : "none";
 	}
-	
 	</script>
 	<title><decorator:title default="ゲームイフ | ブラウザゲームポータルサイト"/></title>
 	<decorator:head />
 </head>    
 <body>
 <!-- ページトップ：開始 -->
-<dl class="page_top">
-	<dt><a href="http://www.game-if.com"><img src="images/logo.gif" title="WEBGAMEポータル ゲームイフ"/></a></dt>
-	<dd>
-		<%
-		if (session.getAttribute(CASFilter.CAS_FILTER_USER) == null) {
-		%>
-		<a href="mypage.html" title="ログイン">ログイン</a> |
-		<a href="registryMember.html" title="会員登録">会員登録</a> |
-		<%
-		}
-		%>
-		<a href="#" title="初心者ガイド">初心者ガイド</a> |
-		<%
-		if (session.getAttribute(CASFilter.CAS_FILTER_USER) == null) {
-		%>
-		<a href="inputInquiry.html" title="お問合せ">お問合せ</a> |
-		<%
-		} else {
-		%>
-		<a href="inputMemberInquiry.html" title="お問合せ">お問合せ</a> |
-		<%
-		}
-		%>
-		<a href="#" title="お気に入り">お気に入り</a>
-	</dd>
-</dl>
+<div>
+	<div class="page_top">
+		<div class="pt_left"><a href="http://www.game-if.com"><img src="images/logo.gif" title="WEBGAMEポータル ゲームイフ"/></a></div>
+		<div class="pt_right">
+			<%
+			if (session.getAttribute(CASFilter.CAS_FILTER_USER) == null) {
+			%>
+			<a href="mypage.html" title="ログイン">ログイン</a> |
+			<a href="registryMember.html" title="会員登録">会員登録</a> |
+			<%
+			}
+			%>
+			<a href="#" title="初心者ガイド">初心者ガイド</a> |
+			<%
+			if (session.getAttribute(CASFilter.CAS_FILTER_USER) == null) {
+			%>
+			<a href="inputInquiry.html" title="お問合せ">お問合せ</a> |
+			<%
+			} else {
+			%>
+			<a href="inputMemberInquiry.html" title="お問合せ">お問合せ</a> |
+			<%
+			}
+			%>
+			<a href="#" title="お気に入り">お気に入り</a>
+		</div>
+		<div class="clearbox"/>
+	</div>
+</div>
 <!-- ページトップ：終了 -->
 <!-- ページメニュー：開始 -->
-<dl class="page_top_menu">
-	<dt>
-		<div>
-			<a href="index.html" title="トップページ">トップ</a>
-			<a href="games.html" title="ゲーム">ゲーム</a>
-			<a href="point.html" title="ポイントチャージ">ポイントチャージ</a>
-			<a href="#" title="コミュニティ">コミュニティ</a>
-			<a href="#" title="お知らせ">お知らせ</a>
-		</div>
-	</dt>
-</dl>
+<div class="page_top_menu">
+	<a href="index.html" title="トップページ">トップ</a>
+	<a href="games.html" title="ゲーム">ゲーム</a>
+	<a href="point.html" title="ポイントチャージ">ポイントチャージ</a>
+	<a href="#" title="コミュニティ">コミュニティ</a>
+	<a href="#" title="お知らせ">お知らせ</a>
+</div>
 <!-- ページメニュー：終了 -->
 <!-- ページメインエリア：開始 -->
-<div id="page_main_box">
+<div class="page_main_box">
 	<!-- ページメイン：開始 -->
-	<div id="page_main_main">
+	<div class="page_main_main">
 		<decorator:body />  
 	</div>
 	<!-- ページメイン：終了 -->	
 	<!-- ページ右パネル：開始 -->
-	<div id="page_main_right">	
+	<div class="page_main_right">	
 	<%
 		if (session.getAttribute(CASFilter.CAS_FILTER_USER) == null) {
 	%>
@@ -188,20 +187,20 @@
 </div>
 <!-- ページメインエリア：終了 -->
 <!-- ページフッター：開始 -->
-<dl class="page_bottom">
-	<dt>
+<div class="page_bottom">
+	<div class="pb_left">
 		<a href="http://www.game-if.com" title="会社概要">会社概要</a> | 
 		<a href="agreement.html" title="利用規約">利用規約</a> | 
 		<a href="immunity.html" title="免責事項">免責事項</a> | 
 		<a href="privacy.html" title="プライバシーポリシー">プライバシーポリシー</a> | 
 		<a href="shop_info.html" title="特定商取引法に基づく表示内容">特定商取引法に基づく表示内容</a>
-		<div>
+	</div>
+	<div class="pb_right">Copyright &copy; 2009 Game-IF Co.,Ltd. All Rights Reserved.</div>
+	<div class="pb_browser">
 			このウェブサイトは、Internet Explorer 7.0 或いは Firefox3.0 以上のブラウザでご利用いただくことを推奨しております。<br/>
 			他のブラウザでは正常にご覧いただけない場合がございます。
-		</div>
-	</dt>
-	<dd>Copyright &copy; 2009 Game-IF Co.,Ltd. All Rights Reserved.</dd>
-</dl>
+	</div>
+</div>
 <!-- ページフッター：終了 -->
 </body>
 </html>
