@@ -18,8 +18,10 @@ import com.gameif.portal.businesslogic.IMemberInfoBusinessLogic;
 import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.dao.IMemberInfoDao;
 import com.gameif.portal.dao.IMemberLoginInfoDao;
+import com.gameif.portal.dao.ITempPwdInfoDao;
 import com.gameif.portal.entity.MemberInfo;
 import com.gameif.portal.entity.MemberLoginInfo;
+import com.gameif.portal.entity.TempPwdInfo;
 
 public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IMemberInfoBusinessLogic {
 
@@ -28,6 +30,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	private IMemberInfoDao memberInfoDao;
 	private IMemberLoginInfoDao memberLoginInfoDao;
 	private TemplateMailer templateMailer;
+	private ITempPwdInfoDao tempPwdInfoDao;
 
 	/**
 	 * 会員情報を登録する。
@@ -352,6 +355,64 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		return memberInfoDao.selectCountByMailPc(mailPc, memberNum);
 	}
 
+	/**
+	 * パスワード再設定機能で会員パスワードを変更する。
+	 * @param memberInfo 会員情報（会員番号、新しいパスワードが格納されていること）
+	 * @param tempKey 臨時キー
+	 */
+	@Override
+	public void changeTempPwd(MemberInfo memberInfo, String tempKey) throws LogicException {
+
+		// 臨時パスワードが存在かどうかのチェック
+		TempPwdInfo tempPwdInfo = new TempPwdInfo();
+		tempPwdInfo.setMemNum(memberInfo.getMemNum());
+		tempPwdInfo.setTempKey(tempKey);
+		TempPwdInfo newTempPwdInfo = tempPwdInfoDao.selectByMemNumAndTempKey(tempPwdInfo);
+		if (newTempPwdInfo == null) {
+			// データが存在しない
+			throw new DataNotExistsException("Data not exists.");
+		}
+		
+		// 臨時キーが期限きれかどうかのチェック
+		Date now = new Date();
+		if(newTempPwdInfo.getCreatedDate().compareTo(new Date(now.getTime() - 30 * 60 * 1000)) < 0) {
+			throw new LogicException("Tempory password id out of date.");
+		}
+		
+		// パスワードを変更する
+		changeTempPwdTrans(memberInfo);
+		
+	}
+	/**
+	 * 会員パスワードを変更する。
+	 * @param memberInfo 会員情報（会員番号、新しいパスワードが格納されていること）
+	 * @throws LogicException 存在しない異常、または排他異常
+	 */
+	@Transactional
+	private void changeTempPwdTrans(MemberInfo memberInfo) throws LogicException {
+
+		// 存在性と排他性チェック、行ロックをかけて既存会員情報を検索する。
+		MemberInfo oldMemberInfo = getMemberInfoWithCheck(memberInfo, false);
+		
+		oldMemberInfo.setMemPwd(SecurityUtil.getMD5String(memberInfo.getMemPwd()));
+		oldMemberInfo.setLastUpdateDate(new Date());
+		oldMemberInfo.setLastUpdateIp(ContextUtil.getClientIP());
+		oldMemberInfo.setLastUpdateUser(memberInfo.getMemNum().toString());
+
+		// 会員情報を更新する。
+		memberInfoDao.update(oldMemberInfo);
+
+		// 会員ログイン情報を更新する。
+		updateLoginInfoByMemberInfo(oldMemberInfo);
+
+		// お知らせメールを送信する。
+		HashMap<String, String> props = new HashMap<String, String>();		
+		props.put("memId", oldMemberInfo.getMemId());
+		props.put("nickName", oldMemberInfo.getNickName());		
+		templateMailer.sendAsyncMail(oldMemberInfo.getMailPc(), "updatePassword", props);
+		
+	}
+	
 	public void setMemberInfoDao(IMemberInfoDao memberInfoDao) {
 		
 		this.memberInfoDao = memberInfoDao;
@@ -370,5 +431,12 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	public void setTemplateMailer(TemplateMailer templateMailer) {
 		
 		this.templateMailer = templateMailer;
+	}
+
+	/**
+	 * @param tempPwdInfoDao the tempPwdInfoDao to set
+	 */
+	public void setTempPwdInfoDao(ITempPwdInfoDao tempPwdInfoDao) {
+		this.tempPwdInfoDao = tempPwdInfoDao;
 	}
 }

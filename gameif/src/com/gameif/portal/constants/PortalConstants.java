@@ -70,4 +70,12 @@ public class PortalConstants {
 		/** 削除されたデータ */ 
 		public final static String DELETEED = "1";
 	}
+
+	/** パスワード再発行用パラメータ名 */
+	public class PwdRegetParams {
+		/** 会員番号 */ 
+		public final static String MEMBER_NUM = "memNum";
+		/** 臨時キー（仮パスワード） */ 
+		public final static String TEMP_KEY = "tempKey";
+	}
 }

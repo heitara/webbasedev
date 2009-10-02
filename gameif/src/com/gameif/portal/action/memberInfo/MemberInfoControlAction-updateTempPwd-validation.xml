@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0.2//EN" 
+	"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+
+<validators>
+    <field name="newPwd">
+        <field-validator type="requiredstring" short-circuit="true">
+			<param name="trim">true</param>
+        	<message><![CDATA[<br/>新しいパスワードを入力してください。]]></message>
+        </field-validator>
+        <field-validator type="regex">
+        	<param name="expression"><![CDATA[(\w{6,20})]]></param>
+        	<message><![CDATA[<br/>パスワードは6～20桁の半角英数字で入力してください。]]></message>
+        </field-validator>
+    </field>
+    <field name="confirmPwd">
+        <field-validator type="requiredstring" short-circuit="true">
+			<param name="trim">true</param>
+        	<message><![CDATA[<br/>パスワード確認を入力してください。]]></message>
+        </field-validator>
+        <field-validator type="regex" short-circuit="true">
+        	<param name="expression"><![CDATA[(\w{6,20})]]></param>
+        	<message><![CDATA[<br/>パスワード確認は半角英数字で入力してください。]]></message>
+        </field-validator>
+        <field-validator type="fieldexpression">
+        	<param name="expression"><![CDATA[(confirmPwd == newPwd)]]></param>
+        	<message><![CDATA[<br/>新しいパスワードと一致しません。]]></message>
+        </field-validator>
+    </field>
+</validators>

@@ -108,4 +108,12 @@ public interface IMemberInfoBusinessLogic {
 	 * @return 指定したメールアドレスの使用者数
 	 */
 	public int countMembersByMailPc(String mailPC, Long memNum);
+
+	/**
+	 * パスワード再設定機能で会員パスワードを変更する。
+	 * @param memberInfo 会員情報（会員番号、新しいパスワードが格納されていること）
+	 * @param tempKey 臨時キー
+	 * @throws LogicException 存在しない異常、または排他異常
+	 */
+	public void changeTempPwd(MemberInfo memberInfo, String tempKey) throws LogicException;
 }

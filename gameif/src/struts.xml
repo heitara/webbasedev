@@ -163,6 +163,24 @@
 			<result name="input">/WEB-INF/pages/portal/mem_pwd_reget.jsp</result>
 			<result name="success"  type="redirect">/finishedPage.html?action=createPwdReget</result>
 		</action>
+
+		<action name="*TempPwd" class="memberInfoAction" method="{1}TempPwd">
+			<interceptor-ref name="scopedModelDriven">
+				<param name="scope">request</param>
+				<param name="name">memberInfo</param>
+				<param name="className">com.gameif.portal.entity.MemberInfo</param>
+			</interceptor-ref>
+			<interceptor-ref name="checkbox">
+				<param name="uncheckedValue">0</param>
+			</interceptor-ref>
+			<interceptor-ref name="token">
+				<param name="includeMethods">updateTempPwd</param>
+			</interceptor-ref>			
+			<interceptor-ref name="gameifStack"></interceptor-ref>			
+			<result name="input">/WEB-INF/pages/portal/temp_pwd_edit.jsp</result>
+			<result name="success" type="redirect">/finishedPage.html?action=updateTempPwd</result>
+			<result name="invalid.token">/WEB-INF/pages/common/warning.jsp</result>
+		</action>
 		
 	</package>
 	

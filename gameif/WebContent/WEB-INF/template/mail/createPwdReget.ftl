@@ -1,7 +1,7 @@
 ${nickName}　様
 
-認証キー：${authKey}
+認証キー：${tempKey}
 
-下記のURLによりパスワード再設定を行います。
+下記のURLによりパスワード再設定を行ってください。
 
-URL： ${URL}
+http://localhost:8080/gameif/editTempPwd.html?memNum=${memNum}&tempKey=${tempKey}
