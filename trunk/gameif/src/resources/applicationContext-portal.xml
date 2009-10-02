@@ -14,6 +14,8 @@
 				<entry key="updatePasswd" value="パスワード変更"/>
 				<entry key="createInquiry" value="問合せ "/>
 				<entry key="createInvite" value="友達紹介"/>
+				<entry key="createPwdReget" value="仮パスワード発行"/>
+				<entry key="updateTempPwd" value="パスワード再設定"/>
 			</map>
 		</property>
 		<property name="sexListMap">

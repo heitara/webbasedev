@@ -21,4 +21,18 @@ public class TempPwdInfoDaoImpl extends
 				+ ".deleteByMemNum", memNum));
 	}
 
+	/**
+	 * 会員番号と臨時キーより、臨時パスワード情報を取得する。
+	 * 
+	 * @param tempPwdInfo
+	 *            臨時パスワード情報（会員番号と臨時キーを含む）
+	 * @return 臨時パスワード情報
+	 */
+	@Override
+	public TempPwdInfo selectByMemNumAndTempKey(TempPwdInfo tempPwdInfo) {
+
+		return (TempPwdInfo) (getSqlMapClientTemplate().queryForObject(
+				namespace + ".selectByMemNumAndTempKey", tempPwdInfo));
+	}
+
 }

@@ -1,49 +1,78 @@
 package com.gameif.common.util;
 
 import java.security.MessageDigest;
+import java.util.Random;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 public class SecurityUtil {
-	
+
 	private final static Log logger = LogFactory.getLog(SecurityUtil.class);
 
 	/**
 	 * 指定した文字列をMD5アルゴリズムで暗号化する。
-	 * @param text 暗号化前の文字列
+	 * 
+	 * @param text
+	 *            暗号化前の文字列
 	 * @return　暗号化結果の32桁文字列
 	 */
 	public final static String getMD5String(String text) {
-		
-		final char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+
+		final char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8',
+				'9', 'a', 'b', 'c', 'd', 'e', 'f' };
 		String md5String = null;
-		
+
 		try {
-				byte[] txtByte = text.getBytes();
-				
-				MessageDigest mdTemp = MessageDigest.getInstance("MD5");
-				mdTemp.update(txtByte);
-				
-				byte[] md5Byte = mdTemp.digest();
-				
-				int j = md5Byte.length;
-				int k = 0;
-				char str[] = new char[j * 2];
-				
-				for (int i = 0; i < j; i++) {
-					byte byte0 = md5Byte[i];
-					str[k++] = hexDigits[byte0 >>> 4 & 0xf];
-					str[k++] = hexDigits[byte0 & 0xf];
-				}
-				
-				md5String = new String(str);
-				
+			byte[] txtByte = text.getBytes();
+
+			MessageDigest mdTemp = MessageDigest.getInstance("MD5");
+			mdTemp.update(txtByte);
+
+			byte[] md5Byte = mdTemp.digest();
+
+			int j = md5Byte.length;
+			int k = 0;
+			char str[] = new char[j * 2];
+
+			for (int i = 0; i < j; i++) {
+				byte byte0 = md5Byte[i];
+				str[k++] = hexDigits[byte0 >>> 4 & 0xf];
+				str[k++] = hexDigits[byte0 & 0xf];
+			}
+
+			md5String = new String(str);
+
 		} catch (Exception ex) {
-			
+
 			logger.error(ex.getMessage(), ex);
 		}
-				
+
 		return md5String;
+	}
+
+	/**
+	 * 指定した長さのランダム文字列を取得する
+	 * 
+	 * @param length
+	 * 　　　　　指定した長さ
+	 * @return ランダム文字列(数字、小文字、大文字を含む)
+	 */
+	public final static String getRandomAuthKey(int length) {
+
+		StringBuffer buffer = new StringBuffer(
+				"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
+		StringBuffer sb = new StringBuffer();
+
+		try {
+			Random r = new Random();
+			int range = buffer.length();
+			for (int i = 0; i < length; i++) {
+				sb.append(buffer.charAt(r.nextInt(range)));
+			}
+		} catch (Exception ex) {
+			logger.error(ex.getMessage(), ex);
+		}
+		return sb.toString();
 	}
 }

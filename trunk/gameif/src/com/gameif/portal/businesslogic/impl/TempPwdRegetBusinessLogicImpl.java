@@ -2,6 +2,7 @@ package com.gameif.portal.businesslogic.impl;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Random;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -91,17 +92,16 @@ public class TempPwdRegetBusinessLogicImpl extends BaseBusinessLogic implements
 		// データを登録する。
 		tempPwdInfo.setCreatedDate(new Date());
 		tempPwdInfo.setMemNum(member.getMemNum());
-		// TODO:臨時認証キーを設定する
-		tempPwdInfo.setTempKey("");
+		// 臨時認証キーを設定する
+		tempPwdInfo.setTempKey(SecurityUtil.getRandomAuthKey(10));
 	
 		tempPwdInfoDao.save(tempPwdInfo);
 
 		// お知らせメールを送信する。
 		HashMap<String, String> props = new HashMap<String, String>();
 		props.put("nickName", member.getNickName());
-		props.put("authKey", tempPwdInfo.getTempKey());
-		// TODO:パスワード変更画面のURLを設定する
-		props.put("URL", "");
+		props.put("tempKey", tempPwdInfo.getTempKey());
+		props.put("memNum",member.getMemNum().toString());
 		templateMailer.sendAsyncMail(memberInfo.getMailPc(), "createPwdReget", props);
 	}
 }

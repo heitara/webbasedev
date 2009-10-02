@@ -55,6 +55,13 @@
 						<entry key="format" value="text"/>
 					</map>
 				</entry>
+				<entry key="createPwdReget">
+					<map>
+						<entry key="title" value="【ゲームイフ】仮パスワード発行のお知らせ"/>
+						<entry key="template" value="createPwdReget.ftl"/>
+						<entry key="format" value="text"/>
+					</map>
+				</entry>
 			</map>
 		</property>
 	</bean>

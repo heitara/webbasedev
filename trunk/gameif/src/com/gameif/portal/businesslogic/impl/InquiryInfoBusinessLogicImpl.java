@@ -48,7 +48,7 @@ public class InquiryInfoBusinessLogicImpl extends BaseBusinessLogic implements
 			inquiryInfo.setLastUpdateUser(ContextUtil.getMemberNo().toString());
 		}
 		// 登録IP
-		inquiryInfo.setInquiryIp(ServletActionContext.getRequest().getRemoteAddr());
+		inquiryInfo.setInquiryIp(ContextUtil.getClientIP());
 		// 問合せ日時
 		inquiryInfo.setInquiryDate(inquiryDate);
 		inquiryInfo.setCreatedDate(inquiryDate);

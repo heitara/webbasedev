@@ -17,6 +17,9 @@
 		<property name="templateMailer">
 			<ref bean="templateMailer" />
 		</property>
+		<property name="tempPwdInfoDao">
+			<ref bean="tempPwdInfoDao" />
+		</property>
 	</bean>
 	
 	<!-- inquiryInfoBusinessLogic -->
