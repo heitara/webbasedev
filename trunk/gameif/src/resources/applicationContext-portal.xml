@@ -81,6 +81,16 @@
 				<entry key="1" value="会員登録済"/>
 			</map>
 		</property>
+		<property name="domainListMap">
+			<map>
+				<entry key="@hotmail.com" value="@hotmail.com"/>
+				<entry key="@hotmail.co.jp" value="@hotmail.co.jp"/>
+				<entry key="@live.jp" value="@live.jp"/>
+				<entry key="@gmail.com" value="@gmail.com"/>
+				<entry key="@yahoo.co.jp" value="@yahoo.co.jp"/>
+				<entry key="@yahoo.com" value="@yahoo.com"/>
+			</map>
+		</property>
 	</bean>
 	
 </beans>

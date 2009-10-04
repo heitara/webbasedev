@@ -63,6 +63,9 @@
 		<property name="memberInfoBusinessLogic">
 			<ref bean="memberInfoBusinessLogic" />
 		</property>
+		<property name="portalProperties">
+			<ref bean="portalProperties" />
+		</property>
 	</bean>
 	
 	<!-- inviteHistAction -->

@@ -18,6 +18,9 @@ public class PortalProperties {
 	
 	/** 友達登録ステータス */
 	private Map<String, String> inviteStatusList;
+	
+	/** ドメイン */
+	private Map<String, String> domainListMap;
 
 	public Map<String, String> getActionTitles() {
 		return actionTitles;
@@ -58,4 +61,19 @@ public class PortalProperties {
 	public Map<String, String> getInviteStatusList() {
 		return inviteStatusList;
 	}
+
+	/**
+	 * @return the domainListMap
+	 */
+	public Map<String, String> getDomainListMap() {
+		return domainListMap;
+	}
+
+	/**
+	 * @param domainListMap the domainListMap to set
+	 */
+	public void setDomainListMap(Map<String, String> domainListMap) {
+		this.domainListMap = domainListMap;
+	}
+	
 }

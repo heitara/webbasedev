@@ -28,10 +28,10 @@
 								<s:textarea name="inviteMailTo" rows="10" cssClass="big ime_mode_n f_left" title="友達のメールアドレス" onblur="validate(this, 'REQ');"/>
 								<div class=" mail_import">
 									<span class="explain">下記のＷＥＢメールならアドレス帳から直接アドレスをインポートすることができます。</span><br/>
-									<a href="javascript:openPopup('fimsel.html', 600, 540);" title="hotmailアドレス帳からインポートする。"><img src="images/icon_hotmail.gif"/></a><br/>
-									<a href="javascript:openPopup('fimsel.html', 600, 540);" title="gmailアドレス帳からインポートする。"><img src="images/icon_gmail.gif"/></a><br/>
-									<a href="javascript:openPopup('fimsel.html', 600, 540);" title="Yahoo!メールアドレス帳からインポートする。"><img src="images/icon_yahoo_mail.gif"/></a><br/><br/>
-									<input type="button" value="メールアドレスインポート" class="big" onclick="openPopup('fimsel.html', 600, 540);"/>
+									<a href="javascript:openPopup('inputMailSelInvite.html', 600, 540);" title="hotmailアドレス帳からインポートする。"><img src="images/icon_hotmail.gif"/></a><br/>
+									<a href="javascript:openPopup('inputMailSelInvite.html', 600, 540);" title="gmailアドレス帳からインポートする。"><img src="images/icon_gmail.gif"/></a><br/>
+									<a href="javascript:openPopup('inputMailSelInvite.html', 600, 540);" title="Yahoo!メールアドレス帳からインポートする。"><img src="images/icon_yahoo_mail.gif"/></a><br/><br/>
+									<input type="button" value="メールアドレスインポート" class="big" onclick="openPopup('inputMailSelInvite.html', 600, 540);"/>
 								</div>
 								<div class="clearbox"></div>
 								<span id="error_inviteMailTo" class="input_error"><s:fielderror><s:param>inviteMailTo</s:param></s:fielderror></span>
