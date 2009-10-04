@@ -26,7 +26,7 @@
     <field name="titleId">
         <field-validator type="fieldexpression">
         	<param name="expression"><![CDATA[(titleId > 0)]]></param>
-        	<message><![CDATA[<br/>紹介するゲームを入力してください。]]></message>
+        	<message><![CDATA[<br/>紹介するゲームを選択してください。]]></message>
         </field-validator>
     </field>
     <field name="inviteMsg">

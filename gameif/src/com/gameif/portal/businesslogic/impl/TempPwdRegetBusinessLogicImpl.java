@@ -2,9 +2,6 @@ package com.gameif.portal.businesslogic.impl;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Random;
-
-import org.springframework.transaction.annotation.Transactional;
 
 import com.gameif.common.businesslogic.BaseBusinessLogic;
 import com.gameif.common.exception.DataNotExistsException;
@@ -73,7 +70,9 @@ public class TempPwdRegetBusinessLogicImpl extends BaseBusinessLogic implements
 		this.templateMailer = templateMailer;
 	}
 
-	@Transactional
+	/**
+	 * 仮パスワードを発行する
+	 */
 	@Override
 	public void saveTempPwdInfo(TempPwdInfo tempPwdInfo, MemberInfo memberInfo)  throws LogicException {
 		memberInfo.setAnswer(SecurityUtil.getMD5String(memberInfo.getAnswer()));

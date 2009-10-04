@@ -382,6 +382,9 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		// パスワードを変更する
 		changeTempPwdTrans(memberInfo);
 		
+		// 該当会員に対して、残っているレコードを削除する。
+		tempPwdInfoDao.deleteByMemNum(memberInfo.getMemNum());
+		
 	}
 	/**
 	 * 会員パスワードを変更する。
