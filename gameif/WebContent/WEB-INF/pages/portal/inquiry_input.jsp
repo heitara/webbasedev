@@ -10,7 +10,7 @@
 	<script src="js/portal/validate.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		function RefreshImg(){
-			$("#kaptchaPic").attr({src: "images/kaptcha.jpg?" + new Date().getSeconds()});
+			$("#kaptchaPic").attr({src: "images/kaptcha?" + new Date().getSeconds()});
 		}
 	</script>
 </head>
@@ -63,7 +63,7 @@
 					<tr>
 						<th><span class="required">*</span><label for="createMember_kaptcha">画像認証：</label></th>
 						<td>
-							<img id="kaptchaPic" src="images/kaptcha.jpg"/>
+							<img id="kaptchaPic" src="images/kaptcha"/>
 							<a href="javascript:RefreshImg();"><img id="newKaptcha" src="images/capture_update.gif"/></a><br/>
 							<s:textfield name="kaptcha" maxlength="20"  cssClass="ime_mode_n" title="画像認証" onblur="validate(this,'REQ,ALN');"/>
 							<span class="explain">※ 画像認証コードを入力してください。</span>
