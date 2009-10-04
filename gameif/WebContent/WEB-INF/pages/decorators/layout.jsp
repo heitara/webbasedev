@@ -30,12 +30,12 @@
 	</script>
 	<title><decorator:title default="ゲームイフ | ブラウザゲームポータルサイト"/></title>
 	<decorator:head />
-</head>    
+</head>
 <body>
 <!-- ページトップ：開始 -->
 <div>
 	<div class="page_top">
-		<div class="pt_left"><a href="http://www.game-if.com"><img src="images/logo.gif" title="WEBGAMEポータル ゲームイフ"/></a></div>
+		<div class="pt_left"><a href="http://www.game-if.com"><img src="images/logo.gif" title="ブラウザゲームポータルサイト　ゲームイフ"/></a></div>
 		<div class="pt_right">
 			<%
 			if (session.getAttribute(CASFilter.CAS_FILTER_USER) == null) {
@@ -84,6 +84,23 @@
 	<%
 		if (session.getAttribute(CASFilter.CAS_FILTER_USER) == null) {
 	%>
+		<form id="myLoginForm" action="https://auth.test.game-if.com:8443/cas/remoteLogin" method="post" onsubmit="this.service.value='<%=request.getScheme()%>://<%=request.getServerName()%><%if(request.getServerPort() != 80 && request.getServerPort() != 443) out.print(":" + request.getServerPort());%><%=request.getContextPath()%>/loginStatusProxy.html?target=' + encodeURIComponent(location.href); return true;">
+			<input type="hidden" id="service" name="service" value="<%=request.getScheme()%>://<%=request.getServerName()%><%if(request.getServerPort() != 80 && request.getServerPort() != 443) out.print(":" + request.getServerPort());%><%=request.getContextPath()%>/mypage.html"/>
+			<input type="hidden" name="submit" value="true" />
+			<table>
+			    <tr>
+			        <td>アカウントＩＤ：</td>
+			        <td><input type="text" name="username"/></td>
+			    </tr>
+			    <tr>
+			        <td>パスワード：</td>
+			        <td><input type="password" name="password"/></td>
+			    </tr>
+			    <tr>
+			        <td colspan="2"><input type="submit" value="ログイン" /></td>
+			    </tr>
+			</table>
+		</form>
 		<!-- ショットカットボタンエリア：開始 -->
 		<dl class="quickstart tspace_n">
 			<dt><a href="mypage.html" title="ログイン"><img src="images/btn_b_login.gif" alt="ログイン"/></a></dt>
