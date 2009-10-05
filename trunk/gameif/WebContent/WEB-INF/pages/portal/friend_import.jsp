@@ -7,6 +7,9 @@
 	<meta name="description" content="ブラウザゲーム(WEBGAME)のポータルサイト" />
 	<title>友達メールアドレスインポート | ゲームイフ | ブラウザゲームのポータルサイト</title>
 	<script src="js/portal/validate.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		
+	</script>
 </head>
 
 <body>
@@ -26,7 +29,7 @@
 		紹介したい人を以下のリストから選択してください。
 	</div>
 	
-	<label><input type="checkbox" id="selAll" name="selAll"/> 全選択・解除</label>
+	<label><input type="checkbox" id="selAll" name="selAll" onchange="checkAll(this,'selectedFriends');"/> 全選択・解除</label>
 	<div class="select_mail" style="scrollbars:yes;">
 		<table align="center" style="scrollbars:yes;">
 			<s:iterator value="friendList" id="email" status="st">
