@@ -97,6 +97,19 @@
 		
         ]]>
 	</delete>
+	
+	<select id="selectCountByMemNumInTime"  parameterClass="inviteInfo" resultClass="int">
+      <![CDATA[
+        SELECT
+			count(invite_id)
+		FROM
+			invite_info
+		WHERE
+			mem_num = #memNum#
+		AND	invite_date >= DATE_FORMAT(#inviteDate#,'%Y-%m-%d')
+		AND	invite_date < DATE_ADD(DATE_FORMAT(#inviteDate#,'%Y-%m-%d'), INTERVAL 1 DAY)
+      ]]>
+	</select>
 
 
 </sqlMap>

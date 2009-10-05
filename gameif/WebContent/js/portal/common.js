@@ -6,6 +6,14 @@ function openPopup(url, weight, height) {
 				+ ", height=" + height
 				+ ", top=" + top
 				+ ", left=" + left
-				+ "toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no";
+				+ "toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, status=no";
 	window.open(url, winname, option);
+}
+
+function checkAll(obj, cName)
+{
+    var checkboxs = document.getElementsByName(cName);
+    for(var i=0;i<checkboxs.length;i++){
+    	checkboxs[i].checked = obj.checked;
+    }
 }

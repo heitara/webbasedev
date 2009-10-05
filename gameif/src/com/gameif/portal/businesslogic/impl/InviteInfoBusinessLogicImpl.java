@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gameif.common.businesslogic.BaseBusinessLogic;
+import com.gameif.common.exception.LogicException;
+import com.gameif.common.exception.OutOfMaxCountException;
 import com.gameif.common.util.ContextUtil;
 import com.gameif.portal.businesslogic.IInviteInfoBusinessLogic;
 import com.gameif.portal.constants.PortalConstants;
@@ -36,16 +38,27 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	 * @param inviteInfoDao
 	 */
 	@Transactional
-	public void saveInviteInfo(InviteInfo inviteInfo) {
+	public void saveInviteInfo(InviteInfo inviteInfo) throws LogicException {
 
 		/** 複数友達の場合、メールアドレースを「,」で分割 */
-		String[] mailToList = inviteInfo.getInviteMailTo()
-				.replace("\r\n", "\n").split("\n");
+		String[] mailToList = inviteInfo.getInviteMailTo().split(",");
+		
 		Date inviteDate = new Date();
+		
+		inviteInfo.setInviteDate(inviteDate);
+		inviteInfo.setMemNum(ContextUtil.getMemberNo());
+		Integer count = inviteInfoDao.selectCountByMemNumInTime(inviteInfo);
+		if (10 < (count + mailToList.length)) {
+			throw new OutOfMaxCountException("mail list is Out of max count!");
+		}
 
 		InviteInfo newInviteInfo = null;
 		for (int i = 0; i < mailToList.length; i++) {
-
+			
+			if (mailToList[i] == null || mailToList[i].trim().length() == 0) {
+				continue;
+			}
+			
 			newInviteInfo = new InviteInfo();
 
 			newInviteInfo.setMemNum(ContextUtil.getMemberNo());

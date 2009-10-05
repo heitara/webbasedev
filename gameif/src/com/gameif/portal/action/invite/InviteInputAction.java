@@ -1,6 +1,7 @@
 package com.gameif.portal.action.invite;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -15,6 +16,8 @@ import octazen.http.UserInputRequiredException;
 import octazen.captcha.CaptchaChallengeException;
 
 import com.gameif.common.action.ModelDrivenActionSupport;
+import com.gameif.common.exception.LogicException;
+import com.gameif.common.exception.OutOfMaxCountException;
 import com.gameif.common.util.ContextUtil;
 import com.gameif.portal.businesslogic.IInviteInfoBusinessLogic;
 import com.gameif.portal.businesslogic.IMasterInfoBusinessLogic;
@@ -208,7 +211,31 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 	 * @return　登録完了画面
 	 */
 	public String create() {
-		inviteInfoBusinessLogic.saveInviteInfo(this.getModel());
+		/** 複数友達の場合、メールアドレースを「,」で分割 */
+//		String[] mailToList = getModel().getInviteMailTo()
+//				.replace("\r\n", "\n").split("\n");
+		String[] mailToList = getModel().getInviteMailTo().split(",");
+		if (mailToList.length > 10) {
+			addFieldError("inviteMailTo", getText("inviteMailTo.maxLength"));
+			return INPUT;
+		}
+		
+		try {
+			
+			inviteInfoBusinessLogic.saveInviteInfo(this.getModel());
+			
+		} catch (OutOfMaxCountException ex) {
+			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
+					+ ex.getMessage());
+			addFieldError("inviteMailTo", getText("inviteMailTo.maxLength"));
+			return INPUT;
+			
+		} catch (LogicException lgex) {
+	
+			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
+					+ lgex.getMessage());
+			return "warning";
+		}
 		return SUCCESS;
 	}
 

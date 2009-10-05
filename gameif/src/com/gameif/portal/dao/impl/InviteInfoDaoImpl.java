@@ -32,4 +32,11 @@ public class InviteInfoDaoImpl extends AbstractBaseDao<InviteInfo, InviteInfo>
 				namespace + ".deleteInvalidInvite", cond);
 	}
 
+	@Override
+	public int selectCountByMemNumInTime(InviteInfo inviteInfo) {
+
+		return (Integer) (getSqlMapClientTemplate().queryForObject(namespace
+				+ ".selectCountByMemNumInTime", inviteInfo));
+	}
+
 }
