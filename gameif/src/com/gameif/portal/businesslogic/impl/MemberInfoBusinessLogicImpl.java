@@ -16,9 +16,11 @@ import com.gameif.common.util.ContextUtil;
 import com.gameif.common.util.SecurityUtil;
 import com.gameif.portal.businesslogic.IMemberInfoBusinessLogic;
 import com.gameif.portal.constants.PortalConstants;
+import com.gameif.portal.dao.IInviteInfoDao;
 import com.gameif.portal.dao.IMemberInfoDao;
 import com.gameif.portal.dao.IMemberLoginInfoDao;
 import com.gameif.portal.dao.ITempPwdInfoDao;
+import com.gameif.portal.entity.InviteInfo;
 import com.gameif.portal.entity.MemberInfo;
 import com.gameif.portal.entity.MemberLoginInfo;
 import com.gameif.portal.entity.TempPwdInfo;
@@ -31,6 +33,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	private IMemberLoginInfoDao memberLoginInfoDao;
 	private TemplateMailer templateMailer;
 	private ITempPwdInfoDao tempPwdInfoDao;
+	private IInviteInfoDao inviteInfoDao;
 
 	/**
 	 * 会員情報を登録する。
@@ -38,7 +41,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	 */
 	@Transactional
 	@Override
-	public void saveMemberInfo(MemberInfo memberInfo) {
+	public void saveMemberInfo(MemberInfo memberInfo, String inviteId) {
 		
 		// アカウントＩＤとメールアドレスは小文字に変換、両辺スペース削除
 		memberInfo.setMemId(memberInfo.getMemId().trim().toLowerCase());
@@ -77,14 +80,44 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		memberLoginInfo.setNickName(newMemberInfo.getNickName());
 		memberLoginInfo.setMemPwd(newMemberInfo.getMemPwd());
 		memberLoginInfo.setMemValidYNCd(newMemberInfo.getMemValidYNCd());
-		
 		memberLoginInfoDao.save(memberLoginInfo);
+
+		// 友達紹介する場合、紹介情報を更新する
+		updateInviteInfo(inviteId, newMemberInfo);
 
 		// お知らせメールを送信する。
 		HashMap<String, String> props = new HashMap<String, String>();
 		props.put("memId", memberInfo.getMemId());
 		props.put("nickName", memberInfo.getNickName());
 		templateMailer.sendAsyncMail(memberInfo.getMailPc(), "createMember", props);
+	}
+
+	/**
+	 * 紹介情報を更新する
+	 * @param inviteId 紹介情報Id
+	 * @param memberInfo 会員情報（新規登録会員）
+	 */
+	private void updateInviteInfo(String inviteId, MemberInfo memberInfo) {
+		
+		// 友達紹介する場合、紹介情報を更新する
+		if (inviteId == null || inviteId.trim().length() == 0) {
+			return;
+		}
+		
+		// 該当紹介情報をロックする
+		InviteInfo inviteInfo = inviteInfoDao.selectForUpdate(Long.parseLong(inviteId));
+		if (inviteInfo != null && inviteInfo.getFriendCreateDate() == null) {
+			// 登録済み
+			inviteInfo.setInviteStatus(PortalConstants.InviteStatus.REGISTERED);
+			// 登録日
+			inviteInfo.setFriendCreateDate(memberInfo.getEntryDate());
+			inviteInfo.setLastUpdateDate(memberInfo.getEntryDate());
+			inviteInfo.setLastUpdateUser(memberInfo.getMemNum().toString());
+			
+			// 紹介情報を更新する
+			inviteInfoDao.update(inviteInfo);
+		}
+		
 	}
 
 	/**
@@ -442,4 +475,12 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	public void setTempPwdInfoDao(ITempPwdInfoDao tempPwdInfoDao) {
 		this.tempPwdInfoDao = tempPwdInfoDao;
 	}
+
+	/**
+	 * @param inviteInfoDao the inviteInfoDao to set
+	 */
+	public void setInviteInfoDao(IInviteInfoDao inviteInfoDao) {
+		this.inviteInfoDao = inviteInfoDao;
+	}
+	
 }

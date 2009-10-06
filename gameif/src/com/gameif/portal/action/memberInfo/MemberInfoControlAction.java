@@ -13,6 +13,7 @@ import com.gameif.common.exception.AuthorityException;
 import com.gameif.common.exception.LogicException;
 import com.gameif.common.util.ContextUtil;
 import com.gameif.common.util.DateUtil;
+import com.gameif.portal.businesslogic.IInviteInfoBusinessLogic;
 import com.gameif.portal.businesslogic.IMasterInfoBusinessLogic;
 import com.gameif.portal.businesslogic.IMemberInfoBusinessLogic;
 import com.gameif.portal.constants.PortalConstants;
@@ -38,6 +39,7 @@ public class MemberInfoControlAction extends
 	private String birthD;
 
 	private String tempKey;
+	private String inviteId; 
 
 	public String getKanjiNameForCheck() {
 
@@ -88,6 +90,9 @@ public class MemberInfoControlAction extends
 	 * @return　会員情報入力画面コード
 	 */
 	public String registry() {
+		
+		// 友達招待から登録する
+		setInviteId(ServletActionContext.getRequest().getParameter("InviteId"));
 
 		return INPUT;
 	}
@@ -99,7 +104,7 @@ public class MemberInfoControlAction extends
 	 */
 	public String create() {
 
-		memberInfoBusinessLogic.saveMemberInfo(getModel());
+		memberInfoBusinessLogic.saveMemberInfo(getModel(), getInviteId());
 
 		return SUCCESS;
 	}
@@ -319,6 +324,20 @@ public class MemberInfoControlAction extends
 		this.tempKey = tempKey;
 	}
 
+	/**
+	 * @return the inviteId
+	 */
+	public String getInviteId() {
+		return inviteId;
+	}
+
+	/**
+	 * @param inviteId the inviteId to set
+	 */
+	public void setInviteId(String inviteId) {
+		this.inviteId = inviteId;
+	}
+
 	public String getKaptcha() {
 		return kaptcha;
 	}
@@ -352,4 +371,5 @@ public class MemberInfoControlAction extends
 			IMasterInfoBusinessLogic masterInfoBusinessLogic) {
 		this.masterInfoBusinessLogic = masterInfoBusinessLogic;
 	}
+	
 }

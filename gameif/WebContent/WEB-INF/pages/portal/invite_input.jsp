@@ -41,6 +41,7 @@
 						<tr class="space_row">
 							<td colspan="2"></td>
 						</tr>
+						<!-- 
 						<tr>
 							<th><span class="required">*</span><label for="game">紹介するゲーム：</label></th>
 							<td>
@@ -53,6 +54,17 @@
 							<th><span class="required">*</span><label for="message_tmpl">招待メッセージ：</label></th>
 							<td>
 								<s:select name="inviteTemplate" list="masterInfoBusinessLogic.inviteTemplateList" listKey="inviteTemplateId" listValue="inviteTemplateSubject"  headerKey="0" headerValue="" cssClass="big"/>
+								<br/>
+								<span class="explain">※テンプレートから選ぶと、大枠が自動的に入力されますので、<br/>入力時間を省けられます。</span>
+							</td>
+						</tr>
+						 -->
+						<tr>
+							<th valign="top"><span class="required">*</span><label for="game">紹介するゲーム：</label><br/><br/>
+								<span class="required">*</span><label for="game">招待メッセージ：</label></th>
+							<td>
+								<s:doubleselect name="titleId" list="titleList" listKey="titleId" listValue="titleName" doubleName="inviteTemplate" doubleList="inviteTemplateList.get(top.titleId)" doubleListKey="inviteTemplateId" doubleListValue="inviteTemplateSubject" />
+								
 								<br/>
 								<span class="explain">※テンプレートから選ぶと、大枠が自動的に入力されますので、<br/>入力時間を省けられます。</span>
 							</td>

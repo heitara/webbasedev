@@ -12,7 +12,7 @@ public interface IMemberInfoBusinessLogic {
 	 * @param memberInfo 会員情報（新規登録時必要な項目が格納されていること）
 	 */
 	@Transactional
-	public void saveMemberInfo(MemberInfo memberInfo);
+	public void saveMemberInfo(MemberInfo memberInfo, String inviteId);
 
 	/**
 	 * 会員パスワードを変更する。

@@ -6,6 +6,7 @@ import com.gameif.common.bean.ComSearchCondition;
 import com.gameif.common.dao.impl.AbstractBaseDao;
 import com.gameif.portal.dao.IInviteInfoDao;
 import com.gameif.portal.entity.InviteInfo;
+import com.gameif.portal.entity.MemberInfo;
 
 public class InviteInfoDaoImpl extends AbstractBaseDao<InviteInfo, InviteInfo>
 		implements IInviteInfoDao {
@@ -37,6 +38,13 @@ public class InviteInfoDaoImpl extends AbstractBaseDao<InviteInfo, InviteInfo>
 
 		return (Integer) (getSqlMapClientTemplate().queryForObject(namespace
 				+ ".selectCountByMemNumInTime", inviteInfo));
+	}
+
+	@Override
+	public InviteInfo selectForUpdate(Long inviteId) {
+
+		return (InviteInfo) (getSqlMapClientTemplate().queryForObject(namespace
+				+ ".selectForUpdate", inviteId));
 	}
 
 }
