@@ -19,7 +19,9 @@ function openPopup(url, weight, height) {
 function checkAll(obj, cName) {
     var checkboxs = document.getElementsByName(cName);
     for(var i=0;i<checkboxs.length;i++){
-    	checkboxs[i].checked = obj.checked;
+    	if (!checkboxs[i].disabled) {
+    		checkboxs[i].checked = obj.checked;
+    	}
     }
 }
 

@@ -29,7 +29,7 @@
 				<table class="friendhist tspace_y" align="center">
 					<tr>
 						<th class="select">
-							<s:checkbox name="selAll" value="false" fieldValue="1"/>
+							<s:checkbox name="selAll" value="false" fieldValue="1" onchange="checkAll(this,'selectedInvites');"/>
 						</th>
 						<th class="friend">友達</th>
 						<th class="mail">メールアドレス</th>
@@ -53,12 +53,7 @@
 							<td class="friend"><s:property value="friendName"/></td>
 							<td class="mail"><s:property value="inviteMailTo"/></td>
 							<td>
-								<s:if test='inviteStatus.equals("0")'>
-									応答無し
-								</s:if>
-								<s:else>
-									会員登録済
-								</s:else>
+								<s:property value="portalProperties.inviteStatusList[inviteStatus]"/>
 							</td>
 							<td><s:property value="inviteDate"/></td>
 							<td><s:property value="friendCreateDate"/></td>
