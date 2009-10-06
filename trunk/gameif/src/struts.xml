@@ -130,18 +130,9 @@
 		</action>
 		
 		<action name="*InviteHist" class="inviteHistAction" method="{1}">
-			<interceptor-ref name="scopedModelDriven">
-				<param name="scope">request</param>
-				<param name="name">inviteInfo</param>
-				<param name="className">com.gameif.portal.entity.InviteInfo</param>
-			</interceptor-ref>
-			<interceptor-ref name="gameifStack" />
-			<interceptor-ref name="store">
-				<param name="operationMode">NONE</param>
-			</interceptor-ref>
-			
 			<result name="input">/WEB-INF/pages/portal/invite_hist.jsp</result>
-			<result name="success"  type="redirect">/finishedPage.html?action=createInvite</result>
+			<result name="sendMailSuccess"  type="redirect">/finishedPage.html?action=sendMailAgain</result>
+			<result name="deleteSuccess"  type="redirect">/finishedPage.html?action=deleteInvite</result>
 		</action>
 
 		<action name="playGame" class="titlePlayControlAction">

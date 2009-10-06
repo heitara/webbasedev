@@ -20,6 +20,8 @@ public class InviteHistAction extends ModelDrivenActionSupport<InviteInfo> {
 	private PortalProperties portalProperties;
 
 	private String inviteStatusSelect;
+	
+	private List<Long> selectedInvites;
 
 	/**
 	 * @return the portalProperties
@@ -60,6 +62,13 @@ public class InviteHistAction extends ModelDrivenActionSupport<InviteInfo> {
 	}
 
 	/**
+	 * @return the inviteInfoBusinessLogic
+	 */
+	public IInviteInfoBusinessLogic getInviteInfoBusinessLogic() {
+		return inviteInfoBusinessLogic;
+	}
+
+	/**
 	 * @return the inviteStatusSelect
 	 */
 	public String getInviteStatusSelect() {
@@ -72,6 +81,20 @@ public class InviteHistAction extends ModelDrivenActionSupport<InviteInfo> {
 	 */
 	public void setInviteStatusSelect(String inviteStatusSelect) {
 		this.inviteStatusSelect = inviteStatusSelect;
+	}
+
+	/**
+	 * @return the selectedInvites
+	 */
+	public List<Long> getSelectedInvites() {
+		return selectedInvites;
+	}
+
+	/**
+	 * @param selectedInvites the selectedInvites to set
+	 */
+	public void setSelectedInvites(List<Long> selectedInvites) {
+		this.selectedInvites = selectedInvites;
 	}
 
 	/**
@@ -91,18 +114,24 @@ public class InviteHistAction extends ModelDrivenActionSupport<InviteInfo> {
 	 * @return
 	 */
 	public String sendMail() {
-		// TODO:再送信機能まだ実装しない
-		return SUCCESS;
+		
+		// 選択した友達に再送信する
+		inviteInfoBusinessLogic.sendMailAgain(getSelectedInvites());
+		
+		return "sendMailSuccess";
 	}
 
 	/**
-	 * 選択した友達を削除する
+	 * 選択した紹介情報を削除する
 	 * 
 	 * @return
 	 */
 	public String delete() {
-		// TODO:削除機能まだ実装しない
-		return SUCCESS;
+		
+		// 選択した紹介情報を削除する
+		inviteInfoBusinessLogic.deleteInviteInfo(getSelectedInvites());
+		
+		return "deleteSuccess";
 	}
 
 }
