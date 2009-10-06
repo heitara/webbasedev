@@ -124,7 +124,9 @@
 			<result name="inputMailSel">/WEB-INF/pages/portal/mail_select.jsp</result>
 			<result name="friendImport">/WEB-INF/pages/portal/friend_import.jsp</result>
 			<result name="success"  type="redirect">/finishedPage.html?action=createInvite</result>
+			<!-- 
 			<result name="importFriends" type="chain">inputInvite</result>
+			 -->
 		</action>
 		
 		<action name="*InviteHist" class="inviteHistAction" method="{1}">

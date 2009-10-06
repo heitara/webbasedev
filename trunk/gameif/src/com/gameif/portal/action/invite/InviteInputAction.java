@@ -1,9 +1,9 @@
 package com.gameif.portal.action.invite;
 
 import java.io.IOException;
-import java.util.Date;
-import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import octazen.addressbook.AddressBookAuthenticationException;
 import octazen.addressbook.AddressBookException;
@@ -11,9 +11,9 @@ import octazen.addressbook.Contact;
 import octazen.addressbook.SimpleAddressBookImporter;
 import octazen.addressbook.UnexpectedFormatException;
 import octazen.addressbook.UnsupportedAddressBookException;
+import octazen.captcha.CaptchaChallengeException;
 import octazen.http.HttpException;
 import octazen.http.UserInputRequiredException;
-import octazen.captcha.CaptchaChallengeException;
 
 import com.gameif.common.action.ModelDrivenActionSupport;
 import com.gameif.common.exception.LogicException;
@@ -23,7 +23,9 @@ import com.gameif.portal.businesslogic.IInviteInfoBusinessLogic;
 import com.gameif.portal.businesslogic.IMasterInfoBusinessLogic;
 import com.gameif.portal.businesslogic.IMemberInfoBusinessLogic;
 import com.gameif.portal.entity.InviteInfo;
+import com.gameif.portal.entity.InviteTemplateMst;
 import com.gameif.portal.entity.MemberInfo;
+import com.gameif.portal.entity.TitleMst;
 import com.gameif.portal.helper.PortalProperties;
 
 public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
@@ -37,6 +39,8 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 	private IMasterInfoBusinessLogic masterInfoBusinessLogic;
 	private IMemberInfoBusinessLogic memberInfoBusinessLogic;
 	private PortalProperties portalProperties;
+	
+	private Map<Integer, List<InviteTemplateMst>> inviteTemplateList;
 
 	private String mailAdd;
 	private String domain;
@@ -44,7 +48,7 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 	
 	private List<Contact> friendList;
 	
-	private List<String> selectedFriends;
+//	private List<String> selectedFriends;
 
 	/**
 	 * @param inviteInfoBusinessLogic
@@ -112,6 +116,21 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 	}
 
 	/**
+	 * @return the inviteTemplateList
+	 */
+	public Map<Integer, List<InviteTemplateMst>> getInviteTemplateList() {
+		return inviteTemplateList;
+	}
+
+	/**
+	 * @param inviteTemplateList the inviteTemplateList to set
+	 */
+	public void setInviteTemplateList(
+			Map<Integer, List<InviteTemplateMst>> inviteTemplateList) {
+		this.inviteTemplateList = inviteTemplateList;
+	}
+
+	/**
 	 * @return the mailAdd
 	 */
 	public String getMailAdd() {
@@ -167,19 +186,19 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 		this.friendList = friendList;
 	}
 
-	/**
-	 * @return the selectedFriends
-	 */
-	public List<String> getSelectedFriends() {
-		return selectedFriends;
-	}
-
-	/**
-	 * @param selectedFriends the selectedFriends to set
-	 */
-	public void setSelectedFriends(List<String> selectedFriends) {
-		this.selectedFriends = selectedFriends;
-	}
+//	/**
+//	 * @return the selectedFriends
+//	 */
+//	public List<String> getSelectedFriends() {
+//		return selectedFriends;
+//	}
+//
+//	/**
+//	 * @param selectedFriends the selectedFriends to set
+//	 */
+//	public void setSelectedFriends(List<String> selectedFriends) {
+//		this.selectedFriends = selectedFriends;
+//	}
 
 	/**
 	 * 友達紹介画面に案内する。
@@ -187,6 +206,16 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 	 * @return 友達紹介入力画面
 	 */
 	public String input() {
+		Map<Integer, List<InviteTemplateMst>> inviteTemp = new LinkedHashMap<Integer, List<InviteTemplateMst>>();
+		List<TitleMst> titleList = masterInfoBusinessLogic.getValidTitleList();
+		
+		List<InviteTemplateMst> tempList = null;
+		for (int i = 0; i < titleList.size(); i++) {
+			tempList = masterInfoBusinessLogic.getInviteTemplateByTitleId(titleList.get(i).getTitleId());
+			inviteTemp.put(titleList.get(i).getTitleId(), tempList);
+		}
+		this.setInviteTemplateList(inviteTemp);
+		
 		// 紹介者の会員番号
 		getModel().setMemNum(ContextUtil.getMemberNo());
 		
@@ -197,9 +226,10 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 		if (memberInfo != null) {
 			// メールアドレスを紹介者のメールアドレスに設定する
 			getModel().setInviteMailFrom(memberInfo.getMailPc());
-			if (selectedFriends != null){
-				getModel().setInviteMailTo(selectedFriends.toString());
-			}
+			
+//			if (selectedFriends != null){
+//				getModel().setInviteMailTo(selectedFriends.toString());
+//			}
 		}
 		
 		return INPUT;
@@ -212,9 +242,8 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 	 */
 	public String create() {
 		/** 複数友達の場合、メールアドレースを「,」で分割 */
-//		String[] mailToList = getModel().getInviteMailTo()
-//				.replace("\r\n", "\n").split("\n");
-		String[] mailToList = getModel().getInviteMailTo().split(",");
+		String[] mailToList = getModel().getInviteMailTo().trim().replace("\r\n", "\n").split("\n");
+//		String[] mailToList = getModel().getInviteMailTo().split(",");
 		if (mailToList.length > 10) {
 			addFieldError("inviteMailTo", getText("inviteMailTo.maxLength"));
 			return INPUT;
@@ -261,27 +290,54 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 //			}
 
 		} catch (AddressBookAuthenticationException e) {
-			System.err.println("Sorry, bad user name or password");
-		} catch (UnexpectedFormatException e) {
-			System.err.println("Server error. Received unexpected content");
-		} catch (UnsupportedAddressBookException e) {
-			System.err.println("Unsupported webmail");
-		} catch (CaptchaChallengeException e) {
-			System.err.println("A captcha challenge was raised");
-		} catch (UserInputRequiredException e) {
-			System.err.println("Need to answer some questions in the webmail service");
-		} catch (AddressBookException e) {
-			System.err.println("Unsupported webmail / internal error");
-		} catch (IOException e) {
-			System.err.println("IO exception:" + e.getMessage());
-		} catch (HttpException e) {
-			System.err.println("General http request exception: "
+			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
 					+ e.getMessage());
+			// bad user name or password
+			addFieldError("loginError", getText("loginError.invalidMailadd"));
+			return "inputMailSel";
+		} catch (UnexpectedFormatException e) {
+			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
+					+ e.getMessage());
+			// Server error. Received unexpected content
+			addFieldError("loginError", getText("loginError.unexpectedContent"));
+			return "inputMailSel";
+		} catch (UnsupportedAddressBookException e) {
+			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
+					+ e.getMessage());
+			// Unsupported webmail
+			addFieldError("loginError", getText("loginError.UnsupportedWebmail"));
+			return "inputMailSel";
+		} catch (CaptchaChallengeException e) {
+			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
+					+ e.getMessage());
+			// A captcha challenge was raised
+			addFieldError("loginError", getText("loginError.unexpectedError"));
+			return "inputMailSel";
+		} catch (UserInputRequiredException e) {
+			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
+					+ e.getMessage());
+			// Need to answer some questions in the webmail service
+			addFieldError("loginError", getText("loginError.unexpectedError"));
+			return "inputMailSel";
+		} catch (AddressBookException e) {
+			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
+					+ e.getMessage());
+			// Unsupported webmail / internal error
+			addFieldError("loginError", getText("loginError.unexpectedError"));
+			return "inputMailSel";
+		} catch (IOException e) {
+			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
+					+ e.getMessage());
+			// IO exception
+			addFieldError("loginError", getText("loginError.unexpectedError"));
+			return "inputMailSel";
+		} catch (HttpException e) {
+			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
+					+ e.getMessage());
+			// General http request exception
+			addFieldError("loginError", getText("loginError.unexpectedError"));
+			return "inputMailSel";
 		}
 		return "friendImport";
-	}
-	
-	public String importFriends(){
-		return "importFriends";
 	}
 }

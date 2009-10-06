@@ -12,8 +12,8 @@
 		<pattern>/mem_login.jsp</pattern>
 		<pattern>/header.jsp</pattern>
 		-->
-		<pattern>portal/mail_select.jsp</pattern>
-		<pattern>portal/friend_import.jsp</pattern>
+		<pattern>./portal/mail_select.jsp</pattern>
+		<pattern>./portal/friend_import.jsp</pattern>
 	</excludes>
 	
 </decorators>

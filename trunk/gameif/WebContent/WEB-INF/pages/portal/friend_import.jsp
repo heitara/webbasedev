@@ -7,9 +7,7 @@
 	<meta name="description" content="ブラウザゲーム(WEBGAME)のポータルサイト" />
 	<title>友達メールアドレスインポート | ゲームイフ | ブラウザゲームのポータルサイト</title>
 	<script src="js/portal/validate.js" type="text/javascript"></script>
-	<script type="text/javascript">
-		
-	</script>
+	<script src="js/portal/common.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -45,7 +43,8 @@
 	</div>
 
 	<div class="submit">
-		<s:submit action="importFriendsInvite" value="紹介状に追加" cssClass="submit"/><input type="button" value="キャンセル" class="submit" onclick="window.close();"/>
+		<input type="button" value="紹介状に追加" class="submit" onclick="importFriends('selectedFriends');"/>
+		<input type="button" value="キャンセル" class="submit" onclick="window.close();"/>
 	</div>
 
 </form>

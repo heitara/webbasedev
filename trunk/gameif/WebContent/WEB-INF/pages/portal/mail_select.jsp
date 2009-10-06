@@ -27,6 +27,13 @@
 		パスワードはこの検索で一回使用するだけで、保存はしません。
 	</div>
 	<dl class="select_mail">
+		<dt>
+			<span></span>
+		</dt>
+		<dd>
+			<span class="input_error"><s:fielderror><s:param>loginError</s:param></s:fielderror></span>
+		</dd>
+		
 		<dt><span class="required">*</span> <label for="mail">メールアドレス：</label></dt>
 		<dd>
 			<s:textfield name="mailAdd" maxlength="100" cssClass="ime_mode_n" title="メールアドレス" onblur="validate(this, 'REQ');"/>
@@ -45,6 +52,7 @@
 		
 	</dl>
 	<div class="submit">
+		<s:token/>
 		<s:submit action="loginMailSelInvite" value="友達を検索" cssClass="submit"/>
 		<input type="button" value="キャンセル" class="submit" onclick="window.close();"/>
 	</div>

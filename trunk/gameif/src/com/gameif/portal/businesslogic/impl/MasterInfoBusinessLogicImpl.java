@@ -127,6 +127,14 @@ public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		return inviteTemplateDao.selectInviteTemplateByTitleId(titleId);
 	}
 	
+	/**
+	 * 紹介テンプレートを取得する
+	 */
+	@Override
+	public List<InviteTemplateMst> getInviteTemplateList() {
+		return inviteTemplateDao.selectAll(null);
+	}
+	
 	@Override
 	public ServerMst getServer(ServerMst serverMst) {
 		
