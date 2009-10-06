@@ -37,7 +37,7 @@
 		<dt><span class="required">*</span> <label for="mail">メールアドレス：</label></dt>
 		<dd>
 			<s:textfield name="mailAdd" maxlength="100" cssClass="ime_mode_n" title="メールアドレス" onblur="validate(this, 'REQ');"/>
-			<s:select name="domain" list="portalProperties.domainListMap" headerKey="" headerValue="" title="ドメイン" onblur="validate(this, 'REQ');"/>
+			<s:select name="domain" list="portalProperties.domainListMap" headerKey="" headerValue="" title="ドメイン" onblur="validate(this, 'REQ');" />
 			<span id="error_mailAdd" class="input_error"><s:fielderror><s:param>mailAdd</s:param></s:fielderror></span>
 			<span id="error_domain" class="input_error"><s:fielderror><s:param>domain</s:param></s:fielderror></span>
 		</dd>
