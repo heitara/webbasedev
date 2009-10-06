@@ -45,3 +45,27 @@ function importFriends(cName) {
     
     window.close();
 }
+
+function selectInvitedHist(obj, cName){
+	var status = obj.value;
+    var select = document.getElementsByTagName("tr");
+    for(var i=0;i<select.length;i++){
+    	if (select[i].id.indexOf(cName) < 0 || status == "9999") {
+    		select[i].style.display = "";
+    	} else {
+        	if (select[i].id == cName + status) {
+        		select[i].style.display = "";
+        	} else {
+        		select[i].style.display = "none";
+        	}
+    	}
+    }
+    
+    
+    var checkboxs = document.getElementsByName("selectedInvites");
+    for(var j=0;j<checkboxs.length;j++){
+    	checkboxs[j].checked = false;
+    }
+    
+    document.getElementById("selAll").checked = false;
+}
