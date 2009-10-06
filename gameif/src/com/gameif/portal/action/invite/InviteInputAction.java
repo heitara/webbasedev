@@ -26,6 +26,7 @@ import com.gameif.portal.entity.InviteInfo;
 import com.gameif.portal.entity.InviteTemplateMst;
 import com.gameif.portal.entity.MemberInfo;
 import com.gameif.portal.entity.TitleMst;
+import com.gameif.portal.helper.PortalProperties;
 
 public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 
@@ -37,6 +38,7 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 	private IInviteInfoBusinessLogic inviteInfoBusinessLogic;
 	private IMasterInfoBusinessLogic masterInfoBusinessLogic;
 	private IMemberInfoBusinessLogic memberInfoBusinessLogic;
+	private PortalProperties portalProperties;
 	
 	private Map<Integer, List<InviteTemplateMst>> inviteTemplateList;
 	private List<TitleMst> titleList;
@@ -46,8 +48,6 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 	private String memPwd;
 	
 	private List<Contact> friendList;
-	
-//	private List<String> selectedFriends;
 
 	/**
 	 * @param inviteInfoBusinessLogic
@@ -98,6 +98,20 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 	public void setMemberInfoBusinessLogic(
 			IMemberInfoBusinessLogic memberInfoBusinessLogic) {
 		this.memberInfoBusinessLogic = memberInfoBusinessLogic;
+	}
+
+	/**
+	 * @return the portalProperties
+	 */
+	public PortalProperties getPortalProperties() {
+		return portalProperties;
+	}
+
+	/**
+	 * @param portalProperties the portalProperties to set
+	 */
+	public void setPortalProperties(PortalProperties portalProperties) {
+		this.portalProperties = portalProperties;
 	}
 
 	/**
@@ -185,20 +199,6 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 		this.friendList = friendList;
 	}
 
-//	/**
-//	 * @return the selectedFriends
-//	 */
-//	public List<String> getSelectedFriends() {
-//		return selectedFriends;
-//	}
-//
-//	/**
-//	 * @param selectedFriends the selectedFriends to set
-//	 */
-//	public void setSelectedFriends(List<String> selectedFriends) {
-//		this.selectedFriends = selectedFriends;
-//	}
-
 	/**
 	 * 画面初期化
 	 */
@@ -235,10 +235,6 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 		if (memberInfo != null) {
 			// メールアドレスを紹介者のメールアドレスに設定する
 			getModel().setInviteMailFrom(memberInfo.getMailPc());
-			
-//			if (selectedFriends != null){
-//				getModel().setInviteMailTo(selectedFriends.toString());
-//			}
 		}
 		
 		return INPUT;
