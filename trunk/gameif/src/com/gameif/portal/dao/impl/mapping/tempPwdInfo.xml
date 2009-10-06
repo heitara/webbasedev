@@ -21,7 +21,8 @@
 	]]>
 	</delete>
 	
-	<insert id = "save" parameterClass="tempPwdInfo">
+	<insert id = "save" parameterClass="tempPwdInfo"> 
+        <![CDATA[
 		INSERT INTO temp_pwd_info
 			(mail_pc,
 			created_date,
@@ -32,6 +33,7 @@
 			#createdDate#,
 			#memNum#,
 			#tempKey#)
+        ]]>
 	</insert>
 
 	<select id="selectByMemNumAndTempKey" resultMap="tempPwdResult">   
