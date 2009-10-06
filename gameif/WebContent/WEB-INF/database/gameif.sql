@@ -97,6 +97,7 @@ CREATE TABLE  `invite_info` (
   `title_id` int(11) DEFAULT NULL,
   `invite_status` char(1) DEFAULT NULL,
   `friend_create_date` datetime DEFAULT NULL,
+  `friend_name` varchar(100) DEFAULT NULL,
   `delete_flag` char(1) DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
   `created_user` varchar(50) DEFAULT NULL,
