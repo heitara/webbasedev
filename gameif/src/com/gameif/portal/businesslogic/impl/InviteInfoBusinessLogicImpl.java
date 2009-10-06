@@ -108,7 +108,7 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 			// 紹介するゲーム
 			props.put("titleName", newInviteInfo.getTitleId().toString());
 			// データID
-			props.put("inviteId", "2");
+			props.put("inviteId", newInviteInfo.getInviteId().toString());
 			// 招待メッセージ
 			props.put("inviteMsg",newInviteInfo.getInviteMsg());
 			// 差出人
