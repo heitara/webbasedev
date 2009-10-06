@@ -13,7 +13,7 @@
 		<dl class="light_box tspace_n">
 			<dt><strong>友達紹介</strong><span><a href="showInviteHist.html">► 友達紹介履歴</a></span></dt>
 			<dd>
-				<s:form name="frm_invite_input" method="post" cssClass="entry">
+				<s:form name="frm_invite_input" action="createInvite" method="post" cssClass="entry">
 					<table>
 						<tr>
 							<th><span class="required">*</span><label for="mail_from">紹介者のメールアドレス：</label></th>
@@ -25,7 +25,7 @@
 						<tr>
 							<th><span class="required">*</span><label for="friends">友達のメールアドレス：</label></th>
 							<td>
-								<s:textarea name="inviteMailTo" rows="10" cssClass="big ime_mode_n f_left" title="友達のメールアドレス" onblur="validate(this, 'REQ');"/>
+								<s:textarea name="inviteMailTo" id="inviteMailTo" rows="10" cssClass="big ime_mode_n f_left" title="友達のメールアドレス" onblur="validate(this, 'REQ');"/>
 								<div class=" mail_import">
 									<span class="explain">下記のＷＥＢメールならアドレス帳から直接アドレスをインポートすることができます。</span><br/>
 									<a href="javascript:openPopup('inputMailSelInvite.html', 600, 540);" title="hotmailアドレス帳からインポートする。"><img src="images/icon_hotmail.gif"/></a><br/>
@@ -38,7 +38,9 @@
 								<span class="explain">※複数人の場合、一行に一件ずつ入力してください。</span>
 							</td>
 						</tr>
-						<tr class="space_row"><td colspan="2"></td></tr>
+						<tr class="space_row">
+							<td colspan="2"></td>
+						</tr>
 						<tr>
 							<th><span class="required">*</span><label for="game">紹介するゲーム：</label></th>
 							<td>
@@ -50,7 +52,7 @@
 						<tr>
 							<th><span class="required">*</span><label for="message_tmpl">招待メッセージ：</label></th>
 							<td>
-								<s:select name="inviteTemplate" list="masterInfoBusinessLogic.validTitleList" listKey="titleId" listValue="titleName"  headerKey="0" headerValue="" cssClass="big"/>
+								<s:select name="inviteTemplate" list="masterInfoBusinessLogic.inviteTemplateList" listKey="inviteTemplateId" listValue="inviteTemplateSubject"  headerKey="0" headerValue="" cssClass="big"/>
 								<br/>
 								<span class="explain">※テンプレートから選ぶと、大枠が自動的に入力されますので、<br/>入力時間を省けられます。</span>
 							</td>
@@ -58,14 +60,14 @@
 						<tr>
 							<th></th>
 							<td>
-								<s:textarea name="inviteMsg" rows="15" cssClass="big ime_mode_n" cssStyle="width:360px;" title="招待メッセージ" onblur="validate(this, 'REQ,ZEN,LEN_10_1000');" />
+								<s:textarea name="inviteMsg" rows="15" cssClass="big ime_mode_n" cssStyle="width:360px;" title="招待メッセージ" onblur="validate(this, 'REQ,LEN_5_1000');" />
 								<span id="error_inviteMsg" class="input_error"><s:fielderror><s:param>inviteMsg</s:param></s:fielderror></span><br/>
 								<span class="explain">※招待メールの本文を入力してください。</span>
 							</td>
 						</tr>
 					</table>
 					<div class="submit">
-						<s:submit action="createInvite" value="送信" cssClass="submit"></s:submit>
+						<s:submit value="送信" cssClass="submit"></s:submit>
 						<s:reset value="クリア" cssClass="submit"></s:reset>
 					</div>
 	

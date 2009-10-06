@@ -36,6 +36,9 @@
 		<property name="inviteInfoDao">
 			<ref bean="inviteInfoDao" />
 		</property>
+		<property name="templateMailer">
+			<ref bean="templateMailer" />
+		</property>
 	</bean>
 	
 	<!-- masterInfoBusinessLogic -->
@@ -59,11 +62,9 @@
 		<property name="inquiryKindMstDao">
 			<ref bean="inquiryKindMstDao" />
 		</property>
-		<!-- 
 		<property name="inviteTemplateDao">
 			<ref bean="inviteTemplateDao" />
 		</property>
-		 -->
 	</bean>
 	
 	<!-- titlePlayBusinessLogic -->

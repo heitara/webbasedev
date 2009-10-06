@@ -72,6 +72,13 @@
 		</property>
 	</bean>
 	
+	<!-- inviteTemplateDao -->
+	<bean id="inviteTemplateDao" class="com.gameif.portal.dao.impl.InviteTemplateDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>inviteTemplateMst</value>
+		</property>
+	</bean>
+	
 	<!-- serverMstDao -->
 	<bean id="serverMstDao" class="com.gameif.portal.dao.impl.ServerMstDaoImpl" parent="baseDao">
 		<property name="namespace">

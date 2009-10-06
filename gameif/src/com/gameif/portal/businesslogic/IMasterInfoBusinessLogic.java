@@ -18,6 +18,7 @@ public interface IMasterInfoBusinessLogic {
 	public List<TitleMst> getValidTitleList();
 	public List<InquiryKindMst> getAllInquiryKindList();
 	public List<InviteTemplateMst> getInviteTemplateByTitleId(Integer titleId);
+	public List<InviteTemplateMst> getInviteTemplateList();
 	
 	public ServerMst getServer(ServerMst serverMst);
 	public ServerMst getServerByDomain(String domain);

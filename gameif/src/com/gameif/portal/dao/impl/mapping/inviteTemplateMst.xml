@@ -14,6 +14,22 @@
 		<result property="lastUpdateUser" column="last_update_user"/>
 	</resultMap>
 
+	<select id="selectAll" resultMap="inviteTemplateResult">   
+        <![CDATA[
+        SELECT
+			invite_template_id,
+			title_id,
+			invite_template_subject,
+			invite_template_msg,
+			created_date,
+			created_user,
+			last_update_date,
+			last_update_user
+		FROM
+			invite_template_mst
+        ]]>
+	</select>
+
 	<select id="selectInviteTemplateByTitleId" resultMap="inviteTemplateResult">   
         <![CDATA[
         SELECT

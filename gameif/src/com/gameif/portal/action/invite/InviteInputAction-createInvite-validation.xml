@@ -34,9 +34,5 @@
 			<param name="trim">true</param>
         	<message><![CDATA[<br/>招待メッセージを入力してください。]]></message>
         </field-validator>
-        <field-validator type="regex" short-circuit="true">
-        	<param name="expression"><![CDATA[([^ -~｡-ﾟ]*)]]></param>
-        	<message><![CDATA[<br/>招待メッセージは全角文字で入力してください。]]></message>
-        </field-validator>
     </field>
 </validators>

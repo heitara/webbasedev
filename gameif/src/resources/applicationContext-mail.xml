@@ -62,6 +62,13 @@
 						<entry key="format" value="text"/>
 					</map>
 				</entry>
+				<entry key="inviteFriend">
+					<map>
+						<entry key="title" value="【ゲームイフ】お友達が招待しています‏"/>
+						<entry key="template" value="inviteFriend.ftl"/>
+						<entry key="format" value="text"/>
+					</map>
+				</entry>
 			</map>
 		</property>
 	</bean>
