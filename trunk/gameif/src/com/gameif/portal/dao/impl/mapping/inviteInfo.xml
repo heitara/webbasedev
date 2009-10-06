@@ -23,7 +23,8 @@
 		<result property="lastUpdateUser" column="last_update_user"/>
 	</resultMap>
 	
-	<insert id = "save" parameterClass="inviteInfo">
+	<insert id = "save" parameterClass="inviteInfo"> 
+        <![CDATA[
 		INSERT INTO invite_info
 			(mem_num,
 			invite_mail_from,
@@ -52,6 +53,12 @@
 			#createdUser#,
 			#lastUpdateDate#,
 			#lastUpdateUser#)
+        ]]>
+		<selectKey resultClass="java.lang.Long" keyProperty="inviteId">   
+        	<![CDATA[
+			SELECT last_insert_id() as invite_id
+        	]]>
+		</selectKey>
 	</insert>
 
 	<select id="selectInviteHistByMemNum" parameterClass="inviteInfo" resultMap="inviteResult">   
