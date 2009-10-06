@@ -6,6 +6,7 @@
 	<typeAlias alias="inquiryInfo" type="com.gameif.portal.entity.InquiryInfo" />
 	
 	<insert id = "save" parameterClass="inquiryInfo">
+        <![CDATA[
 		INSERT INTO inquiry_info
 			(inquiry_date,
 			mem_num,
@@ -62,6 +63,7 @@
 			#createdUser#,
 			#lastUpdateDate#,
 			#lastUpdateUser#)
+        ]]>
 	</insert>
 
 
