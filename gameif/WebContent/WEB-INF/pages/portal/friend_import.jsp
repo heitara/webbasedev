@@ -11,7 +11,7 @@
 </head>
 
 <body>
-<form action="fimres.html" method="post" class="address_sel" style="scrollbars:yes;">
+<s:form name="frm_friend_import" method="post" cssClass="address_sel">
 <dl class="pop_top">
 	<dt><a href="http://www.game-if.com"><img src="images/logo.gif" title="WEBGAMEポータル ゲームイフ" border="0"/></a></dt>
 	<dd>
@@ -47,7 +47,7 @@
 		<input type="button" value="キャンセル" class="submit" onclick="window.close();"/>
 	</div>
 
-</form>
+</s:form>
 
 </body>
 

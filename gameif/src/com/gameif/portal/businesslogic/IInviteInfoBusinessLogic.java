@@ -9,4 +9,6 @@ public interface IInviteInfoBusinessLogic {
 
 	public void saveInviteInfo(InviteInfo inviteInfo) throws LogicException;
 	public List<InviteInfo> selectInviteHistByMemNum(String inviteStatus);
+	public void sendMailAgain(List<Long> inviteList);
+	public void deleteInviteInfo(List<Long> inviteList);
 }

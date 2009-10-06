@@ -13,7 +13,6 @@ import com.gameif.common.exception.AuthorityException;
 import com.gameif.common.exception.LogicException;
 import com.gameif.common.util.ContextUtil;
 import com.gameif.common.util.DateUtil;
-import com.gameif.portal.businesslogic.IInviteInfoBusinessLogic;
 import com.gameif.portal.businesslogic.IMasterInfoBusinessLogic;
 import com.gameif.portal.businesslogic.IMemberInfoBusinessLogic;
 import com.gameif.portal.constants.PortalConstants;

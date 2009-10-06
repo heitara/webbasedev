@@ -16,6 +16,7 @@
 		<result property="titleId" column="title_id"/>
 		<result property="inviteStatus" column="invite_status"/>
 		<result property="friendCreateDate" column="friend_create_date"/>
+		<result property="friendName" column="friend_name"/>
 		<result property="deleteFlag" column="delete_flag"/>
 		<result property="createdDate" column="created_date"/>
 		<result property="createdUser" column="created_user"/>
@@ -34,6 +35,7 @@
 			title_id,
 			invite_status,
 			friend_create_date,
+			friend_name,
 			delete_flag,
 			created_date,
 			created_user,
@@ -48,6 +50,7 @@
 			#titleId#,
 			#inviteStatus#,
 			#friendCreateDate#,
+			#friendName#,
 			#deleteFlag#,
 			#createdDate#,
 			#createdUser#,
@@ -73,6 +76,7 @@
 			title_id,
 			invite_status,
 			friend_create_date,
+			friend_name,
 			delete_flag,
 			created_date,
 			created_user,
@@ -130,6 +134,7 @@
 			title_id,
 			invite_status,
 			friend_create_date,
+			friend_name,
 			delete_flag,
 			created_date,
 			created_user,
@@ -155,6 +160,7 @@
 			title_id = #titleId#,
 			invite_status = #inviteStatus#,
 			friend_create_date = #friendCreateDate#,
+			friend_name = #friendName#,
 			delete_flag = #deleteFlag#,
 			created_date = #createdDate#,
 			created_user = #createdUser#,
@@ -164,6 +170,32 @@
 			invite_id = #inviteId#
 	]]>
 	</update>
+
+	<select id="selectByKey" parameterClass="inviteInfo" resultMap="inviteResult">   
+        <![CDATA[
+        SELECT
+			invite_id,
+			mem_num,
+			invite_mail_from,
+			invite_mail_to,
+			invite_date,
+			invite_msg,
+			title_id,
+			invite_status,
+			friend_create_date,
+			friend_name,
+			delete_flag,
+			created_date,
+			created_user,
+			last_update_date,
+			last_update_user
+		FROM
+			invite_info
+		WHERE
+			invite_id = #inviteId#
+		AND delete_flag = '0'
+        ]]>
+	</select>
 
 
 </sqlMap>

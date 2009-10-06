@@ -135,4 +135,83 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		return inviteInfoDao.selectInviteHistByMemNum(condition);
 	}
 
+	/**
+	 * 紹介情報を再送信する。
+	 * 
+	 * @param inviteList 選択した紹介情報ID
+	 */
+	@Transactional
+	@Override
+	public void sendMailAgain(List<Long> inviteList) {
+		InviteInfo inviteInfo = new InviteInfo();
+		// 招待時間
+		Date inviteDate = new Date();
+		
+		for (int i = 0; i < inviteList.size(); i++) {
+			
+			inviteInfo.setInviteId(inviteList.get(i));
+			inviteInfo = inviteInfoDao.selectByKey(inviteInfo);
+			if (inviteInfo == null) {
+				continue;
+			}
+
+			// 招待データ
+			inviteInfo.setInviteDate(inviteDate);
+			// 友達登録ステータス
+			inviteInfo
+					.setInviteStatus(PortalConstants.InviteStatus.NO_RESPONSE);
+			// 削除フラグ
+			inviteInfo.setDeleteFlag(PortalConstants.DeleteFlag.NORMAL);
+			inviteInfo.setLastUpdateDate(inviteDate);
+			inviteInfo.setLastUpdateUser(ContextUtil.getMemberNo().toString());
+
+			inviteInfoDao.update(inviteInfo);
+
+			// 招待メールを送信する。
+			HashMap<String, String> props = new HashMap<String, String>();
+			// 友達の名前
+			props.put("name", inviteInfo.getFriendName());
+			// 紹介するゲーム
+			props.put("titleName", inviteInfo.getTitleId().toString());
+			// データID
+			props.put("inviteId", inviteInfo.getInviteId().toString());
+			// 招待メッセージ
+			props.put("inviteMsg",inviteInfo.getInviteMsg());
+			// 差出人
+			props.put("mailFrom",inviteInfo.getInviteMailFrom());
+			templateMailer.sendAsyncMail(inviteInfo.getInviteMailTo(), "inviteFriend", props);
+			
+		}
+	}
+
+	/**
+	 * 選択した紹介情報を削除する
+	 * 
+	 * @param inviteList 選択した紹介情報ID
+	 */
+	@Transactional
+	@Override
+	public void deleteInviteInfo(List<Long> inviteList) {
+		InviteInfo inviteInfo = new InviteInfo();
+		// 招待時間
+		Date inviteDate = new Date();
+		
+		for (int i = 0; i < inviteList.size(); i++) {
+			
+			inviteInfo.setInviteId(inviteList.get(i));
+			inviteInfo = inviteInfoDao.selectByKey(inviteInfo);
+			if (inviteInfo == null) {
+				continue;
+			}
+
+			// 削除フラグ
+			inviteInfo.setDeleteFlag(PortalConstants.DeleteFlag.DELETEED);
+			inviteInfo.setLastUpdateDate(inviteDate);
+			inviteInfo.setLastUpdateUser(ContextUtil.getMemberNo().toString());
+
+			inviteInfoDao.update(inviteInfo);
+			
+		}
+	}
+
 }

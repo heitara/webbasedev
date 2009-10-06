@@ -16,6 +16,8 @@
 				<entry key="createInvite" value="友達紹介"/>
 				<entry key="createPwdReget" value="仮パスワード発行"/>
 				<entry key="updateTempPwd" value="パスワード再設定"/>
+				<entry key="sendMailAgain" value="友達に再送信"/>
+				<entry key="deleteInvite" value="友達削除"/>
 			</map>
 		</property>
 		<property name="sexListMap">
