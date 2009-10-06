@@ -18,6 +18,7 @@
 	<dt><strong>会員登録</strong><span></span></dt>
 	<dd>
 		<s:form action="createMember" cssClass="entry">
+			<s:hidden name="inviteId"></s:hidden>
 			<table>
 				<tr>
 					<th><span class="required">*</span><label for="createMember_memId">アカウントＩＤ：</label></th>

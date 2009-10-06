@@ -20,6 +20,9 @@
 		<property name="tempPwdInfoDao">
 			<ref bean="tempPwdInfoDao" />
 		</property>
+		<property name="inviteInfoDao">
+			<ref bean="inviteInfoDao" />
+		</property>
 	</bean>
 	
 	<!-- inquiryInfoBusinessLogic -->

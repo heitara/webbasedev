@@ -26,7 +26,6 @@ import com.gameif.portal.entity.InviteInfo;
 import com.gameif.portal.entity.InviteTemplateMst;
 import com.gameif.portal.entity.MemberInfo;
 import com.gameif.portal.entity.TitleMst;
-import com.gameif.portal.helper.PortalProperties;
 
 public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 
@@ -38,9 +37,9 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 	private IInviteInfoBusinessLogic inviteInfoBusinessLogic;
 	private IMasterInfoBusinessLogic masterInfoBusinessLogic;
 	private IMemberInfoBusinessLogic memberInfoBusinessLogic;
-	private PortalProperties portalProperties;
 	
 	private Map<Integer, List<InviteTemplateMst>> inviteTemplateList;
+	private List<TitleMst> titleList;
 
 	private String mailAdd;
 	private String domain;
@@ -102,20 +101,6 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 	}
 
 	/**
-	 * @return the portalProperties
-	 */
-	public PortalProperties getPortalProperties() {
-		return portalProperties;
-	}
-
-	/**
-	 * @param portalProperties the portalProperties to set
-	 */
-	public void setPortalProperties(PortalProperties portalProperties) {
-		this.portalProperties = portalProperties;
-	}
-
-	/**
 	 * @return the inviteTemplateList
 	 */
 	public Map<Integer, List<InviteTemplateMst>> getInviteTemplateList() {
@@ -128,6 +113,20 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 	public void setInviteTemplateList(
 			Map<Integer, List<InviteTemplateMst>> inviteTemplateList) {
 		this.inviteTemplateList = inviteTemplateList;
+	}
+
+	/**
+	 * @return the titleList
+	 */
+	public List<TitleMst> getTitleList() {
+		return titleList;
+	}
+
+	/**
+	 * @param titleList the titleList to set
+	 */
+	public void setTitleList(List<TitleMst> titleList) {
+		this.titleList = titleList;
 	}
 
 	/**
@@ -201,20 +200,30 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 //	}
 
 	/**
+	 * 画面初期化
+	 */
+	private void initPage() {
+		
+		setTitleList( masterInfoBusinessLogic.getValidTitleList());
+
+		Map<Integer, List<InviteTemplateMst>> inviteTemp = new LinkedHashMap<Integer, List<InviteTemplateMst>>();
+		
+		List<InviteTemplateMst> tempList = null;
+		for (int i = 0; i < getTitleList().size(); i++) {
+			tempList = masterInfoBusinessLogic.getInviteTemplateByTitleId(getTitleList().get(i).getTitleId());
+			inviteTemp.put(getTitleList().get(i).getTitleId(), tempList);
+		}
+		this.setInviteTemplateList(inviteTemp);
+	}
+	
+	/**
 	 * 友達紹介画面に案内する。
 	 * 
 	 * @return 友達紹介入力画面
 	 */
 	public String input() {
-		Map<Integer, List<InviteTemplateMst>> inviteTemp = new LinkedHashMap<Integer, List<InviteTemplateMst>>();
-		List<TitleMst> titleList = masterInfoBusinessLogic.getValidTitleList();
 		
-		List<InviteTemplateMst> tempList = null;
-		for (int i = 0; i < titleList.size(); i++) {
-			tempList = masterInfoBusinessLogic.getInviteTemplateByTitleId(titleList.get(i).getTitleId());
-			inviteTemp.put(titleList.get(i).getTitleId(), tempList);
-		}
-		this.setInviteTemplateList(inviteTemp);
+		initPage();
 		
 		// 紹介者の会員番号
 		getModel().setMemNum(ContextUtil.getMemberNo());
