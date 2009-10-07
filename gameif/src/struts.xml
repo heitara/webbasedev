@@ -184,5 +184,11 @@
 		<action name="*Exist" class="existCheckAction" method="{1}">
             <result type="json"></result>
 		</action>
+		<action name="bindInviteTemplate" class="inviteBindMasterAction" method="bindInviteTemplate">
+            <result type="json"></result>
+		</action>
+		<action name="changeInviteMsg" class="inviteBindMasterAction" method="changeInviteMsg">
+            <result type="json"></result>
+		</action>
 	</package>
 </struts>

@@ -114,4 +114,12 @@
 			<ref bean="masterInfoBusinessLogic" />
 		</property>
 	</bean>
+	
+	<!-- inviteBindMasterAction -->
+	<bean id="inviteBindMasterAction" class="com.gameif.portal.action.invite.InviteBindMasterAction" scope="prototype">
+		<property name="masterInfoBusinessLogic">
+			<ref bean="masterInfoBusinessLogic" />
+		</property>
+	</bean>
+	
 </beans>

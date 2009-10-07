@@ -158,4 +158,13 @@ public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		
 		return serverMstDao.selectValidServerListByTitle(titleId);
 	}
+
+	@Override
+	public InviteTemplateMst getInviteTemplateByKey(Integer key) {
+		
+		InviteTemplateMst mst = new InviteTemplateMst();
+		mst.setInviteTemplateId(key);
+		
+		return inviteTemplateDao.selectByKey(mst);
+	}
 }
