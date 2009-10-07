@@ -14,4 +14,9 @@ public class TitleMstDaoImpl extends
 	public List<TitleMst> selectValidTitleList() {
 		return this.getSqlMapClientTemplate().queryForList(namespace + ".selectValidTitleList", null);
 	}
+
+	@Override
+	public String selectNameById(Integer titileId) {
+		return (String)this.getSqlMapClientTemplate().queryForObject(namespace + ".selectNameById", titileId);
+	}
 }

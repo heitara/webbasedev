@@ -8,5 +8,6 @@ import com.gameif.portal.entity.TitleMst;
 public interface ITitleMstDao extends IBaseDao<TitleMst, TitleMst> {
 
 	public List<TitleMst> selectValidTitleList();
+	public String selectNameById(Integer titileId);
 
 }

@@ -8,6 +8,7 @@
 		<meta content="ブラウザゲーム(WEBGAME)のポータルサイト" name="description"/>
 		<title>友達紹介 | ゲームイフ | ブラウザゲームのポータルサイト</title>
 		<script src="js/portal/validate.js" type="text/javascript"></script>
+		<script src="js/portal/common.js" type="text/javascript"></script>
 	</head>
 	<body>
 		<dl class="light_box tspace_n">
@@ -45,7 +46,7 @@
 						<tr>
 							<th><span class="required">*</span><label for="game">紹介するゲーム：</label></th>
 							<td>
-								<s:select name="titleId" cssClass="big" list="masterInfoBusinessLogic.validTitleList" listKey="titleId" listValue="titleName"  headerKey="0" headerValue="" title="紹介するゲーム"  onblur="validate(this,'REQ');" />
+								<s:select name="titleId" id="titleId" cssClass="big" list="masterInfoBusinessLogic.validTitleList" listKey="titleId" listValue="titleName"  headerKey="0" headerValue="" title="紹介するゲーム" onblur="validate(this,'REQ');" />
 								<span id="error_titleId" class="input_error"><s:fielderror><s:param>titleId</s:param></s:fielderror></span><br/>
 								<span class="explain">※紹介するゲームを選んでください。</span>
 							</td>
@@ -53,7 +54,9 @@
 						<tr>
 							<th><span class="required">*</span><label for="message_tmpl">招待メッセージ：</label></th>
 							<td>
-								<s:select name="inviteTemplate" list="masterInfoBusinessLogic.inviteTemplateList" listKey="inviteTemplateId" listValue="inviteTemplateSubject"  headerKey="0" headerValue="" cssClass="big"/>
+								<select name="inviteTemplate" id="inviteTemplate"></select>
+								
+								<s:select name="template" id="template" list="masterInfoBusinessLogic.inviteTemplateList" listKey="inviteTemplateId" listValue="inviteTemplateSubject"  headerKey="0" headerValue="" cssClass="big"/>
 								<br/>
 								<span class="explain">※テンプレートから選ぶと、大枠が自動的に入力されますので、<br/>入力時間を省けられます。</span>
 							</td>
@@ -64,7 +67,6 @@
 								<span class="required">*</span><label for="game">招待メッセージ：</label></th>
 							<td>
 								<s:doubleselect name="titleId" list="titleList" listKey="titleId" listValue="titleName" doubleName="inviteTemplate" doubleList="inviteTemplateList.get(top.titleId)" doubleListKey="inviteTemplateId" doubleListValue="inviteTemplateSubject" />
-								
 								<br/>
 								<span class="explain">※テンプレートから選ぶと、大枠が自動的に入力されますので、<br/>入力時間を省けられます。</span>
 							</td>
@@ -72,7 +74,7 @@
 						<tr>
 							<th></th>
 							<td>
-								<s:textarea name="inviteMsg" rows="15" cssClass="big ime_mode_n" cssStyle="width:360px;" title="招待メッセージ" onblur="validate(this, 'REQ,LEN_5_1000');" />
+								<s:textarea name="inviteMsg" rows="15" value="%{inviteTemplate}" cssClass="big ime_mode_n" cssStyle="width:360px;" title="招待メッセージ" onblur="validate(this, 'REQ,LEN_5_1000');" />
 								<span id="error_inviteMsg" class="input_error"><s:fielderror><s:param>inviteMsg</s:param></s:fielderror></span><br/>
 								<span class="explain">※招待メールの本文を入力してください。</span>
 							</td>

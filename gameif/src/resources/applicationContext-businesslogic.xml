@@ -42,6 +42,9 @@
 		<property name="templateMailer">
 			<ref bean="templateMailer" />
 		</property>
+		<property name="titleMstDao">
+			<ref bean="titleMstDao" />
+		</property>
 	</bean>
 	
 	<!-- masterInfoBusinessLogic -->

@@ -14,6 +14,7 @@ import com.gameif.common.util.ContextUtil;
 import com.gameif.portal.businesslogic.IInviteInfoBusinessLogic;
 import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.dao.IInviteInfoDao;
+import com.gameif.portal.dao.ITitleMstDao;
 import com.gameif.portal.entity.InviteInfo;
 
 public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
@@ -26,6 +27,7 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 
 	private IInviteInfoDao inviteInfoDao;
 	private TemplateMailer templateMailer;
+	private ITitleMstDao titleMstDao;
 
 	/**
 	 * @param inviteInfoDao
@@ -47,6 +49,20 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	 */
 	public void setTemplateMailer(TemplateMailer templateMailer) {
 		this.templateMailer = templateMailer;
+	}
+
+	/**
+	 * @return the titleMstDao
+	 */
+	public ITitleMstDao getTitleMstDao() {
+		return titleMstDao;
+	}
+
+	/**
+	 * @param titleMstDao the titleMstDao to set
+	 */
+	public void setTitleMstDao(ITitleMstDao titleMstDao) {
+		this.titleMstDao = titleMstDao;
 	}
 
 	/**
@@ -72,6 +88,8 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 			throw new OutOfMaxCountException("mail list is Out of max count!");
 		}
 
+		String titleName = titleMstDao.selectNameById(inviteInfo.getTitleId());
+		
 		InviteInfo newInviteInfo = null;
 		for (int i = 0; i < mailToList.length; i++) {
 			
@@ -106,7 +124,7 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 			// 友達の名前
 			props.put("name", "");
 			// 紹介するゲーム
-			props.put("titleName", newInviteInfo.getTitleId().toString());
+			props.put("titleName", titleName);
 			// データID
 			props.put("inviteId", newInviteInfo.getInviteId().toString());
 			// 招待メッセージ
@@ -147,6 +165,8 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		// 招待時間
 		Date inviteDate = new Date();
 		
+		String titleName = titleMstDao.selectNameById(inviteInfo.getTitleId());
+		
 		for (int i = 0; i < inviteList.size(); i++) {
 			
 			inviteInfo.setInviteId(inviteList.get(i));
@@ -172,7 +192,7 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 			// 友達の名前
 			props.put("name", inviteInfo.getFriendName());
 			// 紹介するゲーム
-			props.put("titleName", inviteInfo.getTitleId().toString());
+			props.put("titleName", titleName);
 			// データID
 			props.put("inviteId", inviteInfo.getInviteId().toString());
 			// 招待メッセージ
