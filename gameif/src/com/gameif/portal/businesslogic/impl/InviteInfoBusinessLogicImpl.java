@@ -106,6 +106,8 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 			newInviteInfo.setInviteMsg(inviteInfo.getInviteMsg());
 			// タイトル
 			newInviteInfo.setTitleId(inviteInfo.getTitleId());
+			// 友達の名前
+			newInviteInfo.setFriendName(mailToList[i]);
 			// 友達登録ステータス
 			newInviteInfo
 					.setInviteStatus(PortalConstants.InviteStatus.NO_RESPONSE);
