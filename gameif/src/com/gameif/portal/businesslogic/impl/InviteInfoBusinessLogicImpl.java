@@ -124,7 +124,7 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 			// 招待メールを送信する。
 			HashMap<String, String> props = new HashMap<String, String>();
 			// 友達の名前
-			props.put("name", "");
+			props.put("name", newInviteInfo.getFriendName());
 			// 紹介するゲーム
 			props.put("titleName", titleName);
 			// データID
