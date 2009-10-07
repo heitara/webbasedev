@@ -55,5 +55,19 @@
 		AND service_end_date >= now()
         ]]>
 	</select>
+	
+	<select id="selectCountByMemId" resultClass="java.lang.String">
+      <![CDATA[
+        SELECT
+			title_name
+		FROM
+			title_mst
+		WHERE
+			title_id = #value#
+		WHERE
+			service_start_date <= now()
+		AND service_end_date >= now()	
+      ]]>
+	</select>
 
 </sqlMap>
