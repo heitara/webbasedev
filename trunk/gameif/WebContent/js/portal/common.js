@@ -69,10 +69,3 @@ function selectInvitedHist(obj, cName){
     
     document.getElementById("selAll").checked = false;
 }
-
-function bindTemplate(srcName) {
-	alert("sss");
-	var title = document.getElementById(srcName).options[obj.selectedIndex].value;
-	alert(title);
-	
-}
