@@ -42,11 +42,10 @@
 						<tr class="space_row">
 							<td colspan="2"></td>
 						</tr>
-						<!-- 
 						<tr>
 							<th><span class="required">*</span><label for="game">紹介するゲーム：</label></th>
 							<td>
-								<s:select name="titleId" id="titleId" cssClass="big" list="masterInfoBusinessLogic.validTitleList" listKey="titleId" listValue="titleName"  headerKey="0" headerValue="" title="紹介するゲーム" onblur="validate(this,'REQ');" />
+								<s:select name="titleId" id="titleId" cssClass="big" list="masterInfoBusinessLogic.validTitleList" listKey="titleId" listValue="titleName"  headerKey="0" headerValue="" title="紹介するゲーム" onchange="bindTemplate(this, inviteTemplate)" onblur="validate(this,'REQ');" />
 								<span id="error_titleId" class="input_error"><s:fielderror><s:param>titleId</s:param></s:fielderror></span><br/>
 								<span class="explain">※紹介するゲームを選んでください。</span>
 							</td>
@@ -54,19 +53,7 @@
 						<tr>
 							<th><span class="required">*</span><label for="message_tmpl">招待メッセージ：</label></th>
 							<td>
-								<select name="inviteTemplate" id="inviteTemplate"></select>
-								
-								<s:select name="template" id="template" list="masterInfoBusinessLogic.inviteTemplateList" listKey="inviteTemplateId" listValue="inviteTemplateSubject"  headerKey="0" headerValue="" cssClass="big"/>
-								<br/>
-								<span class="explain">※テンプレートから選ぶと、大枠が自動的に入力されますので、<br/>入力時間を省けられます。</span>
-							</td>
-						</tr>
-						 -->
-						<tr>
-							<th valign="top"><span class="required">*</span><label for="game">紹介するゲーム：</label><br/><br/>
-								<span class="required">*</span><label for="game">招待メッセージ：</label></th>
-							<td>
-								<s:doubleselect name="titleId" list="titleList" listKey="titleId" listValue="titleName" doubleName="inviteTemplate" doubleList="inviteTemplateList.get(top.titleId)" doubleListKey="inviteTemplateId" doubleListValue="inviteTemplateSubject" />
+								<select id="inviteTemplate" name="inviteTemplate" onchange="changeMessage(this, inviteMsg)"></select>
 								<br/>
 								<span class="explain">※テンプレートから選ぶと、大枠が自動的に入力されますので、<br/>入力時間を省けられます。</span>
 							</td>

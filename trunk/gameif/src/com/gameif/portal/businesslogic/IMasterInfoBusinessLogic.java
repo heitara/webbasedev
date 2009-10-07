@@ -19,10 +19,12 @@ public interface IMasterInfoBusinessLogic {
 	public List<InquiryKindMst> getAllInquiryKindList();
 	public List<InviteTemplateMst> getInviteTemplateByTitleId(Integer titleId);
 	public List<InviteTemplateMst> getInviteTemplateList();
+	public InviteTemplateMst getInviteTemplateByKey(Integer key);
 	
 	public ServerMst getServer(ServerMst serverMst);
 	public ServerMst getServerByDomain(String domain);
 	public List<ServerMst> getAllValidServerList();
 	public List<ServerMst> getAllValidServerListByTitle(Integer titleId);
+	
 
 }
