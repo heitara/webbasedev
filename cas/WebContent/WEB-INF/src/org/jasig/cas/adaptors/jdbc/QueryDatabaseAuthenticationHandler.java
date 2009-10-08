@@ -16,6 +16,8 @@ import org.jasig.cas.authentication.handler.AuthenticationException;
 import org.jasig.cas.authentication.principal.UsernamePasswordCredentials;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 
+import sun.misc.BASE64Decoder;
+
 /**
  * Class that if provided a query that returns a password (parameter of query
  * must be username) will compare that password to a translated version of the
@@ -93,7 +95,7 @@ public final class QueryDatabaseAuthenticationHandler extends
 						if (success) {
 							
 							credentials.setUserNo(userNo);
-							credentials.setNickName(nickName);
+							credentials.setNickName(ByteUtil.stringToHexString(nickName));
 
 							// ログイン成功ログ出力
 							doFileLog(username, "login successed.", true);
