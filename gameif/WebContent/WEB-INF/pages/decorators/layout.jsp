@@ -127,6 +127,7 @@
 	<%
 		} else {
 	%>
+	<a href="logoutProxy.html">ログアウト</a>
 		<!-- ショットカットボタンエリア：開始 -->
 		<dl class="quickstart tspace_n">
 			<dt><a href="point.html" title="ポイントチャージ"><img src="images/btn_b_point.gif" alt="ポイントチャージ"/></a></dt>
