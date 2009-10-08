@@ -61,6 +61,10 @@
 	
 	<filter-mapping>
 		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/loginStatusProxy.html</url-pattern>
+	</filter-mapping>	
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
 		<url-pattern>/inputInvite.html</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
@@ -74,6 +78,22 @@
 	<filter-mapping>
 		<filter-name>CAS Filter</filter-name>
 		<url-pattern>/inputMemberInquiry.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/editMemberInfo.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/updateMemberInfo.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/editPassword.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/updatePassword.html</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>CAS Filter</filter-name>
@@ -129,7 +149,7 @@
 	-->
 	<servlet-mapping> 
 	        <servlet-name>KaptchaSrvlet</servlet-name> 
-	        <url-pattern>/images/kaptcha.jpg</url-pattern> 
+	        <url-pattern>/images/kaptcha</url-pattern> 
 	</servlet-mapping>
 	<!--
 	<servlet-mapping>
