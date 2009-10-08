@@ -40,8 +40,10 @@
 		<property
 			name="mappings">
 			<props>
-				<prop
-					key="/login">loginController</prop>
+				<prop key="/login">loginController</prop>
+				<!-- 2009/10/4　李　追加 -->
+            	<prop key="/remoteLogin">remoteLoginController</prop>
+				<!-- 2009/10/4　李　追加 -->
 			</props>
 		</property>
 		<property
@@ -151,6 +153,32 @@
 	<flow:registry id="flowRegistry">
 		<flow:location path="/WEB-INF/login-webflow.xml"/>
 	</flow:registry>
+	
+	<!-- 2009/10/4　李　追加 -->
+	<bean id="remoteLoginController"
+		    class="org.springframework.webflow.executor.mvc.FlowController"
+		    p:flowExecutor-ref="remoteLoginFlowExecutor"
+		    p:defaultFlowId="remoteLogin-webflow">
+	    <property name="argumentHandler">
+			<bean	class="org.springframework.webflow.executor.support.RequestParameterFlowExecutorArgumentHandler"
+					p:flowExecutionKeyArgumentName="lt"
+					p:defaultFlowId="remoteLogin-webflow" />
+	    </property>
+	</bean>
+	<flow:executor id="remoteLoginFlowExecutor" registry-ref="remoteLoginFlowRegistry">
+		<flow:execution-attributes>
+			<flow:alwaysRedirectOnPause value="false"/>
+		</flow:execution-attributes>
+	</flow:executor>
+	<flow:registry id="remoteLoginFlowRegistry">
+		<flow:location path="/WEB-INF/remoteLogin-webflow.xml"/>
+	</flow:registry>
+	<bean id="remoteLoginAction"
+	    class="org.jasig.cas.web.flow.RemoteLoginAction"
+	    p:argumentExtractors-ref="argumentExtractors"
+	    p:warnCookieGenerator-ref="warnCookieGenerator"
+	    p:ticketGrantingTicketCookieGenerator-ref="ticketGrantingTicketCookieGenerator" />
+	<!-- 2009/10/4　李　追加 -->
 
 	<bean id="proxyValidateController" class="org.jasig.cas.web.ServiceValidateController"
 		p:centralAuthenticationService-ref="centralAuthenticationService"
