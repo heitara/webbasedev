@@ -122,4 +122,8 @@
 		</property>
 	</bean>
 	
+	<!-- loginStatusProxyAction -->
+	<bean id="loginStatusProxyAction" class="com.gameif.portal.action.menu.LoginStatusProxyAction" scope="prototype" />
+	<!-- logoutProxyAction -->
+	<bean id="logoutProxyAction" class="com.gameif.portal.action.menu.LogoutProxyAction" scope="prototype" />
 </beans>
