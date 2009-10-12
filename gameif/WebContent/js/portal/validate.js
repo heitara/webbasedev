@@ -279,6 +279,7 @@ function bindTemplate(obj, cName) {
 	$.get("bindInviteTemplate.html", {titleId: obj.value}, function(data) {
 			var tempList = eval("(" + data + ")").tempList;
 			$(cName).empty();   
+			$(cName).append(new Option("","0"));
 		    $.each(tempList,function(i){
 		    	$(cName).append(new Option(tempList[i].inviteTemplateSubject,tempList[i].inviteTemplateId));
 		    }) 
