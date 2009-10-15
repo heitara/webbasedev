@@ -104,7 +104,7 @@ CREATE TABLE  `invite_info` (
   `last_update_date` datetime DEFAULT NULL,
   `last_update_user` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`invite_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
 
@@ -319,6 +319,101 @@ CREATE TABLE  `temp_pwd_info` (
   `temp_key` varchar(32) NOT NULL,
   PRIMARY KEY (`mail_pc`,`created_date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+DROP TABLE IF EXISTS `point_mst`;
+CREATE TABLE  `point_mst` (
+  `point_id` int(11) NOT NULL,
+  `title_id` int(11) NOT NULL,
+  `server_id` int(11) NOT NULL,
+  `point_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `point_start_date` datetime DEFAULT NULL,
+  `point_end_date` datetime DEFAULT NULL,
+  `point_status` char(1) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `point_count` decimal(10,0) DEFAULT '0',
+  `point_count_act` decimal(10,0) DEFAULT '0',
+  `created_date` datetime DEFAULT NULL,
+  `created_user` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `last_update_date` datetime DEFAULT NULL,
+  `last_update_user` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`point_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+
+DROP TABLE IF EXISTS `settlement_mst`;
+CREATE TABLE  `settlement_mst` (
+  `settlement_code` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `settlement_name` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `icon_url` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `settlement_status` char(1) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `created_user` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `last_update_date` datetime DEFAULT NULL,
+  `last_update_user` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`settlement_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+
+
+DROP TABLE IF EXISTS `mem_settlement_trns`;
+CREATE TABLE  `mem_settlement_trns` (
+  `settlement_trns_num` bigint(20) NOT NULL AUTO_INCREMENT,
+  `settlement_code` varchar(20) DEFAULT NULL,
+  `mem_num` bigint(20) DEFAULT NULL,
+  `mem_atbt_cd` char(1) DEFAULT NULL,
+  `title_id` int(10) DEFAULT NULL,
+  `server_id` int(10) DEFAULT NULL,
+  `point_id` int(10) DEFAULT NULL,
+  `settlement_date` datetime DEFAULT NULL,
+  `point_count` decimal(10,0) DEFAULT NULL,
+  `point_count_act` decimal(10,0) DEFAULT NULL,
+  `settlement_log` varchar(200) DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `created_user` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`settlement_trns_num`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+
+
+DROP TABLE IF EXISTS `mem_settlement_hist`;
+CREATE TABLE  `mem_settlement_hist` (
+  `settlement_num` bigint(20) NOT NULL AUTO_INCREMENT,
+  `settlement_trns_num` bigint(20) DEFAULT NULL,
+  `settlement_code` varchar(20) DEFAULT NULL,
+  `mem_num` bigint(20) DEFAULT NULL,
+  `mem_atbt_cd` char(1) DEFAULT NULL,
+  `title_id` int(10) DEFAULT NULL,
+  `server_id` int(10) DEFAULT NULL,
+  `point_id` int(10) DEFAULT NULL,
+  `settlement_date` datetime DEFAULT NULL,
+  `point_count` decimal(10,0) DEFAULT NULL,
+  `point_count_act` decimal(10,0) DEFAULT NULL,
+  `settlement_log` varchar(200) DEFAULT NULL,
+  `settlement_remarks` varchar(200) DEFAULT NULL,
+  `res_result` varchar(2) DEFAULT NULL,
+  `res_tracking_id` varchar(14) DEFAULT NULL,
+  `res_sps_cust_no` varchar(12) DEFAULT NULL,
+  `res_sps_payment_no` varchar(3) DEFAULT NULL,
+  `res_payinfo_key` varchar(32) DEFAULT NULL,
+  `res_payment_date` varchar(14) DEFAULT NULL,
+  `res_err_code` varchar(4) DEFAULT NULL,
+  `res_date` varchar(14) DEFAULT NULL,
+  `limit_second` varchar(4) DEFAULT NULL,
+  `sps_hashcode` varchar(40) DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `created_user` varchar(50) DEFAULT NULL,
+  `last_update_date` datetime DEFAULT NULL,
+  `last_update_user` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`settlement_num`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 
 
 
