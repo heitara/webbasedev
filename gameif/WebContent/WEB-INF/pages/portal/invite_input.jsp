@@ -8,6 +8,7 @@
 		<meta content="ブラウザゲーム(WEBGAME)のポータルサイト" name="description"/>
 		<title>友達紹介 | ゲームイフ | ブラウザゲームのポータルサイト</title>
 		<script src="js/portal/validate.js" type="text/javascript"></script>
+		<script src="js/portal/bindMaster.js" type="text/javascript"></script>
 		<script src="js/portal/common.js" type="text/javascript"></script>
 	</head>
 	<body>
@@ -61,7 +62,7 @@
 						<tr>
 							<th></th>
 							<td>
-								<s:textarea name="inviteMsg" rows="15" value="%{inviteTemplate}" cssClass="big ime_mode_n" cssStyle="width:360px;" title="招待メッセージ" onblur="validate(this, 'REQ,LEN_5_1000');" />
+								<s:textarea name="inviteMsg" rows="15" cssClass="big ime_mode_n" cssStyle="width:360px;" title="招待メッセージ" onblur="validate(this, 'REQ,LEN_5_1000');" />
 								<span id="error_inviteMsg" class="input_error"><s:fielderror><s:param>inviteMsg</s:param></s:fielderror></span><br/>
 								<span class="explain">※招待メールの本文を入力してください。</span>
 							</td>
