@@ -2,7 +2,6 @@ package com.gameif.portal.businesslogic.impl;
 
 import java.util.Date;
 
-import org.apache.struts2.ServletActionContext;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gameif.common.businesslogic.BaseBusinessLogic;

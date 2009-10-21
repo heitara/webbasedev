@@ -8,15 +8,19 @@ import com.gameif.portal.dao.IDivisionMstDao;
 import com.gameif.portal.dao.IInquiryKindMstDao;
 import com.gameif.portal.dao.IInviteTemplateDao;
 import com.gameif.portal.dao.IOccupationMstDao;
+import com.gameif.portal.dao.IPointMstDao;
 import com.gameif.portal.dao.IQuestionMstDao;
 import com.gameif.portal.dao.IServerMstDao;
+import com.gameif.portal.dao.ISettlementMstDao;
 import com.gameif.portal.dao.ITitleMstDao;
 import com.gameif.portal.entity.DivisionMst;
 import com.gameif.portal.entity.InquiryKindMst;
 import com.gameif.portal.entity.InviteTemplateMst;
 import com.gameif.portal.entity.OccupationMst;
+import com.gameif.portal.entity.PointMst;
 import com.gameif.portal.entity.QuestionMst;
 import com.gameif.portal.entity.ServerMst;
+import com.gameif.portal.entity.SettlementMst;
 import com.gameif.portal.entity.TitleMst;
 
 public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
@@ -31,53 +35,8 @@ public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	private IServerMstDao serverMstDao;
 	private IInquiryKindMstDao inquiryKindMstDao;
 	private IInviteTemplateDao inviteTemplateDao;
-
-	/**
-	 * @param divisionMstDao
-	 *            the divisionMstDao to set
-	 */
-	public void setDivisionMstDao(IDivisionMstDao divisionMstDao) {
-		this.divisionMstDao = divisionMstDao;
-	}
-
-	/**
-	 * @param occupationMstDao
-	 *            the occupationMstDao to set
-	 */
-	public void setOccupationMstDao(IOccupationMstDao occupationMstDao) {
-		this.occupationMstDao = occupationMstDao;
-	}
-
-	/**
-	 * @param questionMstDao
-	 *            the questionMstDao to set
-	 */
-	public void setQuestionMstDao(IQuestionMstDao questionMstDao) {
-		this.questionMstDao = questionMstDao;
-	}
-
-	/**
-	 * @param titleMstDao
-	 *            the titleMstDao to set
-	 */
-	public void setTitleMstDao(ITitleMstDao titleMstDao) {
-		this.titleMstDao = titleMstDao;
-	}
-
-	public void setServerMstDao(IServerMstDao serverMstDao) {
-		this.serverMstDao = serverMstDao;
-	}
-
-	/**
-	 * @param inquiryKindMstDao the inquiryKindMstDao to set
-	 */
-	public void setInquiryKindMstDao(IInquiryKindMstDao inquiryKindMstDao) {
-		this.inquiryKindMstDao = inquiryKindMstDao;
-	}
-
-	public void setInviteTemplateDao(IInviteTemplateDao inviteTemplateDao) {
-		this.inviteTemplateDao = inviteTemplateDao;
-	}
+	private IPointMstDao pointMstDao;
+	private ISettlementMstDao settlementMstDao;
 
 	/**
 	 * 都道府県を取得する
@@ -128,37 +87,52 @@ public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	}
 	
 	/**
-	 * 紹介テンプレートを取得する
+	 * すべて紹介テンプレートを取得する
 	 */
 	@Override
 	public List<InviteTemplateMst> getInviteTemplateList() {
 		return inviteTemplateDao.selectAll(null);
 	}
 	
+	/**
+	 * サーバキーより、サーバ情報を取得する
+	 */
 	@Override
 	public ServerMst getServer(ServerMst serverMst) {
 		
 		return serverMstDao.selectByKey(serverMst);
 	}
 
+	/**
+	 * ドメインより、サーバ情報を取得する
+	 */
 	@Override
 	public ServerMst getServerByDomain(String domain) {
 		
 		return serverMstDao.selectServerByDomain(domain);
 	}
 
+	/**
+	 * 有効なサーバ情報を取得する
+	 */
 	@Override
 	public List<ServerMst> getAllValidServerList() {
 		
 		return serverMstDao.selectValidServerList();
 	}
-
+	
+	/**
+	 * すべて紹介テンプレートを取得する
+	 */
 	@Override
 	public List<ServerMst> getAllValidServerListByTitle(Integer titleId) {
 		
 		return serverMstDao.selectValidServerListByTitle(titleId);
 	}
-
+	
+	/**
+	 * キーより、紹介テンプレートを取得する
+	 */
 	@Override
 	public InviteTemplateMst getInviteTemplateByKey(Integer key) {
 		
@@ -167,4 +141,89 @@ public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		
 		return inviteTemplateDao.selectByKey(mst);
 	}
+	
+	/**
+	 * サーバキーより、ポイント情報を取得する
+	 */
+	@Override
+	public List<PointMst> getAllValidPointListByServer(Integer serverId) {
+		return pointMstDao.selectValidPointListByServer(serverId);
+	}
+	
+	/**
+	 * すべて決済情報を取得する
+	 */
+	@Override
+	public List<SettlementMst> getAllSettlementList() {
+		return settlementMstDao.selectAll(null);
+	}
+
+	@Override
+	public PointMst getPointMstByKey(Integer pointId) {
+		PointMst pointMst = new PointMst();
+		pointMst.setPointId(pointId);
+		return pointMstDao.selectByKey(pointMst);
+	}
+
+	/**
+	 * @param divisionMstDao
+	 *            the divisionMstDao to set
+	 */
+	public void setDivisionMstDao(IDivisionMstDao divisionMstDao) {
+		this.divisionMstDao = divisionMstDao;
+	}
+
+	/**
+	 * @param occupationMstDao
+	 *            the occupationMstDao to set
+	 */
+	public void setOccupationMstDao(IOccupationMstDao occupationMstDao) {
+		this.occupationMstDao = occupationMstDao;
+	}
+
+	/**
+	 * @param questionMstDao
+	 *            the questionMstDao to set
+	 */
+	public void setQuestionMstDao(IQuestionMstDao questionMstDao) {
+		this.questionMstDao = questionMstDao;
+	}
+
+	/**
+	 * @param titleMstDao
+	 *            the titleMstDao to set
+	 */
+	public void setTitleMstDao(ITitleMstDao titleMstDao) {
+		this.titleMstDao = titleMstDao;
+	}
+
+	public void setServerMstDao(IServerMstDao serverMstDao) {
+		this.serverMstDao = serverMstDao;
+	}
+
+	/**
+	 * @param inquiryKindMstDao the inquiryKindMstDao to set
+	 */
+	public void setInquiryKindMstDao(IInquiryKindMstDao inquiryKindMstDao) {
+		this.inquiryKindMstDao = inquiryKindMstDao;
+	}
+
+	public void setInviteTemplateDao(IInviteTemplateDao inviteTemplateDao) {
+		this.inviteTemplateDao = inviteTemplateDao;
+	}
+
+	/**
+	 * @param pointMstDao the pointMstDao to set
+	 */
+	public void setPointMstDao(IPointMstDao pointMstDao) {
+		this.pointMstDao = pointMstDao;
+	}
+
+	/**
+	 * @param settlementMstDao the settlementMstDao to set
+	 */
+	public void setSettlementMstDao(ISettlementMstDao settlementMstDao) {
+		this.settlementMstDao = settlementMstDao;
+	}
+	
 }

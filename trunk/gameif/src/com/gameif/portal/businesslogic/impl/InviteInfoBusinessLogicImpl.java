@@ -3,6 +3,7 @@ package com.gameif.portal.businesslogic.impl;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -71,10 +72,7 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	 * @param inviteInfoDao
 	 */
 	@Transactional
-	public void saveInviteInfo(InviteInfo inviteInfo) throws LogicException {
-
-		// 複数友達の場合、メールアドレースを「,」で分割 
-		String[] mailToList = inviteInfo.getInviteMailTo().trim().replace("\r\n", "\n").split("\n");
+	public void saveInviteInfo(InviteInfo inviteInfo, Map<String, String> mailToList) throws LogicException {
 		
 		// 招待時間
 		Date inviteDate = new Date();
@@ -84,14 +82,14 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		// 本日にの送信件数を検索する
 		Integer count = inviteInfoDao.selectCountByMemNumInTime(inviteInfo);
 		// 最大送信件数のチェック
-		if (10 < (count + mailToList.length)) {
+		if (PortalConstants.MAIL_COUNT < (count + mailToList.size())) {
 			throw new OutOfMaxCountException("mail list is Out of max count!");
 		}
 
 		String titleName = titleMstDao.selectNameById(inviteInfo.getTitleId());
 		
 		InviteInfo newInviteInfo = null;
-		for (int i = 0; i < mailToList.length; i++) {
+		for(Map.Entry<String, String> mailTo : mailToList.entrySet()) {
 			
 			newInviteInfo = new InviteInfo();
 
@@ -99,7 +97,7 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 			// 紹介者のメールアドレス
 			newInviteInfo.setInviteMailFrom(inviteInfo.getInviteMailFrom());
 			// 友達のメールアドレス
-			newInviteInfo.setInviteMailTo(mailToList[i]);
+			newInviteInfo.setInviteMailTo(mailTo.getKey());
 			// 招待データ
 			newInviteInfo.setInviteDate(inviteDate);
 			// 招待メッセージ
@@ -107,7 +105,7 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 			// タイトル
 			newInviteInfo.setTitleId(inviteInfo.getTitleId());
 			// 友達の名前
-			newInviteInfo.setFriendName(mailToList[i]);
+			newInviteInfo.setFriendName(mailTo.getValue());
 			// 友達登録ステータス
 			newInviteInfo
 					.setInviteStatus(PortalConstants.InviteStatus.NO_RESPONSE);
@@ -135,10 +133,8 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 			props.put("mailFrom",newInviteInfo.getInviteMailFrom());
 			templateMailer.sendAsyncMail(newInviteInfo.getInviteMailTo(), "inviteFriend", props);
 		}
-		// days: select from XMl
-		// inviteInfoDao.deleteInvalidInvite(ContextUtil.getMemberNo(), days);
-		inviteInfoDao.deleteInvalidInvite(ContextUtil.getMemberNo(),
-				new Integer(2));
+		// ロジック削除されたデータを削除する
+		inviteInfoDao.deleteInvalidInvite(ContextUtil.getMemberNo(), PortalConstants.DELE_DAYS);
 	}
 
 	/**
