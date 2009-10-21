@@ -1,9 +1,10 @@
 package com.gameif.portal.action.invite;
 
 import java.io.IOException;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import octazen.addressbook.AddressBookAuthenticationException;
 import octazen.addressbook.AddressBookException;
@@ -22,10 +23,9 @@ import com.gameif.common.util.ContextUtil;
 import com.gameif.portal.businesslogic.IInviteInfoBusinessLogic;
 import com.gameif.portal.businesslogic.IMasterInfoBusinessLogic;
 import com.gameif.portal.businesslogic.IMemberInfoBusinessLogic;
+import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.entity.InviteInfo;
-import com.gameif.portal.entity.InviteTemplateMst;
 import com.gameif.portal.entity.MemberInfo;
-import com.gameif.portal.entity.TitleMst;
 import com.gameif.portal.helper.PortalProperties;
 
 public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
@@ -40,8 +40,8 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 	private IMemberInfoBusinessLogic memberInfoBusinessLogic;
 	private PortalProperties portalProperties;
 	
-	private Map<Integer, List<InviteTemplateMst>> inviteTemplateList;
-	private List<TitleMst> titleList;
+//	private Map<Integer, List<InviteTemplateMst>> inviteTemplateList;
+//	private List<TitleMst> titleList;
 
 	private String mailAdd;
 	private String domain;
@@ -115,35 +115,6 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 	}
 
 	/**
-	 * @return the inviteTemplateList
-	 */
-	public Map<Integer, List<InviteTemplateMst>> getInviteTemplateList() {
-		return inviteTemplateList;
-	}
-
-	/**
-	 * @param inviteTemplateList the inviteTemplateList to set
-	 */
-	public void setInviteTemplateList(
-			Map<Integer, List<InviteTemplateMst>> inviteTemplateList) {
-		this.inviteTemplateList = inviteTemplateList;
-	}
-
-	/**
-	 * @return the titleList
-	 */
-	public List<TitleMst> getTitleList() {
-		return titleList;
-	}
-
-	/**
-	 * @param titleList the titleList to set
-	 */
-	public void setTitleList(List<TitleMst> titleList) {
-		this.titleList = titleList;
-	}
-
-	/**
 	 * @return the mailAdd
 	 */
 	public String getMailAdd() {
@@ -198,23 +169,6 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 	public void setFriendList(List<Contact> friendList) {
 		this.friendList = friendList;
 	}
-
-	/**
-	 * 画面初期化
-	 */
-	private void initPage() {
-		
-		setTitleList( masterInfoBusinessLogic.getValidTitleList());
-
-		Map<Integer, List<InviteTemplateMst>> inviteTemp = new LinkedHashMap<Integer, List<InviteTemplateMst>>();
-		
-		List<InviteTemplateMst> tempList = null;
-		for (int i = 0; i < getTitleList().size(); i++) {
-			tempList = masterInfoBusinessLogic.getInviteTemplateByTitleId(getTitleList().get(i).getTitleId());
-			inviteTemp.put(getTitleList().get(i).getTitleId(), tempList);
-		}
-		this.setInviteTemplateList(inviteTemp);
-	}
 	
 	/**
 	 * 友達紹介画面に案内する。
@@ -222,8 +176,6 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 	 * @return 友達紹介入力画面
 	 */
 	public String input() {
-		
-		initPage();
 		
 		// 紹介者の会員番号
 		getModel().setMemNum(ContextUtil.getMemberNo());
@@ -248,15 +200,53 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 	public String create() {
 		/** 複数友達の場合、メールアドレースを「,」で分割 */
 		String[] mailToList = getModel().getInviteMailTo().trim().replace("\r\n", "\n").split("\n");
-//		String[] mailToList = getModel().getInviteMailTo().split(",");
-		if (mailToList.length > 10) {
+
+		Map<String, String> mailToMap = new HashMap<String, String>();
+		String mailAdd = "";
+		String userName = "";
+		// メールアドレース
+		Pattern ptnMail = Pattern.compile("[\\w\\.\\-]+@(?:[\\w\\-]+\\.)+[\\w\\-]+");
+		// 名前< メールアドレース > あるいは < メールアドレース >
+		Pattern ptnWithSpace = Pattern.compile("(.)*< [\\w\\.\\-]+@(?:[\\w\\-]+\\.)+[\\w\\-]+ >$");
+		// 名前< メールアドレース > あるいは < メールアドレース >
+		Pattern ptnWithoutSpace = Pattern.compile("(.)*<[\\w\\.\\-]+@(?:[\\w\\-]+\\.)+[\\w\\-]+>$");
+		
+		for (int i = 0; i < mailToList.length; i++) {
+			mailAdd = mailToList[i].toString().trim();
+			if (ptnWithSpace.matcher(mailAdd).matches() || ptnWithoutSpace.matcher(mailAdd).matches()) {
+				Integer index = mailAdd.lastIndexOf("<");
+				// <メールアドレース>
+				if (index == 0) {
+					mailAdd = mailAdd.substring(1, mailAdd.length()-1);
+					userName = mailAdd;
+				// 名前<メールアドレース>
+				} else {
+					userName = mailAdd.substring(0, index);
+					mailAdd = mailAdd.substring(index+1, mailAdd.length()-1);
+				}
+			// メールアドレースだけ
+			} else if (ptnMail.matcher(mailAdd).matches()) {
+				userName = mailAdd;
+			} else {
+				// メールアドレースが正しくない
+				addFieldError("inviteMailTo", getText("inviteMailTo.errFormat"));
+				return INPUT;
+			}
+			// 重複なメールアドレースを除く
+			if (mailToMap.containsKey(mailAdd)) {
+				continue;
+			}
+			mailToMap.put(mailAdd.trim(), userName.trim());
+		}
+		
+		if (mailToMap.size() > PortalConstants.MAIL_COUNT) {
 			addFieldError("inviteMailTo", getText("inviteMailTo.maxLength"));
 			return INPUT;
 		}
 		
 		try {
 			
-			inviteInfoBusinessLogic.saveInviteInfo(this.getModel());
+			inviteInfoBusinessLogic.saveInviteInfo(this.getModel(), mailToMap);
 			
 		} catch (OutOfMaxCountException ex) {
 			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
