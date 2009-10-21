@@ -6,7 +6,6 @@ import com.gameif.common.bean.ComSearchCondition;
 import com.gameif.common.dao.impl.AbstractBaseDao;
 import com.gameif.portal.dao.IInviteInfoDao;
 import com.gameif.portal.entity.InviteInfo;
-import com.gameif.portal.entity.MemberInfo;
 
 public class InviteInfoDaoImpl extends AbstractBaseDao<InviteInfo, InviteInfo>
 		implements IInviteInfoDao {
