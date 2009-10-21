@@ -67,7 +67,7 @@
 <div class="page_top_menu">
 	<a href="index.html" title="トップページ">トップ</a>
 	<a href="games.html" title="ゲーム">ゲーム</a>
-	<a href="point.html" title="ポイントチャージ">ポイントチャージ</a>
+	<a href="chargePointSelect.html" title="ポイントチャージ">ポイントチャージ</a>
 	<a href="#" title="コミュニティ">コミュニティ</a>
 	<a href="#" title="お知らせ">お知らせ</a>
 </div>
@@ -107,6 +107,10 @@
 			<dd></dd>
 		</dl>
 		<dl class="quickstart tspace_s">
+			<dt><a href="inputPwdReget.html" title="会員登録">パスワードを忘れ方へ</a></dt>
+			<dd></dd>
+		</dl>
+		<dl class="quickstart tspace_s">
 			<dt><a href="registryMember.html" title="会員登録"><img src="images/btn_b_entry.gif" alt="会員登録"/></a></dt>
 			<dd><a href="inputInvite.html" title="友達招待"><img src="images/btn_b_friend.gif" alt="友達招待"/></a></dd>
 		</dl>
@@ -130,7 +134,7 @@
 	<a href="logoutProxy.html">ログアウト</a>
 		<!-- ショットカットボタンエリア：開始 -->
 		<dl class="quickstart tspace_n">
-			<dt><a href="point.html" title="ポイントチャージ"><img src="images/btn_b_point.gif" alt="ポイントチャージ"/></a></dt>
+			<dt><a href="chargePointSelect.html" title="ポイントチャージ"><img src="images/btn_b_point.gif" alt="ポイントチャージ"/></a></dt>
 			<dd><a href="inputInvite.html" title="友達招待"><img src="images/btn_b_friend.gif" alt="友達招待"/></a></dd>
 		</dl>
 		<dl class="quickstart tspace_s">
