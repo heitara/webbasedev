@@ -177,6 +177,39 @@
 			<result name="invalid.token">/WEB-INF/pages/common/warning.jsp</result>
 		</action>
 
+		<action name="charge*" class="pointChargeControlAction" method="{1}">
+			<interceptor-ref name="scopedModelDriven">
+				<param name="scope">request</param>
+				<param name="name">memSettlementHist</param>
+				<param name="className">com.gameif.portal.entity.MemSettlementHist</param>
+			</interceptor-ref>
+			<interceptor-ref name="gameifStack"></interceptor-ref>
+			
+			<result name="pointSelect">/WEB-INF/pages/portal/charge_point_select.jsp</result>
+			
+			<result name="settleSelectInit" type="chain">
+				<param name="actionName">chargeSettleSelect</param>
+				<param name="titleId">%{model.titleId}</param>
+				<param name="serverId">%{model.serverId}</param>
+				<param name="pointId">%{model.pointId}</param>
+			</result>
+			
+			<result name="settleSelect">/WEB-INF/pages/portal/charge_settle_select.jsp</result>
+			
+			<result name="detail" type="redirectAction">
+				<param name="actionName">chargeDetail</param>
+			</result>
+			
+			<result name="detailInit">/WEB-INF/pages/portal/charge_detail.jsp</result>
+			
+			<result name="receive">/WEB-INF/pages/portal/charge_receive.jsp</result>
+			<result name="cancel">/WEB-INF/pages/portal/charge_cancel.jsp</result>
+			<result name="error">/WEB-INF/pages/portal/charge_error.jsp</result>
+			<result name="success">/WEB-INF/pages/portal/charge_success.jsp</result>
+			
+			<result name="invalid.token">/WEB-INF/pages/common/warning.jsp</result>
+		</action>
+
 		<action name="loginStatusProxy" class="loginStatusProxyAction">
 			<result name="success" type="redirect">${target}</result>
 		</action>
@@ -190,10 +223,18 @@
 		<action name="*Exist" class="existCheckAction" method="{1}">
             <result type="json"></result>
 		</action>
+		
+		<!-- タイトルIDより、紹介メッセージテンプレートデータを取得する -->
 		<action name="bindInviteTemplate" class="inviteBindMasterAction" method="bindInviteTemplate">
             <result type="json"></result>
 		</action>
+		<!-- 紹介メッセージテンプレートIDより、紹介メッセージを取得する -->
 		<action name="changeInviteMsg" class="inviteBindMasterAction" method="changeInviteMsg">
+            <result type="json"></result>
+		</action>
+		
+		<!-- ポイントチャージに関するマスタ情報を取得する -->
+		<action name="*ForCharge" class="pointChargeBindMasterAction" method="{1}">
             <result type="json"></result>
 		</action>
 	</package>
