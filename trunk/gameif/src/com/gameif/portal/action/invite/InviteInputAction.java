@@ -23,7 +23,6 @@ import com.gameif.common.util.ContextUtil;
 import com.gameif.portal.businesslogic.IInviteInfoBusinessLogic;
 import com.gameif.portal.businesslogic.IMasterInfoBusinessLogic;
 import com.gameif.portal.businesslogic.IMemberInfoBusinessLogic;
-import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.entity.InviteInfo;
 import com.gameif.portal.entity.MemberInfo;
 import com.gameif.portal.helper.PortalProperties;
@@ -237,11 +236,6 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 				continue;
 			}
 			mailToMap.put(mailAdd.trim(), userName.trim());
-		}
-		
-		if (mailToMap.size() > PortalConstants.MAIL_COUNT) {
-			addFieldError("inviteMailTo", getText("inviteMailTo.maxLength"));
-			return INPUT;
 		}
 		
 		try {

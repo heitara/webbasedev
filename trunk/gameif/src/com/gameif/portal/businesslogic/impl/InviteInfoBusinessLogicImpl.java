@@ -29,6 +29,9 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	private IInviteInfoDao inviteInfoDao;
 	private TemplateMailer templateMailer;
 	private ITitleMstDao titleMstDao;
+	
+	private Integer deleDays;
+	private Integer maxMailCount;
 
 	/**
 	 * @param inviteInfoDao
@@ -67,12 +70,45 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	}
 
 	/**
+	 * @return the deleDays
+	 */
+	public Integer getDeleDays() {
+		return deleDays;
+	}
+
+	/**
+	 * @param deleDays the deleDays to set
+	 */
+	public void setDeleDays(Integer deleDays) {
+		this.deleDays = deleDays;
+	}
+	
+	/**
+	 * @return the maxMailCount
+	 */
+	public Integer getMaxMailCount() {
+		return maxMailCount;
+	}
+
+	/**
+	 * @param maxMailCount the maxMailCount to set
+	 */
+	public void setMaxMailCount(Integer maxMailCount) {
+		this.maxMailCount = maxMailCount;
+	}
+
+	/**
 	 * 友達紹介情報を登録する。
 	 * 
 	 * @param inviteInfoDao
 	 */
 	@Transactional
 	public void saveInviteInfo(InviteInfo inviteInfo, Map<String, String> mailToList) throws LogicException {
+
+		// 最大送信件数のチェック
+		if (mailToList.size() > getMaxMailCount()) {
+			throw new OutOfMaxCountException("mail list is Out of max count!");
+		}
 		
 		// 招待時間
 		Date inviteDate = new Date();
@@ -82,7 +118,7 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		// 本日にの送信件数を検索する
 		Integer count = inviteInfoDao.selectCountByMemNumInTime(inviteInfo);
 		// 最大送信件数のチェック
-		if (PortalConstants.MAIL_COUNT < (count + mailToList.size())) {
+		if (getMaxMailCount() < (count + mailToList.size())) {
 			throw new OutOfMaxCountException("mail list is Out of max count!");
 		}
 
@@ -134,7 +170,7 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 			templateMailer.sendAsyncMail(newInviteInfo.getInviteMailTo(), "inviteFriend", props);
 		}
 		// ロジック削除されたデータを削除する
-		inviteInfoDao.deleteInvalidInvite(ContextUtil.getMemberNo(), PortalConstants.DELE_DAYS);
+		inviteInfoDao.deleteInvalidInvite(ContextUtil.getMemberNo(), getDeleDays());
 	}
 
 	/**
