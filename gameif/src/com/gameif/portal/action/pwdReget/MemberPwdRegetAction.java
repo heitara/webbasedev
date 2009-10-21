@@ -7,7 +7,6 @@ import com.gameif.portal.businesslogic.IMasterInfoBusinessLogic;
 import com.gameif.portal.businesslogic.ITempPwdRegetBusinessLogic;
 import com.gameif.portal.entity.MemberInfo;
 import com.gameif.portal.entity.TempPwdInfo;
-import com.gameif.portal.helper.PortalProperties;
 
 public class MemberPwdRegetAction extends ModelDrivenActionSupport<TempPwdInfo> {
 
