@@ -1,5 +1,6 @@
 package com.gameif.common.util;
 
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.util.Random;
 
@@ -55,7 +56,7 @@ public class SecurityUtil {
 	 * 指定した長さのランダム文字列を取得する
 	 * 
 	 * @param length
-	 * 　　　　　指定した長さ
+	 *            　　　　　指定した長さ
 	 * @return ランダム文字列(数字、小文字、大文字を含む)
 	 */
 	public final static String getRandomAuthKey(int length) {
@@ -74,5 +75,41 @@ public class SecurityUtil {
 			logger.error(ex.getMessage(), ex);
 		}
 		return sb.toString();
+	}
+
+	/**
+	 * 指定した文字列をSHA-1アルゴリズムで暗号化する。
+	 * 
+	 * @param text
+	 *            暗号化前の文字列
+	 * @return　暗号化結果の文字列
+	 */
+	public final static String getSHAString(String text) {
+		String shaString = "";
+
+		try {
+			byte[] txtByte = text.getBytes();
+
+			MessageDigest mdTemp = MessageDigest.getInstance("SHA-1");
+			mdTemp.update(txtByte);
+
+			byte[] shaByte = mdTemp.digest();
+			
+			String temp = "";
+			for (int i = 0; i < shaByte.length; i++) {
+				temp = (Integer.toHexString(shaByte[i] & 0xFF));
+				if (temp.length() == 1) {
+					temp += "0";
+				}
+				shaString += temp;
+				
+			}
+
+		} catch (Exception ex) {
+
+			logger.error(ex.getMessage(), ex);
+		}
+
+		return shaString;
 	}
 }
