@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="pointMst">
+	<typeAlias alias="pointMst" type="com.gameif.portal.entity.PointMst" />
+	
+	<resultMap class="com.gameif.portal.entity.PointMst" id="pointResult">
+		<result property="pointId" column="point_id" />
+		<result property="titleId" column="title_id" />
+		<result property="serverId" column="server_id" />
+		<result property="pointName" column="point_name" />
+		<result property="pointStartDate" column="point_start_date" />
+		<result property="pointEndDate" column="point_end_date" />
+		<result property="pointStatus" column="point_status" />
+		<result property="pointAmount" column="point_amount" />
+		<result property="pointAmountAct" column="point_amount_act" />
+		<result property="createdDate" column="created_date"/>
+		<result property="createdUser" column="created_user"/>
+		<result property="lastUpdateDate" column="last_update_date"/>
+		<result property="lastUpdateUser" column="last_update_user"/>
+	</resultMap>
+
+	<select id="selectValidPointListByServer" resultMap="pointResult">
+        <![CDATA[
+        SELECT
+			point_id,
+			title_id,
+			server_id,
+			point_name,
+			point_start_date,
+			point_end_date,
+			point_status,
+			point_amount,
+			point_amount_act,
+			created_date,
+			created_user,
+			last_update_date,
+			last_update_user
+		FROM
+			point_mst
+		WHERE
+			server_id = #value#
+		AND	point_start_date <= now()
+		AND point_end_date >= now()
+        ]]>
+	</select>
+
+	<select id="selectByKey" parameterClass="pointMst" resultMap="pointResult">   
+        <![CDATA[
+        SELECT
+			point_id,
+			title_id,
+			server_id,
+			point_name,
+			point_start_date,
+			point_end_date,
+			point_status,
+			point_amount,
+			point_amount_act,
+			created_date,
+			created_user,
+			last_update_date,
+			last_update_user
+		FROM
+			point_mst
+		WHERE
+			point_id = #pointId#
+        ]]>
+	</select>
+
+</sqlMap>
