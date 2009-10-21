@@ -17,7 +17,7 @@
 <head>
 	<meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
 	<meta content="index, follow" name="robots"/>
-	<base href="<%=request.getScheme()%>://<%=request.getServerName()%><%if(request.getServerPort() != 80 && request.getServerPort() != 443) out.print(":" + request.getServerPort());%><%=request.getContextPath()%>/"/>
+	<base href="<%="1".equals(request.getParameter("ssl")) ? "https" : "http"%>://<%=request.getServerName()%><%if(request.getServerPort() != 80 && request.getServerPort() != 443) out.print(":" + request.getServerPort());%><%=request.getContextPath()%>/"/>
 	<link type="text/css" href="css/common.css" rel="stylesheet"></link>
 	<link type="text/css" href="css/main.css" rel="stylesheet"></link>
 	<script src="js/jquery/jquery.js" type="text/javascript"></script>
