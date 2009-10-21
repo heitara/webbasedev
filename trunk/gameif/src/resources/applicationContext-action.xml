@@ -115,8 +115,49 @@
 		</property>
 	</bean>
 	
+	<!-- 友達紹介画面にて、マスタデータバインド用アクション -->
 	<!-- inviteBindMasterAction -->
 	<bean id="inviteBindMasterAction" class="com.gameif.portal.action.invite.InviteBindMasterAction" scope="prototype">
+		<property name="masterInfoBusinessLogic">
+			<ref bean="masterInfoBusinessLogic" />
+		</property>
+	</bean>
+	
+	<!-- ポイントチャージ用アクション -->
+	<!-- pointChargeControlAction -->
+	<bean id="pointChargeControlAction" class="com.gameif.portal.action.pointCharge.PointChargeControlAction" scope="prototype">
+		<!-- 購入要求接続先URL -->
+		<property name="requestUrl">
+			<value>https://stbfep.sps-system.com/Extra/BuyRequestAction.do</value>
+		</property>
+		<!-- 決済完了時URL -->
+		<property name="success_url">
+			<value>http://www.game-if.com/chargeSuccess.html</value>
+		</property>
+		<!-- getPointAmountAct -->
+		<property name="cancel_url">
+			<value>http://www.game-if.com/chargeCancel.html</value>
+		</property>
+		<!-- エラー時URL -->
+		<property name="error_url">
+			<value>http://www.game-if.com/chargeError.html</value>
+		</property>
+		<!-- 決済通知用CGI -->
+		<property name="pagecon_url">
+			<value>http://www.game-if.com/chargeReceive.html</value>
+		</property>
+		
+		<property name="masterInfoBusinessLogic">
+			<ref bean="masterInfoBusinessLogic" />
+		</property>
+		<property name="pointChargeBusinessLogic">
+			<ref bean="pointChargeBusinessLogic" />
+		</property>
+	</bean>
+	
+	<!-- ポイントチャージ画面にて、マスタデータバインド用アクション -->
+	<!-- pointChargeBindMasterAction -->
+	<bean id="pointChargeBindMasterAction" class="com.gameif.portal.action.pointCharge.PointChargeBindMasterAction" scope="prototype">
 		<property name="masterInfoBusinessLogic">
 			<ref bean="masterInfoBusinessLogic" />
 		</property>
