@@ -8,6 +8,10 @@
 	<!-- memberInfoBusinessLogic -->
 	<bean id="memberInfoBusinessLogic"
 		class="com.gameif.portal.businesslogic.impl.MemberInfoBusinessLogicImpl">
+		<!-- 臨時キーの期限きれ時間（単位：分） -->
+		<property name="invalidMinute">
+			<value>${memberInfoBusinessLogic.invalidMinute}</value>
+		</property>
 		<property name="memberInfoDao">
 			<ref bean="memberInfoDao" />
 		</property>
@@ -36,6 +40,12 @@
 	<!-- inviteInfoBusinessLogic -->
 	<bean id="inviteInfoBusinessLogic"
 		class="com.gameif.portal.businesslogic.impl.InviteInfoBusinessLogicImpl">
+		<property name="deleDays">
+			<value>${inviteInfoBusinessLogic.deleDays}</value>
+		</property>
+		<property name="maxMailCount">
+			<value>${inviteInfoBusinessLogic.maxMailCount}</value>
+		</property>
 		<property name="inviteInfoDao">
 			<ref bean="inviteInfoDao" />
 		</property>

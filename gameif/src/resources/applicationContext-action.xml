@@ -10,11 +10,11 @@
 	<bean id="repetitionRegInterceptor" class="com.gameif.portal.interceptor.RepetitionRegInterceptor">
 		<!-- 連続登録する最大回数 -->
 		<property name="repetitionMax">
-			<value>5</value>
+			<value>${repetitionRegInterceptor.repetitionMax}</value>
 		</property>
 		<!-- チェックする時間単位（秒） -->
 		<property name="checkTime">
-			<value>300</value>
+			<value>${repetitionRegInterceptor.checkTime}</value>
 		</property>
 	</bean>
 	
@@ -128,23 +128,23 @@
 	<bean id="pointChargeControlAction" class="com.gameif.portal.action.pointCharge.PointChargeControlAction" scope="prototype">
 		<!-- 購入要求接続先URL -->
 		<property name="requestUrl">
-			<value>https://stbfep.sps-system.com/Extra/BuyRequestAction.do</value>
+			<value>${pointChargeControlAction.requestUrl}</value>
 		</property>
 		<!-- 決済完了時URL -->
 		<property name="success_url">
-			<value>http://www.game-if.com/chargeSuccess.html</value>
+			<value>${pointChargeControlAction.success_url}</value>
 		</property>
-		<!-- getPointAmountAct -->
+		<!-- キャンセル時URL -->
 		<property name="cancel_url">
-			<value>http://www.game-if.com/chargeCancel.html</value>
+			<value>${pointChargeControlAction.cancel_url}</value>
 		</property>
 		<!-- エラー時URL -->
 		<property name="error_url">
-			<value>http://www.game-if.com/chargeError.html</value>
+			<value>${pointChargeControlAction.error_url}</value>
 		</property>
 		<!-- 決済通知用CGI -->
 		<property name="pagecon_url">
-			<value>http://www.game-if.com/chargeReceive.html</value>
+			<value>${pointChargeControlAction.pagecon_url}</value>
 		</property>
 		
 		<property name="masterInfoBusinessLogic">
