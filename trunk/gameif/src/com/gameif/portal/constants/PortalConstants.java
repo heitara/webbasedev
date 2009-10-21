@@ -78,4 +78,9 @@ public class PortalConstants {
 		/** 臨時キー（仮パスワード） */ 
 		public final static String TEMP_KEY = "tempKey";
 	}
+	
+	// 友達紹介に指定した日時前のデータ（ロジック削除）を削除する
+	public final static Integer DELE_DAYS = 2;
+	// 毎日に送信の最大個数
+	public final static Integer MAIL_COUNT = 10;
 }
