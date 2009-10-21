@@ -11,7 +11,7 @@
 	<script src="js/portal/bindMaster.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		function doSubmit() {
-			document.form1.action = "https://stbfep.sps-system.com/Extra/BuyRequestAction.do";
+			document.form1.action = document.getElementById("requestUrl").value;
 			document.form1.submit();
 			return;
 		}
@@ -54,6 +54,8 @@
 			<s:hidden name="request_date" />
 			<s:hidden name="limit_second" />
 			<s:hidden name="sps_hashcode" />
+			
+			<s:hidden name="requestUrl" id="requestUrl"></s:hidden>
 			
 			<div>
 				<s:submit value="ŽŸ‚Ö" cssClass="submit" />
