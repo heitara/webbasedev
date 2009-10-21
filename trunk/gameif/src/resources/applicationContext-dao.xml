@@ -106,4 +106,32 @@
 			<value>tempPwdInfo</value>
 		</property>
 	</bean>
+	
+	<!-- pointMstDao -->
+	<bean id="pointMstDao" class="com.gameif.portal.dao.impl.PointMstDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>pointMst</value>
+		</property>
+	</bean>
+	
+	<!-- settlementMstDao -->
+	<bean id="settlementMstDao" class="com.gameif.portal.dao.impl.SettlementMstDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>settlementMst</value>
+		</property>
+	</bean>
+	
+	<!-- memSettlementHistDao -->
+	<bean id="memSettlementHistDao" class="com.gameif.portal.dao.impl.MemSettlementHistDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>memSettlementHist</value>
+		</property>
+	</bean>
+	
+	<!-- memSettlementTrnsDao -->
+	<bean id="memSettlementTrnsDao" class="com.gameif.portal.dao.impl.MemSettlementTrnsDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>memSettlementTrns</value>
+		</property>
+	</bean>
 </beans>
