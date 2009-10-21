@@ -8,7 +8,9 @@
 	<bean id="simpleMailer" class="com.gameif.common.helper.SimpleMailer">
 		<property name="sender" ref="sender" />
 		<property name="taskExecutor" ref="taskExecutor"/>
-		<property name="from" value="support@game-if.com" />
+		<property name="from">
+			<value>${simpleMailer.from}</value>
+		</property>
 	</bean>
 	
 	<bean id="templateMailer" class="com.gameif.common.helper.TemplateMailer">
@@ -75,32 +77,46 @@
 	
 	<bean id="sender"
 		class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="gameif.sakura.ne.jp" />
-		<property name="username" value="portal@game-if.com" />
-		<property name="password" value="sy34vtdp" />
-		<property name="port" value="587" />
+		<property name="host">
+			<value>${sender.host}</value>
+		</property>
+		<property name="username">
+			<value>${sender.username}</value>
+		</property>
+		<property name="password">
+			<value>${sender.password}</value>
+		</property>
+		<property name="port">
+			<value>${sender.port}</value>
+		</property>
 		<property name="javaMailProperties">
 			<props>
-				<prop key="mail.smtp.auth">true</prop>
-				<prop key="mail.smtp.timeout">20000</prop>
+				<prop key="mail.smtp.auth">${sender.mail.smtp.auth}</prop>
+				<prop key="mail.smtp.timeout">${sender.mail.smtp.timeout}</prop>
 			</props>
 		</property>
 	</bean>
 	
 	<bean id="freeMarkerConfigurer"
 		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
-		<property name="templateLoaderPath" value="WEB-INF/template/mail/" />
+		<property name="templateLoaderPath">
+			<value>${freeMarkerConf.templateLoaderPath}</value>
+		</property>
 		<property name="freemarkerSettings">
 			<props>
-				<prop key="template_update_delay">1800</prop>
-				<prop key="default_encoding">UTF-8</prop>
-				<prop key="locale">ja_JP</prop>
+				<prop key="template_update_delay">${freeMarkerConf.template_update_delay}</prop>
+				<prop key="default_encoding">${freeMarkerConf.default_encoding}</prop>
+				<prop key="locale">${freeMarkerConf.locale}</prop>
 			</props>
 		</property>
 	</bean>
 	
 	<bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
-	    <property name="corePoolSize" value="5"/>
-	    <property name="maxPoolSize" value="30"/>
+	    <property name="corePoolSize">
+	    	<value>${taskExecutor.corePoolSize}</value>
+	    </property>
+	    <property name="maxPoolSize">
+	    	<value>${taskExecutor.maxPoolSize}</value>
+	    </property>
 	</bean>	
 </beans>

@@ -13,6 +13,10 @@
 			<list>
 				<value>classpath:/resources/database.properties
 				</value>
+				<value>classpath:/resources/mailConst.properties
+				</value>
+				<value>classpath:/resources/portalConst.properties
+				</value>
 			</list>
 		</property>
 	</bean>

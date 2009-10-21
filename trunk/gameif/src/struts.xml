@@ -198,6 +198,7 @@
 			
 			<result name="detail" type="redirectAction">
 				<param name="actionName">chargeDetail</param>
+				<param name="settleTrnsNum">${settleTrnsNum}</param>
 			</result>
 			
 			<result name="detailInit">/WEB-INF/pages/portal/charge_detail.jsp</result>
