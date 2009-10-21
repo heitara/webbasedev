@@ -71,6 +71,12 @@
 		<property name="inviteTemplateDao">
 			<ref bean="inviteTemplateDao" />
 		</property>
+		<property name="pointMstDao">
+			<ref bean="pointMstDao" />
+		</property>
+		<property name="settlementMstDao">
+			<ref bean="settlementMstDao" />
+		</property>
 	</bean>
 	
 	<!-- titlePlayBusinessLogic -->
@@ -92,6 +98,26 @@
 		</property>
 		<property name="templateMailer">
 			<ref bean="templateMailer" />
+		</property>
+	</bean>
+	
+	<!-- pointChargeBusinessLogic -->
+	<bean id="pointChargeBusinessLogic"
+		class="com.gameif.portal.businesslogic.impl.PointChargeBusinessLogicImpl">
+		<property name="memSettlementHistDao">
+			<ref bean="memSettlementHistDao" />
+		</property>
+		<property name="memSettlementTrnsDao">
+			<ref bean="memSettlementTrnsDao" />
+		</property>
+		<property name="memberInfoDao">
+			<ref bean="memberInfoDao" />
+		</property>
+		<property name="pointMstDao">
+			<ref bean="pointMstDao" />
+		</property>
+		<property name="titleMstDao">
+			<ref bean="titleMstDao" />
 		</property>
 	</bean>
 </beans>
