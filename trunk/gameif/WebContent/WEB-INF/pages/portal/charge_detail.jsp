@@ -3,10 +3,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja-jp" lang="ja-jp" >
 <head>
-	<meta name="keywords" content="ã‚²ãƒ¼ãƒ ã‚¤ãƒ•,ãƒ–ãƒ©ã‚¦ã‚¶ã‚²ãƒ¼ãƒ ,webgame,å¤§äººæ•°åŒæ™‚ãƒ—ãƒ¬ã‚¤ãƒ–ãƒ©ã‚¦ã‚¶ã‚²ãƒ¼ãƒ ,ã‚ªãƒ³ãƒ©ã‚¤ãƒ³ã‚²ãƒ¼ãƒ ,ãƒ‘ãƒ–ãƒªãƒƒã‚·ãƒ³ã‚°,ãƒ—ãƒ©ãƒƒãƒˆãƒ•ã‚©ãƒ¼ãƒ " />
-	<meta name="description" content="ãƒ–ãƒ©ã‚¦ã‚¶ã‚²ãƒ¼ãƒ (WEBGAME)ã®ãƒãƒ¼ã‚¿ãƒ«ã‚µã‚¤ãƒˆ" />
+	<meta name="keywords" content="ƒQ[ƒ€ƒCƒt,ƒuƒ‰ƒEƒUƒQ[ƒ€,webgame,‘ål”“¯ŽžƒvƒŒƒCƒuƒ‰ƒEƒUƒQ[ƒ€,ƒIƒ“ƒ‰ƒCƒ“ƒQ[ƒ€,ƒpƒuƒŠƒbƒVƒ“ƒO,ƒvƒ‰ƒbƒgƒtƒH[ƒ€" />
+	<meta name="description" content="ƒuƒ‰ƒEƒUƒQ[ƒ€(WEBGAME)‚Ìƒ|[ƒ^ƒ‹ƒTƒCƒg" />
 	<meta content="text/html; charset=shift-jis" http-equiv="content-type"/>
-	<title>ãƒã‚¤ãƒ³ãƒˆãƒãƒ£ãƒ¼ã‚¸ | ã‚²ãƒ¼ãƒ ã‚¤ãƒ• | ãƒ–ãƒ©ã‚¦ã‚¶ã‚²ãƒ¼ãƒ ã®ãƒãƒ¼ã‚¿ãƒ«ã‚µã‚¤ãƒˆ</title>
+	<title>ƒ|ƒCƒ“ƒgƒ`ƒƒ[ƒW | ƒQ[ƒ€ƒCƒt | ƒuƒ‰ƒEƒUƒQ[ƒ€‚Ìƒ|[ƒ^ƒ‹ƒTƒCƒg</title>
 	<script src="js/portal/validate.js" type="text/javascript"></script>
 	<script src="js/portal/bindMaster.js" type="text/javascript"></script>
 	<script type="text/javascript">
@@ -19,7 +19,7 @@
 </head>
 
 <body onload="doSubmit();">
-<!-- ãƒã‚¤ãƒ³ãƒˆãƒãƒ£ãƒ¼ã‚¸ï¼šé–‹å§‹ -->
+<!-- ƒ|ƒCƒ“ƒgƒ`ƒƒ[ƒWFŠJŽn -->
 <dl>
 	<dd>
 		<form name="form1" method="post">
@@ -56,12 +56,12 @@
 			<s:hidden name="sps_hashcode" />
 			
 			<div>
-				<s:submit value="æ¬¡ã¸" cssClass="submit" />
+				<s:submit value="ŽŸ‚Ö" cssClass="submit" />
 			</div>
 		</form>
 	</dd>
 </dl>
-<!-- ãƒã‚¤ãƒ³ãƒˆãƒãƒ£ãƒ¼ã‚¸ï¼šçµ‚äº† -->
+<!-- ƒ|ƒCƒ“ƒgƒ`ƒƒ[ƒWFI—¹ -->
 
 
 </body>
