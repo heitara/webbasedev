@@ -34,6 +34,8 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	private TemplateMailer templateMailer;
 	private ITempPwdInfoDao tempPwdInfoDao;
 	private IInviteInfoDao inviteInfoDao;
+	
+	private Integer invalidMinute;
 
 	/**
 	 * 会員情報を登録する。
@@ -408,7 +410,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		
 		// 臨時キーが期限きれかどうかのチェック
 		Date now = new Date();
-		if(newTempPwdInfo.getCreatedDate().compareTo(new Date(now.getTime() - 30 * 60 * 1000)) < 0) {
+		if(newTempPwdInfo.getCreatedDate().compareTo(new Date(now.getTime() - getInvalidMinute() * 60 * 1000)) < 0) {
 			throw new LogicException("Tempory password id out of date.");
 		}
 		
@@ -481,6 +483,20 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	 */
 	public void setInviteInfoDao(IInviteInfoDao inviteInfoDao) {
 		this.inviteInfoDao = inviteInfoDao;
+	}
+
+	/**
+	 * @return the invalidMinute
+	 */
+	public Integer getInvalidMinute() {
+		return invalidMinute;
+	}
+
+	/**
+	 * @param invalidMinute the invalidMinute to set
+	 */
+	public void setInvalidMinute(Integer invalidMinute) {
+		this.invalidMinute = invalidMinute;
 	}
 	
 }
