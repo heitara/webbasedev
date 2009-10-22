@@ -146,6 +146,14 @@
 		<property name="pagecon_url">
 			<value>${pointChargeControlAction.pagecon_url}</value>
 		</property>
+		<!-- SPSより払い出されたキー -->
+		<property name="spsKey">
+			<value>${pointChargeControlAction.spsKey}</value>
+		</property>
+		<!-- リクエスト許容時間（単位:秒） -->
+		<property name="limit_second">
+			<value>${pointChargeControlAction.limit_second}</value>
+		</property>
 		
 		<property name="masterInfoBusinessLogic">
 			<ref bean="masterInfoBusinessLogic" />
