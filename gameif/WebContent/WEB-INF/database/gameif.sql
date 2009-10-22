@@ -366,9 +366,9 @@ CREATE TABLE  `mem_settlement_trns` (
   `settlement_code` varchar(20) DEFAULT NULL,
   `mem_num` bigint(20) DEFAULT NULL,
   `mem_atbt_cd` char(1) DEFAULT NULL,
-  `title_id` int(10) DEFAULT NULL,
-  `server_id` int(10) DEFAULT NULL,
-  `point_id` int(10) DEFAULT NULL,
+  `title_id` int(11) DEFAULT NULL,
+  `server_id` int(11) DEFAULT NULL,
+  `point_id` int(11) DEFAULT NULL,
   `settlement_date` datetime DEFAULT NULL,
   `point_count` decimal(10,0) DEFAULT NULL,
   `point_count_act` decimal(10,0) DEFAULT NULL,
@@ -389,9 +389,9 @@ CREATE TABLE  `mem_settlement_hist` (
   `settlement_code` varchar(20) DEFAULT NULL,
   `mem_num` bigint(20) DEFAULT NULL,
   `mem_atbt_cd` char(1) DEFAULT NULL,
-  `title_id` int(10) DEFAULT NULL,
-  `server_id` int(10) DEFAULT NULL,
-  `point_id` int(10) DEFAULT NULL,
+  `title_id` int(11) DEFAULT NULL,
+  `server_id` int(11) DEFAULT NULL,
+  `point_id` int(11) DEFAULT NULL,
   `settlement_date` datetime DEFAULT NULL,
   `point_count` decimal(10,0) DEFAULT NULL,
   `point_count_act` decimal(10,0) DEFAULT NULL,
@@ -412,6 +412,18 @@ CREATE TABLE  `mem_settlement_hist` (
   `last_update_date` datetime DEFAULT NULL,
   `last_update_user` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`settlement_num`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+
+DROP TABLE IF EXISTS `cbt_tester`;
+CREATE TABLE  `cbt_tester` (
+  `mem_num` bigint(20) NOT NULL,
+  `title_id` int(11) NOT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `created_user` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`mem_num`,`title_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
