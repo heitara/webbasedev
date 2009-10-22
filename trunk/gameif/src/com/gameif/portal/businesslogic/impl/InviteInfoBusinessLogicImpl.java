@@ -165,8 +165,11 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 			props.put("inviteId", newInviteInfo.getInviteId().toString());
 			// 招待メッセージ
 			props.put("inviteMsg",newInviteInfo.getInviteMsg());
+			// 差出人の名前
+			props.put("nickName",ContextUtil.getNickName());
 			// 差出人
 			props.put("mailFrom",newInviteInfo.getInviteMailFrom());
+			// 招待メールを送信する
 			templateMailer.sendAsyncMail(newInviteInfo.getInviteMailTo(), "inviteFriend", props);
 		}
 		// ロジック削除されたデータを削除する
