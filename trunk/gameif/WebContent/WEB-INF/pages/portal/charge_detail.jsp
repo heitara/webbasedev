@@ -51,6 +51,15 @@
 			<s:hidden name="free2" />
 			<s:hidden name="free3" />
 			<s:hidden name="free_csv" />
+			<s:hidden name="dtl_rowno" />
+			<s:hidden name="dtl_item_id" />
+			<s:hidden name="dtl_item_name" />
+			<s:hidden name="dtl_item_count" />
+			<s:hidden name="dtl_tax" />
+			<s:hidden name="dtl_amount" />
+			<s:hidden name="dtl_free1" />
+			<s:hidden name="dtl_free2" />
+			<s:hidden name="dtl_free3" />
 			<s:hidden name="request_date" />
 			<s:hidden name="limit_second" />
 			<s:hidden name="sps_hashcode" />
