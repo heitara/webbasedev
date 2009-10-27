@@ -116,6 +116,14 @@
 		<url-pattern>/chargeDetail.html</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/inputGetServicePoint.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/getGameLoginServicePoint.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
 	    <filter-name>sitemesh</filter-name>
 	    <url-pattern>/*</url-pattern>
 	</filter-mapping>
