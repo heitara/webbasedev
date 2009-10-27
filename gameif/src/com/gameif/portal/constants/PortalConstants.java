@@ -61,6 +61,8 @@ public class PortalConstants {
 		public final static String MAINTENANCE = "0";
 		/** サーバ稼動中 */
 		public final static String RUNNING = "1";
+		/** CBT中 */
+		public final static String CBT = "5";
 	}
 
 	/** 削除フラグ */
@@ -77,5 +79,13 @@ public class PortalConstants {
 		public final static String MEMBER_NUM = "memNum";
 		/** 臨時キー（仮パスワード） */ 
 		public final static String TEMP_KEY = "tempKey";
+	}
+	
+	// サービスポイント贈与タイプ
+	public class ServicePointTypeCd{
+		// 連続してゲームにログインした場合
+		public final static String GAME_LOGIN = "1";
+		// 最近一ヶ月の累計課金金額が一定金額を超えた場合
+		public final static String CHARGE = "2";
 	}
 }
