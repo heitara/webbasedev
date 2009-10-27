@@ -77,6 +77,7 @@ public class TitlePlayControlAction extends BaseActionSupport {
 				playHist.setServerId(serverMst.getServerId());
 				playHist.setPlayDate(now);
 				
+				// プレイ履歴とログイン回数情報を登録する
 				titlePlayBusinessLogic.savePlayHist(playHist);
 				
 				result = SUCCESS;
