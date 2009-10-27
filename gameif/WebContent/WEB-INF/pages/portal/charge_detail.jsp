@@ -57,9 +57,6 @@
 			<s:hidden name="dtl_item_count" />
 			<s:hidden name="dtl_tax" />
 			<s:hidden name="dtl_amount" />
-			<s:hidden name="dtl_free1" />
-			<s:hidden name="dtl_free2" />
-			<s:hidden name="dtl_free3" />
 			<s:hidden name="request_date" />
 			<s:hidden name="limit_second" />
 			<s:hidden name="sps_hashcode" />

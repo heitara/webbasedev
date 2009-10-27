@@ -8,15 +8,23 @@
 	<title>ポイントチャージ | ゲームイフ | ブラウザゲームのポータルサイト</title>
 	<script src="js/portal/validate.js" type="text/javascript"></script>
 	<script src="js/portal/bindMaster.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		function doSubmit() {
+			document.form1.action = document.getElementById("requestUrl").value;
+			document.form1.submit();
+			return;
+		}
+	</script>
 </head>
 
-<body onload="document.form1.submit();return;">
+<body onload="doSubmit();">
 <!-- ポイントチャージ：開始 -->
 <dl>
 	<dd>
-		<form name="form1" action="https://stbfep.sps-system.com/Extra/BuyRequestAction.do" method="post">
+		<form name="form1" method="post">
 			<s:property value="result" /><s:property value=","/><s:property value="errMsg"/>
 			
+			<s:hidden name="requestUrl" id="requestUrl"></s:hidden>
 			<div>
 				<s:submit value="次へ" cssClass="submit" />
 			</div>

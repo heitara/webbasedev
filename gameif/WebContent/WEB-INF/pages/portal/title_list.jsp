@@ -32,6 +32,22 @@
 								<s:if test='"0".equals(serviceStatus)'>
 									<div style="padding:5px;color:#666;">このタイトルは、ただいま<br/>メンテナンスしております。</div>
 								</s:if>
+								<!-- CBTチェック -->
+								<s:elseif test='"5".equals(serviceStatus)'>
+									<s:if test="0==cbtTester">
+										<div style="padding:5px;color:#666;">CBTテスターではないため<br/>プレイできません。</div>
+									</s:if>
+									<s:else>
+										<s:iterator value="serverMap.get(#title.titleId)" id="server" status="st">
+											<s:if test='"0".equals(serviceStatus)'>
+												<a href="<s:property value="playUrl"/>?serverId=<s:property value="serverId"/>&titleId=<s:property value="titleId"/>" style="background-color:#666;color:#DDD;" title="このサーバはただいま、メンテナンスしております。" onclick="return false;">S0<s:property value="serverId"/>: <s:property value="serverName"/>(メンテ中)</a>
+											</s:if>
+											<s:else>
+												<a href="<s:property value="playUrl"/>?serverId=<s:property value="serverId"/>&titleId=<s:property value="titleId"/>" title="第<s:property value="serverId"/>サーバ「<s:property value="serverName"/>」で「<s:property value="titleName"/>」をプレイする。">S0<s:property value="serverId"/>: <s:property value="serverName"/></a>
+											</s:else>									
+										</s:iterator>
+									</s:else>
+								</s:elseif>
 								<s:else>
 									<s:iterator value="serverMap.get(#title.titleId)" id="server" status="st">
 										<s:if test='"0".equals(serviceStatus)'>

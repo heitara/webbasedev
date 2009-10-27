@@ -13,7 +13,7 @@
 <body>
 <!-- ポイントチャージ：開始 -->
 <dl class="light_box tspace_n">
-	<dt><strong>ポイントチャージ</strong><span><a href="#">► サービスポイント使用</a>　<a href="#">► チャージ履歴</a></span></dt>
+	<dt><strong>ポイントチャージ</strong><span><a href="inputGetServicePoint.html">► サービスポイント受取</a>　<a href="#">► サービスポイント使用</a>　<a href="#">► チャージ履歴</a></span></dt>
 	<dd>
 		<s:form name="frm_point_select" action="chargeSettleSelectInit" method="post" cssClass="entry">
 			<div style="margin-bottom:30px;text-align:center;">
@@ -29,6 +29,12 @@
 					<img src="images/point_flow_50.gif"/>
 			</div>
 			<table>
+				<tr>
+					<th></th>
+					<td>
+						<span class="input_error"><s:fielderror><s:param>errMessage</s:param></s:fielderror></span><br/>
+					</td>
+				</tr>
 				<tr>
 					<th><span class="required">*</span><label for="point_titleId">ゲーム選択：</label></th>
 					<td>
