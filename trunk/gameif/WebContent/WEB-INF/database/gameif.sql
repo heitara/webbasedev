@@ -331,8 +331,8 @@ CREATE TABLE  `point_mst` (
   `point_start_date` datetime DEFAULT NULL,
   `point_end_date` datetime DEFAULT NULL,
   `point_status` char(1) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `point_count` decimal(10,0) DEFAULT '0',
-  `point_count_act` decimal(10,0) DEFAULT '0',
+  `point_amount` decimal(10,0) DEFAULT '0',
+  `point_amount_act` decimal(10,0) DEFAULT '0',
   `created_date` datetime DEFAULT NULL,
   `created_user` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `last_update_date` datetime DEFAULT NULL,
@@ -370,8 +370,8 @@ CREATE TABLE  `mem_settlement_trns` (
   `server_id` int(11) DEFAULT NULL,
   `point_id` int(11) DEFAULT NULL,
   `settlement_date` datetime DEFAULT NULL,
-  `point_count` decimal(10,0) DEFAULT NULL,
-  `point_count_act` decimal(10,0) DEFAULT NULL,
+  `point_amount` decimal(10,0) DEFAULT NULL,
+  `point_amount_act` decimal(10,0) DEFAULT NULL,
   `settlement_log` varchar(200) DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
   `created_user` varchar(50) DEFAULT NULL,
@@ -393,8 +393,8 @@ CREATE TABLE  `mem_settlement_hist` (
   `server_id` int(11) DEFAULT NULL,
   `point_id` int(11) DEFAULT NULL,
   `settlement_date` datetime DEFAULT NULL,
-  `point_count` decimal(10,0) DEFAULT NULL,
-  `point_count_act` decimal(10,0) DEFAULT NULL,
+  `point_amount` decimal(10,0) DEFAULT NULL,
+  `point_amount_act` decimal(10,0) DEFAULT NULL,
   `settlement_log` varchar(200) DEFAULT NULL,
   `settlement_remarks` varchar(200) DEFAULT NULL,
   `res_result` varchar(2) DEFAULT NULL,
@@ -421,9 +421,81 @@ DROP TABLE IF EXISTS `cbt_tester`;
 CREATE TABLE  `cbt_tester` (
   `mem_num` bigint(20) NOT NULL,
   `title_id` int(11) NOT NULL,
+  PRIMARY KEY (`mem_num`,`title_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+
+
+DROP TABLE IF EXISTS `service_point`;
+CREATE TABLE  `service_point` (
+  `service_point_no` bigint(20) NOT NULL AUTO_INCREMENT,
+  `give_date` datetime DEFAULT NULL,
+  `point_start_date` datetime DEFAULT NULL,
+  `point_end_date` datetime DEFAULT NULL,
+  `title_id` int(11) DEFAULT NULL,
+  `point_amount` decimal(10,0) DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `created_user` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `last_update_date` datetime DEFAULT NULL,
+  `last_update_user` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`service_point_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+
+
+DROP TABLE IF EXISTS `game_login_count`;
+CREATE TABLE  `game_login_count` (
+  `mem_num` bigint(20) NOT NULL,
+  `title_id` int(11) NOT NULL,
+  `game_login_count` int(11) DEFAULT NULL,
+  `last_login_ymd` date DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
   `created_user` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`mem_num`,`title_id`)
+  `last_update_date` datetime DEFAULT NULL,
+  `last_update_user` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`mem_num`, `title_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+
+DROP TABLE IF EXISTS `service_point_type_mst`;
+CREATE TABLE  `service_point_type_mst` (
+  `service_point_type_id` int(11) NOT NULL,
+  `service_point_type_code` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `point_amount` decimal(10,0) DEFAULT '0',
+  `standard_level` int(11) NOT NULL,
+  `remarks` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `created_user` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `last_update_date` datetime DEFAULT NULL,
+  `last_update_user` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`service_point_type_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+
+
+DROP TABLE IF EXISTS `service_point_give_hist`;
+CREATE TABLE  `service_point_give_hist` (
+  `service_point_give_hist_no` bigint(20) NOT NULL AUTO_INCREMENT,
+  `service_point_no` bigint(20) NOT NULL,
+  `service_point_type_id` int(11) DEFAULT NULL,
+  `title_id` int(11) DEFAULT NULL,
+  `give_date` datetime DEFAULT NULL,
+  `point_start_date` datetime DEFAULT NULL,
+  `point_end_date` datetime DEFAULT NULL,
+  `point_amount` decimal(10,0) DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `created_user` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `last_update_date` datetime DEFAULT NULL,
+  `last_update_user` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`service_point_give_hist_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
