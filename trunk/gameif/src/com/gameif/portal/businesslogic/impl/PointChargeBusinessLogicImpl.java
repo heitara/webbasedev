@@ -115,7 +115,7 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		settlementHist.setPointAmount(settleTrns.getPointAmount());
 		settlementHist.setPointAmountAct(settleTrns.getPointAmountAct());
 		// ログ
-		settlementHist.setSettlementLog("");
+		settlementHist.setSettlementLog(makeSettlementLog(settlementHist));
 		settlementHist.setLastUpdateUser(ContextUtil.getMemberNo().toString());
 		settlementHist.setLastUpdateDate(new Date());
 		
@@ -160,6 +160,29 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		
 		// 仮決済情報を削除する
 		memSettlementTrnsDao.deleteByKey(settleTrns.getSettlementTrnsNum());
+		
+	}
+	
+	/**
+	 * 決済ログを生成する
+	 * @param settlementHist
+	 * @return
+	 */
+	private String makeSettlementLog(MemSettlementHist settlementHist) {
+		
+		StringBuilder settlementLog = new StringBuilder();
+		settlementLog.append(settlementHist.getResResult()).append(",")
+		.append(settlementHist.getResTrackingId()).append(",")
+		.append(settlementHist.getResSpsCustNo()).append(",")
+		.append(settlementHist.getResSpsPaymentNo()).append(",")
+		.append(settlementHist.getResPayinfoKey()).append(",")
+		.append(settlementHist.getResPaymentDate()).append(",")
+		.append(settlementHist.getResErrCode()).append(",")
+		.append(settlementHist.getResDate()).append(",")
+		.append(settlementHist.getLimitSecond()).append(",")
+		.append(settlementHist.getSpsHashcode());
+		
+		return settlementLog.toString();
 		
 	}
 	
