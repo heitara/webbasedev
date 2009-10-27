@@ -50,7 +50,7 @@ public class ServicePointBusinessLogicImpl extends BaseBusinessLogic implements
 		
 		// 有効なサービスポイントを取得する
 		ServicePointTypeMst servicePointTypeMst = servicePointTypeMstDao.selectValidGameloginPoint(PortalConstants.ServicePointTypeCd.GAME_LOGIN, gameLoginCount.getGameLoginCount());
-		if (servicePointTypeMst == null) {
+		if (servicePointTypeMst == null || servicePointTypeMst.getServicePointTypeId() == null) {
 			
 			// データが存在しない
 			throw new DataNotExistsException("Data does not exist!!");
