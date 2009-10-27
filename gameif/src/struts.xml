@@ -217,6 +217,17 @@
 		<action name="logoutProxy" class="logoutProxyAction">
 			<result name="success" type="redirect">https://auth.test.game-if.com:8443/cas/logout</result>
 		</action>
+
+		<!-- サービスポイントに関連するアクション -->
+		<action name="*ServicePoint" class="servicePointControlAction" method="{1}">
+			<!-- 
+			<interceptor-ref name="token">
+				<param name="includeMethods">getGameLoginServicePoint</param>
+			</interceptor-ref>
+			 -->
+			<result name="inputGet">/WEB-INF/pages/portal/service_point_get.jsp</result>
+			<result name="success" type="redirect">/finishedPage.html?action=getGameLoginServicePoint</result>
+		</action>
 		
 	</package>
 	
