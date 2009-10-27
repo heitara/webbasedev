@@ -23,6 +23,7 @@ public class MyTitle extends BaseEntity {
 	private String announce;
 	private Date playDate;
 	private Integer playCount;
+	private Long cbtTester;
 	
 	public Integer getTitleId() {
 		return titleId;
@@ -114,4 +115,17 @@ public class MyTitle extends BaseEntity {
 	public void setPlayCount(Integer playCount) {
 		this.playCount = playCount;
 	}
+	/**
+	 * @return the cbtTester
+	 */
+	public Long getCbtTester() {
+		return cbtTester;
+	}
+	/**
+	 * @param cbtTester the cbtTester to set
+	 */
+	public void setCbtTester(Long cbtTester) {
+		this.cbtTester = cbtTester;
+	}
+	
 }
