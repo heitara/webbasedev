@@ -29,6 +29,25 @@
 		<result property="playDate" column="play_date"/>
 		<result property="playCount" column="play_count"/>
 	</resultMap>
+	
+	<resultMap class="com.gameif.portal.entity.MyTitle" id="myTitleForCBTResult">
+		<result property="titleId" column="title_id"/>
+		<result property="titleName" column="title_name"/>
+		<result property="titleAbout" column="title_about"/>
+		<result property="serviceStatus" column="service_status"/>
+		<result property="siteUrl" column="site_url"/>
+		<result property="newsUrl" column="news_url"/>
+		<result property="forumUrl" column="forum_url"/>
+		<result property="paymentUrl" column="payment_url"/>
+		<result property="bigIconUrl" column="big_icon_url"/>
+		<result property="smallIconUrl" column="small_icon_url"/>
+		<result property="orderNum" column="order_num"/>
+		<result property="playersNum" column="players_num"/>
+		<result property="announce" column="announce"/>
+		<result property="playDate" column="play_date"/>
+		<result property="playCount" column="play_count"/>
+		<result property="cbtTester" column="cbt_tester"/>
+	</resultMap>
 				
 	<resultMap class="com.gameif.portal.entity.MyServer" id="myServerResult">
 		<result property="serverId" column="server_id"/>
@@ -93,7 +112,7 @@
         ]]>
 	</select>
 
-	<select id="selectTitlesWithPlay" resultMap="myTitleResult">
+	<select id="selectTitlesWithPlay" resultMap="myTitleForCBTResult">
         <![CDATA[
 		SELECT
 			t.title_id,
@@ -110,13 +129,17 @@
 			t.players_num,
 			t.announce,
 			p.play_date,
-			p.play_count
+			p.play_count,
+			ifnull(c.mem_num, 0) as cbt_tester
 		FROM	title_mst t LEFT JOIN (
 					SELECT	title_id, MAX(play_date) AS play_date, COUNT(*) AS play_count
 					FROM	play_hist
 					WHERE	mem_num = #value#
 					GROUP BY title_id
 				) p ON t.title_id = p.title_id
+		LEFT JOIN cbt_tester c
+		ON t.title_id = c.title_id
+		AND c.mem_num = #value#
 		ORDER BY p.play_date DESC, p.play_count DESC, t.order_num DESC
         ]]>
 	</select>

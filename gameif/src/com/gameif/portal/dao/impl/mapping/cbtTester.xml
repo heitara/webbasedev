@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="cbtTester">
+	<typeAlias alias="cbtTester" type="com.gameif.portal.entity.CbtTester" />
+	
+	<resultMap class="com.gameif.portal.entity.CbtTester" id="cbtTesterResult">
+		<result property="memNum" column="mem_num" />
+		<result property="titleId" column="title_id" />
+	</resultMap>
+
+</sqlMap>

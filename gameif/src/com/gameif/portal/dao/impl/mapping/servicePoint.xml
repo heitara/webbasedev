@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="servicePoint">
+	<typeAlias alias="servicePoint" type="com.gameif.portal.entity.ServicePoint" />
+	
+	<resultMap class="com.gameif.portal.entity.ServicePoint" id="servicePointResult">
+		<result property="servicePointNo" column="service_point_no" />
+		<result property="giveDate" column="give_date" />
+		<result property="pointStartDate" column="point_start_date" />
+		<result property="pointEndDate" column="point_end_date" />
+		<result property="titleId" column="title_id" />
+		<result property="pointAmount" column="point_amount" />
+		<result property="createdDate" column="created_date"/>
+		<result property="createdUser" column="created_user"/>
+		<result property="lastUpdateDate" column="last_update_date"/>
+		<result property="lastUpdateUser" column="last_update_user"/>
+	</resultMap>
+	
+	<insert id = "save" parameterClass="servicePoint"> 
+        <![CDATA[
+			INSERT INTO service_point
+				(give_date,
+				point_start_date,
+				point_end_date,
+				title_id,
+				point_amount,
+				created_date,
+				created_user,
+				last_update_date,
+				last_update_user)
+			VALUES
+				(#giveDate#,
+				#pointStartDate#,
+				#pointEndDate#,
+				#titleId#,
+				#pointAmount#,
+				#createdDate#,
+				#createdUser#,
+				#lastUpdateDate#,
+				#lastUpdateUser#)
+        ]]>
+		<selectKey resultClass="java.lang.Long" keyProperty="servicePointNo">   
+        	<![CDATA[
+			SELECT last_insert_id() as service_point_no
+        	]]>
+		</selectKey>
+	</insert>
+
+</sqlMap>
