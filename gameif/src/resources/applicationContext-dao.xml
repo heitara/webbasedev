@@ -134,4 +134,39 @@
 			<value>memSettlementTrns</value>
 		</property>
 	</bean>
+	
+	<!-- cbtTesterDao -->
+	<bean id="cbtTesterDao" class="com.gameif.portal.dao.impl.CbtTesterDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>cbtTester</value>
+		</property>
+	</bean>
+	
+	<!-- servicePointDao -->
+	<bean id="servicePointDao" class="com.gameif.portal.dao.impl.ServicePointDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>servicePoint</value>
+		</property>
+	</bean>
+	
+	<!-- gameLoginCountDao -->
+	<bean id="gameLoginCountDao" class="com.gameif.portal.dao.impl.GameLoginCountDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>gameLoginCount</value>
+		</property>
+	</bean>
+	
+	<!-- servicePointTypeMstDao -->
+	<bean id="servicePointTypeMstDao" class="com.gameif.portal.dao.impl.ServicePointTypeMstDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>servicePointTypeMst</value>
+		</property>
+	</bean>
+	
+	<!-- servicePointGiveHistDao -->
+	<bean id="servicePointGiveHistDao" class="com.gameif.portal.dao.impl.ServicePointGiveHistDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>servicePointGiveHist</value>
+		</property>
+	</bean>
 </beans>

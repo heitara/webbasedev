@@ -18,6 +18,7 @@
 				<entry key="updateTempPwd" value="パスワード再設定"/>
 				<entry key="sendMailAgain" value="友達に再送信"/>
 				<entry key="deleteInvite" value="友達削除"/>
+				<entry key="getGameLoginServicePoint" value="サービスポイント受取"/>
 			</map>
 		</property>
 		<property name="sexListMap">

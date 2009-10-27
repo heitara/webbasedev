@@ -161,6 +161,9 @@
 		<property name="pointChargeBusinessLogic">
 			<ref bean="pointChargeBusinessLogic" />
 		</property>
+		<property name="maintenanceBusinessLogic">
+			<ref bean="maintenanceBusinessLogic" />
+		</property>
 	</bean>
 	
 	<!-- ポイントチャージ画面にて、マスタデータバインド用アクション -->
@@ -168,6 +171,16 @@
 	<bean id="pointChargeBindMasterAction" class="com.gameif.portal.action.pointCharge.PointChargeBindMasterAction" scope="prototype">
 		<property name="masterInfoBusinessLogic">
 			<ref bean="masterInfoBusinessLogic" />
+		</property>
+	</bean>
+	
+	<!-- servicePointControlAction -->
+	<bean id="servicePointControlAction" class="com.gameif.portal.action.servicePoint.ServicePointControlAction" scope="prototype">
+		<property name="masterInfoBusinessLogic">
+			<ref bean="masterInfoBusinessLogic" />
+		</property>
+		<property name="servicePointBusinessLogic">
+			<ref bean="servicePointBusinessLogic" />
 		</property>
 	</bean>
 	

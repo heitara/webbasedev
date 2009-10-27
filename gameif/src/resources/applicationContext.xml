@@ -11,11 +11,7 @@
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>classpath:/resources/database.properties
-				</value>
-				<value>classpath:/resources/mailConst.properties
-				</value>
-				<value>classpath:/resources/portalConst.properties
+				<value>classpath:/resources/*.properties
 				</value>
 			</list>
 		</property>
