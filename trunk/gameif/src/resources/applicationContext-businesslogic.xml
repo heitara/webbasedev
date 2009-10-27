@@ -95,6 +95,9 @@
 		<property name="playHistDao">
 			<ref bean="playHistDao" />
 		</property>
+		<property name="gameLoginCountDao">
+			<ref bean="gameLoginCountDao" />
+		</property>
 	</bean>
 	
 	<!-- tempPwdRegetBusinessLogic -->
@@ -128,6 +131,31 @@
 		</property>
 		<property name="titleMstDao">
 			<ref bean="titleMstDao" />
+		</property>
+	</bean>
+	
+	<!-- maintenanceBusinessLogic -->
+	<bean id="maintenanceBusinessLogic"
+		class="com.gameif.portal.businesslogic.impl.MaintenanceBusinessLogicImpl">
+		<property name="titleMstDao">
+			<ref bean="titleMstDao" />
+		</property>
+	</bean>
+	
+	<!-- servicePointBusinessLogic -->
+	<bean id="servicePointBusinessLogic"
+		class="com.gameif.portal.businesslogic.impl.ServicePointBusinessLogicImpl">
+		<property name="gameLoginCountDao">
+			<ref bean="gameLoginCountDao" />
+		</property>
+		<property name="servicePointTypeMstDao">
+			<ref bean="servicePointTypeMstDao" />
+		</property>
+		<property name="servicePointDao">
+			<ref bean="servicePointDao" />
+		</property>
+		<property name="servicePointGiveHistDao">
+			<ref bean="servicePointGiveHistDao" />
 		</property>
 	</bean>
 </beans>
