@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="servicePointTypeMst">
+	<typeAlias alias="servicePointTypeMst" type="com.gameif.portal.entity.ServicePointTypeMst" />
+	
+	<resultMap class="com.gameif.portal.entity.ServicePointTypeMst" id="servicePointTypeResult">
+		<result property="servicePointTypeId" column="service_point_type_id" />
+		<result property="servicePointTypeCode" column="service_point_type_code" />
+		<result property="pointAmount" column="point_amount" />
+		<result property="standardLevel" column="standard_level" />
+		<result property="remarks" column="remarks" />
+		<result property="createdDate" column="created_date"/>
+		<result property="createdUser" column="created_user"/>
+		<result property="lastUpdateDate" column="last_update_date"/>
+		<result property="lastUpdateUser" column="last_update_user"/>
+	</resultMap>
+	
+	<select id="selectValidGameloginPoint" parameterClass="java.util.Map" resultMap="servicePointTypeResult">   
+        <![CDATA[
+	        SELECT
+				service_point_type_id,
+				service_point_type_code,
+				point_amount,
+				max(standard_level) as standard_level,
+				remarks,
+				created_date,
+				created_user,
+				last_update_date,
+				last_update_user
+			FROM
+				service_point_type_mst
+			WHERE
+				service_point_type_code = #servicePointTypeCode#
+			AND standard_level <= #standardLevel#
+        ]]>
+	</select>
+
+</sqlMap>

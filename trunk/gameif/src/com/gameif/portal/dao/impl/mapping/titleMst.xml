@@ -56,7 +56,7 @@
         ]]>
 	</select>
 	
-	<select id="selectCountByMemId" resultClass="java.lang.String">
+	<select id="selectNameById" parameterClass="java.lang.Integer" resultClass="java.lang.String">
       <![CDATA[
         SELECT
 			title_name
@@ -64,10 +64,40 @@
 			title_mst
 		WHERE
 			title_id = #value#
-		WHERE
-			service_start_date <= now()
+		AND service_start_date <= now()
 		AND service_end_date >= now()	
       ]]>
+	</select>
+
+	<select id="selectValidTitleByKey" parameterClass="java.lang.Integer" resultMap="titleResult">
+        <![CDATA[
+        SELECT
+			title_id,
+			title_name,
+			title_about,
+			service_start_date,
+			service_end_date,
+			service_status,
+			site_url,
+			news_url,
+			forum_url,
+			payment_url,
+			big_icon_url,
+			small_icon_url,
+			order_num,
+			players_num,
+			announce,
+			created_date,
+			created_user,
+			last_update_date,
+			last_update_user
+		FROM
+			title_mst
+		WHERE
+			title_id = #value#
+		AND service_start_date <= now()
+		AND service_end_date >= now()
+        ]]>
 	</select>
 
 </sqlMap>

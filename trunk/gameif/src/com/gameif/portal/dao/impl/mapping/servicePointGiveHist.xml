@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="servicePointGiveHist">
+	<typeAlias alias="servicePointGiveHist" type="com.gameif.portal.entity.ServicePointGiveHist" />
+	
+	<resultMap class="com.gameif.portal.entity.ServicePointGiveHist" id="servicePointGiveHistResult">
+		<result property="servicePointGiveHistNo" column="service_point_give_hist_no" />
+		<result property="servicePointNo" column="service_point_no" />
+		<result property="servicePointTypeId" column="service_point_type_id" />
+		<result property="titleId" column="title_id" />
+		<result property="giveDate" column="give_date" />
+		<result property="pointStartDate" column="point_start_date" />
+		<result property="pointEndDate" column="point_end_date" />
+		<result property="pointAmount" column="point_amount" />
+		<result property="createdDate" column="created_date"/>
+		<result property="createdUser" column="created_user"/>
+		<result property="lastUpdateDate" column="last_update_date"/>
+		<result property="lastUpdateUser" column="last_update_user"/>
+	</resultMap>
+	
+	<insert id = "save" parameterClass="servicePointGiveHist"> 
+        <![CDATA[
+			INSERT INTO service_point_give_hist
+				(service_point_no,
+				service_point_type_id,
+				title_id,
+				give_date,
+				point_start_date,
+				point_end_date,
+				point_amount,
+				created_date,
+				created_user,
+				last_update_date,
+				last_update_user)
+			VALUES
+				(#servicePointNo#,
+				#servicePointTypeId#,
+				#titleId#,
+				#giveDate#,
+				#pointStartDate#,
+				#pointEndDate#,
+				#pointAmount#,
+				#createdDate#,
+				#createdUser#,
+				#lastUpdateDate#,
+				#lastUpdateUser#)
+        ]]>
+	</insert>
+
+</sqlMap>
