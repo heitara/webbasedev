@@ -20,7 +20,7 @@
 						<tr>
 							<th></th>
 							<td>
-								<span class="input_error"><s:fielderror><s:param>errMessage</s:param></s:fielderror></span><br/>
+								<span class="logic_error"><s:fielderror><s:param>errMessage</s:param></s:fielderror></span><br/>
 							</td>
 						</tr>
 						<tr>
