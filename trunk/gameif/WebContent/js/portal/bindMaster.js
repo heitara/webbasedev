@@ -2,10 +2,25 @@ function bindTemplate(obj, cName) {
 	$.get("bindInviteTemplate.html", {titleId: obj.value}, function(data) {
 			var tempList = eval("(" + data + ")").tempList;
 			$(cName).empty();   
-			$(cName).append(new Option("","0"));
-		    $.each(tempList,function(i){
-		    	$(cName).append(new Option(tempList[i].inviteTemplateSubject,tempList[i].inviteTemplateId));
-		    });
+			
+			if (tempList.length > 1) {
+				$(cName).get(0).options.length = tempList.length + 1;	
+			} else {
+				$(cName).get(0).options.length = tempList.length;	
+			}
+			try {
+				$.each(tempList,function(i){
+					if (tempList.length == 1) {
+						$(cName).get(0).options[i].value = tempList[i].inviteTemplateId;
+						$(cName).get(0).options[i].text = tempList[i].inviteTemplateSubject;
+					}
+					else {
+						$(cName).get(0).options[i + 1].value = tempList[i].inviteTemplateId;
+						$(cName).get(0).options[i + 1].text = tempList[i].inviteTemplateSubject;
+					}
+				});
+				
+			} catch (ex) {}
 		}
 	);
 }
@@ -18,31 +33,51 @@ function changeMessage(obj, cName) {
 	);
 }	
 
-function bindServer(obj, cName) { 
-	$.get("bindServerForCharge.html", {titleId: obj.value}, function(data) {
+function bindServerAndPoint(obj, cServer, cPoint) { 
+	$.get("bindServerAndPointForCharge.html", {titleId: obj.value}, function(data) {
+			// サーバをバインドする
 			var serverList = eval("(" + data + ")").serverList;
-			$(cName).empty();   
-			$(cName).append(new Option("","0"));				
-			$(cName).get(0).options.length = serverList.length + 1;				
+			$(cServer).empty();
+			if (serverList.length > 1) {
+				$(cServer).get(0).options.length = serverList.length + 1;	
+			} else {
+				$(cServer).get(0).options.length = serverList.length;	
+			}
 			try {
 				$.each(serverList,function(i){
-					$(cName).get(0).options[i + 1].value = serverList[i].serverId;
-					$(cName).get(0).options[i + 1].text = serverList[i].serverName;
+					if (serverList.length == 1) {
+						$(cServer).get(0).options[i].value = serverList[i].serverId;
+						$(cServer).get(0).options[i].text = serverList[i].serverName;
+					}
+					else {
+						$(cServer).get(0).options[i + 1].value = serverList[i].serverId;
+						$(cServer).get(0).options[i + 1].text = serverList[i].serverName;
+					}
+				});
+				
+			} catch (ex) {}
+
+			// ポイントをバインドする
+			var pointList = eval("(" + data + ")").pointList;
+			$(cPoint).empty();
+			if (pointList.length > 1) {
+				$(cPoint).get(0).options.length = pointList.length + 1;	
+			} else {
+				$(cPoint).get(0).options.length = pointList.length;	
+			}
+			try {
+				$.each(pointList,function(i){
+					if (pointList.length == 1) {
+						$(cPoint).get(0).options[i].value = pointList[i].pointId;
+						$(cPoint).get(0).options[i].text = pointList[i].pointName;
+					}
+					else {
+						$(cPoint).get(0).options[i + 1].value = pointList[i].pointId;
+						$(cPoint).get(0).options[i + 1].text = pointList[i].pointName;
+					}
 				});
 				
 			} catch (ex) {}
 		}
-	);
-}	
-
-function bindPoint(obj, cName) {
-	$.get("bindPointForCharge.html", {serverId: obj.value}, function(data) {
-		var pointList = eval("(" + data + ")").pointList;
-		$(cName).empty();   
-		$(cName).append(new Option("","0"));
-	    $.each(pointList,function(i){
-	    	$(cName).append(new Option(pointList[i].pointName,pointList[i].pointId));
-	    });
-	}
 	);
 }
