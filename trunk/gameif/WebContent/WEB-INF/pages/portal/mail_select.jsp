@@ -28,7 +28,7 @@
 	</dd>
 
 </dl>
-<s:form name="frm_mail_sel" method="post" cssClass="address_sel">
+<s:form name="frm_nosubmit_mail_sel" method="post" cssClass="address_sel">
 	<div class="" style="margin:10px 70px;font-size:12px;font-weight:bold;">あなたのＷＥＢメールのアドレスとパスワードを入力してください。</div>
 	<div style="color:#900;margin:20px 70px;font-size:10px;">
 		ゲームイフがあなたの代わりにアドレス帳から友達のアドレスを検索します。<br/>
