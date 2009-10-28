@@ -22,6 +22,11 @@ public class InviteInfoDaoImpl extends AbstractBaseDao<InviteInfo, InviteInfo>
 				namespace + ".selectInviteHistByMemNum", entity);
 	}
 
+	/**
+	 * 会員番号により、一定時間内無効なデータを削除する
+	 * @param memNum 会員番号
+	 * @param days 削除期間を指定する
+	 */
 	@Override
 	public int deleteInvalidInvite(Long memNum, int days) {
 		ComSearchCondition cond = new ComSearchCondition();
@@ -32,6 +37,10 @@ public class InviteInfoDaoImpl extends AbstractBaseDao<InviteInfo, InviteInfo>
 				namespace + ".deleteInvalidInvite", cond);
 	}
 
+	/**
+	 * 一定時間内招待人数を計算する
+	 * @param inviteInfo 招待情報
+	 */
 	@Override
 	public int selectCountByMemNumInTime(InviteInfo inviteInfo) {
 
@@ -39,11 +48,26 @@ public class InviteInfoDaoImpl extends AbstractBaseDao<InviteInfo, InviteInfo>
 				+ ".selectCountByMemNumInTime", inviteInfo));
 	}
 
+	/**
+	 * 招待情報を検索する（For Update）
+	 * @param inviteId 招待情報ID
+	 */
 	@Override
 	public InviteInfo selectForUpdate(Long inviteId) {
 
 		return (InviteInfo) (getSqlMapClientTemplate().queryForObject(namespace
 				+ ".selectForUpdate", inviteId));
+	}
+
+	/**
+	 * 子の会員番号より、招待情報を検索する
+	 * @param childMemNum 子の会員番号
+	 */
+	@Override
+	public InviteInfo selectParentByChildNum(Long childMemNum) {
+
+		return (InviteInfo) (getSqlMapClientTemplate().queryForObject(namespace
+				+ ".selectParentByChildNum", childMemNum));
 	}
 
 }

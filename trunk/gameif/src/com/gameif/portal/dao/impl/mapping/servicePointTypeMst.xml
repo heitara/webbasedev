@@ -36,5 +36,32 @@
 			AND standard_level <= #standardLevel#
         ]]>
 	</select>
+	
+	<select id="selectChargePointRate" parameterClass="java.util.Map" resultMap="servicePointTypeResult">   
+        <![CDATA[
+	        SELECT
+				service_point_type_id,
+				service_point_type_code,
+				point_amount,
+				max(standard_level) as standard_level,
+				remarks,
+				created_date,
+				created_user,
+				last_update_date,
+				last_update_user
+			FROM
+				service_point_type_mst
+			WHERE
+				service_point_type_code = #servicePointTypeCode#
+			AND standard_level <= ( 
+					SELECT 
+						sum(ifnull(point_amount_act, 0)) as point_amount_act 
+					FROM 
+						mem_settlement_hist
+					WHERE mem_num = #memNum#
+					AND title_id = #titleId# 
+					AND last_update_date < DATE_SUB(now(), INTERVAL 1 MONTH))
+        ]]>
+	</select>
 
 </sqlMap>
