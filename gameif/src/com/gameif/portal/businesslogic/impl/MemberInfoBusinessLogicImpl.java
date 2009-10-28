@@ -113,6 +113,8 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 			inviteInfo.setInviteStatus(PortalConstants.InviteStatus.REGISTERED);
 			// 登録日
 			inviteInfo.setFriendCreateDate(memberInfo.getEntryDate());
+			// 子の会員番号を設定する
+			inviteInfo.setChildMemNum(memberInfo.getMemNum());
 			inviteInfo.setLastUpdateDate(memberInfo.getEntryDate());
 			inviteInfo.setLastUpdateUser(memberInfo.getMemNum().toString());
 			

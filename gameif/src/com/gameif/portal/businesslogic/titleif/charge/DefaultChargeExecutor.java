@@ -37,6 +37,8 @@ public class DefaultChargeExecutor implements IChargeExcutor {
 	 *  <li>chargePoint チャージポイント数</li>
 	 *  <li>chargeDate チャージ日時</li>
 	 *  <li>chargeFullUrl チャージＵＲＬ（キー付）</li>
+	 *  <li>spType ポイント区分(1:ServicePoint充值 0:真实购买充值)</li>
+	 *  <li>parentNum 親の会員番号</li>
 	 * </ul>
 	 * </blockquote>
 	 * @return 付与結果コード
@@ -116,6 +118,10 @@ public class DefaultChargeExecutor implements IChargeExcutor {
 			.append(parameter.getMemNum())
 			.append(", memId=")
 			.append(parameter.getMemId())
+			.append(", spType=")
+			.append(parameter.getSpType())
+			.append(", parentMemNum=")
+			.append(parameter.getParentNum())
 			.append(", result=")
 			.append(result)
 			.append(", tradeNo=")
