@@ -126,3 +126,11 @@ INSERT INTO `point_mst` (`point_id`,`title_id`,`server_id`,`point_name`,`point_s
 (4, 1, 1, ' 5,000 ポイント　　  【   5,000 円 】', '2009-10-10 12:30:21', '2015-10-10 12:30:21', '0', 5000, 5000, '2009-10-10 12:30:21', 'chou', '2009-10-10 12:30:21', 'chou'),
 (5, 1, 1, '10,000 ポイント　　  【  10,000 円 】', '2009-10-10 12:30:21', '2015-10-10 12:30:21', '0', 10000, 10000, '2009-10-10 12:30:21', 'chou', '2009-10-10 12:30:21', 'chou');
 
+INSERT INTO `settlement_mst` (`settlement_code`,`settlement_name`,`icon_url`,`settlement_status`,`created_date`,`created_user`, `last_update_date`,`last_update_user`) VALUES
+('bitcash', 'bitcash', 'images/charge_bitcash_small.gif', '0', '2009-10-10 12:30:21', 'chou', '2009-10-10 12:30:21', 'chou'),
+('credit', 'credit', 'images/charge_credit.gif', '0', '2009-10-10 12:30:21', 'chou', '2009-10-10 12:30:21', 'chou'),
+('edy', 'edy', 'images/charge_edy_small.gif', '0', '2009-10-10 12:30:21', 'chou', '2009-10-10 12:30:21', 'chou'),
+('mobileEdy', 'mobileEdy', 'images/charge_edy_mobile_small.gif', '0', '2009-10-10 12:30:21', 'chou', '2009-10-10 12:30:21', 'chou'),
+('netCash', 'netCash', 'images/charge_netcash_small.gif', '0', '2009-10-10 12:30:21', 'chou', '2009-10-10 12:30:21', 'chou'),
+('webmoney', 'webmoney', 'images/charge_webmoney_small.gif', '0', '2009-10-10 12:30:21', 'chou', '2009-10-10 12:30:21', 'chou');
+
