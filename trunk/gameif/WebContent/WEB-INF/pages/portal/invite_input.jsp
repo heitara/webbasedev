@@ -46,7 +46,7 @@
 						<tr>
 							<th><span class="required">*</span><label for="game">紹介するゲーム：</label></th>
 							<td>
-								<s:select name="titleId" id="titleId" cssClass="big" list="masterInfoBusinessLogic.validTitleList" listKey="titleId" listValue="titleName"  headerKey="0" headerValue="" title="紹介するゲーム" onchange="bindTemplate(this, inviteTemplate)" onblur="validate(this,'REQ');" />
+								<s:select name="titleId" id="titleId" cssClass="big" list="masterInfoBusinessLogic.validTitleList" listKey="titleId" listValue="titleName" headerKey="0" headerValue="" title="紹介するゲーム" onchange="bindTemplate(this, inviteTemplate);"  />
 								<span id="error_titleId" class="input_error"><s:fielderror><s:param>titleId</s:param></s:fielderror></span><br/>
 								<span class="explain">※紹介するゲームを選んでください。</span>
 							</td>
