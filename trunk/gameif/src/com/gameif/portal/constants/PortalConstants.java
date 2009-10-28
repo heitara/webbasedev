@@ -82,10 +82,19 @@ public class PortalConstants {
 	}
 	
 	// サービスポイント贈与タイプ
-	public class ServicePointTypeCd{
+	public class ServicePointTypeCd {
 		// 連続してゲームにログインした場合
 		public final static String GAME_LOGIN = "1";
 		// 最近一ヶ月の累計課金金額が一定金額を超えた場合
 		public final static String CHARGE = "2";
+	}
+	
+	// ポイント区別
+	public class ChargeSpType {
+		// サービスポイント
+		public final static String SERVICE_POINT = "1";
+		// 課金ポイント
+		public final static String ACCOUNT_POINT = "0";
+		
 	}
 }
