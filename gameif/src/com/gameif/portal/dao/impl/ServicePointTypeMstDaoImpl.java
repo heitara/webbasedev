@@ -22,9 +22,28 @@ public class ServicePointTypeMstDaoImpl extends
 		HashMap params = new HashMap();
 		
 		params.put("servicePointTypeCode", servicePointTypeCd);
-		params.put("standard_level", standardLevel);
+		params.put("standardLevel", standardLevel);
 		
 		return (ServicePointTypeMst) this.getSqlMapClientTemplate().queryForObject(namespace + ".selectValidGameloginPoint", params);
+	}
+
+	/**
+	 * 都度購入サービスポイントのレートを取得する
+	 * @param servicePointTypeCd サービスポイント区別
+	 * @param titleId タイトルID
+	 * @param memNum 会員番号
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public ServicePointTypeMst selectChargePointRate(String servicePointTypeCd, Integer titleId, Long memNum) {
+		
+		HashMap params = new HashMap();
+		
+		params.put("servicePointTypeCd", servicePointTypeCd);
+		params.put("titleId", titleId);
+		params.put("memNum", memNum);
+		
+		return (ServicePointTypeMst) this.getSqlMapClientTemplate().queryForObject(namespace + ".selectChargePointRate", params);
 	}
 
 }
