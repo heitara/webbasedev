@@ -22,15 +22,6 @@
 		<s:hidden name="tempKey"></s:hidden>
 		<table>
 			<tr>
-				<th><label for="updateTempPwd_tempKey">仮パスワード：</label></th>
-				<td>
-					<span class="item">
-						<%=org.apache.struts2.ServletActionContext.getRequest()
-										.getParameter(PortalConstants.PwdRegetParams.TEMP_KEY)%>
-					</span>
-				</td>
-			</tr>
-			<tr>
 				<th><span class="required">*</span> <label for="updateTempPwd_newPwd">新しいパスワード：</label></th>
 				<td>
 					<s:password name="newPwd" maxlength="20" cssClass="ime_mode_n" title="新しいパスワード" onblur="validate(this, 'REQ,ALN,LEN_6_20');" /> 
