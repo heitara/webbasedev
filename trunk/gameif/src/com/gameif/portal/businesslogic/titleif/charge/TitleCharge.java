@@ -23,6 +23,8 @@ public class TitleCharge {
 	 *  <li>chargePoint チャージポイント数</li>
 	 *  <li>chargeDate チャージ日時</li>
 	 *  <li>chargeUrl チャージＵＲＬ（TitleMstから取得したＵＲＬそのまま）</li>
+	 *  <li>pointType ポイント区分(1:ServicePoint充值 0:真实购买充值)</li>
+	 *  <li>parentNum 親の会員番号</li>
 	 * </ul>
 	 * </blockquote>
 	 * @return 付与結果コード
