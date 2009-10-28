@@ -80,6 +80,10 @@
 		<property name="orderKey" value="order_no" />
 		<!-- 付与ポイント数のパラメータ名-->
 		<property name="pointKey" value="point" />
+		<!-- ポイント区別のパラメータ名-->
+		<property name="spKey" value="sp" />
+		<!-- 親の会員番号のパラメータ名-->
+		<property name="parentAccountKey" value="parentAccount" />
 		
 		<!-- サーバ間連携パスワード -->
 		<property name="unionCd" value="1233113132131213131313" />

@@ -132,6 +132,18 @@
 		<property name="titleMstDao">
 			<ref bean="titleMstDao" />
 		</property>
+		<property name="servicePointTypeMstDao">
+			<ref bean="servicePointTypeMstDao" />
+		</property>
+		<property name="servicePointDao">
+			<ref bean="servicePointDao" />
+		</property>
+		<property name="servicePointGiveHistDao">
+			<ref bean="servicePointGiveHistDao" />
+		</property>
+		<property name="inviteInfoDao">
+			<ref bean="inviteInfoDao" />
+		</property>
 	</bean>
 	
 	<!-- maintenanceBusinessLogic -->
