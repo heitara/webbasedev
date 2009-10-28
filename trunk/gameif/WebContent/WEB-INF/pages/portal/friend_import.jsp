@@ -21,7 +21,7 @@
 <dl class="pop_top">
 	<dt><a href="http://www.game-if.com"><img src="images/logo.gif" title="WEBGAMEポータル ゲームイフ" border="0"/></a></dt>
 	<dd>
-		<dl class="title_box tspace_n bottom_align">
+		<dl class="title_width tspace_n top_align">
 			<dt><strong>友達メールアドレスインポート</strong><span></span></dt>
 			<dd></dd>
 		</dl>
@@ -34,8 +34,8 @@
 	</div>
 	
 	<label><input type="checkbox" id="selAll" name="selAll" onchange="checkAll(this,'selectedFriends');"/> 全選択・解除</label>
-	<div class="select_mail" style="scrollbars:yes;">
-		<table align="center" style="scrollbars:yes;">
+	<div class="select_mail" >
+		<table align="center" >
 			<s:iterator value="friendList" id="email" status="st">
 				<tr <s:if test="#st.odd">class="odd"</s:if>>
 					<td>
