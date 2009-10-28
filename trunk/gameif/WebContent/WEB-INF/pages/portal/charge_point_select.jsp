@@ -38,7 +38,7 @@
 				<tr>
 					<th><span class="required">*</span><label for="point_titleId">ゲーム選択：</label></th>
 					<td>
-						<s:select name="titleId" id="titleId" cssClass="big" list="masterInfoBusinessLogic.validTitleList" listKey="titleId" listValue="titleName"  headerKey="0" headerValue="" title="ゲーム"  onchange="bindServer(this, serverId)" onblur="validate(this,'REQ');" />
+						<s:select name="titleId" id="titleId" cssClass="big" list="masterInfoBusinessLogic.validTitleList" listKey="titleId" listValue="titleName" headerKey="0" headerValue="" title="ゲーム"  onchange="bindServerAndPoint(this, serverId, pointId);" onblur="validate(this,'REQ');" />
 						<span id="error_titleId" class="input_error"><s:fielderror><s:param>titleId</s:param></s:fielderror></span><br/>
 						<span class="explain">ポイントをチャージするゲームを選択してください。</span>
 					</td>
@@ -46,7 +46,7 @@
 				<tr>
 					<th><span class="required">*</span><label for="point_serverId">サーバ選択：</label></th>
 					<td>
-						<select id="serverId" name="serverId" title="サーバ" class="big" onchange="bindPoint(this, pointId)" onblur="validate(this,'REQ');"></select>
+						<select id="serverId" name="serverId" title="サーバ" class="big" onblur="validate(this,'REQ');"></select>
 						<span id="error_serverId" class="input_error"><s:fielderror><s:param>serverId</s:param></s:fielderror></span><br/>
 						<span class="explain">ポイントをチャージするサーバを選択してください。</span>
 					</td>
