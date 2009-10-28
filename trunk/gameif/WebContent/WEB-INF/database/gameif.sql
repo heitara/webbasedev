@@ -327,6 +327,7 @@ DROP TABLE IF EXISTS `point_mst`;
 CREATE TABLE  `point_mst` (
   `point_id` int(11) NOT NULL,
   `title_id` int(11) NOT NULL,
+  `server_id` int(11) DEFAULT NULL,
   `point_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `point_start_date` datetime DEFAULT NULL,
   `point_end_date` datetime DEFAULT NULL,
