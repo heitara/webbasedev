@@ -21,6 +21,7 @@ public class InviteInfo extends BaseEntity {
 	private String inviteStatus;
 	private Date friendCreateDate;
 	private String friendName;
+	private Long childMemNum;
 	private String deleteFlag;
 	private Date createdDate;
 	private String createdUser;
@@ -141,6 +142,20 @@ public class InviteInfo extends BaseEntity {
 	 */
 	public void setFriendName(String friendName) {
 		this.friendName = friendName;
+	}
+
+	/**
+	 * @return the childMemNum
+	 */
+	public Long getChildMemNum() {
+		return childMemNum;
+	}
+
+	/**
+	 * @param childMemNum the childMemNum to set
+	 */
+	public void setChildMemNum(Long childMemNum) {
+		this.childMemNum = childMemNum;
 	}
 
 	/**
