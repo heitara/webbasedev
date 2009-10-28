@@ -70,6 +70,22 @@ span.input_error ul li {
 	margin:0px;
 	padding:0px;
 }
+span.logic_error {
+	color:#F00;
+	font-size:10px;
+	font-weight:bold;
+}
+span.logic_error ul {
+	display:inline;
+	list-style:none;
+	margin:0px;
+	padding:0px;
+}
+span.logic_error ul li {
+	display:inline;
+	margin:0px;
+	padding:0px;
+}
 /*********【共通】フォーム関連 **************************************************/
 label {
 	font-size:12px;
@@ -111,9 +127,10 @@ input[type="text"], input[type="password"] {
 }
 select {
 	width:206px;
-	padding-top:2px;
+	padding:1px;
 	font-family:'ＭＳ ゴシック',serif;
 	font-size:13px;
+	height:24px;
 }
 select.small {
 	width:120px;
