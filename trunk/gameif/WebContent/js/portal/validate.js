@@ -24,10 +24,17 @@ $("document").ready(
 						errs += $(this).html();
 					}
 				);
-				if (errs.length < 1) {					
-					if (!window.isSubmited && confirm("送信します。よろしいですか？")) {
-						window.isSubmited = true;
-						submitOk = true;
+				if (errs.length < 1) {	
+					var formName = $("form").attr("name");
+					var index = formName.indexOf("frm_nosubmit_");
+					if (!window.isSubmited) {
+						if (index >= 0) {
+							window.isSubmited = true;
+							submitOk = true;
+						} else if (confirm("送信します。よろしいですか？")) {
+							window.isSubmited = true;
+							submitOk = true;
+						}
 					}
 				}
 				return submitOk;
@@ -81,7 +88,12 @@ function validate_required(field) {
 			result = !selected;
 			break;
 		case "select-one":
-			result = field.selectedIndex == 0;
+			// 選択しない或は「空白」を選択する場合
+			if (field.selectedIndex < 0 || field.options[field.selectedIndex].value < 1) {
+				result = true;
+			} else {
+				result = false;
+			}
 			break;
 	}
 
