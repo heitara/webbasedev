@@ -21,7 +21,7 @@
 <dl class="pop_top">
 	<dt><a href="http://www.game-if.com"><img src="images/logo.gif" title="WEBGAMEポータル ゲームイフ" border="0"/></a></dt>
 	<dd>
-		<dl class="title_box tspace_n bottom_align">
+		<dl class="title_width tspace_n top_align">
 			<dt><strong>友達メールアドレスインポート</strong><span></span></dt>
 			<dd></dd>
 		</dl>
@@ -39,12 +39,13 @@
 			<span></span>
 		</dt>
 		<dd>
-			<span class="input_error"><s:fielderror><s:param>loginError</s:param></s:fielderror></span>
+			<span class="logic_error"><s:fielderror><s:param>loginError</s:param></s:fielderror></span>
 		</dd>
 		
 		<dt><span class="required">*</span> <label for="mail">メールアドレス：</label></dt>
 		<dd>
 			<s:textfield name="mailAdd" maxlength="100" cssClass="ime_mode_n" title="メールアドレス" onblur="validate(this, 'REQ');"/>
+			<span>@</span>
 			<s:select name="domain" list="portalProperties.domainListMap" headerKey="" headerValue="" title="ドメイン" onblur="validate(this, 'REQ');" />
 			<span id="error_mailAdd" class="input_error"><s:fielderror><s:param>mailAdd</s:param></s:fielderror></span>
 			<span id="error_domain" class="input_error"><s:fielderror><s:param>domain</s:param></s:fielderror></span>
