@@ -26,7 +26,7 @@
 				</td>
 				<td class="sidecell">
 					<dl class="warm_box">
-						<dt><strong>ゲームプレイ</strong><span></span></dt>
+						<dt><strong>ゲームプレイ</strong><span>&nbsp;</span></dt>
 						<dd>
 							<div class="g_servers">
 								<s:if test='"0".equals(serviceStatus)'>

@@ -15,7 +15,7 @@
 <body>
 <dl class="light_box tspace_n">
 	<dt>
-		<strong>仮パスワード発行</strong>
+		<strong>パスワード再発行</strong>
 		<span></span>
 	</dt>
 	<dd>
@@ -33,7 +33,8 @@
 					<th><span class="required">*</span><label for="createPwdReget_questionCd">秘密質問：</label></th>
 					<td>
 						<s:select name="questionCd" list="masterInfoBusinessLogic.allQuestionList" listKey="questionCode" listValue="questionName" headerKey="0" headerValue="" title="秘密質問" onblur="validate(this,'REQ');"/>
-					<span id="error_questionCd" class="input_error"><s:fielderror><s:param>questionCd</s:param></s:fielderror></span>
+						<span class="explain">※ 以前設定した秘密質問を選択してください。</span>
+						<span id="error_questionCd" class="input_error"><s:fielderror><s:param>questionCd</s:param></s:fielderror></span>
 					</td>
 				</tr>
 				<tr>
