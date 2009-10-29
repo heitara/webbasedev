@@ -122,7 +122,7 @@ public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	}
 	
 	/**
-	 * すべて紹介テンプレートを取得する
+	 * タイトルIDより、有効なサーバ情報を取得する
 	 */
 	@Override
 	public List<ServerMst> getAllValidServerListByTitle(Integer titleId) {
@@ -146,8 +146,8 @@ public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	 * サーバキーより、ポイント情報を取得する
 	 */
 	@Override
-	public List<PointMst> getAllValidPointListByServer(Integer serverId) {
-		return pointMstDao.selectValidPointListByServer(serverId);
+	public List<PointMst> getAllValidPointListByTitle(Integer titleId) {
+		return pointMstDao.selectValidPointListByTitle(titleId);
 	}
 	
 	/**
