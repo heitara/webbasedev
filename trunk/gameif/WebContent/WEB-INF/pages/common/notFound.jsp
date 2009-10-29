@@ -5,7 +5,7 @@
 <head>
 	<meta name="keywords" content="ゲームイフ,ブラウザゲーム,webgame,大人数同時プレイブラウザゲーム,オンラインゲーム,パブリッシング,プラットフォーム" />
 	<meta name="description" content="ブラウザゲーム(WEBGAME)のポータルサイト" />
-	<title>頁が存在しません | ゲームイフ | ブラウザゲームのポータルサイト</title>
+	<title>頁が存在しません</title>
 	<link rel="stylesheet" href="css/common/common.css" type="text/css" />
 	<link rel="stylesheet" href="css/common/main.css" type="text/css" />
 </head>
