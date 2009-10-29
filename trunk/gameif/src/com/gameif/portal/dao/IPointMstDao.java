@@ -7,6 +7,6 @@ import com.gameif.portal.entity.PointMst;
 
 public interface IPointMstDao extends IBaseDao<PointMst, PointMst> {
 	
-	public List<PointMst> selectValidPointListByServer(Integer serverId);
+	public List<PointMst> selectValidPointListByTitle(Integer titleId);
 
 }
