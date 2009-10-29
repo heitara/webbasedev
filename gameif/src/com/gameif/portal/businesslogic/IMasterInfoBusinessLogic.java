@@ -28,7 +28,7 @@ public interface IMasterInfoBusinessLogic {
 	public List<ServerMst> getAllValidServerList();
 	public List<ServerMst> getAllValidServerListByTitle(Integer titleId);
 	
-	public List<PointMst> getAllValidPointListByServer(Integer serverId);
+	public List<PointMst> getAllValidPointListByTitle(Integer titleId);
 	public List<SettlementMst> getAllSettlementList();
 	public PointMst getPointMstByKey(Integer pointId);
 	
