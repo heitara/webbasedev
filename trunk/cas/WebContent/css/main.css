@@ -1,0 +1,96 @@
+/*********Åyã§í Åz***************************************************************/
+body {
+	margin:0px;
+	padding:0px;
+}
+
+/*********Åyã§í ÅzÉgÉbÉv ********************************************************/
+div.page_top {
+	width:980px;
+	height:50px;
+	margin:15px auto 0px auto;
+}
+div.pt_left {
+	float:left;
+	width:200px;
+	height:50px;
+	text-align:left;
+}
+div.pt_right {
+	float:right;
+	height:50px;
+}
+div.pt_right a {
+	padding:0px 4px;
+}
+div.pt_right a:hover {
+	text-decoration:underline;
+}
+
+/*********Åyã§í ÅzÉgÉbÉvÉÅÉjÉÖÅ[ ************************************************/
+div.page_top_menu {
+	width:100%;
+	height:36px;
+	text-align:center;
+	background-image:url("../images/bg_top_menu.gif");
+}
+div.page_top_menu a{
+	width:190px;
+	height:22px;
+	line-height:22px;
+	color:#FFF;
+	font-size:13px;
+	font-weight:bold;
+	display:inline-block;
+	margin-top:7px;
+}
+div.page_top_menu a:hover {
+	color:#333;
+	background-color:#FC0;
+}
+
+/*********Åyã§í ÅzÉtÉbÉ^Å[ ******************************************************/
+div.page_bottom {
+	width:980px;
+	margin:40px auto 10px auto;
+	border-top:5px solid #3C2F2D;
+	padding-top:10px;
+}
+div.pb_left {
+	float:left;
+	text-align:left;
+	height:30px;
+}
+div.pb_right {
+	float:right;
+	text-align:right;
+	font-size:10px;
+	height:30px;
+}
+div.pb_left a {	
+	display:inline-block;
+	padding:0px 3px;
+	text-decoration:underline;
+}
+
+div.pb_browser {
+	clear: both;
+	font-size:10px;
+	color:#666;
+}
+
+/*********Åyã§í ÅzÉÅÉCÉì ********************************************************/
+div.page_main_box {
+	width:980px;
+	margin:30px auto;
+}
+div.page_main_main {
+	float:left;
+	width:380px;
+	height:400px;
+}
+div.page_main_right {
+	float:left;
+	margin-left:20px;
+	width:580px;
+}
