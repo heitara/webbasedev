@@ -14,7 +14,7 @@
 	<script src="js/jquery/jquery.js" type="text/javascript"></script>
 	<script src="js/portal/common.js" type="text/javascript"></script>
 	<script src="js/portal/validate.js" type="text/javascript"></script>
-	<title>友達メールアドレスインポート | ゲームイフ | ブラウザゲームのポータルサイト</title>
+	<title>メールアドレスインポート | 友達紹介</title>
 </head>
 
 <body>

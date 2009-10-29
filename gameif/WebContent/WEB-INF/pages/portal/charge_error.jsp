@@ -6,7 +6,7 @@
 <head>
 	<meta content="ゲームイフ,ブラウザゲーム,webgame,大人数同時プレイブラウザゲーム,オンラインゲーム,パブリッシング,プラットフォーム" name="keywords"/>
 	<meta content="ブラウザゲーム(WEBGAME)のポータルサイト" name="description"/>
-	<title>ポイントチャージ | ゲームイフ | ブラウザゲームのポータルサイト</title>
+	<title>エラー | ポイントチャージ</title>
 </head>
 
 <body>

@@ -5,7 +5,7 @@
 <head>
 	<meta content="ゲームイフ,ブラウザゲーム,webgame,大人数同時プレイブラウザゲーム,オンラインゲーム,パブリッシング,プラットフォーム" name="keywords"/>
 	<meta content="ブラウザゲーム(WEBGAME)のポータルサイト" name="description"/>
-	<title>会員登録 | ゲームイフ | ブラウザゲームのポータルサイト</title>
+	<title>会員登録</title>
 	<script src="js/portal/validate.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		function RefreshImg(){

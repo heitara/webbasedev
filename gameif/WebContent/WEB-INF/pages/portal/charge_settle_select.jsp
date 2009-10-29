@@ -5,7 +5,7 @@
 <head>
 	<meta name="keywords" content="ゲームイフ,ブラウザゲーム,webgame,大人数同時プレイブラウザゲーム,オンラインゲーム,パブリッシング,プラットフォーム" />
 	<meta name="description" content="ブラウザゲーム(WEBGAME)のポータルサイト" />
-	<title>ポイントチャージ | ゲームイフ | ブラウザゲームのポータルサイト</title>
+	<title>決済方法選択 | ポイントチャージ</title>
 	<script src="js/portal/validate.js" type="text/javascript"></script>
 	<script src="js/portal/bindMaster.js" type="text/javascript"></script>
 </head>
