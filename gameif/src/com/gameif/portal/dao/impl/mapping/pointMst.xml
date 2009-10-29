@@ -20,27 +20,21 @@
 		<result property="lastUpdateDate" column="last_update_date"/>
 		<result property="lastUpdateUser" column="last_update_user"/>
 	</resultMap>
+	
+	<resultMap class="com.gameif.portal.entity.PointMst" id="pointResultForBind">
+		<result property="pointId" column="point_id" />
+		<result property="pointName" column="point_name" />
+	</resultMap>
 
-	<select id="selectValidPointListByServer" resultMap="pointResult">
+	<select id="selectValidPointListByTitle" resultMap="pointResultForBind">
         <![CDATA[
         SELECT
 			point_id,
-			title_id,
-			server_id,
-			point_name,
-			point_start_date,
-			point_end_date,
-			point_status,
-			point_amount,
-			point_amount_act,
-			created_date,
-			created_user,
-			last_update_date,
-			last_update_user
+			point_name
 		FROM
 			point_mst
 		WHERE
-			server_id = #value#
+			title_id = #value#
 		AND	point_start_date <= now()
 		AND point_end_date >= now()
         ]]>
