@@ -69,3 +69,23 @@ function selectInvitedHist(obj, cName){
     
     document.getElementById("selAll").checked = false;
 }
+
+function doBookmarkLink() {
+
+	var curruntUrl = location.href;
+	var pageTitle = document.getElementsByTagName("title")[0].innerHTML;
+	var linkName = "お気に入り";
+	
+	if(navigator.userAgent.indexOf("MSIE") > -1){
+		
+		document.write('<a href="javascript:window.external.AddFavorite(\'' + curruntUrl + '\', \'' + pageTitle + '\');">' + linkName + '</a>');
+		
+	} else if(navigator.userAgent.indexOf("Opera") > -1){
+		
+		document.write('<a href="' + curruntUrl + '" rel="sidebar" title="' + pageTitle + '">' + linkName + '</a>');
+		
+	} else if(navigator.userAgent.indexOf("Firefox") > -1){
+
+		document.write('<a href="javascript:window.sidebar.addPanel(\'' + pageTitle + '\', \'' + curruntUrl + '\', \'\');">' + linkName + '</a>');
+	}
+}
