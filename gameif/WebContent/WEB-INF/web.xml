@@ -3,6 +3,27 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
     http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	
+	<context-param>
+		<param-name>portalTopUrl</param-name>
+		<param-value>http://localhost:8080/gameif</param-value>
+	</context-param>
+	<context-param>
+		<param-name>portalAuthTopUrl</param-name>
+		<param-value>https://auth.test.game-if.com:8443/cas</param-value>
+	</context-param>
+	<context-param>
+		<param-name>portalNewsTopUrl</param-name>
+		<param-value>http://localhost/info</param-value>
+	</context-param>
+	<context-param>
+		<param-name>communityTopUrl</param-name>
+		<param-value>http://localhost/forum</param-value>
+	</context-param>
+	<context-param>
+		<param-name>noLoginPage</param-name>
+		<param-value>/registryMember.html,/inputInquiry.html,/inputPwdReget.html</param-value>
+	</context-param>
 
 	<filter>
 		<filter-name>setcharacterencodingfilter</filter-name>
