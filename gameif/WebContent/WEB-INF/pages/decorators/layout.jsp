@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html; CHARSET=utf8" pageEncoding="utf-8"%> 
 <%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator"%>   
 <%@ taglib prefix="page" uri="http://www.opensymphony.com/sitemesh/page" %> 
@@ -12,12 +11,64 @@
 <%@page import="com.gameif.portal.entity.MyTitle"%>
 <%@page import="com.gameif.portal.constants.PortalConstants"%>
 <%@page import="com.gameif.portal.entity.MyServer"%>
+<%
+
+/* =======================================　頁内共通変数設定  =======================================*/
+
+//ログイン状態
+boolean isLogined = false;
+// ログインエリア表示・非表示制御
+boolean isNoLoginPage = false;
+//アカウントＩＤ
+String accountId = null;
+//ニックネーム
+String nickname = null;
+
+//ログインエリア表示しない頁
+String noLoginPages = getServletContext().getInitParameter("noLoginPage");
+
+//ポータルサイトベースＵＲＬ
+String portalTopUrl = getServletContext().getInitParameter("portalTopUrl");
+//コミュニティサイトＵＲＬ
+String communityTopUrl = getServletContext().getInitParameter("communityTopUrl");
+//ポータルニュースＵＲＬ
+String portalNewsTopUrl = getServletContext().getInitParameter("portalNewsTopUrl");
+//認証サーバＵＲＬ
+String portalAuthTopUrl = getServletContext().getInitParameter("portalAuthTopUrl");
+
+//ログインセッション情報
+String sessionInfo = (String)session.getAttribute(CASFilter.CAS_FILTER_USER);
+
+/* =======================================　ログイン情報取得  =======================================*/
+if (sessionInfo != null) {
+	
+	isLogined = true;
+	accountId = sessionInfo.split(",")[1];
+	nickname = com.gameif.common.util.ByteUtil.stringFromHexString(sessionInfo.split(",")[2]);	
+}
+/* =======================================　ログインエリア非表示判断  =================================*/
+if (noLoginPages != null) {
+	
+	String[] pages = noLoginPages.split(",");
+	
+	for (int i = 0; i < pages.length; i++) {
+		
+		if (request.getRequestURI().indexOf(pages[i]) >= 0) {
+			
+			isNoLoginPage = true;
+			break;
+		}
+	}	
+}
+/* =============================================================================================*/
+
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja-jp" lang="ja-jp" >
 <head>
 	<meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
 	<meta content="index, follow" name="robots"/>
-	<base href="<%="1".equals(request.getParameter("ssl")) ? "https" : "http"%>://<%=request.getServerName()%><%if(request.getServerPort() != 80 && request.getServerPort() != 443) out.print(":" + request.getServerPort());%><%=request.getContextPath()%>/"/>
+	<base href="<%=getServletContext().getInitParameter("portalTopUrl")%>/"/>
 	<link type="text/css" href="css/common.css" rel="stylesheet"></link>
 	<link type="text/css" href="css/main.css" rel="stylesheet"></link>
 	<script src="js/jquery/jquery.js" type="text/javascript"></script>
@@ -28,36 +79,27 @@
 		serverSel.style.display = serverSel.style.display == "none" ? "block" : "none";
 	}
 	</script>
-	<title><decorator:title default="ゲームイフ | ブラウザゲームポータルサイト"/></title>
+	<title><decorator:title default="新感覚の楽しみ方"/> | ゲームイフ | ブラウザゲームポータルサイト</title>
 	<decorator:head />
 </head>
 <body>
 <!-- ページトップ：開始 -->
 <div>
 	<div class="page_top">
-		<div class="pt_left"><a href="http://www.game-if.com"><img src="images/logo.gif" title="ブラウザゲームポータルサイト　ゲームイフ"/></a></div>
+		<div class="pt_left"><a href="<%=portalTopUrl%>" title="ゲームイフ | ブラウザゲームポータルサイト" ><img src="images/logo.gif" title="ゲームイフ | ブラウザゲームポータルサイト"/></a></div>
 		<div class="pt_right">
-			<%
-			if (session.getAttribute(CASFilter.CAS_FILTER_USER) == null) {
-			%>
-			<a href="mypage.html" title="ログイン">ログイン</a> |
-			<a href="registryMember.html" title="会員登録">会員登録</a> |
-			<%
-			}
-			%>
+<%			if (isLogined) {%>
+				<a href="logoutProxy.html" title="ログアウト">ログアウト</a> | 
+<%			} else {%>
+				<a href="mypage.html" title="ログイン">ログイン</a> |
+				<a href="registryMember.html" title="会員登録">会員登録</a> |
+<%			}%>
 			<a href="#" title="初心者ガイド">初心者ガイド</a> |
-			<%
-			if (session.getAttribute(CASFilter.CAS_FILTER_USER) == null) {
-			%>
-			<a href="inputInquiry.html" title="お問合せ">お問合せ</a> |
-			<%
-			} else {
-			%>
-			<a href="inputMemberInquiry.html" title="お問合せ">お問合せ</a> |
-			<%
-			}
-			%>
-			<a href="#" title="お気に入り">お気に入り</a>
+			<a href="<%=isLogined ? "inputMemberInquiry.html" : "inputInquiry.html"%>" title="お問合せ">お問合せ</a> |
+			<script language="javascript">doBookmarkLink()</script>
+<%			if (isLogined) {%>
+			<div style="font-size:10px;color:#855;margin-top:10px;text-align:right;"><%=nickname%>さん、ようこそ！</div>
+<%			}%>
 		</div>
 		<div class="clearbox"/>
 	</div>
@@ -65,11 +107,11 @@
 <!-- ページトップ：終了 -->
 <!-- ページメニュー：開始 -->
 <div class="page_top_menu">
-	<a href="index.html" title="トップページ">トップ</a>
+	<a href="<%=portalTopUrl%>" title="トップページ">トップ</a>
 	<a href="games.html" title="ゲーム">ゲーム</a>
 	<a href="chargePointSelect.html" title="ポイントチャージ">ポイントチャージ</a>
-	<a href="#" title="コミュニティ">コミュニティ</a>
-	<a href="#" title="お知らせ">お知らせ</a>
+	<a href="<%=communityTopUrl%>" title="コミュニティ">コミュニティ</a>
+	<a href="<%=portalNewsTopUrl%>" title="お知らせ">お知らせ</a>
 </div>
 <!-- ページメニュー：終了 -->
 <!-- ページメインエリア：開始 -->
@@ -80,37 +122,27 @@
 	</div>
 	<!-- ページメイン：終了 -->	
 	<!-- ページ右パネル：開始 -->
-	<div class="page_main_right">	
-	<%
-		if (session.getAttribute(CASFilter.CAS_FILTER_USER) == null) {
-	%>
-		<form id="myLoginForm" action="https://auth.test.game-if.com:8443/cas/remoteLogin" method="post" onsubmit="this.service.value='<%=request.getScheme()%>://<%=request.getServerName()%><%if(request.getServerPort() != 80 && request.getServerPort() != 443) out.print(":" + request.getServerPort());%><%=request.getContextPath()%>/loginStatusProxy.html?target=' + encodeURIComponent(location.href); return true;">
-			<input type="hidden" id="service" name="service" value="<%=request.getScheme()%>://<%=request.getServerName()%><%if(request.getServerPort() != 80 && request.getServerPort() != 443) out.print(":" + request.getServerPort());%><%=request.getContextPath()%>/mypage.html"/>
-			<input type="hidden" name="submit" value="true" />
-			<table>
-			    <tr>
-			        <td>アカウントＩＤ：</td>
-			        <td><input type="text" name="username"/></td>
-			    </tr>
-			    <tr>
-			        <td>パスワード：</td>
-			        <td><input type="password" name="password"/></td>
-			    </tr>
-			    <tr>
-			        <td colspan="2"><input type="submit" value="ログイン" /></td>
-			    </tr>
-			</table>
-		</form>
+	<div class="page_main_right">
+<%		if (!isLogined) {
+			if (!isNoLoginPage) {%>
+				<form id="myLoginForm" action="<%=portalAuthTopUrl%>/remoteLogin" method="post" onsubmit="this.service.value='<%=portalTopUrl%>/loginStatusProxy.html?target=' + encodeURIComponent(location.href); return true;" style="padding:0px;margin:0px;">
+				<div style="width:200px;height:155px;text-align:right;background:url('images/bg_login.gif');">
+					<div style="height:133px;">
+						<input type="text" name="username" style="width:100px;margin-right:20px;margin-top:25px;border:1px solid #EEE;border-top:1px solid #999;border-left:1px solid #999;height:18px;background:url('images/bg_login_id.gif');" onfocus="this.style.background='none';"/><br/>
+						<input type="password" name="password" style="width:100px;margin-right:20px;margin-top:7px;border:1px solid #EEE;border-top:1px solid #999;border-left:1px solid #999;height:18px;background:url('images/bg_login_password.gif');" onfocus="this.style.background='none';"/><br/>
+						<input type="image" src="images/btn_c_login_w.gif" value="ログイン" style="margin-right:20px;margin-top:7px;"/>
+						<input type="hidden" id="service" name="service" value="<%=getServletContext().getInitParameter("portalTopUrl")%>/mypage.html"/>
+						<input type="hidden" name="submit" value="true" />
+					</div>
+					<div class="height:22px;width:200px;">
+						<a href="inputPwdReget.html" title="パスワードをわすれた方へ"><img src="images/btn_c_passwdremind.gif" title="パスワードをわすれた方へ" style="margin-bottom:2px;margin-right:2px;"/></a>
+					</div>
+				</div>
+				</form>
+				<br/>
+<%			}%>
 		<!-- ショットカットボタンエリア：開始 -->
 		<dl class="quickstart tspace_n">
-			<dt><a href="mypage.html" title="ログイン"><img src="images/btn_b_login.gif" alt="ログイン"/></a></dt>
-			<dd></dd>
-		</dl>
-		<dl class="quickstart tspace_s">
-			<dt><a href="inputPwdReget.html" title="会員登録">パスワードを忘れ方へ</a></dt>
-			<dd></dd>
-		</dl>
-		<dl class="quickstart tspace_s">
 			<dt><a href="registryMember.html" title="会員登録"><img src="images/btn_b_entry.gif" alt="会員登録"/></a></dt>
 			<dd><a href="inputInvite.html" title="友達招待"><img src="images/btn_b_friend.gif" alt="友達招待"/></a></dd>
 		</dl>
@@ -118,7 +150,7 @@
 		
 		<!-- 初めての方へ：開始 -->
 		<dl class="title_box tspace_b">
-			<dt><strong>初めての方へ</strong><span></span></dt>
+			<dt><strong>初めての方へ</strong><span>&nbsp;</span></dt>
 			<dd class="guide">
 				<a href="#" title="会員登録方法">会員登録方法</a>
 				<a href="#" title="ＧＩポイントについて">ＧＩポイントについて</a>
@@ -131,7 +163,6 @@
 	<%
 		} else {
 	%>
-	<a href="logoutProxy.html">ログアウト</a>
 		<!-- ショットカットボタンエリア：開始 -->
 		<dl class="quickstart tspace_n">
 			<dt><a href="chargePointSelect.html" title="ポイントチャージ"><img src="images/btn_b_point.gif" alt="ポイントチャージ"/></a></dt>
@@ -143,8 +174,7 @@
 		</dl>
 
 		<!-- ショットカットボタンエリア：終了 -->
-			<%
-			Long memNum = ContextUtil.getMemberNo((String)session.getAttribute(CASFilter.CAS_FILTER_USER));
+<%			Long memNum = ContextUtil.getMemberNo((String)session.getAttribute(CASFilter.CAS_FILTER_USER));
 			
 			ApplicationContext ctxt = WebApplicationContextUtils.getWebApplicationContext(request.getSession().getServletContext());
 			ITitlePlayBusinessLogic mstLogic = (ITitlePlayBusinessLogic)ctxt.getBean("titlePlayBusinessLogic");
@@ -171,36 +201,30 @@
 				<div id="game_sel_<%=title.getTitleId()%>" class="mygame_select" style="display: none;">
 					<fieldset>
 						<legend>サーバ選択</legend>
-					<%
-					if (PortalConstants.ServerStatus.MAINTENANCE.equals(title.getServiceStatus())) {%>
+<%					if (PortalConstants.ServerStatus.MAINTENANCE.equals(title.getServiceStatus())) {%>
 						<ul><li style="color:#666;font-size:10px;">このタイトルは、はただいま<br/>メンテナンスしております。	</li></ul>
-					<%
-					} else {
-					%>
-						<ul><%
-						for (int j = 0; j < servers.size(); j++) {
+<%					} else {%>
+						<ul>
+<%						for (int j = 0; j < servers.size(); j++) {
 							MyServer server = servers.get(j);
 							String serverNo = "00" + server.getServerId();
 							serverNo = serverNo.substring(serverNo.length() - 2);
 							
 							if (PortalConstants.ServerStatus.MAINTENANCE.equals(server.getServiceStatus())) {%>
-							<li title="このサーバはただいまメンテナンスしております。">S<%=serverNo%> <%=server.getServerName()%><span style="color:#900;font-size:10px;">（メンテ）</span></li>
-							<%
-							} else {
-								
-							%>
-							<li><a href="playGame.html?serverId=<%=server.getServerId()%>&titleId=<%=server.getTitleId()%>" title="サーバ「<%=server.getServerName()%>」で「<%=title.getTitleName()%>」をプレイする。">S<%=serverNo%> <%=server.getServerName()%></a></li><%
+								<li title="このサーバはただいまメンテナンスしております。">S<%=serverNo%> <%=server.getServerName()%><span style="color:#900;font-size:10px;">（メンテ）</span></li>
+<%							} else {%>
+								<li><a href="playGame.html?serverId=<%=server.getServerId()%>&titleId=<%=server.getTitleId()%>" title="サーバ「<%=server.getServerName()%>」で「<%=title.getTitleName()%>」をプレイする。">S<%=serverNo%> <%=server.getServerName()%></a></li><%
 							}
 						}%>
 						</ul>
-						<%
-					}%>
+<%					}%>
 					</fieldset>
-				</div><%
-				}%>
+				</div>
+<%				}%>
 			</dd>
 		</dl>
-		<!-- マイゲーム：終了 --><%
+		<!-- マイゲーム：終了 -->
+		<%
 			}
 		}%>
 	</div>
@@ -211,7 +235,7 @@
 <!-- ページフッター：開始 -->
 <div class="page_bottom">
 	<div class="pb_left">
-		<a href="http://www.game-if.com" title="会社概要">会社概要</a> | 
+		<a href="http://company.game-if.com" title="会社概要">会社概要</a> | 
 		<a href="agreement.html" title="利用規約">利用規約</a> | 
 		<a href="immunity.html" title="免責事項">免責事項</a> | 
 		<a href="privacy.html" title="プライバシーポリシー">プライバシーポリシー</a> | 
