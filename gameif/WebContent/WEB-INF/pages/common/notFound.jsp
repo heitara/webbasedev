@@ -12,15 +12,15 @@
 <body>
 <dl class="light_box tspace_n">
 	<dt>
-		<strong>頁が存在しません。</strong><span></span>
+		<strong>頁が存在しません。</strong><span>&nbsp;</span>
 	</dt>
 	<dd>
 		<dl class="warning">
 			<dt>要求された頁は存在しません。</dt>
 			<dd>
 				<div>以前アクセスできた頁が現在表示できない場合は、サイト運営者に連絡してください。</div>
-				<a href="#" title="お問合せ"><img src="images/btn_s_inquiry.gif" title="お問合せ"/></a>
-				<a href="#" title="コミュニティサイト"><img src="images/btn_s_community.gif" title="コミュニティサイト"/></a>
+				<a href="inputInquiry.html" title="お問合せ"><img src="images/btn_s_inquiry.gif" title="お問合せ"/></a>
+				<a href="<%=getServletContext().getInitParameter("communityTopUrl")%>" title="コミュニティサイト"><img src="images/btn_s_community.gif" title="コミュニティサイト"/></a>
 			</dd>
 		</dl>
 	</dd>
