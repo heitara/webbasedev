@@ -214,12 +214,14 @@ dd.news_list ul li a:hover {
 dl.finish {
 	font-size:12px;
 	margin:30px 10px;
+	background:none;
 }
 dl.finish dt {
 	font-size:14px;
 	font-weight:bold;
 	margin:20px 0px;
 	color:#F60;
+	background:none;
 }
 dl.finish dd div {
 	margin:20px 8px;
@@ -229,15 +231,18 @@ dl.finish dd div {
 dl.warning {
 	font-size:12px;
 	margin:30px 10px;
+	background:none;
 }
 dl.warning dt {
 	font-size:14px;
 	font-weight:bold;
 	margin:20px 0px;
 	color:#F60;
+	background:none;
 }
 dl.warning dd  {
 	line-height:20px;
+	background:none;
 }
 dl.warning dd div {
 	margin:20px 8px;
