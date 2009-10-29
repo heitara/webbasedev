@@ -2,11 +2,11 @@ package com.gameif.portal.action.pwdReget;
 
 import com.gameif.common.action.ModelDrivenActionSupport;
 import com.gameif.common.exception.LogicException;
-import com.gameif.common.util.ContextUtil;
 import com.gameif.portal.businesslogic.IMasterInfoBusinessLogic;
 import com.gameif.portal.businesslogic.ITempPwdRegetBusinessLogic;
 import com.gameif.portal.entity.MemberInfo;
 import com.gameif.portal.entity.TempPwdInfo;
+import com.gameif.portal.util.ContextUtil;
 
 public class MemberPwdRegetAction extends ModelDrivenActionSupport<TempPwdInfo> {
 

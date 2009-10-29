@@ -3,9 +3,9 @@ package com.gameif.portal.action.servicePoint;
 import com.gameif.common.action.BaseActionSupport;
 import com.gameif.common.exception.DataNotExistsException;
 import com.gameif.common.exception.LogicException;
-import com.gameif.common.util.ContextUtil;
 import com.gameif.portal.businesslogic.IMasterInfoBusinessLogic;
 import com.gameif.portal.businesslogic.IServicePointBusinessLogic;
+import com.gameif.portal.util.ContextUtil;
 
 public class ServicePointControlAction extends BaseActionSupport {
 
@@ -36,15 +36,15 @@ public class ServicePointControlAction extends BaseActionSupport {
 	public String getGameLogin() {
 		try {
 			servicePointBusinessLogic.getGameLoginServicePoint(titleId);
-		} catch(DataNotExistsException dneEx) {
+		} catch (DataNotExistsException dneEx) {
 			// メンテナンス
 			addFieldError("errMessage", getText("servicePoint.noValidPoint"));
 			return "inputGet";
-		} catch(LogicException lgex) {
+		} catch (LogicException lgex) {
 			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
 					+ lgex.getMessage());
 			return "warning";
-			
+
 		}
 		return SUCCESS;
 	}

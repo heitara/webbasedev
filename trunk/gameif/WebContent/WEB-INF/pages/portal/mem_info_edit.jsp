@@ -21,7 +21,7 @@
 			<table class="form">
 				<tr>
 					<th><label for="giid">アカウントID：</label></th>
-					<td><span class="item"><%=com.gameif.common.util.ContextUtil.getAccountId()%></span></td>
+					<td><span class="item"><%=com.gameif.portal.util.ContextUtil.getAccountId()%></span></td>
 				</tr>
 				<tr class="space_row"><td colspan="2"></td></tr>
 				<tr>

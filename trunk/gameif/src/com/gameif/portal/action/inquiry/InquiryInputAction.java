@@ -1,13 +1,13 @@
 package com.gameif.portal.action.inquiry;
 
 import com.gameif.common.action.ModelDrivenActionSupport;
-import com.gameif.common.util.ContextUtil;
 import com.gameif.portal.businesslogic.IInquiryInfoBusinessLogic;
 import com.gameif.portal.businesslogic.IMasterInfoBusinessLogic;
 import com.gameif.portal.businesslogic.IMemberInfoBusinessLogic;
 import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.entity.InquiryInfo;
 import com.gameif.portal.entity.MemberInfo;
+import com.gameif.portal.util.ContextUtil;
 
 public class InquiryInputAction extends ModelDrivenActionSupport<InquiryInfo> {
 

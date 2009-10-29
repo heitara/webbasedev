@@ -7,7 +7,6 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gameif.common.businesslogic.BaseBusinessLogic;
-import com.gameif.common.util.ContextUtil;
 import com.gameif.portal.businesslogic.ITitlePlayBusinessLogic;
 import com.gameif.portal.dao.IGameLoginCountDao;
 import com.gameif.portal.dao.IPlayHistDao;
@@ -15,6 +14,7 @@ import com.gameif.portal.entity.GameLoginCount;
 import com.gameif.portal.entity.MyServer;
 import com.gameif.portal.entity.MyTitle;
 import com.gameif.portal.entity.PlayHist;
+import com.gameif.portal.util.ContextUtil;
 
 public class TitlePlayBusinessLogicImpl extends BaseBusinessLogic implements ITitlePlayBusinessLogic {
 

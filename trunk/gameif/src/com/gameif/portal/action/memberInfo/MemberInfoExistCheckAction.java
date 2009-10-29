@@ -1,65 +1,68 @@
 package com.gameif.portal.action.memberInfo;
 
-import com.gameif.common.util.ContextUtil;
 import com.gameif.portal.businesslogic.IMemberInfoBusinessLogic;
+import com.gameif.portal.util.ContextUtil;
 
 public class MemberInfoExistCheckAction {
 
 	private static final long serialVersionUID = 171926714928924158L;
 
-	private IMemberInfoBusinessLogic memberInfoBusinessLogic;	
+	private IMemberInfoBusinessLogic memberInfoBusinessLogic;
 	private String result;
 	private String target;
-	
+
 	public String checkAccount() {
-		
+
 		int count = 0;
-		
+
 		if (ContextUtil.userIsLogin()) {
 
-			count = memberInfoBusinessLogic.countMembersByMemId(target, ContextUtil.getMemberNo());
-			
+			count = memberInfoBusinessLogic.countMembersByMemId(target,
+					ContextUtil.getMemberNo());
+
 		} else {
 
 			count = memberInfoBusinessLogic.countMembersByMemId(target);
 		}
-		
+
 		result = String.valueOf(count);
-			
+
 		return "success";
 	}
-	
+
 	public String checkNickName() {
-		
+
 		int count = 0;
-		
+
 		if (ContextUtil.userIsLogin()) {
 
-			count = memberInfoBusinessLogic.countMembersByNickName(target, ContextUtil.getMemberNo());
-			
+			count = memberInfoBusinessLogic.countMembersByNickName(target,
+					ContextUtil.getMemberNo());
+
 		} else {
 
 			count = memberInfoBusinessLogic.countMembersByNickName(target);
 		}
-		
+
 		result = String.valueOf(count);
 
 		return "success";
 	}
-	
+
 	public String checkEmail() {
-		
+
 		int count = 0;
-		
+
 		if (ContextUtil.userIsLogin()) {
 
-			count = memberInfoBusinessLogic.countMembersByMailPc(target, ContextUtil.getMemberNo());
-			
+			count = memberInfoBusinessLogic.countMembersByMailPc(target,
+					ContextUtil.getMemberNo());
+
 		} else {
 
 			count = memberInfoBusinessLogic.countMembersByMailPc(target);
 		}
-		
+
 		result = String.valueOf(count);
 
 		return "success";
@@ -81,7 +84,8 @@ public class MemberInfoExistCheckAction {
 		this.result = result;
 	}
 
-	public void setMemberInfoBusinessLogic(IMemberInfoBusinessLogic memberInfoBusinessLogic) {
+	public void setMemberInfoBusinessLogic(
+			IMemberInfoBusinessLogic memberInfoBusinessLogic) {
 		this.memberInfoBusinessLogic = memberInfoBusinessLogic;
 	}
 }

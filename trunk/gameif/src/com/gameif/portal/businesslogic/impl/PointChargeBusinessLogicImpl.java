@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gameif.common.businesslogic.BaseBusinessLogic;
 import com.gameif.common.exception.DataNotExistsException;
 import com.gameif.common.exception.LogicException;
-import com.gameif.common.util.ContextUtil;
 import com.gameif.portal.businesslogic.IPointChargeBusinessLogic;
 import com.gameif.portal.businesslogic.titleif.charge.ChargeParameter;
 import com.gameif.portal.businesslogic.titleif.charge.TitleCharge;
@@ -32,6 +31,7 @@ import com.gameif.portal.entity.ServicePoint;
 import com.gameif.portal.entity.ServicePointGiveHist;
 import com.gameif.portal.entity.ServicePointTypeMst;
 import com.gameif.portal.entity.TitleMst;
+import com.gameif.portal.util.ContextUtil;
 
 public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		IPointChargeBusinessLogic {

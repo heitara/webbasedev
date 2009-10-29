@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gameif.common.businesslogic.BaseBusinessLogic;
 import com.gameif.common.exception.DataNotExistsException;
 import com.gameif.common.exception.LogicException;
-import com.gameif.common.util.ContextUtil;
 import com.gameif.portal.businesslogic.IServicePointBusinessLogic;
 import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.dao.IGameLoginCountDao;
@@ -19,6 +18,7 @@ import com.gameif.portal.entity.GameLoginCount;
 import com.gameif.portal.entity.ServicePoint;
 import com.gameif.portal.entity.ServicePointGiveHist;
 import com.gameif.portal.entity.ServicePointTypeMst;
+import com.gameif.portal.util.ContextUtil;
 
 public class ServicePointBusinessLogicImpl extends BaseBusinessLogic implements
 		IServicePointBusinessLogic {
