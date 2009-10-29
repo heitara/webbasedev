@@ -1,6 +1,7 @@
 package com.gameif.portal.businesslogic.impl;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -49,6 +50,9 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 	private IServicePointDao servicePointDao;
 	private IServicePointGiveHistDao servicePointGiveHistDao;
 	private IInviteInfoDao inviteInfoDao;
+	
+	// 有効期間
+	private Integer validDays;
 
 	/**
 	 * 仮決済を登録する
@@ -227,29 +231,59 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		// 贈与日時
 		Date giveDate = new Date();
 		
+		Date endDate = new Date();
+		// 失効期間を計算する
+		Calendar c = Calendar.getInstance();
+		c.setTime(giveDate);
+		c.add(Calendar.DATE, validDays);
+		endDate = c.getTime();
+		
 		ServicePoint servicePoint = new ServicePoint();
-		servicePoint.setGiveDate(giveDate);
-		servicePoint.setPointStartDate(giveDate);
-		servicePoint.setPointEndDate(giveDate);
+		servicePoint.setMemNum(ContextUtil.getMemberNo());
 		servicePoint.setTitleId(settlementHist.getTitleId());
-		// サービスポイント = 決済ポイント数 * 基準パーセント数
-		servicePoint.setPointAmount(settlementHist.getPointAmountAct().multiply(servicePointTypeMst.getPointAmount()).divide(new BigDecimal(100)));
-		servicePoint.setCreatedDate(giveDate);
-		servicePoint.setCreatedUser(ContextUtil.getMemberNo().toString());
-		servicePoint.setLastUpdateDate(giveDate);
-		servicePoint.setLastUpdateUser(ContextUtil.getMemberNo().toString());
+		servicePoint.setGiveDate(giveDate);
+		// 有効なデータが存在かどうか
+		servicePoint = servicePointDao.selectBalanceByTitleAndMemnum(servicePoint);
+		BigDecimal amount = settlementHist.getPointAmountAct().multiply(servicePointTypeMst.getPointAmount()).divide(new BigDecimal(100));
+		if (servicePoint == null) {
+			
+			servicePoint = new ServicePoint();
+
+			servicePoint.setMemNum(ContextUtil.getMemberNo());
+			servicePoint.setGiveDate(giveDate);
+			servicePoint.setPointStartDate(giveDate);
+			servicePoint.setPointEndDate(endDate);
+			servicePoint.setTitleId(settlementHist.getTitleId());
+			// サービスポイント = 決済ポイント数 * 基準パーセント数
+			servicePoint.setPointAmount(amount);
+			servicePoint.setCreatedDate(giveDate);
+			servicePoint.setCreatedUser(ContextUtil.getMemberNo().toString());
+			servicePoint.setLastUpdateDate(giveDate);
+			servicePoint.setLastUpdateUser(ContextUtil.getMemberNo().toString());
+			
+			// サービスポイント残高テーブルに登録する
+			servicePointDao.save(servicePoint);
+		} else {
+			// 残高 = 元の残高 + 今回のポイント数
+			servicePoint.setPointAmount(servicePoint.getPointAmount().add(amount));
+			servicePoint.setPointEndDate(endDate);
+			servicePoint.setLastUpdateDate(giveDate);
+			servicePoint.setLastUpdateUser(ContextUtil.getMemberNo().toString());
+			
+			// 残高を更新する
+			servicePointDao.update(servicePoint);
+		}
 		
-		// サービスポイント残高テーブルに登録する
-		servicePointDao.save(servicePoint);
-		
+		// サービスポイント贈与履歴
 		ServicePointGiveHist servicePointGiveHist = new ServicePointGiveHist();
 		servicePointGiveHist.setServicePointNo(servicePoint.getServicePointNo());
+		servicePointGiveHist.setMemNum(ContextUtil.getMemberNo());
 		servicePointGiveHist.setServicePointTypeId(servicePointTypeMst.getServicePointTypeId());
 		servicePointGiveHist.setTitleId(settlementHist.getTitleId());
 		servicePointGiveHist.setGiveDate(giveDate);
 		servicePointGiveHist.setPointStartDate(giveDate);
-		servicePointGiveHist.setPointEndDate(giveDate);
-		servicePointGiveHist.setPointAmount(servicePoint.getPointAmount());
+		servicePointGiveHist.setPointEndDate(endDate);
+		servicePointGiveHist.setPointAmount(amount);
 		servicePointGiveHist.setCreatedDate(giveDate);
 		servicePointGiveHist.setCreatedUser(ContextUtil.getMemberNo().toString());
 		servicePointGiveHist.setLastUpdateDate(giveDate);
@@ -409,6 +443,20 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 	 */
 	public void setInviteInfoDao(IInviteInfoDao inviteInfoDao) {
 		this.inviteInfoDao = inviteInfoDao;
+	}
+
+	/**
+	 * @return the validDays
+	 */
+	public Integer getValidDays() {
+		return validDays;
+	}
+
+	/**
+	 * @param validDays the validDays to set
+	 */
+	public void setValidDays(Integer validDays) {
+		this.validDays = validDays;
 	}
 
 }
