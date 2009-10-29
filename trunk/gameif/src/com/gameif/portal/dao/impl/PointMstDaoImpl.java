@@ -11,8 +11,8 @@ public class PointMstDaoImpl extends AbstractBaseDao<PointMst, PointMst>
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<PointMst> selectValidPointListByServer(Integer serverId) {
-		return getSqlMapClientTemplate().queryForList(namespace + ".selectValidPointListByServer", serverId);
+	public List<PointMst> selectValidPointListByTitle(Integer titleId) {
+		return getSqlMapClientTemplate().queryForList(namespace + ".selectValidPointListByTitle", titleId);
 	}
 
 }
