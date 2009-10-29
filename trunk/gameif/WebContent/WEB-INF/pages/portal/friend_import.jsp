@@ -22,7 +22,7 @@
 	<dt><a href="http://www.game-if.com"><img src="images/logo.gif" title="WEBGAMEポータル ゲームイフ" border="0"/></a></dt>
 	<dd>
 		<dl class="title_width tspace_n top_align">
-			<dt><strong>友達メールアドレスインポート</strong><span></span></dt>
+			<dt><strong>友達メールアドレスインポート</strong><span>&nbsp;</span></dt>
 			<dd></dd>
 		</dl>
 	</dd>
