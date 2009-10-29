@@ -7,6 +7,7 @@
 	
 	<resultMap class="com.gameif.portal.entity.ServicePointGiveHist" id="servicePointGiveHistResult">
 		<result property="servicePointGiveHistNo" column="service_point_give_hist_no" />
+		<result property="memNum" column="mem_num" />
 		<result property="servicePointNo" column="service_point_no" />
 		<result property="servicePointTypeId" column="service_point_type_id" />
 		<result property="titleId" column="title_id" />
@@ -23,7 +24,8 @@
 	<insert id = "save" parameterClass="servicePointGiveHist"> 
         <![CDATA[
 			INSERT INTO service_point_give_hist
-				(service_point_no,
+				(mem_num,
+				service_point_no,
 				service_point_type_id,
 				title_id,
 				give_date,
@@ -35,7 +37,8 @@
 				last_update_date,
 				last_update_user)
 			VALUES
-				(#servicePointNo#,
+				(#memNum#,
+				#servicePointNo#,
 				#servicePointTypeId#,
 				#titleId#,
 				#giveDate#,

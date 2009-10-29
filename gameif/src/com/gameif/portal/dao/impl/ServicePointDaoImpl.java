@@ -7,4 +7,11 @@ import com.gameif.portal.entity.ServicePoint;
 public class ServicePointDaoImpl extends
 		AbstractBaseDao<ServicePoint, ServicePoint> implements IServicePointDao {
 
+	@Override
+	public ServicePoint selectBalanceByTitleAndMemnum(
+			ServicePoint oldServicePoint) {
+		
+		return (ServicePoint) getSqlMapClientTemplate().queryForObject(namespace + ".selectBalanceByTitleAndMemnum", oldServicePoint);
+	}
+
 }

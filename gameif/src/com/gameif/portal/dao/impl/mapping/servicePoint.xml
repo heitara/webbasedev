@@ -7,6 +7,7 @@
 	
 	<resultMap class="com.gameif.portal.entity.ServicePoint" id="servicePointResult">
 		<result property="servicePointNo" column="service_point_no" />
+		<result property="memNum" column="mem_num" />
 		<result property="giveDate" column="give_date" />
 		<result property="pointStartDate" column="point_start_date" />
 		<result property="pointEndDate" column="point_end_date" />
@@ -21,7 +22,8 @@
 	<insert id = "save" parameterClass="servicePoint"> 
         <![CDATA[
 			INSERT INTO service_point
-				(give_date,
+				(mem_num,
+				give_date,
 				point_start_date,
 				point_end_date,
 				title_id,
@@ -31,7 +33,8 @@
 				last_update_date,
 				last_update_user)
 			VALUES
-				(#giveDate#,
+				(#memNum#,
+				#giveDate#,
 				#pointStartDate#,
 				#pointEndDate#,
 				#titleId#,
@@ -47,5 +50,46 @@
         	]]>
 		</selectKey>
 	</insert>
+
+	<select id="selectBalanceByTitleAndMemnum" parameterClass="servicePoint" resultMap="servicePointResult">   
+        <![CDATA[
+	        SELECT
+				service_point_no,
+				mem_num,
+				give_date,
+				point_start_date,
+				point_end_date,
+				title_id,
+				point_amount,
+				created_date,
+				created_user,
+				last_update_date,
+				last_update_user
+			FROM
+				service_point
+			WHERE
+				mem_num = #memNum#
+			AND title_id = #titleId#
+      		AND (#giveDate# BETWEEN point_start_date AND point_end_date)
+        ]]>
+	</select>
+
+	<update id="update" parameterClass="servicePoint">
+		<![CDATA[
+			UPDATE service_point
+			SET	mem_num = #memNum#,
+				give_date = #giveDate#,
+				point_start_date = #pointStartDate#,
+				point_end_date = #pointEndDate#,
+				title_id = #titleId#,
+				point_amount = #pointAmount#,
+				created_date = #createdDate#,
+				created_user = #createdUser#,
+				last_update_date = #lastUpdateDate#,
+				last_update_user = #lastUpdateUser#
+			WHERE
+				service_point_no = #servicePointNo#
+		]]>
+	</update>
 
 </sqlMap>
