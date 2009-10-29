@@ -432,6 +432,7 @@ CREATE TABLE  `cbt_tester` (
 DROP TABLE IF EXISTS `service_point`;
 CREATE TABLE  `service_point` (
   `service_point_no` bigint(20) NOT NULL AUTO_INCREMENT,
+  `mem_num` bigint(20) NOT NULL,
   `give_date` datetime DEFAULT NULL,
   `point_start_date` datetime DEFAULT NULL,
   `point_end_date` datetime DEFAULT NULL,
@@ -485,6 +486,7 @@ CREATE TABLE  `service_point_type_mst` (
 DROP TABLE IF EXISTS `service_point_give_hist`;
 CREATE TABLE  `service_point_give_hist` (
   `service_point_give_hist_no` bigint(20) NOT NULL AUTO_INCREMENT,
+  `mem_num` bigint(20) NOT NULL,
   `service_point_no` bigint(20) NOT NULL,
   `service_point_type_id` int(11) DEFAULT NULL,
   `title_id` int(11) DEFAULT NULL,
