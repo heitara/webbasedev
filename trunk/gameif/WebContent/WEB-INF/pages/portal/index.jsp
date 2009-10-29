@@ -5,7 +5,7 @@
 <head>
 	<meta name="keywords" content="ゲームイフ,ブラウザゲーム,webgame,大人数同時プレイブラウザゲーム,オンラインゲーム,パブリッシング,プラットフォーム" />
 	<meta name="description" content="ブラウザゲーム(WEBGAME)のポータルサイト" />
-	<title>ゲームイフ | ブラウザゲームポータルサイト</title>
+	<title>トップ頁</title>
 </head>
 <body>
 <!-- イラスト画像：開始 -->
