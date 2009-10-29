@@ -23,6 +23,11 @@
 		<result property="lastUpdateDate" column="last_update_date"/>
 		<result property="lastUpdateUser" column="last_update_user"/>
 	</resultMap>
+	
+	<resultMap class="com.gameif.portal.entity.ServerMst" id="serverResultForBind">
+		<result property="serverId" column="server_id" />
+		<result property="serverName" column="server_name" />
+	</resultMap>
 
 	<select id="selectByKey" parameterClass="com.gameif.portal.entity.ServerMst" resultMap="serverResult">   
         <![CDATA[
@@ -77,26 +82,11 @@
         ]]>
 	</select>
 
-	<select id="selectValidServerListByTitle" resultMap="serverResult">
+	<select id="selectValidServerListByTitle" resultMap="serverResultForBind">
         <![CDATA[
         SELECT
 			server_id,
-			title_id,
-			server_name,
-			service_start_date,
-			service_end_date,
-			service_status,
-			server_domain,
-			play_url,
-			charge_url,
-			order_num,
-			players_num,
-			popularity_flag,
-			recommend_flag,
-			created_date,
-			created_user,
-			last_update_date,
-			last_update_user
+			server_name
 		FROM
 			server_mst
 		WHERE
