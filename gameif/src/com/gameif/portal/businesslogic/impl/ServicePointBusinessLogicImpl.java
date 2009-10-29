@@ -1,5 +1,6 @@
 package com.gameif.portal.businesslogic.impl;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +32,9 @@ public class ServicePointBusinessLogicImpl extends BaseBusinessLogic implements
 	private IServicePointTypeMstDao servicePointTypeMstDao;
 	private IServicePointDao servicePointDao;
 	private IServicePointGiveHistDao servicePointGiveHistDao;
+	
+	// 有効期間
+	private Integer validDays;
 
 	/**
 	 * サービスポイント受取を行う
@@ -60,27 +64,56 @@ public class ServicePointBusinessLogicImpl extends BaseBusinessLogic implements
 		// 贈与日時
 		Date giveDate = new Date();
 		
+		Date endDate = new Date();
+		// 失効期間を計算する
+		Calendar c = Calendar.getInstance();
+		c.setTime(giveDate);
+		c.add(Calendar.DATE, validDays);
+		endDate = c.getTime();
+		
 		ServicePoint servicePoint = new ServicePoint();
-		servicePoint.setGiveDate(giveDate);
-		servicePoint.setPointStartDate(giveDate);
-		servicePoint.setPointEndDate(giveDate);
+		servicePoint.setMemNum(ContextUtil.getMemberNo());
 		servicePoint.setTitleId(titleId);
-		servicePoint.setPointAmount(servicePointTypeMst.getPointAmount());
-		servicePoint.setCreatedDate(giveDate);
-		servicePoint.setCreatedUser(ContextUtil.getMemberNo().toString());
-		servicePoint.setLastUpdateDate(giveDate);
-		servicePoint.setLastUpdateUser(ContextUtil.getMemberNo().toString());
+		servicePoint.setGiveDate(giveDate);
+		// 有効なデータが存在かどうか
+		servicePoint = servicePointDao.selectBalanceByTitleAndMemnum(servicePoint);
+		if (servicePoint == null) {
+			
+			servicePoint = new ServicePoint();
+			
+			servicePoint.setMemNum(ContextUtil.getMemberNo());
+			servicePoint.setGiveDate(giveDate);
+			servicePoint.setPointStartDate(giveDate);
+			servicePoint.setPointEndDate(endDate);
+			servicePoint.setTitleId(titleId);
+			servicePoint.setPointAmount(servicePointTypeMst.getPointAmount());
+			servicePoint.setCreatedDate(giveDate);
+			servicePoint.setCreatedUser(ContextUtil.getMemberNo().toString());
+			servicePoint.setLastUpdateDate(giveDate);
+			servicePoint.setLastUpdateUser(ContextUtil.getMemberNo().toString());
+			
+			// サービスポイント残高テーブルに登録する
+			servicePointDao.save(servicePoint);
+		} else {
+			// 残高 = 元の残高 + 今回のポイント数
+			servicePoint.setPointAmount(servicePoint.getPointAmount().add(servicePointTypeMst.getPointAmount()));
+			servicePoint.setPointEndDate(endDate);
+			servicePoint.setLastUpdateDate(giveDate);
+			servicePoint.setLastUpdateUser(ContextUtil.getMemberNo().toString());
+			
+			// 残高を更新する
+			servicePointDao.update(servicePoint);
+		}
 		
-		// サービスポイント残高テーブルに登録する
-		servicePointDao.save(servicePoint);
-		
+		// サービスポイント贈与履歴
 		ServicePointGiveHist servicePointGiveHist = new ServicePointGiveHist();
+		servicePointGiveHist.setMemNum(ContextUtil.getMemberNo());
 		servicePointGiveHist.setServicePointNo(servicePoint.getServicePointNo());
 		servicePointGiveHist.setServicePointTypeId(servicePointTypeMst.getServicePointTypeId());
 		servicePointGiveHist.setTitleId(titleId);
 		servicePointGiveHist.setGiveDate(giveDate);
 		servicePointGiveHist.setPointStartDate(giveDate);
-		servicePointGiveHist.setPointEndDate(giveDate);
+		servicePointGiveHist.setPointEndDate(endDate);
 		servicePointGiveHist.setPointAmount(servicePointTypeMst.getPointAmount());
 		servicePointGiveHist.setCreatedDate(giveDate);
 		servicePointGiveHist.setCreatedUser(ContextUtil.getMemberNo().toString());
@@ -156,6 +189,20 @@ public class ServicePointBusinessLogicImpl extends BaseBusinessLogic implements
 	public void setServicePointGiveHistDao(
 			IServicePointGiveHistDao servicePointGiveHistDao) {
 		this.servicePointGiveHistDao = servicePointGiveHistDao;
+	}
+
+	/**
+	 * @return the validDays
+	 */
+	public Integer getValidDays() {
+		return validDays;
+	}
+
+	/**
+	 * @param validDays the validDays to set
+	 */
+	public void setValidDays(Integer validDays) {
+		this.validDays = validDays;
 	}
 
 }
