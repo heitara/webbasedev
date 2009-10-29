@@ -13,6 +13,7 @@ public class ServicePoint extends BaseEntity {
 	private static final long serialVersionUID = 5539265171608816654L;
 
 	private Long servicePointNo;
+	private Long memNum;
 	private Date giveDate;
 	private Date pointStartDate;
 	private Date pointEndDate;
@@ -36,6 +37,20 @@ public class ServicePoint extends BaseEntity {
 	 */
 	public void setServicePointNo(Long servicePointNo) {
 		this.servicePointNo = servicePointNo;
+	}
+
+	/**
+	 * @return the memNum
+	 */
+	public Long getMemNum() {
+		return memNum;
+	}
+
+	/**
+	 * @param memNum the memNum to set
+	 */
+	public void setMemNum(Long memNum) {
+		this.memNum = memNum;
 	}
 
 	/**

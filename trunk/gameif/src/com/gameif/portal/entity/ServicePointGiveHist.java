@@ -13,6 +13,7 @@ public class ServicePointGiveHist extends BaseEntity {
 	private static final long serialVersionUID = -2721743081474781512L;
 
 	private Long servicePointGiveHistNo;
+	private Long memNum;
 	private Long servicePointNo;
 	private Integer servicePointTypeId;
 	private Integer titleId;
@@ -38,6 +39,20 @@ public class ServicePointGiveHist extends BaseEntity {
 	 */
 	public void setServicePointGiveHistNo(Long servicePointGiveHistNo) {
 		this.servicePointGiveHistNo = servicePointGiveHistNo;
+	}
+
+	/**
+	 * @return the memNum
+	 */
+	public Long getMemNum() {
+		return memNum;
+	}
+
+	/**
+	 * @param memNum the memNum to set
+	 */
+	public void setMemNum(Long memNum) {
+		this.memNum = memNum;
 	}
 
 	/**
