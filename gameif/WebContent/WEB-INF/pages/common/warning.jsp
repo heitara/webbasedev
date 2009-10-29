@@ -13,7 +13,7 @@
 <!-- 警告メッセージ：開始 -->
 <dl class="light_box tspace_n">
 	<dt>
-		<strong>処理中断</strong><span></span>
+		<strong>処理中断</strong><span>&nbsp;</span>
 	</dt>
 	<dd>
 		<dl class="warning">
@@ -27,13 +27,12 @@
 					<li>ハッキング目的でサイト攻撃している。</li>
 				</ul>
 				<div>正常に使っているにもかかわらず何度もこの画面が表示される場合は、サイト管理者にご連絡ください。</div>
-				<a href="#" title="お問合せ"><img src="images/btn_s_inquiry.gif" title="お問合せ"/></a>
-				<a href="#" title="コミュニティサイト"><img src="images/btn_s_community.gif" title="コミュニティサイト"/></a>
+				<a href="inputInquiry.html" title="お問合せ"><img src="images/btn_s_inquiry.gif" title="お問合せ"/></a>
+				<a href="<%=getServletContext().getInitParameter("communityTopUrl")%>" title="コミュニティサイト"><img src="images/btn_s_community.gif" title="コミュニティサイト"/></a>
 			</dd>
 		</dl>
 	</dd>
 </dl>
 <!-- 警告メッセージ：終了 -->
-
 </body>
 </html>
