@@ -5,7 +5,7 @@
 <head>
 	<meta content="ゲームイフ,ブラウザゲーム,webgame,大人数同時プレイブラウザゲーム,オンラインゲーム,パブリッシング,プラットフォーム" name="keywords"/>
 	<meta content="ブラウザゲーム(WEBGAME)のポータルサイト" name="description"/>
-	<title>決済処理キャンセル</title>
+	<title>決済処理キャンセル | ポイントチャージ</title>
 </head>
 
 <body>
