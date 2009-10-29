@@ -9,7 +9,14 @@
 		<title>友達紹介 | ゲームイフ | ブラウザゲームのポータルサイト</title>
 		<script src="js/portal/validate.js" type="text/javascript"></script>
 		<script src="js/portal/bindMaster.js" type="text/javascript"></script>
-		<script src="js/portal/common.js" type="text/javascript"></script>
+		<script src="js/portal/common.js" type="text/javascript"></script>	
+		<script type="text/javascript">
+			window.onload = function(){   
+				 var titleId = document.getElementById("titleId");
+				 var inviteTemplate = $("#inviteTemplate");
+				 bindTemplate(titleId, inviteTemplate);
+	        }
+		</script>
 	</head>
 	<body>
 		<dl class="light_box tspace_n">
@@ -46,7 +53,7 @@
 						<tr>
 							<th><span class="required">*</span><label for="game">紹介するゲーム：</label></th>
 							<td>
-								<s:select name="titleId" id="titleId" cssClass="big" list="masterInfoBusinessLogic.validTitleList" listKey="titleId" listValue="titleName" headerKey="0" headerValue="" title="紹介するゲーム" onchange="bindTemplate(this, inviteTemplate);"  />
+								<s:select name="titleId" id="titleId" cssClass="big" list="masterInfoBusinessLogic.validTitleList" listKey="titleId" listValue="titleName" title="紹介するゲーム" onchange="bindTemplate(this, inviteTemplate);"  />
 								<span id="error_titleId" class="input_error"><s:fielderror><s:param>titleId</s:param></s:fielderror></span><br/>
 								<span class="explain">※紹介するゲームを選んでください。</span>
 							</td>
