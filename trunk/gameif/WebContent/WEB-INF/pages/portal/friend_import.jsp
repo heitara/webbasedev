@@ -33,9 +33,9 @@
 		紹介したい人を以下のリストから選択してください。
 	</div>
 	
-	<label><input type="checkbox" id="selAll" name="selAll" onchange="checkAll(this,'selectedFriends');"/> 全選択・解除</label>
-	<div class="select_mail" >
-		<table align="center" >
+	<label><input type="checkbox" id="selAll" name="selAll" onclick="checkAll(this,'selectedFriends');"/> 全選択・解除</label>
+	<div class="select_mail" style="scrollbars:yes;">
+		<table align="center" style="scrollbars:yes;">
 			<s:iterator value="friendList" id="email" status="st">
 				<tr <s:if test="#st.odd">class="odd"</s:if>>
 					<td>
