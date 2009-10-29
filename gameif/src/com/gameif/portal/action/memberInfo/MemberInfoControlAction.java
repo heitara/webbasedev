@@ -11,13 +11,13 @@ import org.apache.struts2.ServletActionContext;
 import com.gameif.common.action.ModelDrivenActionSupport;
 import com.gameif.common.exception.AuthorityException;
 import com.gameif.common.exception.LogicException;
-import com.gameif.common.util.ContextUtil;
 import com.gameif.common.util.DateUtil;
 import com.gameif.portal.businesslogic.IMasterInfoBusinessLogic;
 import com.gameif.portal.businesslogic.IMemberInfoBusinessLogic;
 import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.entity.MemberInfo;
 import com.gameif.portal.helper.PortalProperties;
+import com.gameif.portal.util.ContextUtil;
 
 public class MemberInfoControlAction extends
 		ModelDrivenActionSupport<MemberInfo> {
@@ -38,7 +38,7 @@ public class MemberInfoControlAction extends
 	private String birthD;
 
 	private String tempKey;
-	private String inviteId; 
+	private String inviteId;
 
 	public String getKanjiNameForCheck() {
 
@@ -89,7 +89,7 @@ public class MemberInfoControlAction extends
 	 * @return　会員情報入力画面コード
 	 */
 	public String registry() {
-		
+
 		// 友達招待から登録する
 		setInviteId(ServletActionContext.getRequest().getParameter("InviteId"));
 
@@ -214,6 +214,7 @@ public class MemberInfoControlAction extends
 	 * 
 	 * @return パスワード再設定画面コード
 	 */
+	@SuppressWarnings("unchecked")
 	public String editTempPwd() {
 
 		Enumeration params = ServletActionContext.getRequest()
@@ -241,6 +242,7 @@ public class MemberInfoControlAction extends
 
 	/**
 	 * パスワード再設定機能で会員パスワードを変更する。
+	 * 
 	 * @return 完了画面または警告画面コード
 	 */
 	public String updateTempPwd() {
@@ -331,7 +333,8 @@ public class MemberInfoControlAction extends
 	}
 
 	/**
-	 * @param inviteId the inviteId to set
+	 * @param inviteId
+	 *            the inviteId to set
 	 */
 	public void setInviteId(String inviteId) {
 		this.inviteId = inviteId;
@@ -370,5 +373,5 @@ public class MemberInfoControlAction extends
 			IMasterInfoBusinessLogic masterInfoBusinessLogic) {
 		this.masterInfoBusinessLogic = masterInfoBusinessLogic;
 	}
-	
+
 }

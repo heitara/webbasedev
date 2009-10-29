@@ -5,11 +5,11 @@ import java.util.Date;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gameif.common.businesslogic.BaseBusinessLogic;
-import com.gameif.common.util.ContextUtil;
 import com.gameif.portal.businesslogic.IInquiryInfoBusinessLogic;
 import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.dao.IInquiryInfoDao;
 import com.gameif.portal.entity.InquiryInfo;
+import com.gameif.portal.util.ContextUtil;
 
 public class InquiryInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		IInquiryInfoBusinessLogic {

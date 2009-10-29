@@ -19,13 +19,13 @@ import octazen.http.UserInputRequiredException;
 import com.gameif.common.action.ModelDrivenActionSupport;
 import com.gameif.common.exception.LogicException;
 import com.gameif.common.exception.OutOfMaxCountException;
-import com.gameif.common.util.ContextUtil;
 import com.gameif.portal.businesslogic.IInviteInfoBusinessLogic;
 import com.gameif.portal.businesslogic.IMasterInfoBusinessLogic;
 import com.gameif.portal.businesslogic.IMemberInfoBusinessLogic;
 import com.gameif.portal.entity.InviteInfo;
 import com.gameif.portal.entity.MemberInfo;
 import com.gameif.portal.helper.PortalProperties;
+import com.gameif.portal.util.ContextUtil;
 
 public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 

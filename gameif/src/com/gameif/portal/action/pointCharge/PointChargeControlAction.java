@@ -10,7 +10,6 @@ import com.gameif.common.action.ModelDrivenActionSupport;
 import com.gameif.common.exception.CBTException;
 import com.gameif.common.exception.LogicException;
 import com.gameif.common.exception.MaintenanceException;
-import com.gameif.common.util.ContextUtil;
 import com.gameif.common.util.StringUtil;
 import com.gameif.portal.businesslogic.IMaintenanceBusinessLogic;
 import com.gameif.portal.businesslogic.IMasterInfoBusinessLogic;
@@ -19,6 +18,7 @@ import com.gameif.portal.entity.MemSettlementHist;
 import com.gameif.portal.entity.MemSettlementTrns;
 import com.gameif.portal.entity.PointMst;
 import com.gameif.portal.entity.SettlementMst;
+import com.gameif.portal.util.ContextUtil;
 
 public class PointChargeControlAction extends
 		ModelDrivenActionSupport<MemSettlementHist> {
@@ -39,7 +39,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param maintenanceBusinessLogic the maintenanceBusinessLogic to set
+	 * @param maintenanceBusinessLogic
+	 *            the maintenanceBusinessLogic to set
 	 */
 	public void setMaintenanceBusinessLogic(
 			IMaintenanceBusinessLogic maintenanceBusinessLogic) {
@@ -93,7 +94,7 @@ public class PointChargeControlAction extends
 	private String request_date;
 	private String limit_second;
 	private String sps_hashcode;
-	
+
 	// 購入結果通知用パラメータ
 	private String result;
 	private String errMsg;
@@ -116,19 +117,19 @@ public class PointChargeControlAction extends
 		try {
 			// メンテナンスとCBTチェック
 			maintenanceBusinessLogic.maintenanceCheckByTitleId(titleId);
-		} catch(MaintenanceException mtEx) {
+		} catch (MaintenanceException mtEx) {
 			// メンテナンス
 			addFieldError("errMessage", getText("title.maintenance"));
 			return "pointSelect";
-		} catch(CBTException cbtEx) {
+		} catch (CBTException cbtEx) {
 			// CBT中
 			addFieldError("errMessage", getText("title.cbt"));
 			return "pointSelect";
-		} catch(LogicException lgex) {
+		} catch (LogicException lgex) {
 			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
 					+ lgex.getMessage());
 			return "warning";
-			
+
 		}
 		return "settleSelectInit";
 	}
@@ -189,17 +190,19 @@ public class PointChargeControlAction extends
 	 * @return detail（チャージ明細画面に案内する、SBPSと連動する）
 	 */
 	public String Detail() {
-		
-		setSettleTrnsNum(Long.parseLong(ServletActionContext.getRequest().getParameter("settleTrnsNum")));
-		
-		MemSettlementTrns settleTrns = pointChargeBusinessLogic.getSettlementTrnsByKey(getSettleTrnsNum());
+
+		setSettleTrnsNum(Long.parseLong(ServletActionContext.getRequest()
+				.getParameter("settleTrnsNum")));
+
+		MemSettlementTrns settleTrns = pointChargeBusinessLogic
+				.getSettlementTrnsByKey(getSettleTrnsNum());
 
 		initRequestParams(settleTrns);
 
 		return "detailInit";
 
 	}
-	
+
 	/**
 	 * 購入要求用パラメータを設定する
 	 */
@@ -222,16 +225,18 @@ public class PointChargeControlAction extends
 		setItem_id(settleTrns.getPointId().toString());
 		// 外部決済機関商品ID：””
 		setPay_item_id("");
-		
+
 		// 商品名称：商品IDより、ポイントマスタから取得するポイント名称
-		PointMst pointMst = masterInfoBusinessLogic.getPointMstByKey(settleTrns.getPointId());
+		PointMst pointMst = masterInfoBusinessLogic.getPointMstByKey(settleTrns
+				.getPointId());
 		if (pointMst != null) {
 			// Shift-Jisで文字コード変換する
-			setItem_name(StringUtil.convertToShitjis(pointMst.getPointName().trim()));
+			setItem_name(StringUtil.convertToShitjis(pointMst.getPointName()
+					.trim()));
 		} else {
 			setItem_name("");
 		}
-		
+
 		// 税額：””
 		setTax("");
 		// 金額(税込)：仮決済の本決済金額
@@ -262,7 +267,7 @@ public class PointChargeControlAction extends
 		setFree2("");
 		// 自由欄３
 		setFree3("");
-		// 自由欄(CSV形式) 
+		// 自由欄(CSV形式)
 		setFree_csv("");
 		// 明細情報
 		setDtl_rowno("1");
@@ -278,88 +283,72 @@ public class PointChargeControlAction extends
 		// チェックサム
 		setSps_hashcode(makeRequestHashCode());
 	}
-	
+
 	/**
 	 * チェックサム値生成
+	 * 
 	 * @return UTF-8で文字コード変換したハッシュ値
 	 */
 	private String makeRequestHashCode() {
 		StringBuilder sb = new StringBuilder();
 		// 文字連結
-		sb.append(getPay_method())
-		.append(getMerchant_id())
-		.append(getService_id())
-		.append(getCust_code())
-		.append(getSps_cust_no())
-		.append(getSps_payment_no())
-		.append(getOrder_id())
-		.append(getItem_id())
-		.append(getPay_item_id())
-		.append(getItem_name())
-		.append(getTax())
-		.append(getAmount())
-		.append(getPay_type())
-		.append(getAuto_charge_type())
-		.append(getService_type())
-		.append(getDiv_settele())
-		.append(getLast_charge_month())
-		.append(getCamp_type())
-		.append(getTracking_id())
-		.append(getTerminal_type())
-		.append(getSuccess_url())
-		.append(getCancel_url())
-		.append(getError_url())
-		.append(getPagecon_url())
-		.append(getFree1())
-		.append(getFree2())
-		.append(getFree3())
-		.append(getFree_csv());
-		
+		sb.append(getPay_method()).append(getMerchant_id()).append(
+				getService_id()).append(getCust_code())
+				.append(getSps_cust_no()).append(getSps_payment_no()).append(
+						getOrder_id()).append(getItem_id()).append(
+						getPay_item_id()).append(getItem_name()).append(
+						getTax()).append(getAmount()).append(getPay_type())
+				.append(getAuto_charge_type()).append(getService_type())
+				.append(getDiv_settele()).append(getLast_charge_month())
+				.append(getCamp_type()).append(getTracking_id()).append(
+						getTerminal_type()).append(getSuccess_url()).append(
+						getCancel_url()).append(getError_url()).append(
+						getPagecon_url()).append(getFree1()).append(getFree2())
+				.append(getFree3()).append(getFree_csv());
+
 		// 明細情報を設定する
-		sb.append(getDtl_rowno())
-		.append(getDtl_item_id())
-		.append(getDtl_item_name())
-		.append(getDtl_item_count())
-		.append(getDtl_tax())
-		.append(getDtl_amount());
-		
-		sb.append(getRequest_date())
-		.append(getLimit_second())
-		.append(getSpsKey());
-		
+		sb.append(getDtl_rowno()).append(getDtl_item_id()).append(
+				getDtl_item_name()).append(getDtl_item_count()).append(
+				getDtl_tax()).append(getDtl_amount());
+
+		sb.append(getRequest_date()).append(getLimit_second()).append(
+				getSpsKey());
+
 		String spsHashCd = "";
 		try {
 			// 文字コードをUTF-8に変換する
 			byte[] shaBytes = sb.toString().getBytes("UTF-8");
 			// UTF-8で取得した値をハッシュ演算する
-			spsHashCd = org.apache.commons.codec.digest.DigestUtils.shaHex(shaBytes);
+			spsHashCd = org.apache.commons.codec.digest.DigestUtils
+					.shaHex(shaBytes);
 		} catch (Exception ex) {
 			logger.error(ex.getMessage());
 		}
-		
+
 		return spsHashCd;
-		
+
 	}
-	
+
 	/**
 	 * 購入結果を受取る
+	 * 
 	 * @return
 	 */
 	public String Receive() {
-		
+
 		getResponseParams();
 		if (!checkReceiveHashCode()) {
 			setResult("NG");
 			setErrMsg("チェックサム値が正しくない");
 			return "receive";
 		}
-		
+
 		if (!getModel().getResResult().equals("OK")) {
 			setResult("NG");
 			setErrMsg("要求NG");
 			return "receive";
 		}
-		
+
 		try {
 			// 本決済を登録する
 			pointChargeBusinessLogic.createSettlementHist(this.getModel());
@@ -373,66 +362,77 @@ public class PointChargeControlAction extends
 			setResult("NG");
 			setErrMsg("決済に予期できないエラーが発生しました。");
 		}
-		
+
 		return "receive";
 	}
-	
+
 	/**
 	 * 購入要用が取消されました場合、取消画面に案内する
+	 * 
 	 * @return
 	 */
 	public String Cancel() {
 		return "cancel";
 	}
-	
+
 	/**
 	 * エラーが発生しました場合、エラー画面に案内する
+	 * 
 	 * @return
 	 */
 	public String Error() {
 		return "error";
 	}
-	
+
 	/**
 	 * 決済完了画面に案内する
+	 * 
 	 * @return
 	 */
 	public String Success() {
-		
+
 		getResponseParams();
-		
+
 		if (!getModel().getResResult().equals("OK")) {
 			return "error";
 		}
-		
+
 		return "success";
 	}
-	
+
 	/**
 	 * 購入結果を取得する
 	 */
 	private void getResponseParams() {
 
 		// 支払方法
-		setPay_method(ServletActionContext.getRequest().getParameter("pay_method"));
+		setPay_method(ServletActionContext.getRequest().getParameter(
+				"pay_method"));
 		// マーチャントID
-		setMerchant_id(ServletActionContext.getRequest().getParameter("merchant_id"));
+		setMerchant_id(ServletActionContext.getRequest().getParameter(
+				"merchant_id"));
 		// サービスID
-		setService_id(ServletActionContext.getRequest().getParameter("service_id"));
+		setService_id(ServletActionContext.getRequest().getParameter(
+				"service_id"));
 		// 顧客ID
-		setCust_code(ServletActionContext.getRequest().getParameter("cust_code"));
+		setCust_code(ServletActionContext.getRequest()
+				.getParameter("cust_code"));
 		// SPS顧客ID
-		setSps_cust_no(ServletActionContext.getRequest().getParameter("sps_cust_no"));
+		setSps_cust_no(ServletActionContext.getRequest().getParameter(
+				"sps_cust_no"));
 		// SPS支払方法管理番号
-		setSps_payment_no(ServletActionContext.getRequest().getParameter("sps_payment_no"));
+		setSps_payment_no(ServletActionContext.getRequest().getParameter(
+				"sps_payment_no"));
 		// 購入ID
 		setOrder_id(ServletActionContext.getRequest().getParameter("order_id"));
 		// 商品ID
 		setItem_id(ServletActionContext.getRequest().getParameter("item_id"));
 		// 外部決済機関商品ID
-		setPay_item_id(ServletActionContext.getRequest().getParameter("pay_item_id"));
+		setPay_item_id(ServletActionContext.getRequest().getParameter(
+				"pay_item_id"));
 		// 商品名称
-		setItem_name(StringUtil.convertToShitjis(ServletActionContext.getRequest().getParameter("item_name")));
+		setItem_name(StringUtil.convertToShitjis(ServletActionContext
+				.getRequest().getParameter("item_name")));
 		// 税額
 		setTax(ServletActionContext.getRequest().getParameter("tax"));
 		// 金額(税込)
@@ -440,135 +440,149 @@ public class PointChargeControlAction extends
 		// 購入タイプ
 		setPay_type(ServletActionContext.getRequest().getParameter("pay_type"));
 		// 自動課金タイプ
-		setAuto_charge_type(ServletActionContext.getRequest().getParameter("auto_charge_type"));
+		setAuto_charge_type(ServletActionContext.getRequest().getParameter(
+				"auto_charge_type"));
 		// サービスタイプ
-		setService_type(ServletActionContext.getRequest().getParameter("service_type"));
+		setService_type(ServletActionContext.getRequest().getParameter(
+				"service_type"));
 		// 決済区分
-		setDiv_settele(ServletActionContext.getRequest().getParameter("div_settele"));
+		setDiv_settele(ServletActionContext.getRequest().getParameter(
+				"div_settele"));
 		// 最終課金月
-		setLast_charge_month(ServletActionContext.getRequest().getParameter("last_charge_month"));
+		setLast_charge_month(ServletActionContext.getRequest().getParameter(
+				"last_charge_month"));
 		// キャンペーンタイプ
-		setCamp_type(ServletActionContext.getRequest().getParameter("camp_type"));
+		setCamp_type(ServletActionContext.getRequest()
+				.getParameter("camp_type"));
 		// トラッキングID
-		setTracking_id(ServletActionContext.getRequest().getParameter("tracking_id"));
+		setTracking_id(ServletActionContext.getRequest().getParameter(
+				"tracking_id"));
 		// 顧客利用端末タイプ
-		setTerminal_type(ServletActionContext.getRequest().getParameter("terminal_type"));
+		setTerminal_type(ServletActionContext.getRequest().getParameter(
+				"terminal_type"));
 		// 自由欄１
-		setFree1(StringUtil.convertToShitjis(ServletActionContext.getRequest().getParameter("free1")));
+		setFree1(StringUtil.convertToShitjis(ServletActionContext.getRequest()
+				.getParameter("free1")));
 		// 自由欄２
-		setFree2(StringUtil.convertToShitjis(ServletActionContext.getRequest().getParameter("free2")));
+		setFree2(StringUtil.convertToShitjis(ServletActionContext.getRequest()
+				.getParameter("free2")));
 		// 自由欄３
-		setFree3(StringUtil.convertToShitjis(ServletActionContext.getRequest().getParameter("free3")));
-		// 自由欄(CSV形式) 
-		setFree_csv(StringUtil.convertToShitjis(ServletActionContext.getRequest().getParameter("free_csv")));
+		setFree3(StringUtil.convertToShitjis(ServletActionContext.getRequest()
+				.getParameter("free3")));
+		// 自由欄(CSV形式)
+		setFree_csv(StringUtil.convertToShitjis(ServletActionContext
+				.getRequest().getParameter("free_csv")));
 		// 明細情報
-		setDtl_rowno(ServletActionContext.getRequest().getParameter("dtl_rowno"));
-		setDtl_item_id(ServletActionContext.getRequest().getParameter("dtl_item_id"));
-		setDtl_item_name(ServletActionContext.getRequest().getParameter("dtl_item_name"));
-		setDtl_item_count(ServletActionContext.getRequest().getParameter("dtl_item_count"));
+		setDtl_rowno(ServletActionContext.getRequest()
+				.getParameter("dtl_rowno"));
+		setDtl_item_id(ServletActionContext.getRequest().getParameter(
+				"dtl_item_id"));
+		setDtl_item_name(ServletActionContext.getRequest().getParameter(
+				"dtl_item_name"));
+		setDtl_item_count(ServletActionContext.getRequest().getParameter(
+				"dtl_item_count"));
 		setDtl_tax(ServletActionContext.getRequest().getParameter("dtl_tax"));
-		setDtl_amount(ServletActionContext.getRequest().getParameter("dtl_amount"));
-		setRequest_date(ServletActionContext.getRequest().getParameter("request_date"));
+		setDtl_amount(ServletActionContext.getRequest().getParameter(
+				"dtl_amount"));
+		setRequest_date(ServletActionContext.getRequest().getParameter(
+				"request_date"));
 		// 仮決済番号
 		this.getModel().setSettlementTrnsNum(Long.parseLong(getOrder_id()));
 		// ステータス
-		this.getModel().setResResult(ServletActionContext.getRequest().getParameter("res_result"));
+		this.getModel().setResResult(
+				ServletActionContext.getRequest().getParameter("res_result"));
 		// トラッキングID
-		this.getModel().setResTrackingId(ServletActionContext.getRequest().getParameter("res_tracking_id"));
+		this.getModel().setResTrackingId(
+				ServletActionContext.getRequest().getParameter(
+						"res_tracking_id"));
 		// SPS顧客ID
-		this.getModel().setResSpsCustNo(ServletActionContext.getRequest().getParameter("res_sps_cust_no"));
+		this.getModel().setResSpsCustNo(
+				ServletActionContext.getRequest().getParameter(
+						"res_sps_cust_no"));
 		// SPS支払方法管理番号
-		this.getModel().setResSpsPaymentNo(ServletActionContext.getRequest().getParameter("res_sps_payment_no"));
+		this.getModel().setResSpsPaymentNo(
+				ServletActionContext.getRequest().getParameter(
+						"res_sps_payment_no"));
 		// 顧客決済情報
-		this.getModel().setResPayinfoKey(ServletActionContext.getRequest().getParameter("res_payinfo_key"));
+		this.getModel().setResPayinfoKey(
+				ServletActionContext.getRequest().getParameter(
+						"res_payinfo_key"));
 		// 購入完了処理時間
-		this.getModel().setResPaymentDate(ServletActionContext.getRequest().getParameter("res_payment_date"));
+		this.getModel().setResPaymentDate(
+				ServletActionContext.getRequest().getParameter(
+						"res_payment_date"));
 		// エラーコード
-		this.getModel().setResErrCode(ServletActionContext.getRequest().getParameter("res_err_code"));
+		this.getModel().setResErrCode(
+				ServletActionContext.getRequest().getParameter("res_err_code"));
 		// レスポンス日時
-		this.getModel().setResDate(ServletActionContext.getRequest().getParameter("res_date"));
+		this.getModel().setResDate(
+				ServletActionContext.getRequest().getParameter("res_date"));
 		// レスポンス許容時間
-		this.getModel().setLimitSecond(ServletActionContext.getRequest().getParameter("limit_second"));
+		this.getModel().setLimitSecond(
+				ServletActionContext.getRequest().getParameter("limit_second"));
 		// チェックサム
-		setSps_hashcode(ServletActionContext.getRequest().getParameter("sps_hashcode"));
+		setSps_hashcode(ServletActionContext.getRequest().getParameter(
+				"sps_hashcode"));
 		this.getModel().setSpsHashcode(getSps_hashcode());
 	}
-	
 
-	
 	/**
 	 * チェックサム値生成
+	 * 
 	 * @return UTF-8で文字コード変換したハッシュ値
 	 */
 	private boolean checkReceiveHashCode() {
-		
+
 		boolean bCheck = false;
-		
+
 		StringBuilder sb = new StringBuilder();
 		// 文字連結
-		sb.append(getPay_method())
-		.append(getMerchant_id())
-		.append(getService_id())
-		.append(getCust_code())
-		.append(getSps_cust_no())
-		.append(getSps_payment_no())
-		.append(getOrder_id())
-		.append(getItem_id())
-		.append(getPay_item_id())
-		.append(getItem_name())
-		.append(getTax())
-		.append(getAmount())
-		.append(getPay_type())
-		.append(getAuto_charge_type())
-		.append(getService_type())
-		.append(getDiv_settele())
-		.append(getLast_charge_month())
-		.append(getCamp_type())
-		.append(getTracking_id())
-		.append(getTerminal_type())
-		.append(getFree1())
-		.append(getFree2())
-		.append(getFree3())
-		.append(getFree_csv());
-		
+		sb.append(getPay_method()).append(getMerchant_id()).append(
+				getService_id()).append(getCust_code())
+				.append(getSps_cust_no()).append(getSps_payment_no()).append(
+						getOrder_id()).append(getItem_id()).append(
+						getPay_item_id()).append(getItem_name()).append(
+						getTax()).append(getAmount()).append(getPay_type())
+				.append(getAuto_charge_type()).append(getService_type())
+				.append(getDiv_settele()).append(getLast_charge_month())
+				.append(getCamp_type()).append(getTracking_id()).append(
+						getTerminal_type()).append(getFree1()).append(
+						getFree2()).append(getFree3()).append(getFree_csv());
+
 		// 明細情報を設定する
-		sb.append(getDtl_rowno())
-		.append(getDtl_item_id())
-		.append(getDtl_item_name())
-		.append(getDtl_item_count())
-		.append(getDtl_tax())
-		.append(getDtl_amount());
-		
-		sb.append(getRequest_date())
-		.append(getPay_method())
-		.append(getModel().getResResult())
-		.append(getModel().getResTrackingId())
-		.append(getModel().getResSpsCustNo())
-		.append(getModel().getResSpsPaymentNo())
-		.append(getModel().getResPayinfoKey())
-		.append(getModel().getResPaymentDate())
-		.append(getModel().getResErrCode())
-		.append(getModel().getResDate())
-		.append(getModel().getLimitSecond())
-		.append(getSpsKey());
-		
+		sb.append(getDtl_rowno()).append(getDtl_item_id()).append(
+				getDtl_item_name()).append(getDtl_item_count()).append(
+				getDtl_tax()).append(getDtl_amount());
+
+		sb.append(getRequest_date()).append(getPay_method()).append(
+				getModel().getResResult())
+				.append(getModel().getResTrackingId()).append(
+						getModel().getResSpsCustNo()).append(
+						getModel().getResSpsPaymentNo()).append(
+						getModel().getResPayinfoKey()).append(
+						getModel().getResPaymentDate()).append(
+						getModel().getResErrCode()).append(
+						getModel().getResDate()).append(
+						getModel().getLimitSecond()).append(getSpsKey());
+
 		String spsHashCd = "";
 		try {
 			// 文字コードをUTF-8に変換する
 			byte[] shaBytes = sb.toString().getBytes("Shift-JIS");
 			// UTF-8で取得した値をハッシュ演算する
-			spsHashCd = org.apache.commons.codec.digest.DigestUtils.shaHex(shaBytes);
+			spsHashCd = org.apache.commons.codec.digest.DigestUtils
+					.shaHex(shaBytes);
 		} catch (Exception ex) {
 			logger.error(ex.getMessage());
 		}
-		
+
 		if (getSps_hashcode().equals(spsHashCd)) {
 			bCheck = true;
 		} else {
 			bCheck = false;
 		}
 		return bCheck;
-		
+
 	}
 
 	/**
@@ -641,7 +655,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param spsKey the spsKey to set
+	 * @param spsKey
+	 *            the spsKey to set
 	 */
 	public void setSpsKey(String spsKey) {
 		this.spsKey = spsKey;
@@ -679,7 +694,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param settleTrnsNum the settleTrnsNum to set
+	 * @param settleTrnsNum
+	 *            the settleTrnsNum to set
 	 */
 	public void setSettleTrnsNum(Long settleTrnsNum) {
 		this.settleTrnsNum = settleTrnsNum;
@@ -693,7 +709,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param pay_method the pay_method to set
+	 * @param pay_method
+	 *            the pay_method to set
 	 */
 	public void setPay_method(String pay_method) {
 		this.pay_method = pay_method;
@@ -707,7 +724,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param merchant_id the merchant_id to set
+	 * @param merchant_id
+	 *            the merchant_id to set
 	 */
 	public void setMerchant_id(String merchant_id) {
 		this.merchant_id = merchant_id;
@@ -721,7 +739,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param service_id the service_id to set
+	 * @param service_id
+	 *            the service_id to set
 	 */
 	public void setService_id(String service_id) {
 		this.service_id = service_id;
@@ -735,7 +754,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param cust_code the cust_code to set
+	 * @param cust_code
+	 *            the cust_code to set
 	 */
 	public void setCust_code(String cust_code) {
 		this.cust_code = cust_code;
@@ -749,7 +769,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param sps_cust_no the sps_cust_no to set
+	 * @param sps_cust_no
+	 *            the sps_cust_no to set
 	 */
 	public void setSps_cust_no(String sps_cust_no) {
 		this.sps_cust_no = sps_cust_no;
@@ -763,7 +784,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param sps_payment_no the sps_payment_no to set
+	 * @param sps_payment_no
+	 *            the sps_payment_no to set
 	 */
 	public void setSps_payment_no(String sps_payment_no) {
 		this.sps_payment_no = sps_payment_no;
@@ -777,7 +799,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param order_id the order_id to set
+	 * @param order_id
+	 *            the order_id to set
 	 */
 	public void setOrder_id(String order_id) {
 		this.order_id = order_id;
@@ -791,7 +814,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param item_id the item_id to set
+	 * @param item_id
+	 *            the item_id to set
 	 */
 	public void setItem_id(String item_id) {
 		this.item_id = item_id;
@@ -805,7 +829,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param pay_item_id the pay_item_id to set
+	 * @param pay_item_id
+	 *            the pay_item_id to set
 	 */
 	public void setPay_item_id(String pay_item_id) {
 		this.pay_item_id = pay_item_id;
@@ -819,7 +844,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param item_name the item_name to set
+	 * @param item_name
+	 *            the item_name to set
 	 */
 	public void setItem_name(String item_name) {
 		this.item_name = item_name;
@@ -833,7 +859,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param tax the tax to set
+	 * @param tax
+	 *            the tax to set
 	 */
 	public void setTax(String tax) {
 		this.tax = tax;
@@ -847,7 +874,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param amount the amount to set
+	 * @param amount
+	 *            the amount to set
 	 */
 	public void setAmount(String amount) {
 		this.amount = amount;
@@ -861,7 +889,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param pay_type the pay_type to set
+	 * @param pay_type
+	 *            the pay_type to set
 	 */
 	public void setPay_type(String pay_type) {
 		this.pay_type = pay_type;
@@ -875,7 +904,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param auto_charge_type the auto_charge_type to set
+	 * @param auto_charge_type
+	 *            the auto_charge_type to set
 	 */
 	public void setAuto_charge_type(String auto_charge_type) {
 		this.auto_charge_type = auto_charge_type;
@@ -889,7 +919,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param service_type the service_type to set
+	 * @param service_type
+	 *            the service_type to set
 	 */
 	public void setService_type(String service_type) {
 		this.service_type = service_type;
@@ -903,7 +934,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param div_settele the div_settele to set
+	 * @param div_settele
+	 *            the div_settele to set
 	 */
 	public void setDiv_settele(String div_settele) {
 		this.div_settele = div_settele;
@@ -917,7 +949,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param last_charge_month the last_charge_month to set
+	 * @param last_charge_month
+	 *            the last_charge_month to set
 	 */
 	public void setLast_charge_month(String last_charge_month) {
 		this.last_charge_month = last_charge_month;
@@ -931,7 +964,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param camp_type the camp_type to set
+	 * @param camp_type
+	 *            the camp_type to set
 	 */
 	public void setCamp_type(String camp_type) {
 		this.camp_type = camp_type;
@@ -945,7 +979,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param tracking_id the tracking_id to set
+	 * @param tracking_id
+	 *            the tracking_id to set
 	 */
 	public void setTracking_id(String tracking_id) {
 		this.tracking_id = tracking_id;
@@ -959,7 +994,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param terminal_type the terminal_type to set
+	 * @param terminal_type
+	 *            the terminal_type to set
 	 */
 	public void setTerminal_type(String terminal_type) {
 		this.terminal_type = terminal_type;
@@ -973,7 +1009,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param success_url the success_url to set
+	 * @param success_url
+	 *            the success_url to set
 	 */
 	public void setSuccess_url(String success_url) {
 		this.success_url = success_url;
@@ -987,7 +1024,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param cancel_url the cancel_url to set
+	 * @param cancel_url
+	 *            the cancel_url to set
 	 */
 	public void setCancel_url(String cancel_url) {
 		this.cancel_url = cancel_url;
@@ -1001,7 +1039,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param error_url the error_url to set
+	 * @param error_url
+	 *            the error_url to set
 	 */
 	public void setError_url(String error_url) {
 		this.error_url = error_url;
@@ -1015,7 +1054,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param pagecon_url the pagecon_url to set
+	 * @param pagecon_url
+	 *            the pagecon_url to set
 	 */
 	public void setPagecon_url(String pagecon_url) {
 		this.pagecon_url = pagecon_url;
@@ -1029,7 +1069,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param free1 the free1 to set
+	 * @param free1
+	 *            the free1 to set
 	 */
 	public void setFree1(String free1) {
 		this.free1 = free1;
@@ -1043,7 +1084,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param free2 the free2 to set
+	 * @param free2
+	 *            the free2 to set
 	 */
 	public void setFree2(String free2) {
 		this.free2 = free2;
@@ -1057,7 +1099,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param free3 the free3 to set
+	 * @param free3
+	 *            the free3 to set
 	 */
 	public void setFree3(String free3) {
 		this.free3 = free3;
@@ -1071,7 +1114,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param free_csv the free_csv to set
+	 * @param free_csv
+	 *            the free_csv to set
 	 */
 	public void setFree_csv(String free_csv) {
 		this.free_csv = free_csv;
@@ -1085,7 +1129,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param dtl_rowno the dtl_rowno to set
+	 * @param dtl_rowno
+	 *            the dtl_rowno to set
 	 */
 	public void setDtl_rowno(String dtl_rowno) {
 		this.dtl_rowno = dtl_rowno;
@@ -1099,7 +1144,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param dtl_item_id the dtl_item_id to set
+	 * @param dtl_item_id
+	 *            the dtl_item_id to set
 	 */
 	public void setDtl_item_id(String dtl_item_id) {
 		this.dtl_item_id = dtl_item_id;
@@ -1113,7 +1159,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param dtl_item_name the dtl_item_name to set
+	 * @param dtl_item_name
+	 *            the dtl_item_name to set
 	 */
 	public void setDtl_item_name(String dtl_item_name) {
 		this.dtl_item_name = dtl_item_name;
@@ -1127,7 +1174,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param dtl_item_count the dtl_item_count to set
+	 * @param dtl_item_count
+	 *            the dtl_item_count to set
 	 */
 	public void setDtl_item_count(String dtl_item_count) {
 		this.dtl_item_count = dtl_item_count;
@@ -1141,7 +1189,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param dtl_tax the dtl_tax to set
+	 * @param dtl_tax
+	 *            the dtl_tax to set
 	 */
 	public void setDtl_tax(String dtl_tax) {
 		this.dtl_tax = dtl_tax;
@@ -1155,7 +1204,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param dtl_amount the dtl_amount to set
+	 * @param dtl_amount
+	 *            the dtl_amount to set
 	 */
 	public void setDtl_amount(String dtl_amount) {
 		this.dtl_amount = dtl_amount;
@@ -1169,7 +1219,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param request_date the request_date to set
+	 * @param request_date
+	 *            the request_date to set
 	 */
 	public void setRequest_date(String request_date) {
 		this.request_date = request_date;
@@ -1183,7 +1234,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param limit_second the limit_second to set
+	 * @param limit_second
+	 *            the limit_second to set
 	 */
 	public void setLimit_second(String limit_second) {
 		this.limit_second = limit_second;
@@ -1197,7 +1249,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param sps_hashcode the sps_hashcode to set
+	 * @param sps_hashcode
+	 *            the sps_hashcode to set
 	 */
 	public void setSps_hashcode(String sps_hashcode) {
 		this.sps_hashcode = sps_hashcode;
@@ -1232,7 +1285,8 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param result the result to set
+	 * @param result
+	 *            the result to set
 	 */
 	public void setResult(String result) {
 		this.result = result;
@@ -1246,10 +1300,11 @@ public class PointChargeControlAction extends
 	}
 
 	/**
-	 * @param errMsg the errMsg to set
+	 * @param errMsg
+	 *            the errMsg to set
 	 */
 	public void setErrMsg(String errMsg) {
 		this.errMsg = errMsg;
 	}
-	
+
 }

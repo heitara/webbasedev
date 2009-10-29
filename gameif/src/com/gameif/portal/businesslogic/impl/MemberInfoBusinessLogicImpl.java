@@ -12,7 +12,6 @@ import com.gameif.common.exception.DataNotExistsException;
 import com.gameif.common.exception.DataUpdatedException;
 import com.gameif.common.exception.LogicException;
 import com.gameif.common.helper.TemplateMailer;
-import com.gameif.common.util.ContextUtil;
 import com.gameif.common.util.SecurityUtil;
 import com.gameif.portal.businesslogic.IMemberInfoBusinessLogic;
 import com.gameif.portal.constants.PortalConstants;
@@ -24,6 +23,7 @@ import com.gameif.portal.entity.InviteInfo;
 import com.gameif.portal.entity.MemberInfo;
 import com.gameif.portal.entity.MemberLoginInfo;
 import com.gameif.portal.entity.TempPwdInfo;
+import com.gameif.portal.util.ContextUtil;
 
 public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IMemberInfoBusinessLogic {
 

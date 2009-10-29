@@ -7,7 +7,7 @@
 <%@page import="org.springframework.web.context.support.WebApplicationContextUtils"%>
 <%@page import="java.util.List"%>
 <%@page import="com.gameif.portal.businesslogic.ITitlePlayBusinessLogic"%>
-<%@page import="com.gameif.common.util.ContextUtil"%>
+<%@page import="com.gameif.portal.util.ContextUtil"%>
 <%@page import="edu.yale.its.tp.cas.client.filter.CASFilter"%>
 <%@page import="com.gameif.portal.entity.MyTitle"%>
 <%@page import="com.gameif.portal.constants.PortalConstants"%>

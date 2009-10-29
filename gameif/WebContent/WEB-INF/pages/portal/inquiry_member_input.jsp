@@ -23,7 +23,7 @@
 					<tr>
 						<th><label for="user_name">アカウント：</label></th>
 						<td>
-							<span class="item"><%=com.gameif.common.util.ContextUtil.getAccountId()%></span>
+							<span class="item"><%=com.gameif.portal.util.ContextUtil.getAccountId()%></span>
 						</td>
 					</tr>		
 					<tr>

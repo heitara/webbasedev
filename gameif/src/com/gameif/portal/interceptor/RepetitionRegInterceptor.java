@@ -4,7 +4,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
 
-import com.gameif.common.interceptor.CommonInterceptor;
 import com.gameif.portal.businesslogic.IMemberInfoBusinessLogic;
 import com.opensymphony.xwork2.ActionInvocation;
 

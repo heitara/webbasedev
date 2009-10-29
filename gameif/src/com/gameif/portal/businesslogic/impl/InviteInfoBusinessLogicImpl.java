@@ -11,12 +11,12 @@ import com.gameif.common.businesslogic.BaseBusinessLogic;
 import com.gameif.common.exception.LogicException;
 import com.gameif.common.exception.OutOfMaxCountException;
 import com.gameif.common.helper.TemplateMailer;
-import com.gameif.common.util.ContextUtil;
 import com.gameif.portal.businesslogic.IInviteInfoBusinessLogic;
 import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.dao.IInviteInfoDao;
 import com.gameif.portal.dao.ITitleMstDao;
 import com.gameif.portal.entity.InviteInfo;
+import com.gameif.portal.util.ContextUtil;
 
 public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		IInviteInfoBusinessLogic {
