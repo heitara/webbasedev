@@ -38,9 +38,6 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 	private IMasterInfoBusinessLogic masterInfoBusinessLogic;
 	private IMemberInfoBusinessLogic memberInfoBusinessLogic;
 	private PortalProperties portalProperties;
-	
-//	private Map<Integer, List<InviteTemplateMst>> inviteTemplateList;
-//	private List<TitleMst> titleList;
 
 	private String mailAdd;
 	private String domain;
