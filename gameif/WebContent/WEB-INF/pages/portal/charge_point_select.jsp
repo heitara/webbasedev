@@ -10,10 +10,10 @@
 	<script src="js/portal/bindMaster.js" type="text/javascript"></script>	<script type="text/javascript">
 		window.onload = function(){   
 			var titleId = document.getElementById("titleId");
-			var serverId = document.getElementById("serverId");
-			var pointId = document.getElementById("pointId");
-			document.getElementById("titleId").attachEvent("onchange",bindServerAndPoint(titleId, serverId, pointId));  
-        }
+			var serverId = $("#serverId");
+			var pointId = $("#pointId");
+			bindServerAndPoint(titleId, serverId, pointId);
+        };
 	</script>
 </head>
 
