@@ -15,7 +15,7 @@
 </head>
 <body>
 <dl class="light_box tspace_n">
-	<dt><strong>会員登録</strong><span></span></dt>
+	<dt><strong>会員登録</strong><span>&nbsp;</span></dt>
 	<dd>
 		<s:form action="createMember" cssClass="entry">
 			<s:hidden name="inviteId"></s:hidden>
