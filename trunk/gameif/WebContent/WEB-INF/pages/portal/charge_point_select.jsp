@@ -7,7 +7,14 @@
 	<meta name="description" content="ブラウザゲーム(WEBGAME)のポータルサイト" />
 	<title>ポイントチャージ | ゲームイフ | ブラウザゲームのポータルサイト</title>
 	<script src="js/portal/validate.js" type="text/javascript"></script>
-	<script src="js/portal/bindMaster.js" type="text/javascript"></script>
+	<script src="js/portal/bindMaster.js" type="text/javascript"></script>	<script type="text/javascript">
+		window.onload = function(){   
+			var titleId = document.getElementById("titleId");
+			var serverId = document.getElementById("serverId");
+			var pointId = document.getElementById("pointId");
+			document.getElementById("titleId").attachEvent("onchange",bindServerAndPoint(titleId, serverId, pointId));  
+        }
+	</script>
 </head>
 
 <body>
@@ -38,7 +45,7 @@
 				<tr>
 					<th><span class="required">*</span><label for="point_titleId">ゲーム選択：</label></th>
 					<td>
-						<s:select name="titleId" id="titleId" cssClass="big" list="masterInfoBusinessLogic.validTitleList" listKey="titleId" listValue="titleName" headerKey="0" headerValue="" title="ゲーム"  onchange="bindServerAndPoint(this, serverId, pointId);" onblur="validate(this,'REQ');" />
+						<s:select name="titleId" id="titleId" cssClass="big" list="masterInfoBusinessLogic.validTitleList" listKey="titleId" listValue="titleName" title="ゲーム"  onchange="bindServerAndPoint(this, serverId, pointId);" onblur="validate(this,'REQ');" />
 						<span id="error_titleId" class="input_error"><s:fielderror><s:param>titleId</s:param></s:fielderror></span><br/>
 						<span class="explain">ポイントをチャージするゲームを選択してください。</span>
 					</td>
