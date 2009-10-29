@@ -22,13 +22,13 @@
 	<dt><strong>お知らせ</strong><span><a href="<%=getServletContext().getInitParameter("portalNewsTopUrl")%>" title="お知らせをもっと見る">MORE</a></span></dt>
 	<dd class="news_list">
 		<ul>
-			<li><span>2009/08/26</span><a href="#">【重要】6月22日 MK-STYLE臨時メンテナンスのお知らせ</a></li>
-			<li><span>2009/08/26</span><a href="#">【重要】6月22日 MK-STYLE臨時メンテナンスのお知らせ</a></li>
-			<li><span>2009/08/26</span><a href="#">【重要】6月22日 MK-STYLE臨時メンテナンスのお知らせ</a></li>
-			<li><span>2009/08/26</span><a href="#">【重要】6月22日 MK-STYLE臨時メンテナンスのお知らせ</a></li>
-			<li><span>2009/08/26</span><a href="#">【重要】6月22日 MK-STYLE臨時メンテナンスのお知らせ</a></li>
-			<li><span>2009/08/26</span><a href="#">【重要】6月22日 MK-STYLE臨時メンテナンスのお知らせ</a></li>
-			<li><span>2009/08/26</span><a href="#">【重要】6月22日 MK-STYLE臨時メンテナンスのお知らせ</a></li>
+			<li><span>2009/08/26</span><a href="http://info.game-if.com/">【重要】6月22日 MK-STYLE臨時メンテナンスのお知らせ</a></li>
+			<li><span>2009/08/26</span><a href="http://info.game-if.com/">【重要】6月22日 MK-STYLE臨時メンテナンスのお知らせ</a></li>
+			<li><span>2009/08/26</span><a href="http://info.game-if.com/">【重要】6月22日 MK-STYLE臨時メンテナンスのお知らせ</a></li>
+			<li><span>2009/08/26</span><a href="http://info.game-if.com/">【重要】6月22日 MK-STYLE臨時メンテナンスのお知らせ</a></li>
+			<li><span>2009/08/26</span><a href="http://info.game-if.com/">【重要】6月22日 MK-STYLE臨時メンテナンスのお知らせ</a></li>
+			<li><span>2009/08/26</span><a href="http://info.game-if.com/">【重要】6月22日 MK-STYLE臨時メンテナンスのお知らせ</a></li>
+			<li><span>2009/08/26</span><a href="http://info.game-if.com/">【重要】6月22日 MK-STYLE臨時メンテナンスのお知らせ</a></li>
 		</ul>
 	</dd>
 </dl>
