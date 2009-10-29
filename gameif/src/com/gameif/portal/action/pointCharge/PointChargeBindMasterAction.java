@@ -11,24 +11,17 @@ public class PointChargeBindMasterAction {
 
 	private Integer titleId;
 	private List<ServerMst> serverList;
-	private Integer serverId;
 	private List<PointMst> pointList;
 
 	/**
-	 * タイトルIDにより、有効なサーバ情報を取得する
+	 * タイトルIDにより、有効なサーバ情報とポイント情報を取得する
 	 * @return
 	 */
-	public String bindServer() {
+	public String bindServerAndPoint() {
+		// サーバ情報
 		serverList = masterInfoBusinessLogic.getAllValidServerListByTitle(titleId);
-		return "success";
-	}
-
-	/**
-	 * サーバIDにより、有効なポイント情報を取得する
-	 * @return
-	 */
-	public String bindPoint() {
-		pointList = masterInfoBusinessLogic.getAllValidPointListByServer(serverId);
+		// ポイント情報
+		pointList = masterInfoBusinessLogic.getAllValidPointListByTitle(titleId);
 		return "success";
 	}
 
@@ -76,20 +69,6 @@ public class PointChargeBindMasterAction {
 	 */
 	public void setServerList(List<ServerMst> serverList) {
 		this.serverList = serverList;
-	}
-
-	/**
-	 * @return the serverId
-	 */
-	public Integer getServerId() {
-		return serverId;
-	}
-
-	/**
-	 * @param serverId the serverId to set
-	 */
-	public void setServerId(Integer serverId) {
-		this.serverId = serverId;
 	}
 
 	/**
