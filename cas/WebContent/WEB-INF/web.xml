@@ -34,6 +34,15 @@
 		<param-value>false</param-value>
 	</context-param>
 	
+	<context-param>
+		<param-name>portalTopUrl</param-name>
+		<param-value>http://localhost:8080/gameif</param-value>
+	</context-param>
+	<context-param>
+		<param-name>portalNewsTopUrl</param-name>
+		<param-value>http://info.game-if.com</param-value>
+	</context-param>
+	
 	<filter>
 		<filter-name>CAS Client Info Logging Filter</filter-name>
 		<filter-class>org.inspektr.common.web.ClientInfoThreadLocalFilter</filter-class>
@@ -235,5 +244,6 @@
 	
 	<welcome-file-list>
   		<welcome-file>index.jsp</welcome-file>
-  	</welcome-file-list> 
+  	</welcome-file-list>
+  	<distributable/>
 </web-app>
