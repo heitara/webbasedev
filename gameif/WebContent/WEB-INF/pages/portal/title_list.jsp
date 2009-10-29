@@ -25,7 +25,7 @@
 					<div class="g_announce"><s:property value="announce"/></div>
 				</td>
 				<td class="sidecell">
-					<dl class="warm_box">
+					<dl class="warm_box tspace_n">
 						<dt><strong>ゲームプレイ</strong><span>&nbsp;</span></dt>
 						<dd>
 							<div class="g_servers">
@@ -43,7 +43,7 @@
 												<a href="<s:property value="playUrl"/>?serverId=<s:property value="serverId"/>&titleId=<s:property value="titleId"/>" style="background-color:#666;color:#DDD;" title="このサーバはただいま、メンテナンスしております。" onclick="return false;">S0<s:property value="serverId"/>: <s:property value="serverName"/>(メンテ中)</a>
 											</s:if>
 											<s:else>
-												<a href="<s:property value="playUrl"/>?serverId=<s:property value="serverId"/>&titleId=<s:property value="titleId"/>" title="第<s:property value="serverId"/>サーバ「<s:property value="serverName"/>」で「<s:property value="titleName"/>」をプレイする。">S0<s:property value="serverId"/>: <s:property value="serverName"/></a>
+												<a href="playGame.html?serverId=<s:property value="serverId"/>&titleId=<s:property value="titleId"/>" title="第<s:property value="serverId"/>サーバ「<s:property value="serverName"/>」で「<s:property value="titleName"/>」をプレイする。">S0<s:property value="serverId"/>: <s:property value="serverName"/></a>
 											</s:else>									
 										</s:iterator>
 									</s:else>
@@ -51,10 +51,10 @@
 								<s:else>
 									<s:iterator value="serverMap.get(#title.titleId)" id="server" status="st">
 										<s:if test='"0".equals(serviceStatus)'>
-											<a href="<s:property value="playUrl"/>?serverId=<s:property value="serverId"/>&titleId=<s:property value="titleId"/>" style="background-color:#666;color:#DDD;" title="このサーバはただいま、メンテナンスしております。" onclick="return false;">S0<s:property value="serverId"/>: <s:property value="serverName"/>(メンテ中)</a>
+											<a href="playGame.html?serverId=<s:property value="serverId"/>&titleId=<s:property value="titleId"/>" style="background-color:#666;color:#DDD;" title="このサーバはただいま、メンテナンスしております。" onclick="return false;">S0<s:property value="serverId"/>: <s:property value="serverName"/>(メンテ中)</a>
 										</s:if>
 										<s:else>
-											<a href="<s:property value="playUrl"/>?serverId=<s:property value="serverId"/>&titleId=<s:property value="titleId"/>" title="第<s:property value="serverId"/>サーバ「<s:property value="serverName"/>」で「<s:property value="titleName"/>」をプレイする。">S0<s:property value="serverId"/>: <s:property value="serverName"/></a>
+											<a href="playGame.html?serverId=<s:property value="serverId"/>&titleId=<s:property value="titleId"/>" title="第<s:property value="serverId"/>サーバ「<s:property value="serverName"/>」で「<s:property value="titleName"/>」をプレイする。">S0<s:property value="serverId"/>: <s:property value="serverName"/></a>
 										</s:else>									
 									</s:iterator>								
 								</s:else>
