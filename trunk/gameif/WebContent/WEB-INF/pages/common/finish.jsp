@@ -11,7 +11,7 @@
 
 <body>
 <dl class="light_box tspace_n">
-	<dt><strong><s:property value="actionTitle"/>完了</strong><span></span></dt>
+	<dt><strong><s:property value="actionTitle"/>完了</strong><span>&nbsp;</span></dt>
 	<dd>
 		<dl class="finish">
 			<dt><s:property value="actionTitle"/>が完了しました。</dt>
@@ -23,13 +23,13 @@
 				%>
 				<!-- ログイン状態での諸完了画面で表示 -->
 				<a href="games.html" title="ゲームプレイ"><img src="images/btn_s_play.gif" title="ゲームプレイ"/></a>
-				<a href="point.html" title="ポイントチャージ"><img src="images/btn_s_point.gif" title="ポイントチャージ"/></a>
-				<a href="#" title="コミュニティサイト"><img src="images/btn_s_community.gif" title="コミュニティサイト"/></a>
+				<a href="chargePointSelect.html" title="ポイントチャージ"><img src="images/btn_s_point.gif" title="ポイントチャージ"/></a>
+				<a href="<%=getServletContext().getInitParameter("communityTopUrl")%>" title="コミュニティサイト"><img src="images/btn_s_community.gif" title="コミュニティサイト"/></a>
 				<%
 				} else {
 				%>
 				<a href="mypage.html" title="ログイン"><img src="images/btn_s_login.gif" alt="ログイン"/></a>
-				<a href="#" title="お問合せ"><img src="images/btn_s_inquiry.gif" title="お問合せ"/></a>
+				<a href="inputInquiry.html" title="お問合せ"><img src="images/btn_s_inquiry.gif" title="お問合せ"/></a>
 				<%
 				}
 				%>
