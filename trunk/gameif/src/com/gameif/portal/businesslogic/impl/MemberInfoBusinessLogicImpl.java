@@ -74,6 +74,8 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 
 		// 会員番号取得のため、アカウントＩＤで会員情報を検索する。
 		MemberInfo newMemberInfo = memberInfoDao.selectByMemId(memberInfo.getMemId());
+		
+		memberInfo.setMemNum(newMemberInfo.getMemNum());
 
 		// 会員ログイン情報を登録する。
 		MemberLoginInfo memberLoginInfo = new MemberLoginInfo();
