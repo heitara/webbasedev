@@ -1,15 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@taglib prefix="s" uri="/struts-tags"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja-jp" lang="ja-jp" >
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<html>
 	<head>
-		<meta content="ゲームイフ,ブラウザゲーム,webgame,大人数同時プレイブラウザゲーム,オンラインゲーム,パブリッシング,プラットフォーム" name="keywords"/>
-		<meta content="ブラウザゲーム(WEBGAME)のポータルサイト" name="description"/>
 		<title>友達紹介</title>
 		<script src="js/portal/validate.js" type="text/javascript"></script>
 		<script src="js/portal/bindMaster.js" type="text/javascript"></script>
-		<script src="js/portal/common.js" type="text/javascript"></script>	
 		<script type="text/javascript">
 			window.onload = function(){   
 				 var titleId = document.getElementById("titleId");
