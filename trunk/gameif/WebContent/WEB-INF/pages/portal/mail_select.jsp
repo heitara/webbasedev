@@ -1,20 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja-jp" lang="ja-jp" >
 <head>
+	<title>メールアドレスインポート | 友達紹介</title>
 	<meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
-	<meta content="index, follow" name="robots"/>
 	<meta name="keywords" content="ゲームイフ,ブラウザゲーム,webgame,大人数同時プレイブラウザゲーム,オンラインゲーム,パブリッシング,プラットフォーム" />
 	<meta name="description" content="ブラウザゲーム(WEBGAME)のポータルサイト" />
+	<meta content="index, follow" name="robots"/>
 	<base href="<%=request.getScheme()%>://<%=request.getServerName()%><%if(request.getServerPort() != 80 && request.getServerPort() != 443) out.print(":" + request.getServerPort());%><%=request.getContextPath()%>/"/>
 	<link type="text/css" href="css/common.css" rel="stylesheet"></link>
 	<link type="text/css" href="css/main.css" rel="stylesheet"></link>
-	<link type="text/css" href="popup.css" rel="stylesheet"></link>
+	<link type="text/css" href="css/popup.css" rel="stylesheet"></link>
 	<script src="js/jquery/jquery.js" type="text/javascript"></script>
 	<script src="js/portal/common.js" type="text/javascript"></script>
 	<script src="js/portal/validate.js" type="text/javascript"></script>
-	<title>メールアドレスインポート | 友達紹介</title>
 </head>
 
 <body>

@@ -66,6 +66,9 @@ if (noLoginPages != null) {
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja-jp" lang="ja-jp" >
 <head>
+	<title><decorator:title default="新感覚の楽しみ方"/> | ゲームイフ | ブラウザゲームポータルサイト</title>
+	<meta name="keywords" content="ゲームイフ,ブラウザゲーム,webgame,大人数同時プレイブラウザゲーム,オンラインゲーム,パブリッシング,プラットフォーム" />
+	<meta name="description" content="ブラウザゲーム(WEBGAME)のポータルサイト" />
 	<meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
 	<meta content="index, follow" name="robots"/>
 	<base href="<%=getServletContext().getInitParameter("portalTopUrl")%>/"/>
@@ -79,7 +82,6 @@ if (noLoginPages != null) {
 		serverSel.style.display = serverSel.style.display == "none" ? "block" : "none";
 	}
 	</script>
-	<title><decorator:title default="新感覚の楽しみ方"/> | ゲームイフ | ブラウザゲームポータルサイト</title>
 	<decorator:head />
 </head>
 <body>
