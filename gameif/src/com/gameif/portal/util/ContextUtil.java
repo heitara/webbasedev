@@ -132,7 +132,14 @@ public class ContextUtil {
 	 */
 	public final static String getClientIP() {
 		
-		return ServletActionContext.getRequest().getRemoteAddr();
+		String clientIp = ServletActionContext.getRequest().getHeader("X-Real-IP");
+		
+		if (clientIp == null) {
+			
+			clientIp = ServletActionContext.getRequest().getRemoteAddr();
+		}
+		
+		return clientIp;
 	}
 
 	/**
