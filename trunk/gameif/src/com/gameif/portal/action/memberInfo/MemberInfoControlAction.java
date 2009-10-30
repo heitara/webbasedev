@@ -104,8 +104,18 @@ public class MemberInfoControlAction extends
 	public String create() {
 
 		memberInfoBusinessLogic.saveMemberInfo(getModel(), getInviteId());
-
+		
 		return SUCCESS;
+	}
+
+	/**
+	 * 会員情報登録完了。
+	 * 
+	 * @return　完了画面コード
+	 */
+	public String finishedCreate() {
+
+		return "finish";
 	}
 
 	/**
@@ -373,5 +383,4 @@ public class MemberInfoControlAction extends
 			IMasterInfoBusinessLogic masterInfoBusinessLogic) {
 		this.masterInfoBusinessLogic = masterInfoBusinessLogic;
 	}
-
 }
