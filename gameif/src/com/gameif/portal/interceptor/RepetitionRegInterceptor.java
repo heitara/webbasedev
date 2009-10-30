@@ -5,6 +5,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
 
 import com.gameif.portal.businesslogic.IMemberInfoBusinessLogic;
+import com.gameif.portal.util.ContextUtil;
 import com.opensymphony.xwork2.ActionInvocation;
 
 public class RepetitionRegInterceptor extends CommonInterceptor {
@@ -46,7 +47,7 @@ public class RepetitionRegInterceptor extends CommonInterceptor {
         @Override
         public String intercept(ActionInvocation ai) throws Exception {
                 
-                String clientIp = ServletActionContext.getRequest().getRemoteAddr();
+                String clientIp = ContextUtil.getClientIP();
                 
                 //TODO: ①memberInfoBusinessLogic.countMembersByIPInTime()メソッド要実装
                 //TODO: ②repetion_errorに該当するresult要定義、エラー画面要作成
