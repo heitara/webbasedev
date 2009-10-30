@@ -7,8 +7,8 @@
 					<div style="height:26px;line-height:28px;text-align:right;margin-right:10px;">
 						<a href="<%=getServletContext().getInitParameter("portalTopUrl")%>/inputPwdReget.html" style="font-size:11px;color:#FFF;">パスワードを忘れた方はこちら ►</a>
 					</div>
-					<form:input cssClass="required" cssErrorClass="error" id="username" maxlength="20" path="username" autocomplete="false" htmlEscape="true" cssStyle="margin-top:50px;margin-left:145px;width:185px;height:20px;"/><br/>
-					<form:password cssClass="required" cssErrorClass="error" id="password" maxlength="20" path="password"  htmlEscape="true" autocomplete="off" cssStyle="margin-top:22px;margin-left:145px;width:185px;height:20px;"/><br/>
+					<form:input cssClass="required ime_mode_n" cssErrorClass="error ime_mode_n" id="username" maxlength="20" path="username" autocomplete="false" htmlEscape="true" cssStyle="margin-top:50px;margin-left:145px;width:185px;height:20px;"/><br/>
+					<form:password cssClass="required ime_mode_n" cssErrorClass="error ime_mode_n" id="password" maxlength="20" path="password"  htmlEscape="true" autocomplete="off" cssStyle="margin-top:22px;margin-left:145px;width:185px;height:20px;"/><br/>
 					<input type="image" src="images/btn_c_login.gif" style="margin-top:15px;margin-left:145px;"/>
 					<a href="javascript:document.getElementById('loginForm').reset();"><img src="images/btn_c_clear.gif" style="margin-top:10px;margin-left:3px;border:0px;"/></a>
 					<input type="hidden" name="lt" value="${flowExecutionKey}" />
