@@ -46,9 +46,10 @@
 				<param name="includeMethods">create</param>
 			</interceptor-ref>
 			 -->			
-			<interceptor-ref name="gameifStack"></interceptor-ref>			
+			<interceptor-ref name="gameifStack"></interceptor-ref>
 			<result name="input">/WEB-INF/pages/portal/mem_registry.jsp</result>
-			<result name="success" type="redirect">/finishedPage.html?action=createMember</result>
+			<result name="success" type="redirect">/finishedCreateMember.html?memNum=${memNum}</result>
+			<result name="finish">/WEB-INF/pages/portal/mem_registry_success.jsp</result>
 			<result name="invalid.token">/WEB-INF/pages/common/warning.jsp</result>
 		</action>
 
@@ -82,7 +83,7 @@
 			<interceptor-ref name="token">
 				<param name="includeMethods">updatePassword</param>
 			</interceptor-ref>			
-			<interceptor-ref name="gameifStack"></interceptor-ref>			
+			<interceptor-ref name="gameifStack"></interceptor-ref>
 			<result name="input">/WEB-INF/pages/portal/mem_passwd_edit.jsp</result>
 			<result name="success" type="redirect">/finishedPage.html?action=updatePasswd</result>
 			<result name="invalid.token">/WEB-INF/pages/common/warning.jsp</result>
