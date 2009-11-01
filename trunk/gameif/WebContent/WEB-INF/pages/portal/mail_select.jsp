@@ -8,7 +8,7 @@
 	<meta name="keywords" content="ゲームイフ,ブラウザゲーム,webgame,大人数同時プレイブラウザゲーム,オンラインゲーム,パブリッシング,プラットフォーム" />
 	<meta name="description" content="ブラウザゲーム(WEBGAME)のポータルサイト" />
 	<meta content="index, follow" name="robots"/>
-	<base href="<%=request.getScheme()%>://<%=request.getServerName()%><%if(request.getServerPort() != 80 && request.getServerPort() != 443) out.print(":" + request.getServerPort());%><%=request.getContextPath()%>/"/>
+	<base href="<%=getServletContext().getInitParameter("portalTopUrl")%>/"/>
 	<link type="text/css" href="css/common.css" rel="stylesheet"></link>
 	<link type="text/css" href="css/main.css" rel="stylesheet"></link>
 	<link type="text/css" href="css/popup.css" rel="stylesheet"></link>
