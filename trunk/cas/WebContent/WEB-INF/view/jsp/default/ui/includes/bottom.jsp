@@ -3,7 +3,7 @@
 <!-- ページフッター：開始 -->
 <div class="page_bottom">
 	<div class="pb_left">
-		<a href="http://company.game-if.com" title="会社概要">会社概要</a> | 
+		<a href="http://company.game-if.com" target="_blank" title="会社概要">会社概要</a> | 
 		<a href="<%=getServletContext().getInitParameter("portalTopUrl")%>/agreement.html" title="利用規約">利用規約</a> | 
 		<a href="<%=getServletContext().getInitParameter("portalTopUrl")%>/immunity.html" title="免責事項">免責事項</a> | 
 		<a href="<%=getServletContext().getInitParameter("portalTopUrl")%>/privacy.html" title="プライバシーポリシー">プライバシーポリシー</a> | 

@@ -22,7 +22,6 @@
 		<div class="pt_right">
 			<a href="<%=getServletContext().getInitParameter("portalTopUrl")%>/guide.html" title="初心者ガイド">初心者ガイド</a> |
 			<a href="<%=getServletContext().getInitParameter("portalTopUrl")%>/inputInquiry.html" title="お問合せ">お問合せ</a> |
-			<a href="#" title="お気に入り">お気に入り</a>
 		</div>
 		<div class="clearbox"/>
 	</div>
@@ -33,7 +32,7 @@
 	<a href="<%=getServletContext().getInitParameter("portalTopUrl")%>/" title="トップページ">トップ</a>
 	<a href="<%=getServletContext().getInitParameter("portalTopUrl")%>/games.html" title="ゲーム">ゲーム</a>
 	<a href="<%=getServletContext().getInitParameter("portalTopUrl")%>/chargePointSelect.html" title="ポイントチャージ">ポイントチャージ</a>
-	<a href="<%=getServletContext().getInitParameter("portalTopUrl")%>/forum/" title="コミュニティ">コミュニティ</a>
+	<a href="<%=getServletContext().getInitParameter("comunityTopUrl")%>/" title="コミュニティ">コミュニティ</a>
 	<a href="<%=getServletContext().getInitParameter("portalNewsTopUrl")%>/" title="お知らせ">お知らせ</a>
 </div>
 <!-- ページメニュー：終了 -->
