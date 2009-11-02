@@ -139,23 +139,23 @@ public class GenericUserDAO extends AutoKeys implements UserDAO
 			if (rs.next()) {
 				this.fillUserFromResultSet(u, rs);
 				u.setPrivateMessagesCount(rs.getInt("private_messages"));
+			}
 
-				rs.close();
-				p.close();
+			rs.close();
+			p.close();
 
-				// User groups
-				p = JForumExecutionContext.getConnection().prepareStatement(
-						SystemGlobals.getSql("UserModel.selectGroups"));
-				p.setInt(1, userId);
+			// User groups
+			p = JForumExecutionContext.getConnection().prepareStatement(
+					SystemGlobals.getSql("UserModel.selectGroups"));
+			p.setInt(1, userId);
 
-				rs = p.executeQuery();
-				while (rs.next()) {
-					Group g = new Group();
-					g.setName(rs.getString("group_name"));
-					g.setId(rs.getInt("group_id"));
+			rs = p.executeQuery();
+			while (rs.next()) {
+				Group g = new Group();
+				g.setName(rs.getString("group_name"));
+				g.setId(rs.getInt("group_id"));
 
-					u.getGroupsList().add(g);
-				}
+				u.getGroupsList().add(g);
 			}
 
 			return u;

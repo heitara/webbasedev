@@ -143,15 +143,15 @@ public class PostAction extends Command
 		// Shall we proceed?
 		Forum forum = ForumRepository.getForum(topic.getForumId());
 		
-		if (!logged) {
-			if (forum == null || !ForumRepository.isCategoryAccessible(forum.getCategoryId())) {
-				this.setTemplateName(ViewCommon.contextToLogin());
-				return;
-			}
-		}
-		else if (!TopicsCommon.isTopicAccessible(topic.getForumId())) {
-			return;
-		}
+//		if (!logged) {
+//			if (forum == null || !ForumRepository.isCategoryAccessible(forum.getCategoryId())) {
+//				this.setTemplateName(ViewCommon.contextToLogin());
+//				return;
+//			}
+//		}
+//		else if (!TopicsCommon.isTopicAccessible(topic.getForumId())) {
+//			return;
+//		}
 
 		int count = SystemGlobals.getIntValue(ConfigKeys.POSTS_PER_PAGE);
 		int start = ViewCommon.getStartPage();
@@ -1355,10 +1355,10 @@ public class PostAction extends Command
 
 	public void unwatch()  
 	{
-		if (!SessionFacade.isLogged()) {
-			this.setTemplateName(ViewCommon.contextToLogin());
-		}
-		else {
+//		if (!SessionFacade.isLogged()) {
+//			this.setTemplateName(ViewCommon.contextToLogin());
+//		}
+//		else {
 			int topicId = this.request.getIntParameter("topic_id");
 			int userId = SessionFacade.getUserSession().getUserId();
 			int start = ViewCommon.getStartPage();
@@ -1376,25 +1376,25 @@ public class PostAction extends Command
 			this.setTemplateName(TemplateKeys.POSTS_UNWATCH);
 			this.context.put("pageTitle", I18n.getMessage("PostShow.unwatch"));
 			this.context.put("message", I18n.getMessage("ForumBase.unwatched", new String[] { returnPath }));
-		}
+//		}
 	}
 	
 	public void downloadAttach()
 	{
 		int id = this.request.getIntParameter("attach_id");
 		
-		if (!SessionFacade.isLogged() && !SystemGlobals.getBoolValue(ConfigKeys.ATTACHMENTS_ANONYMOUS)) {
-			String referer = this.request.getHeader("Referer");
-			
-			if (referer != null) {
-				this.setTemplateName(ViewCommon.contextToLogin(referer));
-			}
-			else {
-				this.setTemplateName(ViewCommon.contextToLogin());
-			}
-			
-			return;
-		}
+//		if (!SessionFacade.isLogged() && !SystemGlobals.getBoolValue(ConfigKeys.ATTACHMENTS_ANONYMOUS)) {
+//			String referer = this.request.getHeader("Referer");
+//			
+//			if (referer != null) {
+//				this.setTemplateName(ViewCommon.contextToLogin(referer));
+//			}
+//			else {
+//				this.setTemplateName(ViewCommon.contextToLogin());
+//			}
+//			
+//			return;
+//		}
 		
 		AttachmentDAO am = DataAccessDriver.getInstance().newAttachmentDAO();
 		Attachment a = am.selectAttachmentById(id);
@@ -1514,13 +1514,13 @@ public class PostAction extends Command
 	
 	private boolean anonymousPost(int forumId)  
 	{
-		// Check if anonymous posts are allowed
-		if (!SessionFacade.isLogged()
-				&& !SecurityRepository.canAccess(SecurityConstants.PERM_ANONYMOUS_POST, Integer.toString(forumId))) {
-			this.setTemplateName(ViewCommon.contextToLogin());
-
-			return false;
-		}
+//		// Check if anonymous posts are allowed
+//		if (!SessionFacade.isLogged()
+//				&& !SecurityRepository.canAccess(SecurityConstants.PERM_ANONYMOUS_POST, Integer.toString(forumId))) {
+//			this.setTemplateName(ViewCommon.contextToLogin());
+//
+//			return false;
+//		}
 
 		return true;
 	}

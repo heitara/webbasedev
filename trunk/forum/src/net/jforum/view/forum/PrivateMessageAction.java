@@ -73,10 +73,10 @@ public class PrivateMessageAction extends Command
 {
 	public void inbox()
 	{
-		if (!SessionFacade.isLogged()) {
-			this.setTemplateName(ViewCommon.contextToLogin());
-			return;
-		}
+//		if (!SessionFacade.isLogged()) {
+//			this.setTemplateName(ViewCommon.contextToLogin());
+//			return;
+//		}
 		
 		User user = new User();
 		user.setId(SessionFacade.getUserSession().getUserId());
@@ -92,10 +92,10 @@ public class PrivateMessageAction extends Command
 	
 	public void sentbox()
 	{
-		if (!SessionFacade.isLogged()) {
-			this.setTemplateName(ViewCommon.contextToLogin());
-			return;
-		}
+//		if (!SessionFacade.isLogged()) {
+//			this.setTemplateName(ViewCommon.contextToLogin());
+//			return;
+//		}
 		
 		User user = new User();
 		user.setId(SessionFacade.getUserSession().getUserId());
@@ -118,10 +118,10 @@ public class PrivateMessageAction extends Command
 	
 	public void send() 
 	{
-		if (!SessionFacade.isLogged()) {
-			this.setTemplateName(ViewCommon.contextToLogin());
-			return;
-		}
+//		if (!SessionFacade.isLogged()) {
+//			this.setTemplateName(ViewCommon.contextToLogin());
+//			return;
+//		}
 		
 		User user = DataAccessDriver.getInstance().newUserDAO().selectById(
 			SessionFacade.getUserSession().getUserId());
@@ -133,10 +133,10 @@ public class PrivateMessageAction extends Command
 	
 	public void sendTo()
 	{
-		if (!SessionFacade.isLogged()) {
-			this.setTemplateName(ViewCommon.contextToLogin());
-			return;
-		}
+//		if (!SessionFacade.isLogged()) {
+//			this.setTemplateName(ViewCommon.contextToLogin());
+//			return;
+//		}
 		
 		User user = DataAccessDriver.getInstance().newUserDAO().selectById(
 				SessionFacade.getUserSession().getUserId());
@@ -175,10 +175,10 @@ public class PrivateMessageAction extends Command
 	
 	public void sendSave()
 	{
-		if (!SessionFacade.isLogged()) {
-			this.setTemplateName(ViewCommon.contextToLogin());
-			return;
-		}
+//		if (!SessionFacade.isLogged()) {
+//			this.setTemplateName(ViewCommon.contextToLogin());
+//			return;
+//		}
 		
 		UserDAO userDao = DataAccessDriver.getInstance().newUserDAO();
 		
@@ -276,10 +276,10 @@ public class PrivateMessageAction extends Command
 	
 	public void read()
 	{
-		if (!SessionFacade.isLogged()) {
-			this.setTemplateName(ViewCommon.contextToLogin());
-			return;
-		}
+//		if (!SessionFacade.isLogged()) {
+//			this.setTemplateName(ViewCommon.contextToLogin());
+//			return;
+//		}
 		
 		int id = this.request.getIntParameter("id");
 		
@@ -328,10 +328,10 @@ public class PrivateMessageAction extends Command
 	
 	public void delete()
 	{
-		if (!SessionFacade.isLogged()) {
-			this.setTemplateName(ViewCommon.contextToLogin());
-			return;
-		}
+//		if (!SessionFacade.isLogged()) {
+//			this.setTemplateName(ViewCommon.contextToLogin());
+//			return;
+//		}
 		
 		String ids[] = this.request.getParameterValues("id");
 		
@@ -374,10 +374,10 @@ public class PrivateMessageAction extends Command
 	
 	public void reply()
 	{
-		if (!SessionFacade.isLogged()) {
-			this.setTemplateName(ViewCommon.contextToLogin());
-			return;
-		}
+//		if (!SessionFacade.isLogged()) {
+//			this.setTemplateName(ViewCommon.contextToLogin());
+//			return;
+//		}
 		
 		int id = this.request.getIntParameter("id");
 		
@@ -404,10 +404,10 @@ public class PrivateMessageAction extends Command
 	
 	public void quote()
 	{
-		if (!SessionFacade.isLogged()) {
-			this.setTemplateName(ViewCommon.contextToLogin());
-			return;
-		}
+//		if (!SessionFacade.isLogged()) {
+//			this.setTemplateName(ViewCommon.contextToLogin());
+//			return;
+//		}
 		
 		int id = this.request.getIntParameter("id");
 		

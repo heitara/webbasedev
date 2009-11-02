@@ -65,6 +65,11 @@ public class RemoteUserSSO implements SSO
 	{
 		return request.getRemoteUser();
 	}
+	
+	public int findUserId(RequestContext request) {
+		
+		return 0;
+	}
 
 	public boolean isSessionValid(UserSession userSession, RequestContext request)
 	{

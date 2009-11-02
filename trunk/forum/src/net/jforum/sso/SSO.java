@@ -61,6 +61,8 @@ public interface SSO
 	 * otherwise. 
 	 */
 	public String authenticateUser(RequestContext request);
+	
+	public int findUserId(RequestContext request);
    
    
     /**

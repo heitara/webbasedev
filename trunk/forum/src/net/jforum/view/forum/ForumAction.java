@@ -340,7 +340,7 @@ public class ForumAction extends Command
 	 */
 	public void unwatchForum()
 	{
-		if (SessionFacade.isLogged()) {
+		//if (SessionFacade.isLogged()) {
 			int forumId = this.request.getIntParameter("forum_id");
 			int userId = SessionFacade.getUserSession().getUserId();
 
@@ -350,9 +350,9 @@ public class ForumAction extends Command
 
 			this.setTemplateName(TemplateKeys.POSTS_UNWATCH);
 			this.context.put("message", I18n.getMessage("ForumBase.forumUnwatched", new String[] { returnPath }));
-		}
-		else {
-			this.setTemplateName(ViewCommon.contextToLogin());
-		}
+//		}
+//		else {
+//			this.setTemplateName(ViewCommon.contextToLogin());
+//		}
 	}
 }
