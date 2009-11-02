@@ -1,5 +1,6 @@
 package com.gameif.backoffice.action.authority;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.gameif.backoffice.bean.AuthorityInfo;
@@ -63,6 +64,7 @@ public class AuthorityAction extends ModelDrivenActionSupport<AuthorityInfo> {
 	 * 権限明細を作る
 	 */
 	private void makeAuthorityDetail() {
+		List<AuthorityDetailMst> authorityDetails = new ArrayList<AuthorityDetailMst>();
 		AuthorityDetailMst authorityDetail = new AuthorityDetailMst();
 		
 		Integer count = masterInfoBusinessLogic.getAllFunctionList().size();
@@ -90,10 +92,10 @@ public class AuthorityAction extends ModelDrivenActionSupport<AuthorityInfo> {
 			} else if (functionCode.equals(BackofficeConstants.FunctionCode.SALES)) {
 				authorityDetail.setAuthorityLevel(getSalesLevel());
 			}
-			
-			this.getModel().getAuthorityDetails().add(authorityDetail);
+			authorityDetails.add(authorityDetail);
 		}
-		
+
+		this.getModel().setAuthorityDetails(authorityDetails);
 	}
 
 	/**
