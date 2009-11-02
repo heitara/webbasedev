@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+	<bean id="gameifSqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="configLocation" value="classpath:/resources/sqlMapConfig.xml" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<bean id="baseDao" abstract="true">
+		<property name="sqlMapClient">
+			<ref local="gameifSqlMapClient" />
+		</property>
+	</bean>
+	
+	<!-- loginUserDao -->
+	<bean id="loginUserDao" class="com.gameif.backoffice.dao.impl.LoginUserDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>loginUser</value>
+		</property>
+	</bean>
+	
+	<!-- functionMstDao -->
+	<bean id="functionMstDao" class="com.gameif.backoffice.dao.impl.FunctionMstDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>functionMst</value>
+		</property>
+	</bean>
+	
+	<!-- authorityMstDao -->
+	<bean id="authorityMstDao" class="com.gameif.backoffice.dao.impl.AuthorityMstDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>authorityMst</value>
+		</property>
+	</bean>
+	
+	<!-- authorityDetailMstDao -->
+	<bean id="authorityDetailMstDao" class="com.gameif.backoffice.dao.impl.AuthorityDetailMstDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>authorityDetailMst</value>
+		</property>
+	</bean>
+</beans>

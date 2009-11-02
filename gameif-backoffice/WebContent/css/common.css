@@ -1,0 +1,349 @@
+/*********Åyã§í Åzí èÌê›íË ******************************************************/
+body {
+	margin:0px;
+	padding:0px;
+	color:#333;
+	font-size:12px;
+	font-family:'Arial','Courier','ÇlÇr ÇoÉSÉVÉbÉN',monospace;
+}
+a {
+	color:#333;
+	text-decoration:none;
+}
+a:hover {
+	color:#FC3;
+}
+a img {
+	border:0px;
+}
+a img:hover {
+	opacity: 0.8;                    /* Firefox, Safari(WebKit), Opera */
+	-ms-filter: "alpha(opacity=80)"; /* IE 8 */
+	filter: alpha(opacity=80);       /* IE 4-7 */
+}
+div.clearbox {
+	height:0px;
+	clear: both;
+}
+input.ime_mode_n {
+	ime-mode:disabled;
+}
+input.ime_mode_y {
+	ime-mode:active;
+}
+.f_left {
+	float:left;
+}
+.f_right {
+	float:right;
+}
+.tspace_n {
+	margin-top:0px;
+}
+.tspace_y {
+	margin-top:15px;
+}
+.tspace_s {
+	margin-top:10px;
+}
+.tspace_b {
+	margin-top:20px;
+}
+.bottom_align {
+	position:absolute;
+	left:0px;
+	bottom:0px;
+}
+dl.top_align {
+	position:relative;
+	left:125px;
+	bottom:27px;
+}
+span.input_error {
+	color:#F00;
+	font-size:10px;
+	font-weight:bold;
+}
+span.input_error ul {
+	display:inline;
+	list-style:none;
+	margin:0px;
+	padding:0px;
+}
+span.input_error ul li {
+	display:inline;
+	margin:0px;
+	padding:0px;
+}
+span.logic_error {
+	color:#F00;
+	font-size:10px;
+	font-weight:bold;
+}
+span.logic_error ul {
+	display:inline;
+	list-style:none;
+	margin:0px;
+	padding:0px;
+}
+span.logic_error ul li {
+	display:inline;
+	margin:0px;
+	padding:0px;
+}
+/*********Åyã§í ÅzÉtÉHÅ[ÉÄä÷òA **************************************************/
+label {
+	font-size:12px;
+	font-style: italic;
+	color:#666;
+}
+form {
+	margin:30px 10px;
+}
+input[type="text"], input[type="password"], textarea {
+	width:200px;
+	font-family:'ÇlÇr ÉSÉVÉbÉN',serif;
+	font-size:13px;
+}
+input[type="text"].small, input[type="password"].small, textarea.small {
+	width:95px;
+}
+input[type="text"].min, input[type="password"].min, textarea.min {
+	width:60px;
+}
+input[type="text"].big, input[type="password"].big, textarea.big {
+	width:270px;
+	font-size:12px;
+}
+input[type="text"].focuscolor, input[type="password"].focuscolor, textarea.focuscolor {
+	background-color:#FF9;
+}
+input[type="submit"], input[type="reset"], input[type="button"] {
+	width:100px;
+	height:24px;
+	paddint-top:2px;
+	font-size:12px;
+}
+input[type="submit"].big, input[type="reset"].big, input[type="button"].big {
+	width:180px;
+}
+input[type="text"], input[type="password"] {
+	height:16px;
+}
+select {
+	width:206px;
+	padding:1px;
+	font-family:'ÇlÇr ÉSÉVÉbÉN',serif;
+	font-size:13px;
+	height:24px;
+}
+select.small {
+	width:120px;
+}
+select.min {
+	width:50px;
+}
+select.big {
+	width:276px;
+}
+
+form table th {
+	width:160px;
+	text-align:right;
+	padding:2px;
+	font-weight:normal;
+}
+form table tr.space_row {
+	height:15px;	
+}
+form div.submit {
+	margin:15px 0px 0px 170px;
+}
+
+form span.item {
+	display:inline-block;
+	height:20px;
+	line-height:20px;
+}
+form span.required {
+	font:10px Verdana;
+	color:#f68622;
+}
+form span.explain {
+	color:#888;
+	font-size:10px;
+	display:inline-block;
+	margin:2px 0px 0px 10px;
+}
+form span.check_ok {
+	color:#090;
+}
+form span.check_ng {
+	color:#900;
+}
+form img.input_check {
+	margin:0px 5px;
+}
+form a {
+	color:#900;
+}
+form a:hover {
+	color:#F90;
+}
+
+/*********Åyã§í ÅzÉ^ÉCÉgÉãïtÉ{ÉbÉNÉX ************************************************/
+dl.title_box {
+	 width:100%;
+	 overflow:hidden;
+	 text-align:left;
+}
+dl.title_box dt {
+	height:24px;
+	overflow:hidden;
+	background-image:url("../images/bg_portlet_title.gif");
+	clear:both;
+}
+dl.title_box dt strong {
+	float:left;
+	display:block;
+	height:24px;
+	line-height:24px;
+	padding:0px 12px;
+	color:#FFF;
+	background:url("../images/bg_portlet_title_left.gif") left top no-repeat;
+	letter-spacing:1px;
+}
+dl.title_box dt span {
+	float:right;
+	position:relative;
+	line-height:24px;
+	padding:0px 10px;
+	background:url("../images/bg_portlet_title_right.gif") right top no-repeat;
+}
+dl.title_box dt span::after {
+	content:"\b";
+}
+dl.title_box dt span a {
+	color:#FFF;
+	text-decoration:none;
+	font-size:9px;
+	font-weight:bold;
+}
+dl.title_box dt span a:hover {
+	color:#F90;
+}
+dl.title_box dd {
+	display:block;
+	margin-left:0px;
+}
+/*********Åyã§í ÅzÉ^ÉCÉgÉãïtÉ{ÉbÉNÉX(ñæ) ********************************************/
+dl.light_box {
+	 width:100%;
+	 overflow:hidden;
+	 text-align:left;
+}
+dl.light_box dt {
+	height:24px;
+	overflow:hidden;
+	background-image:url("../images/bg_light_title.gif");
+	clear:both;
+}
+dl.light_box dt strong {
+	float:left;
+	display:block;
+	height:24px;
+	line-height:24px;
+	padding:0px 12px;
+	background:url("../images/bg_light_title_left.gif") left top no-repeat;
+	letter-spacing:1px;
+}
+dl.light_box dt span {
+	float:right;
+	font-size:10px;
+	color:#850;
+	position:relative;
+	line-height:24px;
+	padding:0px 10px;
+	background:url("../images/bg_light_title_right.gif") right top no-repeat;
+}
+dl.light_box dt span::after {
+	content:"\b";
+}
+dl.light_box dt span a {
+	font-size:10px;
+	color:#850;
+}
+dl.light_box dt span a:hover {
+	color:#FFF;
+}
+dl.light_box dd {
+	display:block;
+	margin-left:0px;
+}
+/*********Åyã§í ÅzÉ^ÉCÉgÉãïtÉ{ÉbÉNÉX(íg) ********************************************/
+dl.warm_box {
+	 width:100%;
+	 overflow:hidden;
+	 text-align:left;
+}
+dl.warm_box dt {
+	height:20px;
+	overflow:hidden;
+	background-image:url("../images/bg_portlet_title.gif");
+	clear:both;
+}
+dl.warm_box dt strong {
+	float:left;
+	display:block;
+	height:20px;
+	line-height:20px;
+	padding:0px 12px;
+	font-size:10px;
+	font-weight:bold;
+	color:#FFF;
+	background:url("../images/bg_portlet_title_left.gif") left top no-repeat;
+}
+dl.warm_box dt span {
+	float:right;
+	position:relative;
+	line-height:20px;
+	padding:0px 10px;
+	background:url("../images/bg_portlet_title_right.gif") right top no-repeat;
+}
+dl.warm_box dt span::after {
+	content:"\b";
+}
+dl.warm_box dt span a {
+	color:#FFF;
+	text-decoration:none;
+	font-size:9px;
+	font-weight:bold;
+}
+dl.warm_box dt span a:hover {
+	color:#F90;
+}
+dl.warm_box dd {
+	display:block;
+	margin-left:0px;
+}
+
+/*********Åyã§í ÅzÉâÉEÉìÉhÉ{ÉbÉNÉX **************************************************/
+div.rbox_side {
+	border-top:1px solid #CCC;
+	height:0px;
+	margin:0px 2px;
+	overflow: hidden;
+}
+div.rbox_round {
+	border:1px solid #CCC;
+	border-width:0px 1px;
+	margin:0px 1px;
+	height:1px;
+	overflow: hidden;
+}
+div.rbox_main {
+	border:1px solid #CCC;
+	border-width:0px 1px;
+	overflow:hidden;
+	height:100%;
+}

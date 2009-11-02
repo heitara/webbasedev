@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="loginUser">
+	<typeAlias alias="loginUser" type="com.gameif.backoffice.entity.LoginUser" />
+	
+	<resultMap class="com.gameif.backoffice.entity.LoginUser" id="loginUserResult">
+		<result property="userId" column="user_id" />
+		<result property="password" column="password" />
+		<result property="nickName" column="nick_name" />
+		<result property="authorityCode" column="authority_code" />
+		<result property="createdDate" column="created_date"/>
+		<result property="createdUser" column="created_user"/>
+		<result property="lastUpdateDate" column="last_update_date"/>
+		<result property="lastUpdateUser" column="last_update_user"/>
+	</resultMap>
+
+	<select id="selectByUserIdAndPwd" parameterClass="loginUser" resultMap="loginUserResult">
+        <![CDATA[
+		SELECT	user_id,
+				password,
+				nick_name,
+				authority_code,
+				created_date,
+				created_user,
+				last_update_date,
+				last_update_user
+		FROM	login_user
+		WHERE	user_id = #userId#
+		AND     password = #password#
+        ]]>
+	</select>
+
+</sqlMap>
