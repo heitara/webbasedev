@@ -65,13 +65,14 @@ public class AuthorityAction extends ModelDrivenActionSupport<AuthorityInfo> {
 	 */
 	private void makeAuthorityDetail() {
 		List<AuthorityDetailMst> authorityDetails = new ArrayList<AuthorityDetailMst>();
-		AuthorityDetailMst authorityDetail = new AuthorityDetailMst();
+		AuthorityDetailMst authorityDetail = null;
 		
 		Integer count = masterInfoBusinessLogic.getAllFunctionList().size();
 		String functionCode = null;
 		for (int i = 0; i < count; i++) {
 			
 			functionCode = masterInfoBusinessLogic.getAllFunctionList().get(i).getFunctionCode();
+			authorityDetail = new AuthorityDetailMst();
 			authorityDetail.setFunctionCode(functionCode);
 			
 			if (functionCode.equals(BackofficeConstants.FunctionCode.MEMBER)) {
