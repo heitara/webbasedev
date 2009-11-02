@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0.2//EN" 
+	"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+
+<validators>
+    <field name="authority.authorityCode">
+        <field-validator type="requiredstring" short-circuit="true">
+			<param name="trim">true</param>
+        	<message><![CDATA[<br/>権限コードを入力してください。]]></message>
+        </field-validator>
+        <field-validator type="regex" short-circuit="true">
+        	<param name="expression"><![CDATA[(\w{4,20})]]></param>
+        	<message><![CDATA[<br/>権限コードは4～20桁の半角英数字で入力してください。]]></message>
+        </field-validator>
+        <field-validator type="fieldexpression">
+        	<param name="expression"><![CDATA[(authorityBusinessLogic.countAuthorityByCode(authority.authorityCode) < 1)]]></param>
+        	<message><![CDATA[<br/>入力された権限コードは既に使われています。]]></message>
+        </field-validator>
+    </field>
+    <field name="authority.authorityName">
+        <field-validator type="requiredstring" short-circuit="true">
+			<param name="trim">true</param>
+        	<message><![CDATA[<br/>権限名を入力してください。]]></message>
+        </field-validator>
+        <field-validator type="regex" short-circuit="true">
+        	<param name="expression"><![CDATA[([a-zA-Z0-9｡-ﾟぁ-ゞァ-ヶ一-龠Ａ-Ｚａ-ｚ]+)]]></param>
+        	<message><![CDATA[<br/>権限名に記号或いはスペースが含まれています。]]></message>
+        </field-validator>
+    </field>
+</validators>

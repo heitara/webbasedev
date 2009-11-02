@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="authorityMst">
+	<typeAlias alias="authorityMst" type="com.gameif.backoffice.entity.AuthorityMst" />
+	
+	<resultMap class="com.gameif.backoffice.entity.AuthorityMst" id="authorityResult">
+		<result property="authorityCode" column="authority_code" />
+		<result property="authorityName" column="authority_name" />
+		<result property="remarks" column="remarks" />
+		<result property="createdDate" column="created_date"/>
+		<result property="createdUser" column="created_user"/>
+		<result property="lastUpdateDate" column="last_update_date"/>
+		<result property="lastUpdateUser" column="last_update_user"/>
+	</resultMap>
+	
+	<select id="selectAuthorityByCode" resultClass="int">
+      <![CDATA[
+        SELECT
+			count(authority_code)
+		FROM
+			authority_mst
+		WHERE
+			authority_code = #value#	
+      ]]>
+	</select>
+	
+	<insert id = "save" parameterClass="authorityMst"> 
+        <![CDATA[
+		INSERT INTO authority_mst
+			(authority_code,
+			authority_name,
+			remarks,
+			created_date,
+			created_user,
+			last_update_date,
+			last_update_user)
+		VALUES
+			(#authorityCode#,
+			#authorityName#,
+			#remarks#,
+			#createdDate#,
+			#createdUser#,
+			#lastUpdateDate#,
+			#lastUpdateUser#)
+        ]]>
+	</insert>
+
+	<select id="selectByKey" resultMap="authorityResult">
+        <![CDATA[
+		SELECT	authority_code,
+				authority_name,
+				remarks,
+				created_date,
+				created_user,
+				last_update_date,
+				last_update_user
+		FROM	authority_mst
+		WHERE	authority_code = #value#
+        ]]>
+	</select>
+
+	<update id="update" parameterClass="authorityMst">
+	<![CDATA[
+		UPDATE authority_mst
+		SET	authority_name = #authorityName#,
+			remarks = #remarks#,
+			created_date = #createdDate#,
+			created_user = #createdUser#,
+			last_update_date = #lastUpdateDate#,
+			last_update_user = #lastUpdateUser#
+		WHERE
+			authority_code = #authorityCode#
+	]]>
+	</update>
+
+	<select id="selectAuthorityList" parameterClass="authorityMst" resultMap="authorityResult">
+        <![CDATA[
+		SELECT	authority_code,
+				authority_name,
+				remarks,
+				created_date,
+				created_user,
+				last_update_date,
+				last_update_user
+		FROM	authority_mst
+		WHERE	authority_code like '%$authorityCode$%'
+		AND     authority_name like '%$authorityName$%'
+        ]]>
+	</select>
+	
+	<delete id="deleteByAuthorityCode">  
+        <![CDATA[
+        DELETE
+		FROM
+			authority_mst
+		WHERE
+			authority_code = #value#
+        ]]>
+	</delete>
+
+</sqlMap>

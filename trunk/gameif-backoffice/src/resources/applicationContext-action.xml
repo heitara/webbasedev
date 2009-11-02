@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+	<bean id="actionLoggerInterceptor" class="com.gameif.backoffice.interceptor.ActionLogInterceptor" />
+	
+	<!-- 
+	<bean id="indexAction" class="com.gameif.portal.action.menu.IndexAction" scope="prototype" />
+	-->
+	
+	<bean id="displayAction" class="com.gameif.backoffice.action.menu.DisplayAction" scope="prototype">
+		<!-- 
+		<property name="portalProperties">
+			<ref bean="portalProperties" />
+		</property>
+		 -->
+	</bean>
+			
+	<!-- userLoginAction -->
+	<bean id="userLoginAction" class="com.gameif.backoffice.action.userLogin.UserLoginAction" scope="prototype">
+		<property name="userLoginBusinessLogic">
+			<ref bean="userLoginBusinessLogic" />
+		</property>
+		<!-- 
+		<property name="portalProperties">
+			<ref bean="portalProperties" />
+		</property>
+		<property name="masterInfoBusinessLogic">
+			<ref bean="masterInfoBusinessLogic" />
+		</property>
+		 -->
+	</bean>
+			
+	<!-- authorityAction -->
+	<bean id="authorityAction" class="com.gameif.backoffice.action.authority.AuthorityAction" scope="prototype">
+		<property name="backOfficeProperties">
+			<ref bean="backOfficeProperties" />
+		</property>
+		<property name="masterInfoBusinessLogic">
+			<ref bean="masterInfoBusinessLogic" />
+		</property>
+		<property name="authorityBusinessLogic">
+			<ref bean="authorityBusinessLogic" />
+		</property>
+	</bean>
+</beans>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<include file="struts-default.xml" />
+
+	<package name="gameif" extends="struts-default">
+	
+		<interceptors>
+			<interceptor name="actionLogger" class="actionLoggerInterceptor"/>
+			<interceptor-stack name="gameifStack">
+				<interceptor-ref name="defaultStack"/>
+				<interceptor-ref name="actionLogger"/>
+			</interceptor-stack>
+		</interceptors>
+		
+		<default-interceptor-ref name="gameifStack"/>
+		<default-action-ref name="inputUserLogin"/>
+		
+		<global-results>
+			<result name="unhandledException">/WEB-INF/pages/common/error.jsp</result>
+			<result name="warning">/WEB-INF/pages/common/warning.jsp</result>
+		</global-results>
+
+		<action name="*Page" class="displayAction" method="{1}">
+			<result name="finish">/WEB-INF/pages/common/finish.jsp</result>
+		</action>
+		
+		<action name="*UserLogin" class="userLoginAction" method="{1}">
+			<interceptor-ref name="scopedModelDriven">
+				<param name="scope">request</param>
+				<param name="name">loginUser</param>
+				<param name="className">com.gameif.backoffice.entity.LoginUser</param>
+			</interceptor-ref>
+			<interceptor-ref name="gameifStack"></interceptor-ref>
+			<result name="input">/WEB-INF/pages/backoffice/user_login.jsp</result>
+			<result name="success" type="redirect">/inputlistAuthority.html</result>
+		</action>
+		
+		<action name="*Authority" class="authorityAction" method="{1}">
+			<interceptor-ref name="scopedModelDriven">
+				<param name="scope">request</param>
+				<param name="name">authorityInfo</param>
+				<param name="className">com.gameif.backoffice.bean.AuthorityInfo</param>
+			</interceptor-ref>
+			<interceptor-ref name="gameifStack"></interceptor-ref>
+			<result name="inputAdd">/WEB-INF/pages/backoffice/authority_add.jsp</result>
+			<result name="inputEdit">/WEB-INF/pages/backoffice/authority_edit.jsp</result>
+			<result name="inputlist">/WEB-INF/pages/backoffice/authority_list.jsp</result>
+		</action>
+		
+	</package>
+</struts>
