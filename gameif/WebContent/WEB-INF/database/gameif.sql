@@ -503,6 +503,49 @@ CREATE TABLE  `service_point_give_hist` (
 
 
 
+DROP TABLE IF EXISTS `authority_mst`;
+CREATE TABLE  `authority_mst` (
+  `authority_code` varchar(20) NOT NULL,
+  `authority_name` varchar(50) DEFAULT NULL,
+  `remarks` varchar(200) DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `created_user` varchar(50) DEFAULT NULL,
+  `last_update_date` datetime DEFAULT NULL,
+  `last_update_user` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`authority_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+DROP TABLE IF EXISTS `authority_detail_mst`;
+CREATE TABLE  `authority_detail_mst` (
+  `authority_code` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `function_code` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `authority_level` char(1) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `remarks` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `created_user` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `last_update_date` datetime DEFAULT NULL,
+  `last_update_user` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`authority_code`,`function_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+DROP TABLE IF EXISTS `login_user`;
+CREATE TABLE  `login_user` (
+  `user_id` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `nick_name` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `authority_code` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `created_user` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `last_update_date` datetime DEFAULT NULL,
+  `last_update_user` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
 
 
 DROP TRIGGER IF EXISTS `t_insert_member_info_hist_bu`;
