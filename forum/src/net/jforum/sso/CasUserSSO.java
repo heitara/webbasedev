@@ -102,7 +102,7 @@ public class CasUserSSO implements SSO {
 		return nickName == null ? null : ByteUtil.stringFromHexString(nickName);
 	}
 	
-	private int getUserId(RequestContext request) {
+	public int findUserId(RequestContext request) {
 		
 		String userIdStr = getUserInfoFromCAS(request)[0];
 		

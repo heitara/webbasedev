@@ -226,9 +226,11 @@ public class ControllerUtils
 				userSession.makeAnonymous();
 			}
 			else {
+				
 				SSOUtils utils = new SSOUtils();
+				int userId = sso.findUserId(JForumExecutionContext.getRequest());
 
-				if (!utils.userExists(username)) {
+				if (!utils.userExists(userId)) {
 					SessionContext session = JForumExecutionContext.getRequest().getSessionContext();
 
 					String email = (String) session.getAttribute(SystemGlobals.getValue(ConfigKeys.SSO_EMAIL_ATTRIBUTE));
@@ -242,7 +244,7 @@ public class ControllerUtils
 						password = SystemGlobals.getValue(ConfigKeys.SSO_DEFAULT_PASSWORD);
 					}
 
-					utils.register(password, email);
+					utils.register(userId, username, password, email);
 				}
 
 				this.configureUserSession(userSession, utils.getUser());

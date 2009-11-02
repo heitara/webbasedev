@@ -45,6 +45,8 @@ package net.jforum.sso;
 import net.jforum.dao.DataAccessDriver;
 import net.jforum.dao.UserDAO;
 import net.jforum.entities.User;
+import net.jforum.util.preferences.ConfigKeys;
+import net.jforum.util.preferences.SystemGlobals;
 
 /**
  * General utilities to use with SSO.
@@ -79,6 +81,17 @@ public class SSOUtils
 		return this.exists;
 	}
 	
+	public boolean userExists(int userId)
+	{
+		this.username = username;
+		this.dao = DataAccessDriver.getInstance().newUserDAO();
+
+		this.user = this.dao.selectById(userId);
+		this.exists = this.user.getId() != SystemGlobals.getIntValue(ConfigKeys.ANONYMOUS_USER_ID);
+		
+		return this.exists;
+	}
+	
 	/**
 	 * Registers a new user. 
 	 * This method should be used together with {@link #userExists(String)}. 
@@ -102,7 +115,26 @@ public class SSOUtils
 		user.setEmail(email);
 		user.setActive(1);
 		
-		this.dao.addNew(user);
+		this.dao.addNewWithId(user);
+	}
+	
+	public void register(int userId, String userName, String password, String email)
+	{
+		if (this.exists) {
+			return;
+		}
+		
+		this.username = userName;
+		
+		// Is a new user for us. Register him
+		this.user = new User();
+		user.setId(userId);
+		user.setUsername(this.username);
+		user.setPassword(password);
+		user.setEmail(email);
+		user.setActive(1);
+		
+		this.dao.addNewWithId(user);
 	}
 	
 	/**
