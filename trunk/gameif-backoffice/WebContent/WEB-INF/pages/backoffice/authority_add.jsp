@@ -52,37 +52,37 @@
 							<tr>
 								<td><label>会員管理</label></td>
 								<td>
-									<s:radio name='member' list="backOfficeProperties.authorityLevels" title="会員管理" onblur="validate(this, 'REQ');"></s:radio>
+									<s:radio name='memberLevel' list="backOfficeProperties.authorityLevels" title="会員管理" onblur="validate(this, 'REQ');"></s:radio>
 								</td>
 							</tr>
 							<tr>
 								<td><label>問合せ管理 </label></td>
 								<td>
-									<s:radio name='inquiry' list="backOfficeProperties.authorityLevels" title="問合せ管理 " onblur="validate(this, 'REQ');"></s:radio>
+									<s:radio name='inquiryLevel' list="backOfficeProperties.authorityLevels" title="問合せ管理 " onblur="validate(this, 'REQ');"></s:radio>
 								</td>
 							</tr>
 							<tr>
 								<td><label>友達紹介管理 </label></td>
 								<td>
-									<s:radio name='invite' list="backOfficeProperties.authorityLevels" title="友達紹介管理 " onblur="validate(this, 'REQ');"></s:radio>
+									<s:radio name='inviteLevel' list="backOfficeProperties.authorityLevels" title="友達紹介管理 " onblur="validate(this, 'REQ');"></s:radio>
 								</td>
 							</tr>
 							<tr>
 								<td><label>キャンペーン管理</label></td>
 								<td>
-									<s:radio name='campaign' list="backOfficeProperties.authorityLevels" title="キャンペーン管理" onblur="validate(this, 'REQ');"></s:radio>
+									<s:radio name='campaignLevel' list="backOfficeProperties.authorityLevels" title="キャンペーン管理" onblur="validate(this, 'REQ');"></s:radio>
 								</td>
 							</tr>
 							<tr>
 								<td><label>サービスポイント管理</label></td>
 								<td>
-									<s:radio name='servicePoint' list="backOfficeProperties.authorityLevels" title="サービスポイント管理" onblur="validate(this, 'REQ');"></s:radio>
+									<s:radio name='servicePointLevel' list="backOfficeProperties.authorityLevels" title="サービスポイント管理" onblur="validate(this, 'REQ');"></s:radio>
 								</td>
 							</tr>
 							<tr>
 								<td><label>売上げ集計 </label></td>
 								<td>
-									<s:radio name='salesInfo' list="backOfficeProperties.authorityLevels" title="売上げ集計 " onblur="validate(this, 'REQ');"></s:radio>
+									<s:radio name='salesLevel' list="backOfficeProperties.authorityLevels" title="売上げ集計 " onblur="validate(this, 'REQ');"></s:radio>
 								</td>
 							</tr>
 						</table>
