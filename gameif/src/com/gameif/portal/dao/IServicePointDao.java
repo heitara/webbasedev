@@ -5,6 +5,6 @@ import com.gameif.portal.entity.ServicePoint;
 
 public interface IServicePointDao extends IBaseDao<ServicePoint, ServicePoint> {
 	
-	public ServicePoint selectBalanceByTitleAndMemnum(ServicePoint oldServicePoint);
+	public ServicePoint selectByTitleAndMemnumForUpdate(ServicePoint oldServicePoint);
 
 }

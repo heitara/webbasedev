@@ -118,6 +118,23 @@
 				</tr>
 				<tr class="space_row"><td colspan="2"></td></tr>
 				<tr>
+					<th><span class="required">*</span><label for="updateMemberInfo_model_questionCd">秘密質問：</label></th>
+					<td>
+						<s:select name="questionCd" list="masterInfoBusinessLogic.allQuestionList" listKey="questionCode" listValue="questionName" headerKey="0" headerValue="" title="秘密質問" onblur="validate(this,'REQ');"/>
+						<span class="explain">※ パスワードを忘れた時に使います。（変更不可）</span>
+						<span id="error_questionCd" class="input_error"><s:fielderror><s:param>questionCd</s:param></s:fielderror></span>
+					</td>
+				</tr>
+				<tr>
+					<th><span class="required">*</span><label for="updateMemberInfo_model_answer">秘密質問の答え：</label></th>
+					<td>
+						<s:textfield name="answer" maxlength="20" cssClass="ime_mode_y" title="秘密質問の答え" onblur="validate(this,'REQ,ZEN');"/>
+						<span class="explain">※ 2～10桁の全角文字で入力してください。</span>
+						<span id="error_answer" class="input_error"><s:fielderror><s:param>answer</s:param></s:fielderror></span>
+					</td>
+				</tr>
+				<tr class="space_row"><td colspan="2"></td></tr>
+				<tr>
 					<th></th>
 					<td>
 						<s:checkbox name="model.mailmagReqCd" value="%{mailmagReqCd == null ? true : (mailmagReqCd == 1 ? true : false)}" fieldValue="1"/>
@@ -130,7 +147,7 @@
 				<s:hidden name="model.memId"/>
 				<s:hidden name="model.versionNo"/>
 				<s:token/>
-				<s:submit value="更新" cssClass="submit"/>
+				<s:submit value="更新" cssClass="submit" />
 				<s:reset value="クリア" cssClass="submit"/>
 			</div>
 		</s:form>

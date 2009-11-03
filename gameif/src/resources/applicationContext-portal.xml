@@ -94,6 +94,15 @@
 				<entry key="@yahoo.com" value="yahoo.com"/>
 			</map>
 		</property>
+		<property name="timeZoneList">
+			<map>
+				<!-- key:開始時間 (24時制)[HHmm]-->
+				<!-- value:終了時間 (24時制)[HHmm]-->
+				<entry key="0000" value="0300"/>
+				<entry key="1200" value="1300"/>
+				<entry key="1900" value="2000"/>
+			</map>
+		</property>
 	</bean>
 	
 </beans>

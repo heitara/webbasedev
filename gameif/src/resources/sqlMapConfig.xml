@@ -35,5 +35,6 @@
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/gameLoginCount.xml" />
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/servicePointTypeMst.xml" />
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/servicePointGiveHist.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/tempMemberInfo.xml" />
 	
 </sqlMapConfig>

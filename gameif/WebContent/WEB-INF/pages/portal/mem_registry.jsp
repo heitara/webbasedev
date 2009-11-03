@@ -14,7 +14,7 @@
 <dl class="light_box tspace_n">
 	<dt><strong>会員登録</strong><span>&nbsp;</span></dt>
 	<dd>
-		<s:form action="createMember" cssClass="entry">
+		<s:form action="createTempMember" cssClass="entry">
 			<s:hidden name="inviteId"></s:hidden>
 			<table>
 				<tr>
@@ -59,6 +59,7 @@
 						<span id="error_confirmPwd" class="input_error"><s:fielderror><s:param>confirmPwd</s:param></s:fielderror></span>
 					</td>
 				</tr>
+				<!-- 
 				<tr class="space_row"><td colspan="2"></td></tr>
 				<tr>
 					<th><span class="required">*</span><label for="createMember_questionCd">秘密質問：</label></th>
@@ -76,6 +77,7 @@
 						<span id="error_answer" class="input_error"><s:fielderror><s:param>answer</s:param></s:fielderror></span>
 					</td>
 				</tr>
+				 -->
 				<tr class="space_row"><td colspan="2"></td></tr>
 
 				<tr>
@@ -98,16 +100,13 @@
 				<tr>
 					<th></th>
 					<td>
-						<s:checkbox name="agreement" value="%{agreement == 1 ? true : false}" fieldValue="1" title="利用規約に同意" onblur="validate(this,'REQ');"/>
-						<label for="createMember_agreement">利用規約に同意する。</label>
-						(<a href="#" class="agreement">利用規約</a> )
-						<span id="error_agreement" class="input_error"><s:fielderror><s:param>agreement</s:param></s:fielderror></span>
+						<span>上記の登録フォームを送信することにより、あなたは<a href="#" class="agreement">利用規約</a> に同意したこととなります。</span>
 					</td>
 				</tr>
 			</table>
 			<div class="submit">
 				<s:token />
-				<s:submit value="登録"/>
+				<s:submit value="利用規約に同意して登録する" cssClass="submit"/>
 				<s:reset value="クリア"/>
 			</div>
 		</s:form>

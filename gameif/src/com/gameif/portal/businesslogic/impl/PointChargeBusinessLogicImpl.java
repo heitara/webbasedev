@@ -243,7 +243,7 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		servicePoint.setTitleId(settlementHist.getTitleId());
 		servicePoint.setGiveDate(giveDate);
 		// 有効なデータが存在かどうか
-		servicePoint = servicePointDao.selectBalanceByTitleAndMemnum(servicePoint);
+		servicePoint = servicePointDao.selectByTitleAndMemnumForUpdate(servicePoint);
 		BigDecimal amount = settlementHist.getPointAmountAct().multiply(servicePointTypeMst.getPointAmount()).divide(new BigDecimal(100));
 		if (servicePoint == null) {
 			

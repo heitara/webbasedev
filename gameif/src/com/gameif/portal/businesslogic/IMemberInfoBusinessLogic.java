@@ -9,10 +9,18 @@ public interface IMemberInfoBusinessLogic {
 
 	/**
 	 * 会員情報を登録する。
+	 * @param memNum 臨時会員情報の会員番号
+	 * @param authKey 臨時キー
+	 */
+	@Transactional
+	public void saveMemberInfo(Long memNum, String authKey) throws LogicException;
+
+	/**
+	 * 臨時会員情報を登録する。
 	 * @param memberInfo 会員情報（新規登録時必要な項目が格納されていること）
 	 */
 	@Transactional
-	public void saveMemberInfo(MemberInfo memberInfo, String inviteId);
+	public void saveTempMemberInfo(MemberInfo memberInfo, String inviteId);
 
 	/**
 	 * 会員パスワードを変更する。

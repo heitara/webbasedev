@@ -27,6 +27,9 @@
 		<property name="inviteInfoDao">
 			<ref bean="inviteInfoDao" />
 		</property>
+		<property name="tempMemberInfoDao">
+			<ref bean="tempMemberInfoDao" />
+		</property>
 	</bean>
 	
 	<!-- inquiryInfoBusinessLogic -->

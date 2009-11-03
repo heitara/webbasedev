@@ -18,8 +18,7 @@ public class MemberPwdRegetAction extends ModelDrivenActionSupport<TempPwdInfo> 
 	private ITempPwdRegetBusinessLogic tempPwdRegetBusinessLogic;
 	private IMasterInfoBusinessLogic masterInfoBusinessLogic;
 
-	private Integer questionCd;
-	private String answer;
+	private String memId;
 
 	/**
 	 * @return the tempPwdRegetBusinessLogic
@@ -54,33 +53,18 @@ public class MemberPwdRegetAction extends ModelDrivenActionSupport<TempPwdInfo> 
 	}
 
 	/**
-	 * @return the questionCd
+	 * @return the memId
 	 */
-	public Integer getQuestionCd() {
-		return questionCd;
+	public String getMemId() {
+		return memId;
 	}
 
 	/**
-	 * @param questionCd
-	 *            the questionCd to set
+	 * @param memId
+	 *            the memId to set
 	 */
-	public void setQuestionCd(Integer questionCd) {
-		this.questionCd = questionCd;
-	}
-
-	/**
-	 * @return the answer
-	 */
-	public String getAnswer() {
-		return answer;
-	}
-
-	/**
-	 * @param answer
-	 *            the answer to set
-	 */
-	public void setAnswer(String answer) {
-		this.answer = answer;
+	public void setMemId(String memId) {
+		this.memId = memId;
 	}
 
 	/**
@@ -100,9 +84,8 @@ public class MemberPwdRegetAction extends ModelDrivenActionSupport<TempPwdInfo> 
 	 */
 	public String create() {
 		MemberInfo memberInfo = new MemberInfo();
+		memberInfo.setMemId(getMemId());
 		memberInfo.setMailPc(this.getModel().getMailPc());
-		memberInfo.setQuestionCd(questionCd);
-		memberInfo.setAnswer(answer);
 
 		try {
 			tempPwdRegetBusinessLogic.saveTempPwdInfo(this.getModel(),
