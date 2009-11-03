@@ -570,7 +570,7 @@ CREATE TABLE  `temp_member_info` (
   `nick_name` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
   `mem_pwd` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `mail_pc` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `auth_key` char(1) COLLATE utf8_unicode_ci NOT NULL,
+  `auth_key` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `invite_id` bigint(20) DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
   `created_ip` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
