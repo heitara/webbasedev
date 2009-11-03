@@ -239,9 +239,12 @@ function previewMessage()
 	var p = { 
 		text:f.message.value, 
 		subject:f.subject.value, 
-		html:!f.disable_html.checked, 
-		bbcode:!f.disable_bbcode.checked, 
-		smilies:!f.disable_smilies.checked 
+		//html:!f.disable_html.checked, 
+		html:false, 
+		//bbcode:!f.disable_bbcode.checked,
+		bbcode:true,
+		//smilies:!f.disable_smilies.checked 
+		smilies:true 
 	};
 
 	$.ajax({

@@ -115,7 +115,7 @@ function smiliePopup()
 
 <#if !user.isNotifyOnMessagesEnabled()><#assign repliesChecked = ""/></#if>
 
-<form action="${JForumContext.encodeURL("/jforum")}" method="post" enctype="multipart/form-data" name="post" id="post" onsubmit="return validatePostForm(this)">
+<form style="margin:0px;" action="${JForumContext.encodeURL("/jforum")}" method="post" enctype="multipart/form-data" name="post" id="post" onsubmit="return validatePostForm(this)">
 <input type="hidden" name="action" value="${action}" />
 <input type="hidden" name="module" value="${moduleName}" />
 <input type="hidden" name="preview" value="0"/>
@@ -124,43 +124,14 @@ function smiliePopup()
 <#if isEdit><input type="hidden" name="post_id" value="${post.id}" /></#if>
 <#if !isNewTopic><input type="hidden" name="topic_id" value="${topic.id}" /></#if>
 
-<table cellspacing="0" cellpadding="10" width="100%" align="center" border="0">
+<table cellspacing="0" cellpadding="0" width="100%" align="center" border="0">
 	<tr>
 		<td class="bodyline">
-			
-			<!-- Preview message -->
-			<a name="preview"></a>
-			<table class="forumline" width="100%" cellspacing="1" cellpadding="4" border="0" <#if !preview>style="display: none"</#if> id="previewTable">
-				<tr>
-					<th height="25" class="thhead">${I18n.getMessage("PostForm.preview")}</th>
-				</tr>
-				<tr>
-					<td class="row1">
-						<img src="${contextPath}/templates/${templateName}/images/icon_minipost.gif" alt="Post" />
-						<span class="postdetails" id="previewSubject"> ${I18n.getMessage("PostForm.subject")}: <#if postPreview?exists>${postPreview.subject?html}</#if></span>
-					</td>
-				</tr>
-				<tr>
-					<td class="row1" height="100%">
-						<table width="100%" border="0" cellspacing="0" cellpadding="0" style="height:100%">
-							<tr>
-								<td><span id="previewMessage" class="postbody"><#if postPreview?exists>${postPreview.text}</#if></span></td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-				<tr>
-					<td class="spacerow" height="1"><img src="${contextPath}/templates/${templateName}/images/spacer.gif" alt="" width="1" height="1" /></td>
-				</tr>
-			</table>
-			<br clear="all" />
-
-			<table cellspacing="2" cellpadding="2" width="100%" align="center" border="0">
+			<table cellspacing="0" cellpadding="0" width="100%" align="center" border="0" style="margin:15px 0px">
 				<tr>
 					<td align="left">
 						<span class="nav">
 							<a class="nav" href="${JForumContext.encodeURL("/forums/list")}">${I18n.getMessage("ForumListing.forumIndex")}</a>
-
 							<#if forum?exists>
 							&raquo; <a class="nav" href="${JForumContext.encodeURL("/forums/show/${forum.id}")}">${forum.name}</a>
 							</#if>
@@ -168,17 +139,34 @@ function smiliePopup()
 					</td>
 				</tr>
 			</table>
+			<!-- Preview message -->
+			<a name="preview"></a>
+			<table class="forumline" width="100%" cellspacing="1" cellpadding="0" border="0" <#if !preview>style="display: none"</#if> id="previewTable">
+				<tr height="30">
+					<th>${I18n.getMessage("PostForm.preview")}</th>
+				</tr>
+				<tr>
+					<td class="row1" style="padding:5px;">
+						<span class="postdetails" id="previewSubject"> ${I18n.getMessage("PostForm.subject")}: <#if postPreview?exists>${postPreview.subject?html}</#if></span>
+					</td>
+				</tr>
+				<tr>
+					<td class="row1" style="padding:5px;" height="100%">
+						<span id="previewMessage" class="postbody"><#if postPreview?exists>${postPreview.text}</#if></span>
+					</td>
+				</tr>
+			</table>
 		
 			<table class="forumline" cellspacing="1" cellpadding="3" width="100%" border="0">
-				<tr>
-					<th class="thhead" colspan="2" height="25">
+				<tr height="30">
+					<th colspan="2" style="text-align:center;padding:3px;">
 						<b>
 						<#if forum?exists>
 							<#if (topic?exists && topic.id > -1)>
 							    <#if isEdit>
-							    	${I18n.getMessage("PostForm.edit")} "${topic.title?html}"
+							    	${I18n.getMessage("PostForm.edit")} 「${topic.title?html}」
 							    <#else>
-									${I18n.getMessage("PostForm.reply")} "${topic.title?html}"
+									${I18n.getMessage("PostForm.reply")} 「${topic.title?html}」
 								</#if>
 							<#else>
 								${I18n.getMessage("PostForm.title")}
@@ -193,10 +181,9 @@ function smiliePopup()
 						</b>
 					</th>
 				</tr>
-
 				<#if !forum?exists>
 					<tr>
-						<td class="row1" width="15%"><span class="gen"><b>${I18n.getMessage("PrivateMessage.user")}</b></span></td>
+						<td class="row1" width="15%" align="right">${I18n.getMessage("PrivateMessage.user")}</td>
 						<td class="row2" width="85%">
 							<#if pmRecipient?exists>
 								<#assign toUsername = toUsername/>
@@ -211,9 +198,8 @@ function smiliePopup()
 								<#assign toUsername = ""/>
 								<#assign toUserId = ""/>
 							</#if>
-
 							<input type="text" class="post" size="25" name="toUsername" value="${toUsername}"/>&nbsp;
-							<input type="button" value="${I18n.getMessage("PrivateMessage.findUser")}" name="findUser" class="liteoption" onclick="openFindUserWindow(); return false;" />
+							<input type="button" value="${I18n.getMessage("PrivateMessage.findUser")}" name="findUser" onclick="openFindUserWindow(); return false;" />
 							<input type="hidden" name="toUserId" value="${toUserId}" />
 						</td>
 					</tr>
@@ -226,7 +212,7 @@ function smiliePopup()
 				</#if>
 
 				<tr>
-					<td class="row1" width="15%"><span class="gen"><b>${I18n.getMessage("PostForm.subject")}</b></span></td>
+					<td class="row1" align="right" width="15%">${I18n.getMessage("PostForm.subject")}</td>
 					<#if post?exists>
 						<#assign subject = post.subject?default("")?html/>
 						<#elseif pmReply?default(false)>
@@ -235,26 +221,22 @@ function smiliePopup()
 						<#assign subject = I18n.getMessage("Message.replyPrefix") + topic.title?default("")?html/>
 					</#if>
 					<td class="row2" width="85%">
-						<span class="gen">
-							<input class="subject" type="text" tabindex="2" maxlength="100" name="subject" value="${subject?default("")}" /> 
-						</span>
+						<input class="subject" type="text" tabindex="2" maxlength="100" style="width:540px;" name="subject" value="${subject?default("")}" />
 					</td>
 				</tr>
 
 				<tr>
 					<!-- Smilies -->
-					<td class="row1" valign="top">
-						<span class="gen"><b>${I18n.getMessage("PostForm.body")}</b></span>
-
+					<td class="row1" align="right" valign="top">
+						${I18n.getMessage("PostForm.body")}
 						<table cellspacing="0" cellpadding="1" border="0" align="center">
 							<tr>
 								<td valign="middle" align="center">
 									<br />
 									<table cellspacing="0" cellpadding="5" width="100" border="0">
 										<tr align="center">
-											<td class="gensmall" colspan="4"><b>${I18n.getMessage("PostForm.emoticons")}</b></td>
+											<td class="gensmall" colspan="4">${I18n.getMessage("PostForm.emoticons")}</td>
 										</tr>
-
 										<#assign count = 0/>
 										<#assign lastSmilie = ""/>
 											<#list smilies as smilie>
@@ -276,9 +258,7 @@ function smiliePopup()
 											<#if !(count % 4 == 0)>
 											</#if>
 										<tr align="center">
-											<td colspan="4">
-												<span class="nav"><a href="#" onclick="smiliePopup();return false;">${I18n.getMessage("PostForm.moreSmilies")}</a></span>
-											</td>
+											<td colspan="4"><a href="#" onclick="smiliePopup();return false;">${I18n.getMessage("PostForm.moreSmilies")}</a></td>
 										</tr>
 									</table>
 								</td>
@@ -293,18 +273,19 @@ function smiliePopup()
 								<!-- bb code -->
 								<tr valign="middle">
 									<td>
-										<input class="button" onmouseover="helpline('b')" style="FONT-WEIGHT: bold; WIDTH: 30px" accesskey="b" onclick="bbstyle(0)" type="button" value=" B " name="addbbcode0" /> 
-										<input class="button" onmouseover="helpline('i')" style="WIDTH: 30px; FONT-STYLE: italic" accesskey="i" onclick="bbstyle(2)" type="button" value=" i " name="addbbcode2" /> 
-										<input class="button" onmouseover="helpline('u')" style="WIDTH: 30px; TEXT-DECORATION: underline" accesskey="u" onclick="bbstyle(4)" type="button" value=" u " name="addbbcode4" />
-										<input class="button" onmouseover="helpline('q')" style="WIDTH: 50px" accesskey="q" onclick="bbstyle(6)" type="button" value="Quote" name="addbbcode6" /> 
-										<input class="button" onmouseover="helpline('c')" style="WIDTH: 40px" accesskey="c" onclick="bbstyle(8)" type="button" value="Code" name="addbbcode8" />
-										<input class="button" onmouseover="helpline('l')" style="WIDTH: 40px" accesskey="l" onclick="bbstyle(10)" type="button" value="List" name="addbbcode10" />
-										<input class="button" onmouseover="helpline('p')" style="WIDTH: 40px" accesskey="p" onclick="bbstyle(12)" type="button" value="Img" name="addbbcode12" />
-										<input class="button" onmouseover="helpline('w')" style="WIDTH: 40px" accesskey="w" onclick="bbstyle(14)" type="button" value="URL" name="addbbcode14" />
-										<input class="button" onmouseover="helpline('g')" style="WIDTH: 50px" accesskey="g" onclick="bbstyle(16)" type="button" value="Google" name="addbbcode16" />
-										<input class="button" onmouseover="helpline('y')" style="WIDTH: 60px" accesskey="y" onclick="bbstyle(18)" type="button" value="Youtube" name="addbbcode18" />
-										<input class="button" onmouseover="helpline('k')" style="WIDTH: 40px" accesskey="k" onclick="bbstyle(20)" type="button" value="Flash" name="addbbcode20" />
-										<input class="button" onmouseover="helpline('v')" style="WIDTH: 40px" accesskey="v" onclick="bbstyle(22)" type="button" value="WMV" name="addbbcode22" />
+										<input onmouseover="helpline('b')" style="FONT-WEIGHT: bold; WIDTH: 30px" accesskey="b" onclick="bbstyle(0)" type="button" value="B" name="addbbcode0" /> 
+										<input onmouseover="helpline('i')" style="padding:1px; WIDTH: 30px; FONT-STYLE: italic" accesskey="i" onclick="bbstyle(2)" type="button" value="i" name="addbbcode2" /> 
+										<input onmouseover="helpline('u')" style="padding:1px; WIDTH: 30px; TEXT-DECORATION: underline" accesskey="u" onclick="bbstyle(4)" type="button" value="U" name="addbbcode4" />
+										<input onmouseover="helpline('q')" style="padding:1px; WIDTH: 50px" accesskey="q" onclick="bbstyle(6)" type="button" value="Quote" name="addbbcode6" /> 
+										<input onmouseover="helpline('c')" style="padding:1px; WIDTH: 40px" accesskey="c" onclick="bbstyle(8)" type="button" value="Code" name="addbbcode8" />
+										<input onmouseover="helpline('l')" style="padding:1px; WIDTH: 40px" accesskey="l" onclick="bbstyle(10)" type="button" value="List" name="addbbcode10" />
+										<input onmouseover="helpline('p')" style="padding:1px; WIDTH: 40px" accesskey="p" onclick="bbstyle(12)" type="button" value="Img" name="addbbcode12" />
+										<input onmouseover="helpline('w')" style="padding:1px; WIDTH: 40px" accesskey="w" onclick="bbstyle(14)" type="button" value="URL" name="addbbcode14" />
+										<input onmouseover="helpline('g')" style="padding:1px; WIDTH: 50px" accesskey="g" onclick="bbstyle(16)" type="button" value="Google" name="addbbcode16" />
+										<input onmouseover="helpline('y')" style="padding:1px; WIDTH: 60px" accesskey="y" onclick="bbstyle(18)" type="button" value="Youtube" name="addbbcode18" />
+										<input onmouseover="helpline('k')" style="padding:1px; WIDTH: 40px" accesskey="k" onclick="bbstyle(20)" type="button" value="Flash" name="addbbcode20" />
+										<input onmouseover="helpline('v')" style="padding:1px; WIDTH: 40px" accesskey="v" onclick="bbstyle(22)" type="button" value="WMV" name="addbbcode22" />
+										<input onclick="bbstyle(-1)" value="${I18n.getMessage("PostForm.closeMarks")}" style="padding:1px; WIDTH: 70px" type="button" />
 									</td>
 								</tr>
 								
@@ -327,7 +308,7 @@ function smiliePopup()
 											<option class="genmed" style="COLOR: violet; BACKGROUND-COLOR: #fafafa" value="violet">${I18n.getMessage("PostForm.colorViolet")}</option> 
 											<option class="genmed" style="COLOR: white; BACKGROUND-COLOR: #fafafa" value="white">${I18n.getMessage("PostForm.colorWhite")}</option>
 											<option class="genmed" style="COLOR: black; BACKGROUND-COLOR: #fafafa" value="black">${I18n.getMessage("PostForm.colorBlack")}</option>
-										</select> 
+										</select>
 
 										&nbsp;${I18n.getMessage("PostForm.font")}:
 										<select onmouseover="helpline('f')" onchange="bbfontstyle('[size=' + this.form.addbbcode26.options[this.form.addbbcode26.selectedIndex].value + ']', '[/size]')" name="addbbcode26"> 
@@ -338,7 +319,6 @@ function smiliePopup()
 											<option class="genmed" value="24">${I18n.getMessage("PostForm.fontGiant")}</option>
 										</select> 
 										</span>
-										<span class="gensmall"><a class="genmed" onmouseover="helpline('a')" href="javascript:bbstyle(-1)">${I18n.getMessage("PostForm.closeMarks")}</a></span>
 									</td>
 								</tr>
 
@@ -370,7 +350,7 @@ function smiliePopup()
 									<li target="postPoll"><a href="javascript:void(0);" onClick="activateTab('postPoll', this);"><span>Poll</span></a></li>
 								</#if>
 								<#if attachmentsEnabled>
-								    <li target="postAttachments"><a href="javascript:void(0);" onClick="activateTab('postAttachments', this);"><span>Attachments</span></a></li>
+								    <li target="postAttachments"><a href="javascript:void(0);" onClick="activateTab('postAttachments', this);"><span>添付ファイル</span></a></li>
 								</#if>
 							</ul>
 						</div>
@@ -423,8 +403,8 @@ function smiliePopup()
 				
 				<tr>
 					<td align="center" height="28" colspan="2" class="catbottom">
-						<input class="mainoption" id="btnPreview" tabindex="5" type="button" value="${I18n.getMessage("PostForm.preview")}" onclick="previewMessage();" />&nbsp;
-						<input class="mainoption" id="btnSubmit" accesskey="s" tabindex="6" type="submit" value="${I18n.getMessage("PostForm.submit")}" name="post" />
+						<input style="width:90px;" id="btnPreview" tabindex="5" type="button" value="${I18n.getMessage("PostForm.preview")}" onclick="previewMessage();" />&nbsp;
+						<input style="width:90px;" id="btnSubmit" accesskey="s" tabindex="6" type="submit" value="${I18n.getMessage("PostForm.submit")}" name="post" />
 						<img src="${contextPath}/images/transp.gif" id="icon_saving">
 					</td>
 				</tr>
@@ -437,7 +417,7 @@ function smiliePopup()
 	<td colspan="2">
 		<table border="0" cellpadding="3" cellspacing="0" width="100%" class="forumline">
 			<tr>
-				<th class="cathead" height="28" align="center"><b><span class="cattitle">${I18n.getMessage("PostShow.topicReview")}</span></b></th>
+				<th class="cathead" height="28" align="center"><b><span class="cattitle" style="color:#FFF;">${I18n.getMessage("PostShow.topicReview")}</span></b></th>
 			</tr>
 	
 			<tr>

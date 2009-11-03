@@ -1,16 +1,5 @@
 </td>
 </tr>
-	<tr>
-		<td align="center">
-			<#if session?exists && session.isAdmin()><span class="gen"><a id="adminpanel" href='${JForumContext.encodeURL("/admBase/login")}'>${I18n.getMessage("ForumBase.admin")}</a></span></#if>
-		</td>
-	</tr>
-
-	<tr>
-		<td align="center">
-			<span class="copyright">Powered by <a class="copyright" href="http://www.jforum.net/" target="_blank">JForum ${version}</a> &copy; <a class="copyright" href="http://www.jforum.net/team.jsp" target="_blank">JForum Team</a></span>
-		</td>
-	</tr>
 </table>
 
 <#if hasCodeBlock>
@@ -18,6 +7,20 @@
 </#if>
 
 <iframe src="${contextPath}/ping_session.jsp" height="0" width="0" frameborder="0" scrolling="no"></iframe>
-
+<div class="page_bottom">
+	<div class="pb_left">
+		<a href="http://company.game-if.com" target="_blank" title="${I18n.getMessage("info.company")}">${I18n.getMessage("info.company")}</a> | 
+		<a href="http://info.game-if.com/component/content/article/1-kiyaku" title="${I18n.getMessage("info.kiyaku")}">${I18n.getMessage("info.kiyaku")}</a> | 
+		<a href="http://info.game-if.com/component/content/article/3-menseki" title="${I18n.getMessage("info.menseki")}">${I18n.getMessage("info.menseki")}</a> | 
+		<a href="http://info.game-if.com/component/content/article/2-privarypolicy" title="${I18n.getMessage("info.privarypolicy")}">${I18n.getMessage("info.privarypolicy")}</a> | 
+		<a href="http://info.game-if.com/component/content/article/4-shopinfo" title="${I18n.getMessage("info.shopinfo")}">${I18n.getMessage("info.shopinfo")}</a>
+	</div>
+	<div class="pb_right">
+		${I18n.getMessage("info.copyright")}<br/>
+		<span class="copyright">Powered by <a class="copyright" href="http://www.jforum.net/" target="_blank">JForum ${version}</a> &copy; <a class="copyright" href="http://www.jforum.net/team.jsp" target="_blank">JForum Team</a>.</span>
+	</div>
+	<div class="pb_browser">${I18n.getMessage("info.browser")}
+	</div>
+</div>
 </body>
 </html>
