@@ -51,7 +51,7 @@
 		</selectKey>
 	</insert>
 
-	<select id="selectBalanceByTitleAndMemnum" parameterClass="servicePoint" resultMap="servicePointResult">   
+	<select id="selectByTitleAndMemnumForUpdate" parameterClass="servicePoint" resultMap="servicePointResult">   
         <![CDATA[
 	        SELECT
 				service_point_no,
@@ -71,6 +71,7 @@
 				mem_num = #memNum#
 			AND title_id = #titleId#
       		AND (#giveDate# BETWEEN point_start_date AND point_end_date)
+			FOR UPDATE
         ]]>
 	</select>
 

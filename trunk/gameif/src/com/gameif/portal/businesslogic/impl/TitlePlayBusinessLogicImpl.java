@@ -61,7 +61,10 @@ public class TitlePlayBusinessLogicImpl extends BaseBusinessLogic implements ITi
 			// 前日の日時を取得する
 			String yesterday = df.format(new Date(playDate.getTime() - 24 * 60 * 60 * 1000));
 			// 同じ日にログイン回数が複数場合、一回だけを加算する
-			if (0 != df.format(gameLoginCount.getLastLoginYmd()).compareTo(df.format(playDate))) {
+			if (0 == df.format(gameLoginCount.getLastLoginYmd()).compareTo(df.format(playDate))) {
+
+			// 前回のログイン日時は昨日の場合、「ログイン回数 = 前回のログイン回数 + 1」
+			} else if (0 == df.format(gameLoginCount.getLastLoginYmd()).compareTo(df.format(yesterday))) {
 				// ログイン回数 = 前回のログイン回数 + 1
 				gameLoginCount.setGameLoginCount(gameLoginCount.getGameLoginCount() + 1);
 				// ログイン日
@@ -70,8 +73,8 @@ public class TitlePlayBusinessLogicImpl extends BaseBusinessLogic implements ITi
 				gameLoginCount.setLastUpdateDate(playDate);
 				// ゲームログイン回数情報を更新する
 				gameLoginCountDao.update(gameLoginCount);
-			// 連続してゲームにログインではない場合、ログイン回数を初期化する
-			} else if (0 != df.format(gameLoginCount.getLastLoginYmd()).compareTo(yesterday)) {
+			// 連続してゲームにログインしてない場合、ログイン回数を初期化する
+			} else {
 				// ログイン回数（１を設定する）
 				gameLoginCount.setGameLoginCount(1);
 				// ログイン日

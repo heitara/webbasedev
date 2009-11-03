@@ -1,5 +1,6 @@
 package com.gameif.portal.businesslogic.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -18,11 +19,14 @@ import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.dao.IInviteInfoDao;
 import com.gameif.portal.dao.IMemberInfoDao;
 import com.gameif.portal.dao.IMemberLoginInfoDao;
+import com.gameif.portal.dao.ITempMemberInfoDao;
 import com.gameif.portal.dao.ITempPwdInfoDao;
 import com.gameif.portal.entity.InviteInfo;
 import com.gameif.portal.entity.MemberInfo;
 import com.gameif.portal.entity.MemberLoginInfo;
+import com.gameif.portal.entity.TempMemberInfo;
 import com.gameif.portal.entity.TempPwdInfo;
+import com.gameif.portal.helper.PortalProperties;
 import com.gameif.portal.util.ContextUtil;
 
 public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IMemberInfoBusinessLogic {
@@ -34,22 +38,34 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	private TemplateMailer templateMailer;
 	private ITempPwdInfoDao tempPwdInfoDao;
 	private IInviteInfoDao inviteInfoDao;
+	private ITempMemberInfoDao tempMemberInfoDao;
 	
 	private Integer invalidMinute;
+	private PortalProperties portalProperties;
 
 	/**
 	 * 会員情報を登録する。
-	 * @param memberInfo 会員情報（新規登録時必要な項目が格納されていること）
+	 * @param memNum 臨時会員情報の会員番号
+	 * @param authKey 臨時キー
 	 */
 	@Transactional
 	@Override
-	public void saveMemberInfo(MemberInfo memberInfo, String inviteId) {
+	public void saveMemberInfo(Long memNum, String authKey) throws LogicException {
+		
+		TempMemberInfo tempMemberInfo = tempMemberInfoDao.selectValidTempMemberInfo(memNum, authKey, invalidMinute);
+		if (tempMemberInfo == null) {
+			
+			// データが存在しない
+			throw new DataNotExistsException("Data not exists.");
+		}
+		
+		MemberInfo memberInfo = new MemberInfo();
 		
 		// アカウントＩＤとメールアドレスは小文字に変換、両辺スペース削除
-		memberInfo.setMemId(memberInfo.getMemId().trim().toLowerCase());
-		memberInfo.setMailPc(memberInfo.getMailPc().trim().toLowerCase());
+		memberInfo.setMemId(tempMemberInfo.getMemId().trim().toLowerCase());
+		memberInfo.setMailPc(tempMemberInfo.getMailPc().trim().toLowerCase());
 		// ニックネームは両辺スペース削除
-		memberInfo.setNickName(memberInfo.getNickName().trim());
+		memberInfo.setNickName(tempMemberInfo.getNickName().trim());
 
 		// 会員種別：ゲームイフ会員
 		memberInfo.setMemKindCd(PortalConstants.MemberKindCd.GAMEIF);
@@ -61,8 +77,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		memberInfo.setMailmagObjCd(PortalConstants.YES);
 
 		// パスワードと秘密質問をMD5アルゴリズムで暗号化する。
-		memberInfo.setMemPwd(SecurityUtil.getMD5String(memberInfo.getMemPwd()));
-		memberInfo.setAnswer(SecurityUtil.getMD5String(memberInfo.getAnswer()));
+		memberInfo.setMemPwd(memberInfo.getMemPwd());
 		
 		memberInfo.setEntryDate(new Date());
 		memberInfo.setEntryIp(ServletActionContext.getRequest().getRemoteAddr());
@@ -87,7 +102,10 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		memberLoginInfoDao.save(memberLoginInfo);
 
 		// 友達紹介する場合、紹介情報を更新する
-		updateInviteInfo(inviteId, newMemberInfo);
+		updateInviteInfo(tempMemberInfo.getInviteId(), newMemberInfo);
+		
+		// 臨時会員情報を削除する
+		tempMemberInfoDao.deleteByKey(memNum);
 
 		// お知らせメールを送信する。
 		HashMap<String, String> props = new HashMap<String, String>();
@@ -97,19 +115,81 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	}
 
 	/**
+	 * 臨時会員情報を登録する。
+	 * @param memberInfo 会員情報（新規登録時必要な項目が格納されていること）
+	 */
+	@Transactional
+	@Override
+	public void saveTempMemberInfo(MemberInfo memberInfo, String inviteId) {
+		
+		TempMemberInfo tempMemberInfo = new TempMemberInfo();
+		
+		// アカウントＩＤとメールアドレスは小文字に変換、両辺スペース削除
+		tempMemberInfo.setMemId(memberInfo.getMemId().trim().toLowerCase());
+		tempMemberInfo.setMailPc(memberInfo.getMailPc().trim().toLowerCase());
+		// ニックネームは両辺スペース削除
+		tempMemberInfo.setNickName(memberInfo.getNickName().trim());
+
+		// パスワードをMD5アルゴリズムで暗号化する。
+		tempMemberInfo.setMemPwd(SecurityUtil.getMD5String(memberInfo.getMemPwd()));
+		// 臨時キーを取得する
+		tempMemberInfo.setAuthKey(SecurityUtil.getRandomAuthKey(10));
+		// 友達紹介ID
+		if (inviteId == null || inviteId.trim().length() == 0) {
+			tempMemberInfo.setInviteId(null);
+		} else {
+			tempMemberInfo.setInviteId(Long.parseLong(inviteId));
+		}
+		tempMemberInfo.setCreatedDate(new Date());
+		tempMemberInfo.setCreatedIp(ServletActionContext.getRequest().getRemoteAddr());
+
+		// 臨時会員情報を登録する。
+		tempMemberInfoDao.save(tempMemberInfo);
+		
+		boolean deleteFlg = false;
+		
+		//　現時点の時、秒を取得する
+		SimpleDateFormat df = new SimpleDateFormat("HHmm");
+		Integer now = Integer.parseInt(df.format(new Date()));
+		
+		// 現時点が時間帯に含まれるかどうかをチェックする
+		for(Object obj : portalProperties.getTimeZoneList().keySet()) {
+			Integer startTime = (Integer)obj;
+			Integer endTime = Integer.parseInt(portalProperties.getTimeZoneList().get(obj));
+			
+			if (startTime <= now && now <= endTime) {
+				deleteFlg = true;
+				break;
+			}     
+		} 
+		
+		if (deleteFlg) {
+			// 無効な臨時会員情報を削除する。
+			tempMemberInfoDao.deleteInvalidData(invalidMinute);
+		}
+
+		// お知らせメールを送信する。
+		HashMap<String, String> props = new HashMap<String, String>();
+		props.put("nickName", tempMemberInfo.getNickName());
+		props.put("memNum", tempMemberInfo.getMemNum().toString());
+		props.put("authKey", tempMemberInfo.getAuthKey());
+		templateMailer.sendAsyncMail(tempMemberInfo.getMailPc(), "createTempMember", props);
+	}
+
+	/**
 	 * 紹介情報を更新する
 	 * @param inviteId 紹介情報Id
 	 * @param memberInfo 会員情報（新規登録会員）
 	 */
-	private void updateInviteInfo(String inviteId, MemberInfo memberInfo) {
+	private void updateInviteInfo(Long inviteId, MemberInfo memberInfo) {
 		
 		// 友達紹介する場合、紹介情報を更新する
-		if (inviteId == null || inviteId.trim().length() == 0) {
+		if (inviteId == null || inviteId.toString().trim().length() == 0) {
 			return;
 		}
 		
 		// 該当紹介情報をロックする
-		InviteInfo inviteInfo = inviteInfoDao.selectForUpdate(Long.parseLong(inviteId));
+		InviteInfo inviteInfo = inviteInfoDao.selectForUpdate(inviteId);
 		if (inviteInfo != null && inviteInfo.getFriendCreateDate() == null) {
 			// 登録済み
 			inviteInfo.setInviteStatus(PortalConstants.InviteStatus.REGISTERED);
@@ -140,7 +220,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		
 		// 画面から取得した変更項目を設定する。変更項目に増減がある場合、下記を修正すること。
 		oldMemberInfo.setNickName(memberInfo.getNickName());
-		oldMemberInfo.setMailPc(memberInfo.getMailPc());
+		oldMemberInfo.setMailPc(memberInfo.getMailPc().trim().toLowerCase());
 		oldMemberInfo.setKanjiFname(memberInfo.getKanjiFname());
 		oldMemberInfo.setKanjiLname(memberInfo.getKanjiLname());
 		oldMemberInfo.setKanaFname(memberInfo.getKanaFname());
@@ -156,6 +236,13 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		oldMemberInfo.setLastUpdateDate(new Date());
 		oldMemberInfo.setLastUpdateIp(ContextUtil.getClientIP());
 		oldMemberInfo.setLastUpdateUser(ContextUtil.getMemberNo().toString());
+
+		// 秘密質問コード
+		oldMemberInfo.setQuestionCd(memberInfo.getQuestionCd());
+		// 答え（MD5でか暗号化する）
+		oldMemberInfo.setAnswer(SecurityUtil.getMD5String(memberInfo.getAnswer()));
+		// メルマガ配信希望
+		oldMemberInfo.setMailmagReqCd(memberInfo.getMailmagReqCd());
 
 		// 会員情報を更新する。
 		memberInfoDao.update(oldMemberInfo);
@@ -330,7 +417,13 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	@Override
 	public int countMembersByMemId(String memId) {
 
-		return memberInfoDao.selectCountByMemId(memId);
+		int count = 0;
+		count = tempMemberInfoDao.selectValidCountByMemId(memId, invalidMinute);
+		if (count > 0) {
+			return count;
+		}
+		count = count + memberInfoDao.selectCountByMemId(memId);
+		return count;
 	}
 	
 	/**
@@ -354,7 +447,13 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	@Override
 	public int countMembersByNickName(String nickName) {
 
-		return memberInfoDao.selectCountByNickName(nickName);
+		int count = 0;
+		count = tempMemberInfoDao.selectValidCountByNickName(nickName, invalidMinute);
+		if (count > 0) {
+			return count;
+		}
+		count = count + memberInfoDao.selectCountByNickName(nickName);
+		return count;
 	}
 
 	/**
@@ -367,7 +466,13 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	@Override
 	public int countMembersByNickName(String nickName, Long memberNum) {
 
-		return memberInfoDao.selectCountByNickName(nickName, memberNum);
+		int count = 0;
+		count = tempMemberInfoDao.selectValidCountByNickName(nickName, invalidMinute);
+		if (count > 0) {
+			return count;
+		}
+		count = count + memberInfoDao.selectCountByNickName(nickName, memberNum);
+		return count;
 	}
 
 	/**
@@ -378,7 +483,13 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	@Override
 	public int countMembersByMailPc(String mailPc) {
 
-		return memberInfoDao.selectCountByMailPc(mailPc);
+		int count = 0;
+		count = tempMemberInfoDao.selectValidCountByMailPc(mailPc, invalidMinute);
+		if (count > 0) {
+			return count;
+		}
+		count = count + memberInfoDao.selectCountByMailPc(mailPc);
+		return count;
 	}
 
 	/**
@@ -391,7 +502,13 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	@Override
 	public int countMembersByMailPc(String mailPc, Long memberNum) {
 
-		return memberInfoDao.selectCountByMailPc(mailPc, memberNum);
+		int count = 0;
+		count = tempMemberInfoDao.selectValidCountByMailPc(mailPc, invalidMinute);
+		if (count > 0) {
+			return count;
+		}
+		count = count + memberInfoDao.selectCountByMailPc(mailPc, memberNum);
+		return count;
 	}
 
 	/**
@@ -501,6 +618,27 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	 */
 	public void setInvalidMinute(Integer invalidMinute) {
 		this.invalidMinute = invalidMinute;
+	}
+
+	/**
+	 * @param tempMemberInfoDao the tempMemberInfoDao to set
+	 */
+	public void setTempMemberInfoDao(ITempMemberInfoDao tempMemberInfoDao) {
+		this.tempMemberInfoDao = tempMemberInfoDao;
+	}
+
+	/**
+	 * @return the portalProperties
+	 */
+	public PortalProperties getPortalProperties() {
+		return portalProperties;
+	}
+
+	/**
+	 * @param portalProperties the portalProperties to set
+	 */
+	public void setPortalProperties(PortalProperties portalProperties) {
+		this.portalProperties = portalProperties;
 	}
 	
 }

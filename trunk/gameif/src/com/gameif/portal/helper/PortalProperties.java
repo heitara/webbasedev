@@ -21,6 +21,9 @@ public class PortalProperties {
 	
 	/** ドメイン */
 	private Map<String, String> domainListMap;
+	
+	/** 時間帯（臨時会員情報を削除するために、時間を指定する） */
+	private Map<String, String> timeZoneList;
 
 	public Map<String, String> getActionTitles() {
 		return actionTitles;
@@ -74,6 +77,20 @@ public class PortalProperties {
 	 */
 	public void setDomainListMap(Map<String, String> domainListMap) {
 		this.domainListMap = domainListMap;
+	}
+
+	/**
+	 * @return the timeZoneList
+	 */
+	public Map<String, String> getTimeZoneList() {
+		return timeZoneList;
+	}
+
+	/**
+	 * @param timeZoneList the timeZoneList to set
+	 */
+	public void setTimeZoneList(Map<String, String> timeZoneList) {
+		this.timeZoneList = timeZoneList;
 	}
 	
 }

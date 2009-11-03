@@ -411,8 +411,7 @@
 			member_info
 		WHERE
 			mail_pc = #mailPc#
-		AND question_cd = #questionCd#
-		AND answer = #answer#
+		AND mem_id = #memId#
         ]]>
 	</select>
 

@@ -8,10 +8,10 @@ public class ServicePointDaoImpl extends
 		AbstractBaseDao<ServicePoint, ServicePoint> implements IServicePointDao {
 
 	@Override
-	public ServicePoint selectBalanceByTitleAndMemnum(
+	public ServicePoint selectByTitleAndMemnumForUpdate(
 			ServicePoint oldServicePoint) {
 		
-		return (ServicePoint) getSqlMapClientTemplate().queryForObject(namespace + ".selectBalanceByTitleAndMemnum", oldServicePoint);
+		return (ServicePoint) getSqlMapClientTemplate().queryForObject(namespace + ".selectByTitleAndMemnumForUpdate", oldServicePoint);
 	}
 
 }

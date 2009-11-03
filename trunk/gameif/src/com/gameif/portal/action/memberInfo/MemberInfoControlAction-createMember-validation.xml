@@ -68,18 +68,6 @@
         	<message><![CDATA[<br/>入力されたメールアドレスは既に使われています。]]></message>
         </field-validator>
     </field>
-    <field name="questionCd">
-        <field-validator type="fieldexpression">
-        	<param name="expression"><![CDATA[(questionCd > 0)]]></param>
-        	<message><![CDATA[<br/>秘密質問を選択してください。]]></message>
-        </field-validator>
-    </field>
-    <field name="answer">
-        <field-validator type="requiredstring">
-			<param name="trim">true</param>
-        	<message><![CDATA[<br/>秘密質問の答えを入力してください。]]></message>
-        </field-validator>
-    </field>
     <field name="kaptcha">
         <field-validator type="requiredstring" short-circuit="true">
 			<param name="trim">true</param>
@@ -88,12 +76,6 @@
         <field-validator type="fieldexpression">
         	<param name="expression"><![CDATA[(kaptcha == #session.KAPTCHA_SESSION_KEY)]]></param>
         	<message><![CDATA[<br/>認証コードが不正です。]]></message>
-        </field-validator>
-    </field>
-    <field name="agreement">
-        <field-validator type="fieldexpression">
-        	<param name="expression"><![CDATA[(agreement == 1)]]></param>
-        	<message><![CDATA[<br/>利用規約に同意しなければ、登録できません。]]></message>
         </field-validator>
     </field>
 </validators>

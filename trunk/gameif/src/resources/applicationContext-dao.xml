@@ -169,4 +169,11 @@
 			<value>servicePointGiveHist</value>
 		</property>
 	</bean>
+	
+	<!-- tempMemberInfoDao -->
+	<bean id="tempMemberInfoDao" class="com.gameif.portal.dao.impl.TempMemberInfoDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>tempMemberInfo</value>
+		</property>
+	</bean>
 </beans>

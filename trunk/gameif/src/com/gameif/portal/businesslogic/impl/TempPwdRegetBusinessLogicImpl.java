@@ -75,7 +75,6 @@ public class TempPwdRegetBusinessLogicImpl extends BaseBusinessLogic implements
 	 */
 	@Override
 	public void saveTempPwdInfo(TempPwdInfo tempPwdInfo, MemberInfo memberInfo)  throws LogicException {
-		memberInfo.setAnswer(SecurityUtil.getMD5String(memberInfo.getAnswer()));
 		
 		// 画面で入力したメールアドレースと質問と答えにより、会員情報を検索する
 		MemberInfo member = memberInfoDao.selectForPwdReget(memberInfo);	

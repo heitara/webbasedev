@@ -31,7 +31,7 @@ public class MemberInfoControlAction extends
 	private String newPwd;
 	private String confirmPwd;
 	private String kaptcha;
-	private String agreement;
+	// private String agreement;
 
 	private String birthY;
 	private String birthM;
@@ -39,6 +39,9 @@ public class MemberInfoControlAction extends
 
 	private String tempKey;
 	private String inviteId;
+
+	private String authKey;
+	private Long memNum;
 
 	public String getKanjiNameForCheck() {
 
@@ -96,17 +99,17 @@ public class MemberInfoControlAction extends
 		return INPUT;
 	}
 
-	/**
-	 * 会員情報を登録する。
-	 * 
-	 * @return　完了画面コード
-	 */
-	public String create() {
-
-		memberInfoBusinessLogic.saveMemberInfo(getModel(), getInviteId());
-		
-		return SUCCESS;
-	}
+	// /**
+	// * 会員情報を登録する。
+	// *
+	// * @return　完了画面コード
+	// */
+	// public String create() {
+	//
+	// memberInfoBusinessLogic.saveMemberInfo(getModel(), getInviteId());
+	//		
+	// return SUCCESS;
+	// }
 
 	/**
 	 * 会員情報登録完了。
@@ -272,6 +275,59 @@ public class MemberInfoControlAction extends
 		return SUCCESS;
 	}
 
+	/**
+	 * 臨時会員情報を登録する。
+	 * 
+	 * @return　登録完了画面コード
+	 */
+	public String createTemp() {
+
+		memberInfoBusinessLogic.saveTempMemberInfo(getModel(), getInviteId());
+
+		return SUCCESS;
+
+	}
+
+	/**
+	 * 会員情報有効化画面へ案内する
+	 * 
+	 * @return 会員情報有効化画面
+	 */
+	public String effective() {
+
+		// 会員番号
+		Object tempMemNum = ServletActionContext.getRequest().getParameter(
+				"memNum");
+		if (tempMemNum == null || tempMemNum.toString().length() == 0) {
+			setMemNum(null);
+		} else {
+			setMemNum(Long.parseLong(tempMemNum.toString()));
+		}
+
+		// 認証キー
+		Object tempAuthKey = ServletActionContext.getRequest().getParameter(
+				"authKey");
+		if (tempAuthKey == null || tempAuthKey.toString().length() == 0) {
+			setAuthKey(null);
+		} else {
+			setAuthKey(tempMemNum.toString().trim());
+		}
+
+		try {
+
+			memberInfoBusinessLogic.saveMemberInfo(getMemNum(), getAuthKey());
+
+		} catch (LogicException ex) {
+
+			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
+					+ ex.getMessage());
+
+			return "warning";
+		}
+
+		return "effective";
+	}
+
 	public String getNewPwd() {
 		return newPwd;
 	}
@@ -288,13 +344,13 @@ public class MemberInfoControlAction extends
 		this.confirmPwd = confirmPwd;
 	}
 
-	public String getAgreement() {
-		return agreement;
-	}
-
-	public void setAgreement(String agreement) {
-		this.agreement = agreement;
-	}
+	// public String getAgreement() {
+	// return agreement;
+	// }
+	//
+	// public void setAgreement(String agreement) {
+	// this.agreement = agreement;
+	// }
 
 	public String getBirthY() {
 		return birthY;
@@ -340,6 +396,36 @@ public class MemberInfoControlAction extends
 	 */
 	public String getInviteId() {
 		return inviteId;
+	}
+
+	/**
+	 * @return the authKey
+	 */
+	public String getAuthKey() {
+		return authKey;
+	}
+
+	/**
+	 * @param authKey
+	 *            the authKey to set
+	 */
+	public void setAuthKey(String authKey) {
+		this.authKey = authKey;
+	}
+
+	/**
+	 * @return the memNum
+	 */
+	public Long getMemNum() {
+		return memNum;
+	}
+
+	/**
+	 * @param memNum
+	 *            the memNum to set
+	 */
+	public void setMemNum(Long memNum) {
+		this.memNum = memNum;
 	}
 
 	/**

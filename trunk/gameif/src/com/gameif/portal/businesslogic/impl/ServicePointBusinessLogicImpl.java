@@ -76,7 +76,7 @@ public class ServicePointBusinessLogicImpl extends BaseBusinessLogic implements
 		servicePoint.setTitleId(titleId);
 		servicePoint.setGiveDate(giveDate);
 		// 有効なデータが存在かどうか
-		servicePoint = servicePointDao.selectBalanceByTitleAndMemnum(servicePoint);
+		servicePoint = servicePointDao.selectByTitleAndMemnumForUpdate(servicePoint);
 		if (servicePoint == null) {
 			
 			servicePoint = new ServicePoint();

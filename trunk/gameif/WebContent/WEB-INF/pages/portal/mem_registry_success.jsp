@@ -7,13 +7,11 @@
 	<dt><strong>会員登録完了</strong><span>&nbsp;</span></dt>
 	<dd>
 		<dl class="finish">
-			<dt>会員登録が完了しました。</dt>
-			<dd>
-				<div>会員様専用サービスをご利用になるには、ログインする必要がございます。</div>
-				<!--<span></span><s:property value="memNum"/></span>-->
-				<a href="mypage.html" title="ログイン"><img src="images/btn_s_login.gif" alt="ログイン"/></a>
-				<a href="inputInquiry.html" title="お問合せ"><img src="images/btn_s_inquiry.gif" title="お問合せ"/></a>
-			<dd>
+			<dt>
+				<span>会員登録が完了しました。</span><br/>
+				<span>ご登録されたメールアドレスへご本人様確認のメールをお送りしました。</span><br/>
+				<span>メールを確認の上で、会員情報を有効化させてください。</span>
+			</dt>
 		</dl>
 	</dd>
 </dl>
