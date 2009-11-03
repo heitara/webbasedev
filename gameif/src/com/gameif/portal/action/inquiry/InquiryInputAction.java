@@ -93,6 +93,11 @@ public class InquiryInputAction extends ModelDrivenActionSupport<InquiryInfo> {
 	 * @return その他問合せ画面
 	 */
 	public String input() {
+		
+		if (ContextUtil.userIsLogin()) {
+			
+			return "forMember";
+		}
 		return INPUT;
 	}
 
