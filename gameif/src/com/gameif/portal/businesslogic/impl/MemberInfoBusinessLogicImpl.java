@@ -154,8 +154,8 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		
 		// 現時点が時間帯に含まれるかどうかをチェックする
 		for(Object obj : portalProperties.getTimeZoneList().keySet()) {
-			Integer startTime = (Integer)obj;
-			Integer endTime = Integer.parseInt(portalProperties.getTimeZoneList().get(obj));
+			Integer startTime = Integer.parseInt(obj.toString());
+			Integer endTime = Integer.parseInt(portalProperties.getTimeZoneList().get(obj).toString());
 			
 			if (startTime <= now && now <= endTime) {
 				deleteFlg = true;
