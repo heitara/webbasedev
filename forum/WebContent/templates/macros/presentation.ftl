@@ -140,11 +140,9 @@
 	<table cellspacing="0" cellpadding="0" border="0">
 		<tr>			  
 			<td nowrap="nowrap">
-				<form action="" name="f" id="f" accept-charset="${encoding}">
-					<span class="gensmall">${I18n.getMessage("ForumIndex.goTo")}:&nbsp;</span>
-					<select onchange="if(this.options[this.selectedIndex].value != -1){ document.location = '${contextPath}/forums/show/'+ this.options[this.selectedIndex].value +'${extension}'; }" name="select">
+				<form action="" name="f" id="f" accept-charset="${encoding}" style="margin:0px;">
+					<select style="height:22px;width:200px;" onchange="if(this.options[this.selectedIndex].value != -1){ document.location = '${contextPath}/forums/show/'+ this.options[this.selectedIndex].value +'${extension}'; }" name="select">
 						<option value="-1" selected="selected">${I18n.getMessage("ForumIndex.goToSelectAForum")}</option>				
-						
 						<#list allCategories as category>
                             <optgroup label="${category.name}">
 		
@@ -155,8 +153,6 @@
                             </optgroup>
 						</#list>
 					</select>
-					&nbsp;
-					<input class="liteoption" type="button" value="${I18n.getMessage("ForumIndex.goToGo")}" onclick="if(document.f.select.options[document.f.select.selectedIndex].value != -1){ document.location = '${contextPath}/forums/show/'+ document.f.select.options[document.f.select.selectedIndex].value +'${extension}'; }" />
 				</form>
 			</td>
 		</tr>
