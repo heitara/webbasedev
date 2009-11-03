@@ -310,7 +310,7 @@ public class MemberInfoControlAction extends
 		if (tempAuthKey == null || tempAuthKey.toString().length() == 0) {
 			setAuthKey(null);
 		} else {
-			setAuthKey(tempMemNum.toString().trim());
+			setAuthKey(tempAuthKey.toString().trim());
 		}
 
 		try {
