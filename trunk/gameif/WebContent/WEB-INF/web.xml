@@ -14,15 +14,15 @@
 	</context-param>
 	<context-param>
 		<param-name>portalNewsTopUrl</param-name>
-		<param-value>http://localhost/info</param-value>
+		<param-value>http://localhost/info/index.php</param-value>
 	</context-param>
 	<context-param>
 		<param-name>communityTopUrl</param-name>
-		<param-value>http://localhost/forum</param-value>
+		<param-value>http://localhost:8080/forum</param-value>
 	</context-param>
 	<context-param>
 		<param-name>noLoginPage</param-name>
-		<param-value>/registryMember.html,/inputInquiry.html,/inputPwdReget.html</param-value>
+		<param-value>/registryMember.html,/inputInquiry.html,/inputPwdReget.html,/finishedPage.html</param-value>
 	</context-param>
 
 	<filter>
@@ -78,6 +78,12 @@
 			<param-name>edu.yale.its.tp.cas.client.filter.serverName</param-name>
 			<param-value>localhost:8080</param-value>
 		</init-param>
+		<!-- 
+		<init-param>
+			<param-name>edu.yale.its.tp.cas.client.filter.serviceSecure</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		 -->
 	</filter>
 	
 	<filter-mapping>
@@ -145,10 +151,6 @@
 		<url-pattern>/getGameLoginServicePoint.html</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
-		<filter-name>CAS Filter</filter-name>
-		<url-pattern>/games.html</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
 	    <filter-name>sitemesh</filter-name>
 	    <url-pattern>/*</url-pattern>
 	</filter-mapping>
@@ -167,7 +169,7 @@
 		</init-param>
 		<init-param>
 			<param-name>kaptcha.textproducer.font.size</param-name>
-			<param-value>36</param-value>
+			<param-value>33</param-value>
 		</init-param>
 		<init-param>
 			<param-name>kaptcha.background.clear.from</param-name>
