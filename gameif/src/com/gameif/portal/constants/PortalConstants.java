@@ -81,19 +81,19 @@ public class PortalConstants {
 		public final static String TEMP_KEY = "tempKey";
 	}
 	
-	// サービスポイント贈与タイプ
+	/** サービスポイント贈与タイプ */
 	public class ServicePointTypeCd {
-		// 連続してゲームにログインした場合
+		/** 連続してゲームにログインした場合 */
 		public final static String GAME_LOGIN = "1";
-		// 最近一ヶ月の累計課金金額が一定金額を超えた場合
+		/** 最近一ヶ月の累計課金金額が一定金額を超えた場合 */
 		public final static String CHARGE = "2";
 	}
 	
-	// ポイント区別
+	/** ポイント区別 */
 	public class ChargeSpType {
-		// サービスポイント
+		/** サービスポイント */
 		public final static String SERVICE_POINT = "1";
-		// 課金ポイント
+		/** 課金ポイント */
 		public final static String ACCOUNT_POINT = "0";
 		
 	}

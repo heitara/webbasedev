@@ -151,6 +151,14 @@
 		<url-pattern>/getGameLoginServicePoint.html</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/inputCBTTester.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/createCBTTester.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
 	    <filter-name>sitemesh</filter-name>
 	    <url-pattern>/*</url-pattern>
 	</filter-mapping>

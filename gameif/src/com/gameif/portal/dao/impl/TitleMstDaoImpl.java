@@ -24,4 +24,13 @@ public class TitleMstDaoImpl extends
 	public TitleMst selectValidTitleByKey(Integer titleId) {
 		return (TitleMst)this.getSqlMapClientTemplate().queryForObject(namespace + ".selectValidTitleByKey", titleId);
 	}
+
+	/**
+	 * CBT中タイトルを取得する
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<TitleMst> selectCBTTitleList() {
+		return (List<TitleMst>)this.getSqlMapClientTemplate().queryForList(namespace + ".selectCBTTitleList", null);
+	}
 }

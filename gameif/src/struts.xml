@@ -66,7 +66,7 @@
 			</interceptor-ref>
 			<interceptor-ref name="token">
 				<param name="includeMethods">updateMemberInfo</param>
-			</interceptor-ref>			
+			</interceptor-ref>		
 			<interceptor-ref name="gameifStack"></interceptor-ref>			
 			<result name="input">/WEB-INF/pages/portal/mem_info_edit.jsp</result>
 			<result name="success" type="redirect">/finishedPage.html?action=updateMember</result>
@@ -231,6 +231,18 @@
 			 -->
 			<result name="inputGet">/WEB-INF/pages/portal/service_point_get.jsp</result>
 			<result name="success" type="redirect">/finishedPage.html?action=getGameLoginServicePoint</result>
+		</action>
+
+		<!-- CBT募集 -->
+		<action name="*CBTTester" class="cbtTesterControlAction" method="{1}">
+			<interceptor-ref name="scopedModelDriven">
+				<param name="scope">request</param>
+				<param name="name">cbtTester</param>
+				<param name="className">com.gameif.portal.entity.CbtTester</param>
+			</interceptor-ref>
+			<interceptor-ref name="gameifStack"></interceptor-ref>
+			<result name="input">/WEB-INF/pages/portal/cbt_tester_add.jsp</result>
+			<result name="success" type="redirect">/finishedPage.html?action=createCBTTester</result>
 		</action>
 		
 	</package>

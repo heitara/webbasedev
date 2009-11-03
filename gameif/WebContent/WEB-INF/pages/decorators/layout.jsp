@@ -11,6 +11,8 @@
 <%@page import="com.gameif.portal.entity.MyTitle"%>
 <%@page import="com.gameif.portal.constants.PortalConstants"%>
 <%@page import="com.gameif.portal.entity.MyServer"%>
+<%@page import="com.gameif.portal.businesslogic.IMasterInfoBusinessLogic"%>
+<%@page import="com.gameif.portal.entity.TitleMst"%>
 <%
 /* =======================================　頁内共通変数設定  =======================================*/
 
@@ -163,6 +165,15 @@ response.setDateHeader("Expires",0);
 			<dt><a href="editMemberInfo.html" title="会員情報変更"><img src="images/btn_b_chinfo.gif" alt="会員情報変更"/></a></dt>
 			<dd><a href="editPassword.html" title="パスワード変更"><img src="images/btn_b_chpass.gif" alt="パスワード変更"/></a></dd>
 		</dl>
+		<%
+			ApplicationContext ac = WebApplicationContextUtils.getWebApplicationContext(request.getSession().getServletContext());
+			IMasterInfoBusinessLogic masterLogic = (IMasterInfoBusinessLogic)ac.getBean("masterInfoBusinessLogic");
+			List<TitleMst> cbtTitles = masterLogic.getCbtTitleList();
+			if (!cbtTitles.isEmpty()) {%> 
+			<div class="height:22px;width:200px;">
+				<a href="inputCBTTester.html" title="クローズドβテスター募集"><img src="images/btn_c_cbt.gif" title="クローズドβテスター募集" style="margin-bottom:2px;margin-right:2px;"/></a>
+			</div>
+		<% } %>
 
 		<!-- ショットカットボタンエリア：終了 -->
 <%			Long memNum = ContextUtil.getMemberNo((String)session.getAttribute(CASFilter.CAS_FILTER_USER));
