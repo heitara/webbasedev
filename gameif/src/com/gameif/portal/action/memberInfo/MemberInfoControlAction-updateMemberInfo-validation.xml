@@ -94,10 +94,4 @@
         	<message><![CDATA[<br/>秘密質問の答えを入力してください。]]></message>
         </field-validator>
     </field>
-    <field name="agreement">
-        <field-validator type="fieldexpression">
-        	<param name="expression"><![CDATA[(agreement == 1)]]></param>
-        	<message><![CDATA[<br/>利用規約に同意しなければ、登録できません。]]></message>
-        </field-validator>
-    </field>
 </validators>
