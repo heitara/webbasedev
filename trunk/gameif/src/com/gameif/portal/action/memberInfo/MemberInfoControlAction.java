@@ -328,6 +328,10 @@ public class MemberInfoControlAction extends
 		return "effective";
 	}
 
+	/**
+	 * 会員情報有効化完了画面へ案内する
+	 * @return 会員情報有効化完了画面
+	 */
 	public String finishedEffective() {
 		return "finishedEffective";
 	}
