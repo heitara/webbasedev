@@ -148,3 +148,12 @@ INSERT INTO `member_info` (`mem_num`, `mem_id`, `nick_name`, `mem_pwd`, `mem_kin
 (0, 'Anonymous', 'Anonymous', 'nopass', '0', '1', '1', 1, 'nopass', 'nomail@nomail', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1', '1', NULL, '2009-11-01 10:00:00', '127.0.0.1', NULL, NULL, '2009-11-01 10:00:00', '127.0.0.1', '1', 1),
 (1, 'Nologin', 'Nologin', 'nopass', '0', '1', '1', 1, 'nopass', 'nomail@nomail', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1', '1', NULL, '2009-11-01 10:00:00', '127.0.0.1', NULL, NULL, '2009-11-01 10:00:00', '127.0.0.1', '1', 1),
 (2, 'Admin', 'Admin', 'nopass', '0', '1', '1', 1, 'nopass', 'nomail@nomail', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1', '1', NULL, '2009-11-01 10:00:00', '127.0.0.1', NULL, NULL, '2009-11-01 10:00:00', '127.0.0.1', '1', 1);
+
+TRUNCATE TABLE `function_mst`;
+INSERT INTO `function_mst` (`function_code`,`function_name`,`order_num`,`remarks`,`created_date`,`created_user`, `last_update_date`,`last_update_user`) VALUES
+('100', '会員管理', 1, '', '2009-10-10 12:30:21', 'chou', '2009-10-10 12:30:21', 'chou'),
+('200', '問合せ管理', 2, '', '2009-10-10 12:30:21', 'chou', '2009-10-10 12:30:21', 'chou'),
+('300', '友達紹介管理', 3, '', '2009-10-10 12:30:21', 'chou', '2009-10-10 12:30:21', 'chou'),
+('400', 'キャンペーン管理', 4, '', '2009-10-10 12:30:21', 'chou', '2009-10-10 12:30:21', 'chou'),
+('500', 'サービスポイント管理', 5, '', '2009-10-10 12:30:21', 'chou', '2009-10-10 12:30:21', 'chou'),
+('600', '売上げ集計', 6, '', '2009-10-10 12:30:21', 'chou', '2009-10-10 12:30:21', 'chou');

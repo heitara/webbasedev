@@ -548,6 +548,38 @@ CREATE TABLE  `login_user` (
 
 
 
+DROP TABLE IF EXISTS `function_mst`;
+CREATE TABLE  `function_mst` (
+  `function_code` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `function_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `order_num` int(11) NOT NULL,
+  `remarks` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `created_user` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `last_update_date` datetime DEFAULT NULL,
+  `last_update_user` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`function_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+DROP TABLE IF EXISTS `temp_member_info`;
+CREATE TABLE  `temp_member_info` (
+  `mem_num` bigint(20) NOT NULL AUTO_INCREMENT,
+  `mem_id` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `nick_name` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mem_pwd` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `mail_pc` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `auth_key` char(1) COLLATE utf8_unicode_ci NOT NULL,
+  `invite_id` bigint(20) DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `created_ip` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`mem_num`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+
 DROP TRIGGER IF EXISTS `t_insert_member_info_hist_bu`;
 DELIMITER $$
 CREATE TRIGGER `t_insert_member_info_hist_bu` AFTER UPDATE ON `member_info` FOR EACH ROW BEGIN
