@@ -77,7 +77,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		memberInfo.setMailmagObjCd(PortalConstants.YES);
 
 		// パスワードと秘密質問をMD5アルゴリズムで暗号化する。
-		memberInfo.setMemPwd(memberInfo.getMemPwd());
+		memberInfo.setMemPwd(tempMemberInfo.getMemPwd());
 		
 		memberInfo.setEntryDate(new Date());
 		memberInfo.setEntryIp(ServletActionContext.getRequest().getRemoteAddr());
