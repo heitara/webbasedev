@@ -90,6 +90,7 @@
 						<span id="error_kaptcha" class="input_error"><s:fielderror><s:param>kaptcha</s:param></s:fielderror></span>
 					</td>
 				</tr>
+				<!-- 
 				<tr>
 					<th></th>
 					<td>
@@ -97,6 +98,7 @@
 						<label for="createMember_mailmagReqCd">メルマガを受信する。</label>
 					</td>
 				</tr>
+				 -->
 				<tr>
 					<th></th>
 					<td>
