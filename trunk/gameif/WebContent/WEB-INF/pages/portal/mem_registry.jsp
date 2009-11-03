@@ -59,25 +59,6 @@
 						<span id="error_confirmPwd" class="input_error"><s:fielderror><s:param>confirmPwd</s:param></s:fielderror></span>
 					</td>
 				</tr>
-				<!-- 
-				<tr class="space_row"><td colspan="2"></td></tr>
-				<tr>
-					<th><span class="required">*</span><label for="createMember_questionCd">秘密質問：</label></th>
-					<td>
-						<s:select name="questionCd" list="masterInfoBusinessLogic.allQuestionList" listKey="questionCode" listValue="questionName" headerKey="0" headerValue="" title="秘密質問" onblur="validate(this,'REQ');"/>
-						<span class="explain">※ パスワードを忘れた時に使います。（変更不可）</span>
-						<span id="error_questionCd" class="input_error"><s:fielderror><s:param>questionCd</s:param></s:fielderror></span>
-					</td>
-				</tr>
-				<tr>
-					<th><span class="required">*</span><label for="createMember_answer">秘密質問の答え：</label></th>
-					<td>
-						<s:textfield name="answer" maxlength="20" cssClass="ime_mode_y" title="秘密質問の答え" onblur="validate(this,'REQ,ZEN');"/>
-						<span class="explain">※ 2～10桁の全角文字で入力してください。</span>
-						<span id="error_answer" class="input_error"><s:fielderror><s:param>answer</s:param></s:fielderror></span>
-					</td>
-				</tr>
-				 -->
 				<tr class="space_row"><td colspan="2"></td></tr>
 
 				<tr>
@@ -90,15 +71,6 @@
 						<span id="error_kaptcha" class="input_error"><s:fielderror><s:param>kaptcha</s:param></s:fielderror></span>
 					</td>
 				</tr>
-				<!-- 
-				<tr>
-					<th></th>
-					<td>
-						<s:checkbox name="mailmagReqCd" value="%{magazine == null ? true : (mailmagReqCd == 1 ? true : false)}" fieldValue="1" title="メルマガ受信" />
-						<label for="createMember_mailmagReqCd">メルマガを受信する。</label>
-					</td>
-				</tr>
-				 -->
 				<tr>
 					<th></th>
 					<td>
