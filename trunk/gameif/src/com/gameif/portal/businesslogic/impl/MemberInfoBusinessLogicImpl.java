@@ -171,6 +171,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		// お知らせメールを送信する。
 		HashMap<String, String> props = new HashMap<String, String>();
 		props.put("nickName", tempMemberInfo.getNickName());
+		props.put("memId", tempMemberInfo.getMemId());
 		props.put("memNum", tempMemberInfo.getMemNum().toString());
 		props.put("authKey", tempMemberInfo.getAuthKey());
 		templateMailer.sendAsyncMail(tempMemberInfo.getMailPc(), "createTempMember", props);
