@@ -328,6 +328,9 @@ public class MemberInfoControlAction extends
 		return "effective";
 	}
 
+	public String finishedEffective() {
+		return "finishedEffective";
+	}
 	public String getNewPwd() {
 		return newPwd;
 	}
