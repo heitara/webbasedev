@@ -107,6 +107,7 @@
 			<result name="input">/WEB-INF/pages/portal/inquiry_input.jsp</result>
 			<result name="inputMedia">/WEB-INF/pages/portal/inquiry_media_input.jsp</result>
 			<result name="inputMember">/WEB-INF/pages/portal/inquiry_member_input.jsp</result>
+			<result name="forMember" type="redirect">/inputMemberInquiry.html</result>
 			<result name="success"  type="redirect">/finishedPage.html?action=createInquiry</result>
 		</action>
 		
@@ -138,7 +139,7 @@
 
 		<action name="playGame" class="titlePlayControlAction">
 			<result name="success" type="redirect">${playUrl}</result>
-			<result name="select" type="redirectAction">listGame</result>
+			<result name="select" type="redirectAction">games</result>
 		</action>
 
 		<action name="games" class="titleSelectControlAction">
@@ -216,7 +217,7 @@
 			<result name="success" type="redirect">${target}</result>
 		</action>
 		<action name="logoutProxy" class="logoutProxyAction">
-			<result name="success" type="redirect">https://auth.test.game-if.com:8443/cas/logout</result>
+			<result name="success" type="redirect">${logoutUrl}</result>
 		</action>
 
 		<!-- サービスポイントに関連するアクション -->
