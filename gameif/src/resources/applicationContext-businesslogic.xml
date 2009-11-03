@@ -30,6 +30,9 @@
 		<property name="tempMemberInfoDao">
 			<ref bean="tempMemberInfoDao" />
 		</property>
+		<property name="portalProperties">
+			<ref bean="portalProperties" />
+		</property>
 	</bean>
 	
 	<!-- inquiryInfoBusinessLogic -->
