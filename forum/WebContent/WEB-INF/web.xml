@@ -59,6 +59,10 @@
     </filter-mapping>
     <filter-mapping>
         <filter-name>CAS Filter</filter-name>
+        <url-pattern>/bookmarks/list/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>CAS Filter</filter-name>
         <url-pattern>/posts/reply/*</url-pattern>
     </filter-mapping>
     <filter-mapping>
@@ -71,7 +75,27 @@
     </filter-mapping>
     <filter-mapping>
         <filter-name>CAS Filter</filter-name>
+        <url-pattern>/pm/read/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>CAS Filter</filter-name>
+        <url-pattern>/pm/reply/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>CAS Filter</filter-name>
+        <url-pattern>/pm/quote/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>CAS Filter</filter-name>
         <url-pattern>/pm/inbox.html</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>CAS Filter</filter-name>
+        <url-pattern>/pm/sentbox.html</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>CAS Filter</filter-name>
+        <url-pattern>/pm/send.html</url-pattern>
     </filter-mapping>
 
     
