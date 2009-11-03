@@ -11,6 +11,15 @@ public class LoginStatusProxyAction {
 			target = "/index.html";
 		}
 		
+		if (target.indexOf('?') >= 0) {
+			
+			target += "&login";
+			
+		} else {
+			
+			target += "?login";
+		}
+		
 		return "success";
 	}
 
