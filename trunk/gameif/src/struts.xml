@@ -50,7 +50,8 @@
 			<result name="input">/WEB-INF/pages/portal/mem_registry.jsp</result>
 			<result name="success" type="redirect">/finishedCreateMember.html?memNum=${memNum}</result>
 			<result name="finish">/WEB-INF/pages/portal/mem_registry_success.jsp</result>
-			<result name="effective">/WEB-INF/pages/portal/mem_effective.jsp</result>
+			<result name="effective" type="redirect">/finishedEffectiveMember.html</result>
+			<result name="finishedEffective">/WEB-INF/pages/portal/mem_effective.jsp</result>
 			<result name="invalid.token">/WEB-INF/pages/common/warning.jsp</result>
 		</action>
 
