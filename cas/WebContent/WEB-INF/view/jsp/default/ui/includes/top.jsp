@@ -8,7 +8,7 @@
 <head>
 	<meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
 	<meta content="index, follow" name="robots"/>
-	<base href="https://<%=request.getServerName()%><%if(request.getServerPort() != 443) out.print(":" + request.getServerPort());%><%=request.getContextPath()%>/"/>
+	<base href="https://<%=request.getServerName()%><%if(request.getServerPort() != 443 && request.getServerPort() != 80) out.print(":" + request.getServerPort());%><%=request.getContextPath()%>/"/>
 	<link type="text/css" href="css/common.css" rel="stylesheet"></link>
 	<link type="text/css" href="css/main.css" rel="stylesheet"></link>
 	<script type="text/javascript" src="js/common_rosters.js"></script>
