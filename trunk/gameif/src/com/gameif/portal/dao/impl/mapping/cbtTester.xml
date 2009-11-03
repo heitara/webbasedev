@@ -10,4 +10,29 @@
 		<result property="titleId" column="title_id" />
 	</resultMap>
 
+	<insert id="save" parameterClass="cbtTester">
+		<![CDATA[
+			INSERT INTO cbt_tester
+				(
+				mem_num,
+				title_id)
+			VALUES
+				(
+				#memNum#,
+				#titleId#
+				)
+		]]>
+	</insert>
+	
+	<delete id="deleteByKey" parameterClass="cbtTester">  
+        <![CDATA[
+	        DELETE
+			FROM
+				cbt_tester
+			WHERE
+				mem_num = #memNum#
+			AND title_id = #titleId#
+        ]]>
+	</delete>
+
 </sqlMap>

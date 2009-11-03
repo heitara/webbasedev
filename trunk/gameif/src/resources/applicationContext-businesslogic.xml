@@ -176,4 +176,12 @@
 			<ref bean="servicePointGiveHistDao" />
 		</property>
 	</bean>
+	
+	<!-- cbtTesterBusinessLogic -->
+	<bean id="cbtTesterBusinessLogic"
+		class="com.gameif.portal.businesslogic.impl.CbtTesterBusinessLogicImpl">
+		<property name="cbtTesterDao">
+			<ref bean="cbtTesterDao" />
+		</property>
+	</bean>
 </beans>

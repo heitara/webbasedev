@@ -7,4 +7,11 @@ import com.gameif.portal.entity.CbtTester;
 public class CbtTesterDaoImpl extends
 AbstractBaseDao<CbtTester, CbtTester> implements ICbtTesterDao {
 
+	@Override
+	public Integer deleteByKey(CbtTester cbtTester) {
+
+		return getSqlMapClientTemplate().delete(namespace + ".deleteByKey",
+				cbtTester);
+	}
+
 }
