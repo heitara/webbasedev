@@ -47,42 +47,54 @@
 <#if moderator>
 	<script type="text/JavaScript" src="${JForumContext.encodeURL("/js/list/moderation")}"></script>
 </#if>
-
-<table cellspacing="0" cellpadding="10" width="100%" align="center" border="0">
+<table cellspacing="0" cellpadding="0" width="100%" align="center" border="0">
 	<tr>
-		<td class="bodyline">
-			<table cellspacing="2" cellpadding="2" width="100%" border="0">
+		<td class="bodyline" valign="top">
+			<table cellspacing="0" cellpadding="0" width="100%" align="center" style="margin:15px 0px;">
 				<tr>
-					<td valign="middle" align="left" colspan="2">
-						<span class="maintitle"><a href="${JForumContext.encodeURL("/posts/list/${topic.id}")}" name="top" class="maintitle" id="top">${topic.title?html}</a></span>
+					<td align="left" colspan="2">
+						<a href="${JForumContext.encodeURL("/forums/list")}">${I18n.getMessage("ForumListing.forumIndex")} </a> &raquo;
+            			<a href="${JForumContext.encodeURL("/forums/show/${forum.id}")}">${forum.name} </a> &raquo;
+						<a href="${JForumContext.encodeURL("/posts/list/${topic.id}")}" name="top" class="maintitle" id="top">${topic.title?html}</a>
 						<#if rssEnabled>
-						&nbsp;<a href="${contextPath}/rss/topicPosts/${topic.id}${extension}"><img src="${contextPath}/templates/${templateName}/images/xml_button.gif" border="0" alt="XML" /></a>
+						&nbsp;<a href="${contextPath}/rss/topicPosts/${topic.id}${extension}"><img align="top" src="${contextPath}/templates/${templateName}/images/xml_button.gif" border="0" alt="XML" /></a>
+						</#if>
+					</td>
+					<td valign="middle"  nowrap="nowrap" align="right" class="gensmall">
+						<@presentation.forumsComboTable/>
+						<#if moderator>
+							<br />
+							<#if openModeration?default(false)>
+								<#assign link = ""/>
+								<#if (start > 0)>
+									<#assign link = JForumContext.encodeURL("/forums/show/" + start + "/" + forum.id)/>
+								<#else>
+									<#assign link = JForumContext.encodeURL("/forums/show/" + forum.id)/>
+								</#if>
+								<a class="gensmall" href="${link}">${I18n.getMessage("Moderation.CloseModeration")}</a>
+							<#else>
+								<a class="gensmall" href="${contextPath}/forums/moderation/<#if (start > 0)>${start}/</#if>${forum.id}${extension}">${I18n.getMessage("Moderation.OpenModeration")}</a>
+							</#if>
 						</#if>
 					</td>
 				</tr>
 			</table>
-			
-			<table cellspacing="2" cellpadding="2" width="100%" border="0">
+			<table cellspacing="0" cellpadding="0" width="100%" align="center" style="margin: 0px 0px 10px 0px;">
 				<tr>
 					<#if !readonly>
 					<td width="8%" align="left" valign="bottom" nowrap="nowrap">
-					</#if>
 						<#if topic.status == STATUS_LOCKED>
 							<span class="icon_reply_locked"><img src="${contextPath}/images/transp.gif" alt="" /></span>
 						<#else>
 							<#if !readonly>
-								<a href="${JForumContext.encodeURL("/posts/reply/${start}/${topic.id}")}" rel="nofollow" class="icon_reply nav"><img src="${contextPath}/images/transp.gif" alt="" /></a>
+								<input type="button" value="${I18n.getMessage("Button.reply.new")}" style="width:90px;" onclick="location='${JForumContext.encodeURL("/posts/reply/${start}/${topic.id}")}';"/>
 							<#else>
 								<#assign colspan = "2"/>
 							</#if>
 						</#if>
+						<input type="button" value="${I18n.getMessage("Button.topic.new")}" style="width:90px;" onclick="location='${JForumContext.encodeURL("/jforum${extension}?module=posts&amp;action=insert&amp;forum_id=${forum.id}", "")}';"/>
 					</td>
-
-					<td valign="middle" align="left" colspan="${colspan?default("0")}">
-						<span class="nav">
-						<a class="nav" href="${JForumContext.encodeURL("/forums/list")}">${I18n.getMessage("ForumListing.forumIndex")} </a> 
-            			&raquo; <a class="nav" href="${JForumContext.encodeURL("/forums/show/${forum.id}")}">${forum.name} </a></span>
-					</td>
+					</#if>
 					<td valign="middle" align="right"><#assign paginationData><@pagination.doPagination "list", topic.id/></#assign>${paginationData}</td>
 				</tr>
 			</table>
@@ -120,9 +132,9 @@
 					</tr>
 				</#if>
 				
-				<tr>
-					<th class="thleft" nowrap="nowrap" width="150" height="26">${I18n.getMessage("PostShow.author")}</th>
-					<th class="thright" nowrap="nowrap" width="100%">${I18n.getMessage("PostShow.messageTitle")}</th>
+				<tr@height="30">
+					<th nowrap="nowrap" width="20%" height="26">${I18n.getMessage("PostShow.author")}</th>
+					<th nowrap="nowrap" width="80%">${I18n.getMessage("PostShow.messageTitle")}</th>
 				</tr>
 
 				<!-- POST LISTING --> 
@@ -137,11 +149,10 @@
 					<#assign user = users.get(post.userId)/>
 					<#assign canEditCurrentMessage = (post.canEdit && topic.status != STATUS_LOCKED) || moderatorCanEdit/>
 					<tr>
-						<td colspan="2">
+						<td colspan="2" style="padding:0px;">
 							<#include "post_show_action_buttons_inc.htm"/>
 						</td>
 					</tr>
-
 					<tr>
 						<!-- Username -->
 						<#assign rowspan = "3"/>
@@ -199,14 +210,11 @@
 						</td>
 					</tr>
 		
-					<tr>
-						<td class="spacerow" colspan="2" height="1"><img src="${contextPath}/templates/${templateName}/images/spacer.gif" alt="" width="1" height="1" /></td>
-					</tr>
 				</#list>
 				<!-- END OF POST LISTING -->
 		
 				<tr align="center">
-					<td class="catbottom" colspan="2" height="28">
+					<td class="catbottom" colspan="2" height="20">
 						<table cellspacing="0" cellpadding="0" border="0">
 							<tr>
 								<td align="center"><span class="gensmall">&nbsp;</span></td>
@@ -216,162 +224,36 @@
 				</tr>
 			</table>
 		
-			<table cellspacing="2" cellpadding="2" width="100%" align="center" border="0">
+			<table cellspacing="0" cellpadding="0" width="100%" align="center" border="0" style="margin-top:10px;">
 				<tr>
 					<#if !readonly>
 					<td width="8%" align="left" valign="bottom" nowrap="nowrap">
-					</#if>
-					<#if topic.status == STATUS_LOCKED>
-						<span class="icon_reply_locked"><img src="${contextPath}/images/transp.gif" alt="" /></span>
-					<#else>
-						<#if !readonly>
-							<a href="${JForumContext.encodeURL("/posts/reply/${start}/${topic.id}")}" rel="nofollow" class="icon_reply nav"><img src="${contextPath}/images/transp.gif" alt="" /></a>
+						<input type="button" value="${I18n.getMessage("Button.topic.new")}" style="width:90px;" onclick="location='${JForumContext.encodeURL("/jforum${extension}?module=posts&amp;action=insert&amp;forum_id=${forum.id}", "")}';"/>
+						<#if topic.status == STATUS_LOCKED>
+							<span class="icon_reply_locked"><img src="${contextPath}/images/transp.gif" alt="" /></span>
 						<#else>
-							<#assign colspan = "2"/>
-						</#if>
-		  			</#if>
+							<#if !readonly>
+								<input type="button" value="${I18n.getMessage("Button.reply.new")}" style="width:90px;" onclick="location='${JForumContext.encodeURL("/posts/reply/${start}/${topic.id}")}';"/>
+							<#else>
+								<#assign colspan = "2"/>
+							</#if>
+			  			</#if>
 					</td>
-					
-					<td valign="middle" align="left" colspan="${colspan?default("0")}">
-						<span class="nav">
-						<a class="nav" href="${JForumContext.encodeURL("/forums/list")}">${I18n.getMessage("ForumListing.forumIndex")} </a> 
-            			&raquo; <a class="nav" href="${JForumContext.encodeURL("/forums/show/${forum.id}")}">${forum.name} </a>
-						</span>
-					</td>
-
+					</#if>
 					<td valign="middle" align="right">${paginationData}</td>
 				</tr>
 			</table>
-			
-			<table width="100%" align="center">
-				
-				<#if (logged || anonymousPosts) && topic.status != STATUS_LOCKED && !readonly>
-					<tr>
-						<td colspan="3">
-					<script type="text/javascript">
-					function newCaptcha()
-					{
-						document.getElementById("captcha_img").src = "${contextPath}/jforum${extension}?module=captcha&action=generate&timestamp=" + new Date().getTime();
-					}
-					
-					function activateQuickReply()
-					{
-						$("#captcha_img").attr("src", "${JForumContext.encodeURL("/captcha/generate/${timestamp}")}");
-						$("#quickReply").slideToggle('slow', function() {
-							window.scrollBy(0, 1000);
-						});
-					}
 
-					function validatePostForm(f)
-					{
-						if (f.message.value.replace(/^\s*|\s*$/g, "").length == 0) {
-							alert("${I18n.getMessage("PostForm.textEmpty")}");
-							f.message.focus();
-						
-							return false;
-						}
-					
-						$("#icon_saving").css("display", "inline");
-						$("#btnSubmit").attr("disabled", "disabled").val("${I18n.getMessage("PostForm.saving")}...");
-					
-						return true;
-					}
-					-->
-					</script>
-
-					
-					<form action="${JForumContext.encodeURL("/jforum")}" method="post" name="post" id="post" onsubmit="return validatePostForm(this);" enctype="multipart/form-data" accept-charset="${encoding}">
-						<input type="hidden" name="action" value="insertSave" />
-						<input type="hidden" name="module" value="posts" />
-						<input type="hidden" name="forum_id" value="${forum.id}" />
-						<input type="hidden" name="start" value="${start?default("")}" />
-						<input type="hidden" name="topic_id" value="${topic.id}" />
-						<input type="hidden" name="disable_html" value="1" />
-						<input type="hidden" name="quick" value="1" />
-	
-						<table width="100%">
-							<tr>
-								<td align="center">
-									<img src="${contextPath}/templates/${templateName}/images/icon_mini_message.gif" align="middle" alt="Message" />
-									<span class="nav"><a href="javascript:activateQuickReply()">${I18n.getMessage("PostForm.quickReply")}</a></span>
-								</td>
-							</tr>
-						</table>
-						
-						<p align="center" style="display: none;" id="quickReply">
-							<table>
-								<tr>
-									<td align="center">
-										<textarea class="post" style="width: 350px" name="message" rows="10" cols="35" onkeyup="enterText(this);" onclick="enterText(this);" onselect="enterText(this);" onblur="leaveText();"></textarea>
-									</td>
-								</tr>
-								<#if needCaptcha?default(false)>
-									<tr>
-										<td>
-											<img border="0" align="middle" id="captcha_img"/>
-											<br />
-											<span class="gensmall">${I18n.getMessage("User.captchaResponse")}</span>
-											<input type="text" class="post" style="width: 80px; font-weight: bold;" maxlength="25" name="captcha_anwser" /> 
-											<br />
-											<span class="gensmall">${I18n.getMessage("User.hardCaptchaPart1")} <a href="#newCaptcha" onClick="newCaptcha()"><b>${I18n.getMessage("User.hardCaptchaPart2")}</b></a></span>
-										</td>
-									</tr>
-								</#if>
-								<tr>
-									<td align="right" valign="center">
-										<input type="submit" id="btnSubmit" value="${I18n.getMessage("PostForm.submit")}" class="mainoption" />
-										<img src="${contextPath}/images/transp.gif" id="icon_saving">
-									</td>
-								</tr>
-							</table>
-						</p>
-					</form>
-					</p>
-
-						</td>
-					</tr>
-				</#if>
-				
-				<#if isModerator || isAdmin>
-					<form action="${JForumContext.encodeURL("/jforum")}" method="post" name="formModeration" id="formModeration">
-					<input type="hidden" name="action" value="doModeration" />
-					<input type="hidden" name="module" value="moderation" />
-					<input type="hidden" name="returnUrl" value="${JForumContext.encodeURL("/${moduleName}/${action}/${start}/${topic.id}")}" />
-					<input type="hidden" name="forum_id" value="${topic.forumId}" />
-					<input type="hidden" name="topic_id" value="${topic.id}" />
-					<input type="hidden" name="log_type" value="0"/>
-					<input type="hidden" name="log_description">
-					<input type="hidden" id="moderationTodo" />
-
-					<tr>
-						<td align="left" colspan="3">
-							<@presentation.moderationImages/>
-						</td>
-					</tr>
-					</form>
-				</#if>
-			</table>
-
-			<table cellspacing="0" cellpadding="0" width="100%" border="0">
+			<table cellspacing="2" cellpadding="2" width="100%" border="0" style="margin-top:10px;">
 				<tr>
 					<td align="left" valign="top" class="gensmall">
 						<#if logged>
 							<#if bookmarksEnabled>
-								<a href="javascript:addBookmark(2, ${topic.id});"><img src="${contextPath}/templates/${templateName}/images/icon_bookmark.gif" align="middle"  alt="XML" />&nbsp;${I18n.getMessage("Bookmarks.addTo")}</a>
+								<a href="javascript:addBookmark(2, ${topic.id});"><img align="absmiddle" src="${contextPath}/templates/${templateName}/images/icon_bookmark.gif" align="middle"  alt="XML" />&nbsp;${I18n.getMessage("Bookmarks.addTo")}</a>
 								<br>
 							</#if>
-						
-							<#if !watching>
-								<#assign watchMessage = I18n.getMessage("PostShow.watch")/>
-								<a href="#watch" onClick="watchTopic('${JForumContext.encodeURL("/posts/watch/${start}/${topic.id}")}', '${I18n.getMessage("PostShow.confirmWatch")}');">
-							<#else>
-								<#assign watchMessage = I18n.getMessage("PostShow.unwatch")/>
-								<a href="${JForumContext.encodeURL("/posts/unwatch/${start}/${topic.id}")}">
-							</#if>
-							<img src="${contextPath}/templates/${templateName}/images/watch.gif" align="middle" alt="Watch" />&nbsp;${watchMessage}</a>
 						</#if>
 					</td>
-					<td align="right"><@presentation.forumsComboTable/></td>
 				</tr>
 			</table>
 		</td>

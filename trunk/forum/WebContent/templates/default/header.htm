@@ -3,13 +3,36 @@
 <#assign logged = logged?default(false)/>
 <#assign language = language?default("en_US")/>
 <#assign hasCodeBlock = hasCodeBlock?default(false)/>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja-jp" lang="ja-jp" >
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=${encoding}" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="-1" />
 <style type="text/css">@import url( ${contextPath}/templates/${templateName}/styles/style.css?${startupTime} );</style>
-<style type="text/css">@import url( ${contextPath}/templates/${templateName}/styles/${language}.css?${startupTime} );</style>
+<style type="text/css">@import url( ${contextPath}/templates/${templateName}/styles/common.css );</style>
+<style type="text/css">@import url( ${contextPath}/templates/${templateName}/styles/main.css );</style>
+<script language="javascript">
+function doBookmarkLink() {
+
+	var curruntUrl = location.href;
+	var pageTitle = document.getElementsByTagName("title")[0].innerHTML;
+	var linkName = "${I18n.getMessage("Top.link.bookmark")}";
+	
+	if(navigator.userAgent.indexOf("MSIE") > -1){
+		
+		document.write('<a href="javascript:window.external.AddFavorite(\'' + curruntUrl + '\', \'' + pageTitle + '\');">' + linkName + '</a>');
+		
+	} else if(navigator.userAgent.indexOf("Opera") > -1){
+		
+		document.write('<a href="' + curruntUrl + '" rel="sidebar" title="' + pageTitle + '">' + linkName + '</a>');
+		
+	} else if(navigator.userAgent.indexOf("Firefox") > -1){
+
+		document.write('<a href="javascript:window.sidebar.addPanel(\'' + pageTitle + '\', \'' + curruntUrl + '\', \'\');">' + linkName + '</a>');
+	}
+}
+</script>
 
 <#if hasCodeBlock>
 	<style type="text/css">@import url( ${contextPath}/templates/${templateName}/styles/SyntaxHighlighter.css?${startupTime} );</style>
@@ -19,73 +42,71 @@
 
 </head>
 <body class="${language}">
-
-<!--
-Original theme from phpBB (http://www.phpbb.com) subSilver
-Created by subBlue design
-http://www.subBlue.com
-
-Modifications by JForum Team
--->
-
-<table width="100%" border="0">
+<div>
+	<div class="page_top">
+		<div class="pt_left"><a href="http://www.game-if.com"><img src="${contextPath}/templates/${templateName}/images/logo.gif" title="${I18n.getMessage("Top.link.logo")}"/></a></div>
+		<div class="pt_right">
+			<#if !logged>
+			<a href="mypage.html" title="${I18n.getMessage("Top.link.login")}">${I18n.getMessage("Top.link.login")}</a> |
+			<a href="registryMember.html" title="${I18n.getMessage("Top.link.registry")}">${I18n.getMessage("Top.link.registry")}</a> |
+			</#if>
+			<a href="#" title="${I18n.getMessage("Top.link.guide")}">${I18n.getMessage("Top.link.guide")}</a> |
+			<#if !logged>
+			<a href="inputInquiry.html" title="${I18n.getMessage("Top.link.inquiry")}">${I18n.getMessage("Top.link.inquiry")}</a> |
+			</#if>
+			<#if logged>
+			<a href="inputMemberInquiry.html" title="${I18n.getMessage("Top.link.inquiry")}">${I18n.getMessage("Top.link.inquiry")}</a> |
+			</#if>
+			<script language="javascript">doBookmarkLink();</script>
+		</div>
+		<div class="clearbox"></div>
+	</div>
+</div>
+<div class="page_top_menu">
+	<a href="http://localhost:8080/gameif" title="${I18n.getMessage("Top.link.top")}">${I18n.getMessage("Top.link.top")}</a>
+	<a href="http://localhost:8080/gameif/games.html" title="${I18n.getMessage("Top.link.game")}">${I18n.getMessage("Top.link.game")}</a>
+	<a href="http://localhost:8080/gameif/chargePointSelect.html" title="${I18n.getMessage("Top.link.charge")}">${I18n.getMessage("Top.link.charge")}</a>
+	<a href="http://localhost:8080/forum" title="${I18n.getMessage("Top.link.comunity")}">${I18n.getMessage("Top.link.comunity")}</a>
+	<a href="http://localhost/info" title="${I18n.getMessage("Top.link.news")}">${I18n.getMessage("Top.link.news")}</a>
+</div>
+<br/>
+<table width="980px" border="0" cellpadding="0" cellspacing="0" align="center">
 	<tr>
 		<td>
-			<table cellspacing="0" cellpadding="0" width="100%" border="0">
-				<tr>
-					<td>
-						<a href="${homepageLink}"><img src="${contextPath}/templates/${templateName}/images/logo.jpg"  vspace="1" border="0" alt="[Logo]" /></a>
-					</td>
-					 
-					<td width="100%" align="center" valign="middle">
-						<span class="boardtitle">${forumTitle?default("JForum")}</span>
-						<table cellspacing="0" cellpadding="2" border="0">
-							<tr>
-								<td valign="top" nowrap="nowrap" align="center">&nbsp;
-									<span class="mainmenu">
-									
-										<img src="${contextPath}/templates/${templateName}/images/icon_mini_groups.gif" alt="[Groups]" />
-										<a id="backtosite" class="mainmenu" href="${homepageLink}">${I18n.getMessage("ForumBase.backToSite")}</a>&nbsp;
-										
-										<img src="${contextPath}/templates/${templateName}/images/icon_mini_search.gif" alt="[Search]"/>										
-										<a id="search" class="mainmenu" href="${JForumContext.encodeURL("/search/filters")}"><b>${I18n.getMessage("ForumBase.search")}</b></a> &nbsp;
-										
-										<img src="${contextPath}/templates/${templateName}/images/icon_mini_recentTopics.gif" alt="[Recent Topics]" />
-										<a id="latest" class="mainmenu" href="${JForumContext.encodeURL("/recentTopics/list")}">${I18n.getMessage("ForumBase.recentTopics")}</a> &nbsp;
-										
-										<img src="${contextPath}/templates/${templateName}/images/icon_mini_recentTopics.gif" alt="[Hottest Topics]" />
-										<a id="hottest" class="mainmenu" href="${JForumContext.encodeURL("/hottestTopics/list")}">${I18n.getMessage("ForumBase.hottestTopics")}</a> &nbsp;
-										
-										<img src="${contextPath}/templates/${templateName}/images/icon_mini_members.gif" alt="[Members]" />&nbsp;
-										<a id="latest2" class="mainmenu" href="${JForumContext.encodeURL("/user/list")}">${I18n.getMessage("ForumBase.usersList")}</a> &nbsp;
-										
-										<#if logged>
-											<img src="${contextPath}/templates/${templateName}/images/icon_mini_profile.gif" border="0" alt="[Profile]" />
-											<a id="myprofile" class="mainmenu" href="${JForumContext.encodeURL("/user/edit/${session.userId}")}">${I18n.getMessage("ForumBase.profile")}</a>&nbsp; 
-											
-											<#if bookmarksEnabled>
-												<img src="${contextPath}/templates/${templateName}/images/icon_minipost.gif" alt="[Post]" />
-												<a class="mainmenu" href="${JForumContext.encodeURL("/bookmarks/list/${session.userId}")}">${I18n.getMessage("Bookmarks.myBag")}</a>&nbsp;
-											</#if>
-											
-											<a id="privatemessages" class="mainmenu" href="${JForumContext.encodeURL("/pm/inbox")}">
-												<img src="${contextPath}/templates/${templateName}/images/icon_mini_message.gif" border="0" alt="[Message]" />
-												<#if (session.privateMessages > 0)>
-													${I18n.getMessage("ForumBase.newPm")}: (${session.privateMessages})
-												<#else>
-													${I18n.getMessage("ForumBase.privateMessages")}
-												</#if>
-											</a>&nbsp;
-										</#if>
-									</span>
-								</td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-			</table>
+			<dl class="light_box" style="margin:10px 0px 0px 0px;">
+				<dt>
+					<strong>${forumTitle?default("JForum")}</strong>
+					<span>
+						<a id="backtosite" class="mainmenu" href="${homepageLink}">${I18n.getMessage("ForumBase.backToSite")}</a>
+						<!-- 
+						<a id="search" class="mainmenu" href="${JForumContext.encodeURL("/search/filters")}">${I18n.getMessage("ForumBase.search")}</a>
+						-->
+						<a id="latest" class="mainmenu" href="${JForumContext.encodeURL("/recentTopics/list")}">${I18n.getMessage("ForumBase.topic.recent")}</a>
+						
+						<a id="hottest" class="mainmenu" href="${JForumContext.encodeURL("/hottestTopics/list")}">${I18n.getMessage("ForumBase.topic.hottest")}</a>
+						
+						<!-- <a id="latest2" class="mainmenu" href="${JForumContext.encodeURL("/user/list")}">${I18n.getMessage("ForumBase.user.list")}</a> -->
+						
+						<#if logged>
+							<a id="myprofile" class="mainmenu" href="${JForumContext.encodeURL("/user/edit/${session.userId}")}">${I18n.getMessage("ForumBase.profile")}</a>
+							
+							<#if bookmarksEnabled>
+								<a class="mainmenu" href="${JForumContext.encodeURL("/bookmarks/list/${session.userId}")}">${I18n.getMessage("ForumBase.bookmarks.mybag")}</a>
+							</#if>
+							
+							<a id="privatemessages" class="mainmenu" href="${JForumContext.encodeURL("/pm/inbox")}">
+								<#if (session.privateMessages > 0)>
+									${I18n.getMessage("ForumBase.newPm")}: (${ForumBase.private.messages})
+								<#else>
+									${I18n.getMessage("ForumBase.private.messages")}
+								</#if>
+							</a>
+						</#if>
+					</span>
+				</dt>
+				<dd style="height:0px;"></dd>
+			</dl>
 		</td>
 	</tr>
 	<tr>
 		<td>
-
