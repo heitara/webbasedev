@@ -63,6 +63,10 @@ public class PortalConstants {
 		public final static String RUNNING = "1";
 		/** CBT中 */
 		public final static String CBT = "5";
+		/** CBT募集 */
+		public final static String CBT_RECRUIT = "6";
+		/** 募集完了、かつ、テスト中 */
+		public final static String CBT_TEST = "7";
 	}
 
 	/** 削除フラグ */
