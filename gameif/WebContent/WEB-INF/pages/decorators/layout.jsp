@@ -12,7 +12,6 @@
 <%@page import="com.gameif.portal.constants.PortalConstants"%>
 <%@page import="com.gameif.portal.entity.MyServer"%>
 <%
-
 /* =======================================　頁内共通変数設定  =======================================*/
 
 //ログイン状態
@@ -61,12 +60,16 @@ if (noLoginPages != null) {
 	}	
 }
 /* =============================================================================================*/
-
+response.setHeader("Pragma","No-cache");
+response.setHeader("Cache-Control","no-cache");
+response.setHeader("Cache-Control", "no-store");
+response.setDateHeader("Expires",0);
+/* =============================================================================================*/
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja-jp" lang="ja-jp" >
 <head>
-	<title><decorator:title default="新感覚の楽しみ方"/> | ゲームイフ | ブラウザゲームポータルサイト</title>
+	<title><decorator:title default="遊びから生まれる可能性"/> | ゲームイフ | ブラウザゲームポータルサイト</title>
 	<meta name="keywords" content="ゲームイフ,ブラウザゲーム,webgame,大人数同時プレイブラウザゲーム,オンラインゲーム,パブリッシング,プラットフォーム" />
 	<meta name="description" content="ブラウザゲーム(WEBGAME)のポータルサイト" />
 	<meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
@@ -96,14 +99,13 @@ if (noLoginPages != null) {
 				<a href="mypage.html" title="ログイン">ログイン</a> |
 				<a href="registryMember.html" title="会員登録">会員登録</a> |
 <%			}%>
-			<a href="#" title="初心者ガイド">初心者ガイド</a> |
 			<a href="<%=isLogined ? "inputMemberInquiry.html" : "inputInquiry.html"%>" title="お問合せ">お問合せ</a> |
 			<script language="javascript">doBookmarkLink()</script>
 <%			if (isLogined) {%>
 			<div style="font-size:10px;color:#855;margin-top:10px;text-align:right;"><%=nickname%>さん、ようこそ！</div>
 <%			}%>
 		</div>
-		<div class="clearbox"/>
+		<div class="clearbox"></div>
 	</div>
 </div>
 <!-- ページトップ：終了 -->
@@ -130,8 +132,8 @@ if (noLoginPages != null) {
 				<form id="myLoginForm" action="<%=portalAuthTopUrl%>/remoteLogin" method="post" onsubmit="this.service.value='<%=portalTopUrl%>/loginStatusProxy.html?target=' + encodeURIComponent(location.href); return true;" style="padding:0px;margin:0px;">
 				<div style="width:200px;height:155px;text-align:right;background:url('images/bg_login.gif');">
 					<div style="height:133px;">
-						<input type="text" name="username" style="width:100px;margin-right:20px;margin-top:25px;border:1px solid #EEE;border-top:1px solid #999;border-left:1px solid #999;height:18px;background:url('images/bg_login_id.gif');" onfocus="this.style.background='none';"/><br/>
-						<input type="password" name="password" style="width:100px;margin-right:20px;margin-top:7px;border:1px solid #EEE;border-top:1px solid #999;border-left:1px solid #999;height:18px;background:url('images/bg_login_password.gif');" onfocus="this.style.background='none';"/><br/>
+						<input type="text" name="username" class="ime_mode_n" style="width:100px;margin-right:20px;margin-top:25px;border:1px solid #EEE;border-top:1px solid #999;border-left:1px solid #999;height:18px;background:url('images/bg_login_id.gif');" onfocus="this.style.background='none';"/><br/>
+						<input type="password" name="password" class="ime_mode_n" style="width:100px;margin-right:20px;margin-top:7px;border:1px solid #EEE;border-top:1px solid #999;border-left:1px solid #999;height:18px;background:url('images/bg_login_password.gif');" onfocus="this.style.background='none';"/><br/>
 						<input type="image" src="images/btn_c_login_w.gif" value="ログイン" style="margin-right:20px;margin-top:7px;"/>
 						<input type="hidden" id="service" name="service" value="<%=getServletContext().getInitParameter("portalTopUrl")%>/mypage.html"/>
 						<input type="hidden" name="submit" value="true" />
@@ -149,19 +151,6 @@ if (noLoginPages != null) {
 			<dd><a href="inputInvite.html" title="友達招待"><img src="images/btn_b_friend.gif" alt="友達招待"/></a></dd>
 		</dl>
 		<!-- ショットカットボタンエリア：終了 -->
-		
-		<!-- 初めての方へ：開始 -->
-		<dl class="title_box tspace_b">
-			<dt><strong>初めての方へ</strong><span>&nbsp;</span></dt>
-			<dd class="guide">
-				<a href="#" title="会員登録方法">会員登録方法</a>
-				<a href="#" title="ＧＩポイントについて">ＧＩポイントについて</a>
-				<a href="#" title="ご利用上の注意">ご利用上の注意</a>
-				<a href="#" title="ＦＡＱ">ＦＡＱ</a>
-				<a href="#" title="お問合せ">お問合せ</a>
-			</dd>
-		</dl>
-		<!-- 初めての方へ：終了 -->
 	<%
 		} else {
 	%>
@@ -186,7 +175,7 @@ if (noLoginPages != null) {
 			if (!titles.isEmpty()) {%>
 		<!-- マイゲーム：開始 -->
 		<dl class="title_box tspace_b">
-			<dt><strong>マイゲーム</strong><span></span></dt>
+			<dt><strong>マイゲーム</strong><span>&nbsp;</span></dt>
 			<dd><%
 				for (int i = 0; i < titles.size(); i++) {
 					MyTitle title = titles.get(i);
@@ -215,7 +204,7 @@ if (noLoginPages != null) {
 							if (PortalConstants.ServerStatus.MAINTENANCE.equals(server.getServiceStatus())) {%>
 								<li title="このサーバはただいまメンテナンスしております。">S<%=serverNo%> <%=server.getServerName()%><span style="color:#900;font-size:10px;">（メンテ）</span></li>
 <%							} else {%>
-								<li><a href="playGame.html?serverId=<%=server.getServerId()%>&titleId=<%=server.getTitleId()%>" title="サーバ「<%=server.getServerName()%>」で「<%=title.getTitleName()%>」をプレイする。">S<%=serverNo%> <%=server.getServerName()%></a></li><%
+								<li><a href="playGame.html?serverId=<%=server.getServerId()%>&titleId=<%=server.getTitleId()%>" title="サーバ「<%=server.getServerName()%>」でプレイ！">S<%=serverNo%> <%=server.getServerName()%></a></li><%
 							}
 						}%>
 						</ul>
@@ -229,6 +218,20 @@ if (noLoginPages != null) {
 		<%
 			}
 		}%>
+		<!-- サポート：開始 -->
+		<dl class="title_box tspace_b">
+			<dt><strong>サポート</strong><span>&nbsp;</span></dt>
+			<dd class="guide">
+<%				if (!isLogined) {%>
+				<a href="#" title="会員登録方法">会員登録方法</a>
+<%				}%>
+				<a href="#" title="ＧＩポイントについて">ＧＩポイントについて</a>
+				<a href="#" title="ご利用上の注意">ご利用上の注意</a>
+				<a href="#" title="ＦＡＱ">ＦＡＱ</a>
+				<a href="<%=isLogined ? "inputMemberInquiry.html" : "inputInquiry.html"%>" title="お問合せ">お問合せ</a>
+			</dd>
+		</dl>
+		<!-- サポート：終了 -->
 	</div>
 	<!-- ページ右パネル：終了 -->
 	<div class="clearbox"></div>
@@ -237,11 +240,11 @@ if (noLoginPages != null) {
 <!-- ページフッター：開始 -->
 <div class="page_bottom">
 	<div class="pb_left">
-		<a href="http://company.game-if.com" title="会社概要">会社概要</a> | 
-		<a href="agreement.html" title="利用規約">利用規約</a> | 
-		<a href="immunity.html" title="免責事項">免責事項</a> | 
-		<a href="privacy.html" title="プライバシーポリシー">プライバシーポリシー</a> | 
-		<a href="shop_info.html" title="特定商取引法に基づく表示内容">特定商取引法に基づく表示内容</a>
+		<a href="http://company.game-if.com" target="_blank" title="会社概要">会社概要</a> | 
+		<a href="<%=portalNewsTopUrl%>/component/content/article/1-kiyaku" title="利用規約">利用規約</a> | 
+		<a href="<%=portalNewsTopUrl%>/component/content/article/3-menseki" title="免責事項">免責事項</a> | 
+		<a href="<%=portalNewsTopUrl%>/component/content/article/2-privarypolicy" title="プライバシーポリシー">プライバシーポリシー</a> | 
+		<a href="<%=portalNewsTopUrl%>/component/content/article/4-shopinfo" title="特定商取引法に基づく表示内容">特定商取引法に基づく表示内容</a>
 	</div>
 	<div class="pb_right">Copyright &copy; 2009 Game-IF Co.,Ltd. All Rights Reserved.</div>
 	<div class="pb_browser">
