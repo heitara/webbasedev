@@ -112,7 +112,7 @@
         ]]>
 	</select>
 
-	<select id="selectTitlesWithPlay" resultMap="myTitleForCBTResult">
+	<select id="selectTitlesWithPlay"  parameterClass="java.lang.Long" resultMap="myTitleForCBTResult">
         <![CDATA[
 		SELECT
 			t.title_id,
@@ -134,12 +134,12 @@
 		FROM	title_mst t LEFT JOIN (
 					SELECT	title_id, MAX(play_date) AS play_date, COUNT(*) AS play_count
 					FROM	play_hist
-					WHERE	mem_num = #value#
+					WHERE	mem_num = #memNum#
 					GROUP BY title_id
 				) p ON t.title_id = p.title_id
 		LEFT JOIN cbt_tester c
 		ON t.title_id = c.title_id
-		AND c.mem_num = #value#
+		AND c.mem_num = #memNum#
 		ORDER BY p.play_date DESC, p.play_count DESC, t.order_num DESC
         ]]>
 	</select>
