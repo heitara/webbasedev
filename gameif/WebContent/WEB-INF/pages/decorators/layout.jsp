@@ -205,7 +205,47 @@ response.setDateHeader("Expires",0);
 						<legend>サーバ選択</legend>
 <%					if (PortalConstants.ServerStatus.MAINTENANCE.equals(title.getServiceStatus())) {%>
 						<ul><li style="color:#666;font-size:10px;">このタイトルは、はただいま<br/>メンテナンスしております。	</li></ul>
-<%					} else {%>
+<%                  } else if (PortalConstants.ServerStatus.CBT.equals(title.getServiceStatus())) {
+						if ((PortalConstants.RecruitStatus.COMPLETE.equals(title.getRecruitStatus()) || PortalConstants.RecruitStatus.TEST.equals(title.getRecruitStatus())) && title.getCbtTester().equals(0)) { %>
+							<ul><li style="color:#666;font-size:10px;">CBTテスターではないため<br/>プレイできません。	</li></ul>
+<% 						} else if (PortalConstants.RecruitStatus.RECRUITING.equals(title.getRecruitStatus())) { %>
+							<ul><li style="color:#666;font-size:10px;">このタイトルは、ただいま<br/>募集中です、プレイできません。	</li></ul>
+<%						} else { %>
+							<ul>
+<%							for (int j = 0; j < servers.size(); j++) {
+								MyServer server = servers.get(j);
+								String serverNo = "00" + server.getServerId();
+								serverNo = serverNo.substring(serverNo.length() - 2);
+								
+								if (PortalConstants.ServerStatus.MAINTENANCE.equals(server.getServiceStatus())) {%>
+									<li title="このサーバはただいまメンテナンスしております。">S<%=serverNo%> <%=server.getServerName()%><span style="color:#900;font-size:10px;">（メンテ）</span></li>
+<%								} else {%>
+									<li><a href="playGame.html?serverId=<%=server.getServerId()%>&titleId=<%=server.getTitleId()%>" title="サーバ「<%=server.getServerName()%>」でプレイ！">S<%=serverNo%> <%=server.getServerName()%></a></li><%
+								}
+							}%>
+						</ul>
+<%						}
+	                 } else if (PortalConstants.ServerStatus.OBT.equals(title.getServiceStatus())) {
+						if ((PortalConstants.RecruitStatus.COMPLETE.equals(title.getRecruitStatus()) || PortalConstants.RecruitStatus.TEST.equals(title.getRecruitStatus())) && title.getCbtTester().equals(0)) { %>
+							<ul><li style="color:#666;font-size:10px;">CBTテスターではないため<br/>プレイできません。	</li></ul>
+<% 						} else if (PortalConstants.RecruitStatus.RECRUITING.equals(title.getRecruitStatus())) { %>
+							<ul><li style="color:#666;font-size:10px;">このタイトルは、ただいま<br/>募集中です、プレイできません。	</li></ul>
+<%						} else { %>
+							<ul>
+<%							for (int j = 0; j < servers.size(); j++) {
+								MyServer server = servers.get(j);
+								String serverNo = "00" + server.getServerId();
+								serverNo = serverNo.substring(serverNo.length() - 2);
+								
+								if (PortalConstants.ServerStatus.MAINTENANCE.equals(server.getServiceStatus())) {%>
+									<li title="このサーバはただいまメンテナンスしております。">S<%=serverNo%> <%=server.getServerName()%><span style="color:#900;font-size:10px;">（メンテ）</span></li>
+<%								} else {%>
+									<li><a href="playGame.html?serverId=<%=server.getServerId()%>&titleId=<%=server.getTitleId()%>" title="サーバ「<%=server.getServerName()%>」でプレイ！">S<%=serverNo%> <%=server.getServerName()%></a></li><%
+								}
+							}%>
+						</ul>
+<%						}
+					} else {%>
 						<ul>
 <%						for (int j = 0; j < servers.size(); j++) {
 							MyServer server = servers.get(j);
