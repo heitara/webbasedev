@@ -85,7 +85,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		memberInfo.setMemPwd(tempMemberInfo.getMemPwd());
 		
 		memberInfo.setEntryDate(new Date());
-		memberInfo.setEntryIp(ServletActionContext.getRequest().getRemoteAddr());
+		memberInfo.setEntryIp(ContextUtil.getClientIP());
 		memberInfo.setLastUpdateDate(memberInfo.getEntryDate());
 		memberInfo.setLastUpdateIp(memberInfo.getEntryIp());
 		
@@ -152,7 +152,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 			tempMemberInfo.setInviteId(Long.parseLong(inviteId));
 		}
 		tempMemberInfo.setCreatedDate(new Date());
-		tempMemberInfo.setCreatedIp(ServletActionContext.getRequest().getRemoteAddr());
+		tempMemberInfo.setCreatedIp(ContextUtil.getClientIP());
 
 		// 臨時会員情報を登録する。
 		tempMemberInfoDao.save(tempMemberInfo);
