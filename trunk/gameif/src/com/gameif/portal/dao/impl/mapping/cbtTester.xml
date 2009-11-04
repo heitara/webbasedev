@@ -8,6 +8,7 @@
 	<resultMap class="com.gameif.portal.entity.CbtTester" id="cbtTesterResult">
 		<result property="memNum" column="mem_num" />
 		<result property="titleId" column="title_id" />
+		<result property="electStatus" column="elect_status" />
 	</resultMap>
 
 	<insert id="save" parameterClass="cbtTester">
@@ -15,24 +16,15 @@
 			INSERT INTO cbt_tester
 				(
 				mem_num,
-				title_id)
+				title_id,
+				elect_status)
 			VALUES
 				(
 				#memNum#,
-				#titleId#
+				#titleId#,
+				#electStatus#
 				)
 		]]>
 	</insert>
-	
-	<delete id="deleteByKey" parameterClass="cbtTester">  
-        <![CDATA[
-	        DELETE
-			FROM
-				cbt_tester
-			WHERE
-				mem_num = #memNum#
-			AND title_id = #titleId#
-        ]]>
-	</delete>
 
 </sqlMap>
