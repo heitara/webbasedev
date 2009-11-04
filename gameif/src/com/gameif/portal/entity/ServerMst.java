@@ -11,9 +11,9 @@ public class ServerMst extends BaseEntity {
 	private Integer serverId;
 	private Integer titleId;
 	private String serverName;
-	private Date ServiceStartDate;
-	private Date ServiceEndDate;
-	private String ServiceStatus;
+	private Date serviceStartDate;
+	private Date serviceEndDate;
+	private String serviceStatus;
 	private String serverDomain;
 	private String playUrl;
 	private String chargeUrl;
@@ -44,23 +44,42 @@ public class ServerMst extends BaseEntity {
 	public void setServerName(String serverName) {
 		this.serverName = serverName;
 	}
+	
+	/**
+	 * @return the serviceStartDate
+	 */
 	public Date getServiceStartDate() {
-		return ServiceStartDate;
+		return serviceStartDate;
 	}
+	/**
+	 * @param serviceStartDate the serviceStartDate to set
+	 */
 	public void setServiceStartDate(Date serviceStartDate) {
-		ServiceStartDate = serviceStartDate;
+		this.serviceStartDate = serviceStartDate;
 	}
+	/**
+	 * @return the serviceEndDate
+	 */
 	public Date getServiceEndDate() {
-		return ServiceEndDate;
+		return serviceEndDate;
 	}
+	/**
+	 * @param serviceEndDate the serviceEndDate to set
+	 */
 	public void setServiceEndDate(Date serviceEndDate) {
-		ServiceEndDate = serviceEndDate;
+		this.serviceEndDate = serviceEndDate;
 	}
+	/**
+	 * @return the serviceStatus
+	 */
 	public String getServiceStatus() {
-		return ServiceStatus;
+		return serviceStatus;
 	}
+	/**
+	 * @param serviceStatus the serviceStatus to set
+	 */
 	public void setServiceStatus(String serviceStatus) {
-		ServiceStatus = serviceStatus;
+		this.serviceStatus = serviceStatus;
 	}
 	public String getServerDomain() {
 		return serverDomain;
