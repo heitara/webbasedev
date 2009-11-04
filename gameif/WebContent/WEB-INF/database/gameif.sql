@@ -421,7 +421,8 @@ CREATE TABLE  `mem_settlement_hist` (
 DROP TABLE IF EXISTS `cbt_tester`;
 CREATE TABLE  `cbt_tester` (
   `mem_num` bigint(20) NOT NULL,
-  `title_id` int(11) NOT NULL,
+  `title_id` int(10) NOT NULL,
+  `elect_status` char(1) NOT NULL,
   PRIMARY KEY (`mem_num`,`title_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
