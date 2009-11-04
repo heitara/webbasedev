@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +17,7 @@ import com.gameif.common.exception.LogicException;
 import com.gameif.common.helper.TemplateMailer;
 import com.gameif.common.util.SecurityUtil;
 import com.gameif.portal.businesslogic.IMemberInfoBusinessLogic;
+import com.gameif.portal.businesslogic.titleif.charge.DefaultChargeExecutor;
 import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.dao.IInviteInfoDao;
 import com.gameif.portal.dao.IMemberInfoDao;
@@ -32,6 +35,8 @@ import com.gameif.portal.util.ContextUtil;
 public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IMemberInfoBusinessLogic {
 
 	private static final long serialVersionUID = -1903255586967518866L;
+	
+	private final static Log logger = LogFactory.getLog(DefaultChargeExecutor.class);
 
 	private IMemberInfoDao memberInfoDao;
 	private IMemberLoginInfoDao memberLoginInfoDao;
@@ -52,7 +57,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	@Override
 	public void saveMemberInfo(Long memNum, String authKey) throws LogicException {
 		
-		TempMemberInfo tempMemberInfo = tempMemberInfoDao.selectValidTempMemberInfo(memNum, authKey, invalidMinute);
+		TempMemberInfo tempMemberInfo = tempMemberInfoDao.selectValidInfoForUpdate(memNum, authKey, invalidMinute);
 		if (tempMemberInfo == null) {
 			
 			// データが存在しない
@@ -62,8 +67,8 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		MemberInfo memberInfo = new MemberInfo();
 		
 		// アカウントＩＤとメールアドレスは小文字に変換、両辺スペース削除
-		memberInfo.setMemId(tempMemberInfo.getMemId().trim().toLowerCase());
-		memberInfo.setMailPc(tempMemberInfo.getMailPc().trim().toLowerCase());
+		memberInfo.setMemId(tempMemberInfo.getMemId());
+		memberInfo.setMailPc(tempMemberInfo.getMailPc());
 		// ニックネームは両辺スペース削除
 		memberInfo.setNickName(tempMemberInfo.getNickName().trim());
 
@@ -107,11 +112,17 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		// 臨時会員情報を削除する
 		tempMemberInfoDao.deleteByKey(memNum);
 
-		// お知らせメールを送信する。
-		HashMap<String, String> props = new HashMap<String, String>();
-		props.put("memId", memberInfo.getMemId());
-		props.put("nickName", memberInfo.getNickName());
-		templateMailer.sendAsyncMail(memberInfo.getMailPc(), "createMember", props);
+		try {
+			// お知らせメールを送信する。
+			HashMap<String, String> props = new HashMap<String, String>();
+			props.put("memId", memberInfo.getMemId());
+			props.put("nickName", memberInfo.getNickName());
+			templateMailer.sendAsyncMail(memberInfo.getMailPc(), "createMember", props);
+		} catch (Exception ex) {
+			
+			logger.error("error has occurred in sending createMember mail. ", ex);
+			
+		}
 	}
 
 	/**
@@ -257,11 +268,15 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 			updateLoginInfoByMemberInfo(oldMemberInfo);
 		}
 
-		// お知らせメールを送信する。
-		HashMap<String, String> props = new HashMap<String, String>();		
-		props.put("memId", oldMemberInfo.getMemId());
-		props.put("nickName", oldMemberInfo.getNickName());		
-		templateMailer.sendAsyncMail(oldMemberInfo.getMailPc(), "updateMemberInfo", props);
+		try {
+			// お知らせメールを送信する。
+			HashMap<String, String> props = new HashMap<String, String>();		
+			props.put("memId", oldMemberInfo.getMemId());
+			props.put("nickName", oldMemberInfo.getNickName());		
+			templateMailer.sendAsyncMail(oldMemberInfo.getMailPc(), "updateMemberInfo", props);
+		} catch (Exception ex) {
+			logger.error("error has occurred in sending updateMemberInfo mail. ", ex);
+		}
 	}
 
 	/**
@@ -305,11 +320,15 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		// 会員ログイン情報を更新する。
 		updateLoginInfoByMemberInfo(oldMemberInfo);
 
-		// お知らせメールを送信する。
-		HashMap<String, String> props = new HashMap<String, String>();		
-		props.put("memId", oldMemberInfo.getMemId());
-		props.put("nickName", oldMemberInfo.getNickName());		
-		templateMailer.sendAsyncMail(oldMemberInfo.getMailPc(), "updatePassword", props);
+		try {
+			// お知らせメールを送信する。
+			HashMap<String, String> props = new HashMap<String, String>();		
+			props.put("memId", oldMemberInfo.getMemId());
+			props.put("nickName", oldMemberInfo.getNickName());		
+			templateMailer.sendAsyncMail(oldMemberInfo.getMailPc(), "updatePassword", props);
+		} catch (Exception ex) {
+			logger.error("error has occurred in sending updatePassword mail. ", ex);
+		}
 	}
 
 	/**
@@ -335,11 +354,15 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		// 会員ログイン情報を更新する。
 		updateLoginInfoByMemberInfo(oldMemberInfo);
 
-		// お知らせメールを送信する。
-		HashMap<String, String> props = new HashMap<String, String>();		
-		props.put("memId", oldMemberInfo.getMemId());
-		props.put("nickName", oldMemberInfo.getNickName());		
-		templateMailer.sendAsyncMail(oldMemberInfo.getMailPc(), "withdraw", props);
+		try {
+			// お知らせメールを送信する。
+			HashMap<String, String> props = new HashMap<String, String>();		
+			props.put("memId", oldMemberInfo.getMemId());
+			props.put("nickName", oldMemberInfo.getNickName());		
+			templateMailer.sendAsyncMail(oldMemberInfo.getMailPc(), "withdraw", props);
+		} catch (Exception ex) {
+			logger.error("error has occurred in sending withdraw mail. ", ex);
+		}
 	}
 
 	/**
@@ -565,11 +588,15 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		// 会員ログイン情報を更新する。
 		updateLoginInfoByMemberInfo(oldMemberInfo);
 
-		// お知らせメールを送信する。
-		HashMap<String, String> props = new HashMap<String, String>();		
-		props.put("memId", oldMemberInfo.getMemId());
-		props.put("nickName", oldMemberInfo.getNickName());		
-		templateMailer.sendAsyncMail(oldMemberInfo.getMailPc(), "updatePassword", props);
+		try {
+			// お知らせメールを送信する。
+			HashMap<String, String> props = new HashMap<String, String>();		
+			props.put("memId", oldMemberInfo.getMemId());
+			props.put("nickName", oldMemberInfo.getNickName());		
+			templateMailer.sendAsyncMail(oldMemberInfo.getMailPc(), "updatePassword", props);
+		} catch (Exception ex) {
+			logger.error("error has occurred in sending updateTempPassword mail. ", ex);
+		}
 		
 	}
 	
