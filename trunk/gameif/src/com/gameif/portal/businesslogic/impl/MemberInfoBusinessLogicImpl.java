@@ -6,7 +6,6 @@ import java.util.HashMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.struts2.ServletActionContext;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gameif.common.businesslogic.BaseBusinessLogic;
@@ -55,7 +54,8 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	 */
 	@Transactional
 	@Override
-	public void saveMemberInfo(Long memNum, String authKey) throws LogicException {
+	public Long saveMemberInfo(Long memNum, String authKey) throws LogicException {
+		Long newMemNum;
 		
 		TempMemberInfo tempMemberInfo = tempMemberInfoDao.selectValidInfoForUpdate(memNum, authKey, invalidMinute);
 		if (tempMemberInfo == null) {
@@ -96,6 +96,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		MemberInfo newMemberInfo = memberInfoDao.selectByMemId(memberInfo.getMemId());
 		
 		memberInfo.setMemNum(newMemberInfo.getMemNum());
+		newMemNum = newMemberInfo.getMemNum();
 
 		// 会員ログイン情報を登録する。
 		MemberLoginInfo memberLoginInfo = new MemberLoginInfo();
@@ -119,10 +120,11 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 			props.put("nickName", memberInfo.getNickName());
 			templateMailer.sendAsyncMail(memberInfo.getMailPc(), "createMember", props);
 		} catch (Exception ex) {
-			
 			logger.error("error has occurred in sending createMember mail. ", ex);
-			
 		}
+		
+		return newMemNum;
+		
 	}
 
 	/**
