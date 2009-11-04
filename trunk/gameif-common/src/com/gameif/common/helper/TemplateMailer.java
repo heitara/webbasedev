@@ -24,6 +24,7 @@ public class TemplateMailer {
 	private final static Log logger = LogFactory.getLog(TemplateMailer.class);
 	
 	private JavaMailSender sender;
+	private JavaMailSender juniorSender;
 	private FreeMarkerConfigurer freeMarkerConfigurer = null;
 	private TaskExecutor taskExecutor;
 	
@@ -36,7 +37,8 @@ public class TemplateMailer {
 	 * TEXTメールを即時に送信する。
 	 * @param to　送信先アドレス
 	 * @param templateKey　メールテンプレートキー
-	 * @param props　送信先アドレスとメール送信時テンプレートの変数を書き換える変数Map<br/>
+	 * @param props　送信先アドレスとメール送信時テンプレートの変数を書き換える変数Map
+	 * @param juniorFlg ジュニアメールサーバ判定(true:ジュニアサーバで送信(友達紹介送信用)、false:主なサーバで送信)<br/>
 	 * <blockquote><strong>propsに設定する項目：</strong><br/>
 	 * <ul>
 	 * 	<li>KEY="memNum",VALUE=[会員番号]（任意、テンプレートによる）</li>
@@ -50,7 +52,7 @@ public class TemplateMailer {
 	 * 	<li>その他（必要に応じて追加）</li>
 	 * <ul></blockquote>
 	 */
-	public void sendTextMail(String to, String templateKey, Map<String, String> props) {
+	public void sendTextMail(String to, String templateKey, Map<String, String> props, Boolean juniorFlg) {
 				
 		try {
 		
@@ -67,7 +69,11 @@ public class TemplateMailer {
 			msg.setSubject(getMailTitle(templateKey));
 			msg.setText(getMailText(templateKey, props));
 			
-			sender.send(msg);
+			if (juniorFlg) {
+				juniorSender.send(msg);
+			} else {
+				sender.send(msg);
+			}
 			
 		} catch (Exception ex) {
 			
@@ -79,7 +85,8 @@ public class TemplateMailer {
 	 * HTMLメールを即時に送信する。
 	 * @param to　送信先アドレス
 	 * @param templateKey　メールテンプレートキー
-	 * @param props　送信先アドレスとメール送信時テンプレートの変数を書き換える変数Map<br/>
+	 * @param props　送信先アドレスとメール送信時テンプレートの変数を書き換える変数Map
+	 * @param juniorFlg ジュニアメールサーバ判定(true:ジュニアサーバで送信(友達紹介送信用)、false:主なサーバで送信)<br/>
 	 * <blockquote><strong>propsに設定する項目：</strong><br/>
 	 * <ul>
 	 * 	<li>KEY="memNum",VALUE=[会員番号]（任意、テンプレートによる）</li>
@@ -93,7 +100,7 @@ public class TemplateMailer {
 	 * 	<li>その他（必要に応じて追加）</li>
 	 * <ul></blockquote>
 	 */
-	public void sendHtmlMail(String to, String templateKey, Map<String, String> props) {
+	public void sendHtmlMail(String to, String templateKey, Map<String, String> props, Boolean juniorFlg) {
 				
 		try {
 
@@ -109,7 +116,11 @@ public class TemplateMailer {
 			helper.setSubject(getMailTitle(templateKey));
 			helper.setText(getMailText(templateKey, props), true);
 			
-			sender.send(msg);
+			if (juniorFlg) {
+				juniorSender.send(msg);
+			} else {
+				sender.send(msg);
+			}
 			
 		} catch (Exception ex) {
 			
@@ -121,7 +132,8 @@ public class TemplateMailer {
 	 * メールを即時に送信する。
 	 * @param to　送信先アドレス
 	 * @param templateKey　メールテンプレートキー
-	 * @param props　送信先アドレスとメール送信時テンプレートの変数を書き換える変数Map<br/>
+	 * @param props　送信先アドレスとメール送信時テンプレートの変数を書き換える変数Map
+	 * @param juniorFlg ジュニアメールサーバ判定(true:ジュニアサーバで送信(友達紹介送信用)、false:主なサーバで送信)<br/>
 	 * <blockquote><strong>propsに設定する項目：</strong><br/>
 	 * <ul>
 	 * 	<li>KEY="memNum",VALUE=[会員番号]（任意、テンプレートによる）</li>
@@ -135,17 +147,17 @@ public class TemplateMailer {
 	 * 	<li>その他（必要に応じて追加）</li>
 	 * <ul></blockquote>
 	 */
-	public void sendMail(String to, String templateKey, Map<String, String> props) {
+	public void sendMail(String to, String templateKey, Map<String, String> props, Boolean juniorFlg) {
 		
 		try {
 
 			if (isHtmlMail(templateKey)) {
 				
-				sendHtmlMail(to, templateKey, props);
+				sendHtmlMail(to, templateKey, props, juniorFlg);
 				
 			} else {
 				
-				sendTextMail(to, templateKey, props);
+				sendTextMail(to, templateKey, props, juniorFlg);
 			}
 			
 		} catch (Exception ex) {
@@ -155,7 +167,7 @@ public class TemplateMailer {
 	}
 	
 	/**
-	 * 非同期でメールを送信する。
+	 * 非同期でメールを送信する(デフォルトに主なサーバで送信)。
 	 * @param to　送信先アドレス
 	 * @param templateKey　メールテンプレートキー
 	 * @param props　送信先アドレスとメール送信時テンプレートの変数を書き換える変数Map<br/>
@@ -174,13 +186,37 @@ public class TemplateMailer {
 	 */
 	public void sendAsyncMail(final String to, final String templateKey, final Map<String, String> props) {
 		
+		sendAsyncMail(to, templateKey, props, false);
+	}
+	
+	/**
+	 * 非同期でメールを送信する。
+	 * @param to　送信先アドレス
+	 * @param templateKey　メールテンプレートキー
+	 * @param props　送信先アドレスとメール送信時テンプレートの変数を書き換える変数Map<br/>
+	 * @param juniorFlg ジュニアメールサーバ判定(true:ジュニアサーバで送信(友達紹介送信用)、false:主なサーバで送信)
+	 * <blockquote><strong>propsに設定する項目：</strong><br/>
+	 * <ul>
+	 * 	<li>KEY="memNum",VALUE=[会員番号]（任意、テンプレートによる）</li>
+	 * 	<li>KEY="memId",VALUE=[アカウントＩＤ]（任意、テンプレートによる）</li>
+	 * 	<li>KEY="nickName",VALUE=[ニックネーム]（任意、テンプレートによる）</li>
+	 * 	<li>KEY="serialCd",VALUE=[シリアルコード]（任意、テンプレートによる）</li>
+	 * 	<li>KEY="title",VALUE=[ゲームタイトル名]（任意、テンプレートによる）</li>
+	 * 	<li>KEY="server",VALUE=[サーバ名]（任意、テンプレートによる）</li>
+	 * 	<li>KEY="item",VALUE=[アイテム名]（任意、テンプレートによる）</li>
+	 * 	<li>KEY="point",VALUE=[購入ポイント数]（任意、テンプレートによる）</li>
+	 * 	<li>その他（必要に応じて追加）</li>
+	 * <ul></blockquote>
+	 */
+	public void sendAsyncMail(final String to, final String templateKey, final Map<String, String> props, final Boolean juniorFlg) {
+		
 		taskExecutor.execute(new Runnable() {
 			
 			public void run() {
 				
 				try {
 					
-					sendMail(to, templateKey, props);
+					sendMail(to, templateKey, props, juniorFlg);
 					
 				} catch (Exception ex) {
 					
@@ -253,6 +289,13 @@ public class TemplateMailer {
 		this.sender = sender;
 	}
 	
+	/**
+	 * @param juniorSender the juniorSender to set
+	 */
+	public void setJuniorSender(JavaMailSender juniorSender) {
+		this.juniorSender = juniorSender;
+	}
+
 	public void setFreeMarkerConfigurer(FreeMarkerConfigurer freeMarkerConfigurer) {
 		
 		this.freeMarkerConfigurer = freeMarkerConfigurer;
