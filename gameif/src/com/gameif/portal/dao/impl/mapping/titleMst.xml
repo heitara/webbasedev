@@ -11,6 +11,7 @@
 		<result property="serviceStartDate" column="service_start_date" />
 		<result property="serviceEndDate" column="service_end_date" />
 		<result property="serviceStatus" column="service_status" />
+		<result property="recruitStatus" column="recruit_status" />
 		<result property="siteUrl" column="site_url" />
 		<result property="newsUrl" column="news_url" />
 		<result property="forumUrl" column="forum_url" />
@@ -25,39 +26,51 @@
 		<result property="lastUpdateDate" column="last_update_date"/>
 		<result property="lastUpdateUser" column="last_update_user"/>
 	</resultMap>
-
-	<resultMap class="com.gameif.portal.entity.TitleMst" id="simpleTitleResult">
-		<result property="titleId" column="title_id" />
-		<result property="titleName" column="title_name" />
+	
+	<resultMap class="com.gameif.portal.entity.MyTitle" id="myTitleForCBTResult">
+		<result property="titleId" column="title_id"/>
+		<result property="titleName" column="title_name"/>
+		<result property="titleAbout" column="title_about"/>
+		<result property="serviceStatus" column="service_status"/>
+		<result property="recruitStatus" column="recruit_status"/>
+		<result property="siteUrl" column="site_url"/>
+		<result property="newsUrl" column="news_url"/>
+		<result property="forumUrl" column="forum_url"/>
+		<result property="paymentUrl" column="payment_url"/>
+		<result property="bigIconUrl" column="big_icon_url"/>
+		<result property="smallIconUrl" column="small_icon_url"/>
+		<result property="announce" column="announce"/>
+		<result property="cbtTester" column="cbt_tester"/>
 	</resultMap>
 
 	<select id="selectValidTitleList" resultMap="titleResult">
         <![CDATA[
-        SELECT
-			title_id,
-			title_name,
-			title_about,
-			service_start_date,
-			service_end_date,
-			service_status,
-			site_url,
-			news_url,
-			forum_url,
-			payment_url,
-			big_icon_url,
-			small_icon_url,
-			order_num,
-			players_num,
-			announce,
-			created_date,
-			created_user,
-			last_update_date,
-			last_update_user
-		FROM
-			title_mst
-		WHERE
-			service_start_date <= now()
-		AND service_end_date >= now()
+	        SELECT
+				title_id,
+				title_name,
+				title_about,
+				service_start_date,
+				service_end_date,
+				service_status,
+				recruit_status,
+				site_url,
+				news_url,
+				forum_url,
+				payment_url,
+				big_icon_url,
+				small_icon_url,
+				order_num,
+				players_num,
+				announce,
+				created_date,
+				created_user,
+				last_update_date,
+				last_update_user
+			FROM
+				title_mst
+			WHERE
+				service_start_date <= now()
+			AND service_end_date >= now()
         ]]>
 	</select>
 	
@@ -76,47 +89,63 @@
 
 	<select id="selectValidTitleByKey" parameterClass="java.lang.Integer" resultMap="titleResult">
         <![CDATA[
-        SELECT
-			title_id,
-			title_name,
-			title_about,
-			service_start_date,
-			service_end_date,
-			service_status,
-			site_url,
-			news_url,
-			forum_url,
-			payment_url,
-			big_icon_url,
-			small_icon_url,
-			order_num,
-			players_num,
-			announce,
-			created_date,
-			created_user,
-			last_update_date,
-			last_update_user
-		FROM
-			title_mst
-		WHERE
-			title_id = #value#
-		AND service_start_date <= now()
-		AND service_end_date >= now()
+	        SELECT
+				title_id,
+				title_name,
+				title_about,
+				service_start_date,
+				service_end_date,
+				service_status,
+				recruit_status,
+				site_url,
+				news_url,
+				forum_url,
+				payment_url,
+				big_icon_url,
+				small_icon_url,
+				order_num,
+				players_num,
+				announce,
+				created_date,
+				created_user,
+				last_update_date,
+				last_update_user
+			FROM
+				title_mst
+			WHERE
+				title_id = #value#
+			AND service_start_date <= now()
+			AND service_end_date >= now()
         ]]>
 	</select>
 
-	<select id="selectCBTTitleList" resultMap="simpleTitleResult">
+	<select id="selectCBTTitleList" resultMap="myTitleForCBTResult">
         <![CDATA[
-        SELECT
-			title_id,
-			title_name
-		FROM
-			title_mst
-		WHERE
-			service_start_date <= now()
-		AND service_end_date >= now()
-		AND (service_status = '5'
-		OR  service_status = '6')
+	        SELECT
+				t.title_id,
+				t.title_name,
+				t.title_about,
+				t.service_status,
+				t.recruit_status,
+				t.site_url,
+				t.news_url,
+				t.forum_url,
+				t.payment_url,
+				t.big_icon_url,
+				t.small_icon_url,
+				t.announce,
+				ifnull(c.mem_num, 0) as cbt_tester
+			FROM
+				title_mst t
+			LEFT JOIN 
+				cbt_tester c
+			ON 	t.title_id = c.title_id
+			AND c.mem_num = #value#
+			WHERE
+				service_start_date <= now()
+			AND service_end_date >= now()
+			AND (recruit_status = '1'
+			OR  recruit_status = '2')
         ]]>
 	</select>
 
