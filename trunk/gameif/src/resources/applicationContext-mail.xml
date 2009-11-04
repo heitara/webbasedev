@@ -7,6 +7,7 @@
 
 	<bean id="simpleMailer" class="com.gameif.common.helper.SimpleMailer">
 		<property name="sender" ref="sender" />
+		<property name="juniorSender" ref="juniorSender" />
 		<property name="taskExecutor" ref="taskExecutor"/>
 		<property name="from">
 			<value>${simpleMailer.from}</value>
@@ -15,6 +16,7 @@
 	
 	<bean id="templateMailer" class="com.gameif.common.helper.TemplateMailer">
 		<property name="sender" ref="sender" />
+		<property name="juniorSender" ref="juniorSender" />
 		<property name="freeMarkerConfigurer" ref="freeMarkerConfigurer"/>
 		<property name="taskExecutor" ref="taskExecutor"/>
 		<property name="from" value="support@game-if.com" />
@@ -29,6 +31,7 @@
 						<entry key="format" value="text"/>
 					</map>
 				</entry>
+				
 				<entry key="updateMemberInfo">
 					<map>
 						<entry key="title" value="【ゲームイフ】会員情報変更のお知らせ"/>
@@ -100,6 +103,28 @@
 			<props>
 				<prop key="mail.smtp.auth">${sender.mail.smtp.auth}</prop>
 				<prop key="mail.smtp.timeout">${sender.mail.smtp.timeout}</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="juniorSender"
+		class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host">
+			<value>${juniorSender.host}</value>
+		</property>
+		<property name="username">
+			<value>${juniorSender.username}</value>
+		</property>
+		<property name="password">
+			<value>${juniorSender.password}</value>
+		</property>
+		<property name="port">
+			<value>${juniorSender.port}</value>
+		</property>
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">${juniorSender.mail.smtp.auth}</prop>
+				<prop key="mail.smtp.timeout">${juniorSender.mail.smtp.timeout}</prop>
 			</props>
 		</property>
 	</bean>
