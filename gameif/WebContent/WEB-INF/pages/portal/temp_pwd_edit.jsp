@@ -15,6 +15,12 @@
 		<s:hidden name="tempKey"></s:hidden>
 		<table>
 			<tr>
+				<th></th>
+				<td>
+					<span class="logic_error"><s:fielderror><s:param>errMessage</s:param></s:fielderror></span><br/>
+				</td>
+			</tr>
+			<tr>
 				<th><span class="required">*</span> <label for="updateTempPwd_newPwd">新しいパスワード：</label></th>
 				<td>
 					<s:password name="newPwd" maxlength="20" cssClass="ime_mode_n" title="新しいパスワード" onblur="validate(this, 'REQ,ALN,LEN_6_20');" /> 

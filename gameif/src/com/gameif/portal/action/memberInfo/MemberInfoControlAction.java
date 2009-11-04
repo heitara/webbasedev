@@ -11,6 +11,7 @@ import org.apache.struts2.ServletActionContext;
 import com.gameif.common.action.ModelDrivenActionSupport;
 import com.gameif.common.exception.AuthorityException;
 import com.gameif.common.exception.LogicException;
+import com.gameif.common.exception.OutOfDateException;
 import com.gameif.common.util.DateUtil;
 import com.gameif.portal.businesslogic.IMasterInfoBusinessLogic;
 import com.gameif.portal.businesslogic.IMemberInfoBusinessLogic;
@@ -252,6 +253,9 @@ public class MemberInfoControlAction extends
 
 		try {
 			memberInfoBusinessLogic.changeTempPwd(getModel(), tempKey);
+		} catch (OutOfDateException odEx) {
+			addFieldError("errMessage", getText("pwdReget.outOfDate"));
+			return INPUT;
 		} catch (LogicException lgex) {
 
 			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
@@ -288,9 +292,14 @@ public class MemberInfoControlAction extends
 			// 会員情報本登録を行う
 			// 本登録された会員番号を画面の会員番号に設定する
 			this.getModel().setMemNum(memberInfoBusinessLogic.saveMemberInfo(this.getModel().getMemNum(), getAuthKey()));
-
+			
+		} catch (OutOfDateException odEx) {
+			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
+					+ odEx.getMessage());
+			
+			return "outOfDate";
+			
 		} catch (LogicException ex) {
-
 			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
 					+ ex.getMessage());
 

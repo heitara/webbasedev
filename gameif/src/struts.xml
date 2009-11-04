@@ -30,6 +30,7 @@
 
 		<action name="*Page" class="displayAction" method="{1}">
 			<result name="finish">/WEB-INF/pages/common/finish.jsp</result>
+			<result name="outOfDate">/WEB-INF/pages/common/outOfDate.jsp</result>
 		</action>
 
 		<action name="*Member" class="memberInfoAction" method="{1}">
@@ -51,6 +52,8 @@
 			<result name="success" type="redirect">/finishedCreateMember.html</result>
 			<result name="finish">/WEB-INF/pages/portal/mem_registry_success.jsp</result>
 			<result name="effective" type="redirect">/finishedEffectiveMember.html?memNum=${memNum}</result>
+			<!-- 期限切れ画面へ遷移 -->
+			<result name="outOfDate" type="redirect">outOfDatePage.html</result>
 			<result name="finishedEffective">/WEB-INF/pages/portal/mem_effective.jsp</result>
 			<result name="invalid.token">/WEB-INF/pages/common/warning.jsp</result>
 		</action>
@@ -160,7 +163,8 @@
 			</interceptor-ref>
 			
 			<result name="input">/WEB-INF/pages/portal/mem_pwd_reget.jsp</result>
-			<result name="success"  type="redirect">/finishedPage.html?action=createPwdReget</result>
+			<result name="success"  type="redirect">/finishedPwdReget.html</result>
+			<result name="finish">/WEB-INF/pages/portal/mem_pwd_reget_finish.jsp</result>
 		</action>
 		
 		<action name="*TempPwd" class="memberInfoAction" method="{1}TempPwd">

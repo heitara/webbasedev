@@ -53,4 +53,12 @@ public class DisplayAction {
 			
 		return "index";
 	}
+	
+	/**
+	 * 期限きれ画面へ案内する
+	 * @return　期限きれ画面
+	 */
+	public String outOfDate() {
+		return "outOfDate";
+	}
 }

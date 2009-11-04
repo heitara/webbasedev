@@ -13,6 +13,7 @@ import com.gameif.common.exception.AuthorityException;
 import com.gameif.common.exception.DataNotExistsException;
 import com.gameif.common.exception.DataUpdatedException;
 import com.gameif.common.exception.LogicException;
+import com.gameif.common.exception.OutOfDateException;
 import com.gameif.common.helper.TemplateMailer;
 import com.gameif.common.util.SecurityUtil;
 import com.gameif.portal.businesslogic.IMemberInfoBusinessLogic;
@@ -61,7 +62,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		if (tempMemberInfo == null) {
 			
 			// データが存在しない
-			throw new DataNotExistsException("Data not exists.");
+			throw new OutOfDateException("Data not exists Or Data is out of date.");
 		}
 		
 		MemberInfo memberInfo = new MemberInfo();
@@ -558,7 +559,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		// 臨時キーが期限きれかどうかのチェック
 		Date now = new Date();
 		if(newTempPwdInfo.getCreatedDate().compareTo(new Date(now.getTime() - getInvalidMinute() * 60 * 1000)) < 0) {
-			throw new LogicException("Tempory password id out of date.");
+			throw new OutOfDateException("Tempory password id out of date.");
 		}
 		
 		// パスワードを変更する

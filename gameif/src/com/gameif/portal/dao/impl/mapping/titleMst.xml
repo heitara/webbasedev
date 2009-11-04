@@ -124,7 +124,7 @@
 	        SELECT
 				t.title_id,
 				t.title_name,
-				t.title_about,
+				ifnull(t.title_about, '') as title_about,
 				t.service_status,
 				t.recruit_status,
 				t.site_url,
@@ -133,7 +133,7 @@
 				t.payment_url,
 				t.big_icon_url,
 				t.small_icon_url,
-				t.announce,
+				ifnull(t.announce, '') as announce,
 				ifnull(c.mem_num, 0) as cbt_tester
 			FROM
 				title_mst t

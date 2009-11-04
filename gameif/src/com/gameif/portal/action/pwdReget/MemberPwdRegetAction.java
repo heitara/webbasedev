@@ -80,7 +80,7 @@ public class MemberPwdRegetAction extends ModelDrivenActionSupport<TempPwdInfo> 
 	/**
 	 * 仮キー発行記録をDBに登録する
 	 * 
-	 * @return　成功画面
+	 * @return　完了画面のアクション
 	 */
 	public String create() {
 		MemberInfo memberInfo = new MemberInfo();
@@ -99,6 +99,14 @@ public class MemberPwdRegetAction extends ModelDrivenActionSupport<TempPwdInfo> 
 			return "warning";
 		}
 		return SUCCESS;
+	}
+	
+	/**
+	 * 完了画面へ案内する
+	 * @return 発行完了画面
+	 */
+	public String finished() {
+		return "finish";
 	}
 
 }
