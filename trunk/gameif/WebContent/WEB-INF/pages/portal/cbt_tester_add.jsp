@@ -2,44 +2,40 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <html>
 	<head>
-		<title>クローズドβテスター募集</title>
+		<title>クローズドβテスター応募</title>
 		<script src="js/portal/validate.js" type="text/javascript"></script>
 		<script src="js/portal/common.js" type="text/javascript"></script>
 	</head>
 	<body>
 		<dl class="light_box tspace_n">
-			<dt><strong>クローズドβテスター募集</strong></dt>
+			<dt><strong>クローズドβテスター応募</strong></dt>
 			<dd>
 				<s:form name="frm_cbt_tester_add" method="post" cssClass="entry">
-					<table>
-						<tr>
-							<th></th>
-							<td>
-								<span class="logic_error"><s:fielderror><s:param>errMessage</s:param></s:fielderror></span><br/>
-							</td>
-						</tr>
-						<tr>
-							<th></th>
-							<td>
-								<span class="explain">ただいま、クローズドβテスター募集が開催されています。<br/>応募したい方は下のゲームを選択してから、「応募」をクリックしてください。</span><br/>
-							</td>
-						</tr>	
-						<tr>
-							<th><span class="required">*</span><label for="game">ゲーム：</label></th>
-							<td>
-								<s:select name="titleId" id="titleId" cssClass="big" list="masterInfoBusinessLogic.cbtTitleList" listKey="titleId" listValue="titleName" title="ゲーム" onblur="validate(this,'REQ');" />
-								<span id="error_titleId" class="input_error"><s:fielderror><s:param>titleId</s:param></s:fielderror></span><br/>
-							</td>
-						</tr>	
-						<tr>
-							<th></th>
-							<td>
-								<s:submit value="応募" cssClass="submit" action="createCBTTester"></s:submit>
-							</td>
-						</tr>	
-						<tr class="space_row">
-							<td colspan="2"></td>
-						</tr>
+					<table class="games">
+						<s:iterator value="cbtTitleList" id="title" status="st">
+							<tr>
+								<td class="sidecell"><a href="<s:property value="siteUrl"/>" title="<s:property value="titleName"/>の公式サイトへ"><img src="<s:property value="bigIconUrl"/>"/></a></td>
+								<td>
+									<div class="g_menu">
+										<a href="<s:property value="siteUrl"/>" title="公式サイト">公式サイト</a><a href="<s:property value="forumUrl"/>" title="掲示板">掲示板</a><a href="<s:property value="chargeUrl"/>" title="ポイントチャージ">ポイントチャージ</a><a href="inputInvite.html?titleId=<s:property value="titleId"/>" title="友達にこのゲームを紹介する">友達紹介</a>
+									</div>
+									<div class="g_title"><s:property value="titleName"/></div>
+									<div class="g_about" style="overflow:hidden;"><s:property value="titleAbout"/></div>
+									<div class="g_announce"><s:property value="announce"/></div>
+								</td>
+								<td class="sidecell">
+									<div>
+										<s:if test="0==cbtTester">
+											<a href="createCBTTester.html?titleId=<s:property value="titleId"/>" title="クローズドβテスター応募"><img src="images/btn_c_cbt.gif" title="クローズドβテスター応募" style="margin-bottom:2px;margin-right:2px;"/></a>
+										</s:if>
+										<s:else>
+											<div style="padding:5px;color:#666;">応募済み</div>
+										</s:else>
+									</div>
+								</td>
+							</tr>
+							<tr class="space"><td colspan="3"></td></tr>
+						</s:iterator>
 					</table>
 				</s:form>
 			</dd>
