@@ -23,14 +23,44 @@
 						<dt><strong>ゲームプレイ</strong><span>&nbsp;</span></dt>
 						<dd>
 							<div class="g_servers">
+								<!-- サーバメンテナンス -->
 								<s:if test='"0".equals(serviceStatus)'>
 									<div style="padding:5px;color:#666;">このタイトルは、ただいま<br/>メンテナンスしております。</div>
 								</s:if>
 								<!-- CBTチェック -->
-								<s:elseif test='"5".equals(serviceStatus)'>
-									<s:if test="0==cbtTester">
+								<s:elseif test='"2".equals(serviceStatus)'>
+									<!-- ステータス：0募集完了　「募集不可、当選者プレー可」 -->
+									<!-- ステータス：2テスト　「募集可、当選者プレー可」 -->
+									<s:if test='("0".equals(recruitStatus) || "2".equals(recruitStatus)) && 0==cbtTester'>
 										<div style="padding:5px;color:#666;">CBTテスターではないため<br/>プレイできません。</div>
 									</s:if>
+									<!-- ステータス：2募集中　「募集可、プレー不可」 -->
+									<s:elseif test='"1".equals(recruitStatus)'>
+										<div style="padding:5px;color:#666;">このタイトルは、ただいま<br/>募集中です、プレイできません。</div>
+									</s:elseif>
+									<!-- ステータス：2稼動中　「募集不可、誰でもプレー可」 -->
+									<s:else>
+										<s:iterator value="serverMap.get(#title.titleId)" id="server" status="st">
+											<s:if test='"0".equals(serviceStatus)'>
+												<a href="<s:property value="playUrl"/>?serverId=<s:property value="serverId"/>&titleId=<s:property value="titleId"/>" style="background-color:#666;color:#DDD;" title="このサーバはただいま、メンテナンスしております。" onclick="return false;">S0<s:property value="serverId"/>: <s:property value="serverName"/>(メンテ中)</a>
+											</s:if>
+											<s:else>
+												<a href="playGame.html?serverId=<s:property value="serverId"/>&titleId=<s:property value="titleId"/>" title="第<s:property value="serverId"/>サーバ「<s:property value="serverName"/>」でプレイ！">S0<s:property value="serverId"/>: <s:property value="serverName"/></a>
+											</s:else>									
+										</s:iterator>
+									</s:else>
+								</s:elseif>
+								<!-- OBTチェック -->
+								<s:elseif test='"3".equals(serviceStatus)'>
+									<!-- ステータス：0募集完了　「募集不可、当選者プレー可」 -->
+									<!-- ステータス：2テスト　「募集可、当選者プレー可」 -->
+									<s:if test='("0".equals(recruitStatus) || "2".equals(recruitStatus)) && 0==cbtTester'>
+										<div style="padding:5px;color:#666;">CBTテスターではないため<br/>プレイできません。</div>
+									</s:if>
+									<!-- ステータス：2募集中　「募集可、プレー不可」 -->
+									<s:elseif test='"1".equals(recruitStatus)'>
+										<div style="padding:5px;color:#666;">このタイトルは、ただいま<br/>募集中です、プレイできません。</div>
+									</s:elseif>
 									<s:else>
 										<s:iterator value="serverMap.get(#title.titleId)" id="server" status="st">
 											<s:if test='"0".equals(serviceStatus)'>
