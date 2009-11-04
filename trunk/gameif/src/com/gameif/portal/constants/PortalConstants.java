@@ -62,11 +62,30 @@ public class PortalConstants {
 		/** サーバ稼動中 */
 		public final static String RUNNING = "1";
 		/** CBT中 */
-		public final static String CBT = "5";
-		/** CBT募集 */
-		public final static String CBT_RECRUIT = "6";
-		/** 募集完了、かつ、テスト中 */
-		public final static String CBT_TEST = "7";
+		public final static String CBT = "2";
+		/** OBT中 */
+		public final static String OBT = "3";
+	}
+	
+	/** 募集ステータス */
+	public class RecruitStatus {
+		/** 募集完了「募集不可、当選者プレー可」 */
+		public final static String COMPLETE = "0";
+		/** 募集中「募集可、誰でもプレー不可」 */
+		public final static String RECRUITING = "1";
+		/** テスト状態「募集可、当選者プレイ可」 */
+		public final static String TEST = "2";
+		/** 稼動状態「募集不可、誰でもプレー可」 */
+		public final static String RUNNING = "3";
+	}
+	
+	/** 募集者の当選ステータス */
+	public class ElectStatus {
+		/** 未当選 */
+		public final static String NOT_ELECTED = "0";
+		/** 当選 */
+		public final static String ELECTED = "1"; 
+		
 	}
 
 	/** 削除フラグ */
