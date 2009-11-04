@@ -103,8 +103,8 @@ INSERT INTO `server_mst` (`server_id`, `title_id`, `server_name`, `service_start
 
 
 TRUNCATE TABLE `title_mst`;
-INSERT INTO `title_mst` (`title_id`, `title_name`, `title_about`, `service_start_date`, `service_end_date`, `service_status`, `site_url`, `news_url`, `forum_url`, `payment_url`, `big_icon_url`, `small_icon_url`, `order_num`, `players_num`, `announce`, `created_date`, `created_user`, `last_update_date`, `last_update_user`) VALUES
-(1, '創世伝説', 'ネットブック、ＭＡＣでも快適にプレイできる本格ＳＲＰＧブラウザゲーム。', '2009-09-01 01:51:53', '2014-12-31 01:51:59', '1', 'http://cs.game-if.com', 'http://info.game-if.com/cs', 'http://forum.game-if.com/cs', 'http://www.game-if.com/pointCharge.html?title=1&server=1', 'images/game/icon/cs_big.gif', 'images/game/icon/cs_small.gif', 1, 53145, '友達紹介でサービスポイント獲得！', '2009-09-16 01:55:25', 'lee', '2009-09-16 01:55:28', 'lee');
+INSERT INTO `title_mst` (`title_id`, `title_name`, `title_about`, `service_start_date`, `service_end_date`, `service_status`, `recruit_status`, `site_url`, `news_url`, `forum_url`, `payment_url`, `big_icon_url`, `small_icon_url`, `order_num`, `players_num`, `announce`, `created_date`, `created_user`, `last_update_date`, `last_update_user`) VALUES
+(1, '創世伝説', 'ネットブック、ＭＡＣでも快適にプレイできる本格ＳＲＰＧブラウザゲーム。', '2009-09-01 01:51:53', '2014-12-31 01:51:59', '1', '0', 'http://cs.game-if.com', 'http://info.game-if.com/cs', 'http://forum.game-if.com/cs', 'http://www.game-if.com/pointCharge.html?title=1&server=1', 'images/game/icon/cs_big.gif', 'images/game/icon/cs_small.gif', 1, 53145, '友達紹介でサービスポイント獲得！', '2009-09-16 01:55:25', 'lee', '2009-09-16 01:55:28', 'lee');
 
 TRUNCATE TABLE `invite_template_mst`;
 INSERT INTO `invite_template_mst` (`invite_template_id`, `title_id`, `invite_template_subject`, `invite_template_msg`, `created_date`, `created_user`, `last_update_date`, `last_update_user`) VALUES
