@@ -12,6 +12,7 @@ public class MyTitle extends BaseEntity {
 	private String titleName;
 	private String titleAbout;
 	private String serviceStatus;
+	private String recruitStatus;
 	private String siteUrl;
 	private String newsUrl;
 	private String forumUrl;
@@ -48,6 +49,19 @@ public class MyTitle extends BaseEntity {
 	}
 	public void setServiceStatus(String serviceStatus) {
 		this.serviceStatus = serviceStatus;
+	}
+	
+	/**
+	 * @return the recruitStatus
+	 */
+	public String getRecruitStatus() {
+		return recruitStatus;
+	}
+	/**
+	 * @param recruitStatus the recruitStatus to set
+	 */
+	public void setRecruitStatus(String recruitStatus) {
+		this.recruitStatus = recruitStatus;
 	}
 	public String getSiteUrl() {
 		return siteUrl;
