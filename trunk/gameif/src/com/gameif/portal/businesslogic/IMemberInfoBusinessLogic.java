@@ -13,7 +13,7 @@ public interface IMemberInfoBusinessLogic {
 	 * @param authKey 臨時キー
 	 */
 	@Transactional
-	public void saveMemberInfo(Long memNum, String authKey) throws LogicException;
+	public Long saveMemberInfo(Long memNum, String authKey) throws LogicException;
 
 	/**
 	 * 臨時会員情報を登録する。
