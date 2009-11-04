@@ -31,7 +31,6 @@ public class MemberInfoControlAction extends
 	private String newPwd;
 	private String confirmPwd;
 	private String kaptcha;
-	// private String agreement;
 
 	private String birthY;
 	private String birthM;
@@ -41,7 +40,7 @@ public class MemberInfoControlAction extends
 	private String inviteId;
 
 	private String authKey;
-	private Long memNum;
+//	private Long memNum;
 
 	public String getKanjiNameForCheck() {
 
@@ -92,9 +91,6 @@ public class MemberInfoControlAction extends
 	 * @return　会員情報入力画面コード
 	 */
 	public String registry() {
-
-		// 友達招待から登録する
-		setInviteId(ServletActionContext.getRequest().getParameter("InviteId"));
 
 		return INPUT;
 	}
@@ -242,14 +238,6 @@ public class MemberInfoControlAction extends
 			}
 		}
 
-		// 会員番号
-		getModel().setMemNum(
-				Long.parseLong(ServletActionContext.getRequest().getParameter(
-						PortalConstants.PwdRegetParams.MEMBER_NUM)));
-		// 臨時キー
-		setTempKey(ServletActionContext.getRequest().getParameter(
-				PortalConstants.PwdRegetParams.TEMP_KEY));
-
 		return INPUT;
 	}
 
@@ -295,27 +283,11 @@ public class MemberInfoControlAction extends
 	 */
 	public String effective() {
 
-		// 会員番号
-		Object tempMemNum = ServletActionContext.getRequest().getParameter(
-				"memNum");
-		if (tempMemNum == null || tempMemNum.toString().length() == 0) {
-			setMemNum(null);
-		} else {
-			setMemNum(Long.parseLong(tempMemNum.toString()));
-		}
-
-		// 認証キー
-		Object tempAuthKey = ServletActionContext.getRequest().getParameter(
-				"authKey");
-		if (tempAuthKey == null || tempAuthKey.toString().length() == 0) {
-			setAuthKey(null);
-		} else {
-			setAuthKey(tempAuthKey.toString().trim());
-		}
-
 		try {
-
-			memberInfoBusinessLogic.saveMemberInfo(getMemNum(), getAuthKey());
+			// 会員番号と認証キーがリクエストストリングで渡される
+			// 会員情報本登録を行う
+			// 本登録された会員番号を画面の会員番号に設定する
+			this.getModel().setMemNum(memberInfoBusinessLogic.saveMemberInfo(this.getModel().getMemNum(), getAuthKey()));
 
 		} catch (LogicException ex) {
 
@@ -350,14 +322,6 @@ public class MemberInfoControlAction extends
 	public void setConfirmPwd(String confirmPwd) {
 		this.confirmPwd = confirmPwd;
 	}
-
-	// public String getAgreement() {
-	// return agreement;
-	// }
-	//
-	// public void setAgreement(String agreement) {
-	// this.agreement = agreement;
-	// }
 
 	public String getBirthY() {
 		return birthY;
@@ -420,20 +384,20 @@ public class MemberInfoControlAction extends
 		this.authKey = authKey;
 	}
 
-	/**
-	 * @return the memNum
-	 */
-	public Long getMemNum() {
-		return memNum;
-	}
-
-	/**
-	 * @param memNum
-	 *            the memNum to set
-	 */
-	public void setMemNum(Long memNum) {
-		this.memNum = memNum;
-	}
+//	/**
+//	 * @return the memNum
+//	 */
+//	public Long getMemNum() {
+//		return memNum;
+//	}
+//
+//	/**
+//	 * @param memNum
+//	 *            the memNum to set
+//	 */
+//	public void setMemNum(Long memNum) {
+//		this.memNum = memNum;
+//	}
 
 	/**
 	 * @param inviteId
