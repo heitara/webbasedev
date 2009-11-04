@@ -11,6 +11,7 @@ public class CbtTester extends BaseEntity {
 
 	private Long memNum;
 	private Integer titleId;
+	private String electStatus;
 
 	/**
 	 * @return the memNum
@@ -40,6 +41,20 @@ public class CbtTester extends BaseEntity {
 	 */
 	public void setTitleId(Integer titleId) {
 		this.titleId = titleId;
+	}
+
+	/**
+	 * @return the electStatus
+	 */
+	public String getElectStatus() {
+		return electStatus;
+	}
+
+	/**
+	 * @param electStatus the electStatus to set
+	 */
+	public void setElectStatus(String electStatus) {
+		this.electStatus = electStatus;
 	}
 
 }
