@@ -284,6 +284,7 @@ CREATE TABLE IF NOT EXISTS `title_mst` (
   `service_start_date` datetime DEFAULT NULL,
   `service_end_date` datetime DEFAULT NULL,
   `service_status` char(1) DEFAULT NULL,
+  `recruit_status` char(1) DEFAULT NULL,
   `site_url` varchar(100) DEFAULT NULL,
   `news_url` varchar(100) DEFAULT NULL,
   `forum_url` varchar(100) DEFAULT NULL,
