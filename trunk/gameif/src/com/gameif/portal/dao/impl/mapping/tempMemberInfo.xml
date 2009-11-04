@@ -49,7 +49,7 @@
 		</selectKey>
 	</insert>
 
-	<select id="selectValidTempMemberInfo" parameterClass="java.util.Map" resultMap="tempMemberResult">
+	<select id="selectValidInfoForUpdate" parameterClass="java.util.Map" resultMap="tempMemberResult">
         <![CDATA[
 			SELECT	mem_num,
 					mem_id,
@@ -64,6 +64,7 @@
 			WHERE	mem_num = #memNum#
 			AND     auth_key = #authKey#
 			AND 	created_date >= DATE_SUB(now(), INTERVAL #invalidMinute# MINUTE)
+			FOR 	UPDATE
         ]]>
 	</select>
 	
