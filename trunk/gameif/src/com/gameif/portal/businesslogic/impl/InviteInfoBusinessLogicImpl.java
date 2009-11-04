@@ -170,7 +170,7 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 			// 差出人
 			props.put("mailFrom",newInviteInfo.getInviteMailFrom());
 			// 招待メールを送信する
-			templateMailer.sendAsyncMail(newInviteInfo.getInviteMailTo(), "inviteFriend", props);
+			templateMailer.sendAsyncMail(newInviteInfo.getInviteMailTo(), "inviteFriend", props, true);
 		}
 		// ロジック削除されたデータを削除する
 		inviteInfoDao.deleteInvalidInvite(ContextUtil.getMemberNo(), getDeleDays());
@@ -236,7 +236,7 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 			props.put("inviteMsg",inviteInfo.getInviteMsg());
 			// 差出人
 			props.put("mailFrom",inviteInfo.getInviteMailFrom());
-			templateMailer.sendAsyncMail(inviteInfo.getInviteMailTo(), "inviteFriend", props);
+			templateMailer.sendAsyncMail(inviteInfo.getInviteMailTo(), "inviteFriend", props, true);
 			
 		}
 	}
