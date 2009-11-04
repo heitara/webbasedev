@@ -186,9 +186,6 @@
 	
 	<!-- cbtTesterControlAction -->
 	<bean id="cbtTesterControlAction" class="com.gameif.portal.action.titleif.CBTTesterControlAction" scope="prototype">
-		<property name="masterInfoBusinessLogic">
-			<ref bean="masterInfoBusinessLogic" />
-		</property>
 		<property name="cbtTesterBusinessLogic">
 			<ref bean="cbtTesterBusinessLogic" />
 		</property>

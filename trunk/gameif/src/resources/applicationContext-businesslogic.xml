@@ -183,5 +183,8 @@
 		<property name="cbtTesterDao">
 			<ref bean="cbtTesterDao" />
 		</property>
+		<property name="titleMstDao">
+			<ref bean="titleMstDao" />
+		</property>
 	</bean>
 </beans>
