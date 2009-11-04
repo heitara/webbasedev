@@ -158,14 +158,6 @@ public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		return settlementMstDao.selectAll(null);
 	}
 
-	/**
-	 * CBT中タイトルを取得する
-	 */
-	@Override
-	public List<TitleMst> getCbtTitleList() {
-		return titleMstDao.selectCBTTitleList();
-	}
-
 	@Override
 	public PointMst getPointMstByKey(Integer pointId) {
 		PointMst pointMst = new PointMst();
