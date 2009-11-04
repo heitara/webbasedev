@@ -11,6 +11,7 @@ public class SimpleMailer {
 	private final static Log logger = LogFactory.getLog(SimpleMailer.class);
 	
 	private JavaMailSender sender;
+	private JavaMailSender juniorSender;
 	private TaskExecutor taskExecutor;
 
 	private String from;
@@ -21,8 +22,9 @@ public class SimpleMailer {
 	 * @param from 送信者アドレス（NULLで省略した場合は、デフォルト設定を使う。）
 	 * @param title メールタイトル
 	 * @param content メール本文
+	 * @param juniorFlg ジュニアメールサーバ判定(true:ジュニアサーバで送信(友達紹介送信用)、false:主なサーバで送信)
 	 */
-	public void sendMail(String to, String from, String title, String content) {
+	public void sendMail(String to, String from, String title, String content, Boolean juniorFlg) {
 		
 		SimpleMailMessage msg = new SimpleMailMessage();
 
@@ -31,7 +33,11 @@ public class SimpleMailer {
 		msg.setSubject(title);
 		msg.setText(content);
 		
-		sender.send(msg);
+		if (juniorFlg) {
+			juniorSender.send(msg);
+		} else {
+			sender.send(msg);
+		}
 	}
 
 	/**
@@ -40,8 +46,9 @@ public class SimpleMailer {
 	 * @param from 送信者アドレス
 	 * @param title メールタイトル
 	 * @param content メール本文
+	 * @param juniorFlg ジュニアメールサーバ判定(true:ジュニアサーバで送信(友達紹介送信用)、false:主なサーバで送信)
 	 */
-	public void sendAsyncMail(final String to, final String from, final String title, final String content) {
+	public void sendAsyncMail(final String to, final String from, final String title, final String content, final Boolean juniorFlg) {
 		
 		taskExecutor.execute(new Runnable() {
 			
@@ -49,7 +56,7 @@ public class SimpleMailer {
 				
 				try {
 					
-					sendMail(to, from, title, content);
+					sendMail(to, from, title, content, juniorFlg);
 					
 				} catch (Exception ex) {
 					
@@ -79,6 +86,13 @@ public class SimpleMailer {
 		this.sender = sender;
 	}
 	
+	/**
+	 * @param juniorSender the juniorSender to set
+	 */
+	public void setJuniorSender(JavaMailSender juniorSender) {
+		this.juniorSender = juniorSender;
+	}
+
 	public void setTaskExecutor(TaskExecutor taskExecutor) {
 		
 		this.taskExecutor = taskExecutor;
