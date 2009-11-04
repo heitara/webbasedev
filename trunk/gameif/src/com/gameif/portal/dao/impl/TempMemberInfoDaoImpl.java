@@ -22,7 +22,7 @@ public class TempMemberInfoDaoImpl extends
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public TempMemberInfo selectValidTempMemberInfo(Long memNum,
+	public TempMemberInfo selectValidInfoForUpdate(Long memNum,
 			String authKey, Integer invalidMinute) {
 
 		HashMap params = new HashMap();
@@ -32,7 +32,7 @@ public class TempMemberInfoDaoImpl extends
 		params.put("invalidMinute", invalidMinute);
 
 		return (TempMemberInfo) getSqlMapClientTemplate().queryForObject(
-				namespace + ".selectValidTempMemberInfo", params);
+				namespace + ".selectValidInfoForUpdate", params);
 	}
 
 	/**

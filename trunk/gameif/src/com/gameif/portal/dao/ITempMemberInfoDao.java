@@ -5,7 +5,7 @@ import com.gameif.portal.entity.TempMemberInfo;
 
 public interface ITempMemberInfoDao extends IBaseDao<TempMemberInfo, TempMemberInfo> {
 	
-	public TempMemberInfo selectValidTempMemberInfo(Long memNum, String authKey, Integer invalidMinute);
+	public TempMemberInfo selectValidInfoForUpdate(Long memNum, String authKey, Integer invalidMinute);
 	public Integer deleteByKey(Long memNum);
 	
 	/**
