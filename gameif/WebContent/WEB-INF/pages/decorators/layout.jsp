@@ -11,8 +11,7 @@
 <%@page import="com.gameif.portal.entity.MyTitle"%>
 <%@page import="com.gameif.portal.constants.PortalConstants"%>
 <%@page import="com.gameif.portal.entity.MyServer"%>
-<%@page import="com.gameif.portal.businesslogic.IMasterInfoBusinessLogic"%>
-<%@page import="com.gameif.portal.entity.TitleMst"%>
+<%@page import="com.gameif.portal.businesslogic.ICbtTesterBusinessLogic"%>
 <%
 /* =======================================　頁内共通変数設定  =======================================*/
 
@@ -166,9 +165,12 @@ response.setDateHeader("Expires",0);
 			<dd><a href="editPassword.html" title="パスワード変更"><img src="images/btn_b_chpass.gif" alt="パスワード変更"/></a></dd>
 		</dl>
 		<%
-			ApplicationContext ac = WebApplicationContextUtils.getWebApplicationContext(request.getSession().getServletContext());
-			IMasterInfoBusinessLogic masterLogic = (IMasterInfoBusinessLogic)ac.getBean("masterInfoBusinessLogic");
-			List<TitleMst> cbtTitles = masterLogic.getCbtTitleList();
+			Long memNum = ContextUtil.getMemberNo((String)session.getAttribute(CASFilter.CAS_FILTER_USER));
+		
+			ApplicationContext ctxt = WebApplicationContextUtils.getWebApplicationContext(request.getSession().getServletContext());
+			
+			ICbtTesterBusinessLogic cbtLogic = (ICbtTesterBusinessLogic)ctxt.getBean("cbtTesterBusinessLogic");
+			List<MyTitle> cbtTitles = cbtLogic.getCbtTitleList(memNum);
 			if (!cbtTitles.isEmpty()) {%> 
 			<div class="height:22px;width:200px;">
 				<a href="inputCBTTester.html" title="クローズドβテスター募集"><img src="images/btn_c_cbt.gif" title="クローズドβテスター募集" style="margin-bottom:2px;margin-right:2px;"/></a>
@@ -176,9 +178,7 @@ response.setDateHeader("Expires",0);
 		<% } %>
 
 		<!-- ショットカットボタンエリア：終了 -->
-<%			Long memNum = ContextUtil.getMemberNo((String)session.getAttribute(CASFilter.CAS_FILTER_USER));
-			
-			ApplicationContext ctxt = WebApplicationContextUtils.getWebApplicationContext(request.getSession().getServletContext());
+		<%
 			ITitlePlayBusinessLogic mstLogic = (ITitlePlayBusinessLogic)ctxt.getBean("titlePlayBusinessLogic");
 			
 			List<MyTitle> titles = mstLogic.getPlayedTitles(memNum);
