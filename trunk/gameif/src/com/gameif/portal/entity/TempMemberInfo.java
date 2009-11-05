@@ -18,6 +18,7 @@ public class TempMemberInfo extends BaseEntity {
 	private String mailPc;
 	private String authKey;
 	private Long inviteId;
+	private Integer advertNum;
 	private Date createdDate;
 	private String createdIp;
 
@@ -123,6 +124,20 @@ public class TempMemberInfo extends BaseEntity {
 	 */
 	public void setInviteId(Long inviteId) {
 		this.inviteId = inviteId;
+	}
+
+	/**
+	 * @return the advertNum
+	 */
+	public Integer getAdvertNum() {
+		return advertNum;
+	}
+
+	/**
+	 * @param advertNum the advertNum to set
+	 */
+	public void setAdvertNum(Integer advertNum) {
+		this.advertNum = advertNum;
 	}
 
 	/**

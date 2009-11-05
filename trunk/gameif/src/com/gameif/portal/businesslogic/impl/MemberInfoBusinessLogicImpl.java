@@ -19,12 +19,18 @@ import com.gameif.common.util.SecurityUtil;
 import com.gameif.portal.businesslogic.IMemberInfoBusinessLogic;
 import com.gameif.portal.businesslogic.titleif.charge.DefaultChargeExecutor;
 import com.gameif.portal.constants.PortalConstants;
+import com.gameif.portal.dao.IAdvertAgencyMstDao;
+import com.gameif.portal.dao.IAdvertMstDao;
 import com.gameif.portal.dao.IInviteInfoDao;
+import com.gameif.portal.dao.IMemAdvertActualInfoDao;
 import com.gameif.portal.dao.IMemberInfoDao;
 import com.gameif.portal.dao.IMemberLoginInfoDao;
 import com.gameif.portal.dao.ITempMemberInfoDao;
 import com.gameif.portal.dao.ITempPwdInfoDao;
+import com.gameif.portal.entity.AdvertAgencyMst;
+import com.gameif.portal.entity.AdvertMst;
 import com.gameif.portal.entity.InviteInfo;
+import com.gameif.portal.entity.MemAdvertActualInfo;
 import com.gameif.portal.entity.MemberInfo;
 import com.gameif.portal.entity.MemberLoginInfo;
 import com.gameif.portal.entity.TempMemberInfo;
@@ -44,6 +50,9 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	private ITempPwdInfoDao tempPwdInfoDao;
 	private IInviteInfoDao inviteInfoDao;
 	private ITempMemberInfoDao tempMemberInfoDao;
+	private IAdvertAgencyMstDao advertAgencyMstDao;
+	private IMemAdvertActualInfoDao memAdvertActualInfoDao;
+	private IAdvertMstDao advertMstDao;
 	
 	private Integer invalidMinute;
 	private PortalProperties portalProperties;
@@ -64,6 +73,12 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 			// データが存在しない
 			throw new OutOfDateException("Data not exists Or Data is out of date.");
 		}
+
+		AdvertMst advert = null;
+		if (tempMemberInfo.getAdvertNum() != null) {
+			// 広告代理マスタの存在性チェック
+			advert = advertMstDao.selectValidAdvertByKey(tempMemberInfo.getAdvertNum());
+		}
 		
 		MemberInfo memberInfo = new MemberInfo();
 		
@@ -73,8 +88,12 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		// ニックネームは両辺スペース削除
 		memberInfo.setNickName(tempMemberInfo.getNickName().trim());
 
-		// 会員種別：ゲームイフ会員
-		memberInfo.setMemKindCd(PortalConstants.MemberKindCd.GAMEIF);
+		// 会員種別：ゲームイフ会員/アフィリエイト会員
+		if (advert == null) {
+			memberInfo.setMemKindCd(PortalConstants.MemberKindCd.GAMEIF);
+		} else {
+			memberInfo.setMemKindCd(getMemKindByAdvertNum(advert.getAdvertNum()));
+		}
 		// 会員属性：通常会員
 		memberInfo.setMemAtbtCd(PortalConstants.MemberAtbtCd.NORMAL);
 		// 会員有効区別：有効会員
@@ -107,6 +126,16 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		memberLoginInfo.setMemPwd(newMemberInfo.getMemPwd());
 		memberLoginInfo.setMemValidYNCd(newMemberInfo.getMemValidYNCd());
 		memberLoginInfoDao.save(memberLoginInfo);
+		
+		// 広告代理から登録場合、情報を会員広告募集実績テーブルに登録する
+		if (advert != null) {
+			MemAdvertActualInfo memAdvertActualInfo = new MemAdvertActualInfo();
+			memAdvertActualInfo.setMemNum(newMemberInfo.getMemNum());
+			memAdvertActualInfo.setAdvertNum(advert.getAdvertNum());
+			memAdvertActualInfo.setMemLoginDate(newMemberInfo.getEntryDate());
+			memAdvertActualInfo.setMemLoginIp(newMemberInfo.getEntryIp());
+			memAdvertActualInfoDao.save(memAdvertActualInfo);
+		}
 
 		// 友達紹介する場合、紹介情報を更新する
 		updateInviteInfo(tempMemberInfo.getInviteId(), newMemberInfo);
@@ -127,14 +156,34 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		return newMemNum;
 		
 	}
+	
+	/**
+	 * 広告番号より、広告代理店の区別を取得する
+	 * @param advertNum 広告番号
+	 * @return
+	 */
+	private String getMemKindByAdvertNum(Integer advertNum) {
+		
+		String memKindCd = PortalConstants.MemberKindCd.GAMEIF;
+		
+		// 広告番号より、広告代理店の区別を取得する
+		AdvertAgencyMst advertAgency = advertAgencyMstDao.selectByAdvertNum(advertNum);
+		if (advertAgency != null) {
+			memKindCd = advertAgency.getAdvertAgencyType();
+		}
+		
+		return memKindCd;
+	}
 
 	/**
 	 * 臨時会員情報を登録する。
 	 * @param memberInfo 会員情報（新規登録時必要な項目が格納されていること）
+	 * @param inviteId 友達紹介ID（友達紹介から登録場合）
+	 * @param advertNum 広告番号（アフィリエイト登録場合）
 	 */
 	@Transactional
 	@Override
-	public void saveTempMemberInfo(MemberInfo memberInfo, String inviteId) {
+	public void saveTempMemberInfo(MemberInfo memberInfo, String inviteId, Integer advertNum) {
 		
 		TempMemberInfo tempMemberInfo = new TempMemberInfo();
 		
@@ -154,6 +203,8 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		} else {
 			tempMemberInfo.setInviteId(Long.parseLong(inviteId));
 		}
+		// 広告番号
+		tempMemberInfo.setAdvertNum(advertNum);
 		tempMemberInfo.setCreatedDate(new Date());
 		tempMemberInfo.setCreatedIp(ContextUtil.getClientIP());
 
@@ -635,6 +686,28 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	 */
 	public void setInviteInfoDao(IInviteInfoDao inviteInfoDao) {
 		this.inviteInfoDao = inviteInfoDao;
+	}
+
+	/**
+	 * @param advertAgencyMstDao the advertAgencyMstDao to set
+	 */
+	public void setAdvertAgencyMstDao(IAdvertAgencyMstDao advertAgencyMstDao) {
+		this.advertAgencyMstDao = advertAgencyMstDao;
+	}
+
+	/**
+	 * @param memAdvertActualInfoDao the memAdvertActualInfoDao to set
+	 */
+	public void setMemAdvertActualInfoDao(
+			IMemAdvertActualInfoDao memAdvertActualInfoDao) {
+		this.memAdvertActualInfoDao = memAdvertActualInfoDao;
+	}
+
+	/**
+	 * @param advertMstDao the advertMstDao to set
+	 */
+	public void setAdvertMstDao(IAdvertMstDao advertMstDao) {
+		this.advertMstDao = advertMstDao;
 	}
 
 	/**

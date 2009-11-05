@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="memAdvertActualInfo">
+	<typeAlias alias="memAdvertActualInfo" type="com.gameif.portal.entity.MemAdvertActualInfo" />
+	
+	<resultMap class="com.gameif.portal.entity.MemAdvertActualInfo" id="memAdvertActualResult">
+		<result property="memNum" column="mem_num" />
+		<result property="advertNum" column="advert_num" />
+		<result property="memLoginDate" column="mem_login_date"/>
+		<result property="memLoginIp" column="mem_login_ip"/>
+	</resultMap>
+	
+	<insert id = "save" parameterClass="memAdvertActualInfo"> 
+        <![CDATA[
+			INSERT INTO mem_advert_actual_info
+				(mem_num,
+				advert_num,
+				mem_login_date,
+				mem_login_ip)
+			VALUES
+				(#memNum#,
+				#advertNum#,
+				#memLoginDate#,
+				#memLoginIp#)
+        ]]>
+	</insert>
+
+</sqlMap>

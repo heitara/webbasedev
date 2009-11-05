@@ -41,7 +41,7 @@ public class MemberInfoControlAction extends
 	private String inviteId;
 
 	private String authKey;
-//	private Long memNum;
+	private Integer advertNum;
 
 	public String getKanjiNameForCheck() {
 
@@ -95,18 +95,6 @@ public class MemberInfoControlAction extends
 
 		return INPUT;
 	}
-
-	// /**
-	// * 会員情報を登録する。
-	// *
-	// * @return　完了画面コード
-	// */
-	// public String create() {
-	//
-	// memberInfoBusinessLogic.saveMemberInfo(getModel(), getInviteId());
-	//		
-	// return SUCCESS;
-	// }
 
 	/**
 	 * 会員情報登録完了。
@@ -274,7 +262,7 @@ public class MemberInfoControlAction extends
 	 */
 	public String createTemp() {
 
-		memberInfoBusinessLogic.saveTempMemberInfo(getModel(), getInviteId());
+		memberInfoBusinessLogic.saveTempMemberInfo(getModel(), getInviteId(), getAdvertNum());
 
 		return SUCCESS;
 
@@ -392,21 +380,20 @@ public class MemberInfoControlAction extends
 	public void setAuthKey(String authKey) {
 		this.authKey = authKey;
 	}
+	
+	/**
+	 * @return the advertNum
+	 */
+	public Integer getAdvertNum() {
+		return advertNum;
+	}
 
-//	/**
-//	 * @return the memNum
-//	 */
-//	public Long getMemNum() {
-//		return memNum;
-//	}
-//
-//	/**
-//	 * @param memNum
-//	 *            the memNum to set
-//	 */
-//	public void setMemNum(Long memNum) {
-//		this.memNum = memNum;
-//	}
+	/**
+	 * @param advertNum the advertNum to set
+	 */
+	public void setAdvertNum(Integer advertNum) {
+		this.advertNum = advertNum;
+	}
 
 	/**
 	 * @param inviteId

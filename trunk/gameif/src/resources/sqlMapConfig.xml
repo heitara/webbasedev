@@ -36,5 +36,8 @@
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/servicePointTypeMst.xml" />
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/servicePointGiveHist.xml" />
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/tempMemberInfo.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/advertAgencyMst.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/memAdvertActualInfo.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/advertMst.xml" />
 	
 </sqlMapConfig>

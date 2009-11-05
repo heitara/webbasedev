@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="advertMst">
+	<resultMap class="com.gameif.portal.entity.AdvertMst" id="advertResult">
+		<result property="advertNum" column="advert_num" />
+		<result property="advertAgencyNum" column="advert_agency_num" />
+		<result property="mediaNum" column="media_num" />
+		<result property="payKind" column="pay_kind" />
+		<result property="advertBudget" column="advert_budget" />
+		<result property="advertActual" column="advert_actual" />
+		<result property="startDate" column="start_date" />
+		<result property="endDate" column="end_date" />
+	</resultMap>
+
+	<select id="selectValidAdvertByKey" resultMap="advertResult">   
+        <![CDATA[
+	        SELECT
+				advert_num,
+				advert_agency_num,
+				media_num,
+				pay_kind,
+				advert_budget,
+				advert_actual,
+				start_date,
+				end_date
+			FROM
+				advert_mst
+			WHERE
+				advert_num = #value#
+			AND start_date <= now()
+			AND end_date >= now()
+        ]]>
+	</select>
+
+</sqlMap>

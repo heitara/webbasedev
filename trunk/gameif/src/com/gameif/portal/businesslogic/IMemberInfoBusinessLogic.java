@@ -18,9 +18,11 @@ public interface IMemberInfoBusinessLogic {
 	/**
 	 * 臨時会員情報を登録する。
 	 * @param memberInfo 会員情報（新規登録時必要な項目が格納されていること）
+	 * @param inviteId 友達紹介ID（友達紹介から登録場合）
+	 * @param advertNum 広告番号（アフィリエイト登録場合）
 	 */
 	@Transactional
-	public void saveTempMemberInfo(MemberInfo memberInfo, String inviteId);
+	public void saveTempMemberInfo(MemberInfo memberInfo, String inviteId, Integer advertNum);
 
 	/**
 	 * 会員パスワードを変更する。
