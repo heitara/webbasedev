@@ -14,6 +14,7 @@
 		<result property="mailPc" column="mail_pc" />
 		<result property="authKey" column="auth_key"/>
 		<result property="inviteId" column="invite_id"/>
+		<result property="advertNum" column="advert_num"/>
 		<result property="createdDate" column="created_date"/>
 		<result property="createdIp" column="created_ip"/>
 	</resultMap>
@@ -28,6 +29,7 @@
 				mail_pc,
 				auth_key,
 				invite_id,
+				advert_num,
 				created_date,
 				created_ip)
 			VALUES
@@ -38,6 +40,7 @@
 				#mailPc#,
 				#authKey#,
 				#inviteId#,
+				#advertNum#,
 				#createdDate#,
 				#createdIp#
 				)
@@ -58,6 +61,7 @@
 					mail_pc,
 					auth_key,
 					invite_id,
+					advert_num,
 					created_date,
 					created_ip
 			FROM	temp_member_info

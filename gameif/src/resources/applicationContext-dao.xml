@@ -176,4 +176,25 @@
 			<value>tempMemberInfo</value>
 		</property>
 	</bean>
+	
+	<!-- advertAgencyMstDao -->
+	<bean id="advertAgencyMstDao" class="com.gameif.portal.dao.impl.AdvertAgencyMstDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>advertAgencyMst</value>
+		</property>
+	</bean>
+	
+	<!-- memAdvertActualInfoDao -->
+	<bean id="memAdvertActualInfoDao" class="com.gameif.portal.dao.impl.MemAdvertActualInfoDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>memAdvertActualInfo</value>
+		</property>
+	</bean>
+	
+	<!-- advertMstDao -->
+	<bean id="advertMstDao" class="com.gameif.portal.dao.impl.AdvertMstDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>advertMst</value>
+		</property>
+	</bean>
 </beans>

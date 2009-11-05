@@ -470,14 +470,14 @@ CREATE TABLE  `game_login_count` (
 DROP TABLE IF EXISTS `service_point_type_mst`;
 CREATE TABLE  `service_point_type_mst` (
   `service_point_type_id` int(11) NOT NULL,
-  `service_point_type_code` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `service_point_type_code` varchar(10) DEFAULT NULL,
   `point_amount` decimal(10,0) DEFAULT '0',
   `standard_level` int(11) NOT NULL,
-  `remarks` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `remarks` varchar(200) DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
-  `created_user` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_user` varchar(50) DEFAULT NULL,
   `last_update_date` datetime DEFAULT NULL,
-  `last_update_user` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `last_update_user` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`service_point_type_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -521,14 +521,14 @@ CREATE TABLE  `authority_mst` (
 
 DROP TABLE IF EXISTS `authority_detail_mst`;
 CREATE TABLE  `authority_detail_mst` (
-  `authority_code` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `function_code` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `authority_level` char(1) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `remarks` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `authority_code` varchar(20) NOT NULL,
+  `function_code` varchar(10) NOT NULL DEFAULT '',
+  `authority_level` char(1) DEFAULT NULL,
+  `remarks` varchar(200) DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
-  `created_user` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_user` varchar(50) DEFAULT NULL,
   `last_update_date` datetime DEFAULT NULL,
-  `last_update_user` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `last_update_user` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`authority_code`,`function_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -536,30 +536,29 @@ CREATE TABLE  `authority_detail_mst` (
 
 DROP TABLE IF EXISTS `login_user`;
 CREATE TABLE  `login_user` (
-  `user_id` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `password` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `nick_name` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `authority_code` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `user_id` varchar(20) NOT NULL,
+  `password` varchar(32) DEFAULT NULL,
+  `nick_name` varchar(30) DEFAULT NULL,
+  `authority_code` varchar(10) DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
-  `created_user` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_user` varchar(50) DEFAULT NULL,
   `last_update_date` datetime DEFAULT NULL,
-  `last_update_user` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `last_update_user` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
 
-
 DROP TABLE IF EXISTS `function_mst`;
 CREATE TABLE  `function_mst` (
-  `function_code` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `function_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `function_code` varchar(20) NOT NULL,
+  `function_name` varchar(50) DEFAULT NULL,
   `order_num` int(11) NOT NULL,
-  `remarks` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `remarks` varchar(200) DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
-  `created_user` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_user` varchar(50) DEFAULT NULL,
   `last_update_date` datetime DEFAULT NULL,
-  `last_update_user` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `last_update_user` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`function_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -568,17 +567,89 @@ CREATE TABLE  `function_mst` (
 DROP TABLE IF EXISTS `temp_member_info`;
 CREATE TABLE  `temp_member_info` (
   `mem_num` bigint(20) NOT NULL AUTO_INCREMENT,
-  `mem_id` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `nick_name` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `mem_pwd` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `mail_pc` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `auth_key` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `mem_id` varchar(20) NOT NULL,
+  `nick_name` varchar(32) DEFAULT NULL,
+  `mem_pwd` varchar(32) NOT NULL,
+  `mail_pc` varchar(100) NOT NULL,
+  `auth_key` varchar(32) NOT NULL,
   `invite_id` bigint(20) DEFAULT NULL,
+  `advert_num` int(11) DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
-  `created_ip` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_ip` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`mem_num`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+
+
+DROP TABLE IF EXISTS `media_kind_mst`;
+CREATE TABLE  `media_kind_mst` (
+  `media_kind_num` int(11) NOT NULL,
+  `media_kind_name` varchar(50) DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `created_user` varchar(50) DEFAULT NULL,
+  `last_update_date` datetime DEFAULT NULL,
+  `last_update_user` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`media_kind_num`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+DROP TABLE IF EXISTS `media_mst`;
+CREATE TABLE  `media_mst` (
+  `media_num` int(11) NOT NULL,
+  `media_name` varchar(50) DEFAULT NULL,
+  `media_kind_num` int(11) DEFAULT NULL,
+  `manager_type` char(1) DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `created_user` varchar(50) DEFAULT NULL,
+  `last_update_date` datetime DEFAULT NULL,
+  `last_update_user` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`media_num`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+DROP TABLE IF EXISTS `advert_agency_mst`;
+CREATE TABLE  `advert_agency_mst` (
+  `advert_agency_num` int(11) NOT NULL,
+  `advert_agency_name` varchar(50) DEFAULT NULL,
+  `advert_agency_type` char(1) DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `created_user` varchar(50) DEFAULT NULL,
+  `last_update_date` datetime DEFAULT NULL,
+  `last_update_user` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`advert_agency_num`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+DROP TABLE IF EXISTS `advert_mst`;
+CREATE TABLE  `advert_mst` (
+  `advert_num` int(11) NOT NULL AUTO_INCREMENT,
+  `advert_agency_num` int(11) DEFAULT NULL,
+  `media_num` int(11) DEFAULT NULL,
+  `pay_kind` smallint(6) DEFAULT NULL,
+  `advert_budget` decimal(10,0) DEFAULT NULL,
+  `advert_actual` decimal(10,0) DEFAULT NULL,
+  `start_date` datetime DEFAULT NULL,
+  `end_date` datetime DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `created_user` varchar(50) DEFAULT NULL,
+  `last_update_date` datetime DEFAULT NULL,
+  `last_update_user` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`advert_num`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+DROP TABLE IF EXISTS `mem_advert_actual_info`;
+CREATE TABLE  `mem_advert_actual_info` (
+  `mem_num` bigint(20) NOT NULL,
+  `advert_num` int(11) NOT NULL,
+  `mem_login_date` datetime DEFAULT NULL,
+  `mem_login_ip` varchar(15) DEFAULT NULL,
+  PRIMARY KEY (`mem_num`,`advert_num`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
 

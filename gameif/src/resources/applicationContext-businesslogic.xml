@@ -30,6 +30,15 @@
 		<property name="tempMemberInfoDao">
 			<ref bean="tempMemberInfoDao" />
 		</property>
+		<property name="advertAgencyMstDao">
+			<ref bean="advertAgencyMstDao" />
+		</property>
+		<property name="memAdvertActualInfoDao">
+			<ref bean="memAdvertActualInfoDao" />
+		</property>
+		<property name="advertMstDao">
+			<ref bean="advertMstDao" />
+		</property>
 		<property name="portalProperties">
 			<ref bean="portalProperties" />
 		</property>

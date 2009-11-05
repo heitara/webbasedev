@@ -16,6 +16,7 @@
 	<dd>
 		<s:form action="createTempMember" cssClass="entry">
 			<s:hidden name="inviteId"></s:hidden>
+			<s:hidden name="advertNum"></s:hidden>
 			<table>
 				<tr>
 					<th><span class="required">*</span><label for="createMember_memId">アカウントＩＤ：</label></th>
