@@ -93,6 +93,30 @@
 	<filter-mapping>
 		<filter-name>CAS Filter</filter-name>
 		<url-pattern>/inputInvite.html</url-pattern>
+	</filter-mapping>	
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/createInvite.html</url-pattern>
+	</filter-mapping>	
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/inputMailSelInvite.html</url-pattern>
+	</filter-mapping>	
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/loginMailSelInvite.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/showInviteHist.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/sendMailInviteHist.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/deleteInviteHist.html</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>CAS Filter</filter-name>
@@ -105,6 +129,10 @@
 	<filter-mapping>
 		<filter-name>CAS Filter</filter-name>
 		<url-pattern>/inputMemberInquiry.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/createMemInquiry.html</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>CAS Filter</filter-name>
@@ -140,7 +168,27 @@
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/chargeSaveSettleTrns.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
 		<url-pattern>/chargeDetail.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/chargeReceive.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/chargeCancel.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/chargeError.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/chargeSuccess.html</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>CAS Filter</filter-name>
