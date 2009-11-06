@@ -48,7 +48,7 @@
 			<interceptor-ref name="gameifStack"></interceptor-ref>
 			<result name="inputAdd">/WEB-INF/pages/backoffice/authority_add.jsp</result>
 			<result name="inputEdit">/WEB-INF/pages/backoffice/authority_edit.jsp</result>
-			<result name="inputlist">/WEB-INF/pages/backoffice/authority_list.jsp</result>
+			<result name="inputList">/WEB-INF/pages/backoffice/authority_list.jsp</result>
 		</action>
 		
 	</package>

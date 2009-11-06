@@ -57,7 +57,7 @@
 				last_update_date,
 				last_update_user
 		FROM	authority_mst
-		WHERE	authority_code = #value#
+		WHERE	authority_code = #authorityCode#
         ]]>
 	</select>
 

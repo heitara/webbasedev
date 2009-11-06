@@ -58,7 +58,7 @@
 										<s:checkbox name="selectedAuthoritys" id="selectedAuthoritys" value="false" fieldValue="%{authorityCode}"></s:checkbox>
 									</td>
 									<td>
-										<a href="inputEditAuthority.html?authorityCode=<s:property value="authorityCode"/>" ><s:property value="authorityCode"/></a>
+										<a href="inputEditAuthority.html?authority.authorityCode=<s:property value="authorityCode"/>" ><s:property value="authorityCode"/></a>
 									</td>
 									<td>
 										<s:property value="authorityName"/>
