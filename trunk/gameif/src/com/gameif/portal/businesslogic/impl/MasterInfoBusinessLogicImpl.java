@@ -158,6 +158,14 @@ public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		return settlementMstDao.selectAll(null);
 	}
 
+	/**
+	 * すべて決済情報を取得する(メンテナンス状態除く)
+	 */
+	@Override
+	public List<SettlementMst> getValidSettlementList() {
+		return settlementMstDao.selectValidSettlementList();
+	}
+
 	@Override
 	public PointMst getPointMstByKey(Integer pointId) {
 		PointMst pointMst = new PointMst();

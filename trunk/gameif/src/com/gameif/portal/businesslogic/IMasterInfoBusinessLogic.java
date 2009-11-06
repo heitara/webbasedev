@@ -30,6 +30,7 @@ public interface IMasterInfoBusinessLogic {
 	
 	public List<PointMst> getAllValidPointListByTitle(Integer titleId);
 	public List<SettlementMst> getAllSettlementList();
+	public List<SettlementMst> getValidSettlementList();
 	public PointMst getPointMstByKey(Integer pointId);
 	
 }
