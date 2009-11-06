@@ -30,11 +30,11 @@
 					<td>
 						<s:textfield name="authority.authorityName" maxlength="25" title="権限名" onblur="validate(this, 'REQ,KOT,EXN');"/>
 						<span class="explain">※ 記号とスペース以外の文字で入力してください。</span>
-						<span id="error_authority.authorityName" class="input_error"><s:fielderror><s:param>authority.nickName</s:param></s:fielderror></span>
+						<span id="error_authority.authorityName" class="input_error"><s:fielderror><s:param>authority.authorityName</s:param></s:fielderror></span>
 					</td>
 				</tr>
 				<tr>
-					<th><label for="createAuthority_mailPc">備考：</label></th>
+					<th><label for="createAuthority_remarks">備考：</label></th>
 					<td>
 						<s:textarea name="authority.remarks" rows="10" cssClass="big ime_mode_n" cssStyle="width:360px;" title="備考" onblur="validate(this, 'LEN_0_200');" />
 						<span id="error_authority.remarks" class="input_error"><s:fielderror><s:param>authority.remarks</s:param></s:fielderror></span>

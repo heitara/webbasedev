@@ -183,8 +183,8 @@ public class AuthorityAction extends ModelDrivenActionSupport<AuthorityInfo> {
 	 * 
 	 * @return　権限一覧画面
 	 */
-	public String inputlist() {
-		return "inputlist";
+	public String inputList() {
+		return "inputList";
 	}
 	
 	/**
@@ -198,7 +198,7 @@ public class AuthorityAction extends ModelDrivenActionSupport<AuthorityInfo> {
 			
 			addFieldError("errMessage", getText("common.dataNotExist"));
 		}
-		return "inputlist";
+		return "inputList";
 	}
 	
 	/**
@@ -207,7 +207,7 @@ public class AuthorityAction extends ModelDrivenActionSupport<AuthorityInfo> {
 	 */
 	public String delete() {
 		authorityBusinessLogic.deleteAuthorityMst(selectedAuthoritys);
-		return "inputlist";
+		return "inputList";
 	}
 
 	/**
