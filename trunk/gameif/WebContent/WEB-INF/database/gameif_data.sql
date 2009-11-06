@@ -136,12 +136,12 @@ INSERT INTO `point_mst` (`point_id`,`title_id`,`server_id`,`point_name`,`point_s
 
 TRUNCATE TABLE `settlement_mst`;
 INSERT INTO `settlement_mst` (`settlement_code`,`settlement_name`,`icon_url`,`settlement_status`,`created_date`,`created_user`, `last_update_date`,`last_update_user`) VALUES
-('bitcash', 'bitcash', 'images/charge_bitcash_small.gif', '0', '2009-10-10 12:30:21', 'chou', '2009-10-10 12:30:21', 'chou'),
-('credit', 'credit', 'images/charge_credit.gif', '0', '2009-10-10 12:30:21', 'chou', '2009-10-10 12:30:21', 'chou'),
-('edy', 'edy', 'images/charge_edy_small.gif', '0', '2009-10-10 12:30:21', 'chou', '2009-10-10 12:30:21', 'chou'),
-('mobileEdy', 'mobileEdy', 'images/charge_edy_mobile_small.gif', '0', '2009-10-10 12:30:21', 'chou', '2009-10-10 12:30:21', 'chou'),
-('netCash', 'netCash', 'images/charge_netcash_small.gif', '0', '2009-10-10 12:30:21', 'chou', '2009-10-10 12:30:21', 'chou'),
-('webmoney', 'webmoney', 'images/charge_webmoney_small.gif', '0', '2009-10-10 12:30:21', 'chou', '2009-10-10 12:30:21', 'chou');
+('bitcash', 'bitcash', 'images/charge_bitcash_small.gif', '1', '2009-10-10 12:30:21', 'chou', '2009-10-10 12:30:21', 'chou'),
+('credit', 'credit', 'images/charge_credit.gif', '1', '2009-10-10 12:30:21', 'chou', '2009-10-10 12:30:21', 'chou'),
+('edy', 'edy', 'images/charge_edy_small.gif', '1', '2009-10-10 12:30:21', 'chou', '2009-10-10 12:30:21', 'chou'),
+('mobileEdy', 'mobileEdy', 'images/charge_edy_mobile_small.gif', '1', '2009-10-10 12:30:21', 'chou', '2009-10-10 12:30:21', 'chou'),
+('netCash', 'netCash', 'images/charge_netcash_small.gif', '1', '2009-10-10 12:30:21', 'chou', '2009-10-10 12:30:21', 'chou'),
+('webmoney', 'webmoney', 'images/charge_webmoney_small.gif', '1', '2009-10-10 12:30:21', 'chou', '2009-10-10 12:30:21', 'chou');
 
 TRUNCATE TABLE `member_info`;
 INSERT INTO `member_info` (`mem_num`, `mem_id`, `nick_name`, `mem_pwd`, `mem_kind_cd`, `mem_atbt_cd`, `mem_valid_yn_cd`, `question_cd`, `answer`, `mail_pc`, `mail_mobile`, `kanji_fname`, `kanji_lname`, `kana_fname`, `kana_lname`, `sex_cd`, `birth_ymd`, `divis_cd`, `occup_cd`, `city_name`, `building_name`, `tel_num`, `mailmag_req_cd`, `mailmag_obj_cd`, `note`, `entry_date`, `entry_ip`, `withdraw_date`, `withdraw_ip`, `last_update_date`, `last_update_ip`, `last_update_user`, `version_no`) VALUES
