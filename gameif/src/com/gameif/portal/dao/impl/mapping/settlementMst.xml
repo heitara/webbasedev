@@ -31,4 +31,22 @@
         ]]>
 	</select>
 
+	<select id="selectValidSettlementList" resultMap="settlementResult">
+        <![CDATA[
+        SELECT
+			settlement_code,
+			settlement_name,
+			icon_url,
+			settlement_status,
+			created_date,
+			created_user,
+			last_update_date,
+			last_update_user
+		FROM
+			settlement_mst
+		WHERE
+			settlement_status = '1'
+        ]]>
+	</select>
+
 </sqlMap>

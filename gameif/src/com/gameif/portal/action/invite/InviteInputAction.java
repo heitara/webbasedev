@@ -268,12 +268,6 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 		try {
 			List<Contact> list = SimpleAddressBookImporter.fetchContacts(email, memPwd);
 			setFriendList(list);
-//			Iterator it = list.iterator();
-//			while (it.hasNext()) {
-//				Contact contact = (Contact) it.next();
-//				System.out.println(contact.getName() + " <"
-//						+ contact.getEmail() + ">");
-//			}
 
 		} catch (AddressBookAuthenticationException e) {
 			logger.warn(ContextUtil.getRequestBaseInfo() + " | "

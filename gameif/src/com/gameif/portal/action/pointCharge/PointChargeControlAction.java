@@ -140,7 +140,7 @@ public class PointChargeControlAction extends
 	 * @return
 	 */
 	public String SettleSelect() {
-		settleList = masterInfoBusinessLogic.getAllSettlementList();
+		settleList = masterInfoBusinessLogic.getValidSettlementList();
 
 		this.getModel().setTitleId(titleId);
 		this.getModel().setServerId(serverId);
