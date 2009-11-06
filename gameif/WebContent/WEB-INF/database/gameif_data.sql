@@ -157,3 +157,35 @@ INSERT INTO `function_mst` (`function_code`,`function_name`,`order_num`,`remarks
 ('400', 'キャンペーン管理', 4, '', '2009-10-10 12:30:21', 'chou', '2009-10-10 12:30:21', 'chou'),
 ('500', 'サービスポイント管理', 5, '', '2009-10-10 12:30:21', 'chou', '2009-10-10 12:30:21', 'chou'),
 ('600', '売上げ集計', 6, '', '2009-10-10 12:30:21', 'chou', '2009-10-10 12:30:21', 'chou');
+
+TRUNCATE TABLE `media_kind_mst`;
+INSERT INTO `media_kind_mst` (`media_kind_num`, `media_kind_name`, `created_date`, `created_user`, `last_update_date`, `last_update_user`) VALUES
+(1, 'ゲーム', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
+(2, 'ＳＮＳ', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
+(3, '動画', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
+(4, 'アニメ', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
+(5, 'ＩＴ情報', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
+(6, '総合情報', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
+(7, 'その他', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou');
+
+TRUNCATE TABLE `media_mst`;
+INSERT INTO `media_mst` (`media_num`, `media_name`, `media_kind_num`, `manager_type`, `created_date`, `created_user`, `last_update_date`, `last_update_user`) VALUES
+(1, 'ヤフー',6, '1', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
+(2, 'goo',6, '1', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
+(3, '4Gamer.net',1, '1', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
+(4, '@nifty ゲーム',1, '1', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
+(5, 'google',7, '1', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
+(6, 'GAME Watch',6, '1', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
+(7, 'Game*SPARK',6, '1', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou');
+
+TRUNCATE TABLE `advert_agency_mst`;
+INSERT INTO `advert_agency_mst` (`advert_agency_num`, `advert_agency_name`, `advert_agency_type`, `created_date`, `created_user`, `last_update_date`, `last_update_user`) VALUES
+(1, 'アクセストレード：株式会社インタースペース','1', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
+(2, 'ジャネット：株式会社フルスピード','1', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
+(3, 'サイバーエージェント','1', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou');
+
+TRUNCATE TABLE `advert_mst`;
+INSERT INTO `advert_mst` (`advert_num`, `advert_agency_num`, `media_num`, `pay_kind`, `advert_budget`, `advert_actual`, `start_date`, `end_date`, `created_date`, `created_user`, `last_update_date`, `last_update_user`) VALUES
+(1, 1, 1, 4, null, null, '2009-11-06 15:47:36', '2010-11-06 15:47:36', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
+(2, null, 2, 8, null, null, '2009-11-06 15:47:36', '2010-11-06 15:47:36', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
+(3, 2, 3, 16, null, null, '2009-11-06 15:47:36', '2010-11-06 15:47:36', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou');
