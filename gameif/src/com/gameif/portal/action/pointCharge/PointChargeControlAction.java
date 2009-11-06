@@ -339,13 +339,13 @@ public class PointChargeControlAction extends
 		getResponseParams();
 		if (!checkReceiveHashCode()) {
 			setResult("NG");
-			setErrMsg("チェックサム値が正しくない");
+			setErrMsg(getText("charge.checkSumError"));
 			return "receive";
 		}
 
 		if (!getModel().getResResult().equals("OK")) {
 			setResult("NG");
-			setErrMsg("要求NG");
+			setErrMsg(getText("charge.resultNG"));
 			return "receive";
 		}
 
@@ -360,7 +360,7 @@ public class PointChargeControlAction extends
 					+ ex.getMessage());
 
 			setResult("NG");
-			setErrMsg("決済に予期できないエラーが発生しました。");
+			setErrMsg(getText("charge.unexpectedError"));
 		}
 
 		return "receive";
