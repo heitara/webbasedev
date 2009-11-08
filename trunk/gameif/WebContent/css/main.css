@@ -141,14 +141,21 @@ dl.mygame dt {
 	background-image:none;
 }
 dl.mygame dd div {
-	height:24px;
-	font-size:14px;
-	font-weight:bold;
+	color:#F60;
 	text-align:left;
 	overflow:hidden;
 	white-space:nowrap;
 }
-dl.mygame dd a {
+dl.mygame dd div.mygame_title {
+	height:25px;
+	font-size:14px;
+	font-weight:bold;
+	color:#633;
+	text-align:left;
+	overflow:hidden;
+	white-space:nowrap;
+}
+dl.mygame dd a.btn {
 	display:inline-block;
 	width:46px;
 	height:20px;
@@ -311,10 +318,17 @@ table.games td {
 table.games td.sidecell {
 	width:180px;
 }
+table.games td.sidecell div.play_info {
+	font-weight:bold;
+	color:#F60;
+	line-height:20px;
+	font-size:13px;
+}
 
 table.games div.g_title {
 	font-size:16px;
 	font-weight:bold;
+	color:#633;
 }
 table.games div.g_menu {
 	width:380px;
