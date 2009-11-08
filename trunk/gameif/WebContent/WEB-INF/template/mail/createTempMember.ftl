@@ -9,7 +9,7 @@ ${nickName}　様
 
 以下のURLをクリックして、アカウント有効化の手続きを完了させて下さい。
 
-https://www.game-if.com/effectiveMember.html?memNum=${memNum}&authKey=${authKey}
+https://www.game-if.com/activateMember.html?enc=${enc}
 
 【ご注意】
 URLが2行に表示されていたり、URLのリンクが途中で切れた場合など、
