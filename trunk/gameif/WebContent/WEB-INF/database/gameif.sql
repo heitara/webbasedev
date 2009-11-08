@@ -574,6 +574,7 @@ CREATE TABLE  `temp_member_info` (
   `auth_key` varchar(32) NOT NULL,
   `invite_id` bigint(20) DEFAULT NULL,
   `advert_num` int(11) DEFAULT NULL,
+  `parent_mem_num` bigint(20) DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
   `created_ip` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`mem_num`)
