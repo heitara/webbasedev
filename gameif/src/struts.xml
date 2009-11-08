@@ -50,14 +50,14 @@
 			 -->
 			<interceptor-ref name="gameifStack"></interceptor-ref>
 			<interceptor-ref name="secureParameter">
-				<param name="includeMethods">finishedEffective</param>
+				<param name="includeMethods">createTemp,finishedActivate</param>
 			</interceptor-ref>
 			<result name="input">/WEB-INF/pages/portal/mem_registry.jsp</result>
 			<result name="success" type="redirect">/finishedCreateMember.html</result>
 			<result name="finish">/WEB-INF/pages/portal/mem_registry_success.jsp</result>
-			<result name="effective" type="redirect">/finishedEffectiveMember.html?enc=${secureParameter}</result>
+			<result name="activate" type="redirect">/finishedActivateMember.html?enc=${enc}</result>
 			<result name="outOfDate" type="redirect">outOfDatePage.html</result>
-			<result name="finishedEffective">/WEB-INF/pages/portal/mem_effective.jsp</result>
+			<result name="finishedActivate">/WEB-INF/pages/portal/mem_activate_success.jsp</result>
 			<result name="invalid.token">/WEB-INF/pages/common/warning.jsp</result>
 		</action>
 
@@ -181,8 +181,11 @@
 			</interceptor-ref>
 			<interceptor-ref name="token">
 				<param name="includeMethods">updateTempPwd</param>
-			</interceptor-ref>			
-			<interceptor-ref name="gameifStack"></interceptor-ref>			
+			</interceptor-ref>
+			<interceptor-ref name="gameifStack"></interceptor-ref>
+			<interceptor-ref name="secureParameter">
+				<param name="includeMethods">editTempPwd</param>
+			</interceptor-ref>
 			<result name="input">/WEB-INF/pages/portal/temp_pwd_edit.jsp</result>
 			<result name="success" type="redirect">/finishedPage.html?action=updateTempPwd</result>
 			<result name="invalid.token">/WEB-INF/pages/common/warning.jsp</result>
@@ -227,6 +230,9 @@
 		</action>
 		<action name="logoutProxy" class="logoutProxyAction">
 			<result name="success" type="redirect">${logoutUrl}</result>
+		</action>
+		<action name="entryProxy" class="entryProxyAction">
+			<result name="success" type="redirect">${titleEntryUrl}</result>
 		</action>
 
 		<!-- サービスポイントに関連するアクション -->
