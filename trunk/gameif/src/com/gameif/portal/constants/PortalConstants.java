@@ -5,6 +5,11 @@ public class PortalConstants {
 	public final static String YES = "1";
 	public final static String NO = "0";
 	
+	public class Key {
+		
+		public final static String SEURE_PARAM_KEY = "enc";
+	}
+	
 	/** ユーザ属性コード */
 	public class MemberAtbtCd {
 		
