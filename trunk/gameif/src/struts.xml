@@ -50,10 +50,10 @@
 			 -->
 			<interceptor-ref name="gameifStack"></interceptor-ref>
 			<interceptor-ref name="secureParameter">
-				<param name="includeMethods">createTemp,finishedActivate</param>
+				<param name="includeMethods">createTemp,finishedCreate,finishedActivate</param>
 			</interceptor-ref>
 			<result name="input">/WEB-INF/pages/portal/mem_registry.jsp</result>
-			<result name="success" type="redirect">/finishedCreateMember.html</result>
+			<result name="success" type="redirect">/finishedCreateMember.html?enc=${enc}</result>
 			<result name="finish">/WEB-INF/pages/portal/mem_registry_success.jsp</result>
 			<result name="activate" type="redirect">/finishedActivateMember.html?enc=${enc}</result>
 			<result name="outOfDate" type="redirect">outOfDatePage.html</result>
@@ -164,9 +164,12 @@
 			<interceptor-ref name="store">
 				<param name="operationMode">NONE</param>
 			</interceptor-ref>
+			<interceptor-ref name="secureParameter">
+				<param name="includeMethods">finished</param>
+			</interceptor-ref>
 			
 			<result name="input">/WEB-INF/pages/portal/mem_pwd_reget.jsp</result>
-			<result name="success"  type="redirect">/finishedPwdReget.html</result>
+			<result name="success"  type="redirect">/finishedPwdReget.html?enc=${enc}</result>
 			<result name="finish">/WEB-INF/pages/portal/mem_pwd_reget_finish.jsp</result>
 		</action>
 		
