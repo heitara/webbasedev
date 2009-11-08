@@ -1,10 +1,14 @@
 package com.gameif.common.util;
 
 import java.security.MessageDigest;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import sun.misc.BASE64Decoder;
 
 public class SecurityUtil {
 
@@ -110,5 +114,66 @@ public class SecurityUtil {
 		}
 
 		return shaString;
+	}
+	
+	public final static String encodeParam(String params) {
+		
+		return encodeBase64(params);
+	}
+	
+	public final static String encodeParam(Map<String, Object> params) {
+		
+		StringBuffer encBuff = new StringBuffer();
+		
+		for (Map.Entry<String, Object> entry : params.entrySet()) {
+
+			if (encBuff.length() > 0) {
+
+				encBuff.append('&');
+			}
+			encBuff.append(entry.getKey());
+			encBuff.append('=');
+			encBuff.append(entry.getValue());
+		}
+
+		return encodeBase64(encBuff.toString());
+	}
+	
+	public final static Map<String, String> decodeParam(String params) {
+		
+		Map<String, String> paramMap = new HashMap<String, String>();		
+		String decoded = decodeBase64(params);
+		
+		String[] paramarr = decoded.split("&");
+		
+		for (String parm : paramarr) {
+			
+			String[] kv = parm.split("=");
+			paramMap.put(kv[0], kv[1]);
+		}
+		
+		return paramMap;
+	}
+	
+	public final static String encodeBase64(String src) {
+		
+		return new sun.misc.BASE64Encoder().encode(src.getBytes());
+	}
+	
+	public final static String decodeBase64(String encoded) {
+		
+		String decoded = null;
+		BASE64Decoder decoder = new BASE64Decoder();
+		
+		try {
+			
+			byte[] b = decoder.decodeBuffer(encoded);
+			decoded = new String(b);
+			
+		} catch (Exception e) {
+			
+		}
+		
+		return decoded;
 	}
 }
