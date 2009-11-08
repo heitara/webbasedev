@@ -24,7 +24,7 @@ public class MyTitle extends BaseEntity {
 	private String announce;
 	private Date playDate;
 	private Integer playCount;
-	private Long cbtTester;
+	private String electStatus;
 	
 	public Integer getTitleId() {
 		return titleId;
@@ -130,16 +130,16 @@ public class MyTitle extends BaseEntity {
 		this.playCount = playCount;
 	}
 	/**
-	 * @return the cbtTester
+	 * @return the betaTester
 	 */
-	public Long getCbtTester() {
-		return cbtTester;
+	public String getElectStatus() {
+		return electStatus;
 	}
 	/**
-	 * @param cbtTester the cbtTester to set
+	 * @param electStatus the electStatus to set
 	 */
-	public void setCbtTester(Long cbtTester) {
-		this.cbtTester = cbtTester;
+	public void setElectStatus(String electStatus) {
+		this.electStatus = electStatus;
 	}
 	
 }
