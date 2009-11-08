@@ -419,8 +419,8 @@ CREATE TABLE  `mem_settlement_hist` (
 
 
 
-DROP TABLE IF EXISTS `cbt_tester`;
-CREATE TABLE  `cbt_tester` (
+DROP TABLE IF EXISTS `beta_tester`;
+CREATE TABLE  `beta_tester` (
   `mem_num` bigint(20) NOT NULL,
   `title_id` int(10) NOT NULL,
   `elect_status` char(1) NOT NULL,
