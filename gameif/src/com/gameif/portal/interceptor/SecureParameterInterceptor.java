@@ -5,11 +5,14 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
 
 import com.gameif.common.util.SecurityUtil;
+import com.gameif.portal.constants.PortalConstants;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 
@@ -21,7 +24,12 @@ public class SecureParameterInterceptor extends AbstractInterceptor {
 	@Override
 	public String intercept(ActionInvocation ai) throws Exception {
 		
-		String encodedParams = ServletActionContext.getRequest().getParameter("enc");
+		String encodedParams = ServletActionContext.getRequest().getParameter(PortalConstants.Key.SEURE_PARAM_KEY);
+		
+		if (encodedParams == null) {
+			
+			encodedParams = getParameterFromCookie(PortalConstants.Key.SEURE_PARAM_KEY);
+		}
 
 		if (encodedParams != null) {
 			
@@ -42,8 +50,28 @@ public class SecureParameterInterceptor extends AbstractInterceptor {
 		
 		return ai.invoke();
 	}
+
+	private String getParameterFromCookie(String key) {
+		
+		String value = null;
+	    Cookie cookies[] = ServletActionContext.getRequest().getCookies();
+	    
+	    if (cookies != null) {
+	    	
+	        for (Cookie cookie : cookies) {
+	        	
+	        	if (cookie.getName().equals(key)) {
+	        	
+	        		value = cookie.getValue();
+	        	}
+	        }
+	    }
+		
+		return value;
+	}
+
 	
-	public void setProperty(Object action, String key, String value) throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	private void setProperty(Object action, String key, String value) throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		
 		if (!setFieldValue(action, key, value)) {
 			
