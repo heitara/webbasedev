@@ -22,7 +22,7 @@
 	</context-param>
 	<context-param>
 		<param-name>noLoginPage</param-name>
-		<param-value>/registryMember.html,/inputInquiry.html,/inputPwdReget.html,/finishedPage.html</param-value>
+		<param-value>/registryMember.html,/inputInquiry.html,/inputPwdReget.html,/finishedPage.html,/finishedCreateMember.html,/finishedEffectiveMember.html</param-value>
 	</context-param>
 
 	<filter>
@@ -200,12 +200,13 @@
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>CAS Filter</filter-name>
-		<url-pattern>/inputCBTTester.html</url-pattern>
+		<url-pattern>/inputBetaTester.html</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>CAS Filter</filter-name>
-		<url-pattern>/createCBTTester.html</url-pattern>
+		<url-pattern>/applyBetaTester.html</url-pattern>
 	</filter-mapping>
+		
 	<filter-mapping>
 	    <filter-name>sitemesh</filter-name>
 	    <url-pattern>/*</url-pattern>
