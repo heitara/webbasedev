@@ -8,7 +8,7 @@ ${nickName}　様
 
 以下のURLをクリックして、パスワード再設定の手続きを完了させて下さい。
 
-https://www.game-if.com/editTempPwd.html?memNum=${memNum}&tempKey=${tempKey}
+https://www.game-if.com/editTempPwd.html?enc=${enc}
 
 【ご注意】
 URLが2行に表示されていたり、URLのリンクが途中で切れた場合など、
