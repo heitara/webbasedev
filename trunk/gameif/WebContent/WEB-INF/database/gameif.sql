@@ -653,6 +653,28 @@ CREATE TABLE  `mem_advert_actual_info` (
 
 
 
+DROP TABLE IF EXISTS `mem_invite_link`;
+CREATE TABLE  `mem_invite_link` (
+  `mem_num` bigint(20) NOT NULL,
+  `link_key` int(11) NOT NULL,
+  `created_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`mem_num`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+
+DROP TABLE IF EXISTS `mem_link_invite_hist`;
+CREATE TABLE  `mem_link_invite_hist` (
+  `mem_num` bigint(20) NOT NULL,
+  `child_mem_num` bigint(20) NOT NULL,
+  `title_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`mem_num`,`child_mem_num`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+
 DROP TRIGGER IF EXISTS `t_insert_member_info_hist_bu`;
 DELIMITER $$
 CREATE TRIGGER `t_insert_member_info_hist_bu` AFTER UPDATE ON `member_info` FOR EACH ROW BEGIN
