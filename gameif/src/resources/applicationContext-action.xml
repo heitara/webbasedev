@@ -196,4 +196,15 @@
 	<bean id="loginStatusProxyAction" class="com.gameif.portal.action.menu.LoginStatusProxyAction" scope="prototype" />
 	<!-- logoutProxyAction -->
 	<bean id="logoutProxyAction" class="com.gameif.portal.action.menu.LogoutProxyAction" scope="prototype" />
+	<bean id="entryProxyAction" class="com.gameif.portal.action.menu.EntryProxyAction" scope="prototype">
+		<property name="cookieAge">
+			<value>${entryProxyAction.cookieAge}</value>
+		</property>		
+		<property name="titleEntryUrls">
+			<map>
+				<entry key="0" value="${entryProxyAction.titleEntryUrl.0}"/>
+				<entry key="1" value="${entryProxyAction.titleEntryUrl.1}"/>
+			</map>
+		</property>
+	</bean>
 </beans>
