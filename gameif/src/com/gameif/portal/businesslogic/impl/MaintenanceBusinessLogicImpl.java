@@ -1,7 +1,7 @@
 package com.gameif.portal.businesslogic.impl;
 
 import com.gameif.common.businesslogic.BaseBusinessLogic;
-import com.gameif.common.exception.CBTException;
+import com.gameif.common.exception.BetaTestException;
 import com.gameif.common.exception.LogicException;
 import com.gameif.common.exception.MaintenanceException;
 import com.gameif.portal.businesslogic.IMaintenanceBusinessLogic;
@@ -36,7 +36,7 @@ public class MaintenanceBusinessLogicImpl extends BaseBusinessLogic implements
 				throw new MaintenanceException("title is in maintenance.");
 			// CBT中
 			} else if (status.equals(PortalConstants.ServerStatus.CBT)) {
-				throw new CBTException("title is in CBT");
+				throw new BetaTestException("title is in CBT");
 			}
 		}
 		
