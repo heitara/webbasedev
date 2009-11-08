@@ -2,7 +2,7 @@ package com.gameif.portal.entity;
 
 import com.gameif.common.entity.BaseEntity;
 
-public class CbtTester extends BaseEntity {
+public class BetaTester extends BaseEntity {
 
 	/**
 	 * 
