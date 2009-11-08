@@ -5,6 +5,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
 
+	<bean id="secureParameterInterceptor" class="com.gameif.portal.interceptor.SecureParameterInterceptor" />
 	<bean id="actionLoggerInterceptor" class="com.gameif.portal.interceptor.ActionLogInterceptor" />
 	<!-- actionLoggerInterceptor：同ＩＰで短時間以内に連続して会員登録を行った場合、制限をかける -->
 	<bean id="repetitionRegInterceptor" class="com.gameif.portal.interceptor.RepetitionRegInterceptor">
@@ -184,10 +185,10 @@
 		</property>
 	</bean>
 	
-	<!-- cbtTesterControlAction -->
-	<bean id="cbtTesterControlAction" class="com.gameif.portal.action.titleif.CBTTesterControlAction" scope="prototype">
-		<property name="cbtTesterBusinessLogic">
-			<ref bean="cbtTesterBusinessLogic" />
+	<!-- betaTesterControlAction -->
+	<bean id="betaTesterControlAction" class="com.gameif.portal.action.titleif.BetaTesterControlAction" scope="prototype">
+		<property name="betaTesterBusinessLogic">
+			<ref bean="betaTesterBusinessLogic" />
 		</property>
 	</bean>
 	

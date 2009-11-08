@@ -24,9 +24,16 @@
 		<property name="encoding" value="UTF-8" />
 		<property name="templates">
 			<map>
+				<entry key="createTempMember">
+					<map>
+						<entry key="title" value="【ゲームイフ】アカウント有効化のご案内"/>
+						<entry key="template" value="createTempMember.ftl"/>
+						<entry key="format" value="text"/>
+					</map>
+				</entry>
 				<entry key="createMember">
 					<map>
-						<entry key="title" value="【ゲームイフ】会員有効化完了のお知らせ"/>
+						<entry key="title" value="【ゲームイフ】アカウント有効化完了のお知らせ"/>
 						<entry key="template" value="createMember.ftl"/>
 						<entry key="format" value="text"/>
 					</map>
@@ -62,7 +69,7 @@
 				</entry>
 				<entry key="createPwdReget">
 					<map>
-						<entry key="title" value="【ゲームイフ】仮パスワード発行のお知らせ"/>
+						<entry key="title" value="【ゲームイフ】パスワード再設定のご案内"/>
 						<entry key="template" value="createPwdReget.ftl"/>
 						<entry key="format" value="text"/>
 					</map>
@@ -71,13 +78,6 @@
 					<map>
 						<entry key="title" value="【ゲームイフ】お友達が招待しています‏"/>
 						<entry key="template" value="inviteFriend.ftl"/>
-						<entry key="format" value="text"/>
-					</map>
-				</entry>
-				<entry key="createTempMember">
-					<map>
-						<entry key="title" value="【ゲームイフ】会員登録のお知らせ"/>
-						<entry key="template" value="createTempMember.ftl"/>
 						<entry key="format" value="text"/>
 					</map>
 				</entry>
@@ -150,5 +150,5 @@
 	    <property name="maxPoolSize">
 	    	<value>${taskExecutor.maxPoolSize}</value>
 	    </property>
-	</bean>	
+	</bean>
 </beans>

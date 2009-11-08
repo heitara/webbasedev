@@ -135,10 +135,10 @@
 		</property>
 	</bean>
 	
-	<!-- cbtTesterDao -->
-	<bean id="cbtTesterDao" class="com.gameif.portal.dao.impl.CbtTesterDaoImpl" parent="baseDao">
+	<!-- betaTesterDao -->
+	<bean id="betaTesterDao" class="com.gameif.portal.dao.impl.BetaTesterDaoImpl" parent="baseDao">
 		<property name="namespace">
-			<value>cbtTester</value>
+			<value>betaTester</value>
 		</property>
 	</bean>
 	
