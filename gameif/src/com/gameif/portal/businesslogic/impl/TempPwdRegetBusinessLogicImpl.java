@@ -9,6 +9,7 @@ import com.gameif.common.exception.LogicException;
 import com.gameif.common.helper.TemplateMailer;
 import com.gameif.common.util.SecurityUtil;
 import com.gameif.portal.businesslogic.ITempPwdRegetBusinessLogic;
+import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.dao.IMemberInfoDao;
 import com.gameif.portal.dao.ITempPwdInfoDao;
 import com.gameif.portal.entity.MemberInfo;
@@ -77,7 +78,8 @@ public class TempPwdRegetBusinessLogicImpl extends BaseBusinessLogic implements
 	public void saveTempPwdInfo(TempPwdInfo tempPwdInfo, MemberInfo memberInfo)  throws LogicException {
 		
 		// 画面で入力したメールアドレースと質問と答えにより、会員情報を検索する
-		MemberInfo member = memberInfoDao.selectForPwdReget(memberInfo);	
+		MemberInfo member = memberInfoDao.selectForPwdReget(memberInfo);
+		
 		if (member == null) {
 			
 			// データが存在しない
@@ -98,8 +100,15 @@ public class TempPwdRegetBusinessLogicImpl extends BaseBusinessLogic implements
 		// お知らせメールを送信する。
 		HashMap<String, String> props = new HashMap<String, String>();
 		props.put("nickName", member.getNickName());
-		props.put("tempKey", tempPwdInfo.getTempKey());
-		props.put("memNum",member.getMemNum().toString());
+//		props.put("tempKey", tempPwdInfo.getTempKey());
+//		props.put("memNum",member.getMemNum().toString());
+		props.put(PortalConstants.Key.SEURE_PARAM_KEY, SecurityUtil.encodeParam(new StringBuffer()
+			.append("memNum=")
+			.append(member.getMemNum().toString())
+			.append("&tempKey=")
+			.append(tempPwdInfo.getTempKey())
+			.toString()));
+		
 		templateMailer.sendAsyncMail(memberInfo.getMailPc(), "createPwdReget", props);
 	}
 }

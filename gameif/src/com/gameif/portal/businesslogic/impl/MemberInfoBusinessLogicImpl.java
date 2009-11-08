@@ -58,6 +58,79 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	private PortalProperties portalProperties;
 
 	/**
+	 * 臨時会員情報を登録する。
+	 * @param memberInfo 会員情報（新規登録時必要な項目が格納されていること）
+	 * @param inviteId 友達紹介ID（友達紹介から登録場合）
+	 * @param advertNum 広告番号（アフィリエイト登録場合）
+	 */
+	@Transactional
+	@Override
+	public void saveTempMemberInfo(MemberInfo memberInfo, String inviteId, Integer advertNum) {
+		
+		TempMemberInfo tempMemberInfo = new TempMemberInfo();
+		
+		// アカウントＩＤとメールアドレスは小文字に変換、両辺スペース削除
+		tempMemberInfo.setMemId(memberInfo.getMemId().trim().toLowerCase());
+		tempMemberInfo.setMailPc(memberInfo.getMailPc().trim().toLowerCase());
+		// ニックネームは両辺スペース削除
+		tempMemberInfo.setNickName(memberInfo.getNickName().trim());
+
+		// パスワードをMD5アルゴリズムで暗号化する。
+		tempMemberInfo.setMemPwd(SecurityUtil.getMD5String(memberInfo.getMemPwd()));
+		// 臨時キーを取得する
+		tempMemberInfo.setAuthKey(SecurityUtil.getRandomAuthKey(10));
+		// 友達紹介ID
+		if (inviteId == null || inviteId.trim().length() == 0) {
+			tempMemberInfo.setInviteId(null);
+		} else {
+			tempMemberInfo.setInviteId(Long.parseLong(inviteId));
+		}
+		// 広告番号
+		tempMemberInfo.setAdvertNum(advertNum);
+		tempMemberInfo.setCreatedDate(new Date());
+		tempMemberInfo.setCreatedIp(ContextUtil.getClientIP());
+
+		// 臨時会員情報を登録する。
+		tempMemberInfoDao.save(tempMemberInfo);
+		
+		boolean deleteFlg = false;
+		
+		//　現時点の時、秒を取得する
+		SimpleDateFormat df = new SimpleDateFormat("HHmm");
+		Integer now = Integer.parseInt(df.format(new Date()));
+		
+		// 現時点が時間帯に含まれるかどうかをチェックする
+		for(Object obj : portalProperties.getTimeZoneList().keySet()) {
+			Integer startTime = Integer.parseInt(obj.toString());
+			Integer endTime = Integer.parseInt(portalProperties.getTimeZoneList().get(obj).toString());
+			
+			if (startTime <= now && now <= endTime) {
+				deleteFlg = true;
+				break;
+			}     
+		} 
+		
+		if (deleteFlg) {
+			// 無効な臨時会員情報を削除する。
+			tempMemberInfoDao.deleteInvalidData(invalidMinute);
+		}
+
+		// お知らせメールを送信する。
+		HashMap<String, String> props = new HashMap<String, String>();
+		props.put("nickName", tempMemberInfo.getNickName());
+		//props.put("memId", tempMemberInfo.getMemId());
+		//props.put("memNum", tempMemberInfo.getMemNum().toString());
+		//props.put("authKey", tempMemberInfo.getAuthKey());
+		props.put(PortalConstants.Key.SEURE_PARAM_KEY, SecurityUtil.encodeParam(new StringBuffer()
+							.append("memNum=")
+							.append(tempMemberInfo.getMemNum().toString())
+							.append("&authKey=")
+							.append(tempMemberInfo.getAuthKey())
+							.toString()));
+		templateMailer.sendAsyncMail(tempMemberInfo.getMailPc(), "createTempMember", props);
+	}
+	
+	/**
 	 * 会員情報を登録する。
 	 * @param memNum 臨時会員情報の会員番号
 	 * @param authKey 臨時キー
@@ -173,73 +246,6 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		}
 		
 		return memKindCd;
-	}
-
-	/**
-	 * 臨時会員情報を登録する。
-	 * @param memberInfo 会員情報（新規登録時必要な項目が格納されていること）
-	 * @param inviteId 友達紹介ID（友達紹介から登録場合）
-	 * @param advertNum 広告番号（アフィリエイト登録場合）
-	 */
-	@Transactional
-	@Override
-	public void saveTempMemberInfo(MemberInfo memberInfo, String inviteId, Integer advertNum) {
-		
-		TempMemberInfo tempMemberInfo = new TempMemberInfo();
-		
-		// アカウントＩＤとメールアドレスは小文字に変換、両辺スペース削除
-		tempMemberInfo.setMemId(memberInfo.getMemId().trim().toLowerCase());
-		tempMemberInfo.setMailPc(memberInfo.getMailPc().trim().toLowerCase());
-		// ニックネームは両辺スペース削除
-		tempMemberInfo.setNickName(memberInfo.getNickName().trim());
-
-		// パスワードをMD5アルゴリズムで暗号化する。
-		tempMemberInfo.setMemPwd(SecurityUtil.getMD5String(memberInfo.getMemPwd()));
-		// 臨時キーを取得する
-		tempMemberInfo.setAuthKey(SecurityUtil.getRandomAuthKey(10));
-		// 友達紹介ID
-		if (inviteId == null || inviteId.trim().length() == 0) {
-			tempMemberInfo.setInviteId(null);
-		} else {
-			tempMemberInfo.setInviteId(Long.parseLong(inviteId));
-		}
-		// 広告番号
-		tempMemberInfo.setAdvertNum(advertNum);
-		tempMemberInfo.setCreatedDate(new Date());
-		tempMemberInfo.setCreatedIp(ContextUtil.getClientIP());
-
-		// 臨時会員情報を登録する。
-		tempMemberInfoDao.save(tempMemberInfo);
-		
-		boolean deleteFlg = false;
-		
-		//　現時点の時、秒を取得する
-		SimpleDateFormat df = new SimpleDateFormat("HHmm");
-		Integer now = Integer.parseInt(df.format(new Date()));
-		
-		// 現時点が時間帯に含まれるかどうかをチェックする
-		for(Object obj : portalProperties.getTimeZoneList().keySet()) {
-			Integer startTime = Integer.parseInt(obj.toString());
-			Integer endTime = Integer.parseInt(portalProperties.getTimeZoneList().get(obj).toString());
-			
-			if (startTime <= now && now <= endTime) {
-				deleteFlg = true;
-				break;
-			}     
-		} 
-		
-		if (deleteFlg) {
-			// 無効な臨時会員情報を削除する。
-			tempMemberInfoDao.deleteInvalidData(invalidMinute);
-		}
-
-		// お知らせメールを送信する。
-		HashMap<String, String> props = new HashMap<String, String>();
-		props.put("nickName", tempMemberInfo.getNickName());
-		props.put("memId", tempMemberInfo.getMemId());
-		props.put("memNum", tempMemberInfo.getMemNum().toString());
-		props.put("authKey", tempMemberInfo.getAuthKey());
-		templateMailer.sendAsyncMail(tempMemberInfo.getMailPc(), "createTempMember", props);
 	}
 
 	/**
@@ -602,6 +608,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		tempPwdInfo.setMemNum(memberInfo.getMemNum());
 		tempPwdInfo.setTempKey(tempKey);
 		TempPwdInfo newTempPwdInfo = tempPwdInfoDao.selectByMemNumAndTempKey(tempPwdInfo);
+		
 		if (newTempPwdInfo == null) {
 			// データが存在しない
 			throw new DataNotExistsException("Data not exists.");
@@ -609,7 +616,9 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		
 		// 臨時キーが期限きれかどうかのチェック
 		Date now = new Date();
+		
 		if(newTempPwdInfo.getCreatedDate().compareTo(new Date(now.getTime() - getInvalidMinute() * 60 * 1000)) < 0) {
+			
 			throw new OutOfDateException("Tempory password id out of date.");
 		}
 		
@@ -618,7 +627,6 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		
 		// 該当会員に対して、残っているレコードを削除する。
 		tempPwdInfoDao.deleteByMemNum(memberInfo.getMemNum());
-		
 	}
 	/**
 	 * 会員パスワードを変更する。
@@ -651,7 +659,6 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		} catch (Exception ex) {
 			logger.error("error has occurred in sending updateTempPassword mail. ", ex);
 		}
-		
 	}
 	
 	public void setMemberInfoDao(IMemberInfoDao memberInfoDao) {
