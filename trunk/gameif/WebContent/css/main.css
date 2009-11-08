@@ -232,6 +232,7 @@ dl.finish dt {
 }
 dl.finish dd div {
 	margin:20px 8px;
+	margin-bottom:40px;
 }
 
 /*********【警告画面】完了メッセージ ********************************************/
