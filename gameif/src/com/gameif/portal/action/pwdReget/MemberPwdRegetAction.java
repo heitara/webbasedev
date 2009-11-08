@@ -2,10 +2,12 @@ package com.gameif.portal.action.pwdReget;
 
 import com.gameif.common.action.ModelDrivenActionSupport;
 import com.gameif.common.exception.LogicException;
+import com.gameif.common.util.SecurityUtil;
 import com.gameif.portal.businesslogic.IMasterInfoBusinessLogic;
 import com.gameif.portal.businesslogic.ITempPwdRegetBusinessLogic;
 import com.gameif.portal.entity.MemberInfo;
 import com.gameif.portal.entity.TempPwdInfo;
+import com.gameif.portal.helper.PortalProperties;
 import com.gameif.portal.util.ContextUtil;
 
 public class MemberPwdRegetAction extends ModelDrivenActionSupport<TempPwdInfo> {
@@ -17,8 +19,11 @@ public class MemberPwdRegetAction extends ModelDrivenActionSupport<TempPwdInfo> 
 
 	private ITempPwdRegetBusinessLogic tempPwdRegetBusinessLogic;
 	private IMasterInfoBusinessLogic masterInfoBusinessLogic;
+	private PortalProperties portalProperties;
 
 	private String memId;
+	private String enc;
+	private String mailLoginUrl;
 
 	/**
 	 * @return the tempPwdRegetBusinessLogic
@@ -91,6 +96,9 @@ public class MemberPwdRegetAction extends ModelDrivenActionSupport<TempPwdInfo> 
 		try {
 			
 			tempPwdRegetBusinessLogic.saveTempPwdInfo(this.getModel(), memberInfo);
+			
+			mailLoginUrl = portalProperties.getMailLoginUrl(getModel().getMailPc());
+			enc = SecurityUtil.encodeParam("mailLoginUrl=" + mailLoginUrl);			
 
 		} catch (LogicException ex) {
 
@@ -108,6 +116,30 @@ public class MemberPwdRegetAction extends ModelDrivenActionSupport<TempPwdInfo> 
 	 */
 	public String finished() {
 		return "finish";
+	}
+
+	public PortalProperties getPortalProperties() {
+		return portalProperties;
+	}
+
+	public void setPortalProperties(PortalProperties portalProperties) {
+		this.portalProperties = portalProperties;
+	}
+
+	public String getEnc() {
+		return enc;
+	}
+
+	public void setEnc(String enc) {
+		this.enc = enc;
+	}
+
+	public String getMailLoginUrl() {
+		return mailLoginUrl;
+	}
+
+	public void setMailLoginUrl(String mailLoginUrl) {
+		this.mailLoginUrl = mailLoginUrl;
 	}
 
 }
