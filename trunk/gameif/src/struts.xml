@@ -9,6 +9,7 @@
 	<package name="gameif" extends="struts-default">
 	
 		<interceptors>
+			<interceptor name="secureParameter" class="secureParameterInterceptor"/>
 			<interceptor name="actionLogger" class="actionLoggerInterceptor"/>
 			<interceptor-stack name="gameifStack">
 				<interceptor-ref name="defaultStack"/>
@@ -46,13 +47,15 @@
 			<interceptor-ref name="token">
 				<param name="includeMethods">create</param>
 			</interceptor-ref>
-			 -->			
+			 -->
 			<interceptor-ref name="gameifStack"></interceptor-ref>
+			<interceptor-ref name="secureParameter">
+				<param name="includeMethods">finishedEffective</param>
+			</interceptor-ref>
 			<result name="input">/WEB-INF/pages/portal/mem_registry.jsp</result>
 			<result name="success" type="redirect">/finishedCreateMember.html</result>
 			<result name="finish">/WEB-INF/pages/portal/mem_registry_success.jsp</result>
-			<result name="effective" type="redirect">/finishedEffectiveMember.html?memNum=${memNum}</result>
-			<!-- 期限切れ画面へ遷移 -->
+			<result name="effective" type="redirect">/finishedEffectiveMember.html?enc=${secureParameter}</result>
 			<result name="outOfDate" type="redirect">outOfDatePage.html</result>
 			<result name="finishedEffective">/WEB-INF/pages/portal/mem_effective.jsp</result>
 			<result name="invalid.token">/WEB-INF/pages/common/warning.jsp</result>
@@ -69,8 +72,8 @@
 			</interceptor-ref>
 			<interceptor-ref name="token">
 				<param name="includeMethods">updateMemberInfo</param>
-			</interceptor-ref>		
-			<interceptor-ref name="gameifStack"></interceptor-ref>			
+			</interceptor-ref>
+			<interceptor-ref name="gameifStack"></interceptor-ref>
 			<result name="input">/WEB-INF/pages/portal/mem_info_edit.jsp</result>
 			<result name="success" type="redirect">/finishedPage.html?action=updateMember</result>
 			<result name="invalid.token">/WEB-INF/pages/common/warning.jsp</result>
@@ -237,16 +240,16 @@
 			<result name="success" type="redirect">/finishedPage.html?action=getGameLoginServicePoint</result>
 		</action>
 
-		<!-- CBT募集 -->
-		<action name="*CBTTester" class="cbtTesterControlAction" method="{1}">
+		<!-- テスター募集 -->
+		<action name="*BetaTester" class="betaTesterControlAction" method="{1}">
 			<interceptor-ref name="scopedModelDriven">
 				<param name="scope">request</param>
-				<param name="name">cbtTester</param>
-				<param name="className">com.gameif.portal.entity.CbtTester</param>
+				<param name="name">betaTester</param>
+				<param name="className">com.gameif.portal.entity.BetaTester</param>
 			</interceptor-ref>
 			<interceptor-ref name="gameifStack"></interceptor-ref>
-			<result name="input">/WEB-INF/pages/portal/cbt_tester_add.jsp</result>
-			<result name="success" type="redirect">/finishedPage.html?action=createCBTTester</result>
+			<result name="success" type="redirect">finishApplyBetaTester.html?titleId=${titleId}&amp;status=${status}</result>
+			<result name="finish">/WEB-INF/pages/portal/tester_apply_success.jsp</result>
 		</action>
 		
 	</package>
