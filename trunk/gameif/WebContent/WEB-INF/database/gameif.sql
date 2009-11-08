@@ -656,7 +656,7 @@ CREATE TABLE  `mem_advert_actual_info` (
 DROP TABLE IF EXISTS `mem_invite_link`;
 CREATE TABLE  `mem_invite_link` (
   `mem_num` bigint(20) NOT NULL,
-  `link_key` int(11) NOT NULL,
+  `link_key` varchar(50) DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
   PRIMARY KEY (`mem_num`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
