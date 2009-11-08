@@ -664,8 +664,8 @@ CREATE TABLE  `mem_invite_link` (
 
 
 
-DROP TABLE IF EXISTS `mem_link_invite_hist`;
-CREATE TABLE  `mem_link_invite_hist` (
+DROP TABLE IF EXISTS `mem_invite_link_hist`;
+CREATE TABLE  `mem_invite_link_hist` (
   `mem_num` bigint(20) NOT NULL,
   `child_mem_num` bigint(20) NOT NULL,
   `title_id` int(11) DEFAULT NULL,
