@@ -291,15 +291,27 @@ table.friendhist th {
 }
 table.friendhist th.select {
 	width:40px;
+	text-align:center;
 }
-table.friendhist th.friend, th.status {
+table.friendhist th.friend, th.mail {
+	width:140px;
+	text-align:center;
+}
+table.friendhist th.status, th.present_ymd, th.entry_ymd  {
+	width:100px;
+	text-align:center;
+}
+table.friendhist td.select {
+	width:40px;
+}
+table.friendhist td.friend, td.mail {
 	width:140px;
 }
-table.friendhist th.present_ymd, th.entry_ymd  {
+table.friendhist td.status, td.present_ymd, td.entry_ymd  {
 	width:100px;
 }
 table.friendhist td.friend, td.mail {
-	text-align:left;
+	text-align:center;
 }
 
 /*********【ゲーム】ゲーム一覧 **************************************************/
