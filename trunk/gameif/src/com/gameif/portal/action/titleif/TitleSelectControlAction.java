@@ -25,11 +25,10 @@ public class TitleSelectControlAction extends BaseActionSupport {
 		Long memNum = ContextUtil.getMemberNo();
 
 		titles = titlePlayBusinessLogic.getTitlesWithPlayInfo(memNum);
-
+	
 		for (MyTitle title : titles) {
 
-			List<MyServer> servers = titlePlayBusinessLogic
-					.getServersWithPlayInfo(memNum, title.getTitleId());
+			List<MyServer> servers = titlePlayBusinessLogic.getServersWithPlayInfo(memNum, title.getTitleId());
 			serverMap.put(title.getTitleId(), servers);
 		}
 
