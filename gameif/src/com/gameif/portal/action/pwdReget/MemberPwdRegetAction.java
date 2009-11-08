@@ -83,13 +83,14 @@ public class MemberPwdRegetAction extends ModelDrivenActionSupport<TempPwdInfo> 
 	 * @return　完了画面のアクション
 	 */
 	public String create() {
+		
 		MemberInfo memberInfo = new MemberInfo();
 		memberInfo.setMemId(getMemId());
 		memberInfo.setMailPc(this.getModel().getMailPc());
 
 		try {
-			tempPwdRegetBusinessLogic.saveTempPwdInfo(this.getModel(),
-					memberInfo);
+			
+			tempPwdRegetBusinessLogic.saveTempPwdInfo(this.getModel(), memberInfo);
 
 		} catch (LogicException ex) {
 
