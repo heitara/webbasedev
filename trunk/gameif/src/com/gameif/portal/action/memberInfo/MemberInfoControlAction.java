@@ -45,6 +45,7 @@ public class MemberInfoControlAction extends
 	private Integer advertNum;
 
 	private String enc;
+	private String mailLoginUrl;
 	
 	public String getKanjiNameForCheck() {
 
@@ -107,7 +108,10 @@ public class MemberInfoControlAction extends
 	public String createTemp() {
 
 		memberInfoBusinessLogic.saveTempMemberInfo(getModel(), getInviteId(), getAdvertNum());
-
+		
+		mailLoginUrl = portalProperties.getMailLoginUrl(getModel().getMailPc());
+		enc = SecurityUtil.encodeParam("mailLoginUrl=" + mailLoginUrl);
+		
 		return SUCCESS;
 	}
 
@@ -442,5 +446,13 @@ public class MemberInfoControlAction extends
 
 	public void setEnc(String enc) {
 		this.enc = enc;
+	}
+
+	public String getMailLoginUrl() {
+		return mailLoginUrl;
+	}
+
+	public void setMailLoginUrl(String mailLoginUrl) {
+		this.mailLoginUrl = mailLoginUrl;
 	}
 }
