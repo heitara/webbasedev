@@ -11,6 +11,5 @@ public interface ITitleMstDao extends IBaseDao<TitleMst, TitleMst> {
 	public List<TitleMst> selectValidTitleList();
 	public String selectNameById(Integer titileId);
 	public TitleMst selectValidTitleByKey(Integer titleId);
-	public List<MyTitle> selectCBTTitleList(Long memNum);
 
 }

@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.gameif.common.dao.impl.AbstractBaseDao;
 import com.gameif.portal.dao.ITitleMstDao;
-import com.gameif.portal.entity.MyTitle;
 import com.gameif.portal.entity.TitleMst;
 
 public class TitleMstDaoImpl extends
@@ -24,15 +23,5 @@ public class TitleMstDaoImpl extends
 	@Override
 	public TitleMst selectValidTitleByKey(Integer titleId) {
 		return (TitleMst)this.getSqlMapClientTemplate().queryForObject(namespace + ".selectValidTitleByKey", titleId);
-	}
-
-	/**
-	 * 募集中のタイトルを取得する
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<MyTitle> selectCBTTitleList(Long memNum) {
-		
-		return (List<MyTitle>)this.getSqlMapClientTemplate().queryForList(namespace + ".selectCBTTitleList", memNum);
 	}
 }
