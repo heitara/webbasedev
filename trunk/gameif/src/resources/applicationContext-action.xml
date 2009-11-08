@@ -114,6 +114,9 @@
 		<property name="masterInfoBusinessLogic">
 			<ref bean="masterInfoBusinessLogic" />
 		</property>
+		<property name="portalProperties">
+			<ref bean="portalProperties" />
+		</property>
 	</bean>
 	
 	<!-- 友達紹介画面にて、マスタデータバインド用アクション -->

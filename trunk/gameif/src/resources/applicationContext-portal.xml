@@ -95,6 +95,19 @@
 				<entry key="@yahoo.com" value="yahoo.com"/>
 			</map>
 		</property>
+		<property name="mailUrlMap">
+			<map>
+				<entry key="@hotmail.co.jp" value="http://mail.live.com"/>
+				<entry key="@live.jp" value="http://mail.live.com"/>
+				<entry key="@nifmail.jp" value="https://login.nifty.com/service/login?s=fwm"/>
+				<entry key="@infoseek.jp" value="http://email.infoseek.co.jp"/>
+				<entry key="@gmail.com" value="http://www.gmail.com"/>
+				<entry key="@yahoo.co.jp" value="http://mail.yahoo.co.jp"/>
+				<entry key="@mail.goo.ne.jp" value="http://mail.goo.ne.jp"/>
+				<entry key="@livedoor.com" value="http://gmail.livedoor.com"/>
+				<entry key="@excite.co.jp" value="http://www.excite.co.jp/mail"/>
+			</map>
+		</property>
 		<property name="timeZoneList">
 			<map>
 				<!-- key:開始時間 (24時制)[HHmm]-->
