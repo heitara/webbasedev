@@ -7,7 +7,7 @@ import java.util.List;
 import org.apache.struts2.ServletActionContext;
 
 import com.gameif.common.action.ModelDrivenActionSupport;
-import com.gameif.common.exception.CBTException;
+import com.gameif.common.exception.BetaTestException;
 import com.gameif.common.exception.LogicException;
 import com.gameif.common.exception.MaintenanceException;
 import com.gameif.common.util.StringUtil;
@@ -121,9 +121,9 @@ public class PointChargeControlAction extends
 			// メンテナンス
 			addFieldError("errMessage", getText("title.maintenance"));
 			return "pointSelect";
-		} catch (CBTException cbtEx) {
-			// CBT中
-			addFieldError("errMessage", getText("title.cbt"));
+		} catch (BetaTestException testEx) {
+			// テスト中
+			addFieldError("errMessage", getText("title.test"));
 			return "pointSelect";
 		} catch (LogicException lgex) {
 			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
@@ -140,7 +140,7 @@ public class PointChargeControlAction extends
 	 * @return
 	 */
 	public String SettleSelect() {
-		settleList = masterInfoBusinessLogic.getValidSettlementList();
+		settleList = masterInfoBusinessLogic.getAllSettlementList();
 
 		this.getModel().setTitleId(titleId);
 		this.getModel().setServerId(serverId);
