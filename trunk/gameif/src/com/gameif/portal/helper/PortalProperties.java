@@ -22,8 +22,24 @@ public class PortalProperties {
 	/** ドメイン */
 	private Map<String, String> domainListMap;
 	
+	/** ＷＥＢメールログインＵＲＬ */
+	private Map<String, String> mailUrlMap;
+	
 	/** 時間帯（臨時会員情報を削除するために、時間を指定する） */
 	private Map<String, String> timeZoneList;
+	
+	public String getMailLoginUrl(String mail) {
+		
+		String mailLoginUrl = null;
+		
+		if (mail != null) {
+			
+			mailLoginUrl = mailUrlMap.get(mail.substring(mail.indexOf('@')));
+		}
+		
+		return mailLoginUrl;
+	}
+	
 
 	public Map<String, String> getActionTitles() {
 		return actionTitles;
@@ -91,6 +107,14 @@ public class PortalProperties {
 	 */
 	public void setTimeZoneList(Map<String, String> timeZoneList) {
 		this.timeZoneList = timeZoneList;
+	}
+
+	public Map<String, String> getMailUrlMap() {
+		return mailUrlMap;
+	}
+
+	public void setMailUrlMap(Map<String, String> mailUrlMap) {
+		this.mailUrlMap = mailUrlMap;
 	}
 	
 }
