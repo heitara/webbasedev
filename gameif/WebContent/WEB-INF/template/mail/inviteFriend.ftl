@@ -1,13 +1,9 @@
-${name}　様
+${nickName}<${mailFrom}> さんがあなたと一緒に「${titleName}」をプレイすることを誘っています。
 
-${titleName} を一緒にやりませんか？下記のリンクで登録してね！
-http://localhost:8080/gameif/registryMember.html?inviteId=${inviteId}
+下記のURLをクリックして紹介に応じることができます。
+https://www.game-if.com/registryMember.html?inviteId=${inviteId}
 
-
+${nickName}<${mailFrom}> さんのメッセージ
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ${inviteMsg}
-
-
-よろしくお願いいたします。
-
-
-このメッセージは、${nickName}<${mailFrom}>宛てのものです。
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
