@@ -30,7 +30,7 @@
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/settlementMst.xml" />
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/memSettlementTrns.xml" />
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/memSettlementHist.xml" />
-	<sqlMap resource="com/gameif/portal/dao/impl/mapping/cbtTester.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/betaTester.xml" />
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/servicePoint.xml" />
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/gameLoginCount.xml" />
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/servicePointTypeMst.xml" />

@@ -186,11 +186,11 @@
 		</property>
 	</bean>
 	
-	<!-- cbtTesterBusinessLogic -->
-	<bean id="cbtTesterBusinessLogic"
-		class="com.gameif.portal.businesslogic.impl.CbtTesterBusinessLogicImpl">
-		<property name="cbtTesterDao">
-			<ref bean="cbtTesterDao" />
+	<!-- betaTesterBusinessLogic -->
+	<bean id="betaTesterBusinessLogic"
+		class="com.gameif.portal.businesslogic.impl.BetaTesterBusinessLogicImpl">
+		<property name="betaTesterDao">
+			<ref bean="betaTesterDao" />
 		</property>
 		<property name="titleMstDao">
 			<ref bean="titleMstDao" />
