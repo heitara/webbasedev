@@ -44,7 +44,7 @@ public class MemberInfoControlAction extends
 	private String authKey;
 	private Integer advertNum;
 
-	private String secureParameter;
+	private String enc;
 	
 	public String getKanjiNameForCheck() {
 
@@ -126,7 +126,7 @@ public class MemberInfoControlAction extends
 	 * 
 	 * @return 会員情報有効化画面
 	 */
-	public String effective() {
+	public String activate() {
 
 		try {
 			// 会員番号と認証キーがリクエストストリングで渡される
@@ -147,17 +147,17 @@ public class MemberInfoControlAction extends
 			return "warning";
 		}
 
-		secureParameter = SecurityUtil.encodeParam("memNum=" + getModel().getMemNum());
+		enc = SecurityUtil.encodeParam("memNum=" + getModel().getMemNum());
 
-		return "effective";
+		return "activate";
 	}
 
 	/**
 	 * 会員情報有効化完了画面へ案内する
 	 * @return 会員情報有効化完了画面
 	 */
-	public String finishedEffective() {
-		return "finishedEffective";
+	public String finishedActivate() {
+		return "finishedActivate";
 	}
 
 	/**
@@ -266,19 +266,11 @@ public class MemberInfoControlAction extends
 	 * 
 	 * @return パスワード再設定画面コード
 	 */
-	@SuppressWarnings("unchecked")
 	public String editTempPwd() {
 
-		Enumeration params = ServletActionContext.getRequest()
-				.getParameterNames();
-		while (params.hasMoreElements()) {
-			String pname = params.nextElement().toString();
-			// パラメータは会員番号と臨時キー以外の場合、エラーになる
-			if (!pname.equals(PortalConstants.PwdRegetParams.MEMBER_NUM)
-					&& !pname.equals(PortalConstants.PwdRegetParams.TEMP_KEY)) {
+		if (getModel().getMemNum() == null || getTempKey() == null) {
 
-				return "warning";
-			}
+			return "warning";
 		}
 
 		return INPUT;
@@ -294,7 +286,9 @@ public class MemberInfoControlAction extends
 		getModel().setMemPwd(getNewPwd());
 
 		try {
+			
 			memberInfoBusinessLogic.changeTempPwd(getModel(), tempKey);
+			
 		} catch (OutOfDateException odEx) {
 			addFieldError("errMessage", getText("pwdReget.outOfDate"));
 			return INPUT;
@@ -442,11 +436,11 @@ public class MemberInfoControlAction extends
 		this.masterInfoBusinessLogic = masterInfoBusinessLogic;
 	}
 
-	public String getSecureParameter() {
-		return secureParameter;
+	public String getEnc() {
+		return enc;
 	}
 
-	public void setSecureParameter(String secureParameter) {
-		this.secureParameter = secureParameter;
+	public void setEnc(String enc) {
+		this.enc = enc;
 	}
 }
