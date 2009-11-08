@@ -31,7 +31,7 @@
 		<result property="playCount" column="play_count"/>
 	</resultMap>
 	
-	<resultMap class="com.gameif.portal.entity.MyTitle" id="myTitleForCBTResult">
+	<resultMap class="com.gameif.portal.entity.MyTitle" id="myTitleForBetaTestResult" >
 		<result property="titleId" column="title_id"/>
 		<result property="titleName" column="title_name"/>
 		<result property="titleAbout" column="title_about"/>
@@ -48,7 +48,7 @@
 		<result property="announce" column="announce"/>
 		<result property="playDate" column="play_date"/>
 		<result property="playCount" column="play_count"/>
-		<result property="cbtTester" column="cbt_tester"/>
+		<result property="electStatus" column="elect_status"/>
 	</resultMap>
 				
 	<resultMap class="com.gameif.portal.entity.MyServer" id="myServerResult">
@@ -111,11 +111,13 @@
 					WHERE	mem_num = #value#
 					GROUP BY title_id
 				) p ON t.title_id = p.title_id
+		WHERE
+			t.service_status IN ('0', '1')
 		ORDER BY p.play_date DESC, p.play_count DESC, t.order_num DESC
         ]]>
 	</select>
 
-	<select id="selectTitlesWithPlay"  parameterClass="java.lang.Long" resultMap="myTitleForCBTResult">
+	<select id="selectTitlesWithPlay"  parameterClass="java.lang.Long" resultMap="myTitleForBetaTestResult">
         <![CDATA[
 		SELECT
 			t.title_id,
@@ -134,16 +136,15 @@
 			t.announce,
 			p.play_date,
 			p.play_count,
-			ifnull(c.mem_num, 0) as cbt_tester
-		FROM	title_mst t LEFT JOIN (
+			c.elect_status
+		FROM	title_mst t
+			LEFT JOIN (
 					SELECT	title_id, MAX(play_date) AS play_date, COUNT(*) AS play_count
 					FROM	play_hist
 					WHERE	mem_num = #memNum#
 					GROUP BY title_id
 				) p ON t.title_id = p.title_id
-		LEFT JOIN cbt_tester c
-		ON t.title_id = c.title_id
-		AND c.mem_num = #memNum#
+			LEFT JOIN beta_tester c ON t.title_id = c.title_id AND c.mem_num = #memNum#
 		ORDER BY p.play_date DESC, p.play_count DESC, t.order_num DESC
         ]]>
 	</select>
