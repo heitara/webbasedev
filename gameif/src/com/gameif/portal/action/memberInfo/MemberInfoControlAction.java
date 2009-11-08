@@ -13,6 +13,7 @@ import com.gameif.common.exception.AuthorityException;
 import com.gameif.common.exception.LogicException;
 import com.gameif.common.exception.OutOfDateException;
 import com.gameif.common.util.DateUtil;
+import com.gameif.common.util.SecurityUtil;
 import com.gameif.portal.businesslogic.IMasterInfoBusinessLogic;
 import com.gameif.portal.businesslogic.IMemberInfoBusinessLogic;
 import com.gameif.portal.constants.PortalConstants;
@@ -43,6 +44,8 @@ public class MemberInfoControlAction extends
 	private String authKey;
 	private Integer advertNum;
 
+	private String secureParameter;
+	
 	public String getKanjiNameForCheck() {
 
 		return StringUtils.trimToEmpty(getModel().getKanjiFname())
@@ -97,6 +100,18 @@ public class MemberInfoControlAction extends
 	}
 
 	/**
+	 * 臨時会員情報を登録する。
+	 * 
+	 * @return　登録完了画面コード
+	 */
+	public String createTemp() {
+
+		memberInfoBusinessLogic.saveTempMemberInfo(getModel(), getInviteId(), getAdvertNum());
+
+		return SUCCESS;
+	}
+
+	/**
 	 * 会員情報登録完了。
 	 * 
 	 * @return　完了画面コード
@@ -104,6 +119,45 @@ public class MemberInfoControlAction extends
 	public String finishedCreate() {
 
 		return "finish";
+	}
+	
+	/**
+	 * 会員情報有効化画面へ案内する
+	 * 
+	 * @return 会員情報有効化画面
+	 */
+	public String effective() {
+
+		try {
+			// 会員番号と認証キーがリクエストストリングで渡される
+			// 会員情報本登録を行う
+			// 本登録された会員番号を画面の会員番号に設定する
+			this.getModel().setMemNum(memberInfoBusinessLogic.saveMemberInfo(this.getModel().getMemNum(), getAuthKey()));
+			
+		} catch (OutOfDateException odEx) {
+			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
+					+ odEx.getMessage());
+			
+			return "outOfDate";
+			
+		} catch (LogicException ex) {
+			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
+					+ ex.getMessage());
+
+			return "warning";
+		}
+
+		secureParameter = SecurityUtil.encodeParam("memNum=" + getModel().getMemNum());
+
+		return "effective";
+	}
+
+	/**
+	 * 会員情報有効化完了画面へ案内する
+	 * @return 会員情報有効化完了画面
+	 */
+	public String finishedEffective() {
+		return "finishedEffective";
 	}
 
 	/**
@@ -255,55 +309,6 @@ public class MemberInfoControlAction extends
 		return SUCCESS;
 	}
 
-	/**
-	 * 臨時会員情報を登録する。
-	 * 
-	 * @return　登録完了画面コード
-	 */
-	public String createTemp() {
-
-		memberInfoBusinessLogic.saveTempMemberInfo(getModel(), getInviteId(), getAdvertNum());
-
-		return SUCCESS;
-
-	}
-
-	/**
-	 * 会員情報有効化画面へ案内する
-	 * 
-	 * @return 会員情報有効化画面
-	 */
-	public String effective() {
-
-		try {
-			// 会員番号と認証キーがリクエストストリングで渡される
-			// 会員情報本登録を行う
-			// 本登録された会員番号を画面の会員番号に設定する
-			this.getModel().setMemNum(memberInfoBusinessLogic.saveMemberInfo(this.getModel().getMemNum(), getAuthKey()));
-			
-		} catch (OutOfDateException odEx) {
-			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
-					+ odEx.getMessage());
-			
-			return "outOfDate";
-			
-		} catch (LogicException ex) {
-			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
-					+ ex.getMessage());
-
-			return "warning";
-		}
-
-		return "effective";
-	}
-
-	/**
-	 * 会員情報有効化完了画面へ案内する
-	 * @return 会員情報有効化完了画面
-	 */
-	public String finishedEffective() {
-		return "finishedEffective";
-	}
 	public String getNewPwd() {
 		return newPwd;
 	}
@@ -435,5 +440,13 @@ public class MemberInfoControlAction extends
 	public void setMasterInfoBusinessLogic(
 			IMasterInfoBusinessLogic masterInfoBusinessLogic) {
 		this.masterInfoBusinessLogic = masterInfoBusinessLogic;
+	}
+
+	public String getSecureParameter() {
+		return secureParameter;
+	}
+
+	public void setSecureParameter(String secureParameter) {
+		this.secureParameter = secureParameter;
 	}
 }
