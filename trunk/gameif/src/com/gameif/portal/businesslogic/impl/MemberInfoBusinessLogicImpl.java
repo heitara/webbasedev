@@ -23,6 +23,8 @@ import com.gameif.portal.dao.IAdvertAgencyMstDao;
 import com.gameif.portal.dao.IAdvertMstDao;
 import com.gameif.portal.dao.IInviteInfoDao;
 import com.gameif.portal.dao.IMemAdvertActualInfoDao;
+import com.gameif.portal.dao.IMemInviteLinkDao;
+import com.gameif.portal.dao.IMemInviteLinkHistDao;
 import com.gameif.portal.dao.IMemberInfoDao;
 import com.gameif.portal.dao.IMemberLoginInfoDao;
 import com.gameif.portal.dao.ITempMemberInfoDao;
@@ -31,6 +33,8 @@ import com.gameif.portal.entity.AdvertAgencyMst;
 import com.gameif.portal.entity.AdvertMst;
 import com.gameif.portal.entity.InviteInfo;
 import com.gameif.portal.entity.MemAdvertActualInfo;
+import com.gameif.portal.entity.MemInviteLink;
+import com.gameif.portal.entity.MemInviteLinkHist;
 import com.gameif.portal.entity.MemberInfo;
 import com.gameif.portal.entity.MemberLoginInfo;
 import com.gameif.portal.entity.TempMemberInfo;
@@ -53,6 +57,8 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	private IAdvertAgencyMstDao advertAgencyMstDao;
 	private IMemAdvertActualInfoDao memAdvertActualInfoDao;
 	private IAdvertMstDao advertMstDao;
+	private IMemInviteLinkDao memInviteLinkDao;
+	private IMemInviteLinkHistDao memInviteLinkHistDao;
 	
 	private Integer invalidMinute;
 	private PortalProperties portalProperties;
@@ -65,7 +71,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	 */
 	@Transactional
 	@Override
-	public void saveTempMemberInfo(MemberInfo memberInfo, String inviteId, Integer advertNum) {
+	public void saveTempMemberInfo(MemberInfo memberInfo, Long inviteId, Integer advertNum, String linkKey) {
 		
 		TempMemberInfo tempMemberInfo = new TempMemberInfo();
 		
@@ -80,13 +86,11 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		// 臨時キーを取得する
 		tempMemberInfo.setAuthKey(SecurityUtil.getRandomAuthKey(10));
 		// 友達紹介ID
-		if (inviteId == null || inviteId.trim().length() == 0) {
-			tempMemberInfo.setInviteId(null);
-		} else {
-			tempMemberInfo.setInviteId(Long.parseLong(inviteId));
-		}
+		tempMemberInfo.setInviteId(inviteId);
 		// 広告番号
 		tempMemberInfo.setAdvertNum(advertNum);
+		// リンクキー
+		tempMemberInfo.setLinkKey(linkKey);
 		tempMemberInfo.setCreatedDate(new Date());
 		tempMemberInfo.setCreatedIp(ContextUtil.getClientIP());
 
@@ -210,8 +214,11 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 			memAdvertActualInfoDao.save(memAdvertActualInfo);
 		}
 
-		// 友達紹介する場合、紹介情報を更新する
+		// メールで友達紹介する場合、紹介情報を更新する
 		updateInviteInfo(tempMemberInfo.getInviteId(), newMemberInfo);
+		
+		// リンクで友達紹介する場合、紹介情報を保存する
+		saveMemInviteLinkHist(tempMemberInfo.getLinkKey(), newMemberInfo);
 		
 		// 臨時会員情報を削除する
 		tempMemberInfoDao.deleteByKey(memNum);
@@ -274,6 +281,33 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 			
 			// 紹介情報を更新する
 			inviteInfoDao.update(inviteInfo);
+		}
+		
+	}
+
+	/**
+	 * リンクで友達紹介する場合、紹介情報を保存する
+	 * @param inviteId リンクキー
+	 * @param memberInfo 会員情報（新規登録会員）
+	 */
+	private void saveMemInviteLinkHist(String linkKey, MemberInfo memberInfo) {
+		
+		// 友達紹介する場合、紹介情報を更新する
+		if (linkKey == null || linkKey.toString().trim().length() == 0) {
+			return;
+		}
+		
+		// リンク情報を検索する
+		MemInviteLink inviteLink = memInviteLinkDao.selectByLinkKey(linkKey);
+		if (inviteLink != null) {
+			
+			MemInviteLinkHist inviteLinkHist = new MemInviteLinkHist();
+			inviteLinkHist.setMemNum(inviteLink.getMemNum());
+			inviteLinkHist.setChildMemNum(memberInfo.getMemNum());
+			inviteLinkHist.setTitleId(null);
+			
+			// リンクで友達履歴を登録する
+			memInviteLinkHistDao.save(inviteLinkHist);
 		}
 		
 	}
@@ -637,7 +671,13 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	private void changeTempPwdTrans(MemberInfo memberInfo) throws LogicException {
 
 		// 存在性と排他性チェック、行ロックをかけて既存会員情報を検索する。
-		MemberInfo oldMemberInfo = getMemberInfoWithCheck(memberInfo, false);
+		MemberInfo oldMemberInfo = memberInfoDao.selectByNumAndIDForUpdate(memberInfo);		
+		
+		if (oldMemberInfo == null) {
+			
+			// データが存在しない
+			throw new DataNotExistsException("Data not exists.");
+		}
 		
 		oldMemberInfo.setMemPwd(SecurityUtil.getMD5String(memberInfo.getMemPwd()));
 		oldMemberInfo.setLastUpdateDate(new Date());
@@ -715,6 +755,20 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	 */
 	public void setAdvertMstDao(IAdvertMstDao advertMstDao) {
 		this.advertMstDao = advertMstDao;
+	}
+
+	/**
+	 * @param memInviteLinkDao the memInviteLinkDao to set
+	 */
+	public void setMemInviteLinkDao(IMemInviteLinkDao memInviteLinkDao) {
+		this.memInviteLinkDao = memInviteLinkDao;
+	}
+
+	/**
+	 * @param memInviteLinkHistDao the memInviteLinkHistDao to set
+	 */
+	public void setMemInviteLinkHistDao(IMemInviteLinkHistDao memInviteLinkHistDao) {
+		this.memInviteLinkHistDao = memInviteLinkHistDao;
 	}
 
 	/**
