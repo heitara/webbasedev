@@ -197,4 +197,18 @@
 			<value>advertMst</value>
 		</property>
 	</bean>
+	
+	<!-- memInviteLinkDao -->
+	<bean id="memInviteLinkDao" class="com.gameif.portal.dao.impl.MemInviteLinkDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>memInviteLink</value>
+		</property>
+	</bean>
+	
+	<!-- memInviteLinkHistDao -->
+	<bean id="memInviteLinkHistDao" class="com.gameif.portal.dao.impl.MemInviteLinkHistDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>memInviteLinkHist</value>
+		</property>
+	</bean>
 </beans>

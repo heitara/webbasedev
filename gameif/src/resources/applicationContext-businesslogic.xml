@@ -42,6 +42,12 @@
 		<property name="portalProperties">
 			<ref bean="portalProperties" />
 		</property>
+		<property name="memInviteLinkDao">
+			<ref bean="memInviteLinkDao" />
+		</property>
+		<property name="memberInfoDao">
+			<ref bean="memberInfoDao" />
+		</property>
 	</bean>
 	
 	<!-- inquiryInfoBusinessLogic -->
@@ -61,6 +67,9 @@
 		<property name="maxMailCount">
 			<value>${inviteInfoBusinessLogic.maxMailCount}</value>
 		</property>
+		<property name="inviteUrl">
+			<value>${inviteInfoBusinessLogic.inviteUrl}</value>
+		</property>
 		<property name="inviteInfoDao">
 			<ref bean="inviteInfoDao" />
 		</property>
@@ -69,6 +78,12 @@
 		</property>
 		<property name="titleMstDao">
 			<ref bean="titleMstDao" />
+		</property>
+		<property name="memInviteLinkDao">
+			<ref bean="memInviteLinkDao" />
+		</property>
+		<property name="memberInfoDao">
+			<ref bean="memberInfoDao" />
 		</property>
 	</bean>
 	
