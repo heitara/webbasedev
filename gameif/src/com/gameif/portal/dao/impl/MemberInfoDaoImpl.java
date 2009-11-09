@@ -1,5 +1,7 @@
 package com.gameif.portal.dao.impl;
 
+import java.util.List;
+
 import com.gameif.common.bean.ComSearchCondition;
 import com.gameif.common.dao.impl.AbstractBaseDao;
 import com.gameif.portal.dao.IMemberInfoDao;
@@ -175,6 +177,27 @@ public class MemberInfoDaoImpl extends AbstractBaseDao<MemberInfo, MemberInfo>
 	public MemberInfo selectForPwdReget(MemberInfo memberinfo) {
 		return (MemberInfo) (getSqlMapClientTemplate().queryForObject(namespace
 				+ ".selectForPwdReget", memberinfo));
+	}
+
+	/**
+	 * 会員番号より、該当会員がリンクで招待した友達を検索する
+	 * @param memNum 会員番号
+	 * @return 友達リスト
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<MemberInfo> selectLinkMembersByMemNum(Long memNum) {
+		return (List<MemberInfo>) (getSqlMapClientTemplate().queryForList(namespace + ".selectLinkMembersByMemNum", memNum));
+	}
+
+	/**
+	 * 会員番号とIDにより、会員情報を検索する
+	 * @param memberInfo
+	 * @return 会員情報 
+	 */
+	@Override
+	public MemberInfo selectByNumAndIDForUpdate(MemberInfo memberInfo) {
+		return (MemberInfo) (getSqlMapClientTemplate().queryForObject(namespace + ".selectByNumAndIDForUpdate", memberInfo));
 	}
 
 }

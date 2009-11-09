@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="memInviteLink">
+	<typeAlias alias="memInviteLink" type="com.gameif.portal.entity.MemInviteLink" />
+	
+	<resultMap class="com.gameif.portal.entity.MemInviteLink" id="memInviteLinkResult">
+		<result property="memNum" column="mem_num" />
+		<result property="linkKey" column="link_key" />
+		<result property="createdDate" column="created_date" />
+	</resultMap>
+
+	<select id="selectByMemNum" parameterClass="java.lang.Long" resultMap="memInviteLinkResult">   
+        <![CDATA[
+	        SELECT
+				mem_num,
+				link_key,
+				created_date
+			FROM
+				mem_invite_link
+			WHERE
+				mem_num = #memNum#
+        ]]>
+	</select>
+
+	<select id="selectByLinkKey" resultMap="memInviteLinkResult">   
+        <![CDATA[
+	        SELECT
+				mem_num,
+				link_key,
+				created_date
+			FROM
+				mem_invite_link
+			WHERE
+				link_key = #value#
+        ]]>
+	</select>
+	
+	<insert id = "save" parameterClass="memInviteLink"> 
+        <![CDATA[
+			INSERT INTO mem_invite_link
+				(mem_num,
+				link_key,
+				created_date)
+			VALUES
+				(#memNum#,
+				#linkKey#,
+				#createdDate#)
+	        ]]>
+	</insert>
+
+</sqlMap>
