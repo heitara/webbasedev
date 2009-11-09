@@ -19,6 +19,7 @@ public class TempMemberInfo extends BaseEntity {
 	private String authKey;
 	private Long inviteId;
 	private Integer advertNum;
+	private String linkKey;
 	private Date createdDate;
 	private String createdIp;
 
@@ -138,6 +139,20 @@ public class TempMemberInfo extends BaseEntity {
 	 */
 	public void setAdvertNum(Integer advertNum) {
 		this.advertNum = advertNum;
+	}
+
+	/**
+	 * @return the linkKey
+	 */
+	public String getLinkKey() {
+		return linkKey;
+	}
+
+	/**
+	 * @param linkKey the linkKey to set
+	 */
+	public void setLinkKey(String linkKey) {
+		this.linkKey = linkKey;
 	}
 
 	/**
