@@ -54,6 +54,10 @@
         	<param name="expression"><![CDATA[(memberInfoBusinessLogic.countMembersByNickName(nickName) < 1)]]></param>
         	<message><![CDATA[<br/>入力されたニックネームは既に使われています。]]></message>
         </field-validator>
+        <field-validator type="fieldexpression">
+        	<param name="expression"><![CDATA[(nickName != memId)]]></param>
+        	<message><![CDATA[<br/>ニックネームがアカウントＩＤと一致しないでください。]]></message>
+        </field-validator>
     </field>
     <field name="mailPc">
         <field-validator type="requiredstring" short-circuit="true">

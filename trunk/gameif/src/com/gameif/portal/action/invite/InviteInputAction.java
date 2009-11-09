@@ -42,6 +42,7 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 	private String mailAdd;
 	private String domain;
 	private String memPwd;
+	private String link;
 	
 	private List<Contact> friendList;
 
@@ -167,11 +168,33 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 	}
 	
 	/**
+	 * @return the link
+	 */
+	public String getLink() {
+		return link;
+	}
+
+	/**
+	 * @param link the link to set
+	 */
+	public void setLink(String link) {
+		this.link = link;
+	}
+
+	/**
 	 * 友達紹介画面に案内する。
 	 * 
 	 * @return 友達紹介入力画面
 	 */
 	public String input() {
+		return INPUT;
+	}
+	
+	/**
+	 * メールで友達招待画面に案内する
+	 * @return メールで友達招待画面
+	 */
+	public String inputMail() {
 		
 		// 紹介者の会員番号
 		getModel().setMemNum(ContextUtil.getMemberNo());
@@ -185,7 +208,15 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 			getModel().setInviteMailFrom(memberInfo.getMailPc());
 		}
 		
-		return INPUT;
+		return "inputMail";
+	}
+	
+	/**
+	 * リンクで友達招待画面に案内する
+	 * @return　リンクで友達招待画面
+	 */
+	public String inputLink() {
+		return "inputLink";
 	}
 
 	/**
@@ -204,7 +235,7 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 		Pattern ptnMail = Pattern.compile("[\\w\\.\\-]+@(?:[\\w\\-]+\\.)+[\\w\\-]+");
 		// 名前< メールアドレース > あるいは < メールアドレース >
 		Pattern ptnWithSpace = Pattern.compile("(.)*< [\\w\\.\\-]+@(?:[\\w\\-]+\\.)+[\\w\\-]+ >$");
-		// 名前< メールアドレース > あるいは < メールアドレース >
+		// 名前<メールアドレース> あるいは <メールアドレース>
 		Pattern ptnWithoutSpace = Pattern.compile("(.)*<[\\w\\.\\-]+@(?:[\\w\\-]+\\.)+[\\w\\-]+>$");
 		
 		for (int i = 0; i < mailToList.length; i++) {
@@ -263,6 +294,10 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 		return "inputMailSel";
 	}
 	
+	/**
+	 * 入力したメールとパスワードで友達メールアドレースを検索する
+	 * @return
+	 */
 	public String loginMailSel() {
 		String email = mailAdd + domain;
 		try {
@@ -319,5 +354,14 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 			return "inputMailSel";
 		}
 		return "friendImport";
+	}
+	
+	/**
+	 * 招待リンクを生成して、招待情報をDBに登録する
+	 * @return リンクで友達招待画面
+	 */
+	public String createLink() {
+		setLink(inviteInfoBusinessLogic.createMemInviteLink(this.getModel().getTitleId()));
+		return "inputLink";
 	}
 }

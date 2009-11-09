@@ -39,10 +39,11 @@ public class MemberInfoControlAction extends
 	private String birthD;
 
 	private String tempKey;
-	private String inviteId;
+	private Long inviteId;
 
 	private String authKey;
 	private Integer advertNum;
+	private String linkKey;
 
 	private String enc;
 	private String mailLoginUrl;
@@ -107,7 +108,7 @@ public class MemberInfoControlAction extends
 	 */
 	public String createTemp() {
 
-		memberInfoBusinessLogic.saveTempMemberInfo(getModel(), getInviteId(), getAdvertNum());
+		memberInfoBusinessLogic.saveTempMemberInfo(getModel(), getInviteId(), getAdvertNum(), getLinkKey());
 		
 		mailLoginUrl = portalProperties.getMailLoginUrl(getModel().getMailPc());
 		enc = SecurityUtil.encodeParam("mailLoginUrl=" + mailLoginUrl);
@@ -365,7 +366,7 @@ public class MemberInfoControlAction extends
 	/**
 	 * @return the inviteId
 	 */
-	public String getInviteId() {
+	public Long getInviteId() {
 		return inviteId;
 	}
 
@@ -399,10 +400,24 @@ public class MemberInfoControlAction extends
 	}
 
 	/**
+	 * @return the linkKey
+	 */
+	public String getLinkKey() {
+		return linkKey;
+	}
+
+	/**
+	 * @param linkKey the linkKey to set
+	 */
+	public void setLinkKey(String linkKey) {
+		this.linkKey = linkKey;
+	}
+
+	/**
 	 * @param inviteId
 	 *            the inviteId to set
 	 */
-	public void setInviteId(String inviteId) {
+	public void setInviteId(Long inviteId) {
 		this.inviteId = inviteId;
 	}
 
