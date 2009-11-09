@@ -6,6 +6,7 @@
            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
 
 	<bean id="secureParameterInterceptor" class="com.gameif.portal.interceptor.SecureParameterInterceptor" />
+	<bean id="entryParameterInterceptor" class="com.gameif.portal.interceptor.EntryParameterInterceptor" />
 	<bean id="actionLoggerInterceptor" class="com.gameif.portal.interceptor.ActionLogInterceptor" />
 	<!-- actionLoggerInterceptor：同ＩＰで短時間以内に連続して会員登録を行った場合、制限をかける -->
 	<bean id="repetitionRegInterceptor" class="com.gameif.portal.interceptor.RepetitionRegInterceptor">
@@ -37,6 +38,12 @@
 		</property>
 		<property name="masterInfoBusinessLogic">
 			<ref bean="masterInfoBusinessLogic" />
+		</property>
+		<property name="urlAftLgnGames">
+			<value>${memberInfoControlAction.urlAftLgn.games}</value>
+		</property>
+		<property name="urlAftLgnApplyTest">
+			<value>${memberInfoControlAction.urlAftLgn.applyTest}</value>
 		</property>
 	</bean>
 	
