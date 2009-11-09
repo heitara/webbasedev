@@ -11,11 +11,16 @@ import com.gameif.common.businesslogic.BaseBusinessLogic;
 import com.gameif.common.exception.LogicException;
 import com.gameif.common.exception.OutOfMaxCountException;
 import com.gameif.common.helper.TemplateMailer;
+import com.gameif.common.util.SecurityUtil;
 import com.gameif.portal.businesslogic.IInviteInfoBusinessLogic;
 import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.dao.IInviteInfoDao;
+import com.gameif.portal.dao.IMemInviteLinkDao;
+import com.gameif.portal.dao.IMemberInfoDao;
 import com.gameif.portal.dao.ITitleMstDao;
 import com.gameif.portal.entity.InviteInfo;
+import com.gameif.portal.entity.MemInviteLink;
+import com.gameif.portal.entity.MemberInfo;
 import com.gameif.portal.util.ContextUtil;
 
 public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
@@ -29,9 +34,12 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	private IInviteInfoDao inviteInfoDao;
 	private TemplateMailer templateMailer;
 	private ITitleMstDao titleMstDao;
-	
+	private IMemInviteLinkDao memInviteLinkDao;
+	private IMemberInfoDao memberInfoDao;
+
 	private Integer deleDays;
 	private Integer maxMailCount;
+	private String inviteUrl;
 
 	/**
 	 * @param inviteInfoDao
@@ -49,7 +57,8 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	}
 
 	/**
-	 * @param templateMailer the templateMailer to set
+	 * @param templateMailer
+	 *            the templateMailer to set
 	 */
 	public void setTemplateMailer(TemplateMailer templateMailer) {
 		this.templateMailer = templateMailer;
@@ -63,10 +72,26 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	}
 
 	/**
-	 * @param titleMstDao the titleMstDao to set
+	 * @param memInviteLinkDao
+	 *            the memInviteLinkDao to set
+	 */
+	public void setMemInviteLinkDao(IMemInviteLinkDao memInviteLinkDao) {
+		this.memInviteLinkDao = memInviteLinkDao;
+	}
+
+	/**
+	 * @param titleMstDao
+	 *            the titleMstDao to set
 	 */
 	public void setTitleMstDao(ITitleMstDao titleMstDao) {
 		this.titleMstDao = titleMstDao;
+	}
+
+	/**
+	 * @param memberInfoDao the memberInfoDao to set
+	 */
+	public void setMemberInfoDao(IMemberInfoDao memberInfoDao) {
+		this.memberInfoDao = memberInfoDao;
 	}
 
 	/**
@@ -77,12 +102,13 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	}
 
 	/**
-	 * @param deleDays the deleDays to set
+	 * @param deleDays
+	 *            the deleDays to set
 	 */
 	public void setDeleDays(Integer deleDays) {
 		this.deleDays = deleDays;
 	}
-	
+
 	/**
 	 * @return the maxMailCount
 	 */
@@ -91,10 +117,26 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	}
 
 	/**
-	 * @param maxMailCount the maxMailCount to set
+	 * @param maxMailCount
+	 *            the maxMailCount to set
 	 */
 	public void setMaxMailCount(Integer maxMailCount) {
 		this.maxMailCount = maxMailCount;
+	}
+
+	/**
+	 * @return the inviteUrl
+	 */
+	public String getInviteUrl() {
+		return inviteUrl;
+	}
+
+	/**
+	 * @param inviteUrl
+	 *            the inviteUrl to set
+	 */
+	public void setInviteUrl(String inviteUrl) {
+		this.inviteUrl = inviteUrl;
 	}
 
 	/**
@@ -103,16 +145,17 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	 * @param inviteInfoDao
 	 */
 	@Transactional
-	public void saveInviteInfo(InviteInfo inviteInfo, Map<String, String> mailToList) throws LogicException {
+	public void saveInviteInfo(InviteInfo inviteInfo,
+			Map<String, String> mailToList) throws LogicException {
 
 		// 最大送信件数のチェック
 		if (mailToList.size() > getMaxMailCount()) {
 			throw new OutOfMaxCountException("mail list is Out of max count!");
 		}
-		
+
 		// 招待時間
 		Date inviteDate = new Date();
-		
+
 		inviteInfo.setInviteDate(inviteDate);
 		inviteInfo.setMemNum(ContextUtil.getMemberNo());
 		// 本日にの送信件数を検索する
@@ -123,10 +166,10 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		}
 
 		String titleName = titleMstDao.selectNameById(inviteInfo.getTitleId());
-		
+
 		InviteInfo newInviteInfo = null;
-		for(Map.Entry<String, String> mailTo : mailToList.entrySet()) {
-			
+		for (Map.Entry<String, String> mailTo : mailToList.entrySet()) {
+
 			newInviteInfo = new InviteInfo();
 
 			newInviteInfo.setMemNum(ContextUtil.getMemberNo());
@@ -143,8 +186,7 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 			// 友達の名前
 			newInviteInfo.setFriendName(mailTo.getValue());
 			// 友達登録ステータス
-			newInviteInfo
-					.setInviteStatus(PortalConstants.InviteStatus.NO_RESPONSE);
+			newInviteInfo.setInviteStatus(PortalConstants.InviteStatus.NO_RESPONSE);
 			// 削除フラグ
 			newInviteInfo.setDeleteFlag(PortalConstants.DeleteFlag.NORMAL);
 
@@ -164,11 +206,11 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 			// データID
 			props.put("inviteId", newInviteInfo.getInviteId().toString());
 			// 招待メッセージ
-			props.put("inviteMsg",newInviteInfo.getInviteMsg());
+			props.put("inviteMsg", newInviteInfo.getInviteMsg());
 			// 差出人の名前
-			props.put("nickName",ContextUtil.getNickName());
+			props.put("nickName", ContextUtil.getNickName());
 			// 差出人
-			props.put("mailFrom",newInviteInfo.getInviteMailFrom());
+			props.put("mailFrom", newInviteInfo.getInviteMailFrom());
 			// 招待メールを送信する
 			templateMailer.sendAsyncMail(newInviteInfo.getInviteMailTo(), "inviteFriend", props, true);
 		}
@@ -193,7 +235,8 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	/**
 	 * 紹介情報を再送信する。
 	 * 
-	 * @param inviteList 選択した紹介情報ID
+	 * @param inviteList
+	 *            選択した紹介情報ID
 	 */
 	@Transactional
 	@Override
@@ -201,11 +244,11 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		InviteInfo inviteInfo = new InviteInfo();
 		// 招待時間
 		Date inviteDate = new Date();
-		
+
 		String titleName = titleMstDao.selectNameById(inviteInfo.getTitleId());
-		
+
 		for (int i = 0; i < inviteList.size(); i++) {
-			
+
 			inviteInfo.setInviteId(inviteList.get(i));
 			inviteInfo = inviteInfoDao.selectByKey(inviteInfo);
 			if (inviteInfo == null) {
@@ -215,8 +258,7 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 			// 招待データ
 			inviteInfo.setInviteDate(inviteDate);
 			// 友達登録ステータス
-			inviteInfo
-					.setInviteStatus(PortalConstants.InviteStatus.NO_RESPONSE);
+			inviteInfo.setInviteStatus(PortalConstants.InviteStatus.NO_RESPONSE);
 			// 削除フラグ
 			inviteInfo.setDeleteFlag(PortalConstants.DeleteFlag.NORMAL);
 			inviteInfo.setLastUpdateDate(inviteDate);
@@ -233,18 +275,20 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 			// データID
 			props.put("inviteId", inviteInfo.getInviteId().toString());
 			// 招待メッセージ
-			props.put("inviteMsg",inviteInfo.getInviteMsg());
+			props.put("inviteMsg", inviteInfo.getInviteMsg());
 			// 差出人
-			props.put("mailFrom",inviteInfo.getInviteMailFrom());
-			templateMailer.sendAsyncMail(inviteInfo.getInviteMailTo(), "inviteFriend", props, true);
+			props.put("mailFrom", inviteInfo.getInviteMailFrom());
 			
+			templateMailer.sendAsyncMail(inviteInfo.getInviteMailTo(), "inviteFriend", props, true);
+
 		}
 	}
 
 	/**
 	 * 選択した紹介情報を削除する
 	 * 
-	 * @param inviteList 選択した紹介情報ID
+	 * @param inviteList
+	 *            選択した紹介情報ID
 	 */
 	@Transactional
 	@Override
@@ -252,9 +296,9 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		InviteInfo inviteInfo = new InviteInfo();
 		// 招待時間
 		Date inviteDate = new Date();
-		
+
 		for (int i = 0; i < inviteList.size(); i++) {
-			
+
 			inviteInfo.setInviteId(inviteList.get(i));
 			inviteInfo = inviteInfoDao.selectByKey(inviteInfo);
 			if (inviteInfo == null) {
@@ -267,8 +311,63 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 			inviteInfo.setLastUpdateUser(ContextUtil.getMemberNo().toString());
 
 			inviteInfoDao.update(inviteInfo);
-			
+
 		}
+	}
+
+	/**
+	 * 招待リンクを生成して、招待情報をDBに登録する
+	 * 
+	 * @param titleId
+	 *            紹介するゲームID
+	 */
+	@Transactional
+	@Override
+	public String createMemInviteLink(Integer titleId) {
+
+		String LinkUrl = "";
+
+		MemInviteLink memInviteLink = memInviteLinkDao.selectByMemNum(ContextUtil.getMemberNo());
+		if (memInviteLink == null) {
+			memInviteLink = new MemInviteLink();
+
+			// リンクキー：「10桁長さ（会員番号を16進の文字列に変換する）」+「5桁ランダムキー」
+			String linkKey = ContextUtil.getMemberNo().toHexString(10).concat(SecurityUtil.getRandomAuthKey(5));
+			memInviteLink.setMemNum(ContextUtil.getMemberNo());
+			memInviteLink.setLinkKey(linkKey);
+			memInviteLink.setCreatedDate(new Date());
+
+			memInviteLinkDao.save(memInviteLink);
+		}
+		
+		if (titleId == null) {
+			titleId = 0;
+		}
+		// 認証キーをエンコード
+		String enc = SecurityUtil.encodeParam(new StringBuffer().
+							append("linkKey=").
+							append(memInviteLink.getLinkKey())
+							.toString());
+		
+		// 招待するリンクを生成する
+		LinkUrl = new StringBuffer().append(getInviteUrl())
+					.append("?").append(PortalConstants.Key.SEURE_PARAM_KEY).append("=")
+					.append(enc)
+					.append("&titleId=")
+					.append(titleId.toString())
+					.toString();
+		
+		return LinkUrl;
+	}
+
+	/**
+	 * 会員番号より、該当会員がリンクで招待した友達を検索する
+	 * @param memNum 会員番号
+	 * @return 友達リスト
+	 */
+	@Override
+	public List<MemberInfo> selectLinkMembersByMemNum(Long memNum) {
+		return memberInfoDao.selectLinkMembersByMemNum(memNum);
 	}
 
 }
