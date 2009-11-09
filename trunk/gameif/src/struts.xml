@@ -119,6 +119,8 @@
 			<result name="success"  type="redirect">/finishedPage.html?action=createInquiry</result>
 		</action>
 		
+		
+		
 		<action name="*Invite" class="inviteInputAction" method="{1}">
 			<interceptor-ref name="scopedModelDriven">
 				<param name="scope">request</param>
@@ -130,9 +132,16 @@
 				<param name="operationMode">NONE</param>
 			</interceptor-ref>
 			
-			<result name="input">/WEB-INF/pages/portal/invite_input.jsp</result>
+			<!-- 友達招待案内する画面 -->
+			<result name="input">/WEB-INF/pages/portal/invite_guide.jsp</result>
+			<!-- メール導入画面に案内する -->
 			<result name="inputMailSel">/WEB-INF/pages/portal/mail_select.jsp</result>
+			<!-- 友達選択画面に案内する -->
 			<result name="friendImport">/WEB-INF/pages/portal/friend_import.jsp</result>
+			<!-- メールで友達招待に案内する -->
+			<result name="inputMail">/WEB-INF/pages/portal/invite_input.jsp</result>
+			<!-- リンクで友達招待に案内する -->
+			<result name="inputLink">/WEB-INF/pages/portal/invite_link_input.jsp</result>
 			<result name="success"  type="redirect">/finishedPage.html?action=createInvite</result>
 			<!-- 
 			<result name="importFriends" type="chain">inputInvite</result>
@@ -140,7 +149,10 @@
 		</action>
 		
 		<action name="*InviteHist" class="inviteHistAction" method="{1}">
-			<result name="input">/WEB-INF/pages/portal/invite_hist.jsp</result>
+			<!-- メールで招待履歴画面に案内する -->
+			<result name="showMail">/WEB-INF/pages/portal/invite_hist.jsp</result>
+			<!-- リンクで招待履歴画面に案内する -->
+			<result name="showLink">/WEB-INF/pages/portal/invite_link_hist.jsp</result>
 			<result name="sendMailSuccess"  type="redirect">/finishedPage.html?action=sendMailAgain</result>
 			<result name="deleteSuccess"  type="redirect">/finishedPage.html?action=deleteInvite</result>
 		</action>
