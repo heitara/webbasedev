@@ -8,6 +8,8 @@ public class PortalConstants {
 	public class Key {
 		
 		public final static String SEURE_PARAM_KEY = "enc";
+		public final static String ENTRY_PARAM_TITLE_KEY = "title";
+		public final static String ENTRY_PARAM_APPLY_KEY = "apply";
 	}
 	
 	/** ユーザ属性コード */

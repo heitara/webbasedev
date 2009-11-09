@@ -10,15 +10,16 @@ public class EntryProxyAction {
 
 	private String enc;
 	private String title;
+	private String apply;
 	private String titleEntryUrl;
 	private Integer cookieAge;
 	private Map<String, String> titleEntryUrls;
 	
 	public String execute() {
 		
-		if (enc != null) {
+		if (enc != null || (title != null && apply != null)) {
 			
-			addEncToCookie();
+			addEntryDataToCookie();
 		}
 		
 		if (title != null) {
@@ -29,17 +30,38 @@ public class EntryProxyAction {
 		if (titleEntryUrl == null) {
 
 			titleEntryUrl = titleEntryUrls.get("0");
-		}		
+		}
 		
 		return "success";
 	}
 	
-	private void addEncToCookie() {
+	private void addEntryDataToCookie() {
 		
-	    Cookie cookie = new Cookie(PortalConstants.Key.SEURE_PARAM_KEY, enc);
-	    cookie.setPath("/");
-	    cookie.setMaxAge(cookieAge);
-	    ServletActionContext.getResponse().addCookie(cookie);
+	    Cookie cookie = null;
+	    
+	    if (enc != null) {
+
+		    cookie = new Cookie(PortalConstants.Key.SEURE_PARAM_KEY, enc);
+		    cookie.setPath("/");
+		    cookie.setMaxAge(cookieAge);
+		    ServletActionContext.getResponse().addCookie(cookie);
+	    }
+	    
+	    if (title != null) {
+	    	
+		    cookie = new Cookie("title", title);
+		    cookie.setPath("/");
+		    cookie.setMaxAge(cookieAge);
+		    ServletActionContext.getResponse().addCookie(cookie);
+	    }
+	    
+	    if (apply != null) {
+	    	
+		    cookie = new Cookie("apply", apply);
+		    cookie.setPath("/");
+		    cookie.setMaxAge(cookieAge);
+		    ServletActionContext.getResponse().addCookie(cookie);
+	    }
 	}
 
 	public String getEnc() {
@@ -56,6 +78,14 @@ public class EntryProxyAction {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public String getApply() {
+		return apply;
+	}
+
+	public void setApply(String apply) {
+		this.apply = apply;
 	}
 
 	public String getTitleEntryUrl() {

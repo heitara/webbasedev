@@ -10,6 +10,7 @@
 	
 		<interceptors>
 			<interceptor name="secureParameter" class="secureParameterInterceptor"/>
+			<interceptor name="entryParameter" class="entryParameterInterceptor"/>
 			<interceptor name="actionLogger" class="actionLoggerInterceptor"/>
 			<interceptor-stack name="gameifStack">
 				<interceptor-ref name="defaultStack"/>
@@ -43,14 +44,15 @@
 			<interceptor-ref name="checkbox">
 				<param name="uncheckedValue">0</param>
 			</interceptor-ref>
-			<!-- 
 			<interceptor-ref name="token">
-				<param name="includeMethods">create</param>
+				<param name="includeMethods">createTemp</param>
 			</interceptor-ref>
-			 -->
-			<interceptor-ref name="gameifStack"></interceptor-ref>
+			<interceptor-ref name="gameifStack"></interceptor-ref>			
 			<interceptor-ref name="secureParameter">
-				<param name="includeMethods">createTemp,finishedCreate,finishedActivate</param>
+				<param name="includeMethods">activate,finishedCreate,finishedActivate</param>
+			</interceptor-ref>
+			<interceptor-ref name="entryParameter">
+				<param name="includeMethods">createTemp,finishedActivate</param>
 			</interceptor-ref>
 			<result name="input">/WEB-INF/pages/portal/mem_registry.jsp</result>
 			<result name="success" type="redirect">/finishedCreateMember.html?enc=${enc}</result>
@@ -269,7 +271,7 @@
 				<param name="className">com.gameif.portal.entity.BetaTester</param>
 			</interceptor-ref>
 			<interceptor-ref name="gameifStack"></interceptor-ref>
-			<result name="success" type="redirect">finishApplyBetaTester.html?titleId=${titleId}&amp;status=${status}</result>
+			<result name="success" type="redirect"><![CDATA[finishApplyBetaTester.html?titleId=${titleId}&status=${status}]]></result>
 			<result name="finish">/WEB-INF/pages/portal/tester_apply_success.jsp</result>
 		</action>
 		

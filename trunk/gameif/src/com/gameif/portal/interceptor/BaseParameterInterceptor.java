@@ -3,46 +3,19 @@ package com.gameif.portal.interceptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.struts2.ServletActionContext;
 
-import com.gameif.common.util.SecurityUtil;
-import com.gameif.portal.constants.PortalConstants;
 import com.opensymphony.xwork2.ActionInvocation;
-import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
+import com.opensymphony.xwork2.interceptor.MethodFilterInterceptor;
 
-public class SecureParameterInterceptor extends AbstractInterceptor {
+public abstract class BaseParameterInterceptor extends MethodFilterInterceptor {
 
-	protected final static Log logger = LogFactory.getLog(SecureParameterInterceptor.class);
-	private static final long serialVersionUID = -3936772203980270629L;
+	protected final static Log logger = LogFactory.getLog(BaseParameterInterceptor.class);
+	private static final long serialVersionUID = 715134549579521474L;
 
-	@Override
-	public String intercept(ActionInvocation ai) throws Exception {
-		
-		String encodedParams = ServletActionContext.getRequest().getParameter(PortalConstants.Key.SEURE_PARAM_KEY);
-
-		if (encodedParams != null) {
-			
-			try {
-				
-				Map<String, String> paramMap = SecurityUtil.decodeParam(encodedParams);
-				
-				for (Map.Entry<String, String> entry : paramMap.entrySet()) {
-					
-					setProperty(ai.getAction(), entry.getKey(), entry.getValue());
-				}
-				
-			} catch (Exception ex) {
-	
-				logger.warn(ex.getMessage());
-			}
-		}
-		
-		return ai.invoke();
-	}
+	public abstract String doIntercept(ActionInvocation ai) throws Exception;
 	
 	protected void setProperty(Object action, String key, String value) throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		
