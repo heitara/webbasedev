@@ -93,11 +93,23 @@
 	<filter-mapping>
 		<filter-name>CAS Filter</filter-name>
 		<url-pattern>/inputInvite.html</url-pattern>
-	</filter-mapping>	
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/inputMailInvite.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/inputLinkInvite.html</url-pattern>
+	</filter-mapping>
 	<filter-mapping>
 		<filter-name>CAS Filter</filter-name>
 		<url-pattern>/createInvite.html</url-pattern>
-	</filter-mapping>	
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/createLinkInvite.html</url-pattern>
+	</filter-mapping>
 	<filter-mapping>
 		<filter-name>CAS Filter</filter-name>
 		<url-pattern>/inputMailSelInvite.html</url-pattern>
@@ -108,7 +120,11 @@
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>CAS Filter</filter-name>
-		<url-pattern>/showInviteHist.html</url-pattern>
+		<url-pattern>/showMailInviteHist.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/showLinkInviteHist.html</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>CAS Filter</filter-name>
