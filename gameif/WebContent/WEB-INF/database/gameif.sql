@@ -567,16 +567,16 @@ CREATE TABLE  `function_mst` (
 DROP TABLE IF EXISTS `temp_member_info`;
 CREATE TABLE  `temp_member_info` (
   `mem_num` bigint(20) NOT NULL AUTO_INCREMENT,
-  `mem_id` varchar(20) NOT NULL,
-  `nick_name` varchar(32) DEFAULT NULL,
-  `mem_pwd` varchar(32) NOT NULL,
-  `mail_pc` varchar(100) NOT NULL,
-  `auth_key` varchar(32) NOT NULL,
+  `mem_id` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `nick_name` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mem_pwd` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `mail_pc` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `auth_key` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `invite_id` bigint(20) DEFAULT NULL,
   `advert_num` int(11) DEFAULT NULL,
-  `parent_mem_num` bigint(20) DEFAULT NULL,
+  `link_key` varchar(50) DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
-  `created_ip` varchar(15) DEFAULT NULL,
+  `created_ip` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`mem_num`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
