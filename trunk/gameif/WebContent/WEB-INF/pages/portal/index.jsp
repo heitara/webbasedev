@@ -6,8 +6,9 @@
 <!-- イラスト画像：開始 -->
 <div id="illustration">
 	<div class="rbox_side"></div><div class="rbox_round"></div><div class="rbox_main">
-		<div>
+		<div style="overflow:hidden;">
 			<!--画像-->
+			<a href="http://legion.game-if.com"><img src="images/bn_b_main_01.jpg"/></a>
 		</div>
 	</div><div class="rbox_round"></div><div class="rbox_side"></div>
 </div>
