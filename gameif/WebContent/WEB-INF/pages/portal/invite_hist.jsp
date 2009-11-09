@@ -30,7 +30,7 @@
 	<dl class="light_box tspace_n">
 		<dt><strong>友達紹介履歴</strong><span><a href="inputInvite.html">► 友達紹介</a></span></dt>
 		<dd>
-		<s:form name="frm_invite_hist" method="post" cssClass="entry" onsubmit="return checkCount();">
+		<s:form name="frm_invite_hist" method="post" cssClass="entry">
 			<div>
 					このページでは、ゲームイフへ友達を紹介したステータスを確認できます。<br/>
 					相手から応答がない場合は、お知らせを送ってみましょう。
@@ -75,8 +75,8 @@
 				</s:iterator>
 			</table>
 			<br/>
-			<s:submit action="sendMailInviteHist" value="選択した友達に再送信する" cssClass="big"></s:submit>
-			<s:submit action="deleteInviteHist" value="選択した友達を削除する" cssClass="big"></s:submit>
+			<s:submit action="sendMailInviteHist" value="選択した友達に再送信する" cssClass="big" onclick="return checkCount();"></s:submit>
+			<s:submit action="deleteInviteHist" value="選択した友達を削除する" cssClass="big" onclick="return checkCount();"></s:submit>
 
 			</s:form>
 		</dd>
