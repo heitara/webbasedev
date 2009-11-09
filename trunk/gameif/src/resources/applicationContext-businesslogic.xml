@@ -45,6 +45,9 @@
 		<property name="memInviteLinkDao">
 			<ref bean="memInviteLinkDao" />
 		</property>
+		<property name="memInviteLinkHistDao">
+			<ref bean="memInviteLinkHistDao" />
+		</property>
 	</bean>
 	
 	<!-- inquiryInfoBusinessLogic -->
