@@ -39,5 +39,7 @@
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/advertAgencyMst.xml" />
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/memAdvertActualInfo.xml" />
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/advertMst.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/memInviteLink.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/memInviteLinkHist.xml" />
 	
 </sqlMapConfig>
