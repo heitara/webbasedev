@@ -1,5 +1,7 @@
 package com.gameif.portal.dao;
 
+import java.util.List;
+
 import com.gameif.common.dao.IBaseDao;
 import com.gameif.portal.entity.MemberInfo;
 
@@ -105,4 +107,18 @@ public interface IMemberInfoDao extends IBaseDao<MemberInfo, MemberInfo> {
 	 * @return　件数
 	 */
 	public MemberInfo selectForPwdReget(MemberInfo memberinfo);
+	
+	/**
+	 * 会員番号より、該当会員がリンクで招待した友達を検索する
+	 * @param memNum 会員番号
+	 * @return 友達リスト
+	 */
+	public List<MemberInfo> selectLinkMembersByMemNum(Long memNum);
+	
+	/**
+	 * 会員番号とIDにより、会員情報を検索する
+	 * @param memberInfo
+	 * @return 会員情報
+	 */
+	public MemberInfo selectByNumAndIDForUpdate(MemberInfo memberInfo);
 }

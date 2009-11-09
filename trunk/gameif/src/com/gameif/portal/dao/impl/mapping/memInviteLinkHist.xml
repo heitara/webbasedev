@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="memInviteLinkHist">
+	<typeAlias alias="memInviteLinkHist" type="com.gameif.portal.entity.MemInviteLinkHist" />
+	
+	<resultMap class="com.gameif.portal.entity.MemInviteLinkHist" id="memInviteLinkHistResult">
+		<result property="memNum" column="mem_num" />
+		<result property="childMemNum" column="child_mem_num" />
+		<result property="titleId" column="title_id" />
+	</resultMap>
+	
+	<insert id = "save" parameterClass="memInviteLinkHist"> 
+        <![CDATA[
+			INSERT INTO mem_invite_link_hist
+				(mem_num,
+				child_mem_num,
+				title_id)
+			VALUES
+				(#memNum#,
+				#childMemNum#,
+				#titleId#)
+	        ]]>
+	</insert>
+
+</sqlMap>

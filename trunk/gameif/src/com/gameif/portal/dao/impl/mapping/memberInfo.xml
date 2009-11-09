@@ -42,6 +42,10 @@
 		<result property="lastUpdateUser" column="last_update_user" />
 		<result property="versionNo" column="version_no" />
 	</resultMap>
+	
+	<resultMap class="com.gameif.portal.entity.MemberInfo" id="memInviteLinkResult">
+		<result property="nickName" column="nick_name" />
+	</resultMap>
 
 	<select id="selectByKey" parameterClass="memberInfo" resultMap="memberResult">   
         <![CDATA[
@@ -412,6 +416,65 @@
 		WHERE
 			mail_pc = #mailPc#
 		AND mem_id = #memId#
+        ]]>
+	</select>
+
+	<select id="selectLinkMembersByMemNum" parameterClass="java.lang.Long" resultMap="memInviteLinkResult">   
+        <![CDATA[
+	        SELECT
+				member_info.nick_name
+			FROM
+				member_info
+			INNER JOIN 
+				mem_invite_link_hist
+			ON	
+				member_info.mem_num = mem_invite_link_hist.child_mem_num
+			AND mem_invite_link_hist.mem_num = #memNum#
+        ]]>
+	</select>
+
+	<select id="selectByNumAndIDForUpdate" parameterClass="memberInfo" resultMap="memberResult">
+        <![CDATA[
+			SELECT
+				mem_num,
+				mem_id,
+				nick_name,
+				mem_pwd,
+				mem_kind_cd,
+				mem_atbt_cd,
+				mem_valid_yn_cd,
+				question_cd,
+				answer,
+				mail_pc,
+				mail_mobile,
+				kanji_fname,
+				kanji_lname,
+				kana_fname,
+				kana_lname,
+				sex_cd,
+				birth_ymd,
+				divis_cd,
+				occup_cd,
+				city_name,
+				building_name,
+				tel_num,
+				mailmag_req_cd,
+				mailmag_obj_cd,
+				note,
+				entry_date,
+				entry_ip,
+				withdraw_date,
+				withdraw_ip,
+				last_update_date,
+				last_update_ip,
+				last_update_user,
+				version_no
+			FROM
+				member_info
+			WHERE
+				mem_num = #memNum#
+			AND	mem_id = #memId#
+			FOR UPDATE
         ]]>
 	</select>
 
