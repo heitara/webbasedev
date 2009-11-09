@@ -388,11 +388,6 @@ response.setDateHeader("Expires",0);
 		<dl class="title_box tspace_b">
 			<dt><strong>サポート</strong><span>&nbsp;</span></dt>
 			<dd class="guide">
-<%				if (!isLogined) {%>
-				<a href="#" title="会員登録方法">会員登録方法</a>
-<%				}%>
-				<a href="#" title="ＧＩポイントについて">ＧＩポイントについて</a>
-				<a href="#" title="ご利用上の注意">ご利用上の注意</a>
 				<a href="#" title="ＦＡＱ">ＦＡＱ</a>
 				<a href="<%=isLogined ? "inputMemberInquiry.html" : "inputInquiry.html"%>" title="お問合せ">お問合せ</a>
 			</dd>
