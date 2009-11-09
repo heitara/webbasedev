@@ -2,7 +2,7 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <html>
 	<head>
-		<title>友達紹介</title>
+		<title>友達招待</title>
 		<script src="js/portal/validate.js" type="text/javascript"></script>
 		<script src="js/portal/bindMaster.js" type="text/javascript"></script>
 		<script type="text/javascript">
@@ -15,7 +15,7 @@
 	</head>
 	<body>
 		<dl class="light_box tspace_n">
-			<dt><strong>友達紹介</strong><span><a href="showInviteHist.html">► 友達紹介履歴</a></span></dt>
+			<dt><strong>友達招待</strong><span><a href="showMailInviteHist.html">► 友達招待履歴</a></span></dt>
 			<dd>
 				<s:form name="frm_invite_input" action="createInvite" method="post" cssClass="entry">
 					<table>
