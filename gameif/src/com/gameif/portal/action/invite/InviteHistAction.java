@@ -5,7 +5,9 @@ import java.util.List;
 import com.gameif.common.action.ModelDrivenActionSupport;
 import com.gameif.portal.businesslogic.IInviteInfoBusinessLogic;
 import com.gameif.portal.entity.InviteInfo;
+import com.gameif.portal.entity.MemberInfo;
 import com.gameif.portal.helper.PortalProperties;
+import com.gameif.portal.util.ContextUtil;
 
 public class InviteHistAction extends ModelDrivenActionSupport<InviteInfo> {
 
@@ -22,6 +24,7 @@ public class InviteHistAction extends ModelDrivenActionSupport<InviteInfo> {
 	private String inviteStatusSelect;
 	
 	private List<Long> selectedInvites;
+	private List<MemberInfo> memLinkHistList;
 
 	/**
 	 * @return the portalProperties
@@ -91,6 +94,20 @@ public class InviteHistAction extends ModelDrivenActionSupport<InviteInfo> {
 	}
 
 	/**
+	 * @return the memLinkHistList
+	 */
+	public List<MemberInfo> getMemLinkHistList() {
+		return memLinkHistList;
+	}
+
+	/**
+	 * @param memLinkHistList the memLinkHistList to set
+	 */
+	public void setMemLinkHistList(List<MemberInfo> memLinkHistList) {
+		this.memLinkHistList = memLinkHistList;
+	}
+
+	/**
 	 * @param selectedInvites the selectedInvites to set
 	 */
 	public void setSelectedInvites(List<Long> selectedInvites) {
@@ -98,14 +115,23 @@ public class InviteHistAction extends ModelDrivenActionSupport<InviteInfo> {
 	}
 
 	/**
-	 * 友達紹介履歴画面に案内する。
+	 * メールで友達紹介履歴画面に案内する。
 	 * 
-	 * @return 友達紹介履歴画面
+	 * @return メールで友達紹介履歴画面
 	 */
-	public String show() {
-		setListInviteHist(inviteInfoBusinessLogic
-				.selectInviteHistByMemNum(inviteStatusSelect));
-		return INPUT;
+	public String showMail() {
+		setListInviteHist(inviteInfoBusinessLogic.selectInviteHistByMemNum(inviteStatusSelect));
+		return "showMail";
+	}
+
+	/**
+	 * リンクで友達紹介履歴画面に案内する。
+	 * 
+	 * @return リンクで友達紹介履歴画面
+	 */
+	public String showLink() {
+		setMemLinkHistList(inviteInfoBusinessLogic.selectLinkMembersByMemNum(ContextUtil.getMemberNo()));
+		return "showLink";
 	}
 
 	/**

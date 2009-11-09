@@ -16,6 +16,10 @@
         	<param name="expression"><![CDATA[(memberInfoBusinessLogic.countMembersByNickName(nickName, memNum) < 1)]]></param>
         	<message><![CDATA[<br/>入力されたニックネームは既に使われています。]]></message>
         </field-validator>
+        <field-validator type="fieldexpression">
+        	<param name="expression"><![CDATA[(nickName != com.gameif.portal.util.ContextUtil.getAccountId())]]></param>
+        	<message><![CDATA[<br/>ニックネームがアカウントＩＤと一致しないでください。]]></message>
+        </field-validator>
     </field>
     <field name="mailPc">
         <field-validator type="requiredstring" short-circuit="true">
