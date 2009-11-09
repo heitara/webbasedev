@@ -1,12 +1,12 @@
 package com.gameif.portal.action.memberInfo;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Enumeration;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
-import org.apache.struts2.ServletActionContext;
 
 import com.gameif.common.action.ModelDrivenActionSupport;
 import com.gameif.common.exception.AuthorityException;
@@ -18,6 +18,7 @@ import com.gameif.portal.businesslogic.IMasterInfoBusinessLogic;
 import com.gameif.portal.businesslogic.IMemberInfoBusinessLogic;
 import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.entity.MemberInfo;
+import com.gameif.portal.entity.TitleMst;
 import com.gameif.portal.helper.PortalProperties;
 import com.gameif.portal.util.ContextUtil;
 
@@ -45,6 +46,12 @@ public class MemberInfoControlAction extends
 	private Integer advertNum;
 	private String linkKey;
 
+	private Integer title;
+	private String apply;
+	private String urlAfterLogin;
+	private String urlAftLgnGames;
+	private String urlAftLgnApplyTest;
+	
 	private String enc;
 	private String mailLoginUrl;
 	
@@ -122,7 +129,7 @@ public class MemberInfoControlAction extends
 	 * @return　完了画面コード
 	 */
 	public String finishedCreate() {
-
+		
 		return "finish";
 	}
 	
@@ -162,6 +169,42 @@ public class MemberInfoControlAction extends
 	 * @return 会員情報有効化完了画面
 	 */
 	public String finishedActivate() {
+		
+		urlAfterLogin = urlAftLgnGames;
+		
+		TitleMst titleMst = masterInfoBusinessLogic.getValidTitle(title);
+		
+		if (titleMst != null) {
+
+			String serviceStatus = titleMst.getServiceStatus();
+			String recruitStatus = titleMst.getRecruitStatus();
+			
+			if (PortalConstants.YES.equals(apply)) {
+				
+				if (PortalConstants.ServerStatus.CBT.equals(serviceStatus)
+						|| PortalConstants.ServerStatus.OBT.equals(serviceStatus)) {
+					
+					if (PortalConstants.RecruitStatus.RECRUITING.equals(recruitStatus)
+							|| PortalConstants.RecruitStatus.TEST.equals(recruitStatus)) {
+						
+						urlAfterLogin = urlAftLgnApplyTest;
+						
+						urlAfterLogin = urlAfterLogin.replaceAll("#titleId#", titleMst.getTitleId().toString());
+						urlAfterLogin = urlAfterLogin.replaceAll("#status#", serviceStatus);
+						
+						try {
+							
+							urlAfterLogin = URLEncoder.encode(urlAfterLogin, "UTF-8");
+							
+						} catch (UnsupportedEncodingException e) {
+							
+							logger.warn(e.getMessage());
+						}
+					}
+				}
+			}
+		}
+		
 		return "finishedActivate";
 	}
 
@@ -469,5 +512,45 @@ public class MemberInfoControlAction extends
 
 	public void setMailLoginUrl(String mailLoginUrl) {
 		this.mailLoginUrl = mailLoginUrl;
+	}
+
+	public Integer getTitle() {
+		return title;
+	}
+
+	public void setTitle(Integer title) {
+		this.title = title;
+	}
+
+	public String getApply() {
+		return apply;
+	}
+
+	public void setApply(String apply) {
+		this.apply = apply;
+	}
+
+	public String getUrlAfterLogin() {
+		return urlAfterLogin;
+	}
+
+	public void setUrlAfterLogin(String urlAfterLogin) {
+		this.urlAfterLogin = urlAfterLogin;
+	}
+
+	public String getUrlAftLgnGames() {
+		return urlAftLgnGames;
+	}
+
+	public void setUrlAftLgnGames(String urlAftLgnGames) {
+		this.urlAftLgnGames = urlAftLgnGames;
+	}
+
+	public String getUrlAftLgnApplyTest() {
+		return urlAftLgnApplyTest;
+	}
+
+	public void setUrlAftLgnApplyTest(String urlAftLgnApplyTest) {
+		this.urlAftLgnApplyTest = urlAftLgnApplyTest;
 	}
 }

@@ -18,6 +18,7 @@ public interface IMasterInfoBusinessLogic {
 	public List<OccupationMst> getAllOccupationList();
 	public List<QuestionMst> getAllQuestionList();
 	public List<TitleMst> getValidTitleList();
+	public TitleMst getValidTitle(Integer titleId);
 	public List<InquiryKindMst> getAllInquiryKindList();
 	public List<InviteTemplateMst> getInviteTemplateByTitleId(Integer titleId);
 	public List<InviteTemplateMst> getInviteTemplateList();

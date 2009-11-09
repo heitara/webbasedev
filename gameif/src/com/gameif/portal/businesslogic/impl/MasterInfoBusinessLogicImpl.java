@@ -71,6 +71,14 @@ public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	}
 
 	/**
+	 * 現時点で有効なタイトルを取得する
+	 */
+	@Override
+	public TitleMst getValidTitle(Integer titleId) {
+		return titleMstDao.selectValidTitleByKey(titleId);
+	}
+
+	/**
 	 * 問合せ種類を取得する
 	 */
 	@Override
