@@ -38,7 +38,7 @@ public class EntryProxyAction {
 		
 	    Cookie cookie = new Cookie(PortalConstants.Key.SEURE_PARAM_KEY, enc);
 	    cookie.setPath("/");
-	    cookie.setMaxAge(60*60);
+	    cookie.setMaxAge(cookieAge);
 	    ServletActionContext.getResponse().addCookie(cookie);
 	}
 
