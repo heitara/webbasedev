@@ -18,13 +18,13 @@
 			<table class="form">
 				<tr>
 					<th><label for="giid">アカウントID：</label></th>
-					<td><span class="item"><%=com.gameif.portal.util.ContextUtil.getAccountId()%></span></td>
+					<td><span class="item" id="memId" title="アカウントID"><%=com.gameif.portal.util.ContextUtil.getAccountId()%></span></td>
 				</tr>
 				<tr class="space_row"><td colspan="2"></td></tr>
 				<tr>
 					<th><span class="required">*</span><label for="updateMemberInfo_model_nickName">ニックネーム：</label></th>
 					<td>
-						<s:textfield name="model.nickName" maxlength="20" title="ニックネーム" onblur="validate(this, 'REQ,KOT,EXN');"/>
+						<s:textfield name="model.nickName" maxlength="20" title="ニックネーム" onblur="validate(this, 'REQ,KOT,SPNNEQ_memId,EXN');"/>
 						<span class="explain">※ 記号とスペース以外の文字で入力してください。</span>
 						<span id="error_nickName" class="input_error"><s:fielderror><s:param>nickName</s:param></s:fielderror></span>	
 					</td>
@@ -114,23 +114,6 @@
 						<s:textfield name="model.telNum" maxlength="15" cssClass="ime_mode_n" title="電話番号" onblur="validate(this, 'NUM,LEN_8_15');"/>
 						<span class="explain">※ ハイフンなしの半角数字で入力してください。</span><br/>
 						<span id="error_telNum" class="input_error"><s:fielderror><s:param>telNum</s:param></s:fielderror></span>
-					</td>
-				</tr>
-				<tr class="space_row"><td colspan="2"></td></tr>
-				<tr>
-					<th><span class="required">*</span><label for="updateMemberInfo_model_questionCd">秘密質問：</label></th>
-					<td>
-						<s:select name="questionCd" list="masterInfoBusinessLogic.allQuestionList" listKey="questionCode" listValue="questionName" headerKey="0" headerValue="" title="秘密質問" onblur="validate(this,'REQ');"/>
-						<span class="explain">※ パスワードを忘れた時に使います。（変更不可）</span>
-						<span id="error_questionCd" class="input_error"><s:fielderror><s:param>questionCd</s:param></s:fielderror></span>
-					</td>
-				</tr>
-				<tr>
-					<th><span class="required">*</span><label for="updateMemberInfo_model_answer">秘密質問の答え：</label></th>
-					<td>
-						<s:textfield name="answer" maxlength="20" cssClass="ime_mode_y" title="秘密質問の答え" onblur="validate(this,'REQ,ZEN');"/>
-						<span class="explain">※ 2～10桁の全角文字で入力してください。</span>
-						<span id="error_answer" class="input_error"><s:fielderror><s:param>answer</s:param></s:fielderror></span>
 					</td>
 				</tr>
 				<tr class="space_row"><td colspan="2"></td></tr>
