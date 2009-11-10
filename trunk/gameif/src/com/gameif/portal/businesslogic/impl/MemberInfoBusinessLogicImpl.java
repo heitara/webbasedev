@@ -342,11 +342,6 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		oldMemberInfo.setLastUpdateDate(new Date());
 		oldMemberInfo.setLastUpdateIp(ContextUtil.getClientIP());
 		oldMemberInfo.setLastUpdateUser(ContextUtil.getMemberNo().toString());
-
-		// 秘密質問コード
-		oldMemberInfo.setQuestionCd(memberInfo.getQuestionCd());
-		// 答え（MD5でか暗号化する）
-		oldMemberInfo.setAnswer(SecurityUtil.getMD5String(memberInfo.getAnswer()));
 		// メルマガ配信希望
 		oldMemberInfo.setMailmagReqCd(memberInfo.getMailmagReqCd());
 

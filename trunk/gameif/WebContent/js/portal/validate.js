@@ -259,6 +259,20 @@ function validate(field, patterns) {
 				hasError = true;
 			}
 			break;
+		case "NEQ":
+			//同ＦＯＲＭ内のほかの項目と一致しないかチェック（比較対象項目のＮＡＭＥ指定が必須）
+			if (!hasError && field.value == eval("field.form." + pt[1] + ".value")) {
+				addFieldError(field, field.title + "が" + eval("field.form." + pt[1] + ".title") + "と一致しないでください。");
+				hasError = true;
+			}
+			break;
+		case "SPNNEQ":
+			//同ＦＯＲＭ内のほかの項目と一致しないかチェック（比較対象項目のＮＡＭＥ指定が必須）
+			if (!hasError && (field.value == ($("#" + pt[1]).html()))) {
+				addFieldError(field, field.title + "が" + ($("#" + pt[1]).attr("title")) + "と一致しないでください。");
+				hasError = true;
+			}
+			break;
 		case "EXI":
 			//アカウントＩＤ重複チェック
 			if (!hasError) {

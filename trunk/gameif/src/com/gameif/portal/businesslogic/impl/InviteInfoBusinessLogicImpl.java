@@ -211,7 +211,9 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 			props.put("nickName", ContextUtil.getNickName());
 			// 差出人
 			props.put("mailFrom", newInviteInfo.getInviteMailFrom());
-			// 招待メールを送信する
+			// タイトルID
+			props.put("title", newInviteInfo.getTitleId().toString());
+			// 送信
 			templateMailer.sendAsyncMail(newInviteInfo.getInviteMailTo(), "inviteFriend", props, true);
 		}
 		// ロジック削除されたデータを削除する
@@ -353,7 +355,7 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		LinkUrl = new StringBuffer().append(getInviteUrl())
 					.append("?").append(PortalConstants.Key.SEURE_PARAM_KEY).append("=")
 					.append(enc)
-					.append("&titleId=")
+					.append("&title=")
 					.append(titleId.toString())
 					.toString();
 		

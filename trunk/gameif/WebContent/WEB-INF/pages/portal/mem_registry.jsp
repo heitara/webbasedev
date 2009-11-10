@@ -30,7 +30,7 @@
 				<tr>
 					<th><span class="required">*</span><label for="createMember_nickName">ニックネーム：</label></th>
 					<td>
-						<s:textfield name="nickName" maxlength="20" title="ニックネーム" onblur="validate(this, 'REQ,KOT,EXN');"/>
+						<s:textfield name="nickName" maxlength="20" title="ニックネーム" onblur="validate(this, 'REQ,KOT,NEQ_memId,EXN');"/>
 						<span class="explain">※ 記号とスペース以外の文字で入力してください。</span>
 						<span id="error_nickName" class="input_error"><s:fielderror><s:param>nickName</s:param></s:fielderror></span>
 					</td>
@@ -48,7 +48,7 @@
 					<th><span class="required">*</span><label for="createMember_memPwd">パスワード：</label></th>
 					<td>
 	
-						<s:password name="memPwd" maxlength="20" cssClass="ime_mode_n" title="パスワード" onblur="validate(this, 'REQ,ALN,LEN_6_20');"/>
+						<s:password name="memPwd" maxlength="20" cssClass="ime_mode_n" title="パスワード" onblur="validate(this, 'REQ,ALN,LEN_6_20,NEQ_memId');"/>
 						<span class="explain">※ 6～20桁の半角英数字で入力してください。</span>
 						<span id="error_memPwd" class="input_error"><s:fielderror><s:param>memPwd</s:param></s:fielderror></span>
 					</td>
