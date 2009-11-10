@@ -198,17 +198,17 @@
 		</property>
 	</bean>
 	
-	<!-- memInviteLinkDao -->
-	<bean id="memInviteLinkDao" class="com.gameif.portal.dao.impl.MemInviteLinkDaoImpl" parent="baseDao">
+	<!-- inviteLinkDao -->
+	<bean id="inviteLinkDao" class="com.gameif.portal.dao.impl.InviteLinkDaoImpl" parent="baseDao">
 		<property name="namespace">
-			<value>memInviteLink</value>
+			<value>inviteLink</value>
 		</property>
 	</bean>
 	
-	<!-- memInviteLinkHistDao -->
-	<bean id="memInviteLinkHistDao" class="com.gameif.portal.dao.impl.MemInviteLinkHistDaoImpl" parent="baseDao">
+	<!-- inviteLinkHistDao -->
+	<bean id="inviteLinkHistDao" class="com.gameif.portal.dao.impl.InviteLinkHistDaoImpl" parent="baseDao">
 		<property name="namespace">
-			<value>memInviteLinkHist</value>
+			<value>inviteLinkHist</value>
 		</property>
 	</bean>
 </beans>

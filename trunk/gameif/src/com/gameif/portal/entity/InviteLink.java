@@ -4,12 +4,12 @@ import java.util.Date;
 
 import com.gameif.common.entity.BaseEntity;
 
-public class MemInviteLink extends BaseEntity {
+public class InviteLink extends BaseEntity {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 2478619036096688971L;
+	private static final long serialVersionUID = 4102792352529292400L;
 
 	private Long memNum;
 	private String linkKey;
@@ -26,7 +26,6 @@ public class MemInviteLink extends BaseEntity {
 	 * @param memNum
 	 *            the memNum to set
 	 */
-	
 	public void setMemNum(Long memNum) {
 		this.memNum = memNum;
 	}

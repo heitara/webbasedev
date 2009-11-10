@@ -22,9 +22,9 @@ import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.dao.IAdvertAgencyMstDao;
 import com.gameif.portal.dao.IAdvertMstDao;
 import com.gameif.portal.dao.IInviteInfoDao;
+import com.gameif.portal.dao.IInviteLinkDao;
+import com.gameif.portal.dao.IInviteLinkHistDao;
 import com.gameif.portal.dao.IMemAdvertActualInfoDao;
-import com.gameif.portal.dao.IMemInviteLinkDao;
-import com.gameif.portal.dao.IMemInviteLinkHistDao;
 import com.gameif.portal.dao.IMemberInfoDao;
 import com.gameif.portal.dao.IMemberLoginInfoDao;
 import com.gameif.portal.dao.ITempMemberInfoDao;
@@ -32,9 +32,9 @@ import com.gameif.portal.dao.ITempPwdInfoDao;
 import com.gameif.portal.entity.AdvertAgencyMst;
 import com.gameif.portal.entity.AdvertMst;
 import com.gameif.portal.entity.InviteInfo;
+import com.gameif.portal.entity.InviteLink;
+import com.gameif.portal.entity.InviteLinkHist;
 import com.gameif.portal.entity.MemAdvertActualInfo;
-import com.gameif.portal.entity.MemInviteLink;
-import com.gameif.portal.entity.MemInviteLinkHist;
 import com.gameif.portal.entity.MemberInfo;
 import com.gameif.portal.entity.MemberLoginInfo;
 import com.gameif.portal.entity.TempMemberInfo;
@@ -57,8 +57,8 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	private IAdvertAgencyMstDao advertAgencyMstDao;
 	private IMemAdvertActualInfoDao memAdvertActualInfoDao;
 	private IAdvertMstDao advertMstDao;
-	private IMemInviteLinkDao memInviteLinkDao;
-	private IMemInviteLinkHistDao memInviteLinkHistDao;
+	private IInviteLinkDao inviteLinkDao;
+	private IInviteLinkHistDao inviteLinkHistDao;
 	
 	private Integer invalidMinute;
 	private PortalProperties portalProperties;
@@ -298,16 +298,16 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		}
 		
 		// リンク情報を検索する
-		MemInviteLink inviteLink = memInviteLinkDao.selectByLinkKey(linkKey);
+		InviteLink inviteLink = inviteLinkDao.selectByLinkKey(linkKey);
 		if (inviteLink != null) {
 			
-			MemInviteLinkHist inviteLinkHist = new MemInviteLinkHist();
+			InviteLinkHist inviteLinkHist = new InviteLinkHist();
 			inviteLinkHist.setMemNum(inviteLink.getMemNum());
 			inviteLinkHist.setChildMemNum(memberInfo.getMemNum());
 			inviteLinkHist.setTitleId(null);
 			
 			// リンクで友達履歴を登録する
-			memInviteLinkHistDao.save(inviteLinkHist);
+			inviteLinkHistDao.save(inviteLinkHist);
 		}
 		
 	}
@@ -753,17 +753,17 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	}
 
 	/**
-	 * @param memInviteLinkDao the memInviteLinkDao to set
+	 * @param inviteLinkDao the inviteLinkDao to set
 	 */
-	public void setMemInviteLinkDao(IMemInviteLinkDao memInviteLinkDao) {
-		this.memInviteLinkDao = memInviteLinkDao;
+	public void setInviteLinkDao(IInviteLinkDao inviteLinkDao) {
+		this.inviteLinkDao = inviteLinkDao;
 	}
 
 	/**
-	 * @param memInviteLinkHistDao the memInviteLinkHistDao to set
+	 * @param inviteLinkHistDao the inviteLinkHistDao to set
 	 */
-	public void setMemInviteLinkHistDao(IMemInviteLinkHistDao memInviteLinkHistDao) {
-		this.memInviteLinkHistDao = memInviteLinkHistDao;
+	public void setInviteLinkHistDao(IInviteLinkHistDao inviteLinkHistDao) {
+		this.inviteLinkHistDao = inviteLinkHistDao;
 	}
 
 	/**
