@@ -426,10 +426,10 @@
 			FROM
 				member_info
 			INNER JOIN 
-				mem_invite_link_hist
+				invite_link_hist
 			ON	
-				member_info.mem_num = mem_invite_link_hist.child_mem_num
-			AND mem_invite_link_hist.mem_num = #memNum#
+				member_info.mem_num = invite_link_hist.child_mem_num
+			AND invite_link_hist.mem_num = #memNum#
         ]]>
 	</select>
 
