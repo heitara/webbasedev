@@ -115,7 +115,7 @@ public class MemberInfoControlAction extends
 	 */
 	public String createTemp() {
 
-		memberInfoBusinessLogic.saveTempMemberInfo(getModel(), getInviteId(), getAdvertNum(), getLinkKey());
+		memberInfoBusinessLogic.saveTempMemberInfo(getModel(), getInviteId(), getAdvertNum(), getLinkKey(), getTitle());
 		
 		mailLoginUrl = portalProperties.getMailLoginUrl(getModel().getMailPc());
 		enc = SecurityUtil.encodeParam("mailLoginUrl=" + mailLoginUrl);
