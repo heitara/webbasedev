@@ -128,6 +128,12 @@
 		<property name="gameLoginCountDao">
 			<ref bean="gameLoginCountDao" />
 		</property>
+		<property name="inviteInfoDao">
+			<ref bean="inviteInfoDao" />
+		</property>
+		<property name="inviteLinkHistDao">
+			<ref bean="inviteLinkHistDao" />
+		</property>
 	</bean>
 	
 	<!-- tempPwdRegetBusinessLogic -->
@@ -170,9 +176,6 @@
 		</property>
 		<property name="servicePointGiveHistDao">
 			<ref bean="servicePointGiveHistDao" />
-		</property>
-		<property name="inviteInfoDao">
-			<ref bean="inviteInfoDao" />
 		</property>
 	</bean>
 	

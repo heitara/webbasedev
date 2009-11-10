@@ -13,7 +13,7 @@ public class ChargeParameter {
 	private String chargeUrl;
 	private String chargeFullUrl;
 	private String spType;
-	private Long parentNum;
+//	private Long parentNum;
 
 	public Long getMemNum() {
 		return memNum;
@@ -93,18 +93,18 @@ public class ChargeParameter {
 		this.spType = spType;
 	}
 
-	/**
-	 * @return the parentNum
-	 */
-	public Long getParentNum() {
-		return parentNum;
-	}
-
-	/**
-	 * @param parentNum
-	 *            the parentNum to set
-	 */
-	public void setParentNum(Long parentNum) {
-		this.parentNum = parentNum;
-	}
+//	/**
+//	 * @return the parentNum
+//	 */
+//	public Long getParentNum() {
+//		return parentNum;
+//	}
+//
+//	/**
+//	 * @param parentNum
+//	 *            the parentNum to set
+//	 */
+//	public void setParentNum(Long parentNum) {
+//		this.parentNum = parentNum;
+//	}
 }

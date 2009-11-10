@@ -23,5 +23,18 @@
 				#titleId#)
 	        ]]>
 	</insert>
+	
+	<select id="selectParentByChildNum" parameterClass="java.lang.Long" resultMap="inviteLinkHistResult">   
+        <![CDATA[
+	        SELECT
+				mem_num,
+				child_mem_num,
+				title_id
+			FROM
+				invite_link_hist
+			WHERE
+				child_mem_num = #childMemNum#
+        ]]>
+	</select>
 
 </sqlMap>

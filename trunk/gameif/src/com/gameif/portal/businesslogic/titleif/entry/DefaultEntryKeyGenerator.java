@@ -10,13 +10,15 @@ public class DefaultEntryKeyGenerator implements IEntryKeyGenerator {
 	private String timeKey;
 	/** セキュリティ文字列のパラメータ名 */
 	private String validateCdKey;
-	/** メディアコードのパラメータ名 */
-	private String fromKey;
+	/**紹介者IDのパラメータ名*/
+	private String parentKey;
+//	/** メディアコードのパラメータ名 */
+//	private String fromKey;
 	
 	/** サーバ間連携パスワード */
 	private String unionCd;
-	/** メディアコードのデフォルト値 */
-	private String defaultFrom;
+//	/** メディアコードのデフォルト値 */
+//	private String defaultFrom;
 
 	/**
 	 * ゲームログイン必要なＵＲＬパラメータを取得する。
@@ -34,6 +36,7 @@ public class DefaultEntryKeyGenerator implements IEntryKeyGenerator {
 								new StringBuffer()
 								.append(parameter.getMemNum())
 								.append(unixTime)
+								.append(parameter.getParentMemNum())
 								.append(unionCd)
 								.toString());
 		
@@ -50,9 +53,9 @@ public class DefaultEntryKeyGenerator implements IEntryKeyGenerator {
 			.append("=")
 			.append(validateCd)
 			.append("&")
-			.append(fromKey)
+			.append(parentKey)
 			.append("=")
-			.append(parameter.getFrom() == null ? this.defaultFrom : parameter.getFrom())
+			.append(parameter.getParentMemNum())
 			.toString();
 	}
 
@@ -68,16 +71,23 @@ public class DefaultEntryKeyGenerator implements IEntryKeyGenerator {
 		this.validateCdKey = validateCdKey;
 	}
 
-	public void setFromKey(String fromKey) {
-		this.fromKey = fromKey;
-	}
+//	public void setFromKey(String fromKey) {
+//		this.fromKey = fromKey;
+//	}
 
 	public void setUnionCd(String unionCd) {
 		this.unionCd = unionCd;
 	}
 
-	public void setDefaultFrom(String defaultFrom) {
-		this.defaultFrom = defaultFrom;
+	/**
+	 * @param parentKey the parentKey to set
+	 */
+	public void setParentKey(String parentKey) {
+		this.parentKey = parentKey;
 	}
+
+//	public void setDefaultFrom(String defaultFrom) {
+//		this.defaultFrom = defaultFrom;
+//	}
 
 }

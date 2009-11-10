@@ -43,4 +43,10 @@ public interface ITitlePlayBusinessLogic {
 	 * @return サーバ一覧
 	 */
 	public List<MyServer> getServersWithPlayInfo(Long memNum, Integer titleId);
+	
+	/**
+	 * 該当会員の紹介者の会員番号を取得する
+	 * @return 紹介者の会員番号
+	 */
+	public Long getParentNum();
 }

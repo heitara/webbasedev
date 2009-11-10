@@ -9,8 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gameif.common.businesslogic.BaseBusinessLogic;
 import com.gameif.portal.businesslogic.ITitlePlayBusinessLogic;
 import com.gameif.portal.dao.IGameLoginCountDao;
+import com.gameif.portal.dao.IInviteInfoDao;
+import com.gameif.portal.dao.IInviteLinkHistDao;
 import com.gameif.portal.dao.IPlayHistDao;
 import com.gameif.portal.entity.GameLoginCount;
+import com.gameif.portal.entity.InviteInfo;
+import com.gameif.portal.entity.InviteLinkHist;
 import com.gameif.portal.entity.MyServer;
 import com.gameif.portal.entity.MyTitle;
 import com.gameif.portal.entity.PlayHist;
@@ -22,6 +26,8 @@ public class TitlePlayBusinessLogicImpl extends BaseBusinessLogic implements ITi
 	
 	private IPlayHistDao playHistDao;
 	private IGameLoginCountDao gameLoginCountDao;
+	private IInviteInfoDao inviteInfoDao;
+	private IInviteLinkHistDao inviteLinkHistDao;
 
 	/**
 	 * ゲームプレイ履歴を登録する。
@@ -133,6 +139,29 @@ public class TitlePlayBusinessLogicImpl extends BaseBusinessLogic implements ITi
 		return playHistDao.selectServersWithPlay(memNum, titleId);
 	}
 
+	/**
+	 * 該当会員の紹介者の会員番号を取得する
+	 * @return 紹介者の会員番号
+	 */
+	@Override
+	public Long getParentNum() {
+		Long parentNum = null;
+		
+		// 子の会員番号より、メールで招待テーブルから情報を検索する
+		InviteInfo invite = inviteInfoDao.selectParentByChildNum(ContextUtil.getMemberNo());
+		if (invite != null) {
+			parentNum = invite.getMemNum();
+			return parentNum;
+		}
+		
+		InviteLinkHist inviteLink = inviteLinkHistDao.selectParentByChildNum(ContextUtil.getMemberNo());
+		if (inviteLink != null) {
+			parentNum = inviteLink.getMemNum();
+		}
+		
+		return parentNum;
+	}
+
 	public void setPlayHistDao(IPlayHistDao playHistDao) {
 		this.playHistDao = playHistDao;
 	}
@@ -142,5 +171,19 @@ public class TitlePlayBusinessLogicImpl extends BaseBusinessLogic implements ITi
 	 */
 	public void setGameLoginCountDao(IGameLoginCountDao gameLoginCountDao) {
 		this.gameLoginCountDao = gameLoginCountDao;
+	}
+
+	/**
+	 * @param inviteInfoDao the inviteInfoDao to set
+	 */
+	public void setInviteInfoDao(IInviteInfoDao inviteInfoDao) {
+		this.inviteInfoDao = inviteInfoDao;
+	}
+
+	/**
+	 * @param inviteLinkHistDao the inviteLinkHistDao to set
+	 */
+	public void setInviteLinkHistDao(IInviteLinkHistDao inviteLinkHistDao) {
+		this.inviteLinkHistDao = inviteLinkHistDao;
 	}
 }

@@ -15,7 +15,7 @@ public class DefaultChargeKeyGenerator implements IChargeKeyGenerator {
 	/** ポイント区別のパラメータ名 */
 	private String spKey;
 	/** 親の会員番号のパラメータ名 */
-	private String parentAccountKey;
+//	private String parentAccountKey;
 
 	/** セキュリティ文字列のパラメータ名 */
 	private String validateCdKey;
@@ -61,13 +61,13 @@ public class DefaultChargeKeyGenerator implements IChargeKeyGenerator {
 							.append("=")
 							.append(unixTime)
 							.append("&")
-							.append("spKey")
+							.append(spKey)
 							.append("=")
 							.append(parameter.getSpType())
-							.append("&")
-							.append("parentAccountKey")
-							.append("=")
-							.append(parameter.getParentNum())
+//							.append("&")
+//							.append(parentAccountKey)
+//							.append("=")
+//							.append(parameter.getParentNum())
 							.toString();
 		String validateCd = SecurityUtil.getMD5String(chargeInfo + unionCd);
 		
@@ -103,12 +103,12 @@ public class DefaultChargeKeyGenerator implements IChargeKeyGenerator {
 		this.spKey = spKey;
 	}
 
-	/**
-	 * @param parentAccountKey the parentAccountKey to set
-	 */
-	public void setParentAccountKey(String parentAccountKey) {
-		this.parentAccountKey = parentAccountKey;
-	}
+//	/**
+//	 * @param parentAccountKey the parentAccountKey to set
+//	 */
+//	public void setParentAccountKey(String parentAccountKey) {
+//		this.parentAccountKey = parentAccountKey;
+//	}
 	
 	public void setValidateCdKey(String validateCdKey) {
 		this.validateCdKey = validateCdKey;
