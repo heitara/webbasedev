@@ -655,8 +655,8 @@ CREATE TABLE  `mem_advert_actual_info` (
 
 
 
-DROP TABLE IF EXISTS `mem_invite_link`;
-CREATE TABLE  `mem_invite_link` (
+DROP TABLE IF EXISTS `invite_link`;
+CREATE TABLE  `invite_link` (
   `mem_num` bigint(20) NOT NULL,
   `link_key` varchar(50) DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
@@ -666,8 +666,8 @@ CREATE TABLE  `mem_invite_link` (
 
 
 
-DROP TABLE IF EXISTS `mem_invite_link_hist`;
-CREATE TABLE  `mem_invite_link_hist` (
+DROP TABLE IF EXISTS `invite_link_hist`;
+CREATE TABLE  `invite_link_hist` (
   `mem_num` bigint(20) NOT NULL,
   `child_mem_num` bigint(20) NOT NULL,
   `title_id` int(11) DEFAULT NULL,
