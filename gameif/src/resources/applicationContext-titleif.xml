@@ -23,10 +23,16 @@
 		<property name="timeKey" value="t" />
 		<!-- セキュリティ文字列のパラメータ名-->
 		<property name="validateCdKey" value="p" />
+		<!-- 紹介者IDのパラメータ名-->
+		<property name="parentKey" value="f" />
 		<!-- メディアコードのパラメータ名 -->
+		<!-- 
 		<property name="fromKey" value="from" />
+		 -->
 		<!--  メディアコードのデフォルト値 -->
+		<!-- 
 		<property name="defaultFrom" value="0" />
+		 -->
 		
 		<!-- サーバ間連携パスワード -->
 		<property name="unionCd" value="1233113132131213131313" />
@@ -83,10 +89,33 @@
 		<!-- ポイント区別のパラメータ名-->
 		<property name="spKey" value="sp" />
 		<!-- 親の会員番号のパラメータ名-->
+		<!-- 
 		<property name="parentAccountKey" value="parentAccount" />
+		 -->
 		
 		<!-- サーバ間連携パスワード -->
 		<property name="unionCd" value="1233113132131213131313" />
 	</bean>
+	
+	<!-- ゲームに紹介結果検索用セキュリティキー生成クラスの定義 -->
+	<bean id="friendSearch" class="com.gameif.portal.businesslogic.titleif.search.FriendSearch">
+		<!-- タイトルＩＤとキー生成クラスのマップ -->
+		<property name="searchKeyGenerators">
+			<map>
+				<entry key="1" value-ref="csSearchKeyGenerator"/>
+			</map>
+		</property>
+	</bean>
+
+	<!-- 創世伝説の紹介結果検索用用セキュリティキー生成クラスの定義 -->
+	<bean id="csSearchKeyGenerator" class="com.gameif.portal.businesslogic.titleif.search.DefaultSearchKeyGenerator">
+		<!-- アカウントパラメータ名 -->
+		<property name="accountKey" value="u" />
+		<!-- セキュリティ文字列のパラメータ名-->
+		<property name="validateCdKey" value="p" />
+		
+		<!-- サーバ間連携パスワード -->
+		<property name="unionCd" value="1233113132131213131313" />
+	</bean>	
 	
 </beans>

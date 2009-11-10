@@ -67,6 +67,7 @@ public class TitlePlayControlAction extends BaseActionSupport {
 				parameter.setTitleId(serverMst.getTitleId());
 				parameter.setServerId(serverMst.getServerId());
 				parameter.setPlayDate(now);
+				parameter.setParentMemNum(titlePlayBusinessLogic.getParentNum());
 
 				playUrl = serverMst.getPlayUrl() + "?"
 						+ titleEntry.getTitleEntryKey(parameter);

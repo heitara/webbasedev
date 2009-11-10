@@ -10,6 +10,7 @@ public class EntryParameter {
 	private Integer serverId;
 	private Date playDate;
 	private String from;
+	private Long parentMemNum;
 	
 	public Long getMemNum() {
 		return memNum;
@@ -46,6 +47,17 @@ public class EntryParameter {
 	}
 	public void setFrom(String from) {
 		this.from = from;
-	} 
-
+	}
+	/**
+	 * @return the parentMemNum
+	 */
+	public Long getParentMemNum() {
+		return parentMemNum;
+	}
+	/**
+	 * @param parentMemNum the parentMemNum to set
+	 */
+	public void setParentMemNum(Long parentMemNum) {
+		this.parentMemNum = parentMemNum;
+	}
 }

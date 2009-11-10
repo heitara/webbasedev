@@ -13,7 +13,7 @@ import com.gameif.portal.businesslogic.IPointChargeBusinessLogic;
 import com.gameif.portal.businesslogic.titleif.charge.ChargeParameter;
 import com.gameif.portal.businesslogic.titleif.charge.TitleCharge;
 import com.gameif.portal.constants.PortalConstants;
-import com.gameif.portal.dao.IInviteInfoDao;
+//import com.gameif.portal.dao.IInviteInfoDao;
 import com.gameif.portal.dao.IMemSettlementHistDao;
 import com.gameif.portal.dao.IMemSettlementTrnsDao;
 import com.gameif.portal.dao.IMemberInfoDao;
@@ -22,7 +22,7 @@ import com.gameif.portal.dao.IServicePointDao;
 import com.gameif.portal.dao.IServicePointGiveHistDao;
 import com.gameif.portal.dao.IServicePointTypeMstDao;
 import com.gameif.portal.dao.ITitleMstDao;
-import com.gameif.portal.entity.InviteInfo;
+//import com.gameif.portal.entity.InviteInfo;
 import com.gameif.portal.entity.MemSettlementHist;
 import com.gameif.portal.entity.MemSettlementTrns;
 import com.gameif.portal.entity.MemberInfo;
@@ -49,7 +49,7 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 	private IServicePointTypeMstDao servicePointTypeMstDao;
 	private IServicePointDao servicePointDao;
 	private IServicePointGiveHistDao servicePointGiveHistDao;
-	private IInviteInfoDao inviteInfoDao;
+//	private IInviteInfoDao inviteInfoDao;
 	
 	// 有効期間
 	private Integer validDays;
@@ -173,7 +173,7 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 
 		params.setChargeUrl(title.getPaymentUrl());
 		params.setSpType(PortalConstants.ChargeSpType.ACCOUNT_POINT);
-		params.setParentNum(getParentNum());
+//		params.setParentNum(getParentNum());
 
 		TitleCharge titleCharge = new TitleCharge();
 		// チャージを行う
@@ -293,21 +293,21 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		servicePointGiveHistDao.save(servicePointGiveHist);
 	}
 	
-	/**
-	 * 該当会員の親の会員番号を取得する
-	 * @return
-	 */
-	private Long getParentNum() {
-		Long parentNum = null;
-		
-		// 子の会員番号より、招待情報を検索する
-		InviteInfo invite = inviteInfoDao.selectParentByChildNum(ContextUtil.getMemberNo());
-		if (invite != null) {
-			parentNum = invite.getMemNum();
-		}
-		
-		return parentNum;
-	}
+//	/**
+//	 * 該当会員の親の会員番号を取得する
+//	 * @return
+//	 */
+//	private Long getParentNum() {
+//		Long parentNum = null;
+//		
+//		// 子の会員番号より、招待情報を検索する
+//		InviteInfo invite = inviteInfoDao.selectParentByChildNum(ContextUtil.getMemberNo());
+//		if (invite != null) {
+//			parentNum = invite.getMemNum();
+//		}
+//		
+//		return parentNum;
+//	}
 
 	/**
 	 * @return the memSettlementTrnsDao
@@ -431,19 +431,19 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		this.servicePointGiveHistDao = servicePointGiveHistDao;
 	}
 
-	/**
-	 * @return the inviteInfoDao
-	 */
-	public IInviteInfoDao getInviteInfoDao() {
-		return inviteInfoDao;
-	}
-
-	/**
-	 * @param inviteInfoDao the inviteInfoDao to set
-	 */
-	public void setInviteInfoDao(IInviteInfoDao inviteInfoDao) {
-		this.inviteInfoDao = inviteInfoDao;
-	}
+//	/**
+//	 * @return the inviteInfoDao
+//	 */
+//	public IInviteInfoDao getInviteInfoDao() {
+//		return inviteInfoDao;
+//	}
+//
+//	/**
+//	 * @param inviteInfoDao the inviteInfoDao to set
+//	 */
+//	public void setInviteInfoDao(IInviteInfoDao inviteInfoDao) {
+//		this.inviteInfoDao = inviteInfoDao;
+//	}
 
 	/**
 	 * @return the validDays
