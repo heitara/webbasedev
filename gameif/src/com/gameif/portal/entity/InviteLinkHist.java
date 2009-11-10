@@ -2,12 +2,12 @@ package com.gameif.portal.entity;
 
 import com.gameif.common.entity.BaseEntity;
 
-public class MemInviteLinkHist extends BaseEntity {
+public class InviteLinkHist extends BaseEntity {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -6001765269200577927L;
+	private static final long serialVersionUID = 9033074805447562747L;
 
 	private Long memNum;
 	private Long childMemNum;
@@ -57,4 +57,5 @@ public class MemInviteLinkHist extends BaseEntity {
 	public void setTitleId(Integer titleId) {
 		this.titleId = titleId;
 	}
+
 }

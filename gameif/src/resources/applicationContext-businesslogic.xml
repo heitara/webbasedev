@@ -42,11 +42,11 @@
 		<property name="portalProperties">
 			<ref bean="portalProperties" />
 		</property>
-		<property name="memInviteLinkDao">
-			<ref bean="memInviteLinkDao" />
+		<property name="inviteLinkDao">
+			<ref bean="inviteLinkDao" />
 		</property>
-		<property name="memInviteLinkHistDao">
-			<ref bean="memInviteLinkHistDao" />
+		<property name="inviteLinkHistDao">
+			<ref bean="inviteLinkHistDao" />
 		</property>
 	</bean>
 	
@@ -79,8 +79,8 @@
 		<property name="titleMstDao">
 			<ref bean="titleMstDao" />
 		</property>
-		<property name="memInviteLinkDao">
-			<ref bean="memInviteLinkDao" />
+		<property name="inviteLinkDao">
+			<ref bean="inviteLinkDao" />
 		</property>
 		<property name="memberInfoDao">
 			<ref bean="memberInfoDao" />

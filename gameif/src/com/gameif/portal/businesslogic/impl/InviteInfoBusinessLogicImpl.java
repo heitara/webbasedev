@@ -15,11 +15,11 @@ import com.gameif.common.util.SecurityUtil;
 import com.gameif.portal.businesslogic.IInviteInfoBusinessLogic;
 import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.dao.IInviteInfoDao;
-import com.gameif.portal.dao.IMemInviteLinkDao;
+import com.gameif.portal.dao.IInviteLinkDao;
 import com.gameif.portal.dao.IMemberInfoDao;
 import com.gameif.portal.dao.ITitleMstDao;
 import com.gameif.portal.entity.InviteInfo;
-import com.gameif.portal.entity.MemInviteLink;
+import com.gameif.portal.entity.InviteLink;
 import com.gameif.portal.entity.MemberInfo;
 import com.gameif.portal.util.ContextUtil;
 
@@ -34,7 +34,7 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	private IInviteInfoDao inviteInfoDao;
 	private TemplateMailer templateMailer;
 	private ITitleMstDao titleMstDao;
-	private IMemInviteLinkDao memInviteLinkDao;
+	private IInviteLinkDao inviteLinkDao;
 	private IMemberInfoDao memberInfoDao;
 
 	private Integer deleDays;
@@ -70,13 +70,12 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	public ITitleMstDao getTitleMstDao() {
 		return titleMstDao;
 	}
-
+	
 	/**
-	 * @param memInviteLinkDao
-	 *            the memInviteLinkDao to set
+	 * @param inviteLinkDao the inviteLinkDao to set
 	 */
-	public void setMemInviteLinkDao(IMemInviteLinkDao memInviteLinkDao) {
-		this.memInviteLinkDao = memInviteLinkDao;
+	public void setInviteLinkDao(IInviteLinkDao inviteLinkDao) {
+		this.inviteLinkDao = inviteLinkDao;
 	}
 
 	/**
@@ -329,17 +328,17 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 
 		String LinkUrl = "";
 
-		MemInviteLink memInviteLink = memInviteLinkDao.selectByMemNum(ContextUtil.getMemberNo());
-		if (memInviteLink == null) {
-			memInviteLink = new MemInviteLink();
+		InviteLink inviteLink = inviteLinkDao.selectByMemNum(ContextUtil.getMemberNo());
+		if (inviteLink == null) {
+			inviteLink = new InviteLink();
 
 			// リンクキー：「10桁長さ（会員番号を16進の文字列に変換する）」+「5桁ランダムキー」
 			String linkKey = ContextUtil.getMemberNo().toHexString(10).concat(SecurityUtil.getRandomAuthKey(5));
-			memInviteLink.setMemNum(ContextUtil.getMemberNo());
-			memInviteLink.setLinkKey(linkKey);
-			memInviteLink.setCreatedDate(new Date());
+			inviteLink.setMemNum(ContextUtil.getMemberNo());
+			inviteLink.setLinkKey(linkKey);
+			inviteLink.setCreatedDate(new Date());
 
-			memInviteLinkDao.save(memInviteLink);
+			inviteLinkDao.save(inviteLink);
 		}
 		
 		if (titleId == null) {
@@ -348,7 +347,7 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		// 認証キーをエンコード
 		String enc = SecurityUtil.encodeParam(new StringBuffer().
 							append("linkKey=").
-							append(memInviteLink.getLinkKey())
+							append(inviteLink.getLinkKey())
 							.toString());
 		
 		// 招待するリンクを生成する
