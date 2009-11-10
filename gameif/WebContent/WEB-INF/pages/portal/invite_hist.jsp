@@ -28,7 +28,7 @@
 </head>
 <body>
 	<dl class="light_box tspace_n">
-		<dt><strong>友達紹介履歴</strong><span><a href="inputInvite.html">► 友達紹介</a></span></dt>
+		<dt><strong>友達招待履歴</strong><span><a href="inputInvite.html">► 友達招待</a></span></dt>
 		<dd>
 		<s:form name="frm_invite_hist" method="post" cssClass="entry">
 			<div>
