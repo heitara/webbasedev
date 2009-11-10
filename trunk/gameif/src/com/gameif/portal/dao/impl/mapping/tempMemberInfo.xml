@@ -16,6 +16,7 @@
 		<result property="inviteId" column="invite_id"/>
 		<result property="advertNum" column="advert_num"/>
 		<result property="linkKey" column="link_key"/>
+		<result property="titleId" column="title_id"/>
 		<result property="createdDate" column="created_date"/>
 		<result property="createdIp" column="created_ip"/>
 	</resultMap>
@@ -32,6 +33,7 @@
 				invite_id,
 				advert_num,
 				link_key,
+				title_id,
 				created_date,
 				created_ip)
 			VALUES
@@ -44,6 +46,7 @@
 				#inviteId#,
 				#advertNum#,
 				#linkKey#,
+				#titleId#,
 				#createdDate#,
 				#createdIp#
 				)
@@ -66,6 +69,7 @@
 					invite_id,
 					advert_num,
 					link_key,
+					title_id,
 					created_date,
 					created_ip
 			FROM	temp_member_info
