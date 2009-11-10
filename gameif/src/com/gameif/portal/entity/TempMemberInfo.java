@@ -20,6 +20,7 @@ public class TempMemberInfo extends BaseEntity {
 	private Long inviteId;
 	private Integer advertNum;
 	private String linkKey;
+	private Integer titleId;
 	private Date createdDate;
 	private String createdIp;
 
@@ -121,7 +122,8 @@ public class TempMemberInfo extends BaseEntity {
 	}
 
 	/**
-	 * @param inviteId the inviteId to set
+	 * @param inviteId
+	 *            the inviteId to set
 	 */
 	public void setInviteId(Long inviteId) {
 		this.inviteId = inviteId;
@@ -135,7 +137,8 @@ public class TempMemberInfo extends BaseEntity {
 	}
 
 	/**
-	 * @param advertNum the advertNum to set
+	 * @param advertNum
+	 *            the advertNum to set
 	 */
 	public void setAdvertNum(Integer advertNum) {
 		this.advertNum = advertNum;
@@ -149,10 +152,26 @@ public class TempMemberInfo extends BaseEntity {
 	}
 
 	/**
-	 * @param linkKey the linkKey to set
+	 * @param linkKey
+	 *            the linkKey to set
 	 */
 	public void setLinkKey(String linkKey) {
 		this.linkKey = linkKey;
+	}
+
+	/**
+	 * @return the titleId
+	 */
+	public Integer getTitleId() {
+		return titleId;
+	}
+
+	/**
+	 * @param titleId
+	 *            the titleId to set
+	 */
+	public void setTitleId(Integer titleId) {
+		this.titleId = titleId;
 	}
 
 	/**
@@ -163,7 +182,8 @@ public class TempMemberInfo extends BaseEntity {
 	}
 
 	/**
-	 * @param createdDate the createdDate to set
+	 * @param createdDate
+	 *            the createdDate to set
 	 */
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
@@ -177,7 +197,8 @@ public class TempMemberInfo extends BaseEntity {
 	}
 
 	/**
-	 * @param createdIp the createdIp to set
+	 * @param createdIp
+	 *            the createdIp to set
 	 */
 	public void setCreatedIp(String createdIp) {
 		this.createdIp = createdIp;
