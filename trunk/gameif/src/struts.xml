@@ -137,9 +137,9 @@
 			<!-- 友達招待案内する画面 -->
 			<result name="input">/WEB-INF/pages/portal/invite_guide.jsp</result>
 			<!-- メール導入画面に案内する -->
-			<result name="inputMailSel">/WEB-INF/pages/portal/mail_select.jsp</result>
+			<result name="inputMailSel">/WEB-INF/pages/portal/invite_mail_select.jsp</result>
 			<!-- 友達選択画面に案内する -->
-			<result name="friendImport">/WEB-INF/pages/portal/friend_import.jsp</result>
+			<result name="friendImport">/WEB-INF/pages/portal/invite_friend_import.jsp</result>
 			<!-- メールで友達招待に案内する -->
 			<result name="inputMail">/WEB-INF/pages/portal/invite_input.jsp</result>
 			<!-- リンクで友達招待に案内する -->
@@ -182,9 +182,9 @@
 				<param name="includeMethods">finished</param>
 			</interceptor-ref>
 			
-			<result name="input">/WEB-INF/pages/portal/mem_pwd_reget.jsp</result>
+			<result name="input">/WEB-INF/pages/portal/temp_pwd_reget.jsp</result>
 			<result name="success"  type="redirect">/finishedPwdReget.html?enc=${enc}</result>
-			<result name="finish">/WEB-INF/pages/portal/mem_pwd_reget_finish.jsp</result>
+			<result name="finish">/WEB-INF/pages/portal/temp_pwd_reget_finish.jsp</result>
 		</action>
 		
 		<action name="*TempPwd" class="memberInfoAction" method="{1}TempPwd">
