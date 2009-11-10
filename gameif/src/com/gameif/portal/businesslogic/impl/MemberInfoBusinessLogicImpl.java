@@ -66,12 +66,14 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	/**
 	 * 臨時会員情報を登録する。
 	 * @param memberInfo 会員情報（新規登録時必要な項目が格納されていること）
-	 * @param inviteId 友達紹介ID（友達紹介から登録場合）
+	 * @param inviteId 友達紹介ID（メールで招待された会員登録）
 	 * @param advertNum 広告番号（アフィリエイト登録場合）
+	 * @param linkKey リンクキー（リンクで招待された会員登録）
+	 * @param advertNum タイトルID
 	 */
 	@Transactional
 	@Override
-	public void saveTempMemberInfo(MemberInfo memberInfo, Long inviteId, Integer advertNum, String linkKey) {
+	public void saveTempMemberInfo(MemberInfo memberInfo, Long inviteId, Integer advertNum, String linkKey, Integer titleId) {
 		
 		TempMemberInfo tempMemberInfo = new TempMemberInfo();
 		
@@ -91,6 +93,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		tempMemberInfo.setAdvertNum(advertNum);
 		// リンクキー
 		tempMemberInfo.setLinkKey(linkKey);
+		tempMemberInfo.setTitleId(titleId);
 		tempMemberInfo.setCreatedDate(new Date());
 		tempMemberInfo.setCreatedIp(ContextUtil.getClientIP());
 
@@ -122,9 +125,6 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		// お知らせメールを送信する。
 		HashMap<String, String> props = new HashMap<String, String>();
 		props.put("nickName", tempMemberInfo.getNickName());
-		//props.put("memId", tempMemberInfo.getMemId());
-		//props.put("memNum", tempMemberInfo.getMemNum().toString());
-		//props.put("authKey", tempMemberInfo.getAuthKey());
 		props.put(PortalConstants.Key.SEURE_PARAM_KEY, SecurityUtil.encodeParam(new StringBuffer()
 							.append("memNum=")
 							.append(tempMemberInfo.getMemNum().toString())
@@ -218,7 +218,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		updateInviteInfo(tempMemberInfo.getInviteId(), newMemberInfo);
 		
 		// リンクで友達紹介する場合、紹介情報を保存する
-		saveMemInviteLinkHist(tempMemberInfo.getLinkKey(), newMemberInfo);
+		saveMemInviteLinkHist(tempMemberInfo, newMemberInfo);
 		
 		// 臨時会員情報を削除する
 		tempMemberInfoDao.deleteByKey(memNum);
@@ -287,12 +287,12 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 
 	/**
 	 * リンクで友達紹介する場合、紹介情報を保存する
-	 * @param inviteId リンクキー
+	 * @param tempMemberInfo 臨時会員情報
 	 * @param memberInfo 会員情報（新規登録会員）
 	 */
-	private void saveMemInviteLinkHist(String linkKey, MemberInfo memberInfo) {
+	private void saveMemInviteLinkHist(TempMemberInfo tempMemberInfo, MemberInfo memberInfo) {
 		
-		// 友達紹介する場合、紹介情報を更新する
+		String linkKey = tempMemberInfo.getLinkKey();
 		if (linkKey == null || linkKey.toString().trim().length() == 0) {
 			return;
 		}
@@ -304,7 +304,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 			InviteLinkHist inviteLinkHist = new InviteLinkHist();
 			inviteLinkHist.setMemNum(inviteLink.getMemNum());
 			inviteLinkHist.setChildMemNum(memberInfo.getMemNum());
-			inviteLinkHist.setTitleId(null);
+			inviteLinkHist.setTitleId(tempMemberInfo.getTitleId());
 			
 			// リンクで友達履歴を登録する
 			inviteLinkHistDao.save(inviteLinkHist);
