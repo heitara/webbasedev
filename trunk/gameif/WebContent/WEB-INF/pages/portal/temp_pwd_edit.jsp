@@ -31,7 +31,7 @@
 			<tr>
 				<th><span class="required">*</span> <label for="updateTempPwd_newPwd">新しいパスワード：</label></th>
 				<td>
-					<s:password name="newPwd" maxlength="20" cssClass="ime_mode_n" title="新しいパスワード" onblur="validate(this, 'REQ,ALN,LEN_6_20');" /> 
+					<s:password name="newPwd" maxlength="20" cssClass="ime_mode_n" title="新しいパスワード" onblur="validate(this, 'REQ,ALN,LEN_6_20,NEQ_memId');" /> 
 					<span class="explain">※ 6～20桁の半角英数字で入力してください。</span> 
 					<span id="error_newPwd" class="input_error"><s:fielderror><s:param>newPwd</s:param></s:fielderror></span>
 				</td>
