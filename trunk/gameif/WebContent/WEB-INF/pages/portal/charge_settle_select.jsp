@@ -5,6 +5,23 @@
 	<title>決済方法選択 | ポイントチャージ</title>
 	<script src="js/portal/validate.js" type="text/javascript"></script>
 	<script src="js/portal/bindMaster.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		function checkCount() {
+			var count = 0;
+		    var sttlCodes = document.getElementsByName("settlementCode");
+		    for (var i = 0; i < sttlCodes.length; i++) { 
+		    	if (sttlCodes[i].checked) {
+			    	count++;
+		    	}
+		    } 
+		    if (count != 1) {
+			    alert("決済方法を選択してください。");
+			    return false;
+		    } else {
+			    return true;
+		    }
+		}
+	</script>
 </head>
 
 <body>
@@ -21,7 +38,7 @@
 					<img src="images/point_flow_00.gif"/>
 					<img src="images/point_flow_30.gif"/>
 					<img src="images/point_flow_00.gif"/>
-					<img src="images/point_flow_40.gif"/>0
+					<img src="images/point_flow_40.gif"/>
 					<img src="images/point_flow_00.gif"/>
 					<img src="images/point_flow_50.gif"/>
 			</div>
@@ -43,7 +60,7 @@
 				<s:hidden name="serverId" ></s:hidden>
 				<s:hidden name="pointId" ></s:hidden>
 				<s:token />
-				<s:submit value="次へ" action="chargeSaveSettleTrns" cssClass="submit" />
+				<s:submit value="次へ" action="chargeSaveSettleTrns" cssClass="submit" onclick="return checkCount();"/>
 				<s:submit value="戻る" action="chargePointSelect" cssClass="submit" />
 			</div>
 		</s:form>
