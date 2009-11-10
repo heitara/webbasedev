@@ -51,9 +51,9 @@ public class PointChargeControlAction extends
 	private String requestUrl;
 	private String spsKey;
 
-	private Integer titleId;
-	private Integer serverId;
-	private Integer pointId;
+//	private Integer titleId;
+//	private Integer serverId;
+//	private Integer pointId;
 	private Long settleTrnsNum;
 
 	// 購入要求用パラメータ
@@ -116,7 +116,7 @@ public class PointChargeControlAction extends
 	public String SettleSelectInit() {
 		try {
 			// メンテナンスとCBTチェック
-			maintenanceBusinessLogic.maintenanceCheckByTitleId(titleId);
+			maintenanceBusinessLogic.maintenanceCheckByTitleId(this.getModel().getTitleId());
 		} catch (MaintenanceException mtEx) {
 			// メンテナンス
 			addFieldError("errMessage", getText("title.maintenance"));
@@ -141,10 +141,6 @@ public class PointChargeControlAction extends
 	 */
 	public String SettleSelect() {
 		settleList = masterInfoBusinessLogic.getAllSettlementList();
-
-		this.getModel().setTitleId(titleId);
-		this.getModel().setServerId(serverId);
-		this.getModel().setPointId(pointId);
 
 		return "settleSelect";
 	}
@@ -662,29 +658,29 @@ public class PointChargeControlAction extends
 		this.spsKey = spsKey;
 	}
 
-	/**
-	 * @param titleId
-	 *            the titleId to set
-	 */
-	public void setTitleId(Integer titleId) {
-		this.titleId = titleId;
-	}
-
-	/**
-	 * @param serverId
-	 *            the serverId to set
-	 */
-	public void setServerId(Integer serverId) {
-		this.serverId = serverId;
-	}
-
-	/**
-	 * @param pointId
-	 *            the pointId to set
-	 */
-	public void setPointId(Integer pointId) {
-		this.pointId = pointId;
-	}
+//	/**
+//	 * @param titleId
+//	 *            the titleId to set
+//	 */
+//	public void setTitleId(Integer titleId) {
+//		this.titleId = titleId;
+//	}
+//
+//	/**
+//	 * @param serverId
+//	 *            the serverId to set
+//	 */
+//	public void setServerId(Integer serverId) {
+//		this.serverId = serverId;
+//	}
+//
+//	/**
+//	 * @param pointId
+//	 *            the pointId to set
+//	 */
+//	public void setPointId(Integer pointId) {
+//		this.pointId = pointId;
+//	}
 
 	/**
 	 * @return the settleTrnsNum
@@ -1256,26 +1252,26 @@ public class PointChargeControlAction extends
 		this.sps_hashcode = sps_hashcode;
 	}
 
-	/**
-	 * @return the titleId
-	 */
-	public Integer getTitleId() {
-		return titleId;
-	}
-
-	/**
-	 * @return the serverId
-	 */
-	public Integer getServerId() {
-		return serverId;
-	}
-
-	/**
-	 * @return the pointId
-	 */
-	public Integer getPointId() {
-		return pointId;
-	}
+//	/**
+//	 * @return the titleId
+//	 */
+//	public Integer getTitleId() {
+//		return titleId;
+//	}
+//
+//	/**
+//	 * @return the serverId
+//	 */
+//	public Integer getServerId() {
+//		return serverId;
+//	}
+//
+//	/**
+//	 * @return the pointId
+//	 */
+//	public Integer getPointId() {
+//		return pointId;
+//	}
 
 	/**
 	 * @return the result
