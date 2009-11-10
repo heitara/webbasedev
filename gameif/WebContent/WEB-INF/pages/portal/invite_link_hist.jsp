@@ -13,14 +13,18 @@
 		<dd>
 		<s:form name="frm_invite_hist" method="post" cssClass="entry">
 			<div>
-					このページでは、リンクで招待して、相手から招待に応じたお友達となります。
+					このページでは、リンクで招待して、相手から招待に応じたお友達のニックネームとなります。
 			</div>
+			<div></div>
 			<table class="friendhist tspace_y" align="center">
+				<tr id="listTitle">
+					<th class="friend">ニックネーム</th>
+				</tr>
 				<s:iterator value="memLinkHistList" id="linkHist" status="st">
 					<s:if test="#st.index % 4 == 0">
 						<tr <s:if test="#st.odd">class="odd" </s:if> >
 					</s:if>
-						<td class="mail"><s:property value="nickName"/></td>
+						<td class="friend"><s:property value="nickName"/></td>
 					<s:if test="#st.index % 4 == 3 || #st.last">
 						</tr>
 					</s:if>
