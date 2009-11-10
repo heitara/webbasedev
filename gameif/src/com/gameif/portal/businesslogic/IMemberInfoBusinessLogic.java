@@ -23,7 +23,7 @@ public interface IMemberInfoBusinessLogic {
 	 * @param linkKey リンクキー（リンクで友達招待場合）
 	 */
 	@Transactional
-	public void saveTempMemberInfo(MemberInfo memberInfo, Long inviteId, Integer advertNum, String linkKey);
+	public void saveTempMemberInfo(MemberInfo memberInfo, Long inviteId, Integer advertNum, String linkKey, Integer titleId);
 
 	/**
 	 * 会員パスワードを変更する。
