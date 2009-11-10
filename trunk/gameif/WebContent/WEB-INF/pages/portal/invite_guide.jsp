@@ -53,8 +53,8 @@
 				<tr class="space_row"><td colspan="2"></td></tr>
 			</table>
 			<div class="submit">
-				<s:submit value="メールで友達を招待する" action="inputMailInvite" cssClass="submit"/>
-				<s:submit value="リンクで友達を招待する" action="inputLinkInvite" cssClass="submit"/>
+				<a href="inputMailInvite.html">メールで友達を招待する</a>
+				<a href="inputLinkInvite.html">リンクで友達を招待する</a>
 			</div>
 		</s:form>
 	</dd>
