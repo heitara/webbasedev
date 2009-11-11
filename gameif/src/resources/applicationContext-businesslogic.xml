@@ -188,6 +188,9 @@
 		<property name="titleMstDao">
 			<ref bean="titleMstDao" />
 		</property>
+		<property name="maintenanceInfoDao">
+			<ref bean="maintenanceInfoDao" />
+		</property>
 	</bean>
 	
 	<!-- servicePointBusinessLogic -->

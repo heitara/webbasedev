@@ -33,6 +33,7 @@
 		<action name="*Page" class="displayAction" method="{1}">
 			<result name="finish">/WEB-INF/pages/common/finish.jsp</result>
 			<result name="outOfDate">/WEB-INF/pages/common/outOfDate.jsp</result>
+			<result name="maintenance">/WEB-INF/pages/common/maintenance.jsp</result>
 		</action>
 
 		<action name="*Member" class="memberInfoAction" method="{1}">
@@ -145,6 +146,8 @@
 			<!-- リンクで友達招待に案内する -->
 			<result name="inputLink">/WEB-INF/pages/portal/invite_link_input.jsp</result>
 			<result name="success"  type="redirect">/finishedPage.html?action=createInvite</result>
+			<!-- メンテナンス画面に案内する -->
+			<result name="maintenance" type="redirect">/maintenancePage.html</result>
 			<!-- 
 			<result name="importFriends" type="chain">inputInvite</result>
 			 -->
@@ -240,6 +243,8 @@
 			<result name="success">/WEB-INF/pages/portal/charge_success.jsp</result>
 			
 			<result name="invalid.token">/WEB-INF/pages/common/warning.jsp</result>
+			<!-- メンテナンス画面に案内する -->
+			<result name="maintenance" type="redirect">/maintenancePage.html</result>
 		</action>
 
 		<action name="loginStatusProxy" class="loginStatusProxyAction">

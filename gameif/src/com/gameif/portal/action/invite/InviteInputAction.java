@@ -20,8 +20,10 @@ import com.gameif.common.action.ModelDrivenActionSupport;
 import com.gameif.common.exception.LogicException;
 import com.gameif.common.exception.OutOfMaxCountException;
 import com.gameif.portal.businesslogic.IInviteInfoBusinessLogic;
+import com.gameif.portal.businesslogic.IMaintenanceBusinessLogic;
 import com.gameif.portal.businesslogic.IMasterInfoBusinessLogic;
 import com.gameif.portal.businesslogic.IMemberInfoBusinessLogic;
+import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.entity.InviteInfo;
 import com.gameif.portal.entity.MemberInfo;
 import com.gameif.portal.helper.PortalProperties;
@@ -38,6 +40,7 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 	private IMasterInfoBusinessLogic masterInfoBusinessLogic;
 	private IMemberInfoBusinessLogic memberInfoBusinessLogic;
 	private PortalProperties portalProperties;
+	private IMaintenanceBusinessLogic maintenanceBusinessLogic;
 
 	private String mailAdd;
 	private String domain;
@@ -95,6 +98,21 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 	public void setMemberInfoBusinessLogic(
 			IMemberInfoBusinessLogic memberInfoBusinessLogic) {
 		this.memberInfoBusinessLogic = memberInfoBusinessLogic;
+	}
+
+	/**
+	 * @return the maintenanceBusinessLogic
+	 */
+	public IMaintenanceBusinessLogic getMaintenanceBusinessLogic() {
+		return maintenanceBusinessLogic;
+	}
+
+	/**
+	 * @param maintenanceBusinessLogic the maintenanceBusinessLogic to set
+	 */
+	public void setMaintenanceBusinessLogic(
+			IMaintenanceBusinessLogic maintenanceBusinessLogic) {
+		this.maintenanceBusinessLogic = maintenanceBusinessLogic;
 	}
 
 	/**
@@ -187,6 +205,9 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 	 * @return 友達紹介入力画面
 	 */
 	public String input() {
+		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.INVITE)) {
+			return "maintenance";
+		}
 		return INPUT;
 	}
 	
@@ -195,6 +216,9 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 	 * @return メールで友達招待画面
 	 */
 	public String inputMail() {
+		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.INVITE)) {
+			return "maintenance";
+		}
 		
 		// 紹介者の会員番号
 		getModel().setMemNum(ContextUtil.getMemberNo());
@@ -216,6 +240,9 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 	 * @return　リンクで友達招待画面
 	 */
 	public String inputLink() {
+		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.INVITE)) {
+			return "maintenance";
+		}
 		return "inputLink";
 	}
 
@@ -225,6 +252,10 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 	 * @return　登録完了画面
 	 */
 	public String create() {
+		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.INVITE)) {
+			return "maintenance";
+		}
+		
 		/** 複数友達の場合、メールアドレースを「,」で分割 */
 		String[] mailToList = getModel().getInviteMailTo().trim().replace("\r\n", "\n").split("\n");
 
@@ -361,6 +392,9 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 	 * @return リンクで友達招待画面
 	 */
 	public String createLink() {
+		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.INVITE)) {
+			return "maintenance";
+		}
 		setLink(inviteInfoBusinessLogic.createMemInviteLink(this.getModel().getTitleId()));
 		return "inputLink";
 	}

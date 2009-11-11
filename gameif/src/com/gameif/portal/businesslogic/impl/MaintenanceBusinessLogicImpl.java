@@ -6,7 +6,9 @@ import com.gameif.common.exception.LogicException;
 import com.gameif.common.exception.MaintenanceException;
 import com.gameif.portal.businesslogic.IMaintenanceBusinessLogic;
 import com.gameif.portal.constants.PortalConstants;
+import com.gameif.portal.dao.IMaintenanceInfoDao;
 import com.gameif.portal.dao.ITitleMstDao;
+import com.gameif.portal.entity.MaintenanceInfo;
 import com.gameif.portal.entity.TitleMst;
 
 public class MaintenanceBusinessLogicImpl extends BaseBusinessLogic implements
@@ -18,6 +20,7 @@ public class MaintenanceBusinessLogicImpl extends BaseBusinessLogic implements
 	private static final long serialVersionUID = 6729159308071707221L;
 	
 	private ITitleMstDao titleMstDao;
+	private IMaintenanceInfoDao maintenanceInfoDao;
 
 	/**
 	 * メンテナンスチェックを行う
@@ -27,8 +30,7 @@ public class MaintenanceBusinessLogicImpl extends BaseBusinessLogic implements
 	public void maintenanceCheckByTitleId(Integer titleId)
 			throws LogicException {
 		
-		TitleMst title = new TitleMst();
-		title = titleMstDao.selectValidTitleByKey(titleId);
+		TitleMst title = titleMstDao.selectValidTitleByKey(titleId);
 		if (title != null) {
 			String status = title.getServiceStatus();
 			// メンテナンス 中
@@ -43,6 +45,22 @@ public class MaintenanceBusinessLogicImpl extends BaseBusinessLogic implements
 	}
 
 	/**
+	 * 各機能のメンテナンスチェック
+	 * @param functionCd 機能コード
+	 * @return true:メンテナンス中、false：メンテナンス無し
+	 */
+	@Override
+	public Boolean maintenanceCheckByFunctionCd(String functionCd) {
+		
+		MaintenanceInfo mainten = maintenanceInfoDao.selectByFunctionCd(functionCd);
+		if (mainten != null && mainten.getMaintenStatus().equals(PortalConstants.MaintenanceStatus.MAINTENANCE)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
 	 * @return the titleMstDao
 	 */
 	public ITitleMstDao getTitleMstDao() {
@@ -54,5 +72,19 @@ public class MaintenanceBusinessLogicImpl extends BaseBusinessLogic implements
 	 */
 	public void setTitleMstDao(ITitleMstDao titleMstDao) {
 		this.titleMstDao = titleMstDao;
+	}
+
+	/**
+	 * @return the maintenanceInfoDao
+	 */
+	public IMaintenanceInfoDao getMaintenanceInfoDao() {
+		return maintenanceInfoDao;
+	}
+
+	/**
+	 * @param maintenanceInfoDao the maintenanceInfoDao to set
+	 */
+	public void setMaintenanceInfoDao(IMaintenanceInfoDao maintenanceInfoDao) {
+		this.maintenanceInfoDao = maintenanceInfoDao;
 	}
 }

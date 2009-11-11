@@ -11,4 +11,17 @@
 		<result property="maintenStatus" column="mainten_status" />
 	</resultMap>
 
+	<select id="selectByFunctionCd" resultMap="maintenanceResult">   
+        <![CDATA[
+	        SELECT
+				mainten_div,
+				function_code,
+				mainten_status
+			FROM
+				maintenance_info
+			WHERE
+				function_code = #value#
+        ]]>
+	</select>
+
 </sqlMap>
