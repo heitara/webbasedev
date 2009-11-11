@@ -145,7 +145,7 @@ public class TitlePlayBusinessLogicImpl extends BaseBusinessLogic implements ITi
 	 */
 	@Override
 	public Long getParentNum() {
-		Long parentNum = null;
+		Long parentNum = new Long(0);
 		
 		// 子の会員番号より、メールで招待テーブルから情報を検索する
 		InviteInfo invite = inviteInfoDao.selectParentByChildNum(ContextUtil.getMemberNo());

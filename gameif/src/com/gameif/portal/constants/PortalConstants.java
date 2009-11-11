@@ -30,10 +30,12 @@ public class PortalConstants {
 		
 		/** ゲームイフユーザ */
 		public final static String GAMEIF = "0";
-		/** アフィリエイト */
-		public final static String AFFILIATE = "1";
+		/** 代理店なし */
+		public final static String NO_AGENCY = "1";
 		/** チャネリング */
 		public final static String CHANNELING= "2";
+		/** アフィリエイト */
+		public final static String AFFILIATE = "3";
 
 	}
 	
