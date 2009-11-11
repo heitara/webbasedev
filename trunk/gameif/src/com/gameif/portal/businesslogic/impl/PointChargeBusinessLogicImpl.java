@@ -3,12 +3,16 @@ package com.gameif.portal.businesslogic.impl;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gameif.common.businesslogic.BaseBusinessLogic;
 import com.gameif.common.exception.DataNotExistsException;
 import com.gameif.common.exception.LogicException;
+import com.gameif.common.helper.TemplateMailer;
 import com.gameif.portal.businesslogic.IPointChargeBusinessLogic;
 import com.gameif.portal.businesslogic.titleif.charge.ChargeParameter;
 import com.gameif.portal.businesslogic.titleif.charge.TitleCharge;
@@ -40,6 +44,8 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 	 * 
 	 */
 	private static final long serialVersionUID = 5064320624553235706L;
+	
+	private final static Log logger = LogFactory.getLog(PointChargeBusinessLogicImpl.class);
 
 	private IMemSettlementTrnsDao memSettlementTrnsDao;
 	private IMemSettlementHistDao memSettlementHistDao;
@@ -49,7 +55,7 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 	private IServicePointTypeMstDao servicePointTypeMstDao;
 	private IServicePointDao servicePointDao;
 	private IServicePointGiveHistDao servicePointGiveHistDao;
-//	private IInviteInfoDao inviteInfoDao;
+	private TemplateMailer templateMailer;
 	
 	// 有効期間
 	private Integer validDays;
@@ -173,7 +179,6 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 
 		params.setChargeUrl(title.getPaymentUrl());
 		params.setSpType(PortalConstants.ChargeSpType.ACCOUNT_POINT);
-//		params.setParentNum(getParentNum());
 
 		TitleCharge titleCharge = new TitleCharge();
 		// チャージを行う
@@ -186,7 +191,22 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		memSettlementTrnsDao.deleteByKey(settleTrns.getSettlementTrnsNum());
 		
 		// サービスポイントを贈与する
-		checkSettlementAmount(settlementHist);
+		checkSettlementAmount(settlementHist, member);
+
+		try {
+			// 招待メールを送信する。
+			HashMap<String, String> props = new HashMap<String, String>();
+			// 名前
+			props.put("nickName", member.getNickName());
+			// ゲーム
+			props.put("titleName", titleMstDao.selectNameById(settlementHist.getTitleId()));
+			// データID
+			props.put("point", settlementHist.getPointAmountAct().toString());
+			// 送信
+			templateMailer.sendAsyncMail(member.getMailPc(), "pointCharge", props, true);
+		} catch (Exception ex) {
+			logger.error("error has occurred in sending pointCharge mail. ", ex);
+		}
 
 	}
 
@@ -218,7 +238,7 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 	 * サービスポイントを贈与する
 	 * @param settlementHist
 	 */
-	private void checkSettlementAmount(MemSettlementHist settlementHist) {
+	private void checkSettlementAmount(MemSettlementHist settlementHist, MemberInfo member) {
 
 		// 有効なサービスポイントを取得する(最近一ヶ月の累計課金金額が一定金額を超えた場合)
 		ServicePointTypeMst servicePointTypeMst = servicePointTypeMstDao.selectChargePointRate(
@@ -291,23 +311,22 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		
 		// サービスポイント贈与履歴テーブルに登録する
 		servicePointGiveHistDao.save(servicePointGiveHist);
+
+		try {
+			// 招待メールを送信する。
+			HashMap<String, String> props = new HashMap<String, String>();
+			// 名前
+			props.put("nickName", member.getNickName());
+			// ゲーム
+			props.put("titleName", titleMstDao.selectNameById(settlementHist.getTitleId()));
+			// データID
+			props.put("point", amount.toString());
+			// 送信
+			templateMailer.sendAsyncMail(member.getMailPc(), "presentServicePoint", props, true);
+		} catch (Exception ex) {
+			logger.error("error has occurred in sending presentServicePoint mail. ", ex);
+		}
 	}
-	
-//	/**
-//	 * 該当会員の親の会員番号を取得する
-//	 * @return
-//	 */
-//	private Long getParentNum() {
-//		Long parentNum = null;
-//		
-//		// 子の会員番号より、招待情報を検索する
-//		InviteInfo invite = inviteInfoDao.selectParentByChildNum(ContextUtil.getMemberNo());
-//		if (invite != null) {
-//			parentNum = invite.getMemNum();
-//		}
-//		
-//		return parentNum;
-//	}
 
 	/**
 	 * @return the memSettlementTrnsDao
@@ -431,19 +450,20 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		this.servicePointGiveHistDao = servicePointGiveHistDao;
 	}
 
-//	/**
-//	 * @return the inviteInfoDao
-//	 */
-//	public IInviteInfoDao getInviteInfoDao() {
-//		return inviteInfoDao;
-//	}
-//
-//	/**
-//	 * @param inviteInfoDao the inviteInfoDao to set
-//	 */
-//	public void setInviteInfoDao(IInviteInfoDao inviteInfoDao) {
-//		this.inviteInfoDao = inviteInfoDao;
-//	}
+	/**
+	 * @return the templateMailer
+	 */
+	public TemplateMailer getTemplateMailer() {
+		return templateMailer;
+	}
+
+	/**
+	 * @param templateMailer
+	 *            the templateMailer to set
+	 */
+	public void setTemplateMailer(TemplateMailer templateMailer) {
+		this.templateMailer = templateMailer;
+	}
 
 	/**
 	 * @return the validDays

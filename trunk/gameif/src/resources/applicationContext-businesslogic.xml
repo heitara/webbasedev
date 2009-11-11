@@ -177,6 +177,9 @@
 		<property name="servicePointGiveHistDao">
 			<ref bean="servicePointGiveHistDao" />
 		</property>
+		<property name="templateMailer">
+			<ref bean="templateMailer" />
+		</property>
 	</bean>
 	
 	<!-- maintenanceBusinessLogic -->
@@ -201,6 +204,12 @@
 		</property>
 		<property name="servicePointGiveHistDao">
 			<ref bean="servicePointGiveHistDao" />
+		</property>
+		<property name="templateMailer">
+			<ref bean="templateMailer" />
+		</property>
+		<property name="titleMstDao">
+			<ref bean="titleMstDao" />
 		</property>
 	</bean>
 	

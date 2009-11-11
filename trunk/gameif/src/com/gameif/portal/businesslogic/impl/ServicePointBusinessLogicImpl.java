@@ -2,18 +2,23 @@ package com.gameif.portal.businesslogic.impl;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gameif.common.businesslogic.BaseBusinessLogic;
 import com.gameif.common.exception.DataNotExistsException;
 import com.gameif.common.exception.LogicException;
+import com.gameif.common.helper.TemplateMailer;
 import com.gameif.portal.businesslogic.IServicePointBusinessLogic;
 import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.dao.IGameLoginCountDao;
 import com.gameif.portal.dao.IServicePointDao;
 import com.gameif.portal.dao.IServicePointGiveHistDao;
 import com.gameif.portal.dao.IServicePointTypeMstDao;
+import com.gameif.portal.dao.ITitleMstDao;
 import com.gameif.portal.entity.GameLoginCount;
 import com.gameif.portal.entity.ServicePoint;
 import com.gameif.portal.entity.ServicePointGiveHist;
@@ -27,11 +32,15 @@ public class ServicePointBusinessLogicImpl extends BaseBusinessLogic implements
 	 * 
 	 */
 	private static final long serialVersionUID = -7841256358571690329L;
+	
+	private final static Log logger = LogFactory.getLog(ServicePointBusinessLogicImpl.class);
 
 	private IGameLoginCountDao gameLoginCountDao;
 	private IServicePointTypeMstDao servicePointTypeMstDao;
 	private IServicePointDao servicePointDao;
 	private IServicePointGiveHistDao servicePointGiveHistDao;
+	private TemplateMailer templateMailer;
+	private ITitleMstDao titleMstDao;
 	
 	// 有効期間
 	private Integer validDays;
@@ -129,6 +138,21 @@ public class ServicePointBusinessLogicImpl extends BaseBusinessLogic implements
 		gameLoginCount.setLastUpdateUser(ContextUtil.getMemberNo().toString());
 		// ゲームログイン回数を更新する
 		gameLoginCountDao.update(gameLoginCount);
+
+		try {
+			// 招待メールを送信する。
+			HashMap<String, String> props = new HashMap<String, String>();
+			// 名前
+			props.put("nickName", ContextUtil.getNickName());
+			// ゲーム
+			props.put("titleName", titleMstDao.selectNameById(titleId));
+			// データID
+			props.put("point", servicePointTypeMst.getPointAmount().toString());
+			// 送信
+			templateMailer.sendAsyncMail(ContextUtil.getMemberInfo().getMailPc(), "presentServicePoint", props, true);
+		} catch (Exception ex) {
+			logger.error("error has occurred in sending presentServicePoint mail. ", ex);
+		}
 		
 	}
 
@@ -189,6 +213,35 @@ public class ServicePointBusinessLogicImpl extends BaseBusinessLogic implements
 	public void setServicePointGiveHistDao(
 			IServicePointGiveHistDao servicePointGiveHistDao) {
 		this.servicePointGiveHistDao = servicePointGiveHistDao;
+	}
+
+	/**
+	 * @return the templateMailer
+	 */
+	public TemplateMailer getTemplateMailer() {
+		return templateMailer;
+	}
+
+	/**
+	 * @param templateMailer
+	 *            the templateMailer to set
+	 */
+	public void setTemplateMailer(TemplateMailer templateMailer) {
+		this.templateMailer = templateMailer;
+	}
+	
+	/**
+	 * @return the titleMstDao
+	 */
+	public ITitleMstDao getTitleMstDao() {
+		return titleMstDao;
+	}
+
+	/**
+	 * @param titleMstDao the titleMstDao to set
+	 */
+	public void setTitleMstDao(ITitleMstDao titleMstDao) {
+		this.titleMstDao = titleMstDao;
 	}
 
 	/**
