@@ -211,4 +211,11 @@
 			<value>inviteLinkHist</value>
 		</property>
 	</bean>
+	
+	<!-- maintenanceInfoDao -->
+	<bean id="maintenanceInfoDao" class="com.gameif.portal.dao.impl.MaintenanceInfoDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>maintenanceInfo</value>
+		</property>
+	</bean>
 </beans>
