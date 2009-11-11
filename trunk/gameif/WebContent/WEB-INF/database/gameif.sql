@@ -374,7 +374,7 @@ CREATE TABLE  `mem_settlement_trns` (
   `settlement_date` datetime DEFAULT NULL,
   `point_amount` decimal(10,0) DEFAULT NULL,
   `point_amount_act` decimal(10,0) DEFAULT NULL,
-  `settlement_log` varchar(200) DEFAULT NULL,
+  `settlement_log` varchar(1000) DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
   `created_user` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`settlement_trns_num`)
@@ -397,7 +397,7 @@ CREATE TABLE  `mem_settlement_hist` (
   `settlement_date` datetime DEFAULT NULL,
   `point_amount` decimal(10,0) DEFAULT NULL,
   `point_amount_act` decimal(10,0) DEFAULT NULL,
-  `settlement_log` varchar(200) DEFAULT NULL,
+  `settlement_log` varchar(1000) DEFAULT NULL,
   `settlement_remarks` varchar(200) DEFAULT NULL,
   `res_result` varchar(2) DEFAULT NULL,
   `res_tracking_id` varchar(14) DEFAULT NULL,
@@ -641,7 +641,7 @@ CREATE TABLE  `advert_mst` (
   `last_update_date` datetime DEFAULT NULL,
   `last_update_user` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`advert_num`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
 
