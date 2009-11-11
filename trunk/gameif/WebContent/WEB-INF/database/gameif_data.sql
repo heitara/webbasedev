@@ -94,22 +94,25 @@ INSERT INTO `question_mst` (`question_code`, `question_name`, `created_date`, `c
 (2, '旅行で行きたい国は？', '2009-09-13 10:53:15', 'lee', '2009-09-13 10:53:15', 'lee'),
 (3, 'お母さんの旧姓は？', '2009-09-13 10:54:25', 'lee', '2009-09-13 10:54:25', 'lee'),
 (4, 'もっとも使っているニュースサイトは？', '2009-09-13 10:54:25', 'lee', '2009-09-13 10:54:25', 'lee'),
-(5, 'もっとも面白かった映画は？', '2009-09-13 10:55:04', 'lee', '2009-09-13 10:55:04', 'lee');
+(5, 'もっとも面白かった映画は？', '2009-09-13 10:55:04', 'lee', '2009-09-13 10:55:04', 'lee'),
+(6, '好きな車の車種は？', '2009-09-13 10:54:25', 'lee', '2009-09-13 10:54:25', 'lee'),
+(7, '将来の夢は？', '2009-09-13 10:54:25', 'lee', '2009-09-13 10:54:25', 'lee'),
+(8, '卒業した小学校の名前は？', '2009-09-13 10:55:04', 'lee', '2009-09-13 10:55:04', 'lee');
 
 
 TRUNCATE TABLE `server_mst`;
 INSERT INTO `server_mst` (`server_id`, `title_id`, `server_name`, `service_start_date`, `service_end_date`, `service_status`, `server_domain`, `play_url`, `charge_url`, `order_num`, `players_num`, `popularity_flag`, `recommend_flag`, `created_date`, `created_user`, `last_update_date`, `last_update_user`) VALUES
-(1, 1, 'マジックゲート', '2009-09-01 01:56:59', '2015-12-31 01:57:02', '0', 'jpcscs.game-if.jp', 'http://jpcscs.game-if.jp/index.htm', 'http://jpcscs.game-if.jp/module/pay.asp', 1, 53546, '2', '1', '2009-09-16 01:59:20', 'lee', '2009-09-16 01:59:23', 'lee');
+(1, 1, 'レジェンド', '2009-11-01 11:00:00', '2020-12-31 11:00:00', '0', 'g01.legion.game-if.com', 'http://g01.legion.game-if.com/index.htm', 'http://g01.legion.game-if.com/module/pay.asp', 1, 0, '2', '1', '2009-11-01 11:00:00', 'lee', '2009-11-01 11:00:00', 'lee');
 
 
 TRUNCATE TABLE `title_mst`;
 INSERT INTO `title_mst` (`title_id`, `title_name`, `title_about`, `service_start_date`, `service_end_date`, `service_status`, `recruit_status`, `site_url`, `news_url`, `forum_url`, `payment_url`, `big_icon_url`, `small_icon_url`, `order_num`, `players_num`, `announce`, `created_date`, `created_user`, `last_update_date`, `last_update_user`) VALUES
-(1, '創世伝説', 'ネットブック、ＭＡＣでも快適にプレイできる本格ＳＲＰＧブラウザゲーム。', '2009-09-01 01:51:53', '2014-12-31 01:51:59', '1', '0', 'http://cs.game-if.com', 'http://info.game-if.com/cs', 'http://forum.game-if.com/cs', 'http://www.game-if.com/pointCharge.html?title=1&server=1', 'images/game/icon/cs_big.gif', 'images/game/icon/cs_small.gif', 1, 53145, '友達紹介でサービスポイント獲得！', '2009-09-16 01:55:25', 'lee', '2009-09-16 01:55:28', 'lee');
+(1, 'レジオン -創世伝説-', 'ネットブック、Macでも快適にプレイできる本格ＳＲＰＧブラウザゲーム。', '2009-11-01 11:00:00', '2020-12-31 11:00:00', '1', '0', 'http://legion.game-if.com/', 'http://legion.game-if.com/info/', 'http://forum.game-if.com/', 'https://www.game-if.com/chargePointSelect.html?titleId=1&serverId=1', 'images/game/icon/cs_big.gif', 'images/game/icon/cs_small.gif', 1, 0, '[ 11月17日11:00～11月23月15:00 ]　クローズドβテスター募集！', '2009-11-01 11:00:00', 'lee', '2009-11-01 11:00:00', 'lee');
 
 TRUNCATE TABLE `invite_template_mst`;
 INSERT INTO `invite_template_mst` (`invite_template_id`, `title_id`, `invite_template_subject`, `invite_template_msg`, `created_date`, `created_user`, `last_update_date`, `last_update_user`) VALUES
-(1, 1, 'CBT募集について', '「クローズドβテスト」テスターを募集致しまして、一緒に参加しましょう！おもしろいよ～', '2009-10-13 10:53:15', 'chou', '2009-10-13 10:53:15', 'chou'),
-(2, 1, '友達招待キャンペーンについて', 'ただいま、「友達招待キャンペーン」を実施致します。プレイしたことのない友達に招待して、サービスポイントを受け取ることができます。一緒にやろうよ！', '2009-10-13 10:53:15', 'chou', '2009-10-13 10:53:15', 'chou');
+(1, 1, 'クローズドβテストに参加しよう！', 'ブラウザゲーム「レジオン -創世伝説-」で、今クローズドβテスターを募集しているけど、一緒に参加してみましょうか？', '2009-10-13 10:53:15', 'chou', '2009-10-13 10:53:15', 'chou'),
+(2, 1, '新しいブラウザゲームを見つけた', '「レジオン -創世伝説-」というブラウザゲームがそろそろサービス開始なんだけど、一緒にプレイしてみましょうか？', '2009-10-13 10:53:15', 'chou', '2009-10-13 10:53:15', 'chou');
 
 TRUNCATE TABLE `service_point_type_mst`;
 INSERT INTO `service_point_type_mst` (`service_point_type_id`, `service_point_type_code`,`point_amount`,`standard_level`,`remarks`,`created_date`,`created_user`, `last_update_date`,`last_update_user`) VALUES
@@ -166,27 +169,28 @@ INSERT INTO `media_kind_mst` (`media_kind_num`, `media_kind_name`, `created_date
 (4, 'アニメ', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
 (5, 'ＩＴ情報', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
 (6, '総合情報', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
-(7, 'その他', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou');
+(7, '検索', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
+(8, 'その他', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou');
 
 TRUNCATE TABLE `media_mst`;
 INSERT INTO `media_mst` (`media_num`, `media_name`, `media_kind_num`, `manager_type`, `created_date`, `created_user`, `last_update_date`, `last_update_user`) VALUES
-(1, 'ヤフー',6, '1', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
-(2, 'goo',6, '1', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
-(3, '4Gamer.net',1, '1', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
-(4, '@nifty ゲーム',1, '1', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
-(5, 'google',7, '1', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
-(6, 'GAME Watch',6, '1', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
-(7, 'Game*SPARK',6, '1', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou');
+(1, 'Google', 7, '1', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
+(2, 'Yahoo!', 6, '1', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
+(3, '4Gamer.net', 1, '1', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
+(4, 'OnlineGamer', 1, '1', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
+(5, 'OnlineGameZoom', 1, '1', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou');
 
 TRUNCATE TABLE `advert_agency_mst`;
 INSERT INTO `advert_agency_mst` (`advert_agency_num`, `advert_agency_name`, `advert_agency_type`, `created_date`, `created_user`, `last_update_date`, `last_update_user`) VALUES
-(0, '代理店無し','1', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
-(1, 'アクセストレード：株式会社インタースペース','3', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
-(2, 'ジャネット：株式会社フルスピード','3', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
-(3, 'サイバーエージェント','3', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou');
+(1, '直接媒体・広告代理店無し', '1', '2009-11-17 11:00:00', 'lee', '2009-11-17 11:00:00', 'lee'),
+(2, 'チャネリング・株式会社ゲームイフ', '2', '2009-11-17 11:00:00', 'lee', '2009-11-17 11:00:00', 'lee'),
+(3, 'アクセストレード・株式会社インタースペース', '3', '2009-11-17 11:00:00', 'chou', '2009-11-17 11:00:00', 'chou');
 
 TRUNCATE TABLE `advert_mst`;
 INSERT INTO `advert_mst` (`advert_num`, `advert_name`, `advert_agency_num`, `media_num`, `pay_kind`, `advert_budget`, `advert_actual`, `start_date`, `end_date`, `title_id`, `remarks`, `created_date`, `created_user`, `last_update_date`, `last_update_user`) VALUES
-(1, 'CBT募集', 1, 1, 4, null, null, '2009-11-06 15:47:36', '2010-11-06 15:47:36', 1, '', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
-(2, 'OBTテスト', 0, 2, 8, null, null, '2009-11-06 15:47:36', '2010-11-06 15:47:36', 1, '', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
-(3, '正式サービス開始', 2, 3, 16, null, null, '2009-11-06 15:47:36', '2010-11-06 15:47:36', 1, '', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou');
+(101, 'アクセストレード・アフィリエイト', 3, 0, 48, 800000, NULL, '2009-11-17 11:00:00', '2020-12-31 11:00:00', 1, '', '2009-11-17 11:00:00', 'chou', '2009-11-17 11:00:00', 'chou'),
+(102, 'Google・アドウェア', 1, 1, 4, 100000, NULL, '2009-11-17 11:00:00', '2020-12-31 11:00:00', 1, '', '2009-11-17 11:00:00', 'chou', '2009-11-17 11:00:00', 'chou'),
+(103, 'Yahoo!・オーバーチュア', 1, 2, 4, 100000, NULL, '2009-11-06 15:47:36', '2010-11-06 15:47:36', 1, '', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
+(104, 'OnlineGamer・CBT募集', 1, 4, 0, 0, NULL, '2009-11-06 15:47:36', '2010-11-06 15:47:36', 1, '', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
+(105, 'OnlineGameZoom・CBT募集', 1, 5, 0, 0, NULL, '2009-11-06 15:47:36', '2010-11-06 15:47:36', 1, '', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
+(106, '4Gamer・CBT募集', 1, 3, 0, 0, NULL, '2009-11-06 15:47:36', '2010-11-06 15:47:36', 1, '', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou');
