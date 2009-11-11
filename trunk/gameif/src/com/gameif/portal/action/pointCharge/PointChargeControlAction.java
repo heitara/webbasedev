@@ -14,6 +14,7 @@ import com.gameif.common.util.StringUtil;
 import com.gameif.portal.businesslogic.IMaintenanceBusinessLogic;
 import com.gameif.portal.businesslogic.IMasterInfoBusinessLogic;
 import com.gameif.portal.businesslogic.IPointChargeBusinessLogic;
+import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.entity.MemSettlementHist;
 import com.gameif.portal.entity.MemSettlementTrns;
 import com.gameif.portal.entity.PointMst;
@@ -105,6 +106,9 @@ public class PointChargeControlAction extends
 	 * @return
 	 */
 	public String PointSelect() {
+		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.CHARGE)) {
+			return "maintenance";
+		}
 		return "pointSelect";
 	}
 
@@ -114,6 +118,10 @@ public class PointChargeControlAction extends
 	 * @return
 	 */
 	public String SettleSelectInit() {
+		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.CHARGE)) {
+			return "maintenance";
+		}
+		
 		try {
 			// メンテナンスとCBTチェック
 			maintenanceBusinessLogic.maintenanceCheckByTitleId(this.getModel().getTitleId());
@@ -140,6 +148,9 @@ public class PointChargeControlAction extends
 	 * @return
 	 */
 	public String SettleSelect() {
+		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.CHARGE)) {
+			return "maintenance";
+		}
 		settleList = masterInfoBusinessLogic.getAllSettlementList();
 
 		return "settleSelect";
@@ -151,6 +162,10 @@ public class PointChargeControlAction extends
 	 * @return detail（チャージ明細画面に案内する）
 	 */
 	public String SaveSettleTrns() {
+		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.CHARGE)) {
+			return "maintenance";
+		}
+		
 		MemSettlementTrns settlementTrns = new MemSettlementTrns();
 
 		// ゲーム

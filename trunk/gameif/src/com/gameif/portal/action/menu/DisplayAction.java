@@ -61,4 +61,12 @@ public class DisplayAction {
 	public String outOfDate() {
 		return "outOfDate";
 	}
+	
+	/**
+	 * メンテナンス画面へ案内する
+	 * @return メンテナンス画面
+	 */
+	public String maintenance() {
+		return "maintenance";
+	}
 }
