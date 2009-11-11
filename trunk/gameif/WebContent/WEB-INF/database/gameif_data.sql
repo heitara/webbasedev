@@ -180,12 +180,13 @@ INSERT INTO `media_mst` (`media_num`, `media_name`, `media_kind_num`, `manager_t
 
 TRUNCATE TABLE `advert_agency_mst`;
 INSERT INTO `advert_agency_mst` (`advert_agency_num`, `advert_agency_name`, `advert_agency_type`, `created_date`, `created_user`, `last_update_date`, `last_update_user`) VALUES
-(1, 'アクセストレード：株式会社インタースペース','1', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
-(2, 'ジャネット：株式会社フルスピード','1', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
-(3, 'サイバーエージェント','1', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou');
+(0, '代理店無し','1', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
+(1, 'アクセストレード：株式会社インタースペース','3', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
+(2, 'ジャネット：株式会社フルスピード','3', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
+(3, 'サイバーエージェント','3', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou');
 
 TRUNCATE TABLE `advert_mst`;
-INSERT INTO `advert_mst` (`advert_num`, `advert_agency_num`, `media_num`, `pay_kind`, `advert_budget`, `advert_actual`, `start_date`, `end_date`, `created_date`, `created_user`, `last_update_date`, `last_update_user`) VALUES
-(1, 1, 1, 4, null, null, '2009-11-06 15:47:36', '2010-11-06 15:47:36', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
-(2, null, 2, 8, null, null, '2009-11-06 15:47:36', '2010-11-06 15:47:36', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
-(3, 2, 3, 16, null, null, '2009-11-06 15:47:36', '2010-11-06 15:47:36', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou');
+INSERT INTO `advert_mst` (`advert_num`, `advert_name`, `advert_agency_num`, `media_num`, `pay_kind`, `advert_budget`, `advert_actual`, `start_date`, `end_date`, `title_id`, `remarks`, `created_date`, `created_user`, `last_update_date`, `last_update_user`) VALUES
+(1, 'CBT募集', 1, 1, 4, null, null, '2009-11-06 15:47:36', '2010-11-06 15:47:36', 1, '', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
+(2, 'OBTテスト', 0, 2, 8, null, null, '2009-11-06 15:47:36', '2010-11-06 15:47:36', 1, '', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
+(3, '正式サービス開始', 2, 3, 16, null, null, '2009-11-06 15:47:36', '2010-11-06 15:47:36', 1, '', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou');

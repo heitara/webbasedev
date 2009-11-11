@@ -628,6 +628,7 @@ CREATE TABLE  `advert_agency_mst` (
 DROP TABLE IF EXISTS `advert_mst`;
 CREATE TABLE  `advert_mst` (
   `advert_num` int(11) NOT NULL AUTO_INCREMENT,
+  `advert_name` varchar(50) DEFAULT NULL,
   `advert_agency_num` int(11) DEFAULT NULL,
   `media_num` int(11) DEFAULT NULL,
   `pay_kind` smallint(6) DEFAULT NULL,
@@ -636,6 +637,7 @@ CREATE TABLE  `advert_mst` (
   `start_date` datetime DEFAULT NULL,
   `end_date` datetime DEFAULT NULL,
   `title_id` int(11) DEFAULT NULL,
+  `remarks` varchar(200) DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
   `created_user` varchar(50) DEFAULT NULL,
   `last_update_date` datetime DEFAULT NULL,
