@@ -81,6 +81,20 @@
 						<entry key="format" value="text"/>
 					</map>
 				</entry>
+				<entry key="pointCharge">
+					<map>
+						<entry key="title" value="【ゲームイフ】ポイントチャージのお知らせ"/>
+						<entry key="template" value="pointCharge.ftl"/>
+						<entry key="format" value="text"/>
+					</map>
+				</entry>
+				<entry key="presentServicePoint">
+					<map>
+						<entry key="title" value="【ゲームイフ】サービスポイント贈与のお知らせ"/>
+						<entry key="template" value="presentServicePoint.ftl"/>
+						<entry key="format" value="text"/>
+					</map>
+				</entry>
 			</map>
 		</property>
 	</bean>

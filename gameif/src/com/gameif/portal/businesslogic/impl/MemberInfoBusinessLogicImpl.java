@@ -17,7 +17,6 @@ import com.gameif.common.exception.OutOfDateException;
 import com.gameif.common.helper.TemplateMailer;
 import com.gameif.common.util.SecurityUtil;
 import com.gameif.portal.businesslogic.IMemberInfoBusinessLogic;
-import com.gameif.portal.businesslogic.titleif.charge.DefaultChargeExecutor;
 import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.dao.IAdvertAgencyMstDao;
 import com.gameif.portal.dao.IAdvertMstDao;
@@ -46,7 +45,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 
 	private static final long serialVersionUID = -1903255586967518866L;
 	
-	private final static Log logger = LogFactory.getLog(DefaultChargeExecutor.class);
+	private final static Log logger = LogFactory.getLog(MemberInfoBusinessLogicImpl.class);
 
 	private IMemberInfoDao memberInfoDao;
 	private IMemberLoginInfoDao memberLoginInfoDao;
