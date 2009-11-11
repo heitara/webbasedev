@@ -678,6 +678,17 @@ CREATE TABLE  `invite_link_hist` (
 
 
 
+DROP TABLE IF EXISTS `maintenance_info`;
+CREATE TABLE  `maintenance_info` (
+  `mainten_div` char(1) NOT NULL,
+  `function_code` varchar(4) NOT NULL,
+  `mainten_status` char(1) DEFAULT NULL,
+  PRIMARY KEY (`mainten_div`,`function_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+
 DROP TRIGGER IF EXISTS `t_insert_member_info_hist_bu`;
 DELIMITER $$
 CREATE TRIGGER `t_insert_member_info_hist_bu` AFTER UPDATE ON `member_info` FOR EACH ROW BEGIN
