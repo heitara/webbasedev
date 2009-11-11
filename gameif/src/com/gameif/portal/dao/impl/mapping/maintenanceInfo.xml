@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="maintenanceInfo">
+	<typeAlias alias="maintenanceInfo" type="com.gameif.portal.entity.MaintenanceInfo" />
+	
+	<resultMap class="com.gameif.portal.entity.MaintenanceInfo" id="maintenanceResult">
+		<result property="maintenDiv" column="mainten_div" />
+		<result property="functionCode" column="function_code" />
+		<result property="maintenStatus" column="mainten_status" />
+	</resultMap>
+
+</sqlMap>
