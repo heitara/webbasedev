@@ -13,6 +13,7 @@ public class AdvertMst extends BaseEntity {
 	private static final long serialVersionUID = -6426689519309883322L;
 
 	private Integer advertNum;
+	private String advertName;
 	private Integer advertAgencyNum;
 	private Integer mediaNum;
 	private Integer payKind;
@@ -20,6 +21,8 @@ public class AdvertMst extends BaseEntity {
 	private BigDecimal advertActual;
 	private Date startDate;
 	private Date endDate;
+	private Integer titleId;
+	private String remarks;
 	private Date createdDate;
 	private String createdUser;
 	private Date lastUpdateDate;
@@ -38,6 +41,21 @@ public class AdvertMst extends BaseEntity {
 	 */
 	public void setAdvertNum(Integer advertNum) {
 		this.advertNum = advertNum;
+	}
+
+	/**
+	 * @return the advertName
+	 */
+	public String getAdvertName() {
+		return advertName;
+	}
+
+	/**
+	 * @param advertName
+	 *            the advertName to set
+	 */
+	public void setAdvertName(String advertName) {
+		this.advertName = advertName;
 	}
 
 	/**
@@ -143,6 +161,36 @@ public class AdvertMst extends BaseEntity {
 	 */
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+
+	/**
+	 * @return the titleId
+	 */
+	public Integer getTitleId() {
+		return titleId;
+	}
+
+	/**
+	 * @param titleId
+	 *            the titleId to set
+	 */
+	public void setTitleId(Integer titleId) {
+		this.titleId = titleId;
+	}
+
+	/**
+	 * @return the remarks
+	 */
+	public String getRemarks() {
+		return remarks;
+	}
+
+	/**
+	 * @param remarks
+	 *            the remarks to set
+	 */
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
 	}
 
 	/**

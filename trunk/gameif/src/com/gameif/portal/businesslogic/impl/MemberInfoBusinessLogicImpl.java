@@ -153,7 +153,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		AdvertMst advert = null;
 		if (tempMemberInfo.getAdvertNum() != null) {
 			// 広告代理マスタの存在性チェック
-			advert = advertMstDao.selectValidAdvertByKey(tempMemberInfo.getAdvertNum());
+			advert = advertMstDao.selectAdvertByKey(tempMemberInfo.getAdvertNum());
 		}
 		
 		MemberInfo memberInfo = new MemberInfo();
