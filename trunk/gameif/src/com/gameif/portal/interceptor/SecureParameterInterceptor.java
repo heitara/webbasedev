@@ -12,15 +12,14 @@ import org.apache.struts2.ServletActionContext;
 import com.gameif.common.util.SecurityUtil;
 import com.gameif.portal.constants.PortalConstants;
 import com.opensymphony.xwork2.ActionInvocation;
-import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 
-public class SecureParameterInterceptor extends AbstractInterceptor {
+public class SecureParameterInterceptor extends BaseParameterInterceptor {
 
 	protected final static Log logger = LogFactory.getLog(SecureParameterInterceptor.class);
 	private static final long serialVersionUID = -3936772203980270629L;
 
 	@Override
-	public String intercept(ActionInvocation ai) throws Exception {
+	public String doIntercept(ActionInvocation ai) throws Exception {
 		
 		String encodedParams = ServletActionContext.getRequest().getParameter(PortalConstants.Key.SEURE_PARAM_KEY);
 
