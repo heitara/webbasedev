@@ -22,9 +22,6 @@
 			<s:property value="result" /><s:property value=","/><s:property value="errMsg"/>
 			
 			<s:hidden name="requestUrl" id="requestUrl"></s:hidden>
-			<div>
-				<s:submit value="次へ" cssClass="submit" />
-			</div>
 		</form>
 	</dd>
 </dl>
