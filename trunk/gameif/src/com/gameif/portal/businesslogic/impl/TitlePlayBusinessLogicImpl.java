@@ -70,7 +70,7 @@ public class TitlePlayBusinessLogicImpl extends BaseBusinessLogic implements ITi
 			if (0 == df.format(gameLoginCount.getLastLoginYmd()).compareTo(df.format(playDate))) {
 
 			// 前回のログイン日時は昨日の場合、「ログイン回数 = 前回のログイン回数 + 1」
-			} else if (0 == df.format(gameLoginCount.getLastLoginYmd()).compareTo(df.format(yesterday))) {
+			} else if (0 == df.format(gameLoginCount.getLastLoginYmd()).compareTo(yesterday)) {
 				// ログイン回数 = 前回のログイン回数 + 1
 				gameLoginCount.setGameLoginCount(gameLoginCount.getGameLoginCount() + 1);
 				// ログイン日
