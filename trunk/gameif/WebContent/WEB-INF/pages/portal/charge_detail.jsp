@@ -59,10 +59,6 @@
 			<s:hidden name="sps_hashcode" />
 			
 			<s:hidden name="requestUrl" id="requestUrl"></s:hidden>
-			
-			<div>
-				<s:submit value="ŽŸ‚Ö" cssClass="submit" />
-			</div>
 		</form>
 	</dd>
 </dl>
