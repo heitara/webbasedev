@@ -37,5 +37,39 @@ dl.finish dd div a:hover {color:#F90; text-decoration:underline;}
 	</dd>
 </dl>
 <img src="https://is.accesstrade.net/cgi-bin/isatV2/legion/isatWeaselV2.cgi?result_id=13&verify=<s:property value="memNum"/>" width="1" height="1"/>
+<!-- BEGIN: Google Code account registry Conversion Page -->
+<script type="text/javascript">
+<!--
+var google_conversion_id = 1056413563;
+var google_conversion_language = "ja";
+var google_conversion_format = "1";
+var google_conversion_color = "ffffff";
+var google_conversion_label = "gdcNCI_XRRD7rt73Aw";
+var google_conversion_value = 0;
+if (200.0) {
+  google_conversion_value = 200.0;
+}
+//-->
+</script>
+<script type="text/javascript" src="https://www.googleadservices.com/pagead/conversion.js">
+</script>
+<noscript>
+<div style="display:inline;">
+<img height="1" width="1" style="border-style:none;" alt="" src="https://www.googleadservices.com/pagead/conversion/1056413563/?value=200.0&amp;label=gdcNCI_XRRD7rt73Aw&amp;guid=ON&amp;script=0"/>
+</div>
+</noscript>
+<!-- END: Google Code account registry Conversion Page -->
+<!-- BEGIN: Yahoo account registry Conversion Page -->
+<SCRIPT language="JavaScript" type="text/javascript">
+<!-- Overture K.K.
+window.ysm_customData = new Object();
+window.ysm_customData.conversion = "transId=,currency=,amount=";
+var ysm_accountid  = "16DANKUL2EQN50VOJRUJOGKM0LK";
+document.write("<SCR" + "IPT language='JavaScript' type='text/javascript' " 
++ "SRC=//" + "srv2.wa.marketingsolutions.yahoo.com" + "/script/ScriptServlet" + "?aid=" + ysm_accountid 
++ "></SCR" + "IPT>");
+// -->
+</SCRIPT>
+<!-- END: Yahoo account registry Conversion Page -->
 </body>
 </html>
