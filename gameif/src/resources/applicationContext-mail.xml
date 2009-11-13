@@ -19,8 +19,8 @@
 		<property name="juniorSender" ref="juniorSender" />
 		<property name="freeMarkerConfigurer" ref="freeMarkerConfigurer"/>
 		<property name="taskExecutor" ref="taskExecutor"/>
-		<property name="from" value="support@game-if.com" />
-		<property name="replyTo" value="support@game-if.com" />
+		<property name="from" value="${simpleMailer.from}" />
+		<property name="replyTo" value="${simpleMailer.from}" />
 		<property name="encoding" value="UTF-8" />
 		<property name="templates">
 			<map>
@@ -76,7 +76,7 @@
 				</entry>
 				<entry key="inviteFriend">
 					<map>
-						<entry key="title" value="【ゲームイフ】お友達が招待しています‏"/>
+						<entry key="title" value="【ゲームイフ】友達がゲームプレイを誘っています。"/>
 						<entry key="template" value="inviteFriend.ftl"/>
 						<entry key="format" value="text"/>
 					</map>
