@@ -12,7 +12,7 @@
 		<dt><strong>友達紹介履歴（リンク）</strong><span><a href="inputLinkInvite.html">► 友達紹介（リンク）</a></span></dt>
 		<dd>
 			<div style="margin:30px 0px;line-height:20px;">
-			こちらのページでは、あなたの紹介リンクをクリックして、会員登録を行ったユーザの一覧が表示されています。
+			こちらのページでは、あなたの紹介リンクをクリックして、会員登録を行ったユーザの一覧が表示されます。
 			</div>
 			<s:form name="frm_invite_hist" method="post" cssClass="entry">
 				<table class="friendhist tspace_y" border="1">

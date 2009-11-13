@@ -16,7 +16,6 @@
 	<dd>
 		<s:form action="updatePassword" method="post" cssClass="entry">
 			<table>
-				<input type="hidden" name="memId" id="memId" title="アカウントＩＤ" value="<%=com.gameif.portal.util.ContextUtil.getAccountId()%>"/>
 				<tr>
 					<th><span class="required">*</span> <label for="updatePassword_memPwd">旧いパスワード：</label></th>
 					<td>
@@ -44,9 +43,10 @@
 			</table>
 			<div class="submit">
 				<s:token/>
+				<input type="hidden" name="memId" id="memId" value="<%=com.gameif.portal.util.ContextUtil.getAccountId()%>"/>
 				<s:hidden name="model.versionNo"/>
-				<s:submit value="更新" cssClass="submit"/>
-				<s:reset value="クリア" cssClass="submit"/>
+				<s:submit type="image" src="images/btn_c_submit.png"></s:submit>
+				<s:submit type="image" src="images/btn_c_clear.png" onclick="this.form.reset();return false;"></s:submit>
 			</div>
 
 		</s:form>

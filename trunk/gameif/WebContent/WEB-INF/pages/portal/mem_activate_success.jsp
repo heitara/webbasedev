@@ -10,12 +10,7 @@
 <html>
 <head>
 <title>アカウント有効化完了</title>
-<style>
-dl.finish dd div p {font-weight:bold; color:#833;}
-dl.finish dd div a {color:#833; }
-dl.finish dd div a:hover {color:#F90; text-decoration:underline;}
-</style>
-<meta http-equiv="refresh" content='8; url=loginStatusProxy.html?target=<s:property value="urlAfterLogin" escape="false"/>' />
+<meta http-equiv="refresh" content='5; url=loginStatusProxy.html?target=<s:property value="urlAfterLogin" escape="false"/>' />
 </head>
 <body>
 <dl class="light_box tspace_n">
@@ -24,14 +19,19 @@ dl.finish dd div a:hover {color:#F90; text-decoration:underline;}
 		<dl class="finish">
 			<dt>アカウントの有効化が完了しました。</dt>
 			<dd>
-				<div>
-				<p>ゲームプレイ、テスターに応募、ポイントチャージ等機能がご利用になるには、ポータルサイトにログインする必要があります。</p>
-				
-				8秒後、画面が自動的にログイン画面に遷移します。<br/>
-				時間が8秒以上経ってもログイン画面が見えない場合は、下のログインボタンををクリックしてください。	
+				<div class="msg">
+				<p>ゲームプレイ、テスターに応募、ポイントチャージ等機能がご利用になるには、ポータルサイトにログインする必要があります。</p>				
+				しばらくお待ちいただきますと、画面が自動的にログイン画面に遷移します。<br/>
+				時間が経ってもログイン画面が見えない場合は、下のログインボタンををクリックしてください。	
+				<br/><br/>
+					<a href="loginStatusProxy.html?target=<s:property value="urlAfterLogin" escape="false"/>" title="ログイン"><img src="images/btn_c_portal_login.png" alt="ログイン"/></a>
 				</div>
-				<a href='loginStatusProxy.html?target=<s:property value="urlAfterLogin" escape="false"/>' title="ログイン"><img src="images/btn_s_login.gif" alt="ログイン"/></a>
-				<a href="inputInquiry.html" title="お問合せ"><img src="images/btn_s_inquiry.gif" title="お問合せ"/></a><br/><br/>
+				<div class="rbox_side" style="margin-top:30px;"></div><div class="rbox_round"></div><div class="rbox_main">
+					<div style="overflow:hidden;margin:10px;">
+						<a href="inputInquiry.html" title="お問合せ"><img src="images/btn_s_inquiry.gif" title="お問合せ"/></a>
+						<a href="<%=getServletContext().getInitParameter("communityTopUrl")%>" title="コミュニティサイト"><img src="images/btn_s_community.gif" title="コミュニティサイト"/></a>
+					</div>
+				</div><div class="rbox_round"></div><div class="rbox_side"></div>
 			<dd>
 		</dl>
 	</dd>

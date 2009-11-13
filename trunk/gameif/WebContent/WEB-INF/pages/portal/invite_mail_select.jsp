@@ -10,7 +10,6 @@
 	<meta content="index, follow" name="robots"/>
 	<base href="<%=getServletContext().getInitParameter("portalTopUrl")%>/"/>
 	<link type="text/css" href="css/common.css" rel="stylesheet"></link>
-	<link type="text/css" href="css/main.css" rel="stylesheet"></link>
 	<link type="text/css" href="css/popup.css" rel="stylesheet"></link>
 	<script src="js/jquery/jquery.js" type="text/javascript"></script>
 	<script src="js/portal/common.js" type="text/javascript"></script>
@@ -18,54 +17,59 @@
 </head>
 
 <body>
-<dl class="pop_top">
-	<dt><a href="http://www.game-if.com"><img src="images/logo.gif" title="WEBGAMEポータル ゲームイフ" border="0"/></a></dt>
-	<dd>
-		<dl class="title_width tspace_n top_align">
-			<dt><strong>友達メールアドレスインポート</strong><span>&nbsp;</span></dt>
-			<dd></dd>
-		</dl>
-	</dd>
-
-</dl>
-<s:form name="frm_nosubmit_mail_sel" method="post" cssClass="address_sel">
-	<div class="" style="margin:10px 70px;font-size:12px;font-weight:bold;">あなたのＷＥＢメールのアドレスとパスワードを入力してください。</div>
-	<div style="color:#900;margin:20px 70px;font-size:10px;">
-		ゲームイフがあなたの代わりにアドレス帳から友達のアドレスを検索します。<br/>
-		パスワードはこの検索で一回使用するだけで、保存はしません。
-	</div>
-	<dl class="select_mail">
-		<dt>
-			<span></span>
-		</dt>
-		<dd>
-			<span class="logic_error"><s:fielderror><s:param>loginError</s:param></s:fielderror></span>
-		</dd>
-		
-		<dt><span class="required">*</span> <label for="mail">メールアドレス：</label></dt>
-		<dd>
-			<s:textfield name="mailAdd" maxlength="100" cssClass="ime_mode_n" title="メールアドレス" onblur="validate(this, 'REQ');"/>
-			<span>@</span>
-			<s:select name="domain" list="portalProperties.domainListMap" headerKey="" headerValue="" title="ドメイン" onblur="validate(this, 'REQ');" />
-			<span id="error_mailAdd" class="input_error"><s:fielderror><s:param>mailAdd</s:param></s:fielderror></span>
-			<span id="error_domain" class="input_error"><s:fielderror><s:param>domain</s:param></s:fielderror></span>
-		</dd>
-		
-		<dt>
-			<span class="required">*</span> <label for="passwd">パスワード：</label>
-		</dt>
-		<dd>
-			<s:password name="memPwd" maxlength="100" cssClass="ime_mode_n" title="パスワード" onblur="validate(this, 'REQ');"/>
-			<span id="error_memPwd" class="input_error"><s:fielderror><s:param>memPwd</s:param></s:fielderror></span>
-		</dd>
-		
-	</dl>
-	<div class="submit">
-		<s:token/>
-		<s:submit action="loginMailSelInvite" value="友達を検索" cssClass="submit"/>
-		<input type="button" value="キャンセル" class="submit" onclick="window.close();"/>
-	</div>
-
+<table width="100%">
+	<tr>
+		<td width="170"><a href="http://www.game-if.com"><img src="images/logo.gif" title="WEBGAMEポータル ゲームイフ" border="0"/></a></td>
+		<td valign="bottom">
+			<dl class="title_width">
+				<dt><strong>友達メールアドレスインポート</strong><span>&nbsp;</span></dt>
+				<dd></dd>
+			</dl>
+		</td>
+	</tr>
+</table>
+<s:form name="frm_nosubmit_mail_sel" method="post" cssClass="entry">
+	<div class="" style="margin:10px 70px;font-size:12px;font-weight:bold;color:#900;">お持ちのウェブメールの認証情報を入力してください。</div>
+	<div style="margin:20px 70px;font-size:10px;">
+		現在連絡帳インポート機能が利用できるウェブメールは<span style="color:#F60">hotmail</span>、<span style="color:#F60">Gmail</span>と<span style="color:#F60">Yahooメール</span>のみです。<br/>
+		メールアドレスのドメイン部分はブルダウンリストから選択することにし、アカウント欄には<br/>入力しないでください。<br/><br/>
+		お客様のメール認証情報はゲームイフで保存したり、ログに出力したりすることが一切ございませんので、<br/>安心してご利用ください。
+	</div>	
+	<table>
+		<tr><th></th><td><span class="logic_error"><s:fielderror><s:param>loginError</s:param></s:fielderror></span></td></tr>
+		<tr>
+			<th><span class="required">*</span> <label for="mail">メールアドレス：</label></th>
+			<td>
+				<table cellpadding="0" cellspacing="0">
+					<tr valign="top">
+						<td>
+							<s:textfield name="mailAdd" maxlength="100" cssClass="ime_mode_n" cssStyle="width:150px;" title="アカウント" onblur="validate(this, 'REQ');"/> @&nbsp;
+							<span id="error_mailAdd" class="input_error"><s:fielderror><s:param>mailAdd</s:param></s:fielderror></span>
+						</td>
+						<td>
+							<s:select name="domain" list="portalProperties.domainListMap" headerKey="" headerValue="" cssStyle="width:120px;" title="ドメイン" onblur="validate(this, 'REQ');" />
+							<span id="error_domain" class="input_error"><s:fielderror><s:param>domain</s:param></s:fielderror></span>
+						</td>
+					</tr>				
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<th><span class="required">*</span> <label for="passwd">パスワード：</label></th>
+			<td>
+				<s:password name="memPwd" maxlength="100" cssClass="ime_mode_n" cssStyle="width:150px;" title="パスワード" onblur="validate(this, 'REQ');"/>
+				<span id="error_memPwd" class="input_error"><s:fielderror><s:param>memPwd</s:param></s:fielderror></span>
+			</td>
+		</tr>
+		<tr><td colspan="2">&nbsp;</td></tr>
+		<tr>
+			<th></th>
+			<td>
+				<s:token/>
+				<s:submit action="loginMailSelInvite" type="image" src="images/btn_c_invite_mail_import.png"/>
+			</td>
+		</tr>
+	</table>
 </s:form>
 
 </body>

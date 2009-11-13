@@ -62,28 +62,27 @@
 					</td>
 				</tr>
 				<tr class="space_row"><td colspan="2"></td></tr>
-
 				<tr>
 					<th><span class="required">*</span><label for="createMember_kaptcha">画像認証：</label></th>
 					<td>
 						<img id="kaptchaPic" src="images/kaptcha"/>
 						<a href="javascript:RefreshImg();"><img id="newKaptcha" src="images/capture_update.gif"/></a><br/>
 						<s:textfield name="kaptcha" maxlength="20"  cssClass="ime_mode_n" title="画像認証" onblur="validate(this,'REQ,ALN');"/>
-						<span class="explain">※ 画像認証コードを入力してください。</span>
+						<span class="explain">※ 英数字5文字です。大文字小文字は区別しません。</span>
 						<span id="error_kaptcha" class="input_error"><s:fielderror><s:param>kaptcha</s:param></s:fielderror></span>
 					</td>
 				</tr>
-				<tr height="30">
-					<th></th>
+				<tr class="space_row"><td colspan="2"></td></tr>
+				<tr>
+					<th><span class="required">*</span><label>利用規約：</label></th>
 					<td>
-						<span>登録する前に、必ず <a href="http://info.game-if.com/component/content/article/1-kiyaku" class="agreement" target="_blank">利用規約</a> を確認してください。</span>
+						<span>登録する前に、必ず <a href="http://info.game-if.com/component/content/article/1-kiyaku" class="agreement" target="_blank">こちらをクリックして利用規約を確認</a> してください。</span>
 					</td>
 				</tr>
 			</table>
 			<div class="submit">
 				<s:token />
-				<s:submit value="利用規約に同意して登録する" cssStyle="width:200px;" cssClass="submit"/>
-				<s:reset value="クリア"/>
+					<s:submit type="image" src="images/btn_c_registry.png"></s:submit>
 			</div>
 		</s:form>
 	</dd>

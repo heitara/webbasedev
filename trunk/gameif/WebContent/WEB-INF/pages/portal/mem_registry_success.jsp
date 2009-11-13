@@ -3,11 +3,6 @@
 <html>
 <head>
 <title>会員情報仮登録完了</title>
-<style>
-dl.finish dd div p {font-weight:bold; color:#833;}
-dl.finish dd div a {color:#833; }
-dl.finish dd div a:hover {color:#F90; text-decoration:underline;}
-</style>
 </head>
 <body>
 <dl class="light_box tspace_n">
@@ -16,20 +11,23 @@ dl.finish dd div a:hover {color:#F90; text-decoration:underline;}
 		<dl class="finish">
 			<dt>会員登録していただき、ありがとうございました。</dt>
 			<dd>
-				<div>
+				<div class="msg">
 					<p>お客様のアカウントは現時点でまだ仮登録状態ですので、有効化手続きを完了させる必要がございます。</p>
-					ご登録されたメールアドレスへご本人様確認のメールをお送りしましたので、そちらのメールを確認して、会員情報を有効化してください。<br/>
+					ご登録されたメールアドレスへご本人様確認のメールをお送りしましたので、<br/>そちらのメールを確認して、アカウントを有効化してください。<br/>
 					<s:if test="mailLoginUrl != null && mailLoginUrl != 'null'">
-						下記のリンクをクリックしていただきますと、ご利用中のメールのログイン画面へ移動できます。
-						
-						<hr/>
-						<a href="<s:property value="mailLoginUrl" escape="true"/>"><s:property value="mailLoginUrl" escape="true"/></a> &nbsp;
-						| &nbsp; <a href="<s:property value="mailLoginUrl" escape="true"/>" target="_blank">別ウィンドウで開く</a>
-						<hr/>
+						<br/><br/>
+						下のボタンをクリックしていただきますと、ご利用中のメールのログイン画面が開かれます。<br/>
+						※開かれる画面のURL：　<span style="color:#900"><s:property value="mailLoginUrl" escape="true"/></span>
+						<br/><br/>
+						<a href="<s:property value="mailLoginUrl" escape="true"/>" title="メールログイン画面を開く" target="_blank"><img src="images/btn_c_mail_login.png" alt="ウェブメールにログイン"/></a>
 					</s:if>
 				</div>
-				<a href="inputInquiry.html" title="お問合せ"><img src="images/btn_s_inquiry.gif" title="お問合せ"/></a>
-				<a href="<%=getServletContext().getInitParameter("communityTopUrl")%>" title="コミュニティサイト"><img src="images/btn_s_community.gif" title="コミュニティサイト"/></a>
+				<div class="rbox_side" style="margin-top:30px;"></div><div class="rbox_round"></div><div class="rbox_main">
+					<div style="overflow:hidden;margin:10px;">
+						<a href="inputInquiry.html" title="お問合せ"><img src="images/btn_s_inquiry.gif" title="お問合せ"/></a>
+						<a href="<%=getServletContext().getInitParameter("communityTopUrl")%>" title="コミュニティサイト"><img src="images/btn_s_community.gif" title="コミュニティサイト"/></a>
+					</div>
+				</div><div class="rbox_round"></div><div class="rbox_side"></div>
 			<dd>
 		</dl>
 	</dd>
