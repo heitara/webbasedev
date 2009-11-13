@@ -22,7 +22,7 @@
 	</context-param>
 	<context-param>
 		<param-name>noLoginPage</param-name>
-		<param-value>/registryMember.html,/inputInquiry.html,/inputPwdReget.html,/finishedPage.html,/finishedCreateMember.html,/finishedEffectiveMember.html</param-value>
+		<param-value>/registryMember.html,/inputInquiry.html,/inputPwdReget.html,/finishedPage.html,/finishedCreateMember.html,/finishedActivateMember.html</param-value>
 	</context-param>
 
 	<filter>
@@ -110,10 +110,6 @@
 		<filter-name>CAS Filter</filter-name>
 		<url-pattern>/createLinkInvite.html</url-pattern>
 	</filter-mapping>
-	<filter-mapping>
-		<filter-name>CAS Filter</filter-name>
-		<url-pattern>/inputMailSelInvite.html</url-pattern>
-	</filter-mapping>	
 	<filter-mapping>
 		<filter-name>CAS Filter</filter-name>
 		<url-pattern>/loginMailSelInvite.html</url-pattern>
@@ -247,6 +243,14 @@
 		<init-param>
 			<param-name>kaptcha.background.clear.to</param-name>
 			<param-value>white</param-value>
+		</init-param>
+		<init-param>
+			<param-name>kaptcha.noise.impl</param-name>
+			<param-value>com.google.code.kaptcha.impl.NoNoise</param-value>
+		</init-param>
+		<init-param>
+			<param-name>kaptcha.textproducer.char.string</param-name>
+			<param-value>abcdekmswx234567</param-value>
 		</init-param>
 		<init-param>
 			<param-name>kaptcha.image.width</param-name>
