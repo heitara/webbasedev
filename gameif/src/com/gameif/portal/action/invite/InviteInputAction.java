@@ -330,7 +330,14 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 	 * @return
 	 */
 	public String loginMailSel() {
-		String email = mailAdd + domain;
+		
+		String email = mailAdd;
+		
+		if (mailAdd != null && mailAdd.indexOf('@') < 0) {
+
+			email = email + domain;
+		}
+		
 		try {
 			List<Contact> list = SimpleAddressBookImporter.fetchContacts(email, memPwd);
 			setFriendList(list);
