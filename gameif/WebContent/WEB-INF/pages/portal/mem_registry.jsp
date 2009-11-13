@@ -73,16 +73,16 @@
 						<span id="error_kaptcha" class="input_error"><s:fielderror><s:param>kaptcha</s:param></s:fielderror></span>
 					</td>
 				</tr>
-				<tr>
+				<tr height="30">
 					<th></th>
 					<td>
-						<span>上記の登録フォームを送信することにより、あなたは<a href="#" class="agreement">利用規約</a> に同意したこととなります。</span>
+						<span>登録する前に、必ず <a href="http://info.game-if.com/component/content/article/1-kiyaku" class="agreement" target="_blank">利用規約</a> を確認してください。</span>
 					</td>
 				</tr>
 			</table>
 			<div class="submit">
 				<s:token />
-				<s:submit value="利用規約に同意して登録する" cssClass="submit"/>
+				<s:submit value="利用規約に同意して登録する" cssStyle="width:200px;" cssClass="submit"/>
 				<s:reset value="クリア"/>
 			</div>
 		</s:form>
