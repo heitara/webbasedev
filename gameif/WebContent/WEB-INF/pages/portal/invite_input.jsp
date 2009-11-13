@@ -2,7 +2,7 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <html>
 	<head>
-		<title>友達招待</title>
+		<title>友達紹介 | メールで紹介</title>
 		<script src="js/portal/validate.js" type="text/javascript"></script>
 		<script src="js/portal/bindMaster.js" type="text/javascript"></script>
 		<script type="text/javascript">
@@ -15,7 +15,7 @@
 	</head>
 	<body>
 		<dl class="light_box tspace_n">
-			<dt><strong>友達招待</strong><span><a href="showMailInviteHist.html">► 友達招待履歴</a></span></dt>
+			<dt><strong>友達紹介（メール）</strong><span><a href="showMailInviteHist.html">► 友達紹介履歴（メール）</a></span></dt>
 			<dd>
 				<s:form name="frm_invite_input" action="createInvite" method="post" cssClass="entry">
 					<table>
@@ -35,7 +35,7 @@
 									<a href="javascript:openPopup('inputMailSelInvite.html?domain=@hotmail.co.jp', 600, 540);" title="hotmailアドレス帳からインポートする。"><img src="images/icon_hotmail.gif"/></a><br/>
 									<a href="javascript:openPopup('inputMailSelInvite.html?domain=@gmail.com', 600, 540);" title="gmailアドレス帳からインポートする。"><img src="images/icon_gmail.gif"/></a><br/>
 									<a href="javascript:openPopup('inputMailSelInvite.html?domain=@yahoo.co.jp', 600, 540);" title="Yahoo!メールアドレス帳からインポートする。"><img src="images/icon_yahoo_mail.gif"/></a><br/><br/>
-									<input type="button" value="メールアドレスインポート" class="big" onclick="openPopup('inputMailSelInvite.html', 600, 540);"/>
+									<a href="javascript:openPopup('inputMailSelInvite.html', 600, 540);" title="メールアドレスインポート"><img src="images/btn_c_invite_mail_import.png" alt="メールアドレスインポート"/></a>
 								</div>
 								<div class="clearbox"></div>
 								<span id="error_inviteMailTo" class="input_error"><s:fielderror><s:param>inviteMailTo</s:param></s:fielderror></span>
@@ -56,7 +56,7 @@
 						<tr>
 							<th><span class="required">*</span><label for="message_tmpl">招待メッセージ：</label></th>
 							<td>
-								<select id="inviteTemplate" name="inviteTemplate" onchange="changeMessage(this, inviteMsg)"></select>
+								<select id="inviteTemplate" name="inviteTemplate" class="big" onchange="changeMessage(this, inviteMsg)"></select>
 								<br/>
 								<span class="explain">※テンプレートから選ぶと、大枠が自動的に入力されますので、<br/>入力時間を省けられます。</span>
 							</td>
@@ -64,17 +64,15 @@
 						<tr>
 							<th></th>
 							<td>
-								<s:textarea name="inviteMsg" rows="15" cssClass="big ime_mode_n" cssStyle="width:360px;" title="招待メッセージ" onblur="validate(this, 'REQ,LEN_5_1000');" />
+								<s:textarea name="inviteMsg" rows="10" cssClass="big ime_mode_n" cssStyle="width:360px;" title="招待メッセージ" onblur="validate(this, 'REQ,LEN_5_1000');" />
 								<span id="error_inviteMsg" class="input_error"><s:fielderror><s:param>inviteMsg</s:param></s:fielderror></span><br/>
 								<span class="explain">※招待メールの本文を入力してください。</span>
 							</td>
 						</tr>
 					</table>
 					<div class="submit">
-						<s:submit value="送信" cssClass="submit"></s:submit>
-						<s:reset value="クリア" cssClass="submit"></s:reset>
+						<s:submit type="image" src="images/btn_c_invite_mail_send.png"></s:submit>
 					</div>
-	
 				</s:form>
 			</dd>
 		</dl>

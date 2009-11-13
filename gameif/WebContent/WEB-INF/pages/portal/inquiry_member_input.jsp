@@ -8,7 +8,7 @@
 
 <body>
 	<dl class="light_box tspace_n">
-		<dt><strong>会員様のお問合せ</strong><span><a href="inputInquiry.html">► 一般のお問合せ</a> &nbsp; <a href="inputMediaInquiry.html">► メディア様のお問合せ</a></span></dt>
+		<dt><strong>会員様のお問合せ</strong><span><a href="inputMediaInquiry.html">► メディア様のお問合せ</a></span></dt>
 		<dd>
 			<s:form name="frm_inquiry_member_input" method="post" cssClass="entry">
 				<div style="padding:0px 10px 30px 0px;font-size:10px;color:#555;">
@@ -61,10 +61,9 @@
 					</tr>
 				</table>
 				<div class="submit">
-					<s:submit action="createMemInquiry" value="送信" cssClass="submit"></s:submit>
-					<s:reset value="クリア" cssClass="submit"></s:reset>
+					<s:submit type="image" src="images/btn_c_submit.png"></s:submit>
+					<s:submit type="image" src="images/btn_c_clear.png" onclick="this.form.reset();return false;"></s:submit>
 				</div>
-
 			</s:form>
 		</dd>
 	</dl>

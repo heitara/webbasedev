@@ -76,7 +76,7 @@
 					<tr>
 						<th><span class="required">*</span><label for="createMember_kaptcha">画像認証：</label></th>
 						<td>
-							<img id="kaptchaPic" src="images/kaptcha.jpg"/>
+							<img id="kaptchaPic" src="images/kaptcha"/>
 							<a href="javascript:RefreshImg();"><img id="newKaptcha" src="images/capture_update.gif"/></a><br/>
 							<s:textfield name="kaptcha" maxlength="20"  cssClass="ime_mode_n" title="画像認証" onblur="validate(this,'REQ,ALN');"/>
 							<span class="explain">※ 画像認証コードを入力してください。</span>
@@ -86,8 +86,8 @@
 				</table>
 				<div class="submit">
 					<s:token />
-					<s:submit action="createMediaInquiry" value="送信" cssClass="submit"></s:submit>
-					<s:reset value="クリア" cssClass="submit"></s:reset>
+					<s:submit type="image" src="images/btn_c_submit.png"></s:submit>
+					<s:submit type="image" src="images/btn_c_clear.png" onclick="this.form.reset();return false;"></s:submit>
 				</div>
 			</s:form>
 		</dd>

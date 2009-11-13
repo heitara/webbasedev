@@ -69,9 +69,13 @@
 				<tr>
 					<th><span class="required">*</span><label for="updateMemberInfo_birthY">生年月日：</label></th>
 					<td>
-						<s:textfield name="birthY" maxlength="4" cssClass="ime_mode_n min" title="生年月日の年" onblur="validate(this, 'REQ,NUM');"/>年
-						<s:select name="birthM" list="portalProperties.monthListMap" headerKey="" headerValue="" cssClass="min" title="生年月日の月" onblur="validate(this, 'REQ');"/>月
-						<s:select name="birthD" list="portalProperties.dayListMap" headerKey="" headerValue="" cssClass="min" title="生年月日の日" onblur="validate(this, 'REQ');"/>日
+						<table cellpadding="0" cellspacing="0">
+							<tr>
+								<td><s:textfield name="birthY" maxlength="4" cssClass="ime_mode_n min" title="生年月日の年" onblur="validate(this, 'REQ,NUM');"/>&nbsp;年 &nbsp;</td>
+								<td><s:select name="birthM" list="portalProperties.monthListMap" headerKey="" headerValue="" cssClass="min" title="生年月日の月" onblur="validate(this, 'REQ');"/>&nbsp;月&nbsp;</td>
+								<td><s:select name="birthD" list="portalProperties.dayListMap" headerKey="" headerValue="" cssClass="min" title="生年月日の日" onblur="validate(this, 'REQ');"/>&nbsp;日&nbsp;</td>
+							</tr>
+						</table>
 						<span id="error_birthY" class="input_error"><s:fielderror><s:param>birthdayForCheck</s:param></s:fielderror></span>
 						<span id="error_birthM" class="input_error"></span>
 						<span id="error_birthD" class="input_error"></span>
@@ -130,8 +134,8 @@
 				<s:hidden name="model.memId"/>
 				<s:hidden name="model.versionNo"/>
 				<s:token/>
-				<s:submit value="更新" cssClass="submit" />
-				<s:reset value="クリア" cssClass="submit"/>
+				<s:submit type="image" src="images/btn_c_submit.png"></s:submit>
+				<s:submit type="image" src="images/btn_c_clear.png" onclick="this.form.reset();return false;"></s:submit>
 			</div>
 		</s:form>
 	</dd>
