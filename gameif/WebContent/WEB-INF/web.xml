@@ -192,10 +192,6 @@
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>CAS Filter</filter-name>
-		<url-pattern>/chargeReceive.html</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>CAS Filter</filter-name>
 		<url-pattern>/chargeCancel.html</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
