@@ -29,17 +29,28 @@
 						<tr>
 							<th><span class="required">*</span><label for="friends">友達のメールアドレス：</label></th>
 							<td>
-								<s:textarea name="inviteMailTo" id="inviteMailTo" rows="10" cssClass="big ime_mode_n f_left" title="友達のメールアドレス" onblur="validate(this, 'REQ');"/>
+								<s:textarea name="inviteMailTo" id="inviteMailTo" rows="7" cssClass="big ime_mode_n f_left" cssStyle="height:100px;" title="友達のメールアドレス" onblur="validate(this, 'REQ');"/>
 								<div class=" mail_import">
-									<span class="explain">下記のＷＥＢメールならアドレス帳から直接アドレスをインポートすることができます。</span><br/>
-									<a href="javascript:openPopup('inputMailSelInvite.html?domain=@hotmail.co.jp', 600, 540);" title="hotmailアドレス帳からインポートする。"><img src="images/icon_hotmail.gif"/></a><br/>
-									<a href="javascript:openPopup('inputMailSelInvite.html?domain=@gmail.com', 600, 540);" title="gmailアドレス帳からインポートする。"><img src="images/icon_gmail.gif"/></a><br/>
-									<a href="javascript:openPopup('inputMailSelInvite.html?domain=@yahoo.co.jp', 600, 540);" title="Yahoo!メールアドレス帳からインポートする。"><img src="images/icon_yahoo_mail.gif"/></a><br/><br/>
-									<a href="javascript:openPopup('inputMailSelInvite.html', 600, 540);" title="メールアドレスインポート"><img src="images/btn_c_invite_mail_import.png" alt="メールアドレスインポート"/></a>
+									<span class="explain">下のウェブメールのお持ちの方は、連絡帳から<br/>友達のメールをインポートすることができます。</span>
+									<table>
+										<tr>
+											<td align="right"><img src="images/icon_hotmail.gif" alt="Hotmail、Liveメール"/></td>
+											<td><a href="javascript:openPopup('inputMailSelInvite.html?domain=@hotmail.co.jp', 600, 540);" title="hotmailアドレス帳からインポートする。"><img src="images/btn_c_import.png" alt="インポート"/></a></td>
+										</tr>
+										<tr>
+											<td align="right"><img src="images/icon_gmail.gif" alt="Gmail"/></td>
+											<td><a href="javascript:openPopup('inputMailSelInvite.html?domain=@gmail.com', 600, 540);" title="Gmailアドレス帳からインポートする。"><img src="images/btn_c_import.png" alt="インポート"/></a></td>
+										</tr>
+										<tr>
+											<td align="right"><img src="images/icon_yahoo_mail.gif" alt="Yahooメール"/></td>
+											<td><a href="javascript:openPopup('inputMailSelInvite.html?domain=@@yahoo.co.jp', 600, 540);" title="Yahooメールアドレス帳からインポートする。"><img src="images/btn_c_import.png" alt="インポート"/></a></td>
+										</tr>
+									</table>
 								</div>
 								<div class="clearbox"></div>
 								<span id="error_inviteMailTo" class="input_error"><s:fielderror><s:param>inviteMailTo</s:param></s:fielderror></span>
-								<span class="explain">※複数人の場合、一行に一件ずつ入力してください。</span>
+								<span class="explain">※複数人の場合、一行に一件ずつ入力してください。（改行必須）</span><br/>
+								<span class="explain">※毎日メールで紹介できる友達は最大5名です。</span>
 							</td>
 						</tr>
 						<tr class="space_row">
@@ -48,23 +59,21 @@
 						<tr>
 							<th><span class="required">*</span><label for="game">紹介するゲーム：</label></th>
 							<td>
-								<s:select name="titleId" id="titleId" cssClass="big" list="masterInfoBusinessLogic.validTitleList" listKey="titleId" listValue="titleName" title="紹介するゲーム" onchange="bindTemplate(this, inviteTemplate);"  />
+								<s:select name="titleId" id="titleId" cssClass="big" cssStyle="font-size:12px;" list="masterInfoBusinessLogic.validTitleList" listKey="titleId" listValue="titleName" title="紹介するゲーム" onchange="bindTemplate(this, inviteTemplate);"  />
 								<span id="error_titleId" class="input_error"><s:fielderror><s:param>titleId</s:param></s:fielderror></span><br/>
-								<span class="explain">※紹介するゲームを選んでください。</span>
 							</td>
 						</tr>						
 						<tr>
 							<th><span class="required">*</span><label for="message_tmpl">招待メッセージ：</label></th>
 							<td>
-								<select id="inviteTemplate" name="inviteTemplate" class="big" onchange="changeMessage(this, inviteMsg)"></select>
-								<br/>
-								<span class="explain">※テンプレートから選ぶと、大枠が自動的に入力されますので、<br/>入力時間を省けられます。</span>
+								<select id="inviteTemplate" name="inviteTemplate" class="big" style="font-size:12px;" onchange="changeMessage(this, inviteMsg)"></select>
+								<span class="explain">※選択すると下のメッセージ欄に内容が入ります。</span>
 							</td>
 						</tr>
 						<tr>
 							<th></th>
 							<td>
-								<s:textarea name="inviteMsg" rows="10" cssClass="big ime_mode_n" cssStyle="width:360px;" title="招待メッセージ" onblur="validate(this, 'REQ,LEN_5_1000');" />
+								<s:textarea name="inviteMsg" rows="10" cssClass="big ime_mode_n" title="招待メッセージ" onblur="validate(this, 'REQ,LEN_5_1000');" />
 								<span id="error_inviteMsg" class="input_error"><s:fielderror><s:param>inviteMsg</s:param></s:fielderror></span><br/>
 								<span class="explain">※招待メールの本文を入力してください。</span>
 							</td>
