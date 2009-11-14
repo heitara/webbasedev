@@ -388,7 +388,7 @@ response.setDateHeader("Expires",0);
 		<dl class="title_box tspace_b">
 			<dt><strong>サポート</strong><span>&nbsp;</span></dt>
 			<dd class="guide">
-				<a href="#" title="ＦＡＱ">ＦＡＱ</a>
+				<a href="<%=portalNewsTopUrl%>/component/content/article/11-faq" title="ＦＡＱ">ＦＡＱ</a>
 				<a href="<%=isLogined ? "inputMemberInquiry.html" : "inputInquiry.html"%>" title="お問合せ">お問合せ</a>
 			</dd>
 		</dl>
