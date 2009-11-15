@@ -1,11 +1,15 @@
 package com.gameif.portal.action.titleif;
 
+import java.util.Date;
 import java.util.List;
 
 import com.gameif.common.action.ModelDrivenActionSupport;
 import com.gameif.portal.businesslogic.IBetaTesterBusinessLogic;
+import com.gameif.portal.businesslogic.IMasterInfoBusinessLogic;
+import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.entity.BetaTester;
 import com.gameif.portal.entity.MyTitle;
+import com.gameif.portal.entity.TitleMst;
 import com.gameif.portal.util.ContextUtil;
 
 public class BetaTesterControlAction  extends
@@ -13,11 +17,11 @@ ModelDrivenActionSupport<BetaTester> {
 
 	private static final long serialVersionUID = 579242178680718814L;
 	
+	private IMasterInfoBusinessLogic masterInfoBusinessLogic;
 	private IBetaTesterBusinessLogic betaTesterBusinessLogic;
 	
 	private List<MyTitle> betaTitleList;
 	
-	private Integer titleId;
 	private String status;
 		
 	/**
@@ -26,10 +30,44 @@ ModelDrivenActionSupport<BetaTester> {
 	 */
 	public String apply() {
 		
-		this.getModel().setMemNum(ContextUtil.getMemberNo());
-		betaTesterBusinessLogic.saveBetaTester(this.getModel());
+		String result = WARNING;
 		
-		return SUCCESS;
+		if (isApplyable()) {			
+
+			getModel().setMemNum(ContextUtil.getMemberNo());
+			betaTesterBusinessLogic.saveBetaTester(getModel());
+			
+			result = SUCCESS;
+		}
+		
+		return result;
+	}
+	
+	public boolean isApplyable() {
+		
+		boolean applyable = false;
+		
+		TitleMst titleMst = masterInfoBusinessLogic.getValidTitle(getModel().getTitleId());
+		
+		if (titleMst != null) {
+			
+			Date now = new Date();
+			
+			if (titleMst != null
+				&& now.after(titleMst.getServiceStartDate())
+				&& now.before(titleMst.getServiceEndDate())
+				&& (PortalConstants.ServerStatus.CBT.equals(titleMst.getServiceStatus()) 
+					|| PortalConstants.ServerStatus.OBT.equals(titleMst.getServiceStatus()))) {
+				
+				if (PortalConstants.RecruitStatus.RECRUITING.equals(titleMst.getRecruitStatus())
+						|| PortalConstants.RecruitStatus.TEST.equals(titleMst.getRecruitStatus())) {
+					
+					applyable = true;
+				}
+			}
+		}
+		
+		return applyable;
 	}
 	
 	public String finishApply() {
@@ -51,6 +89,11 @@ ModelDrivenActionSupport<BetaTester> {
 			IBetaTesterBusinessLogic betaTesterBusinessLogic) {
 		this.betaTesterBusinessLogic = betaTesterBusinessLogic;
 	}
+	
+	public void setMasterInfoBusinessLogic(
+			IMasterInfoBusinessLogic masterInfoBusinessLogic) {
+		this.masterInfoBusinessLogic = masterInfoBusinessLogic;
+	}
 
 	/**
 	 * @return the betaTitleList
@@ -64,14 +107,6 @@ ModelDrivenActionSupport<BetaTester> {
 	 */
 	public void setBetaTitleList(List<MyTitle> betaTitleList) {
 		this.betaTitleList = betaTitleList;
-	}
-
-	public Integer getTitleId() {
-		return titleId;
-	}
-
-	public void setTitleId(Integer titleId) {
-		this.titleId = titleId;
 	}
 
 	public String getStatus() {
