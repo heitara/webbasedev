@@ -18,9 +18,13 @@
 		<dl class="warning">
 			<dt>要求された頁は存在しません。</dt>
 			<dd>
-				<div>以前アクセスできた頁が現在表示できない場合は、サイト運営者に連絡してください。</div>
-				<a href="inputInquiry.html" title="お問合せ"><img src="images/btn_s_inquiry.gif" title="お問合せ"/></a>
-				<a href="<%=getServletContext().getInitParameter("communityTopUrl")%>" title="コミュニティサイト"><img src="images/btn_s_community.gif" title="コミュニティサイト"/></a>
+				<div class="msg">以前アクセスできた頁が現在表示できない場合は、お問合せフォームより、サイト運営者に連絡してください。</div>
+				<div class="rbox_side" style="margin-top:30px;"></div><div class="rbox_round"></div><div class="rbox_main">
+					<div style="overflow:hidden;margin:10px;">
+						<a href="inputInquiry.html" title="お問合せ"><img src="images/btn_s_inquiry.gif" title="お問合せ"/></a>
+						<a href="<%=getServletContext().getInitParameter("communityTopUrl")%>" title="コミュニティサイト"><img src="images/btn_s_community.gif" title="コミュニティサイト"/></a>
+					</div>
+				</div><div class="rbox_round"></div><div class="rbox_side"></div>
 			</dd>
 		</dl>
 	</dd>

@@ -98,7 +98,9 @@
 							</s:elseif>
 						</s:if>
 						<s:if test='"3".equals(recruitStatus)'>
-							<div class="play_info">テスター募集が終了しました。</div>
+							<s:if test='electStatus == null'>
+								<div class="play_info">テスター募集が終了しました。</div>
+							</s:if>
 							<s:if test='"0".equals(electStatus)'>
 								<p>残念ながら、あなたは<br/>テスター当選に至りませんでした。</p><p>ご協力ありがとうございました。</p>
 							</s:if>
