@@ -6,7 +6,6 @@
 	<typeAlias alias="maintenanceInfo" type="com.gameif.portal.entity.MaintenanceInfo" />
 	
 	<resultMap class="com.gameif.portal.entity.MaintenanceInfo" id="maintenanceResult">
-		<result property="maintenDiv" column="mainten_div" />
 		<result property="functionCode" column="function_code" />
 		<result property="maintenStatus" column="mainten_status" />
 	</resultMap>
@@ -14,7 +13,6 @@
 	<select id="selectByFunctionCd" resultMap="maintenanceResult">   
         <![CDATA[
 	        SELECT
-				mainten_div,
 				function_code,
 				mainten_status
 			FROM
