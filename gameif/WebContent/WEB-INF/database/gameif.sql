@@ -671,10 +671,10 @@ CREATE TABLE  `invite_link` (
 
 DROP TABLE IF EXISTS `invite_link_hist`;
 CREATE TABLE  `invite_link_hist` (
-  `mem_num` bigint(20) NOT NULL,
   `child_mem_num` bigint(20) NOT NULL,
+  `mem_num` bigint(20) NOT NULL,
   `title_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`mem_num`,`child_mem_num`)
+  PRIMARY KEY (`child_mem_num`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
@@ -682,10 +682,9 @@ CREATE TABLE  `invite_link_hist` (
 
 DROP TABLE IF EXISTS `maintenance_info`;
 CREATE TABLE  `maintenance_info` (
-  `mainten_div` char(1) NOT NULL,
   `function_code` varchar(4) NOT NULL,
   `mainten_status` char(1) DEFAULT NULL,
-  PRIMARY KEY (`mainten_div`,`function_code`)
+  PRIMARY KEY (`function_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
