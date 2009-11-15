@@ -98,6 +98,7 @@
 		<property name="mailUrlMap">
 			<map>
 				<entry key="@hotmail.co.jp" value="http://mail.live.com"/>
+				<entry key="@hotmail.com" value="http://mail.live.com"/>
 				<entry key="@live.jp" value="http://mail.live.com"/>
 				<entry key="@nifmail.jp" value="https://login.nifty.com/service/login?s=fwm"/>
 				<entry key="@infoseek.jp" value="http://email.infoseek.co.jp"/>

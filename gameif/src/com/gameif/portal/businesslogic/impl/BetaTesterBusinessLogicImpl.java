@@ -29,6 +29,14 @@ public class BetaTesterBusinessLogicImpl extends BaseBusinessLogic implements IB
 			betaTesterDao.save(betaTester);
 		}
 	}
+	/**
+	 * βテスターを取得する
+	 */
+	@Override
+	public BetaTester getBetaTester(Integer titleId, Long memNum) {
+		
+		return betaTesterDao.selectByKey(memNum, titleId);
+	}
 
 	/**
 	 * 募集中のタイトルを取得する

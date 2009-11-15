@@ -104,6 +104,9 @@
 		<property name="titlePlayBusinessLogic">
 			<ref bean="titlePlayBusinessLogic" />
 		</property>
+		<property name="betaTesterBusinessLogic">
+			<ref bean="betaTesterBusinessLogic" />
+		</property>
 		<property name="titleEntry">
 			<ref bean="titleEntry" />
 		</property>
@@ -203,6 +206,9 @@
 		<property name="betaTesterBusinessLogic">
 			<ref bean="betaTesterBusinessLogic" />
 		</property>
+		<property name="masterInfoBusinessLogic">
+			<ref bean="masterInfoBusinessLogic" />
+		</property>
 	</bean>
 	
 	<!-- loginStatusProxyAction -->
@@ -212,7 +218,7 @@
 	<bean id="entryProxyAction" class="com.gameif.portal.action.menu.EntryProxyAction" scope="prototype">
 		<property name="cookieAge">
 			<value>${entryProxyAction.cookieAge}</value>
-		</property>		
+		</property>	
 		<property name="titleEntryUrls">
 			<map>
 				<entry key="0" value="${entryProxyAction.titleEntryUrl.0}"/>

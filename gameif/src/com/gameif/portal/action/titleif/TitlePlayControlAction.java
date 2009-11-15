@@ -3,13 +3,16 @@ package com.gameif.portal.action.titleif;
 import java.util.Date;
 
 import com.gameif.common.action.BaseActionSupport;
+import com.gameif.portal.businesslogic.IBetaTesterBusinessLogic;
 import com.gameif.portal.businesslogic.IMasterInfoBusinessLogic;
 import com.gameif.portal.businesslogic.ITitlePlayBusinessLogic;
 import com.gameif.portal.businesslogic.titleif.entry.EntryParameter;
 import com.gameif.portal.businesslogic.titleif.entry.TitleEntry;
 import com.gameif.portal.constants.PortalConstants;
+import com.gameif.portal.entity.BetaTester;
 import com.gameif.portal.entity.PlayHist;
 import com.gameif.portal.entity.ServerMst;
+import com.gameif.portal.entity.TitleMst;
 import com.gameif.portal.util.ContextUtil;
 
 public class TitlePlayControlAction extends BaseActionSupport {
@@ -19,6 +22,7 @@ public class TitlePlayControlAction extends BaseActionSupport {
 	private TitleEntry titleEntry;
 	private IMasterInfoBusinessLogic masterInfoBusinessLogic;
 	private ITitlePlayBusinessLogic titlePlayBusinessLogic;
+	private IBetaTesterBusinessLogic betaTesterBusinessLogic;
 
 	private Integer titleId;
 	private Integer serverId;
@@ -52,13 +56,9 @@ public class TitlePlayControlAction extends BaseActionSupport {
 		if (serverMst != null) {
 
 			Date now = new Date();
-
-			// サーバが有効期間以内且つ稼動中の場合
-			if (PortalConstants.ServerStatus.RUNNING.equals(serverMst
-					.getServiceStatus())
-					&& now.after(serverMst.getServiceStartDate())
-					&& now.before(serverMst.getServiceEndDate())) {
-
+			
+			if (isPlayable(serverMst, now)) {				
+				
 				// ゲームプレイ用ＵＲＬを生成する。
 				EntryParameter parameter = new EntryParameter();
 
@@ -69,8 +69,7 @@ public class TitlePlayControlAction extends BaseActionSupport {
 				parameter.setPlayDate(now);
 				parameter.setParentMemNum(titlePlayBusinessLogic.getParentNum());
 
-				playUrl = serverMst.getPlayUrl() + "?"
-						+ titleEntry.getTitleEntryKey(parameter);
+				playUrl = serverMst.getPlayUrl() + "?" + titleEntry.getTitleEntryKey(parameter);
 
 				// ゲームプレイ履歴を出力する。
 				PlayHist playHist = new PlayHist();
@@ -89,6 +88,58 @@ public class TitlePlayControlAction extends BaseActionSupport {
 
 		return result;
 	}
+	
+	public boolean isPlayable (ServerMst serverMst, Date date) {
+		
+		boolean playable = false;
+
+		// サーバが有効期間以内且つ稼動中の場合
+		if (serverMst != null 
+				&& PortalConstants.ServerStatus.RUNNING.equals(serverMst.getServiceStatus())
+				&& date.after(serverMst.getServiceStartDate())
+				&& date.before(serverMst.getServiceEndDate())) {
+
+			playable = true;
+			
+			TitleMst titleMst = masterInfoBusinessLogic.getValidTitle(serverMst.getTitleId());
+
+			// タイトルが有効期間以外或いはメンテナンス中の場合、プレイ不可
+			if (titleMst == null
+					|| PortalConstants.ServerStatus.MAINTENANCE.equals(titleMst.getServiceStatus())
+					|| date.before(titleMst.getServiceStartDate())
+					|| date.after(titleMst.getServiceEndDate())) {
+				
+				playable = false;
+				
+			} else {
+				
+				// タイトルがβテスト状態の場合
+				if (PortalConstants.ServerStatus.CBT.equals(titleMst.getServiceStatus())
+						|| PortalConstants.ServerStatus.OBT.equals(titleMst.getServiceStatus())) {
+					
+					// 「テスター募集・プレイ不可」状態の場合、プレイ不可
+					if (PortalConstants.RecruitStatus.RECRUITING.equals(titleMst.getRecruitStatus())) {
+
+						playable = false;
+						
+					// 「テスター募集・当選者プレイ可」或いは「募集終了・当選者プレイ可」状態の場合
+					} else if (PortalConstants.RecruitStatus.TEST.equals(titleMst.getRecruitStatus())
+							|| PortalConstants.RecruitStatus.COMPLETE.equals(titleMst.getRecruitStatus())) {
+						
+						BetaTester betaTester = betaTesterBusinessLogic.getBetaTester(titleId, ContextUtil.getMemberNo());
+						
+						// ユーザがテスターに応募していない、或いは応募したが当選されていない場合、プレイ不可
+						if (betaTester == null || !PortalConstants.ElectStatus.ELECTED.equals(betaTester.getElectStatus())) {
+
+							playable = false;
+						}
+					}
+				}
+			}
+		}
+		
+		return playable;
+	}
 
 	public String getPlayUrl() {
 		return playUrl;
@@ -105,6 +156,11 @@ public class TitlePlayControlAction extends BaseActionSupport {
 	public void setMasterInfoBusinessLogic(
 			IMasterInfoBusinessLogic masterInfoBusinessLogic) {
 		this.masterInfoBusinessLogic = masterInfoBusinessLogic;
+	}
+
+	public void setBetaTesterBusinessLogic(
+			IBetaTesterBusinessLogic betaTesterBusinessLogic) {
+		this.betaTesterBusinessLogic = betaTesterBusinessLogic;
 	}
 
 	public void setTitlePlayBusinessLogic(
