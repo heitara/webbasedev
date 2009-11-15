@@ -9,24 +9,8 @@ public class MaintenanceInfo extends BaseEntity {
 	 */
 	private static final long serialVersionUID = 360588991685719247L;
 
-	private String maintenDiv;
 	private String functionCode;
 	private String maintenStatus;
-
-	/**
-	 * @return the maintenDiv
-	 */
-	public String getMaintenDiv() {
-		return maintenDiv;
-	}
-
-	/**
-	 * @param maintenDiv
-	 *            the maintenDiv to set
-	 */
-	public void setMaintenDiv(String maintenDiv) {
-		this.maintenDiv = maintenDiv;
-	}
 
 	/**
 	 * @return the functionCode
