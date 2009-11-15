@@ -17,10 +17,17 @@
 	</dt>
 	<dd>
 		<dl class="warning">
-			<dt>期限切れデータへのアクセスを要求しているため、お客様から要求された処理が継続できませんでした。</dt>
+			<dt>お客様から要求された処理が継続できませんでした。</dt>
 			<dd>
-				<a href="inputInquiry.html" title="お問合せ"><img src="images/btn_s_inquiry.gif" title="お問合せ"/></a>
-				<a href="<%=getServletContext().getInitParameter("communityTopUrl")%>" title="コミュニティサイト"><img src="images/btn_s_community.gif" title="コミュニティサイト"/></a>
+				<div class="msg">期限切れデータへのアクセスを要求しているため、お客様から要求された処理が継続できませんでした。</div>
+				<div class="rbox_side" style="margin-top:30px;"></div><div class="rbox_round"></div><div class="rbox_main">
+					<div style="overflow:hidden;margin:10px;">
+						<a href="games.html" title="ゲームプレイ"><img src="images/btn_s_play.gif" title="ゲームプレイ"/></a>
+						<a href="chargePointSelect.html" title="ポイントチャージ"><img src="images/btn_s_point.gif" title="ポイントチャージ"/></a>
+						<a href="inputInquiry.html" title="お問合せ"><img src="images/btn_s_inquiry.gif" title="お問合せ"/></a>
+						<a href="<%=getServletContext().getInitParameter("communityTopUrl")%>" title="コミュニティサイト"><img src="images/btn_s_community.gif" title="コミュニティサイト"/></a>
+					</div>
+				</div><div class="rbox_round"></div><div class="rbox_side"></div>
 			</dd>
 		</dl>
 	</dd>

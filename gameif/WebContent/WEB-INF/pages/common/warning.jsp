@@ -19,7 +19,7 @@
 		<dl class="warning">
 			<dt>お客様から要求された処理が継続できませんでした。</dt>
 			<dd>
-				<div>原因としては下記のようなものが考えられます。</div>
+				<div class="msg">原因としては下記のようなものが考えられます。</div>
 				<ul>
 					<li>存在しないデータへのアクセスを要求している。</li>
 					<li>期限切れデータへのアクセスを要求している。</li>
@@ -27,9 +27,13 @@
 					<li>複数人が同じデータを処理している。</li>
 					<li>ハッキング目的でサイト攻撃している。</li>
 				</ul>
-				<div>正常に使っているにもかかわらず何度もこの画面が表示される場合は、サイト管理者にご連絡ください。</div>
-				<a href="inputInquiry.html" title="お問合せ"><img src="images/btn_s_inquiry.gif" title="お問合せ"/></a>
-				<a href="<%=getServletContext().getInitParameter("communityTopUrl")%>" title="コミュニティサイト"><img src="images/btn_s_community.gif" title="コミュニティサイト"/></a>
+				正常に使っているにもかかわらず何度もこの画面が表示される場合は、お問合せフォームより、サイト管理者にご連絡ください。<br/>
+				<div class="rbox_side" style="margin-top:30px;"></div><div class="rbox_round"></div><div class="rbox_main">
+					<div style="overflow:hidden;margin:10px;">
+						<a href="inputInquiry.html" title="お問合せ"><img src="images/btn_s_inquiry.gif" title="お問合せ"/></a>
+						<a href="<%=getServletContext().getInitParameter("communityTopUrl")%>" title="コミュニティサイト"><img src="images/btn_s_community.gif" title="コミュニティサイト"/></a>
+					</div>
+				</div><div class="rbox_round"></div><div class="rbox_side"></div>
 			</dd>
 		</dl>
 	</dd>

@@ -7,12 +7,17 @@
 	<dt><strong>エラー</strong><span>&nbsp;</span></dt>
 	<dd>
 		<dl class="finish">
-			<dt>予期できないえらーが発生しました、管理者にご問い合わせてください。</dt>
+			<dt>決済処理でエラーが発生しました。</dt>
 			<dd>
-				<div>引き続きお楽しみください。</div>
-				<a href="games.html" title="ゲームプレイ"><img src="images/btn_s_play.gif" title="ゲームプレイ"/></a>
-				<a href="chargePointSelect.html" title="ポイントチャージ"><img src="images/btn_s_point.gif" title="ポイントチャージ"/></a>
-				<a href="<%=getServletContext().getInitParameter("communityTopUrl")%>" title="コミュニティサイト"><img src="images/btn_s_community.gif" title="コミュニティサイト"/></a>
+				<div class="msg">同じ現象が何度も繰り返す場合、お問合せフォームから、サイト運営者に連絡してください。</div>
+				<div class="rbox_side" style="margin-top:30px;"></div><div class="rbox_round"></div><div class="rbox_main">
+					<div style="overflow:hidden;margin:10px;">
+						<a href="games.html" title="ゲームプレイ"><img src="images/btn_s_play.gif" title="ゲームプレイ"/></a>
+						<a href="chargePointSelect.html" title="ポイントチャージ"><img src="images/btn_s_point.gif" title="ポイントチャージ"/></a>
+						<a href="inputInquiry.html" title="お問合せ"><img src="images/btn_s_inquiry.gif" title="お問合せ"/></a>
+						<a href="<%=getServletContext().getInitParameter("communityTopUrl")%>" title="コミュニティサイト"><img src="images/btn_s_community.gif" title="コミュニティサイト"/></a>
+					</div>
+				</div><div class="rbox_round"></div><div class="rbox_side"></div>
 			<dd>
 		</dl>
 	</dd>
