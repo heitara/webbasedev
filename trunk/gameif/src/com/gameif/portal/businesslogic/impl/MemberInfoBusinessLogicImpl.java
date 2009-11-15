@@ -176,6 +176,8 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		memberInfo.setMemValidYNCd(PortalConstants.MemberValidYNCd.VALID);
 		// メルマガ対象：対象会員
 		memberInfo.setMailmagObjCd(PortalConstants.YES);
+		// メルマガ配信希望
+		memberInfo.setMailmagReqCd(PortalConstants.YES);
 
 		// パスワードと秘密質問をMD5アルゴリズムで暗号化する。
 		memberInfo.setMemPwd(tempMemberInfo.getMemPwd());
@@ -530,7 +532,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	public int countMembersByMemId(String memId) {
 
 		int count = 0;
-		count = tempMemberInfoDao.selectValidCountByMemId(memId, invalidMinute);
+		count = tempMemberInfoDao.selectValidCountByMemId(memId, invalidMinute, ContextUtil.getClientIP());
 		if (count > 0) {
 			return count;
 		}
@@ -560,7 +562,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	public int countMembersByNickName(String nickName) {
 
 		int count = 0;
-		count = tempMemberInfoDao.selectValidCountByNickName(nickName, invalidMinute);
+		count = tempMemberInfoDao.selectValidCountByNickName(nickName, invalidMinute, ContextUtil.getClientIP());
 		if (count > 0) {
 			return count;
 		}
@@ -579,7 +581,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	public int countMembersByNickName(String nickName, Long memberNum) {
 
 		int count = 0;
-		count = tempMemberInfoDao.selectValidCountByNickName(nickName, invalidMinute);
+		count = tempMemberInfoDao.selectValidCountByNickName(nickName, invalidMinute, ContextUtil.getClientIP());
 		if (count > 0) {
 			return count;
 		}
@@ -596,7 +598,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	public int countMembersByMailPc(String mailPc) {
 
 		int count = 0;
-		count = tempMemberInfoDao.selectValidCountByMailPc(mailPc, invalidMinute);
+		count = tempMemberInfoDao.selectValidCountByMailPc(mailPc, invalidMinute, ContextUtil.getClientIP());
 		if (count > 0) {
 			return count;
 		}
@@ -615,7 +617,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	public int countMembersByMailPc(String mailPc, Long memberNum) {
 
 		int count = 0;
-		count = tempMemberInfoDao.selectValidCountByMailPc(mailPc, invalidMinute);
+		count = tempMemberInfoDao.selectValidCountByMailPc(mailPc, invalidMinute, ContextUtil.getClientIP());
 		if (count > 0) {
 			return count;
 		}
