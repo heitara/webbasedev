@@ -51,20 +51,20 @@ public class TempMemberInfoDaoImpl extends
 	/**
 	 * 指定したアカウントＩＤの件数を検索する。
 	 * 
-	 * @param memId
-	 *            アカウントＩＤ
-	 * @param invalidMinute
-	 *            失効時間（単位：分）
+	 * @param memId アカウントＩＤ
+	 * @param invalidMinute 失効時間（単位：分）
+	 * @param createdIp 登録IP
 	 * @return 件数
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public int selectValidCountByMemId(String memId, Integer invalidMinute) {
+	public int selectValidCountByMemId(String memId, Integer invalidMinute, String createdIp) {
 
 		HashMap params = new HashMap();
 
 		params.put("memId", memId);
 		params.put("invalidMinute", invalidMinute);
+		params.put("createdIp", createdIp);
 
 		return (Integer) (getSqlMapClientTemplate().queryForObject(namespace
 				+ ".selectValidCountByMemId", params));
@@ -73,43 +73,43 @@ public class TempMemberInfoDaoImpl extends
 	/**
 	 * 指定したニックネームの件数を検索する。
 	 * 
-	 * @param nickName
-	 *            ニックネーム
-	 * @param invalidMinute
-	 *            失効時間（単位：分）
+	 * @param nickName ニックネーム
+	 * @param invalidMinute 失効時間（単位：分）
+	 * @param createdIp 登録IP
 	 * @return 件数
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public int selectValidCountByNickName(String nickName, Integer invalidMinute) {
+	public int selectValidCountByNickName(String nickName, Integer invalidMinute, String createdIp) {
 
 		HashMap params = new HashMap();
 
 		params.put("nickName", nickName);
 		params.put("invalidMinute", invalidMinute);
+		params.put("createdIp", createdIp);
 
-		return (Integer) (getSqlMapClientTemplate().queryForObject(namespace
-				+ ".selectValidCountByNickName", params));
+		return (Integer) (getSqlMapClientTemplate().queryForObject(namespace + ".selectValidCountByNickName", params));
 	}
 
 	/**
 	 * 指定したパソコンメールの件数を検索する。
 	 * 
-	 * @param mailPc
-	 *            メールアドレス
+	 * @param mailPc メールアドレス
+	 * @param invalidMinute 失効時間（単位：分）
+	 * @param createdIp 登録IP
 	 * @return 件数
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public int selectValidCountByMailPc(String mailPc, Integer invalidMinute) {
+	public int selectValidCountByMailPc(String mailPc, Integer invalidMinute, String createdIp) {
 
 		HashMap params = new HashMap();
 
 		params.put("mailPc", mailPc);
 		params.put("invalidMinute", invalidMinute);
+		params.put("createdIp", createdIp);
 
-		return (Integer) (getSqlMapClientTemplate().queryForObject(namespace
-				+ ".selectValidCountByMailPc", params));
+		return (Integer) (getSqlMapClientTemplate().queryForObject(namespace + ".selectValidCountByMailPc", params));
 	}
 
 	/**
@@ -120,8 +120,7 @@ public class TempMemberInfoDaoImpl extends
 	@Override
 	public Integer deleteInvalidData(Integer invalidMinute) {
 
-		return getSqlMapClientTemplate().delete(namespace + ".deleteInvalidData",
-				invalidMinute);
+		return getSqlMapClientTemplate().delete(namespace + ".deleteInvalidData", invalidMinute);
 	}
 
 }

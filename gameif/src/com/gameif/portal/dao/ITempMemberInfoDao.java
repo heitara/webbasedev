@@ -18,34 +18,31 @@ public interface ITempMemberInfoDao extends IBaseDao<TempMemberInfo, TempMemberI
 	/**
 	 * 指定したアカウントＩＤの件数を検索する。
 	 * 
-	 * @param memId
-	 *            アカウントＩＤ
-	 * @param invalidMinute
-	 *            失効期限（単位：分）
+	 * @param memId アカウントＩＤ
+	 * @param invalidMinute 失効期限（単位：分）
+	 * @param createdIp 登録IP
 	 * @return 件数
 	 */
-	public int selectValidCountByMemId(String memId, Integer invalidMinute);
+	public int selectValidCountByMemId(String memId, Integer invalidMinute, String createdIp);
 
 	/**
 	 * 指定したニックネームの件数を検索する。
 	 * 
-	 * @param nickName
-	 *            ニックネーム
-	 * @param invalidMinute
-	 *            失効期限（単位：分）
+	 * @param nickName ニックネーム
+	 * @param invalidMinute 失効期限（単位：分）
+	 * @param createdIp 登録IP
 	 * @return 件数
 	 */
-	public int selectValidCountByNickName(String nickName, Integer invalidMinute);
+	public int selectValidCountByNickName(String nickName, Integer invalidMinute, String createdIp);
 	
 	/**
 	 * 指定したパソコンメールの件数を検索する。
 	 * 
-	 * @param mailPc
-	 *            メールアドレス
-	 * @param invalidMinute
-	 *            失効期限（単位：分）
+	 * @param mailPc メールアドレス
+	 * @param invalidMinute 失効期限（単位：分）
+	 * @param createdIp 登録IP
 	 * @return 件数
 	 */
-	public int selectValidCountByMailPc(String mailPc, Integer invalidMinute);
+	public int selectValidCountByMailPc(String mailPc, Integer invalidMinute, String createdIp);
 
 }
