@@ -109,13 +109,6 @@ public interface IMemberInfoDao extends IBaseDao<MemberInfo, MemberInfo> {
 	public MemberInfo selectForPwdReget(MemberInfo memberinfo);
 	
 	/**
-	 * 会員番号より、該当会員がリンクで招待した友達を検索する
-	 * @param memNum 会員番号
-	 * @return 友達リスト
-	 */
-	public List<MemberInfo> selectLinkMembersByMemNum(Long memNum);
-	
-	/**
 	 * 会員番号とIDにより、会員情報を検索する
 	 * @param memberInfo
 	 * @return 会員情報
