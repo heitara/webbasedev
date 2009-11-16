@@ -65,7 +65,7 @@
 			last_update_date,
 			last_update_user)
 		VALUES
-			(#settlementTrnsNum#,,
+			(#settlementTrnsNum#,
 			#settlementCode#,
 			#memNum#,
 			#memAtbtCd#,
@@ -92,6 +92,11 @@
 			#lastUpdateDate#,
 			#lastUpdateUser#)
         ]]>
+		<selectKey resultClass="java.lang.Long" keyProperty="settlementNum">   
+        	<![CDATA[
+			SELECT last_insert_id() as settlement_num
+        	]]>
+		</selectKey>
 	</insert>
 
 </sqlMap>
