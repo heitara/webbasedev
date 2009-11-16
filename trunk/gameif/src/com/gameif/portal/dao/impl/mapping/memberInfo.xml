@@ -420,21 +420,6 @@
         ]]>
 	</select>
 
-	<select id="selectLinkMembersByMemNum" parameterClass="java.lang.Long" resultMap="memInviteLinkResult">   
-        <![CDATA[
-	        SELECT
-				member_info.nick_name, member_info.entry_date
-			FROM
-				member_info
-			INNER JOIN 
-				invite_link_hist
-			ON	
-				member_info.mem_num = invite_link_hist.child_mem_num
-			AND invite_link_hist.mem_num = #memNum#
-			ORDER BY member_info.mem_num DESC
-        ]]>
-	</select>
-
 	<select id="selectByNumAndIDForUpdate" parameterClass="memberInfo" resultMap="memberResult">
         <![CDATA[
 			SELECT
