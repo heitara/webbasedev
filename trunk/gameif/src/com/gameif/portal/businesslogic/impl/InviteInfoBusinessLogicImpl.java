@@ -16,11 +16,11 @@ import com.gameif.portal.businesslogic.IInviteInfoBusinessLogic;
 import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.dao.IInviteInfoDao;
 import com.gameif.portal.dao.IInviteLinkDao;
-import com.gameif.portal.dao.IMemberInfoDao;
+import com.gameif.portal.dao.IInviteLinkHistDao;
 import com.gameif.portal.dao.ITitleMstDao;
 import com.gameif.portal.entity.InviteInfo;
 import com.gameif.portal.entity.InviteLink;
-import com.gameif.portal.entity.MemberInfo;
+import com.gameif.portal.entity.MyInviteLink;
 import com.gameif.portal.util.ContextUtil;
 
 public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
@@ -35,7 +35,7 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	private TemplateMailer templateMailer;
 	private ITitleMstDao titleMstDao;
 	private IInviteLinkDao inviteLinkDao;
-	private IMemberInfoDao memberInfoDao;
+	private IInviteLinkHistDao inviteLinkHistDao;
 
 	private Integer deleDays;
 	private Integer maxMailCount;
@@ -87,10 +87,10 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	}
 
 	/**
-	 * @param memberInfoDao the memberInfoDao to set
+	 * @param inviteLinkHistDao the inviteLinkHistDao to set
 	 */
-	public void setMemberInfoDao(IMemberInfoDao memberInfoDao) {
-		this.memberInfoDao = memberInfoDao;
+	public void setInviteLinkHistDao(IInviteLinkHistDao inviteLinkHistDao) {
+		this.inviteLinkHistDao = inviteLinkHistDao;
 	}
 
 	/**
@@ -367,8 +367,8 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	 * @return 友達リスト
 	 */
 	@Override
-	public List<MemberInfo> selectLinkMembersByMemNum(Long memNum) {
-		return memberInfoDao.selectLinkMembersByMemNum(memNum);
+	public List<MyInviteLink> selectLinkMembersByMemNum(Long memNum) {
+		return inviteLinkHistDao.selectLinkMembersByMemNum(memNum);
 	}
 
 }
