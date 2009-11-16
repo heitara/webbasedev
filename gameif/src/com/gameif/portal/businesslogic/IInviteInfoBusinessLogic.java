@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.gameif.common.exception.LogicException;
 import com.gameif.portal.entity.InviteInfo;
-import com.gameif.portal.entity.MemberInfo;
+import com.gameif.portal.entity.MyInviteLink;
 
 public interface IInviteInfoBusinessLogic {
 
@@ -14,5 +14,5 @@ public interface IInviteInfoBusinessLogic {
 	public void sendMailAgain(List<Long> inviteList);
 	public void deleteInviteInfo(List<Long> inviteList);
 	public String createMemInviteLink(Integer titleId);
-	public List<MemberInfo> selectLinkMembersByMemNum(Long memNum);
+	public List<MyInviteLink> selectLinkMembersByMemNum(Long memNum);
 }
