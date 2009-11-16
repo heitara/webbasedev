@@ -205,9 +205,6 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 	 * @return 友達紹介入力画面
 	 */
 	public String input() {
-		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.INVITE)) {
-			return "maintenance";
-		}
 		return INPUT;
 	}
 	
@@ -216,7 +213,7 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 	 * @return メールで友達招待画面
 	 */
 	public String inputMail() {
-		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.INVITE)) {
+		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.INVITE_MAIL)) {
 			return "maintenance";
 		}
 		
@@ -240,7 +237,7 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 	 * @return　リンクで友達招待画面
 	 */
 	public String inputLink() {
-		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.INVITE)) {
+		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.INVITE_LINK)) {
 			return "maintenance";
 		}
 		return "inputLink";
@@ -252,7 +249,7 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 	 * @return　登録完了画面
 	 */
 	public String create() {
-		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.INVITE)) {
+		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.INVITE_MAIL)) {
 			return "maintenance";
 		}
 		
@@ -399,7 +396,7 @@ public class InviteInputAction extends ModelDrivenActionSupport<InviteInfo> {
 	 * @return リンクで友達招待画面
 	 */
 	public String createLink() {
-		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.INVITE)) {
+		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.INVITE_LINK)) {
 			return "maintenance";
 		}
 		setLink(inviteInfoBusinessLogic.createMemInviteLink(this.getModel().getTitleId()));

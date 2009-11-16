@@ -94,10 +94,30 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		settlementTrns.setSettlementDate(settleDate);
 		settlementTrns.setPointAmount(pointMst.getPointAmount());
 		settlementTrns.setPointAmountAct(pointMst.getPointAmountAct());
+		settlementTrns.setSettlementLog(makeSettlementTrnsLog(settlementTrns));
 		settlementTrns.setCreatedDate(settleDate);
 		settlementTrns.setCreatedUser(memberInfo.getMemNum().toString());
 		// 仮決済を登録する
 		memSettlementTrnsDao.save(settlementTrns);
+	}
+	
+	/**
+	 * 決済ログを作成する
+	 * @param settlementTrns 仮決済情報
+	 * @return
+	 */
+	private String makeSettlementTrnsLog(MemSettlementTrns settlementTrns) {
+		return new StringBuilder()
+		.append(settlementTrns.getSettlementCode()).append(",")
+		.append(settlementTrns.getMemNum()).append(",")
+		.append(settlementTrns.getMemAtbtCd()).append(",")
+		.append(settlementTrns.getTitleId()).append(",")
+		.append(settlementTrns.getServerId()).append(",")
+		.append(settlementTrns.getPointId()).append(",")
+		.append(settlementTrns.getSettlementDate()).append(",")
+		.append(settlementTrns.getPointAmount()).append(",")
+		.append(settlementTrns.getPointAmountAct())
+		.toString();
 	}
 
 	/**
@@ -130,6 +150,8 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		}
 
 		// 本決済を登録する
+		Date settlementDate = new Date();
+		
 		settlementHist.setSettlementTrnsNum(settleTrns.getSettlementTrnsNum());
 		settlementHist.setSettlementCode(settleTrns.getSettlementCode());
 		settlementHist.setMemNum(settleTrns.getMemNum());
@@ -137,30 +159,31 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		settlementHist.setTitleId(settleTrns.getTitleId());
 		settlementHist.setServerId(settleTrns.getServerId());
 		settlementHist.setPointId(settleTrns.getPointId());
-		settlementHist.setSettlementDate(settleTrns.getSettlementDate());
+		settlementHist.setSettlementDate(settlementDate);
 		settlementHist.setPointAmount(settleTrns.getPointAmount());
 		settlementHist.setPointAmountAct(settleTrns.getPointAmountAct());
 		// ログ
 		settlementHist.setSettlementLog(makeSettlementLog(settlementHist));
-		settlementHist.setLastUpdateUser(ContextUtil.getMemberNo().toString());
-		settlementHist.setLastUpdateDate(new Date());
+//		settlementHist.setLastUpdateUser(ContextUtil.getMemberNo().toString());
+		settlementHist.setLastUpdateUser(settleTrns.getCreatedUser());
+		settlementHist.setLastUpdateDate(settlementDate);
 
 		memSettlementHistDao.save(settlementHist);
 
 		// 会員属性を更新する
-		MemberInfo member = memberInfoDao.selectForUpdate(settleTrns
-				.getMemNum());
+		MemberInfo member = memberInfoDao.selectForUpdate(settleTrns.getMemNum());
 		if (member == null) {
 
 			// データが存在しない
-			throw new DataNotExistsException("MemberInfo Data not exists.");
+			throw new DataNotExistsException("MemberInfo Data does not exist.");
 		}
 
 		// 会員属性：通常会員
 		member.setMemAtbtCd(PortalConstants.MemberAtbtCd.CHARGE);
-		member.setLastUpdateDate(new Date());
+		member.setLastUpdateDate(settlementDate);
 		member.setLastUpdateIp(ContextUtil.getClientIP());
-		member.setLastUpdateUser(ContextUtil.getMemberNo().toString());
+//		member.setLastUpdateUser(ContextUtil.getMemberNo().toString());
+		member.setLastUpdateUser(settleTrns.getMemNum().toString());
 
 		memberInfoDao.update(member);
 
@@ -168,30 +191,38 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		ChargeParameter params = new ChargeParameter();
 		params.setMemNum(member.getMemNum());
 		params.setMemId(member.getMemId());
+		params.setOrderNo(settlementHist.getSettlementNum());
 		params.setTitleId(settleTrns.getTitleId());
-		params.setChargePoint(Integer.parseInt(settleTrns.getPointAmountAct()
-				.toString()));
-		params.setChargeDate(settleTrns.getSettlementDate());
+		params.setChargePoint(Integer.parseInt(settleTrns.getPointAmountAct().toString()));
+		params.setChargeDate(settlementDate);
 
-		TitleMst title = new TitleMst();
-		title.setTitleId(settleTrns.getTitleId());
-		title = titleMstDao.selectByKey(title);
+		TitleMst title = titleMstDao.selectValidTitleByKey(settleTrns.getTitleId());
+		if (title == null) {
+
+			// データが存在しない
+			throw new DataNotExistsException("Title Data does not exist.");
+		}
+		logger.info("77777");
 
 		params.setChargeUrl(title.getPaymentUrl());
 		params.setSpType(PortalConstants.ChargeSpType.ACCOUNT_POINT);
 
 		TitleCharge titleCharge = new TitleCharge();
+		logger.info("Before Charge");
 		// チャージを行う
 		int chargeRes = titleCharge.chargePoint(params);
 		if (chargeRes != 0) {
 			throw new LogicException("Failed to charge.");
 		}
+		logger.info("End Charge");
 
 		// 仮決済情報を削除する
 		memSettlementTrnsDao.deleteByKey(settleTrns.getSettlementTrnsNum());
+		logger.info("End delete settleTrns");
 		
 		// サービスポイントを贈与する
 		checkSettlementAmount(settlementHist, member);
+		logger.info("End gice service point");
 
 		try {
 			// 招待メールを送信する。

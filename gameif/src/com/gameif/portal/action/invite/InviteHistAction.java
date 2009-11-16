@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.gameif.common.action.ModelDrivenActionSupport;
 import com.gameif.portal.businesslogic.IInviteInfoBusinessLogic;
+import com.gameif.portal.businesslogic.IMaintenanceBusinessLogic;
+import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.entity.InviteInfo;
 import com.gameif.portal.entity.MyInviteLink;
 import com.gameif.portal.helper.PortalProperties;
@@ -19,6 +21,7 @@ public class InviteHistAction extends ModelDrivenActionSupport<InviteInfo> {
 	private List<InviteInfo> listInviteHist;
 
 	private IInviteInfoBusinessLogic inviteInfoBusinessLogic;
+	private IMaintenanceBusinessLogic maintenanceBusinessLogic;
 	private PortalProperties portalProperties;
 
 	private String inviteStatusSelect;
@@ -72,6 +75,21 @@ public class InviteHistAction extends ModelDrivenActionSupport<InviteInfo> {
 	}
 
 	/**
+	 * @return the maintenanceBusinessLogic
+	 */
+	public IMaintenanceBusinessLogic getMaintenanceBusinessLogic() {
+		return maintenanceBusinessLogic;
+	}
+
+	/**
+	 * @param maintenanceBusinessLogic the maintenanceBusinessLogic to set
+	 */
+	public void setMaintenanceBusinessLogic(
+			IMaintenanceBusinessLogic maintenanceBusinessLogic) {
+		this.maintenanceBusinessLogic = maintenanceBusinessLogic;
+	}
+
+	/**
 	 * @return the inviteStatusSelect
 	 */
 	public String getInviteStatusSelect() {
@@ -120,6 +138,9 @@ public class InviteHistAction extends ModelDrivenActionSupport<InviteInfo> {
 	 * @return メールで友達紹介履歴画面
 	 */
 	public String showMail() {
+		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.INVITE_MAIL)) {
+			return "maintenance";
+		}
 		setListInviteHist(inviteInfoBusinessLogic.selectInviteHistByMemNum(inviteStatusSelect));
 		return "showMail";
 	}
@@ -130,6 +151,9 @@ public class InviteHistAction extends ModelDrivenActionSupport<InviteInfo> {
 	 * @return リンクで友達紹介履歴画面
 	 */
 	public String showLink() {
+		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.INVITE_LINK)) {
+			return "maintenance";
+		}
 		setInviteLinkHistList(inviteInfoBusinessLogic.selectLinkMembersByMemNum(ContextUtil.getMemberNo()));
 		return "showLink";
 	}
@@ -140,6 +164,9 @@ public class InviteHistAction extends ModelDrivenActionSupport<InviteInfo> {
 	 * @return
 	 */
 	public String sendMail() {
+		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.INVITE_MAIL)) {
+			return "maintenance";
+		}
 		
 		// 選択した友達に再送信する
 		inviteInfoBusinessLogic.sendMailAgain(getSelectedInvites());
@@ -153,6 +180,9 @@ public class InviteHistAction extends ModelDrivenActionSupport<InviteInfo> {
 	 * @return
 	 */
 	public String delete() {
+		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.INVITE_MAIL)) {
+			return "maintenance";
+		}
 		
 		// 選択した紹介情報を削除する
 		inviteInfoBusinessLogic.deleteInviteInfo(getSelectedInvites());
