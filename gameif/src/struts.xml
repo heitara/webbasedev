@@ -160,6 +160,8 @@
 			<result name="showLink">/WEB-INF/pages/portal/invite_link_hist.jsp</result>
 			<result name="sendMailSuccess"  type="redirect">/finishedPage.html?action=sendMailAgain</result>
 			<result name="deleteSuccess"  type="redirect">/finishedPage.html?action=deleteInvite</result>
+			<!-- メンテナンス画面に案内する -->
+			<result name="maintenance" type="redirect">/maintenancePage.html</result>
 		</action>
 
 		<action name="playGame" class="titlePlayControlAction">
@@ -236,8 +238,9 @@
 			</result>
 			
 			<result name="detailInit">/WEB-INF/pages/portal/charge_detail.jsp</result>
-			
+			<!-- 
 			<result name="receive">/WEB-INF/pages/portal/charge_receive.jsp</result>
+			 -->
 			<result name="cancel">/WEB-INF/pages/portal/charge_cancel.jsp</result>
 			<result name="error">/WEB-INF/pages/portal/charge_error.jsp</result>
 			<result name="success">/WEB-INF/pages/portal/charge_success.jsp</result>
