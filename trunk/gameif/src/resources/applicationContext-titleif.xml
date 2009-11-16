@@ -35,7 +35,7 @@
 		 -->
 		
 		<!-- サーバ間連携パスワード -->
-		<property name="unionCd" value="1233113132131213131313" />
+		<property name="unionCd" value="PKSC45K85XMR3R8G4KV0" />
 	</bean>	
 	
 	
@@ -94,7 +94,7 @@
 		 -->
 		
 		<!-- サーバ間連携パスワード -->
-		<property name="unionCd" value="1233113132131213131313" />
+		<property name="unionCd" value="9AND3DOB8TFUZW5ILGH5" />
 	</bean>
 	
 	<!-- ゲームに紹介結果検索用セキュリティキー生成クラスの定義 -->
@@ -115,7 +115,7 @@
 		<property name="validateCdKey" value="p" />
 		
 		<!-- サーバ間連携パスワード -->
-		<property name="unionCd" value="1233113132131213131313" />
+		<property name="unionCd" value="6TN9HD75HQCTIHL7UDAT" />
 	</bean>	
 	
 </beans>
