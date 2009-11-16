@@ -194,3 +194,10 @@ INSERT INTO `advert_mst` (`advert_num`, `advert_name`, `advert_agency_num`, `med
 (104, 'OnlineGamer・CBT募集', 1, 4, 0, 0, NULL, '2009-11-06 15:47:36', '2010-11-06 15:47:36', 1, '', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
 (105, 'OnlineGameZoom・CBT募集', 1, 5, 0, 0, NULL, '2009-11-06 15:47:36', '2010-11-06 15:47:36', 1, '', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
 (106, '4Gamer・CBT募集', 1, 3, 0, 0, NULL, '2009-11-06 15:47:36', '2010-11-06 15:47:36', 1, '', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou');
+
+TRUNCATE TABLE `maintenance_info`;
+INSERT INTO `maintenance_info` (`function_code`, `mainten_status`) VALUES
+('20', '0'),
+('30', '0'),
+('40', '0'),
+('43', '0');
