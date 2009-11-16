@@ -82,8 +82,8 @@
 		<property name="inviteLinkDao">
 			<ref bean="inviteLinkDao" />
 		</property>
-		<property name="memberInfoDao">
-			<ref bean="memberInfoDao" />
+		<property name="inviteLinkHistDao">
+			<ref bean="inviteLinkHistDao" />
 		</property>
 	</bean>
 	
@@ -116,6 +116,9 @@
 		</property>
 		<property name="settlementMstDao">
 			<ref bean="settlementMstDao" />
+		</property>
+		<property name="memberInfoDao">
+			<ref bean="memberInfoDao" />
 		</property>
 	</bean>
 	
