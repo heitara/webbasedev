@@ -5,7 +5,7 @@ import java.util.List;
 import com.gameif.common.action.ModelDrivenActionSupport;
 import com.gameif.portal.businesslogic.IInviteInfoBusinessLogic;
 import com.gameif.portal.entity.InviteInfo;
-import com.gameif.portal.entity.MemberInfo;
+import com.gameif.portal.entity.MyInviteLink;
 import com.gameif.portal.helper.PortalProperties;
 import com.gameif.portal.util.ContextUtil;
 
@@ -24,7 +24,7 @@ public class InviteHistAction extends ModelDrivenActionSupport<InviteInfo> {
 	private String inviteStatusSelect;
 	
 	private List<Long> selectedInvites;
-	private List<MemberInfo> memLinkHistList;
+	private List<MyInviteLink> inviteLinkHistList;
 
 	/**
 	 * @return the portalProperties
@@ -94,17 +94,17 @@ public class InviteHistAction extends ModelDrivenActionSupport<InviteInfo> {
 	}
 
 	/**
-	 * @return the memLinkHistList
+	 * @return the inviteLinkHistList
 	 */
-	public List<MemberInfo> getMemLinkHistList() {
-		return memLinkHistList;
+	public List<MyInviteLink> getInviteLinkHistList() {
+		return inviteLinkHistList;
 	}
 
 	/**
-	 * @param memLinkHistList the memLinkHistList to set
+	 * @param inviteLinkHistList the inviteLinkHistList to set
 	 */
-	public void setMemLinkHistList(List<MemberInfo> memLinkHistList) {
-		this.memLinkHistList = memLinkHistList;
+	public void setInviteLinkHistList(List<MyInviteLink> inviteLinkHistList) {
+		this.inviteLinkHistList = inviteLinkHistList;
 	}
 
 	/**
@@ -130,7 +130,7 @@ public class InviteHistAction extends ModelDrivenActionSupport<InviteInfo> {
 	 * @return リンクで友達紹介履歴画面
 	 */
 	public String showLink() {
-		setMemLinkHistList(inviteInfoBusinessLogic.selectLinkMembersByMemNum(ContextUtil.getMemberNo()));
+		setInviteLinkHistList(inviteInfoBusinessLogic.selectLinkMembersByMemNum(ContextUtil.getMemberNo()));
 		return "showLink";
 	}
 
