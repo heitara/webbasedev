@@ -15,15 +15,18 @@
 			こちらのページでは、あなたの紹介リンクをクリックして、会員登録を行ったユーザの一覧が表示されます。
 			</div>
 			<s:form name="frm_invite_hist" method="post" cssClass="entry">
-				<table class="friendhist tspace_y" border="1">
-					<s:iterator value="memLinkHistList" id="linkHist" status="st">
-						<s:if test="#st.index % 4 == 0">
-							<tr <s:if test="#st.odd">class="odd" </s:if> >
-						</s:if>
-							<td class="friend"><s:property value="nickName"/> | <s:property value="entryDate"/></td>
-						<s:if test="#st.index % 4 == 3 || #st.last">
-							</tr>
-						</s:if>
+				<table class="friendhist tspace_y" align="center">
+					<tr id="listTitle">
+						<th class="friend">ニックネーム</th>
+						<th class="entry_ymd">登録日</th>
+						<th class="mail">タイトル</th>
+					</tr>
+					<s:iterator value="inviteLinkHistList" id="linkHist" status="st">
+						<tr <s:if test="#st.odd">class="odd" </s:if> >
+							<td class="friend"><s:property value="nickName"/></td>
+							<td class="entry_ymd"><s:property value="entryDate"/></td>
+							<td class="mail"><s:property value="titleName"/></td>
+						</tr>
 					</s:iterator>
 				</table>
 				<br/>
