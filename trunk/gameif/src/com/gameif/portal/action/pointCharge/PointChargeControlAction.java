@@ -4,13 +4,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.struts2.ServletActionContext;
 
 import com.gameif.common.action.ModelDrivenActionSupport;
 import com.gameif.common.exception.BetaTestException;
 import com.gameif.common.exception.LogicException;
 import com.gameif.common.exception.MaintenanceException;
-import com.gameif.common.util.StringUtil;
 import com.gameif.portal.businesslogic.IMaintenanceBusinessLogic;
 import com.gameif.portal.businesslogic.IMasterInfoBusinessLogic;
 import com.gameif.portal.businesslogic.IPointChargeBusinessLogic;
@@ -51,10 +53,6 @@ public class PointChargeControlAction extends
 	private List<SettlementMst> settleList;
 	private String requestUrl;
 	private String spsKey;
-
-//	private Integer titleId;
-//	private Integer serverId;
-//	private Integer pointId;
 	private Long settleTrnsNum;
 
 	// 購入要求用パラメータ
@@ -151,7 +149,9 @@ public class PointChargeControlAction extends
 		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.CHARGE)) {
 			return "maintenance";
 		}
-		settleList = masterInfoBusinessLogic.getAllSettlementList();
+		// テスト会員の場合、すべての決済方法を取得する
+		// 上記以外の場合、稼動中の決済方法を取得する
+		settleList = masterInfoBusinessLogic.getSettlementListForCharge();
 
 		return "settleSelect";
 	}
@@ -201,17 +201,43 @@ public class PointChargeControlAction extends
 	 * @return detail（チャージ明細画面に案内する、SBPSと連動する）
 	 */
 	public String Detail() {
+		
 
 		setSettleTrnsNum(Long.parseLong(ServletActionContext.getRequest()
 				.getParameter("settleTrnsNum")));
 
 		MemSettlementTrns settleTrns = pointChargeBusinessLogic
 				.getSettlementTrnsByKey(getSettleTrnsNum());
+		
+		logger.info(makeSettleTrnsLog(settleTrns));
 
 		initRequestParams(settleTrns);
 
+		
 		return "detailInit";
 
+	}
+	
+	/**
+	 * 仮決済情報をログに出力する
+	 * @param settlementTrns
+	 * @return
+	 */
+	private String makeSettleTrnsLog(MemSettlementTrns settlementTrns) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(ContextUtil.getRequestBaseInfo())
+		.append(" | External I/F--Settlement Result: ")
+		.append("settlementTrnsNum=").append(settlementTrns.getSettlementTrnsNum()).append(",")
+		.append("memNum=").append(settlementTrns.getMemNum()).append(",")
+		.append("payMethod=").append(settlementTrns.getSettlementCode()).append(",")
+		.append("title=").append(settlementTrns.getTitleId()).append(",")
+		.append("serverId=").append(settlementTrns.getServerId()).append(",")
+		.append("pointId=").append(settlementTrns.getPointId()).append(",")
+		.append("PointCount=").append(settlementTrns.getPointAmount()).append(",")
+		.append("pointCountAct=").append(settlementTrns.getPointAmountAct());
+		
+		return sb.toString();
+		
 	}
 
 	/**
@@ -238,12 +264,9 @@ public class PointChargeControlAction extends
 		setPay_item_id("");
 
 		// 商品名称：商品IDより、ポイントマスタから取得するポイント名称
-		PointMst pointMst = masterInfoBusinessLogic.getPointMstByKey(settleTrns
-				.getPointId());
+		PointMst pointMst = masterInfoBusinessLogic.getPointMstByKey(settleTrns.getPointId());
 		if (pointMst != null) {
-			// Shift-Jisで文字コード変換する
-			setItem_name(StringUtil.convertToShitjis(pointMst.getPointName()
-					.trim()));
+			setItem_name(pointMst.getPointName().trim());
 		} else {
 			setItem_name("");
 		}
@@ -278,8 +301,8 @@ public class PointChargeControlAction extends
 		setFree2("");
 		// 自由欄３
 		setFree3("");
-		// 自由欄(CSV形式)
-		setFree_csv("");
+//		// 自由欄(CSV形式)
+//		setFree_csv("");
 		// 明細情報
 		setDtl_rowno("1");
 		setDtl_item_id(getItem_id());
@@ -303,35 +326,53 @@ public class PointChargeControlAction extends
 	private String makeRequestHashCode() {
 		StringBuilder sb = new StringBuilder();
 		// 文字連結
-		sb.append(getPay_method()).append(getMerchant_id()).append(
-				getService_id()).append(getCust_code())
-				.append(getSps_cust_no()).append(getSps_payment_no()).append(
-						getOrder_id()).append(getItem_id()).append(
-						getPay_item_id()).append(getItem_name()).append(
-						getTax()).append(getAmount()).append(getPay_type())
-				.append(getAuto_charge_type()).append(getService_type())
-				.append(getDiv_settele()).append(getLast_charge_month())
-				.append(getCamp_type()).append(getTracking_id()).append(
-						getTerminal_type()).append(getSuccess_url()).append(
-						getCancel_url()).append(getError_url()).append(
-						getPagecon_url()).append(getFree1()).append(getFree2())
-				.append(getFree3()).append(getFree_csv());
+		sb.append(getPay_method())
+		.append(getMerchant_id())
+		.append(getService_id())
+		.append(getCust_code())
+		.append(getSps_cust_no())
+		.append(getSps_payment_no())
+		.append(getOrder_id())
+		.append(getItem_id())
+		.append(getPay_item_id())
+		.append(getItem_name())
+		.append(getTax())
+		.append(getAmount())
+		.append(getPay_type())
+		.append(getAuto_charge_type())
+		.append(getService_type())
+		.append(getDiv_settele())
+		.append(getLast_charge_month())
+		.append(getCamp_type())
+		.append(getTracking_id())
+		.append(getTerminal_type())
+		.append(getSuccess_url())
+		.append(getCancel_url())
+		.append(getError_url())
+		.append(getPagecon_url())
+		.append(getFree1())
+		.append(getFree2())
+		.append(getFree3());
+//		.append(getFree_csv());
 
 		// 明細情報を設定する
-		sb.append(getDtl_rowno()).append(getDtl_item_id()).append(
-				getDtl_item_name()).append(getDtl_item_count()).append(
-				getDtl_tax()).append(getDtl_amount());
+		sb.append(getDtl_rowno())
+		.append(getDtl_item_id())
+		.append(getDtl_item_name())
+		.append(getDtl_item_count())
+		.append(getDtl_tax())
+		.append(getDtl_amount());
 
-		sb.append(getRequest_date()).append(getLimit_second()).append(
-				getSpsKey());
+		sb.append(getRequest_date())
+		.append(getLimit_second())
+		.append(getSpsKey());
 
 		String spsHashCd = "";
 		try {
 			// 文字コードをUTF-8に変換する
 			byte[] shaBytes = sb.toString().getBytes("UTF-8");
 			// UTF-8で取得した値をハッシュ演算する
-			spsHashCd = org.apache.commons.codec.digest.DigestUtils
-					.shaHex(shaBytes);
+			spsHashCd = org.apache.commons.codec.digest.DigestUtils.shaHex(shaBytes);
 		} catch (Exception ex) {
 			logger.error(ex.getMessage());
 		}
@@ -345,36 +386,90 @@ public class PointChargeControlAction extends
 	 * 
 	 * @return
 	 */
-	public String Receive() {
-
+	public void Receive() {
 		getResponseParams();
+		
+		logger.info(makeReceivesLog());
 		if (!checkReceiveHashCode()) {
-			setResult("NG");
-			setErrMsg(getText("charge.checkSumError"));
-			return "receive";
+			
+			logger.info("failed to check Receive sum!");
+//			responseData("NG", getText("charge.checkSumError"));
+//			responseData("NG", "charge.checkSumError");
+			responseData("NG", getItem_name());
+			return;
 		}
+		
+		logger.info("end to check Receive sum!");
 
 		if (!getModel().getResResult().equals("OK")) {
-			setResult("NG");
-			setErrMsg(getText("charge.resultNG"));
-			return "receive";
+//			responseData("NG", getText("charge.resultNG"));
+			responseData("NG", "charge.resultNG");
+			return;
 		}
+		
+		logger.info("end to check Result Status!");
 
 		try {
 			// 本決済を登録する
 			pointChargeBusinessLogic.createSettlementHist(this.getModel());
-			setResult("OK");
-			setErrMsg("");
-		} catch (LogicException ex) {
+			responseData("OK", "");
+			logger.info("end to create Settlement Hist!");
+		} catch (Exception ex) {
 
 			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
 					+ ex.getMessage());
 
-			setResult("NG");
-			setErrMsg(getText("charge.unexpectedError"));
+//			responseData("NG", getText("charge.unexpectedError"));
+			responseData("NG", "charge.unexpectedError");
 		}
 
-		return "receive";
+		return;
+	}
+	
+	/**
+	 * 
+	 * @param resultStatus
+	 * @param errMsg
+	 */
+	private void responseData(String resultStatus, String errMsg) {
+		HttpServletResponse response = ServletActionContext.getResponse();
+		try {
+			response.setContentType("text/csv; charset=Shift_JIS");
+			String result = resultStatus.concat(",").concat(errMsg);
+			response.setContentLength(result.length());
+			response.getOutputStream().write(result.getBytes(), 0, result.length());
+			response.getOutputStream().flush();
+			response.getOutputStream().close();
+		}
+		catch (Exception ex) {
+			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
+					+ ex.getMessage());	
+		}
+		
+	}
+	
+	/**
+	 * 仮決済情報をログに出力する
+	 * @param settlementTrns
+	 * @return
+	 */
+	private String makeReceivesLog() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(ContextUtil.getRequestBaseInfo())
+		.append(" | External I/F--Settlement Result: ")
+		.append("settlementTrnsNum=").append(getOrder_id()).append(",")
+		.append("memNum=").append(getCust_code()).append(",")
+		.append("payMethod=").append(getPay_method()).append(",")
+		.append("pointId=").append(getItem_id()).append(",")
+		.append("pointCountAct=").append(getAmount()).append(",")
+		.append("ResResult=").append(this.getModel().getResResult()).append(",")
+		.append("TrackingId=").append(this.getModel().getResTrackingId()).append(",")
+		.append("PayinfoKey=").append(this.getModel().getResPayinfoKey()).append(",")
+		.append("PaymentDate=").append(this.getModel().getResPaymentDate()).append(",")
+		.append("ErrCode=").append(this.getModel().getResErrCode());
+		
+		return sb.toString();
+		
 	}
 
 	/**
@@ -415,128 +510,114 @@ public class PointChargeControlAction extends
 	 * 購入結果を取得する
 	 */
 	private void getResponseParams() {
-
+		logger.info("##############CharacterEncoding##############" + ServletActionContext.getRequest().getCharacterEncoding());
+		HttpServletRequest request = ServletActionContext.getRequest();
+//		try {
+//			request.setCharacterEncoding("Shift-JIS");
+//		} catch (Exception ex){
+//			
+//		}
 		// 支払方法
-		setPay_method(ServletActionContext.getRequest().getParameter(
-				"pay_method"));
+		setPay_method(request.getParameter("pay_method"));
 		// マーチャントID
-		setMerchant_id(ServletActionContext.getRequest().getParameter(
-				"merchant_id"));
+		setMerchant_id(request.getParameter("merchant_id"));
 		// サービスID
-		setService_id(ServletActionContext.getRequest().getParameter(
-				"service_id"));
+		setService_id(request.getParameter("service_id"));
 		// 顧客ID
-		setCust_code(ServletActionContext.getRequest()
-				.getParameter("cust_code"));
+		setCust_code(request.getParameter("cust_code"));
 		// SPS顧客ID
-		setSps_cust_no(ServletActionContext.getRequest().getParameter(
-				"sps_cust_no"));
+		setSps_cust_no(request.getParameter("sps_cust_no"));
 		// SPS支払方法管理番号
-		setSps_payment_no(ServletActionContext.getRequest().getParameter(
-				"sps_payment_no"));
+		setSps_payment_no(request.getParameter("sps_payment_no"));
 		// 購入ID
-		setOrder_id(ServletActionContext.getRequest().getParameter("order_id"));
+		setOrder_id(request.getParameter("order_id"));
 		// 商品ID
-		setItem_id(ServletActionContext.getRequest().getParameter("item_id"));
+		setItem_id(request.getParameter("item_id"));
 		// 外部決済機関商品ID
-		setPay_item_id(ServletActionContext.getRequest().getParameter(
-				"pay_item_id"));
+		setPay_item_id(request.getParameter("pay_item_id"));
 		// 商品名称
-		setItem_name(StringUtil.convertToShitjis(ServletActionContext
-				.getRequest().getParameter("item_name")));
+		setItem_name(request.getParameter("item_name"));
+		logger.info(getItem_name());
+		logger.info(convert2Shift(request.getParameter("item_name")));
 		// 税額
-		setTax(ServletActionContext.getRequest().getParameter("tax"));
+		setTax(request.getParameter("tax"));
 		// 金額(税込)
-		setAmount(ServletActionContext.getRequest().getParameter("amount"));
+		setAmount(request.getParameter("amount"));
 		// 購入タイプ
-		setPay_type(ServletActionContext.getRequest().getParameter("pay_type"));
+		setPay_type(request.getParameter("pay_type"));
 		// 自動課金タイプ
-		setAuto_charge_type(ServletActionContext.getRequest().getParameter(
-				"auto_charge_type"));
+		setAuto_charge_type(request.getParameter("auto_charge_type"));
 		// サービスタイプ
-		setService_type(ServletActionContext.getRequest().getParameter(
-				"service_type"));
+		setService_type(request.getParameter("service_type"));
 		// 決済区分
-		setDiv_settele(ServletActionContext.getRequest().getParameter(
-				"div_settele"));
+		setDiv_settele(request.getParameter("div_settele"));
 		// 最終課金月
-		setLast_charge_month(ServletActionContext.getRequest().getParameter(
-				"last_charge_month"));
+		setLast_charge_month(request.getParameter("last_charge_month"));
 		// キャンペーンタイプ
-		setCamp_type(ServletActionContext.getRequest()
-				.getParameter("camp_type"));
+		setCamp_type(request.getParameter("camp_type"));
 		// トラッキングID
-		setTracking_id(ServletActionContext.getRequest().getParameter(
-				"tracking_id"));
+		setTracking_id(request.getParameter("tracking_id"));
 		// 顧客利用端末タイプ
-		setTerminal_type(ServletActionContext.getRequest().getParameter(
-				"terminal_type"));
+		setTerminal_type(request.getParameter("terminal_type"));
 		// 自由欄１
-		setFree1(StringUtil.convertToShitjis(ServletActionContext.getRequest()
-				.getParameter("free1")));
+		setFree1(request.getParameter("free1"));
 		// 自由欄２
-		setFree2(StringUtil.convertToShitjis(ServletActionContext.getRequest()
-				.getParameter("free2")));
+		setFree2(request.getParameter("free2"));
 		// 自由欄３
-		setFree3(StringUtil.convertToShitjis(ServletActionContext.getRequest()
-				.getParameter("free3")));
+		setFree3(request.getParameter("free3"));
 		// 自由欄(CSV形式)
-		setFree_csv(StringUtil.convertToShitjis(ServletActionContext
-				.getRequest().getParameter("free_csv")));
+//		setFree_csv(request.getParameter("free_csv"));
 		// 明細情報
-		setDtl_rowno(ServletActionContext.getRequest()
-				.getParameter("dtl_rowno"));
-		setDtl_item_id(ServletActionContext.getRequest().getParameter(
-				"dtl_item_id"));
-		setDtl_item_name(ServletActionContext.getRequest().getParameter(
-				"dtl_item_name"));
-		setDtl_item_count(ServletActionContext.getRequest().getParameter(
-				"dtl_item_count"));
-		setDtl_tax(ServletActionContext.getRequest().getParameter("dtl_tax"));
-		setDtl_amount(ServletActionContext.getRequest().getParameter(
-				"dtl_amount"));
-		setRequest_date(ServletActionContext.getRequest().getParameter(
-				"request_date"));
+		setDtl_rowno(request.getParameter("dtl_rowno"));
+		setDtl_item_id(request.getParameter("dtl_item_id"));
+		setDtl_item_name(request.getParameter("dtl_item_name"));
+		setDtl_item_count(request.getParameter("dtl_item_count"));
+		setDtl_tax(request.getParameter("dtl_tax"));
+		setDtl_amount(request.getParameter("dtl_amount"));
+		setRequest_date(request.getParameter("request_date"));
 		// 仮決済番号
 		this.getModel().setSettlementTrnsNum(Long.parseLong(getOrder_id()));
 		// ステータス
-		this.getModel().setResResult(
-				ServletActionContext.getRequest().getParameter("res_result"));
+		this.getModel().setResResult(request.getParameter("res_result"));
 		// トラッキングID
-		this.getModel().setResTrackingId(
-				ServletActionContext.getRequest().getParameter(
-						"res_tracking_id"));
+		this.getModel().setResTrackingId(request.getParameter("res_tracking_id"));
 		// SPS顧客ID
-		this.getModel().setResSpsCustNo(
-				ServletActionContext.getRequest().getParameter(
-						"res_sps_cust_no"));
+		this.getModel().setResSpsCustNo(request.getParameter("res_sps_cust_no"));
 		// SPS支払方法管理番号
-		this.getModel().setResSpsPaymentNo(
-				ServletActionContext.getRequest().getParameter(
-						"res_sps_payment_no"));
+		this.getModel().setResSpsPaymentNo(request.getParameter("res_sps_payment_no"));
 		// 顧客決済情報
-		this.getModel().setResPayinfoKey(
-				ServletActionContext.getRequest().getParameter(
-						"res_payinfo_key"));
+		this.getModel().setResPayinfoKey(request.getParameter("res_payinfo_key"));
 		// 購入完了処理時間
-		this.getModel().setResPaymentDate(
-				ServletActionContext.getRequest().getParameter(
-						"res_payment_date"));
+		this.getModel().setResPaymentDate(request.getParameter("res_payment_date"));
 		// エラーコード
-		this.getModel().setResErrCode(
-				ServletActionContext.getRequest().getParameter("res_err_code"));
+		this.getModel().setResErrCode(request.getParameter("res_err_code"));
 		// レスポンス日時
-		this.getModel().setResDate(
-				ServletActionContext.getRequest().getParameter("res_date"));
+		this.getModel().setResDate(request.getParameter("res_date"));
 		// レスポンス許容時間
-		this.getModel().setLimitSecond(
-				ServletActionContext.getRequest().getParameter("limit_second"));
+		this.getModel().setLimitSecond(request.getParameter("limit_second"));
 		// チェックサム
-		setSps_hashcode(ServletActionContext.getRequest().getParameter(
-				"sps_hashcode"));
+		setSps_hashcode(request.getParameter("sps_hashcode"));
+		
 		this.getModel().setSpsHashcode(getSps_hashcode());
 	}
 
+	private String convert2Shift(String src) {
+		String desc = "";
+
+		try {
+			
+			if (src != null) {
+				byte[] txtByte = src.getBytes("UTF-8");
+				desc = new String(txtByte, "Shift-JIS");
+			}
+		} catch (Exception ex) {
+
+			logger.error(ex.getMessage(), ex);
+		}
+
+		return desc;
+		
+	}
 	/**
 	 * チェックサム値生成
 	 * 
@@ -548,46 +629,69 @@ public class PointChargeControlAction extends
 
 		StringBuilder sb = new StringBuilder();
 		// 文字連結
-		sb.append(getPay_method()).append(getMerchant_id()).append(
-				getService_id()).append(getCust_code())
-				.append(getSps_cust_no()).append(getSps_payment_no()).append(
-						getOrder_id()).append(getItem_id()).append(
-						getPay_item_id()).append(getItem_name()).append(
-						getTax()).append(getAmount()).append(getPay_type())
-				.append(getAuto_charge_type()).append(getService_type())
-				.append(getDiv_settele()).append(getLast_charge_month())
-				.append(getCamp_type()).append(getTracking_id()).append(
-						getTerminal_type()).append(getFree1()).append(
-						getFree2()).append(getFree3()).append(getFree_csv());
+		sb.append(getPay_method())
+		.append(getMerchant_id())
+		.append(getService_id())
+		.append(getCust_code())
+		.append(getSps_cust_no())
+		.append(getSps_payment_no())
+		.append(getOrder_id())
+		.append(getItem_id())
+		.append(getPay_item_id())
+		.append(getItem_name())
+		.append(getTax())
+		.append(getAmount())
+		.append(getPay_type())
+		.append(getAuto_charge_type())
+		.append(getService_type())
+		.append(getDiv_settele())
+		.append(getLast_charge_month())
+		.append(getCamp_type())
+		.append(getTracking_id())
+		.append(getTerminal_type())
+		.append(getFree1())
+		.append(getFree2())
+		.append(getFree3());
+//		.append(getFree_csv());
 
 		// 明細情報を設定する
-		sb.append(getDtl_rowno()).append(getDtl_item_id()).append(
-				getDtl_item_name()).append(getDtl_item_count()).append(
-				getDtl_tax()).append(getDtl_amount());
+		sb.append(getDtl_rowno())
+		.append(getDtl_item_id())
+		.append(getDtl_item_name())
+		.append(getDtl_item_count())
+		.append(getDtl_tax())
+		.append(getDtl_amount());
 
-		sb.append(getRequest_date()).append(getPay_method()).append(
-				getModel().getResResult())
-				.append(getModel().getResTrackingId()).append(
-						getModel().getResSpsCustNo()).append(
-						getModel().getResSpsPaymentNo()).append(
-						getModel().getResPayinfoKey()).append(
-						getModel().getResPaymentDate()).append(
-						getModel().getResErrCode()).append(
-						getModel().getResDate()).append(
-						getModel().getLimitSecond()).append(getSpsKey());
-
+		sb.append(getRequest_date())
+		.append(getPay_method())
+		.append(getModel()
+		.getResResult())
+		.append(getModel()
+		.getResTrackingId())
+	    .append(getModel().getResSpsCustNo())
+	    .append(getModel().getResSpsPaymentNo())
+	    .append(getModel().getResPayinfoKey())
+	    .append(getModel().getResPaymentDate())
+	    .append(getModel().getResErrCode())
+	    .append(getModel().getResDate())
+	    .append(getModel().getLimitSecond())
+	    .append(getSpsKey());
+		
+		logger.info("spsHashCd--Before Encode: " + sb.toString());
 		String spsHashCd = "";
 		try {
 			// 文字コードをUTF-8に変換する
-			byte[] shaBytes = sb.toString().getBytes("Shift-JIS");
+			byte[] shaBytes = sb.toString().getBytes("UTF-8");
 			// UTF-8で取得した値をハッシュ演算する
 			spsHashCd = org.apache.commons.codec.digest.DigestUtils
 					.shaHex(shaBytes);
+			logger.info("spsHashCd--After Encode: " + spsHashCd);
 		} catch (Exception ex) {
 			logger.error(ex.getMessage());
 		}
 
-		if (getSps_hashcode().equals(spsHashCd)) {
+		logger.info("spsHashCd--Params Encode: " + getSps_hashcode());
+		if (getSps_hashcode().equals(spsHashCd.toUpperCase())) {
 			bCheck = true;
 		} else {
 			bCheck = false;
@@ -672,30 +776,6 @@ public class PointChargeControlAction extends
 	public void setSpsKey(String spsKey) {
 		this.spsKey = spsKey;
 	}
-
-//	/**
-//	 * @param titleId
-//	 *            the titleId to set
-//	 */
-//	public void setTitleId(Integer titleId) {
-//		this.titleId = titleId;
-//	}
-//
-//	/**
-//	 * @param serverId
-//	 *            the serverId to set
-//	 */
-//	public void setServerId(Integer serverId) {
-//		this.serverId = serverId;
-//	}
-//
-//	/**
-//	 * @param pointId
-//	 *            the pointId to set
-//	 */
-//	public void setPointId(Integer pointId) {
-//		this.pointId = pointId;
-//	}
 
 	/**
 	 * @return the settleTrnsNum
@@ -1266,27 +1346,6 @@ public class PointChargeControlAction extends
 	public void setSps_hashcode(String sps_hashcode) {
 		this.sps_hashcode = sps_hashcode;
 	}
-
-//	/**
-//	 * @return the titleId
-//	 */
-//	public Integer getTitleId() {
-//		return titleId;
-//	}
-//
-//	/**
-//	 * @return the serverId
-//	 */
-//	public Integer getServerId() {
-//		return serverId;
-//	}
-//
-//	/**
-//	 * @return the pointId
-//	 */
-//	public Integer getPointId() {
-//		return pointId;
-//	}
 
 	/**
 	 * @return the result

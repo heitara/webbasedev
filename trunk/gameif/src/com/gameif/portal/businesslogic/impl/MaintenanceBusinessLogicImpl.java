@@ -7,9 +7,12 @@ import com.gameif.common.exception.MaintenanceException;
 import com.gameif.portal.businesslogic.IMaintenanceBusinessLogic;
 import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.dao.IMaintenanceInfoDao;
+import com.gameif.portal.dao.IMemberInfoDao;
 import com.gameif.portal.dao.ITitleMstDao;
 import com.gameif.portal.entity.MaintenanceInfo;
+import com.gameif.portal.entity.MemberInfo;
 import com.gameif.portal.entity.TitleMst;
+import com.gameif.portal.util.ContextUtil;
 
 public class MaintenanceBusinessLogicImpl extends BaseBusinessLogic implements
 		IMaintenanceBusinessLogic {
@@ -21,6 +24,7 @@ public class MaintenanceBusinessLogicImpl extends BaseBusinessLogic implements
 	
 	private ITitleMstDao titleMstDao;
 	private IMaintenanceInfoDao maintenanceInfoDao;
+	private IMemberInfoDao memberInfoDao;
 
 	/**
 	 * メンテナンスチェックを行う
@@ -51,13 +55,28 @@ public class MaintenanceBusinessLogicImpl extends BaseBusinessLogic implements
 	 */
 	@Override
 	public Boolean maintenanceCheckByFunctionCd(String functionCd) {
-		
+		Boolean bReturn = true;
 		MaintenanceInfo mainten = maintenanceInfoDao.selectByFunctionCd(functionCd);
-		if (mainten != null && mainten.getMaintenStatus().equals(PortalConstants.MaintenanceStatus.MAINTENANCE)) {
-			return true;
-		} else {
-			return false;
+		if (mainten != null) {
+			// メンテナンス中
+			if (mainten.getMaintenStatus().equals(PortalConstants.MaintenanceStatus.MAINTENANCE)) {
+				bReturn = true;
+			// 稼動中
+			} else if (mainten.getMaintenStatus().equals(PortalConstants.MaintenanceStatus.RUNNING)) {
+				bReturn = false;
+			// テスト会員使用可の場合、会員属性のチェック
+			} else if (mainten.getMaintenStatus().equals(PortalConstants.MaintenanceStatus.TEST)) {
+				MemberInfo member = new MemberInfo();
+				member.setMemNum(ContextUtil.getMemberNo());
+				member = memberInfoDao.selectByKey(member);
+				if (member != null && member.getMemAtbtCd().equals(PortalConstants.MemberAtbtCd.TEST)) {
+					bReturn = false;
+				} else {
+					bReturn = true;
+				}
+			}
 		}
+		return bReturn;
 	}
 
 	/**

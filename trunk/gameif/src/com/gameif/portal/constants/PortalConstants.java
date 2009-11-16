@@ -136,18 +136,22 @@ public class PortalConstants {
 	/** 機能コード */
 	public class FunctionCode {
 		/** ポイントチャージ */
-		public final static String CHARGE = "0001";
-		/** 友達招待 */
-		public final static String INVITE = "0002";
+		public final static String CHARGE = "20";
 		/** サービスポイント */
-		public final static String SERVICE_POINT = "0003";
+		public final static String SERVICE_POINT = "30";
+		/** メールで友達招待 */
+		public final static String INVITE_MAIL = "40";
+		/** リンクで友達招待 */
+		public final static String INVITE_LINK = "43";
 	}
 	
 	/** サーバ稼動状態 */
 	public class MaintenanceStatus {
-		/** サーバメンテナンス中 */
-		public final static String MAINTENANCE = "0";
 		/** サーバ稼動中 */
-		public final static String RUNNING = "1";
+		public final static String RUNNING = "0";
+		/** サーバメンテナンス中 */
+		public final static String MAINTENANCE = "1";
+		/** テストユーザ使用可 */
+		public final static String TEST = "2";
 	}
 }
