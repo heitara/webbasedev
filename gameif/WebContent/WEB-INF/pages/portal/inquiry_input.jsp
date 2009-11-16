@@ -69,7 +69,7 @@
 				</table>
 				<div class="submit">
 					<s:token />
-					<s:submit type="image" src="images/btn_c_submit.png"></s:submit>
+					<s:submit type="image" action="createInquiry" src="images/btn_c_submit.png"></s:submit>
 					<s:submit type="image" src="images/btn_c_clear.png" onclick="this.form.reset();return false;"></s:submit>
 				</div>
 
