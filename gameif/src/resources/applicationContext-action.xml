@@ -87,6 +87,9 @@
 		<property name="portalProperties">
 			<ref bean="portalProperties" />
 		</property>
+		<property name="maintenanceBusinessLogic">
+			<ref bean="maintenanceBusinessLogic" />
+		</property>
 	</bean>
 	
 	<!-- existCheckAction -->
