@@ -60,6 +60,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	private IInviteLinkHistDao inviteLinkHistDao;
 	
 	private Integer invalidMinute;
+	private Integer invalidHour;
 	private PortalProperties portalProperties;
 
 	/**
@@ -118,7 +119,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		
 		if (deleteFlg) {
 			// 無効な臨時会員情報を削除する。
-			tempMemberInfoDao.deleteInvalidData(invalidMinute);
+			tempMemberInfoDao.deleteInvalidData(invalidHour);
 		}
 
 		// お知らせメールを送信する。
@@ -143,7 +144,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	public Long saveMemberInfo(Long memNum, String authKey) throws LogicException {
 		Long newMemNum;
 		
-		TempMemberInfo tempMemberInfo = tempMemberInfoDao.selectValidInfoForUpdate(memNum, authKey, invalidMinute);
+		TempMemberInfo tempMemberInfo = tempMemberInfoDao.selectValidInfoForUpdate(memNum, authKey, invalidHour);
 		if (tempMemberInfo == null) {
 			
 			// データが存在しない
@@ -532,7 +533,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	public int countMembersByMemId(String memId) {
 
 		int count = 0;
-		count = tempMemberInfoDao.selectValidCountByMemId(memId, invalidMinute, ContextUtil.getClientIP());
+		count = tempMemberInfoDao.selectValidCountByMemId(memId, invalidHour, ContextUtil.getClientIP());
 		if (count > 0) {
 			return count;
 		}
@@ -562,7 +563,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	public int countMembersByNickName(String nickName) {
 
 		int count = 0;
-		count = tempMemberInfoDao.selectValidCountByNickName(nickName, invalidMinute, ContextUtil.getClientIP());
+		count = tempMemberInfoDao.selectValidCountByNickName(nickName, invalidHour, ContextUtil.getClientIP());
 		if (count > 0) {
 			return count;
 		}
@@ -581,7 +582,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	public int countMembersByNickName(String nickName, Long memberNum) {
 
 		int count = 0;
-		count = tempMemberInfoDao.selectValidCountByNickName(nickName, invalidMinute, ContextUtil.getClientIP());
+		count = tempMemberInfoDao.selectValidCountByNickName(nickName, invalidHour, ContextUtil.getClientIP());
 		if (count > 0) {
 			return count;
 		}
@@ -598,7 +599,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	public int countMembersByMailPc(String mailPc) {
 
 		int count = 0;
-		count = tempMemberInfoDao.selectValidCountByMailPc(mailPc, invalidMinute, ContextUtil.getClientIP());
+		count = tempMemberInfoDao.selectValidCountByMailPc(mailPc, invalidHour, ContextUtil.getClientIP());
 		if (count > 0) {
 			return count;
 		}
@@ -617,7 +618,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	public int countMembersByMailPc(String mailPc, Long memberNum) {
 
 		int count = 0;
-		count = tempMemberInfoDao.selectValidCountByMailPc(mailPc, invalidMinute, ContextUtil.getClientIP());
+		count = tempMemberInfoDao.selectValidCountByMailPc(mailPc, invalidHour, ContextUtil.getClientIP());
 		if (count > 0) {
 			return count;
 		}
@@ -779,6 +780,20 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	 */
 	public void setInvalidMinute(Integer invalidMinute) {
 		this.invalidMinute = invalidMinute;
+	}
+
+	/**
+	 * @return the invalidHour
+	 */
+	public Integer getInvalidHour() {
+		return invalidHour;
+	}
+
+	/**
+	 * @param invalidHour the invalidHour to set
+	 */
+	public void setInvalidHour(Integer invalidHour) {
+		this.invalidHour = invalidHour;
 	}
 
 	/**
