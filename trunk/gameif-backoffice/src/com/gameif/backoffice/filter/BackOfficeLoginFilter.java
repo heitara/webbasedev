@@ -31,7 +31,7 @@ public class BackOfficeLoginFilter implements Filter {
 			HttpServletResponse res = (HttpServletResponse) response;
 			HttpServletRequest req = (HttpServletRequest) request;
 			res.sendRedirect(req.getContextPath()
-					+ "/backoffice/user_login.jsp");
+					+ "/inputUserLogin.html");
 		} else {
 			chain.doFilter(request, response);
 		}
