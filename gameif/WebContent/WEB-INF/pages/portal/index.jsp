@@ -1,14 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="s" uri="/struts-tags"%>
 <html>
-<head><title>トップ頁</title></head>
+<head><title>トップ頁</title>
+<script language="javascript" type="text/javascript">
+var imgs = new Array("bn_b_main_01.jpg", "bn_b_main_02.jpg");
+var urls = new Array("http://legion.game-if.com", "inputInvite.html");
+
+function changeBana() {
+
+	if (window.chgIdx == null) {
+		window.chgIdx = 0;
+	}
+	
+	window.chgIdx = (window.chgIdx + 1) % imgs.length;
+	document.getElementById("bana_img").src = "images/" + imgs[chgIdx];
+	document.getElementById("bana_url").href = urls[chgIdx];
+}
+
+window.onload = function() { setInterval(changeBana, 4000); };
+</script>
+</head>
 <body>
 <!-- イラスト画像：開始 -->
 <div id="illustration">
 	<div class="rbox_side"></div><div class="rbox_round"></div><div class="rbox_main">
 		<div style="overflow:hidden;">
 			<!--画像-->
-			<a href="http://legion.game-if.com"><img src="images/bn_b_main_01.jpg"/></a>
+			<a id="bana_url" href="http://legion.game-if.com"><img id="bana_img" src="images/bn_b_main_01.jpg"/></a>
 		</div>
 	</div><div class="rbox_round"></div><div class="rbox_side"></div>
 </div>
