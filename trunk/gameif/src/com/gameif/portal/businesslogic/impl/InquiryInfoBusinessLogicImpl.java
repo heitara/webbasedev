@@ -40,8 +40,7 @@ public class InquiryInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		Date inquiryDate = new Date();
 
 		// 会員の問合せの場合、会員情報を設定する
-		if (inquiryInfo.getInquiryType().equals(
-				PortalConstants.InquiryType.MEMBER)) {
+		if (inquiryInfo.getInquiryType().equals(PortalConstants.InquiryType.MEMBER)) {
 			inquiryInfo.setMemNum(ContextUtil.getMemberNo());
 			inquiryInfo.setCreatedUser(ContextUtil.getMemberNo().toString());
 			inquiryInfo.setLastUpdateUser(ContextUtil.getMemberNo().toString());
@@ -50,6 +49,8 @@ public class InquiryInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		inquiryInfo.setInquiryIp(ContextUtil.getClientIP());
 		// 問合せ日時
 		inquiryInfo.setInquiryDate(inquiryDate);
+		// 対応状況
+		inquiryInfo.setCorrespondStatus(PortalConstants.CorrespondStatus.NO_CORRESPOND);
 		inquiryInfo.setCreatedDate(inquiryDate);
 		inquiryInfo.setLastUpdateDate(inquiryDate);
 
