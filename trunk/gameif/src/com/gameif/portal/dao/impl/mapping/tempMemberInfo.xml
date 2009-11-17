@@ -75,7 +75,7 @@
 			FROM	temp_member_info
 			WHERE	mem_num = #memNum#
 			AND     auth_key = #authKey#
-			AND 	created_date >= DATE_SUB(now(), INTERVAL #invalidMinute# MINUTE)
+			AND 	created_date >= DATE_SUB(now(), INTERVAL #invalidHour# HOUR)
 			FOR 	UPDATE
         ]]>
 	</select>
@@ -99,7 +99,7 @@
 		WHERE
 			mem_id = #memId#
 		AND created_ip != #createdIp#
-		AND created_date >= DATE_SUB(now(), INTERVAL #invalidMinute# MINUTE)
+		AND created_date >= DATE_SUB(now(), INTERVAL #invalidHour# HOUR)
       ]]>
 	</select>
 	
@@ -112,7 +112,7 @@
 		WHERE
 			nick_name = #nickName#
 		AND created_ip != #createdIp#
-		AND created_date >= DATE_SUB(now(), INTERVAL #invalidMinute# MINUTE)
+		AND created_date >= DATE_SUB(now(), INTERVAL #invalidHour# HOUR)
       ]]>
 	</select>
 	
@@ -125,7 +125,7 @@
 		WHERE
 			mail_pc = #mailPc#
 		AND created_ip != #createdIp#
-		AND created_date >= DATE_SUB(now(), INTERVAL #invalidMinute# MINUTE)
+		AND created_date >= DATE_SUB(now(), INTERVAL #invalidHour# HOUR)
       ]]>
 	</select>
 	
@@ -135,7 +135,7 @@
 			FROM
 				temp_member_info
 			WHERE
-				created_date < DATE_SUB(now(), INTERVAL #invalidMinute# MINUTE)
+				created_date < DATE_SUB(now(), INTERVAL #invalidHour# HOUR)
         ]]>
 	</delete>
 
