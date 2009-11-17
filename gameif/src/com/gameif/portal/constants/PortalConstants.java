@@ -68,6 +68,12 @@ public class PortalConstants {
 		public final static int OTHER = 2;
 	}
 	
+	/** 問合せの対応状況 */
+	public class CorrespondStatus {
+		public final static int NO_CORRESPOND = 0;
+		public final static int CORRESPONDED = 1;
+	}
+	
 	/** サーバ稼動状態 */
 	public class ServerStatus {
 		/** サーバメンテナンス中 */
