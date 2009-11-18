@@ -17,7 +17,7 @@ public class EntryProxyAction {
 	
 	public String execute() {
 		
-		if (enc != null || (title != null && apply != null)) {
+		if (enc != null) {
 			
 			addEntryDataToCookie();
 		}
