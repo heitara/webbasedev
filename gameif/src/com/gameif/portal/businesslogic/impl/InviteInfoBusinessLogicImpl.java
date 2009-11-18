@@ -205,7 +205,6 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 			// 紹介するゲーム
 			props.put("titleName", titleName);
 			// データID
-//			props.put("inviteId", newInviteInfo.getInviteId().toString());
 			props.put(PortalConstants.Key.SEURE_PARAM_KEY, SecurityUtil.encodeParam(new StringBuffer()
 								.append("inviteId=")
 								.append(newInviteInfo.getInviteId().toString())
@@ -248,7 +247,7 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		// 招待時間
 		Date inviteDate = new Date();
 
-		String titleName = titleMstDao.selectNameById(inviteInfo.getTitleId());
+		String titleName = "";
 
 		for (int i = 0; i < inviteList.size(); i++) {
 
@@ -268,6 +267,8 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 			inviteInfo.setLastUpdateUser(ContextUtil.getMemberNo().toString());
 
 			inviteInfoDao.update(inviteInfo);
+			
+			titleName = titleMstDao.selectNameById(inviteInfo.getTitleId());
 
 			// 招待メールを送信する。
 			HashMap<String, String> props = new HashMap<String, String>();
@@ -278,7 +279,6 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 			// 紹介するゲーム
 			props.put("titleName", titleName);
 			// データID
-//			props.put("inviteId", inviteInfo.getInviteId().toString());
 			props.put(PortalConstants.Key.SEURE_PARAM_KEY, SecurityUtil.encodeParam(new StringBuffer()
 							.append("inviteId=")
 							.append(inviteInfo.getInviteId().toString())
