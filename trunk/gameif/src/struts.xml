@@ -53,7 +53,7 @@
 				<param name="includeMethods">activate,finishedCreate,finishedActivate</param>
 			</interceptor-ref>
 			<interceptor-ref name="entryParameter">
-				<param name="includeMethods">createTemp,finishedActivate</param>
+				<param name="includeMethods">createTemp</param>
 			</interceptor-ref>
 			<result name="input">/WEB-INF/pages/portal/mem_registry.jsp</result>
 			<result name="success" type="redirect">/finishedCreateMember.html?enc=${enc}</result>
