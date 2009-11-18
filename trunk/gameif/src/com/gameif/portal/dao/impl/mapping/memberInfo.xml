@@ -361,7 +361,7 @@
 		WHERE
 			mail_pc = #value#
 		AND 
-			mem_atbt_cd IN (1, 2)
+			mem_atbt_cd IN ('1', '2')
       ]]>
 	</select>
 	
@@ -376,7 +376,7 @@
 		AND
 			mem_num != #memNum#
 		AND 
-			mem_atbt_cd IN (1, 2)
+			mem_atbt_cd IN ('1', '2')
 	]]>
 	</select>
 
