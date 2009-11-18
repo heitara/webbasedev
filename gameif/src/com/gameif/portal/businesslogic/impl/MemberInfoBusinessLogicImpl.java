@@ -1,6 +1,7 @@
 package com.gameif.portal.businesslogic.impl;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -77,6 +78,8 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		
 		TempMemberInfo tempMemberInfo = new TempMemberInfo();
 		
+		Date crateDate = new Date();
+		
 		// アカウントＩＤとメールアドレスは小文字に変換、両辺スペース削除
 		tempMemberInfo.setMemId(memberInfo.getMemId().trim().toLowerCase());
 		tempMemberInfo.setMailPc(memberInfo.getMailPc().trim().toLowerCase());
@@ -94,7 +97,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		// リンクキー
 		tempMemberInfo.setLinkKey(linkKey);
 		tempMemberInfo.setTitleId(titleId);
-		tempMemberInfo.setCreatedDate(new Date());
+		tempMemberInfo.setCreatedDate(crateDate);
 		tempMemberInfo.setCreatedIp(ContextUtil.getClientIP());
 
 		// 臨時会員情報を登録する。
@@ -125,6 +128,15 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		// お知らせメールを送信する。
 		HashMap<String, String> props = new HashMap<String, String>();
 		props.put("nickName", tempMemberInfo.getNickName());
+		
+		// 切れ期限
+		Calendar expireDate = Calendar.getInstance();
+		expireDate.setTime(crateDate);
+		expireDate.add(Calendar.HOUR, loginInvalidHour);
+		SimpleDateFormat expireDf = new SimpleDateFormat("yyyy-MM-dd hh:00");
+		props.put("expireDate", expireDf.format(expireDate.getTime()));
+		
+		// リクエストのパラメータを暗号化する
 		props.put(PortalConstants.Key.SEURE_PARAM_KEY, SecurityUtil.encodeParam(new StringBuffer()
 							.append("memNum=")
 							.append(tempMemberInfo.getMemNum().toString())
