@@ -8,6 +8,7 @@ ${nickName}　様
 お客様のアカウントIDは、今の時点ではまだ仮登録となっております。
 
 以下のURLをクリックして、アカウント有効化の手続きを完了させて下さい。
+※有効化URLのご利用可能期限は [ ${expireDate} ]までとなっております。
 
 https://www.game-if.com/activateMember.html?enc=${enc}
 
