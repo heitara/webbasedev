@@ -43,7 +43,7 @@
 										</tr>
 										<tr>
 											<td align="right"><img src="images/icon_yahoo_mail.gif" alt="Yahooメール"/></td>
-											<td><a href="javascript:openPopup('inputMailSelInvite.html?domain=@@yahoo.co.jp', 600, 540);" title="Yahooメールアドレス帳からインポートする。"><img src="images/btn_c_import.png" alt="インポート"/></a></td>
+											<td><a href="javascript:openPopup('inputMailSelInvite.html?domain=@yahoo.co.jp', 600, 540);" title="Yahooメールアドレス帳からインポートする。"><img src="images/btn_c_import.png" alt="インポート"/></a></td>
 										</tr>
 									</table>
 								</div>
