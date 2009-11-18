@@ -360,6 +360,8 @@
 			member_info
 		WHERE
 			mail_pc = #value#
+		AND 
+			mem_atbt_cd IN (1, 2)
       ]]>
 	</select>
 	
@@ -373,6 +375,8 @@
 			mail_pc = #mailPc#
 		AND
 			mem_num != #memNum#
+		AND 
+			mem_atbt_cd IN (1, 2)
 	]]>
 	</select>
 
