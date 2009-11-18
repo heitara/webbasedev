@@ -198,20 +198,22 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 
 			// 招待メールを送信する。
 			HashMap<String, String> props = new HashMap<String, String>();
-			// 友達の名前
-			props.put("name", newInviteInfo.getFriendName());
-			// 紹介するゲーム
-			props.put("titleName", titleName);
-			// データID
-			props.put("inviteId", newInviteInfo.getInviteId().toString());
-			// 招待メッセージ
-			props.put("inviteMsg", newInviteInfo.getInviteMsg());
 			// 差出人の名前
 			props.put("nickName", ContextUtil.getNickName());
 			// 差出人
 			props.put("mailFrom", newInviteInfo.getInviteMailFrom());
+			// 紹介するゲーム
+			props.put("titleName", titleName);
+			// データID
+//			props.put("inviteId", newInviteInfo.getInviteId().toString());
+			props.put(PortalConstants.Key.SEURE_PARAM_KEY, SecurityUtil.encodeParam(new StringBuffer()
+								.append("inviteId=")
+								.append(newInviteInfo.getInviteId().toString())
+								.toString()));
 			// タイトルID
 			props.put("title", newInviteInfo.getTitleId().toString());
+			// 招待メッセージ
+			props.put("inviteMsg", newInviteInfo.getInviteMsg());
 			// 送信
 			templateMailer.sendAsyncMail(newInviteInfo.getInviteMailTo(), "inviteFriend", props, true);
 		}
@@ -269,16 +271,22 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 
 			// 招待メールを送信する。
 			HashMap<String, String> props = new HashMap<String, String>();
-			// 友達の名前
-			props.put("name", inviteInfo.getFriendName());
+			// 差出人の名前
+			props.put("nickName", ContextUtil.getNickName());
+			// 差出人
+			props.put("mailFrom", inviteInfo.getInviteMailFrom());
 			// 紹介するゲーム
 			props.put("titleName", titleName);
 			// データID
-			props.put("inviteId", inviteInfo.getInviteId().toString());
+//			props.put("inviteId", inviteInfo.getInviteId().toString());
+			props.put(PortalConstants.Key.SEURE_PARAM_KEY, SecurityUtil.encodeParam(new StringBuffer()
+							.append("inviteId=")
+							.append(inviteInfo.getInviteId().toString())
+							.toString()));
+			// タイトルID
+			props.put("title", inviteInfo.getTitleId().toString());
 			// 招待メッセージ
 			props.put("inviteMsg", inviteInfo.getInviteMsg());
-			// 差出人
-			props.put("mailFrom", inviteInfo.getInviteMailFrom());
 			
 			templateMailer.sendAsyncMail(inviteInfo.getInviteMailTo(), "inviteFriend", props, true);
 
