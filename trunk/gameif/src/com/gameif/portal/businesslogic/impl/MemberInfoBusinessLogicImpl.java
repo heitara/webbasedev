@@ -59,8 +59,8 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	private IInviteLinkDao inviteLinkDao;
 	private IInviteLinkHistDao inviteLinkHistDao;
 	
-	private Integer invalidMinute;
-	private Integer invalidHour;
+	private Integer pwdRegetInvalidHour;
+	private Integer loginInvalidHour;
 	private PortalProperties portalProperties;
 
 	/**
@@ -119,7 +119,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		
 		if (deleteFlg) {
 			// 無効な臨時会員情報を削除する。
-			tempMemberInfoDao.deleteInvalidData(invalidHour);
+			tempMemberInfoDao.deleteInvalidData(loginInvalidHour);
 		}
 
 		// お知らせメールを送信する。
@@ -144,7 +144,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	public Long saveMemberInfo(Long memNum, String authKey) throws LogicException {
 		Long newMemNum;
 		
-		TempMemberInfo tempMemberInfo = tempMemberInfoDao.selectValidInfoForUpdate(memNum, authKey, invalidHour);
+		TempMemberInfo tempMemberInfo = tempMemberInfoDao.selectValidInfoForUpdate(memNum, authKey, loginInvalidHour);
 		if (tempMemberInfo == null) {
 			
 			// データが存在しない
@@ -533,7 +533,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	public int countMembersByMemId(String memId) {
 
 		int count = 0;
-		count = tempMemberInfoDao.selectValidCountByMemId(memId, invalidHour, ContextUtil.getClientIP());
+		count = tempMemberInfoDao.selectValidCountByMemId(memId, loginInvalidHour, ContextUtil.getClientIP());
 		if (count > 0) {
 			return count;
 		}
@@ -563,7 +563,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	public int countMembersByNickName(String nickName) {
 
 		int count = 0;
-		count = tempMemberInfoDao.selectValidCountByNickName(nickName, invalidHour, ContextUtil.getClientIP());
+		count = tempMemberInfoDao.selectValidCountByNickName(nickName, loginInvalidHour, ContextUtil.getClientIP());
 		if (count > 0) {
 			return count;
 		}
@@ -582,7 +582,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	public int countMembersByNickName(String nickName, Long memberNum) {
 
 		int count = 0;
-		count = tempMemberInfoDao.selectValidCountByNickName(nickName, invalidHour, ContextUtil.getClientIP());
+		count = tempMemberInfoDao.selectValidCountByNickName(nickName, loginInvalidHour, ContextUtil.getClientIP());
 		if (count > 0) {
 			return count;
 		}
@@ -599,7 +599,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	public int countMembersByMailPc(String mailPc) {
 
 		int count = 0;
-		count = tempMemberInfoDao.selectValidCountByMailPc(mailPc, invalidHour, ContextUtil.getClientIP());
+		count = tempMemberInfoDao.selectValidCountByMailPc(mailPc, loginInvalidHour, ContextUtil.getClientIP());
 		if (count > 0) {
 			return count;
 		}
@@ -618,7 +618,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	public int countMembersByMailPc(String mailPc, Long memberNum) {
 
 		int count = 0;
-		count = tempMemberInfoDao.selectValidCountByMailPc(mailPc, invalidHour, ContextUtil.getClientIP());
+		count = tempMemberInfoDao.selectValidCountByMailPc(mailPc, loginInvalidHour, ContextUtil.getClientIP());
 		if (count > 0) {
 			return count;
 		}
@@ -648,7 +648,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		// 臨時キーが期限きれかどうかのチェック
 		Date now = new Date();
 		
-		if(newTempPwdInfo.getCreatedDate().compareTo(new Date(now.getTime() - getInvalidMinute() * 60 * 1000)) < 0) {
+		if(newTempPwdInfo.getCreatedDate().compareTo(new Date(now.getTime() - getPwdRegetInvalidHour() * 60 * 60 * 1000)) < 0) {
 			
 			throw new OutOfDateException("Tempory password id out of date.");
 		}
@@ -769,31 +769,31 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	}
 
 	/**
-	 * @return the invalidMinute
+	 * @return the pwdRegetInvalidHour
 	 */
-	public Integer getInvalidMinute() {
-		return invalidMinute;
+	public Integer getPwdRegetInvalidHour() {
+		return pwdRegetInvalidHour;
 	}
 
 	/**
-	 * @param invalidMinute the invalidMinute to set
+	 * @param pwdRegetInvalidHour the pwdRegetInvalidHour to set
 	 */
-	public void setInvalidMinute(Integer invalidMinute) {
-		this.invalidMinute = invalidMinute;
+	public void setPwdRegetInvalidHour(Integer pwdRegetInvalidHour) {
+		this.pwdRegetInvalidHour = pwdRegetInvalidHour;
 	}
 
 	/**
-	 * @return the invalidHour
+	 * @return the loginInvalidHour
 	 */
-	public Integer getInvalidHour() {
-		return invalidHour;
+	public Integer getLoginInvalidHour() {
+		return loginInvalidHour;
 	}
 
 	/**
-	 * @param invalidHour the invalidHour to set
+	 * @param loginInvalidHour the loginInvalidHour to set
 	 */
-	public void setInvalidHour(Integer invalidHour) {
-		this.invalidHour = invalidHour;
+	public void setLoginInvalidHour(Integer loginInvalidHour) {
+		this.loginInvalidHour = loginInvalidHour;
 	}
 
 	/**

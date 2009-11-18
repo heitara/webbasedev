@@ -8,13 +8,13 @@
 	<!-- memberInfoBusinessLogic -->
 	<bean id="memberInfoBusinessLogic"
 		class="com.gameif.portal.businesslogic.impl.MemberInfoBusinessLogicImpl">
-		<!-- パスワード再設定用臨時キーの期限きれ時間（単位：分） -->
-		<property name="invalidMinute">
-			<value>${memberInfoBusinessLogic.invalidMinute}</value>
+		<!-- パスワード再設定用臨時キーの期限きれ時間（単位：時間） -->
+		<property name="pwdRegetInvalidHour">
+			<value>${memberInfoBusinessLogic.pwdReget.invalidHour}</value>
 		</property>
 		<!-- 仮登録用臨時キーの期限きれ時間（単位：時間） -->
-		<property name="invalidHour">
-			<value>${memberInfoBusinessLogic.invalidHour}</value>
+		<property name="loginInvalidHour">
+			<value>${memberInfoBusinessLogic.login.invalidHour}</value>
 		</property>
 		<property name="memberInfoDao">
 			<ref bean="memberInfoDao" />
