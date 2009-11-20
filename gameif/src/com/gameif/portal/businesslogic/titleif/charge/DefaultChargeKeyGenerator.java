@@ -60,19 +60,22 @@ public class DefaultChargeKeyGenerator implements IChargeKeyGenerator {
 							.append(timeKey)
 							.append("=")
 							.append(unixTime)
-							.append("&")
-							.append(spKey)
-							.append("=")
-							.append(parameter.getSpType())
+//							.append(unionCd)
+//							.append("&")
+//							.append(spKey)
+//							.append("=")
+//							.append(parameter.getSpType())
 //							.append("&")
 //							.append(parentAccountKey)
 //							.append("=")
 //							.append(parameter.getParentNum())
 							.toString();
-		String validateCd = SecurityUtil.getMD5String(chargeInfo + unionCd);
+		String validateCd = SecurityUtil.getMD5String(chargeInfo + unionCd + "&sp=" + parameter.getSpType());
 		
 		return new StringBuffer()
 				.append(chargeInfo)
+				.append("&sp=")
+				.append(parameter.getSpType())
 				.append("&")
 				.append(validateCdKey)
 				.append("=")
