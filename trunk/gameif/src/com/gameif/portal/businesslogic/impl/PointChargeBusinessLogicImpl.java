@@ -14,10 +14,10 @@ import com.gameif.common.exception.DataNotExistsException;
 import com.gameif.common.exception.LogicException;
 import com.gameif.common.helper.TemplateMailer;
 import com.gameif.portal.businesslogic.IPointChargeBusinessLogic;
+import com.gameif.portal.businesslogic.titleif.charge.ChargeConstants;
 import com.gameif.portal.businesslogic.titleif.charge.ChargeParameter;
 import com.gameif.portal.businesslogic.titleif.charge.TitleCharge;
 import com.gameif.portal.constants.PortalConstants;
-//import com.gameif.portal.dao.IInviteInfoDao;
 import com.gameif.portal.dao.IMemSettlementHistDao;
 import com.gameif.portal.dao.IMemSettlementTrnsDao;
 import com.gameif.portal.dao.IMemberInfoDao;
@@ -26,7 +26,6 @@ import com.gameif.portal.dao.IServicePointDao;
 import com.gameif.portal.dao.IServicePointGiveHistDao;
 import com.gameif.portal.dao.IServicePointTypeMstDao;
 import com.gameif.portal.dao.ITitleMstDao;
-//import com.gameif.portal.entity.InviteInfo;
 import com.gameif.portal.entity.MemSettlementHist;
 import com.gameif.portal.entity.MemSettlementTrns;
 import com.gameif.portal.entity.MemberInfo;
@@ -56,6 +55,7 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 	private IServicePointDao servicePointDao;
 	private IServicePointGiveHistDao servicePointGiveHistDao;
 	private TemplateMailer templateMailer;
+	private TitleCharge titleCharge;
 	
 	// 有効期間
 	private Integer validDays;
@@ -219,12 +219,11 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		.append("spType=").append(params.getSpType());
 		logger.info(sb.toString());
 		
-//		TitleCharge titleCharge = new TitleCharge();
-//		// チャージを行う
-//		int chargeRes = titleCharge.chargePoint(params);
-//		if (chargeRes != 0) {
-//			throw new LogicException("Failed to charge.");
-//		}
+		// チャージを行う
+		int chargeRes = titleCharge.chargePoint(params);
+		if (chargeRes != ChargeConstants.Result.SUCCESS) {
+			throw new LogicException("Failed to charge.");
+		}
 
 		// 仮決済情報を削除する
 		memSettlementTrnsDao.deleteByKey(settleTrns.getSettlementTrnsNum());
@@ -517,6 +516,20 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 	 */
 	public void setTemplateMailer(TemplateMailer templateMailer) {
 		this.templateMailer = templateMailer;
+	}
+
+	/**
+	 * @return the titleCharge
+	 */
+	public TitleCharge getTitleCharge() {
+		return titleCharge;
+	}
+
+	/**
+	 * @param titleCharge the titleCharge to set
+	 */
+	public void setTitleCharge(TitleCharge titleCharge) {
+		this.titleCharge = titleCharge;
 	}
 
 	/**
