@@ -63,6 +63,7 @@
 					AND settlement_date >= DATE_SUB(#now#, INTERVAL 1 MONTH)
 					AND settlement_date < #now#
 					AND settlement_num != #settlementNum#
+					)
         ]]>
 	</select>
 
