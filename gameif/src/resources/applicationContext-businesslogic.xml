@@ -160,6 +160,10 @@
 	<!-- pointChargeBusinessLogic -->
 	<bean id="pointChargeBusinessLogic"
 		class="com.gameif.portal.businesslogic.impl.PointChargeBusinessLogicImpl">
+		<!-- サービスポイントの失効時間（単位:日） -->
+		<property name="validDays">
+			<value>${pointChargeBusinessLogic.validDays}</value>
+		</property>
 		<property name="memSettlementHistDao">
 			<ref bean="memSettlementHistDao" />
 		</property>
