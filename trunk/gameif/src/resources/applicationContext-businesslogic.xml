@@ -191,6 +191,9 @@
 		<property name="templateMailer">
 			<ref bean="templateMailer" />
 		</property>
+		<property name="titleCharge">
+			<ref bean="titleCharge" />
+		</property>
 	</bean>
 	
 	<!-- maintenanceBusinessLogic -->
