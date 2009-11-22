@@ -1,5 +1,7 @@
 package com.gameif.portal.dao;
 
+import java.util.HashMap;
+
 import com.gameif.common.dao.IBaseDao;
 import com.gameif.portal.entity.ServicePointTypeMst;
 
@@ -7,6 +9,7 @@ public interface IServicePointTypeMstDao extends IBaseDao<ServicePointTypeMst, S
 	
 	public ServicePointTypeMst selectValidGameloginPoint(String servicePointTypeCd, Integer standardLevel);
 	
-	public ServicePointTypeMst selectChargePointRate(String servicePointTypeCd, Integer titleId, Long memNum);
+	@SuppressWarnings("unchecked")
+	public ServicePointTypeMst selectChargePointRate(HashMap params);
 
 }

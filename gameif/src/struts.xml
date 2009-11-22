@@ -213,7 +213,7 @@
 			<result name="invalid.token">/WEB-INF/pages/common/warning.jsp</result>
 		</action>
 
-		<action name="charge*" class="pointChargeControlAction" method="{1}">
+		<action name="charge*" class="pointChargeControlAction" method="charge{1}">
 			<interceptor-ref name="scopedModelDriven">
 				<param name="scope">request</param>
 				<param name="name">memSettlementHist</param>

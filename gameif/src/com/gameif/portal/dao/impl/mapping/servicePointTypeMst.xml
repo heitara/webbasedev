@@ -52,7 +52,7 @@
 			FROM
 				service_point_type_mst
 			WHERE
-				service_point_type_code = #servicePointTypeCode#
+				service_point_type_code = #servicePointTypeCd#
 			AND standard_level <= ( 
 					SELECT 
 						sum(ifnull(point_amount_act, 0)) as point_amount_act 
@@ -60,7 +60,9 @@
 						mem_settlement_hist
 					WHERE mem_num = #memNum#
 					AND title_id = #titleId# 
-					AND last_update_date < DATE_SUB(now(), INTERVAL 1 MONTH))
+					AND settlement_date >= DATE_SUB(#now#, INTERVAL 1 MONTH)
+					AND settlement_date < #now#
+					AND settlement_num != #settlementNum#
         ]]>
 	</select>
 

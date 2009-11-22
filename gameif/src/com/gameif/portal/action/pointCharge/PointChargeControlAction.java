@@ -1,12 +1,16 @@
 package com.gameif.portal.action.pointCharge;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.http.protocol.ResponseDate;
 import org.apache.struts2.ServletActionContext;
 
 import com.gameif.common.action.ModelDrivenActionSupport;
@@ -103,7 +107,7 @@ public class PointChargeControlAction extends
 	 * 
 	 * @return
 	 */
-	public String PointSelect() {
+	public String chargePointSelect() {
 		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.CHARGE)) {
 			return "maintenance";
 		}
@@ -115,7 +119,7 @@ public class PointChargeControlAction extends
 	 * 
 	 * @return
 	 */
-	public String SettleSelectInit() {
+	public String chargeSettleSelectInit() {
 		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.CHARGE)) {
 			return "maintenance";
 		}
@@ -145,7 +149,7 @@ public class PointChargeControlAction extends
 	 * 
 	 * @return
 	 */
-	public String SettleSelect() {
+	public String chargeSettleSelect() {
 		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.CHARGE)) {
 			return "maintenance";
 		}
@@ -161,7 +165,7 @@ public class PointChargeControlAction extends
 	 * 
 	 * @return detail（チャージ明細画面に案内する）
 	 */
-	public String SaveSettleTrns() {
+	public String chargeSaveSettleTrns() {
 		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.CHARGE)) {
 			return "maintenance";
 		}
@@ -184,8 +188,7 @@ public class PointChargeControlAction extends
 
 		} catch (LogicException ex) {
 
-			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
-					+ ex.getMessage());
+			logger.warn(ContextUtil.getRequestBaseInfo() + " | " + ex.getMessage());
 
 			return "warning";
 		}
@@ -200,19 +203,17 @@ public class PointChargeControlAction extends
 	 * 
 	 * @return detail（チャージ明細画面に案内する、SBPSと連動する）
 	 */
-	public String Detail() {
+	public String chargeDetail() {
 		
 
-		setSettleTrnsNum(Long.parseLong(ServletActionContext.getRequest()
-				.getParameter("settleTrnsNum")));
+		setSettleTrnsNum(Long.parseLong(ServletActionContext.getRequest().getParameter("settleTrnsNum")));
 
-		MemSettlementTrns settleTrns = pointChargeBusinessLogic
-				.getSettlementTrnsByKey(getSettleTrnsNum());
+		MemSettlementTrns settleTrns = pointChargeBusinessLogic.getSettlementTrnsByKey(getSettleTrnsNum());
 		
-		logger.info(makeSettleTrnsLog(settleTrns));
+		// 仮決済情報をログに出力する
+		outPutSettleTrnsLog(settleTrns);
 
 		initRequestParams(settleTrns);
-
 		
 		return "detailInit";
 
@@ -223,21 +224,25 @@ public class PointChargeControlAction extends
 	 * @param settlementTrns
 	 * @return
 	 */
-	private String makeSettleTrnsLog(MemSettlementTrns settlementTrns) {
+	private void outPutSettleTrnsLog(MemSettlementTrns settlementTrns) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(ContextUtil.getRequestBaseInfo())
-		.append(" | External I/F--Settlement Result: ")
-		.append("settlementTrnsNum=").append(settlementTrns.getSettlementTrnsNum()).append(",")
-		.append("memNum=").append(settlementTrns.getMemNum()).append(",")
+		.append(" | External I/F--SettlementTrns Result: ")
+		.append("merchantId=").append(getMerchant_id()).append(",")
+		.append("serviceId=").append(getService_id()).append(",")
+		.append("orderId=").append(settlementTrns.getSettlementTrnsNum()).append(",")
+		.append("custCode=").append(settlementTrns.getMemNum()).append(",")
 		.append("payMethod=").append(settlementTrns.getSettlementCode()).append(",")
 		.append("title=").append(settlementTrns.getTitleId()).append(",")
 		.append("serverId=").append(settlementTrns.getServerId()).append(",")
-		.append("pointId=").append(settlementTrns.getPointId()).append(",")
-		.append("PointCount=").append(settlementTrns.getPointAmount()).append(",")
-		.append("pointCountAct=").append(settlementTrns.getPointAmountAct());
+		.append("itemId=").append(settlementTrns.getPointId()).append(",")
+		.append("pointAmount=").append(settlementTrns.getPointAmount()).append(",")
+		.append("pointAmountAct=").append(settlementTrns.getPointAmountAct()).append(",");
 		
-		return sb.toString();
+		SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+		sb.append("settlementDate=").append(df.format(settlementTrns.getSettlementDate()));
 		
+		logger.info(sb.toString());
 	}
 
 	/**
@@ -247,9 +252,9 @@ public class PointChargeControlAction extends
 		// 支払方法：画面で選択した決済方法
 		setPay_method(settleTrns.getSettlementCode());
 		// マーチャントID：""
-		setMerchant_id("30132");
+//		setMerchant_id("30132");
 		// サービスID：""
-		setService_id("001");
+//		setService_id("001");
 		// 顧客ID：会員番号
 		setCust_code(settleTrns.getMemNum().toString());
 		// SPS顧客ID：””
@@ -312,7 +317,7 @@ public class PointChargeControlAction extends
 		setDtl_amount(getAmount());
 		// リックエスと日時
 		SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
-		setRequest_date(df.format(new Date()));
+		setRequest_date(df.format(settleTrns.getSettlementDate()));
 		// リクエスト許容時間(プロパティーに設定する)
 		// チェックサム
 		setSps_hashcode(makeRequestHashCode());
@@ -386,41 +391,64 @@ public class PointChargeControlAction extends
 	 * 
 	 * @return
 	 */
-	public void Receive() {
+	public void chargeReceive() {
+		// 購入結果を取得する
 		getResponseParams();
-		
-		logger.info(makeReceivesLog());
-		if (!checkReceiveHashCode()) {
-			
-			logger.info("failed to check Receive sum!");
-//			responseData("NG", getText("charge.checkSumError"));
-//			responseData("NG", "charge.checkSumError");
-			responseData("NG", getItem_name());
-			return;
-		}
-		
-		logger.info("end to check Receive sum!");
+		// 購入結果をログに出力する
+		outPutReceivesLog();
 
 		if (!getModel().getResResult().equals("OK")) {
-//			responseData("NG", getText("charge.resultNG"));
-			responseData("NG", "charge.resultNG");
+			
+			StringBuilder sb = new StringBuilder();
+			sb.append(ContextUtil.getRequestBaseInfo())
+			.append(" | External I/F--Settlement ResResult: ")
+			.append("ResResult=").append(this.getModel().getResResult());
+			
+			logger.warn(sb.toString());
+			
+			responseData("NG", getText("charge.resultNG"));
 			return;
 		}
 		
-		logger.info("end to check Result Status!");
+		// チェックサム値をチェックする
+		if (!checkReceiveHashCode()) {
+			
+			StringBuilder sb = new StringBuilder();
+			sb.append(ContextUtil.getRequestBaseInfo())
+			.append(" | External I/F--Settlement ResResult: ")
+			.append("spsHashcode is incorrect");
+			
+			logger.warn(sb.toString());
+			
+			responseData("NG", getText("charge.checkSumError"));
+			return;
+		}
+		
+		// レスポンス許容時間をチェックする
+		if (checkLimitSecond()) {
+			
+			StringBuilder sb = new StringBuilder();
+			sb.append(ContextUtil.getRequestBaseInfo())
+			.append(" | External I/F--Settlement ResResult: ")
+			.append("response date is expired.");
+			
+			logger.warn(sb.toString());
+			
+			responseData("NG", getText("charge.expired"));
+			return;
+			
+		}
 
 		try {
 			// 本決済を登録する
 			pointChargeBusinessLogic.createSettlementHist(this.getModel());
 			responseData("OK", "");
-			logger.info("end to create Settlement Hist!");
 		} catch (Exception ex) {
 
 			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
 					+ ex.getMessage());
 
-//			responseData("NG", getText("charge.unexpectedError"));
-			responseData("NG", "charge.unexpectedError");
+			responseData("NG", getText("charge.unexpectedError"));
 		}
 
 		return;
@@ -442,33 +470,40 @@ public class PointChargeControlAction extends
 			response.getOutputStream().close();
 		}
 		catch (Exception ex) {
-			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
-					+ ex.getMessage());	
+			logger.warn(ContextUtil.getRequestBaseInfo() + " | " + ex.getMessage());	
 		}
 		
 	}
 	
 	/**
-	 * 仮決済情報をログに出力する
-	 * @param settlementTrns
+	 * 購入結果をログに出力する
 	 * @return
 	 */
-	private String makeReceivesLog() {
+	private void outPutReceivesLog() {
+		
 		StringBuilder sb = new StringBuilder();
 		sb.append(ContextUtil.getRequestBaseInfo())
 		.append(" | External I/F--Settlement Result: ")
-		.append("settlementTrnsNum=").append(getOrder_id()).append(",")
-		.append("memNum=").append(getCust_code()).append(",")
+		.append("merchantId=").append(getMerchant_id()).append(",")
+		.append("serviceId=").append(getService_id()).append(",")
+		.append("orderId=").append(getOrder_id()).append(",")
+		.append("trackingId=").append(getTracking_id()).append(",")
+		.append("custCode=").append(getCust_code()).append(",")
 		.append("payMethod=").append(getPay_method()).append(",")
-		.append("pointId=").append(getItem_id()).append(",")
-		.append("pointCountAct=").append(getAmount()).append(",")
-		.append("ResResult=").append(this.getModel().getResResult()).append(",")
-		.append("TrackingId=").append(this.getModel().getResTrackingId()).append(",")
-		.append("PayinfoKey=").append(this.getModel().getResPayinfoKey()).append(",")
-		.append("PaymentDate=").append(this.getModel().getResPaymentDate()).append(",")
-		.append("ErrCode=").append(this.getModel().getResErrCode());
+		.append("itemId=").append(getItem_id()).append(",")
+		.append("amount=").append(getAmount()).append(",")
+		.append("resResult=").append(this.getModel().getResResult()).append(",")
+		.append("resTrackingId=").append(this.getModel().getResTrackingId()).append(",")
+		.append("resSpsCustNo=").append(this.getModel().getResSpsCustNo()).append(",")
+		.append("resSpsPaymentNo=").append(this.getModel().getResSpsPaymentNo()).append(",")
+		.append("resPayinfoKey=").append(this.getModel().getResPayinfoKey()).append(",")
+		.append("resPaymentDate=").append(this.getModel().getResPaymentDate()).append(",")
+		.append("resErrCode=").append(this.getModel().getResErrCode()).append(",")
+		.append("resDate=").append(this.getModel().getResDate()).append(",")
+		.append("limitSecond=").append(this.getModel().getLimitSecond()).append(",")
+		.append("spsHashcode=").append(this.getModel().getSpsHashcode());
 		
-		return sb.toString();
+		logger.info(sb.toString());
 		
 	}
 
@@ -477,7 +512,7 @@ public class PointChargeControlAction extends
 	 * 
 	 * @return
 	 */
-	public String Cancel() {
+	public String chargeCancel() {
 		return "cancel";
 	}
 
@@ -486,7 +521,7 @@ public class PointChargeControlAction extends
 	 * 
 	 * @return
 	 */
-	public String Error() {
+	public String chargeError() {
 		return "error";
 	}
 
@@ -495,7 +530,7 @@ public class PointChargeControlAction extends
 	 * 
 	 * @return
 	 */
-	public String Success() {
+	public String chargeSuccess() {
 
 		getResponseParams();
 
@@ -512,11 +547,6 @@ public class PointChargeControlAction extends
 	private void getResponseParams() {
 		logger.info("##############CharacterEncoding##############" + ServletActionContext.getRequest().getCharacterEncoding());
 		HttpServletRequest request = ServletActionContext.getRequest();
-//		try {
-//			request.setCharacterEncoding("Shift-JIS");
-//		} catch (Exception ex){
-//			
-//		}
 		// 支払方法
 		setPay_method(request.getParameter("pay_method"));
 		// マーチャントID
@@ -538,7 +568,6 @@ public class PointChargeControlAction extends
 		// 商品名称
 		setItem_name(request.getParameter("item_name"));
 		logger.info(getItem_name());
-		logger.info(convert2Shift(request.getParameter("item_name")));
 		// 税額
 		setTax(request.getParameter("tax"));
 		// 金額(税込)
@@ -600,24 +629,7 @@ public class PointChargeControlAction extends
 		
 		this.getModel().setSpsHashcode(getSps_hashcode());
 	}
-
-	private String convert2Shift(String src) {
-		String desc = "";
-
-		try {
-			
-			if (src != null) {
-				byte[] txtByte = src.getBytes("UTF-8");
-				desc = new String(txtByte, "Shift-JIS");
-			}
-		} catch (Exception ex) {
-
-			logger.error(ex.getMessage(), ex);
-		}
-
-		return desc;
-		
-	}
+	
 	/**
 	 * チェックサム値生成
 	 * 
@@ -677,20 +689,27 @@ public class PointChargeControlAction extends
 	    .append(getModel().getLimitSecond())
 	    .append(getSpsKey());
 		
-		logger.info("spsHashCd--Before Encode: " + sb.toString());
 		String spsHashCd = "";
 		try {
 			// 文字コードをUTF-8に変換する
 			byte[] shaBytes = sb.toString().getBytes("UTF-8");
 			// UTF-8で取得した値をハッシュ演算する
-			spsHashCd = org.apache.commons.codec.digest.DigestUtils
-					.shaHex(shaBytes);
-			logger.info("spsHashCd--After Encode: " + spsHashCd);
+			spsHashCd = org.apache.commons.codec.digest.DigestUtils.shaHex(shaBytes);
 		} catch (Exception ex) {
 			logger.error(ex.getMessage());
 		}
 
-		logger.info("spsHashCd--Params Encode: " + getSps_hashcode());
+		// チェックサムをログに出力する
+		StringBuilder sbLog = new StringBuilder();
+		sb.append(ContextUtil.getRequestBaseInfo())
+		.append(" | External I/F--Failed to check ReceiveHashCode: ")
+		.append("spsHashCd_BeforeEncode=").append(sb.toString()).append(",")
+		.append("spsHashCd_AfterEncode=").append(spsHashCd).append(",")
+		.append("spsHashCd_Params=").append(getSps_hashcode());
+		
+		logger.info(sbLog.toString());
+		
+		// チェックサム値のチェック
 		if (getSps_hashcode().equals(spsHashCd.toUpperCase())) {
 			bCheck = true;
 		} else {
@@ -698,6 +717,39 @@ public class PointChargeControlAction extends
 		}
 		return bCheck;
 
+	}
+	
+	/**
+	 * レスポンス許容時間をチェックする
+	 * @return true:リクエスト受付規定時間を超過; false：リクエスト受付規定時間以内
+	 */
+	private Boolean checkLimitSecond() {
+		Date receiveDate = null;
+		Integer limitSecond = 0;
+
+		SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+		
+		// レスポンス日時
+		if (StringUtils.isEmpty(this.getModel().getResDate())) {
+			try {
+				receiveDate = df.parse(this.getModel().getResDate());
+			} catch (ParseException e) {
+				logger.error(e);
+				return true;
+			}
+		} else {
+			logger.warn("res_date is empty.");
+			return true;
+		}
+		
+		// レスポンス許容時間
+		if (StringUtils.isEmpty(this.getModel().getLimitSecond())) {
+			limitSecond = Integer.parseInt(this.getModel().getLimitSecond());
+		}
+		// 制限時間 = レスポンス日時 + レスポンス 許容時間
+		receiveDate = new Date(receiveDate.getTime() + limitSecond * 1000);
+		
+		return receiveDate.before(new Date());
 	}
 
 	/**

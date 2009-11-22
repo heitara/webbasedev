@@ -131,10 +131,12 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 
 		return memSettlementTrnsDao.selectByKey(settleTrns);
 	}
-
+	/**
+	 * 本決済を登録する
+	 */
+	@Transactional
 	@Override
-	public void createSettlementHist(MemSettlementHist settlementHist)
-			throws LogicException {
+	public void createSettlementHist(MemSettlementHist settlementHist) throws LogicException {
 
 		// 仮決済情報を取得する
 		MemSettlementTrns settleTrns = new MemSettlementTrns();
@@ -178,7 +180,7 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 			throw new DataNotExistsException("MemberInfo Data does not exist.");
 		}
 
-		// 会員属性：通常会員
+		// 会員属性：課金会員
 		member.setMemAtbtCd(PortalConstants.MemberAtbtCd.CHARGE);
 		member.setLastUpdateDate(settlementDate);
 		member.setLastUpdateIp(ContextUtil.getClientIP());
@@ -202,18 +204,29 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 			// データが存在しない
 			throw new DataNotExistsException("Title Data does not exist.");
 		}
-		logger.info("77777");
 
 		params.setChargeUrl(title.getPaymentUrl());
 		params.setSpType(PortalConstants.ChargeSpType.ACCOUNT_POINT);
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("memnum=").append(params.getMemNum()).append(",")
+		.append("memId=").append(params.getMemId()).append(",")
+		.append("orderNo=").append(params.getMemId()).append(",")
+		.append("titleId=").append(params.getMemId()).append(",")
+		.append("chargePoint=").append(params.getMemId()).append(",")
+		.append("chargeDate=").append(params.getMemId()).append(",")
+		.append("chargeUrl=").append(params.getMemId()).append(",")
+		.append("spType=").append(params.getMemId());
+		logger.info(sb.toString());
 
-		TitleCharge titleCharge = new TitleCharge();
 		logger.info("Before Charge");
-		// チャージを行う
-		int chargeRes = titleCharge.chargePoint(params);
-		if (chargeRes != 0) {
-			throw new LogicException("Failed to charge.");
-		}
+		
+//		TitleCharge titleCharge = new TitleCharge();
+//		// チャージを行う
+//		int chargeRes = titleCharge.chargePoint(params);
+//		if (chargeRes != 0) {
+//			throw new LogicException("Failed to charge.");
+//		}
 		logger.info("End Charge");
 
 		// 仮決済情報を削除する
@@ -269,16 +282,26 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 	 * サービスポイントを贈与する
 	 * @param settlementHist
 	 */
+	@SuppressWarnings("unchecked")
 	private void checkSettlementAmount(MemSettlementHist settlementHist, MemberInfo member) {
 
 		// 有効なサービスポイントを取得する(最近一ヶ月の累計課金金額が一定金額を超えた場合)
-		ServicePointTypeMst servicePointTypeMst = servicePointTypeMstDao.selectChargePointRate(
-						PortalConstants.ServicePointTypeCd.CHARGE,
-						settlementHist.getTitleId(), ContextUtil.getMemberNo());
+		
+		HashMap params = new HashMap();
+		params.put("servicePointTypeCd", PortalConstants.ServicePointTypeCd.CHARGE);
+		params.put("titleId", settlementHist.getTitleId());
+//		params.put("memNum", ContextUtil.getMemberNo());
+		params.put("memNum", settlementHist.getMemNum());
+		params.put("settlementNum", settlementHist.getSettlementNum());
+		params.put("now", new Date());
+
+		logger.info("Before selectChargePointRate");
+		ServicePointTypeMst servicePointTypeMst = servicePointTypeMstDao.selectChargePointRate(params);
 		if (servicePointTypeMst == null || servicePointTypeMst.getServicePointTypeId() == null) {
 			return;
 		}
-		
+
+		logger.info("End selectChargePointRate");
 		// 贈与日時
 		Date giveDate = new Date();
 		
@@ -288,16 +311,20 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		c.setTime(giveDate);
 		c.add(Calendar.DATE, validDays);
 		endDate = c.getTime();
-		
+
+		logger.info("1111111");
 		ServicePoint servicePoint = new ServicePoint();
 		servicePoint.setMemNum(ContextUtil.getMemberNo());
 		servicePoint.setTitleId(settlementHist.getTitleId());
 		servicePoint.setGiveDate(giveDate);
 		// 有効なデータが存在かどうか
+		logger.info("2222222");
 		servicePoint = servicePointDao.selectByTitleAndMemnumForUpdate(servicePoint);
+		logger.info("3333333");
 		BigDecimal amount = settlementHist.getPointAmountAct().multiply(servicePointTypeMst.getPointAmount()).divide(new BigDecimal(100));
 		if (servicePoint == null) {
-			
+
+			logger.info("4444444444");
 			servicePoint = new ServicePoint();
 
 			servicePoint.setMemNum(ContextUtil.getMemberNo());
@@ -311,10 +338,13 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 			servicePoint.setCreatedUser(ContextUtil.getMemberNo().toString());
 			servicePoint.setLastUpdateDate(giveDate);
 			servicePoint.setLastUpdateUser(ContextUtil.getMemberNo().toString());
-			
+
+			logger.info("555555");
 			// サービスポイント残高テーブルに登録する
 			servicePointDao.save(servicePoint);
+			logger.info("6666666");
 		} else {
+			logger.info("77777777");
 			// 残高 = 元の残高 + 今回のポイント数
 			servicePoint.setPointAmount(servicePoint.getPointAmount().add(amount));
 			servicePoint.setPointEndDate(endDate);
@@ -323,9 +353,11 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 			
 			// 残高を更新する
 			servicePointDao.update(servicePoint);
+			logger.info("8888888");
 		}
 		
 		// サービスポイント贈与履歴
+		logger.info("9999999999");
 		ServicePointGiveHist servicePointGiveHist = new ServicePointGiveHist();
 		servicePointGiveHist.setServicePointNo(servicePoint.getServicePointNo());
 		servicePointGiveHist.setMemNum(ContextUtil.getMemberNo());
@@ -342,6 +374,7 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		
 		// サービスポイント贈与履歴テーブルに登録する
 		servicePointGiveHistDao.save(servicePointGiveHist);
+		logger.info("1000101110000");
 
 		try {
 			// 招待メールを送信する。

@@ -146,6 +146,14 @@
 	<!-- ポイントチャージ用アクション -->
 	<!-- pointChargeControlAction -->
 	<bean id="pointChargeControlAction" class="com.gameif.portal.action.pointCharge.PointChargeControlAction" scope="prototype">
+		<!-- マーチャントID -->
+		<property name="merchant_id">
+			<value>${pointChargeControlAction.merchant_id}</value>
+		</property>
+		<!-- サービスID -->
+		<property name="service_id">
+			<value>${pointChargeControlAction.service_id}</value>
+		</property>
 		<!-- 購入要求接続先URL -->
 		<property name="requestUrl">
 			<value>${pointChargeControlAction.requestUrl}</value>
