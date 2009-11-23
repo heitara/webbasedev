@@ -203,4 +203,16 @@
         ]]>
 	</select>
 	
+	<select id="selectPlayHistCount" parameterClass="java.util.Map" resultClass="int">
+      <![CDATA[
+        SELECT
+			count(mem_num)
+		FROM
+			play_hist
+		WHERE	
+			mem_num = #memNum#
+		AND	title_id = #titleId#
+      ]]>
+	</select>
+	
 </sqlMap>

@@ -194,6 +194,9 @@
 		<property name="titleCharge">
 			<ref bean="titleCharge" />
 		</property>
+		<property name="playHistDao">
+			<ref bean="playHistDao" />
+		</property>
 	</bean>
 	
 	<!-- maintenanceBusinessLogic -->

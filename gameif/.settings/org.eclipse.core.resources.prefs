@@ -1,8 +1,9 @@
-#Tue Nov 03 14:28:52 JST 2009
+#Mon Nov 09 12:37:45 JST 2009
 eclipse.preferences.version=1
 encoding//WebContent/css/common.css=UTF-8
 encoding//WebContent/css/main.css=UTF-8
 encoding//WebContent/css/popup.css=UTF-8
+encoding//src/messages.properties=UTF-8
 encoding//src/resources=UTF-8
 encoding//src/resources/portalConst.properties=UTF-8
 encoding/<project>=UTF-8

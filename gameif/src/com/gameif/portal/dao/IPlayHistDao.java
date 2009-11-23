@@ -16,4 +16,6 @@ public interface IPlayHistDao extends IBaseDao<PlayHist, PlayHist> {
 	public List<MyServer> selectServersOnlyPlay(Long memNum, Integer titleId);
 	
 	public List<MyServer> selectServersWithPlay(Long memNum, Integer titleId);
+	
+	public Integer selectPlayHistCount(Long memNum, Integer titleId);
 }

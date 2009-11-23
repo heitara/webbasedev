@@ -47,4 +47,16 @@ public class PlayHistDaoImpl extends
 		
 		return this.getSqlMapClientTemplate().queryForList(namespace + ".selectServersWithPlay", params);
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Integer selectPlayHistCount(Long memNum, Integer titleId) {
+		
+		HashMap params = new HashMap();
+		
+		params.put("memNum", memNum);
+		params.put("titleId", titleId);
+		
+		return (Integer) this.getSqlMapClientTemplate().queryForObject(namespace + ".selectPlayHistCount", params);
+	}
 }
