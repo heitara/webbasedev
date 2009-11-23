@@ -5,4 +5,5 @@ import com.gameif.backoffice.entity.InquiryKindMst;
 
 public interface IInquiryKindMstDao  extends IBaseDao<InquiryKindMst, InquiryKindMst> {
 
+	public String selectNameByCode(Integer inquiryKindCode);
 }

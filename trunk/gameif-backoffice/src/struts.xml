@@ -71,6 +71,11 @@
 			</interceptor-ref>
 			<interceptor-ref name="gameifStack"></interceptor-ref>
 			<result name="inputEdit">/WEB-INF/pages/backoffice/inquiry_edit.jsp</result>
+			<result name="success" type="redirect">/inputEditInquriy.html?inquiryNum=${inquiryNum}</result>
+		</action>
+		
+		<action name="logoutProxy" class="logoutProxyAction">
+			<result name="success" type="redirect">/inputUserLogin.html</result>
 		</action>
 		
 	</package>

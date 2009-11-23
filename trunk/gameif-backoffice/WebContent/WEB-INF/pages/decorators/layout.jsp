@@ -14,7 +14,7 @@ boolean isLogined = false;
 //ユーザＩＤ
 String userId = (String)session.getAttribute(BackofficeConstants.SessionKey.USER_ID);
 //ニックネーム
-String nickname = null;
+String nickname = (String)session.getAttribute(BackofficeConstants.SessionKey.NICK_NAME);
 
 /* =======================================　ログイン情報取得  =======================================*/
 if (userId != null && userId.length() != 0) {
@@ -53,8 +53,8 @@ response.setDateHeader("Expires",0);
 		if (isLogined) {
 %>
 		<div class="pt_right">
-			<a href="" title="ログアウト">ログアウト</a> 
-			<div style="font-size:10px;color:#855;margin-top:10px;text-align:right;">さん、ようこそ！</div>
+			<a href="logoutProxy.html" title="ログアウト">ログアウト</a> 
+			<div style="font-size:10px;color:#855;margin-top:10px;text-align:right;"><%=nickname%>さん、ようこそ！</div>
 		</div>
 <%
 		}

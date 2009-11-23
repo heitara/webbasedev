@@ -18,5 +18,7 @@
 	<sqlMap resource="com/gameif/backoffice/dao/impl/mapping/authorityDetailMst.xml" />
 	<sqlMap resource="com/gameif/backoffice/dao/impl/mapping/inquiryKindMst.xml" />
 	<sqlMap resource="com/gameif/backoffice/dao/impl/mapping/inquiryInfo.xml" />
+	<sqlMap resource="com/gameif/backoffice/dao/impl/mapping/memberInfo.xml" />
+	<sqlMap resource="com/gameif/backoffice/dao/impl/mapping/titleMst.xml" />
 
 </sqlMapConfig>

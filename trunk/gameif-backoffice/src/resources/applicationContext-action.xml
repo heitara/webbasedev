@@ -72,4 +72,7 @@
 			<ref bean="inquiryInfoBusinessLogic" />
 		</property>
 	</bean>
+	
+	<!-- logoutProxyAction -->
+	<bean id="logoutProxyAction" class="com.gameif.backoffice.action.menu.LogoutProxyAction" scope="prototype" />
 </beans>

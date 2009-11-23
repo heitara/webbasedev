@@ -25,5 +25,16 @@
 			inquiry_kind_mst
         ]]>
 	</select>
+	
+	<select id="selectNameByCode" parameterClass="java.lang.Integer" resultClass="java.lang.String">
+      <![CDATA[
+        SELECT
+			inquiry_kind_name
+		FROM
+			inquiry_kind_mst
+		WHERE
+			inquiry_kind_code = #value#
+      ]]>
+	</select>
 
 </sqlMap>
