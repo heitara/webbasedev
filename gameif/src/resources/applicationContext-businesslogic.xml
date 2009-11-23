@@ -208,6 +208,9 @@
 		<property name="maintenanceInfoDao">
 			<ref bean="maintenanceInfoDao" />
 		</property>
+		<property name="memberInfoDao">
+			<ref bean="memberInfoDao" />
+		</property>
 	</bean>
 	
 	<!-- servicePointBusinessLogic -->
