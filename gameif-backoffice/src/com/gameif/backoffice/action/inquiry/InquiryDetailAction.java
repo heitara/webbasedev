@@ -20,6 +20,10 @@ public class InquiryDetailAction extends ModelDrivenActionSupport<InquiryInfo> {
 	private IMasterInfoBusinessLogic masterInfoBusinessLogic;
 	private BackOfficeProperties backOfficeProperties;
 	
+	private String titleName;
+	private String inquiryKindName;
+	private String nickName;
+	
 	/**
 	 * 問合せ編集画面へ案内する
 	 * @return 問合せ編集画面
@@ -32,6 +36,10 @@ public class InquiryDetailAction extends ModelDrivenActionSupport<InquiryInfo> {
 			addFieldError("errMessage", getText("common.dataNotExist"));
 		}
 		
+		setTitleName(inquiryInfoBusinessLogic.getTitleNameById(this.getModel().getTitleId()));
+		setInquiryKindName(inquiryInfoBusinessLogic.getInquiryKindNameByCd(this.getModel().getInquiryKindCode()));
+		setNickName(this.getModel().getUserName());
+		
 		return "inputEdit";
 	}
 	
@@ -42,7 +50,7 @@ public class InquiryDetailAction extends ModelDrivenActionSupport<InquiryInfo> {
 	public String reply() {
 		try {
 			
-			inquiryInfoBusinessLogic.replyInquiryInfo(this.getModel());
+			inquiryInfoBusinessLogic.replyInquiryInfo(this.getModel(), getNickName());
 			
 		} catch (DataNotExistsException dnex) {
 	
@@ -60,7 +68,10 @@ public class InquiryDetailAction extends ModelDrivenActionSupport<InquiryInfo> {
 	
 			return "warning";
 		}
-		return "inputEdit";
+		
+		addFieldError("errMessage", getText("inquiry.replySuccess"));
+		
+		return SUCCESS;
 	}
 
 	/**
@@ -105,6 +116,48 @@ public class InquiryDetailAction extends ModelDrivenActionSupport<InquiryInfo> {
 	 */
 	public void setBackOfficeProperties(BackOfficeProperties backOfficeProperties) {
 		this.backOfficeProperties = backOfficeProperties;
+	}
+
+	/**
+	 * @return the titleName
+	 */
+	public String getTitleName() {
+		return titleName;
+	}
+
+	/**
+	 * @param titleName the titleName to set
+	 */
+	public void setTitleName(String titleName) {
+		this.titleName = titleName;
+	}
+
+	/**
+	 * @return the inquiryKindName
+	 */
+	public String getInquiryKindName() {
+		return inquiryKindName;
+	}
+
+	/**
+	 * @param inquiryKindName the inquiryKindName to set
+	 */
+	public void setInquiryKindName(String inquiryKindName) {
+		this.inquiryKindName = inquiryKindName;
+	}
+
+	/**
+	 * @return the nickName
+	 */
+	public String getNickName() {
+		return nickName;
+	}
+
+	/**
+	 * @param nickName the nickName to set
+	 */
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 
 }

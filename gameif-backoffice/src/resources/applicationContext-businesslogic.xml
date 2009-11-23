@@ -44,5 +44,14 @@
 		<property name="templateMailer">
 			<ref bean="templateMailer" />
 		</property>
+		<property name="memberInfoDao">
+			<ref bean="memberInfoDao" />
+		</property>
+		<property name="titleMstDao">
+			<ref bean="titleMstDao" />
+		</property>
+		<property name="inquiryKindMstDao">
+			<ref bean="inquiryKindMstDao" />
+		</property>
 	</bean>
 </beans>

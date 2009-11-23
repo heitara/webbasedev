@@ -14,7 +14,11 @@ import com.gameif.backoffice.bean.InquirySearchCondition;
 import com.gameif.backoffice.businesslogic.IInquiryInfoBusinessLogic;
 import com.gameif.backoffice.constants.BackofficeConstants;
 import com.gameif.backoffice.dao.IInquiryInfoDao;
+import com.gameif.backoffice.dao.IInquiryKindMstDao;
+import com.gameif.backoffice.dao.IMemberInfoDao;
+import com.gameif.backoffice.dao.ITitleMstDao;
 import com.gameif.backoffice.entity.InquiryInfo;
+import com.gameif.backoffice.entity.MemberInfo;
 import com.gameif.backoffice.util.ContextUtil;
 
 public class InquiryInfoBusinessLogicImpl extends BaseBusinessLogic implements
@@ -27,6 +31,9 @@ public class InquiryInfoBusinessLogicImpl extends BaseBusinessLogic implements
 
 	private IInquiryInfoDao inquiryInfoDao;
 	private TemplateMailer templateMailer;
+	private IMemberInfoDao memberInfoDao;
+	private ITitleMstDao titleMstDao;
+	private IInquiryKindMstDao inquiryKindMstDao;
 
 	/**
 	 * 問合せ情報リストを取得する
@@ -43,7 +50,19 @@ public class InquiryInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	 */
 	@Override
 	public InquiryInfo getInquiryInfo(InquiryInfo inquiryInfo) {
-		return inquiryInfoDao.selectByKey(inquiryInfo);
+		InquiryInfo newInquiryInfo = inquiryInfoDao.selectByKey(inquiryInfo);
+		// 会員の問合せの場合
+		if (newInquiryInfo.getInquiryType().equals(BackofficeConstants.InquiryType.MEMBER)) {
+			
+			MemberInfo member = new MemberInfo();
+			member.setMemNum(newInquiryInfo.getMemNum());
+			member = memberInfoDao.selectByKey(member);
+			if (member != null) {
+				// お名前に会員のニックネームを設定する
+				newInquiryInfo.setUserName(member.getNickName());
+			}
+		}
+		return newInquiryInfo;
 	}
 
 	/**
@@ -52,7 +71,7 @@ public class InquiryInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	 */
 	@Transactional
 	@Override
-	public void replyInquiryInfo(InquiryInfo inquiryInfo) throws LogicException {
+	public void replyInquiryInfo(InquiryInfo inquiryInfo, String nickName) throws LogicException {
 		InquiryInfo newInquiryInfo = inquiryInfoDao.selectForUpdate(inquiryInfo.getInquiryNum());
 		if (newInquiryInfo == null) {
 			// データが存在しない
@@ -80,15 +99,17 @@ public class InquiryInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		// 名前
 		if (newInquiryInfo.getInquiryType().equals(BackofficeConstants.InquiryType.MEDIA)) {
 			props.put("name", newInquiryInfo.getCompanyUserName());
-		} else {
-			props.put("name", newInquiryInfo.getUserName());
+		} else if (newInquiryInfo.getInquiryType().equals(BackofficeConstants.InquiryType.OTHER)) {
+			props.put("name", inquiryInfo.getUserName());
+		} else if (newInquiryInfo.getInquiryType().equals(BackofficeConstants.InquiryType.MEMBER)) {
+			props.put("name", nickName);
 		}
 		// 問合せ内容
 		props.put("originalMsg", newInquiryInfo.getInquiryContents());
 		// 回答内容
 		props.put("responseMsg", newInquiryInfo.getResponseContents());
 		// 送信
-		templateMailer.sendAsyncMail(newInquiryInfo.getUserMailadd(), "replyInquiry", props);
+		templateMailer.sendAsyncMail(newInquiryInfo.getUserMailadd(), "replyInquiry", props, newInquiryInfo.getResponseSubject());
 	}
 
 	/**
@@ -98,6 +119,24 @@ public class InquiryInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	public void deleteInquiryInfo(List<Long> inquiryList) {
 		inquiryInfoDao.deleteInquiryList(inquiryList);
 	}
+
+	/**
+	 * タイトルIDより、タイトル名を取得する
+	 */
+	@Override
+	public String getTitleNameById(Integer titleId) {
+
+		return titleMstDao.selectNameById(titleId);
+	}
+	
+	/**
+	 * 問合せ種別コードにより、種別名を取得する
+	 */
+	@Override
+	public String getInquiryKindNameByCd(Integer inquiryKindCd) {
+		return inquiryKindMstDao.selectNameByCode(inquiryKindCd);
+	}
+
 
 	/**
 	 * @param inquiryInfoDao
@@ -126,6 +165,48 @@ public class InquiryInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	 */
 	public void setTemplateMailer(TemplateMailer templateMailer) {
 		this.templateMailer = templateMailer;
+	}
+
+	/**
+	 * @return the memberInfoDao
+	 */
+	public IMemberInfoDao getMemberInfoDao() {
+		return memberInfoDao;
+	}
+
+	/**
+	 * @param memberInfoDao the memberInfoDao to set
+	 */
+	public void setMemberInfoDao(IMemberInfoDao memberInfoDao) {
+		this.memberInfoDao = memberInfoDao;
+	}
+
+	/**
+	 * @return the titleMstDao
+	 */
+	public ITitleMstDao getTitleMstDao() {
+		return titleMstDao;
+	}
+
+	/**
+	 * @param titleMstDao the titleMstDao to set
+	 */
+	public void setTitleMstDao(ITitleMstDao titleMstDao) {
+		this.titleMstDao = titleMstDao;
+	}
+
+	/**
+	 * @return the inquiryKindMstDao
+	 */
+	public IInquiryKindMstDao getInquiryKindMstDao() {
+		return inquiryKindMstDao;
+	}
+
+	/**
+	 * @param inquiryKindMstDao the inquiryKindMstDao to set
+	 */
+	public void setInquiryKindMstDao(IInquiryKindMstDao inquiryKindMstDao) {
+		this.inquiryKindMstDao = inquiryKindMstDao;
 	}
 	
 }

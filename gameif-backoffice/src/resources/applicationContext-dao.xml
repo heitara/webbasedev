@@ -57,4 +57,18 @@
 			<value>inquiryKindMst</value>
 		</property>
 	</bean>
+	
+	<!-- memberInfoDao -->
+	<bean id="memberInfoDao" class="com.gameif.backoffice.dao.impl.MemberInfoDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>memberInfo</value>
+		</property>
+	</bean>
+	
+	<!-- titleMstDao -->
+	<bean id="titleMstDao" class="com.gameif.backoffice.dao.impl.TitleMstDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>titleMst</value>
+		</property>
+	</bean>
 </beans>

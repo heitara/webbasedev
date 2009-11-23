@@ -8,4 +8,9 @@ public class InquiryKindMstDaoImpl extends
 		AbstractBaseDao<InquiryKindMst, InquiryKindMst> implements
 		IInquiryKindMstDao {
 
+	@Override
+	public String selectNameByCode(Integer inquiryKindCode) {
+		return (String)this.getSqlMapClientTemplate().queryForObject(namespace + ".selectNameByCode", inquiryKindCode);
+	}
+
 }

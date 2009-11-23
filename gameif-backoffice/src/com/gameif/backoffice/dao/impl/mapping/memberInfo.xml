@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="memberInfo">
+
+	<typeAlias alias="memberInfo" type="com.gameif.backoffice.entity.MemberInfo" />
+	
+	<resultMap class="com.gameif.backoffice.entity.MemberInfo" id="memberResult">
+		<result property="memNum" column="mem_num" />
+		<result property="memId" column="mem_id" />
+		<result property="nickName" column="nick_name" />
+		<result property="memPwd" column="mem_pwd" />
+		<result property="memKindCd" column="mem_kind_cd" />
+		<result property="memAtbtCd" column="mem_atbt_cd" />
+		<result property="memValidYNCd" column="mem_valid_yn_cd" />
+		<result property="questionCd" column="question_cd" />
+		<result property="answer" column="answer" />
+		<result property="mailPc" column="mail_pc" />
+		<result property="mailMobile" column="mail_mobile" />
+		<result property="kanjiFname" column="kanji_fname" />
+		<result property="kanjiLname" column="kanji_lname" />
+		<result property="kanaFname" column="kana_fname" />
+		<result property="kanaLname" column="kana_lname" />
+		<result property="sexCd" column="sex_cd" />
+		<result property="birthYmd" column="birth_ymd" />
+		<result property="divisCd" column="divis_cd" />
+		<result property="occupCd" column="occup_cd" />
+		<result property="cityName" column="city_name" />
+		<result property="buildingName" column="building_name" />
+		<result property="telNum" column="tel_num" />
+		<result property="mailmagReqCd" column="mailmag_req_cd" />
+		<result property="mailmagObjCd" column="mailmag_obj_cd" />
+		<result property="note" column="note" />
+		<result property="entryDate" column="entry_date" />
+		<result property="entryIp" column="entry_ip" />
+		<result property="withdrawDate" column="withdraw_date" />
+		<result property="withdrawIp" column="withdraw_ip" />
+		<result property="lastUpdateDate" column="last_update_date" />
+		<result property="lastUpdateIp" column="last_update_ip" />
+		<result property="lastUpdateUser" column="last_update_user" />
+		<result property="versionNo" column="version_no" />
+	</resultMap>
+
+	<select id="selectByKey" parameterClass="memberInfo" resultMap="memberResult">   
+        <![CDATA[
+        SELECT
+			mem_num,
+			mem_id,
+			nick_name,
+			mem_pwd,
+			mem_kind_cd,
+			mem_atbt_cd,
+			mem_valid_yn_cd,
+			question_cd,
+			answer,
+			mail_pc,
+			mail_mobile,
+			kanji_fname,
+			kanji_lname,
+			kana_fname,
+			kana_lname,
+			sex_cd,
+			birth_ymd,
+			divis_cd,
+			occup_cd,
+			city_name,
+			building_name,
+			tel_num,
+			mailmag_req_cd,
+			mailmag_obj_cd,
+			note,
+			entry_date,
+			entry_ip,
+			withdraw_date,
+			withdraw_ip,
+			last_update_date,
+			last_update_ip,
+			last_update_user,
+			version_no
+		FROM
+			member_info
+		WHERE
+			mem_num = #memNum#
+        ]]>
+	</select>
+
+</sqlMap>

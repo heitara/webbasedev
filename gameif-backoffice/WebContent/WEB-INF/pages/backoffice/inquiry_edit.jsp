@@ -8,18 +8,19 @@
 
 <body>
 	<dl class="light_box tspace_n">
-		<dt><strong>一般のお問合せ</strong><span><a href="inputMediaInquiry.html">► メディア様のお問合せ</a> &nbsp; <a href="inputMemberInquiry.html">► 会員様のお問合せ</a></span></dt>
+		<dt><strong>一般のお問合せ</strong></dt>
 		<dd>
 			<s:form name="frm_inquiry_input" method="post" cssClass="entry">
 				<s:hidden name="inquiryType"></s:hidden>
 				<s:hidden name="inquiryNum"></s:hidden>
+				<s:hidden name="nickName"></s:hidden>
 				<table>
 					<s:if test="model.inquiryType == 0">
 						<tr class="space_row"><td colspan="2"></td></tr>
 						<tr>
-							<th><label for="user_name">アカウント：</label></th>
+							<th><label for="user_name">お名前：</label></th>
 							<td>
-								<s:property value="memId"/>
+								<s:property value="model.userName"/>
 							</td>
 						</tr>
 						<tr>
@@ -31,7 +32,7 @@
 						<tr>
 							<th><label for="inquiry_kind">種類</label></th>
 							<td>
-								<s:property value="model.inquiryKind"/>
+								<s:property value="inquiryKindName"/>
 							</td>
 						</tr>
 					</s:if>
@@ -76,6 +77,12 @@
 						</tr>
 					</s:elseif>
 					<tr>
+						<th><label for="mail">対応状態：</label></th>
+						<td>
+							<s:property value="backOfficeProperties.correspondStatus[model.correspondStatus]"/>
+						</td>
+					</tr>
+					<tr>
 						<th><label for="mail">メールアドレス：</label></th>
 						<td>
 							<s:property value="model.userMailadd"/>
@@ -94,46 +101,52 @@
 						</td>
 					</tr>
 					<tr class="space_row"><td colspan="2"></td></tr>
-					<!-- 
-					<tr>
-						<th><span class="required">*</span><label for="mail">From表示名：</label></th>
-						<td>
-							<s:textfield name="fromSubject" maxlength="20" cssClass="ime_mode_y big"  title="From表示名" onblur="validate(this, 'REQ,ZEN');"/>
-							<span class="explain">※ 全角文字で入力してください。</span>
-							<span id="error_fromSubject" class="input_error"><s:fielderror><s:param>fromSubject</s:param></s:fielderror></span>
-						</td>
-					</tr>	
-					<tr>
-						<th><span class="required">*</span><label for="mail">Fromメール：</label></th>
-						<td>
-							<s:textfield name="fromMailadd" maxlength="100" cssClass="ime_mode_n big" title="Fromメール" onblur="validate(this, 'REQ,EML');"/>
-							<span class="explain">※メールアドレスを小文字で入力してください。</span>
-							<span id="error_fromMailadd" class="input_error"><s:fielderror><s:param>fromMailadd</s:param></s:fielderror></span>
-						</td>
-					</tr>
-					 -->
-					<tr>
-						<th><span class="required">*</span><label for="object">回答件名：</label></th>	
-						<td>
-							<s:textfield name="responseSubject" maxlength="100" cssClass="big ime_mode_y" cssStyle="width:360px;" title="回答件名" onblur="validate(this, 'REQ,ZEN');" />
-							<span class="explain">※ 全角文字で入力してください。</span>
-							<span id="error_responseSubject" class="input_error"><s:fielderror><s:param>responseSubject</s:param></s:fielderror></span>
-						</td>
-					</tr>
-					<tr>
-						<th><span class="required">*</span><label for="contents">回答内容：</label></th>
-						<td>
-							<s:textarea name="responseContents" rows="15" cssClass="big ime_mode_n" cssStyle="width:360px;" title="回答内容" onblur="validate(this, 'REQ,ZEN,LEN_10_1000');" />
-							<span class="explain">※ 全角文字で入力してください。</span>
-							<span id="error_responseContents" class="input_error"><s:fielderror><s:param>responseContents</s:param></s:fielderror></span>
-						</td>
-					</tr>
+					<s:if test="model.correspondStatus == null || model.correspondStatus == 0">
+						<tr>
+							<th><span class="required">*</span><label for="object">回答件名：</label></th>	
+							<td>
+								<s:textfield name="responseSubject" maxlength="100" cssClass="big ime_mode_y" cssStyle="width:360px;" title="回答件名" onblur="validate(this, 'REQ,ZEN');" />
+								<span class="explain">※ 全角文字で入力してください。</span>
+								<span id="error_responseSubject" class="input_error"><s:fielderror><s:param>responseSubject</s:param></s:fielderror></span>
+							</td>
+						</tr>
+						<tr>
+							<th><span class="required">*</span><label for="contents">回答内容：</label></th>
+							<td>
+								<s:textarea name="responseContents" rows="15" cssClass="big ime_mode_n" cssStyle="width:360px;" title="回答内容" onblur="validate(this, 'REQ,ZEN,LEN_10_1000');" />
+								<span class="explain">※ 全角文字で入力してください。</span>
+								<span id="error_responseContents" class="input_error"><s:fielderror><s:param>responseContents</s:param></s:fielderror></span>
+							</td>
+						</tr>
+					</s:if>
+					<s:elseif test="model.correspondStatus == 1">
+						<tr>
+							<th><span class="required">*</span><label for="object">回答件名：</label></th>	
+							<td>
+								<s:textfield name="responseSubject" maxlength="100" cssClass="big ime_mode_y" cssStyle="width:360px;" title="回答件名" disabled="true" />
+								<span class="explain">※ 全角文字で入力してください。</span>
+							</td>
+						</tr>
+						<tr>
+							<th><span class="required">*</span><label for="contents">回答内容：</label></th>
+							<td>
+								<s:textarea name="responseContents" rows="15" cssClass="big ime_mode_n" cssStyle="width:360px;" title="回答内容" disabled="true" />
+								<span class="explain">※ 全角文字で入力してください。</span>
+							</td>
+						</tr>
+					</s:elseif>
 				</table>
 				<div class="submit">
 					<s:token />
-					<s:submit value="返信" action="replyInquriy"/>
-					<s:submit value="クリア" onclick="this.form.reset();return false;" />
-					<s:submit value="戻る" />
+					<s:if test="model.correspondStatus == null || model.correspondStatus == 0">
+						<s:submit value="返信" action="replyInquriy" />
+						<s:submit value="クリア" onclick="this.form.reset();return false;" />
+					</s:if>
+					<s:elseif test="model.correspondStatus == 1">
+						<s:submit value="返信" disabled="true"/>
+						<s:submit value="クリア" disabled="true"/>
+					</s:elseif>
+					<a href="inputInquriyList.html" title="戻る">戻る</a>
 				</div>
 
 			</s:form>

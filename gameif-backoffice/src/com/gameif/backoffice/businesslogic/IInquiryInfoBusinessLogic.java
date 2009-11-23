@@ -10,7 +10,9 @@ public interface IInquiryInfoBusinessLogic {
 	
 	public List<InquiryInfo> searchInquiryList(InquirySearchCondition searchCondition);
 	public InquiryInfo getInquiryInfo(InquiryInfo inquiryInfo);
-	public void replyInquiryInfo(InquiryInfo inquiryInfo) throws LogicException ;
+	public void replyInquiryInfo(InquiryInfo inquiryInfo, String nickName) throws LogicException ;
 	public void deleteInquiryInfo(List<Long> inquiryList);
+	public String getTitleNameById(Integer titleId);
+	public String getInquiryKindNameByCd(Integer inquiryKindCd);
 
 }
