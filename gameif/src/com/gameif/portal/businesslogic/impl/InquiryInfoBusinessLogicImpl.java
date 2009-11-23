@@ -42,6 +42,7 @@ public class InquiryInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		// 会員の問合せの場合、会員情報を設定する
 		if (inquiryInfo.getInquiryType().equals(PortalConstants.InquiryType.MEMBER)) {
 			inquiryInfo.setMemNum(ContextUtil.getMemberNo());
+			inquiryInfo.setUserName(ContextUtil.getNickName());
 			inquiryInfo.setCreatedUser(ContextUtil.getMemberNo().toString());
 			inquiryInfo.setLastUpdateUser(ContextUtil.getMemberNo().toString());
 		}
