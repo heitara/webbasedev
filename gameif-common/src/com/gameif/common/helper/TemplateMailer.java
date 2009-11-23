@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 
 import javax.mail.internet.MimeMessage;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.core.task.TaskExecutor;
@@ -52,7 +53,7 @@ public class TemplateMailer {
 	 * 	<li>その他（必要に応じて追加）</li>
 	 * <ul></blockquote>
 	 */
-	public void sendTextMail(String to, String templateKey, Map<String, String> props, Boolean juniorFlg) {
+	public void sendTextMail(String to, String templateKey, Map<String, String> props, String title, Boolean juniorFlg) {
 				
 		try {
 		
@@ -66,7 +67,11 @@ public class TemplateMailer {
 			
 			getMailText(templateKey, props);
 					
-			msg.setSubject(getMailTitle(templateKey));
+			if (StringUtils.isEmpty(title)) {
+				msg.setSubject(getMailTitle(templateKey));
+			} else {
+				msg.setSubject(title);
+			}
 			msg.setText(getMailText(templateKey, props));
 			
 			if (juniorFlg) {
@@ -100,7 +105,7 @@ public class TemplateMailer {
 	 * 	<li>その他（必要に応じて追加）</li>
 	 * <ul></blockquote>
 	 */
-	public void sendHtmlMail(String to, String templateKey, Map<String, String> props, Boolean juniorFlg) {
+	public void sendHtmlMail(String to, String templateKey, Map<String, String> props, String title, Boolean juniorFlg) {
 				
 		try {
 
@@ -112,8 +117,13 @@ public class TemplateMailer {
 			helper.setFrom(from);
 			helper.setReplyTo(replyTo);
 			helper.setTo(to);
+
 			
-			helper.setSubject(getMailTitle(templateKey));
+			if (StringUtils.isEmpty(title)) {
+				helper.setSubject(getMailTitle(templateKey));
+			} else {
+				msg.setSubject(title);
+			}
 			helper.setText(getMailText(templateKey, props), true);
 			
 			if (juniorFlg) {
@@ -147,17 +157,17 @@ public class TemplateMailer {
 	 * 	<li>その他（必要に応じて追加）</li>
 	 * <ul></blockquote>
 	 */
-	public void sendMail(String to, String templateKey, Map<String, String> props, Boolean juniorFlg) {
+	public void sendMail(String to, String templateKey, Map<String, String> props, String title, Boolean juniorFlg) {
 		
 		try {
 
 			if (isHtmlMail(templateKey)) {
 				
-				sendHtmlMail(to, templateKey, props, juniorFlg);
+				sendHtmlMail(to, templateKey, props, title, juniorFlg);
 				
 			} else {
 				
-				sendTextMail(to, templateKey, props, juniorFlg);
+				sendTextMail(to, templateKey, props, title, juniorFlg);
 			}
 			
 		} catch (Exception ex) {
@@ -216,7 +226,67 @@ public class TemplateMailer {
 				
 				try {
 					
-					sendMail(to, templateKey, props, juniorFlg);
+					sendMail(to, templateKey, props, null, juniorFlg);
+					
+				} catch (Exception ex) {
+					
+					logger.error(getErroMsg(templateKey, props), ex);
+				}
+			}
+		});
+	}
+	
+	/**
+	 * 非同期でメールを送信する(デフォルトに主なサーバで送信)。
+	 * @param to　送信先アドレス
+	 * @param templateKey　メールテンプレートキー
+	 * @param props　送信先アドレスとメール送信時テンプレートの変数を書き換える変数Map<br/>
+	 * <blockquote><strong>propsに設定する項目：</strong><br/>
+	 * <ul>
+	 * 	<li>KEY="memNum",VALUE=[会員番号]（任意、テンプレートによる）</li>
+	 * 	<li>KEY="memId",VALUE=[アカウントＩＤ]（任意、テンプレートによる）</li>
+	 * 	<li>KEY="nickName",VALUE=[ニックネーム]（任意、テンプレートによる）</li>
+	 * 	<li>KEY="serialCd",VALUE=[シリアルコード]（任意、テンプレートによる）</li>
+	 * 	<li>KEY="title",VALUE=[ゲームタイトル名]（任意、テンプレートによる）</li>
+	 * 	<li>KEY="server",VALUE=[サーバ名]（任意、テンプレートによる）</li>
+	 * 	<li>KEY="item",VALUE=[アイテム名]（任意、テンプレートによる）</li>
+	 * 	<li>KEY="point",VALUE=[購入ポイント数]（任意、テンプレートによる）</li>
+	 * 	<li>その他（必要に応じて追加）</li>
+	 * <ul></blockquote>
+	 */
+	public void sendAsyncMail(final String to, final String templateKey, final Map<String, String> props, final String title) {
+		
+		sendAsyncMail(to, templateKey, props, title, false);
+	}
+	
+	/**
+	 * 非同期でメールを送信する。
+	 * @param to　送信先アドレス
+	 * @param templateKey　メールテンプレートキー
+	 * @param props　送信先アドレスとメール送信時テンプレートの変数を書き換える変数Map<br/>
+	 * @param juniorFlg ジュニアメールサーバ判定(true:ジュニアサーバで送信(友達紹介送信用)、false:主なサーバで送信)
+	 * <blockquote><strong>propsに設定する項目：</strong><br/>
+	 * <ul>
+	 * 	<li>KEY="memNum",VALUE=[会員番号]（任意、テンプレートによる）</li>
+	 * 	<li>KEY="memId",VALUE=[アカウントＩＤ]（任意、テンプレートによる）</li>
+	 * 	<li>KEY="nickName",VALUE=[ニックネーム]（任意、テンプレートによる）</li>
+	 * 	<li>KEY="serialCd",VALUE=[シリアルコード]（任意、テンプレートによる）</li>
+	 * 	<li>KEY="title",VALUE=[ゲームタイトル名]（任意、テンプレートによる）</li>
+	 * 	<li>KEY="server",VALUE=[サーバ名]（任意、テンプレートによる）</li>
+	 * 	<li>KEY="item",VALUE=[アイテム名]（任意、テンプレートによる）</li>
+	 * 	<li>KEY="point",VALUE=[購入ポイント数]（任意、テンプレートによる）</li>
+	 * 	<li>その他（必要に応じて追加）</li>
+	 * <ul></blockquote>
+	 */
+	public void sendAsyncMail(final String to, final String templateKey, final Map<String, String> props, final String title, final Boolean juniorFlg) {
+		
+		taskExecutor.execute(new Runnable() {
+			
+			public void run() {
+				
+				try {
+					
+					sendMail(to, templateKey, props, title, juniorFlg);
 					
 				} catch (Exception ex) {
 					
