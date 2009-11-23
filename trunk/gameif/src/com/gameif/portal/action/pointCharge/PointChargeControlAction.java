@@ -2,7 +2,6 @@ package com.gameif.portal.action.pointCharge;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.http.protocol.ResponseDate;
 import org.apache.struts2.ServletActionContext;
 
 import com.gameif.common.action.ModelDrivenActionSupport;
@@ -87,6 +85,7 @@ public class PointChargeControlAction extends
 	private String free1;
 	private String free2;
 	private String free3;
+	
 	private String free_csv;
 	private String dtl_rowno;
 	private String dtl_item_id;
@@ -122,6 +121,13 @@ public class PointChargeControlAction extends
 	public String chargeSettleSelectInit() {
 		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.CHARGE)) {
 			return "maintenance";
+		}
+		// ゲームをプレーすることがあるかどうかのチェック
+		Integer count = pointChargeBusinessLogic.countPlayHist(this.getModel().getTitleId());
+		if (count < 1) {
+			// プレーすることがない
+			addFieldError("errMessage", getText("title.noData"));
+			return "pointSelect";
 		}
 		
 		try {
@@ -205,7 +211,6 @@ public class PointChargeControlAction extends
 	 */
 	public String chargeDetail() {
 		
-
 		setSettleTrnsNum(Long.parseLong(ServletActionContext.getRequest().getParameter("settleTrnsNum")));
 
 		MemSettlementTrns settleTrns = pointChargeBusinessLogic.getSettlementTrnsByKey(getSettleTrnsNum());
@@ -251,10 +256,8 @@ public class PointChargeControlAction extends
 	private void initRequestParams(MemSettlementTrns settleTrns) {
 		// 支払方法：画面で選択した決済方法
 		setPay_method(settleTrns.getSettlementCode());
-		// マーチャントID：""
-//		setMerchant_id("30132");
-		// サービスID：""
-//		setService_id("001");
+		// マーチャントID(プロパティーに設定する)
+		// サービスID(プロパティーに設定する)
 		// 顧客ID：会員番号
 		setCust_code(settleTrns.getMemNum().toString());
 		// SPS顧客ID：””
@@ -405,8 +408,9 @@ public class PointChargeControlAction extends
 			.append("ResResult=").append(this.getModel().getResResult());
 			
 			logger.warn(sb.toString());
-			
-			responseData("NG", getText("charge.resultNG"));
+
+			responseData("NG", convertUTF2ShiftJis(getText("charge.resultNG")));
+//			responseData("NG", getText("charge.resultNG"));
 			return;
 		}
 		
@@ -420,7 +424,8 @@ public class PointChargeControlAction extends
 			
 			logger.warn(sb.toString());
 			
-			responseData("NG", getText("charge.checkSumError"));
+			responseData("NG", convertUTF2ShiftJis(getText("charge.checkSumError")));
+//			responseData("NG", getText("charge.checkSumError"));
 			return;
 		}
 		
@@ -434,7 +439,8 @@ public class PointChargeControlAction extends
 			
 			logger.warn(sb.toString());
 			
-			responseData("NG", getText("charge.expired"));
+			responseData("NG", convertUTF2ShiftJis(getText("charge.expired")));
+//			responseData("NG", getText("charge.expired"));
 			return;
 			
 		}
@@ -448,10 +454,23 @@ public class PointChargeControlAction extends
 			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
 					+ ex.getMessage());
 
+//			responseData("NG", convertUTF2ShiftJis(getText("charge.unexpectedError")));
 			responseData("NG", getText("charge.unexpectedError"));
 		}
 
 		return;
+	}
+	
+	private String convertUTF2ShiftJis(String src) {
+		logger.info("src string : " + src);
+		String desc = "";
+		try {
+			desc = new String(src.getBytes("UTF-8"), "unicode");
+		} catch (Exception e) {
+		}
+		logger.info("desc string : " + desc);
+		return desc;
+		
 	}
 	
 	/**
@@ -462,7 +481,8 @@ public class PointChargeControlAction extends
 	private void responseData(String resultStatus, String errMsg) {
 		HttpServletResponse response = ServletActionContext.getResponse();
 		try {
-			response.setContentType("text/csv; charset=Shift_JIS");
+//			response.setContentType("text/csv; charset=Windows-31J");
+//			response.setCharacterEncoding("Windows-31J");
 			String result = resultStatus.concat(",").concat(errMsg);
 			response.setContentLength(result.length());
 			response.getOutputStream().write(result.getBytes(), 0, result.length());
@@ -545,7 +565,6 @@ public class PointChargeControlAction extends
 	 * 購入結果を取得する
 	 */
 	private void getResponseParams() {
-		logger.info("##############CharacterEncoding##############" + ServletActionContext.getRequest().getCharacterEncoding());
 		HttpServletRequest request = ServletActionContext.getRequest();
 		// 支払方法
 		setPay_method(request.getParameter("pay_method"));
@@ -622,6 +641,7 @@ public class PointChargeControlAction extends
 		this.getModel().setResErrCode(request.getParameter("res_err_code"));
 		// レスポンス日時
 		this.getModel().setResDate(request.getParameter("res_date"));
+		logger.info(this.getModel().getResDate());
 		// レスポンス許容時間
 		this.getModel().setLimitSecond(request.getParameter("limit_second"));
 		// チェックサム
@@ -701,8 +721,8 @@ public class PointChargeControlAction extends
 
 		// チェックサムをログに出力する
 		StringBuilder sbLog = new StringBuilder();
-		sb.append(ContextUtil.getRequestBaseInfo())
-		.append(" | External I/F--Failed to check ReceiveHashCode: ")
+		sbLog.append(ContextUtil.getRequestBaseInfo())
+		.append(" | External I/F--Check ReceiveHashCode: ")
 		.append("spsHashCd_BeforeEncode=").append(sb.toString()).append(",")
 		.append("spsHashCd_AfterEncode=").append(spsHashCd).append(",")
 		.append("spsHashCd_Params=").append(getSps_hashcode());
@@ -730,7 +750,7 @@ public class PointChargeControlAction extends
 		SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
 		
 		// レスポンス日時
-		if (StringUtils.isEmpty(this.getModel().getResDate())) {
+		if (!StringUtils.isEmpty(this.getModel().getResDate())) {
 			try {
 				receiveDate = df.parse(this.getModel().getResDate());
 			} catch (ParseException e) {
@@ -743,7 +763,7 @@ public class PointChargeControlAction extends
 		}
 		
 		// レスポンス許容時間
-		if (StringUtils.isEmpty(this.getModel().getLimitSecond())) {
+		if (!StringUtils.isEmpty(this.getModel().getLimitSecond())) {
 			limitSecond = Integer.parseInt(this.getModel().getLimitSecond());
 		}
 		// 制限時間 = レスポンス日時 + レスポンス 許容時間
