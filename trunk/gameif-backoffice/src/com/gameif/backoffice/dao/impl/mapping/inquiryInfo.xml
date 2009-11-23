@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="inquiryInfo">
+	<typeAlias alias="inquiryInfo" type="com.gameif.backoffice.entity.InquiryInfo" />
+	<typeAlias alias="inquirySearchCondition" type="com.gameif.backoffice.bean.InquirySearchCondition" />
+	
+	<resultMap class="com.gameif.backoffice.entity.InquiryInfo" id="inquiryResult">
+		<result property="inquiryNum" column="inquiry_num" />
+		<result property="inquiryDate" column="inquiry_date" />
+		<result property="memNum" column="mem_num" />
+		<result property="companyName" column="company_name" />
+		<result property="companyMediaName" column="company_media_name" />
+		<result property="companyUserName" column="company_user_name" />
+		<result property="userName" column="user_name" />
+		<result property="userMailadd" column="user_mailadd" />
+		<result property="telNum" column="tel_num" />
+		<result property="titleId" column="title_id" />
+		<result property="inquiryType" column="inquiry_type" />
+		<result property="inquiryIp" column="inquiry_ip" />
+		<result property="inquiryKindCode" column="inquiry_kind_code" />
+		<result property="inquiryObject" column="inquiry_object" />
+		<result property="inquiryContents" column="inquiry_contents" />
+		<result property="responseDate" column="response_date" />
+		<result property="responseSubject" column="response_subject" />
+		<result property="responseContents" column="response_contents" />
+		<result property="fromSubject" column="from_subject" />
+		<result property="fromMailadd" column="from_mailadd" />
+		<result property="replyTo" column="reply_to" />
+		<result property="correspondStatus" column="correspond_status" />
+		<result property="correspondUserId" column="correspond_user_id" />
+		<result property="correspondUserName" column="correspond_user_name" />
+		<result property="createdDate" column="created_date"/>
+		<result property="createdUser" column="created_user"/>
+		<result property="lastUpdateDate" column="last_update_date"/>
+		<result property="lastUpdateUser" column="last_update_user"/>
+	</resultMap>
+	
+	<select id="selectInquiryList" parameterClass="inquirySearchCondition" resultMap="inquiryResult">
+      <![CDATA[
+        SELECT
+        	inquiry_num,
+			inquiry_date,
+			mem_num,
+			company_name,
+			company_media_name,
+			company_user_name,
+			user_name,
+			user_mailadd,
+			tel_num,
+			title_id,
+			inquiry_type,
+			inquiry_ip,
+			inquiry_kind_code,
+			inquiry_object,
+			inquiry_contents,
+			response_date,
+			response_subject,
+			response_contents,
+			from_subject,
+			from_mailadd,
+			reply_to,
+			correspond_status,
+			correspond_user_id,
+			correspond_user_name,
+			created_date,
+			created_user,
+			last_update_date,
+			last_update_user
+		FROM
+			inquiry_info
+		WHERE
+			1 = 1
+      ]]>
+      <isNotEmpty property="inquiryStartDate">
+      	<![CDATA[ AND inquiry_date >= #inquiryStartDate# ]]>
+      </isNotEmpty>
+      <isNotEmpty property="inquiryEndDate">
+      	<![CDATA[ AND inquiry_date <= DATE_ADD(#inquiryEndDate#, INTERVAL 1 DAY) ]]>
+      </isNotEmpty>
+      <isNotEmpty property="inquiryEndDate">
+      	<![CDATA[ AND inquiry_date <= DATE_ADD(#inquiryEndDate#, INTERVAL 1 DAY) ]]>
+      </isNotEmpty>
+      <isNotEmpty property="inquiryType">
+      	AND inquiry_type IN 
+      	<iterate open="(" close=")" conjunction="," property="inquiryType">
+      		#inquiryType[]#
+      	</iterate>
+      </isNotEmpty>
+      <isNotEmpty property="inquiryKindCode">
+      	AND inquiry_kind_code IN 
+      	<iterate open="(" close=")" conjunction="," property="inquiryKindCode">
+      		#inquiryKindCode[]#
+      	</iterate>
+      </isNotEmpty>
+      <isNotEmpty property="correspondStatus">
+      	<isNotEqual property="correspondStatus" compareValue="9999">
+      		<![CDATA[ AND correspond_status = #correspondStatus# ]]>
+      	</isNotEqual>
+      </isNotEmpty>
+      <isNotEmpty property="userMailadd">
+      	<![CDATA[ AND user_mailadd like '%$userMailadd$%' ]]>
+      </isNotEmpty>
+      <isNotEmpty property="inquiryObject">
+      	<![CDATA[ AND inquiry_object like '%$inquiryObject$%' ]]>
+      </isNotEmpty>
+	</select>
+
+	<select id="selectByKey" parameterClass="inquiryInfo" resultMap="inquiryResult">   
+        <![CDATA[
+        SELECT
+        	inquiry_num,
+			inquiry_date,
+			mem_num,
+			company_name,
+			company_media_name,
+			company_user_name,
+			user_name,
+			user_mailadd,
+			tel_num,
+			title_id,
+			inquiry_type,
+			inquiry_ip,
+			inquiry_kind_code,
+			inquiry_object,
+			inquiry_contents,
+			response_date,
+			response_subject,
+			response_contents,
+			from_subject,
+			from_mailadd,
+			reply_to,
+			correspond_status,
+			correspond_user_id,
+			correspond_user_name,
+			created_date,
+			created_user,
+			last_update_date,
+			last_update_user
+		FROM
+			inquiry_info
+		WHERE
+			inquiry_num = #inquiryNum#
+        ]]>
+	</select>
+
+	<select id="selectForUpdate" parameterClass="java.lang.Long" resultMap="inquiryResult">   
+        <![CDATA[
+        SELECT
+        	inquiry_num,
+			inquiry_date,
+			mem_num,
+			company_name,
+			company_media_name,
+			company_user_name,
+			user_name,
+			user_mailadd,
+			tel_num,
+			title_id,
+			inquiry_type,
+			inquiry_ip,
+			inquiry_kind_code,
+			inquiry_object,
+			inquiry_contents,
+			response_date,
+			response_subject,
+			response_contents,
+			from_subject,
+			from_mailadd,
+			reply_to,
+			correspond_status,
+			correspond_user_id,
+			correspond_user_name,
+			created_date,
+			created_user,
+			last_update_date,
+			last_update_user
+		FROM
+			inquiry_info
+		WHERE
+			inquiry_num = #inquiryNum#
+		FOR UPDATE
+        ]]>
+	</select>
+
+	<update id="update" parameterClass="inquiryInfo">
+	<![CDATA[
+		UPDATE inquiry_info
+		SET	inquiry_date = #inquiryDate#,
+			mem_num = #memNum#,
+			company_name = #companyName#,
+			company_media_name = #companyMediaName#,
+			company_user_name = #companyUserName#,
+			user_name = #userName#,
+			user_mailadd = #userMailadd#,
+			tel_num = #telNum#,
+			title_id = #titleId#,
+			inquiry_type = #inquiryType#,
+			inquiry_ip = #inquiryIp#,
+			inquiry_kind_code = #inquiryKindCode#,
+			inquiry_object = #inquiryObject#,
+			inquiry_contents = #inquiryContents#,
+			response_date = #responseDate#,
+			response_subject = #responseSubject#,
+			response_contents = #responseContents#,
+			from_subject = #fromSubject#,
+			from_mailadd = #fromMailadd#,
+			reply_to = #replyTo#,
+			correspond_status = #correspondStatus#,
+			correspond_user_id = #correspondUserId#,
+			correspond_user_name = #correspondUserName#,
+			created_date = #createdDate#,
+			created_user = #createdUser#,
+			last_update_date = #lastUpdateDate#,
+			last_update_user = #lastUpdateUser#
+		WHERE
+			inquiry_num = #inquiryNum#
+	]]>
+	</update>
+	
+	<delete id="deleteInquiryList" parameterClass="java.util.List">  
+        <![CDATA[
+        DELETE
+		FROM
+			inquiry_info
+		WHERE
+      		inquiry_num IN 
+        ]]>
+      	<iterate open="(" close=")" conjunction="," property="inquiryList">
+      		#inquiryList[]#
+      	</iterate>
+	</delete>
+
+</sqlMap>

@@ -35,7 +35,7 @@
 	</bean>
 			
 	<!-- authorityAction -->
-	<bean id="authorityAction" class="com.gameif.backoffice.action.authority.AuthorityAction" scope="prototype">
+	<bean id="authorityAction" class="com.gameif.backoffice.action.authority.AuthorityControlAction" scope="prototype">
 		<property name="backOfficeProperties">
 			<ref bean="backOfficeProperties" />
 		</property>
@@ -44,6 +44,32 @@
 		</property>
 		<property name="authorityBusinessLogic">
 			<ref bean="authorityBusinessLogic" />
+		</property>
+	</bean>
+			
+	<!-- inquiryListAction -->
+	<bean id="inquiryListAction" class="com.gameif.backoffice.action.inquiry.InquiryListAction" scope="prototype">
+		<property name="backOfficeProperties">
+			<ref bean="backOfficeProperties" />
+		</property>
+		<property name="masterInfoBusinessLogic">
+			<ref bean="masterInfoBusinessLogic" />
+		</property>
+		<property name="inquiryInfoBusinessLogic">
+			<ref bean="inquiryInfoBusinessLogic" />
+		</property>
+	</bean>
+			
+	<!-- inquiryDetailAction -->
+	<bean id="inquiryDetailAction" class="com.gameif.backoffice.action.inquiry.InquiryDetailAction" scope="prototype">
+		<property name="backOfficeProperties">
+			<ref bean="backOfficeProperties" />
+		</property>
+		<property name="masterInfoBusinessLogic">
+			<ref bean="masterInfoBusinessLogic" />
+		</property>
+		<property name="inquiryInfoBusinessLogic">
+			<ref bean="inquiryInfoBusinessLogic" />
 		</property>
 	</bean>
 </beans>

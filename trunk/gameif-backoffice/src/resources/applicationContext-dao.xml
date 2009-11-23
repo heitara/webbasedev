@@ -43,4 +43,18 @@
 			<value>authorityDetailMst</value>
 		</property>
 	</bean>
+	
+	<!-- inquiryInfoDao -->
+	<bean id="inquiryInfoDao" class="com.gameif.backoffice.dao.impl.InquiryInfoDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>inquiryInfo</value>
+		</property>
+	</bean>
+	
+	<!-- inquiryKindMstDao -->
+	<bean id="inquiryKindMstDao" class="com.gameif.backoffice.dao.impl.InquiryKindMstDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>inquiryKindMst</value>
+		</property>
+	</bean>
 </beans>

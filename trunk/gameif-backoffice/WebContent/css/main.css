@@ -59,6 +59,7 @@ div.page_bottom {
 div.pb_left {
 	float:left;
 	text-align:left;
+	font-size:10px;
 	height:30px;
 }
 div.pb_right {
@@ -67,30 +68,19 @@ div.pb_right {
 	font-size:10px;
 	height:30px;
 }
-div.pb_left a {	
-	display:inline-block;
-	padding:0px 3px;
-	text-decoration:underline;
-}
-
-div.pb_browser {
-	clear: both;
-	font-size:10px;
-	color:#666;
-}
 
 /*********【共通】メイン ********************************************************/
 div.page_main_box {
 	width:980px;
 	margin:30px auto;
 }
-div.page_main_main {
+div.page_main_left {
 	float:left;
-	width:760px;
-}
-div.page_main_right {
-	float:right;
 	width:200px;
+}
+div.page_main_main {
+	float:right;
+	width:760px;
 }
 
 /*********【共通】右パネル・ショットカット **************************************/
