@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.gameif.backoffice.constants.BackofficeConstants;
+import com.gameif.backoffice.util.ContextUtil;
+
 public class BackOfficeLoginFilter implements Filter {
 
 	protected FilterConfig config;
@@ -24,14 +27,14 @@ public class BackOfficeLoginFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
-		HttpSession session = ((HttpServletRequest) request).getSession();
 
-		String userId = (String) session.getAttribute("userId");
-		if (userId == null || userId.isEmpty()) {
+		HttpSession session = ((HttpServletRequest)request).getSession();
+		Object userId = session.getAttribute(BackofficeConstants.SessionKey.USER_ID);
+		if (userId == null || userId.toString().trim().length() == 0)
+		{
 			HttpServletResponse res = (HttpServletResponse) response;
 			HttpServletRequest req = (HttpServletRequest) request;
-			res.sendRedirect(req.getContextPath()
-					+ "/inputUserLogin.html");
+			res.sendRedirect(req.getContextPath() + "/inputUserLogin.html");
 		} else {
 			chain.doFilter(request, response);
 		}

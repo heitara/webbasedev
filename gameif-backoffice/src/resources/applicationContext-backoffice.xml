@@ -14,6 +14,21 @@
 				<entry key="2" value="編集"/>
 			</map>
 		</property>
+		
+		<property name="inquiryTypes">
+			<map>
+				<entry key="0" value="会員"/>
+				<entry key="1" value="メディア"/>
+				<entry key="2" value="その他"/>
+			</map>
+		</property>
+		
+		<property name="correspondStatus">
+			<map>
+				<entry key="0" value="未対応"/>
+				<entry key="1" value="対応済"/>
+			</map>
+		</property>
 	</bean>
 	
 </beans>

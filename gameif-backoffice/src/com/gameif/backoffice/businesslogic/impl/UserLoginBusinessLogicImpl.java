@@ -33,6 +33,7 @@ IUserLoginBusinessLogic {
 		}
 		
 		ContextUtil.setUserId(newLoginUser.getUserId());
+		ContextUtil.setNickName(newLoginUser.getNickName());
 	}
 
 	/**

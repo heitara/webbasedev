@@ -5,13 +5,34 @@
 <%@page import="org.springframework.context.ApplicationContext"%>
 <%@page import="org.springframework.web.context.support.WebApplicationContextUtils"%>
 <%@page import="java.util.List"%>
-<%@page import="edu.yale.its.tp.cas.client.filter.CASFilter"%>
+<%@page import="com.gameif.backoffice.constants.BackofficeConstants"%>
+<%
+	/* =======================================　頁内共通変数設定  =======================================*/
+
+//ログイン状態
+boolean isLogined = false;
+//ユーザＩＤ
+String userId = (String)session.getAttribute(BackofficeConstants.SessionKey.USER_ID);
+//ニックネーム
+String nickname = null;
+
+/* =======================================　ログイン情報取得  =======================================*/
+if (userId != null && userId.length() != 0) {
+	isLogined = true;
+}
+/* =============================================================================================*/
+response.setHeader("Pragma","No-cache");
+response.setHeader("Cache-Control","no-cache");
+response.setHeader("Cache-Control", "no-store");
+response.setDateHeader("Expires",0);
+/* =============================================================================================*/
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja-jp" lang="ja-jp" >
 <head>
-	<title><decorator:title default="新感覚の楽しみ方"/> | ゲームイフ | ブラウザゲームポータルサイト</title>
+	<title><decorator:title default="新感覚の楽しみ方"/> | ゲームイフ | バックオフィス</title>
 	<meta name="keywords" content="ゲームイフ,ブラウザゲーム,webgame,大人数同時プレイブラウザゲーム,オンラインゲーム,パブリッシング,プラットフォーム" />
-	<meta name="description" content="ブラウザゲーム(WEBGAME)のポータルサイト" />
+	<meta name="description" content="ブラウザゲーム(WEBGAME)のバックオフィス" />
 	<meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
 	<meta content="index, follow" name="robots"/>
 	<link type="text/css" href="css/common.css" rel="stylesheet"></link>
@@ -24,54 +45,68 @@
 <!-- ページトップ：開始 -->
 <div>
 	<div class="page_top">
+		<div class="pt_left">
+			<img src="images/logo.gif" title="ゲームイフ | バックオフィス"/>
+			<span style="font-size:14px;color:#855;text-align:right;">----BackOffice</span>
+		</div>
+<%
+		if (isLogined) {
+%>
 		<div class="pt_right">
-			<a href="#" title="初心者ガイド">初心者ガイド</a> |
+			<a href="" title="ログアウト">ログアウト</a> 
 			<div style="font-size:10px;color:#855;margin-top:10px;text-align:right;">さん、ようこそ！</div>
 		</div>
-		<div class="clearbox"/>
+<%
+		}
+%>
+		<div class="clearbox"></div>
 	</div>
+</div>
+<!-- ページトップ：終了 -->
+<!-- ページメニュー：開始 -->
+<div class="page_top_menu">
 </div>
 <!-- ページメニュー：終了 -->
 <!-- ページメインエリア：開始 -->
 <div class="page_main_box">
 	<!-- ページメイン：終了 -->	
 	<!-- ページ右パネル：開始 -->
-	<div class="page_main_right">
+	<div class="page_main_left">
 		
+<%
+		if (isLogined) {
+%>
 		<!-- 初めての方へ：開始 -->
 		<dl class="title_box tspace_b">
-			<dt><strong>初めての方へ</strong><span>&nbsp;</span></dt>
 			<dd class="guide">
-				<a href="#" title="会員登録方法">会員登録方法</a>
-				<a href="#" title="ＧＩポイントについて">ＧＩポイントについて</a>
-				<a href="#" title="ご利用上の注意">ご利用上の注意</a>
-				<a href="#" title="ＦＡＱ">ＦＡＱ</a>
-				<a href="#" title="お問合せ">お問合せ</a>
+				<a href="#" title="会員管理">会員管理</a>
+				<a href="inputInquriyList.html" title="問合せ管理">問合せ管理</a>
+				<a href="#" title="友達紹介管理">友達紹介管理</a>
+				<a href="#" title="キャンペーン管理">キャンペーン管理</a>
+				<a href="#" title="サービスポイント管理">サービスポイント管理</a>
+				<a href="#" title="売上げ集計">売上げ集計</a>
+				<a href="inputListAuthority.html" title="権限管理">権限管理</a>
 			</dd>
 		</dl>
+<%
+		}
+%>
 	</div>
-	<!-- ページ右パネル：終了 -->
-	<div class="clearbox"></div>
 	<!-- ページメイン：開始 -->
 	<div class="page_main_main">
 		<decorator:body />  
 	</div>
+	<!-- ページ右パネル：終了 -->
+	<div class="clearbox"></div>
 </div>
 <!-- ページメインエリア：終了 -->
 <!-- ページフッター：開始 -->
 <div class="page_bottom">
 	<div class="pb_left">
-		<a href="http://company.game-if.com" title="会社概要">会社概要</a> | 
-		<a href="agreement.html" title="利用規約">利用規約</a> | 
-		<a href="immunity.html" title="免責事項">免責事項</a> | 
-		<a href="privacy.html" title="プライバシーポリシー">プライバシーポリシー</a> | 
-		<a href="shop_info.html" title="特定商取引法に基づく表示内容">特定商取引法に基づく表示内容</a>
-	</div>
-	<div class="pb_right">Copyright &copy; 2009 Game-IF Co.,Ltd. All Rights Reserved.</div>
-	<div class="pb_browser">
 			このウェブサイトは、Internet Explorer 7.0 或いは Firefox3.0 以上のブラウザでご利用いただくことを推奨しております。<br/>
 			他のブラウザでは正常にご覧いただけない場合がございます。
 	</div>
+	<div class="pb_right">Copyright &copy; 2009 Game-IF Co.,Ltd. All Rights Reserved.</div>
 </div>
 <!-- ページフッター：終了 -->
 </body>

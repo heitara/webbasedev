@@ -26,6 +26,7 @@
 
 		<action name="*Page" class="displayAction" method="{1}">
 			<result name="finish">/WEB-INF/pages/common/finish.jsp</result>
+			<result name="index">/WEB-INF/pages/backoffice/index.jsp</result>
 		</action>
 		
 		<action name="*UserLogin" class="userLoginAction" method="{1}">
@@ -36,7 +37,7 @@
 			</interceptor-ref>
 			<interceptor-ref name="gameifStack"></interceptor-ref>
 			<result name="input">/WEB-INF/pages/backoffice/user_login.jsp</result>
-			<result name="success" type="redirect">/inputlistAuthority.html</result>
+			<result name="success" type="redirect">/indexPage.html</result>
 		</action>
 		
 		<action name="*Authority" class="authorityAction" method="{1}">
@@ -49,6 +50,27 @@
 			<result name="inputAdd">/WEB-INF/pages/backoffice/authority_add.jsp</result>
 			<result name="inputEdit">/WEB-INF/pages/backoffice/authority_edit.jsp</result>
 			<result name="inputList">/WEB-INF/pages/backoffice/authority_list.jsp</result>
+		</action>
+		
+		<action name="*InquriyList" class="inquiryListAction" method="{1}">
+			<interceptor-ref name="scopedModelDriven">
+				<param name="scope">request</param>
+				<param name="name">inquirySearchCondition</param>
+				<param name="className">com.gameif.backoffice.bean.InquirySearchCondition</param>
+			</interceptor-ref>
+			<interceptor-ref name="gameifStack"></interceptor-ref>
+			<result name="input">/WEB-INF/pages/backoffice/inquiry_list.jsp</result>
+			<result name="success">/WEB-INF/pages/backoffice/inquiry_list.jsp</result>
+		</action>
+		
+		<action name="*Inquriy" class="inquiryDetailAction" method="{1}">
+			<interceptor-ref name="scopedModelDriven">
+				<param name="scope">request</param>
+				<param name="name">inquiryInfo</param>
+				<param name="className">com.gameif.backoffice.entity.InquiryInfo</param>
+			</interceptor-ref>
+			<interceptor-ref name="gameifStack"></interceptor-ref>
+			<result name="inputEdit">/WEB-INF/pages/backoffice/inquiry_edit.jsp</result>
 		</action>
 		
 	</package>

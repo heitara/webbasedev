@@ -19,6 +19,9 @@
 		<property name="functionMstDao">
 			<ref bean="functionMstDao" />
 		</property>
+		<property name="inquiryKindMstDao">
+			<ref bean="inquiryKindMstDao" />
+		</property>
 	</bean>
 	
 	<!-- authorityBusinessLogic -->
@@ -29,6 +32,17 @@
 		</property>
 		<property name="authorityDetailMstDao">
 			<ref bean="authorityDetailMstDao" />
+		</property>
+	</bean>
+	
+	<!-- inquiryInfoBusinessLogic -->
+	<bean id="inquiryInfoBusinessLogic"
+		class="com.gameif.backoffice.businesslogic.impl.InquiryInfoBusinessLogicImpl">
+		<property name="inquiryInfoDao">
+			<ref bean="inquiryInfoDao" />
+		</property>
+		<property name="templateMailer">
+			<ref bean="templateMailer" />
 		</property>
 	</bean>
 </beans>

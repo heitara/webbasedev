@@ -30,8 +30,7 @@ public class UserLoginAction extends ModelDrivenActionSupport<LoginUser> {
 			
 		} catch (DataNotExistsException ahex) {
 
-			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
-					+ ahex.getMessage());
+			logger.warn(ContextUtil.getRequestBaseInfo() + " | " + ahex.getMessage());
 
 			addFieldError("errMessage", getText("loginError.invalidUser"));
 
@@ -39,8 +38,7 @@ public class UserLoginAction extends ModelDrivenActionSupport<LoginUser> {
 
 		} catch (LogicException lgex) {
 
-			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
-					+ lgex.getMessage());
+			logger.warn(ContextUtil.getRequestBaseInfo() + " | " + lgex.getMessage());
 
 			return "warning";
 		}

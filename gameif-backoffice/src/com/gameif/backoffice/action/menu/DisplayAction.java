@@ -44,4 +44,8 @@ public class DisplayAction {
 			
 		return "index";
 	}
+	
+	public String index() {
+		return "index";
+	}
 }

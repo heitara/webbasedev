@@ -4,10 +4,29 @@
 <head>
 	<title>権限管理</title>
 	<script src="js/validate.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		function checkCount() {
+			var count = 0;
+		    var checkboxs = document.getElementsByName("selectedAuthList");
+		    for(var i=0;i<checkboxs.length;i++){
+		    	if (!checkboxs[i].disabled) {
+			    	if (checkboxs[i].checked) {
+				    	count++;
+			    	}
+		    	}
+		    }
+		    if (count < 1) {
+			    alert("権限を選択してください。");
+			    return false;
+		    } else {
+			    return true;
+		    }
+		}
+	</script>
 </head>
 <body>
 <dl class="light_box tspace_n">
-	<dt><strong>新規追加</strong><span>&nbsp;</span></dt>
+	<dt><strong>権限一覧</strong><span>&nbsp;</span></dt>
 	<dd>
 		<s:form cssClass="entry">
 			<table>
@@ -45,7 +64,7 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-						<table>
+						<table class="friendhist tspace_y" align="center">
 							<tr id="listTitle">
 								<th>*</th>
 								<th>権限コード</th>
@@ -55,7 +74,7 @@
 								<tr <s:if test="#st.odd">class="odd" </s:if> >
 									<td>
 										<s:hidden name="authorityCode"></s:hidden>
-										<s:checkbox name="selectedAuthoritys" id="selectedAuthoritys" value="false" fieldValue="%{authorityCode}"></s:checkbox>
+										<s:checkbox name="selectedAuthList" id="selectedAuthList" value="false" fieldValue="%{authorityCode}"></s:checkbox>
 									</td>
 									<td>
 										<a href="inputEditAuthority.html?authority.authorityCode=<s:property value="authorityCode"/>" ><s:property value="authorityCode"/></a>
@@ -65,6 +84,13 @@
 									</td>
 								</tr>
 							</s:iterator>
+							<s:if test="authorityList != null && authorityList.size() > 0">
+								<tr>
+									<td colspan="3">
+										<s:submit value="削除" action="deleteAuthority" cssClass="big" onclick="return checkCount();"/>
+									</td>
+								</tr>
+							</s:if>
 						</table>
 					</td>
 				</tr>

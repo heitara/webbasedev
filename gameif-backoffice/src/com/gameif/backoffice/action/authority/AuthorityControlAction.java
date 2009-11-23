@@ -15,7 +15,7 @@ import com.gameif.common.action.ModelDrivenActionSupport;
 import com.gameif.common.exception.DataNotExistsException;
 import com.gameif.common.exception.LogicException;
 
-public class AuthorityAction extends ModelDrivenActionSupport<AuthorityInfo> {
+public class AuthorityControlAction extends ModelDrivenActionSupport<AuthorityInfo> {
 
 	/**
 	 * 
@@ -34,7 +34,7 @@ public class AuthorityAction extends ModelDrivenActionSupport<AuthorityInfo> {
 	private String salesLevel;
 	
 	private List<AuthorityMst> authorityList;
-	private List<String> selectedAuthoritys;
+	private List<String> selectedAuthList;
 
 	/**
 	 * 権限追加画面に案内する
@@ -206,7 +206,7 @@ public class AuthorityAction extends ModelDrivenActionSupport<AuthorityInfo> {
 	 * @return
 	 */
 	public String delete() {
-		authorityBusinessLogic.deleteAuthorityMst(selectedAuthoritys);
+		authorityBusinessLogic.deleteAuthorityMst(getSelectedAuthList());
 		return "inputList";
 	}
 
@@ -363,17 +363,17 @@ public class AuthorityAction extends ModelDrivenActionSupport<AuthorityInfo> {
 	}
 
 	/**
-	 * @return the selectedAuthoritys
+	 * @return the selectedAuthList
 	 */
-	public List<String> getSelectedAuthoritys() {
-		return selectedAuthoritys;
+	public List<String> getSelectedAuthList() {
+		return selectedAuthList;
 	}
 
 	/**
-	 * @param selectedAuthoritys the selectedAuthoritys to set
+	 * @param selectedAuthList the selectedAuthList to set
 	 */
-	public void setSelectedAuthoritys(List<String> selectedAuthoritys) {
-		this.selectedAuthoritys = selectedAuthoritys;
+	public void setSelectedAuthList(List<String> selectedAuthList) {
+		this.selectedAuthList = selectedAuthList;
 	}
 
 }

@@ -36,6 +36,9 @@ IAuthorityBusinessLogic {
 		return authorityMstDao.selectAuthorityByCode(code);
 	}
 
+	/**
+	 * 権限情報を登録する
+	 */
 	@Transactional
 	@Override
 	public void createAuthorityInfo(AuthorityInfo authorityInfo) {
@@ -64,6 +67,9 @@ IAuthorityBusinessLogic {
 		 }
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public AuthorityInfo getAuthorityinfoByCode(String code) throws LogicException {
 		AuthorityInfo authorityInfo = new AuthorityInfo();

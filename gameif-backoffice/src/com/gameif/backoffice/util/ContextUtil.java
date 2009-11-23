@@ -3,6 +3,7 @@ package com.gameif.backoffice.util;
 import org.apache.struts2.ServletActionContext;
 
 import com.gameif.backoffice.constants.BackofficeConstants;
+import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 
 public class ContextUtil {
@@ -28,6 +29,30 @@ public class ContextUtil {
 		}
 		return userId.toString();
 	}
+	
+	/**
+	 * ニックネームセッションに保存する
+	 * @param userId ニックネーム
+	 */
+	@SuppressWarnings("unchecked")
+	public final static void setNickName(String nickName) {
+		
+		ActionContext.getContext().getSession().put(BackofficeConstants.SessionKey.NICK_NAME, nickName);
+		
+	}
+	
+	/**
+	 * セッションからニックネームを取得する
+	 * @return ニックネーム
+	 */
+	public final static String getNickName() {
+		Object nickName = ActionContext.getContext().getSession().get(BackofficeConstants.SessionKey.NICK_NAME);
+		if (nickName == null) {
+			return null;
+		}
+		return nickName.toString();
+	}
+	
 	/**
 	 * クライアントＩＰを取得する。
 	 * @return　クライアントＩＰ
