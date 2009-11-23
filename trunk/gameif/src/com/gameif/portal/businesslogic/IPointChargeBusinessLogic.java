@@ -23,5 +23,13 @@ public interface IPointChargeBusinessLogic {
 	 */
 	@Transactional
 	public void createSettlementHist(MemSettlementHist settlementHist) throws LogicException;
+	
+	/**
+	 * 会員番号とタイトルIDより、ゲームのプレイ回数を取得する
+	 * @param memNum 会員番号
+	 * @param titleId タイトルID
+	 * @return プレイ回数
+	 */
+	public Integer countPlayHist(Integer titleId);
 
 }

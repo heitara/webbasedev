@@ -21,6 +21,7 @@ import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.dao.IMemSettlementHistDao;
 import com.gameif.portal.dao.IMemSettlementTrnsDao;
 import com.gameif.portal.dao.IMemberInfoDao;
+import com.gameif.portal.dao.IPlayHistDao;
 import com.gameif.portal.dao.IPointMstDao;
 import com.gameif.portal.dao.IServicePointDao;
 import com.gameif.portal.dao.IServicePointGiveHistDao;
@@ -56,6 +57,7 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 	private IServicePointGiveHistDao servicePointGiveHistDao;
 	private TemplateMailer templateMailer;
 	private TitleCharge titleCharge;
+	private IPlayHistDao playHistDao;
 	
 	// 有効期間
 	private Integer validDays;
@@ -380,6 +382,16 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 			logger.error("error has occurred in sending presentServicePoint mail. ", ex);
 		}
 	}
+	/**
+	 * 会員番号とタイトルIDより、ゲームのプレイ回数を取得する
+	 * @param memNum 会員番号
+	 * @param titleId タイトルID
+	 * @return プレイ回数
+	 */
+	@Override
+	public Integer countPlayHist(Integer titleId) {
+		return playHistDao.selectPlayHistCount(ContextUtil.getMemberNo(), titleId);
+	}
 
 	/**
 	 * @return the memSettlementTrnsDao
@@ -530,6 +542,20 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 	 */
 	public void setTitleCharge(TitleCharge titleCharge) {
 		this.titleCharge = titleCharge;
+	}
+
+	/**
+	 * @return the playHistDao
+	 */
+	public IPlayHistDao getPlayHistDao() {
+		return playHistDao;
+	}
+
+	/**
+	 * @param playHistDao the playHistDao to set
+	 */
+	public void setPlayHistDao(IPlayHistDao playHistDao) {
+		this.playHistDao = playHistDao;
 	}
 
 	/**

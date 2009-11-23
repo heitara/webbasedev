@@ -45,7 +45,12 @@ public class TitleCharge {
 		String chargeKey = chargeKeyGenerators.get(parameter.getTitleId()).getChargeKey(parameter);
 		
 		// ポイント付与ＵＲＬを作る。
-		parameter.setChargeFullUrl(parameter.getChargeUrl() + "?" + chargeKey);
+		Integer index = parameter.getChargeUrl().indexOf("?");
+		if (index >= 0) {
+			parameter.setChargeFullUrl(parameter.getChargeUrl() + "&" + chargeKey);
+		} else {
+			parameter.setChargeFullUrl(parameter.getChargeUrl() + "?" + chargeKey);
+		}
 		
 		// ポイント付与を実行して結果コードを返す。
 		return chargeExecutors.get(parameter.getTitleId()).excute(parameter);
