@@ -122,6 +122,7 @@ public class PointChargeControlAction extends
 		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.CHARGE)) {
 			return "maintenance";
 		}
+		
 		// ゲームをプレーすることがあるかどうかのチェック
 		Integer count = pointChargeBusinessLogic.countPlayHist(this.getModel().getTitleId());
 		if (count < 1) {
@@ -409,8 +410,9 @@ public class PointChargeControlAction extends
 			
 			logger.warn(sb.toString());
 
-			responseData("NG", convertUTF2ShiftJis(getText("charge.resultNG")));
+//			responseData("NG", convertUTF2ShiftJis(getText("charge.resultNG")));
 //			responseData("NG", getText("charge.resultNG"));
+			responseData("NG", "Response result is NG.");
 			return;
 		}
 		
@@ -424,8 +426,9 @@ public class PointChargeControlAction extends
 			
 			logger.warn(sb.toString());
 			
-			responseData("NG", convertUTF2ShiftJis(getText("charge.checkSumError")));
+//			responseData("NG", convertUTF2ShiftJis(getText("charge.checkSumError")));
 //			responseData("NG", getText("charge.checkSumError"));
+			responseData("NG", "Response time is expired.");
 			return;
 		}
 		
@@ -439,8 +442,9 @@ public class PointChargeControlAction extends
 			
 			logger.warn(sb.toString());
 			
-			responseData("NG", convertUTF2ShiftJis(getText("charge.expired")));
+//			responseData("NG", convertUTF2ShiftJis(getText("charge.expired")));
 //			responseData("NG", getText("charge.expired"));
+			responseData("NG", "Response time is expired.");
 			return;
 			
 		}
@@ -455,7 +459,8 @@ public class PointChargeControlAction extends
 					+ ex.getMessage());
 
 //			responseData("NG", convertUTF2ShiftJis(getText("charge.unexpectedError")));
-			responseData("NG", getText("charge.unexpectedError"));
+//			responseData("NG", getText("charge.unexpectedError"));
+			responseData("NG", "An unexpected error has occurred.");
 		}
 
 		return;
@@ -481,8 +486,8 @@ public class PointChargeControlAction extends
 	private void responseData(String resultStatus, String errMsg) {
 		HttpServletResponse response = ServletActionContext.getResponse();
 		try {
-//			response.setContentType("text/csv; charset=Windows-31J");
-//			response.setCharacterEncoding("Windows-31J");
+			response.setContentType("text/csv; charset=Shift_JIS");
+			response.setCharacterEncoding("Shift_JIS");
 			String result = resultStatus.concat(",").concat(errMsg);
 			response.setContentLength(result.length());
 			response.getOutputStream().write(result.getBytes(), 0, result.length());
