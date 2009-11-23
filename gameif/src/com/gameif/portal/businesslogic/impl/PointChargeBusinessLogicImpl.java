@@ -166,7 +166,6 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		settlementHist.setPointAmountAct(settleTrns.getPointAmountAct());
 		// ログ
 		settlementHist.setSettlementLog(makeSettlementLog(settlementHist));
-//		settlementHist.setLastUpdateUser(ContextUtil.getMemberNo().toString());
 		settlementHist.setLastUpdateUser(settleTrns.getCreatedUser());
 		settlementHist.setLastUpdateDate(settlementDate);
 
@@ -184,7 +183,6 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		member.setMemAtbtCd(PortalConstants.MemberAtbtCd.CHARGE);
 		member.setLastUpdateDate(settlementDate);
 		member.setLastUpdateIp(ContextUtil.getClientIP());
-//		member.setLastUpdateUser(ContextUtil.getMemberNo().toString());
 		member.setLastUpdateUser(settleTrns.getMemNum().toString());
 
 		memberInfoDao.update(member);
@@ -224,6 +222,13 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		// チャージを行う
 		int chargeRes = titleCharge.chargePoint(params);
 		if (chargeRes != ChargeConstants.Result.SUCCESS) {
+			
+			StringBuilder sbWarn = new StringBuilder();
+			sbWarn.append(ContextUtil.getRequestBaseInfo())
+			.append(" | External I/F--TitleCharge Result: ")
+			.append(chargeRes);
+			logger.warn(sbWarn.toString());
+			
 			throw new LogicException("Failed to charge.");
 		}
 
