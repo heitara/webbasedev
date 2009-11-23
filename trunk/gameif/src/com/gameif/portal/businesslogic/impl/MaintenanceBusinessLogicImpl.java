@@ -31,8 +31,15 @@ public class MaintenanceBusinessLogicImpl extends BaseBusinessLogic implements
 	 * @param titleId タイトルID
 	 */
 	@Override
-	public void maintenanceCheckByTitleId(Integer titleId)
-			throws LogicException {
+	public void maintenanceCheckByTitleId(Integer titleId) throws LogicException {
+
+		// テスト会員の場合、メンテナンスチェックを行わない
+		MemberInfo member = new MemberInfo();
+		member.setMemNum(ContextUtil.getMemberNo());
+		member = memberInfoDao.selectByKey(member);
+		if (member != null && member.getMemAtbtCd().equals(PortalConstants.MemberAtbtCd.TEST)) {
+			return;
+		}
 		
 		TitleMst title = titleMstDao.selectValidTitleByKey(titleId);
 		if (title != null) {
@@ -40,9 +47,9 @@ public class MaintenanceBusinessLogicImpl extends BaseBusinessLogic implements
 			// メンテナンス 中
 			if (status.equals(PortalConstants.ServerStatus.MAINTENANCE)) {
 				throw new MaintenanceException("title is in maintenance.");
-			// CBT中
-			} else if (status.equals(PortalConstants.ServerStatus.CBT)) {
-				throw new BetaTestException("title is in CBT");
+			// CBT中,OBT中
+			} else if (status.equals(PortalConstants.ServerStatus.CBT) || status.equals(PortalConstants.ServerStatus.OBT)) {
+				throw new BetaTestException("title is in CBT or OBT.");
 			}
 		}
 		
@@ -106,4 +113,19 @@ public class MaintenanceBusinessLogicImpl extends BaseBusinessLogic implements
 	public void setMaintenanceInfoDao(IMaintenanceInfoDao maintenanceInfoDao) {
 		this.maintenanceInfoDao = maintenanceInfoDao;
 	}
+
+	/**
+	 * @return the memberInfoDao
+	 */
+	public IMemberInfoDao getMemberInfoDao() {
+		return memberInfoDao;
+	}
+
+	/**
+	 * @param memberInfoDao the memberInfoDao to set
+	 */
+	public void setMemberInfoDao(IMemberInfoDao memberInfoDao) {
+		this.memberInfoDao = memberInfoDao;
+	}
+	
 }
