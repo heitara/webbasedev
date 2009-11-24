@@ -36,14 +36,16 @@ window.onload = function() { setInterval(changeBana, 4000); };
 	<dt><strong>お知らせ</strong><span><a href="<%=getServletContext().getInitParameter("portalNewsTopUrl")%>" title="お知らせをもっと見る">MORE</a></span></dt>
 	<dd class="news_list">
 		<ul>
+			<li><span>2009/11/24</span><a href="http://info.game-if.com/home/maintenance/135-2009-11-24-11-39-03">「レジオン-創世伝説-」サーバ接続不具合復旧のお知らせ </a></li>
+			<li><span>2009/11/24</span><a href="http://info.game-if.com/home/notice/134-2009-11-24-10-02-49">「サーバーに接続できません」問題について</a></li>
 			<li><span>2009/11/24</span><a href="http://info.game-if.com/home/event/133-2009-11-23-19-26-41">「レジオン-創世伝説-」、クローズドβテストスタート！</a></li>
 			<li><span>2009/11/17</span><a href="http://info.game-if.com/home/event/132-2009-11-16-19-59-17">「レジオン-創世伝説-」、クローズドβテスト募集開始！</a></li>
 			<li><span>2009/11/17</span><a href="http://info.game-if.com/home/notice/131-2009-11-16-19-15-29">「創世伝説」、邦題「レジオン-創世伝説-」に決定、ロゴ公開！ </a></li>
 			<li><span>2009/11/17</span><a href="http://info.game-if.com/component/content/article/1-kiyaku">【重要】会員サービス利用規約</a></li>
 			<li><span>2009/11/17</span><a href="http://info.game-if.com/component/content/article/2-privarypolicy">【重要】プライバシーポリシー</a></li>
 			<li><span>2009/11/17</span><a href="http://info.game-if.com/component/content/article/3-menseki">【重要】免責事項</a></li>
-			<li><span>2009/11/17</span><a href="http://info.game-if.com/component/content/article/4-shopinfo">【重要】特定商取引法に基づく表示内容</a></li>
-			<li><span>2009/09/04</span><a href="http://info.game-if.com/home/notice/101-2009-09-04-11-00-00">ブラウザゲーム「創世伝説」の国内独占提供契約締結</a></li>
+			<!-- <li><span>2009/11/17</span><a href="http://info.game-if.com/component/content/article/4-shopinfo">【重要】特定商取引法に基づく表示内容</a></li>
+			<li><span>2009/09/04</span><a href="http://info.game-if.com/home/notice/101-2009-09-04-11-00-00">ブラウザゲーム「創世伝説」の国内独占提供契約締結</a></li> -->
 		</ul>
 	</dd>
 </dl>
