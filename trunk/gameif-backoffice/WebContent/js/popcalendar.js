@@ -445,11 +445,11 @@
 
 		if (showWeekNumber==1)
 		{
-			sHTML += "<td width=27 style='font-family:宋体;font-size:12px;' align='center'><b>" + weekString + "</b></td><td width=1 rowspan=7 bgcolor='#d0d0d0' style='padding:0px'><img src='"+imgDir+"divider.gif' width=1></td>"
+			sHTML += "<td width=27 style='font-family:MS Pゴシック;font-size:12px;' align='center'><b>" + weekString + "</b></td><td width=1 rowspan=7 bgcolor='#d0d0d0' style='padding:0px'><img src='"+imgDir+"divider.gif' width=1></td>"
 		}
 
 		for	(i=0; i<7; i++)	{
-			sHTML += "<td width='27' align='right' style='font-family:宋体;font-size:12px;'><B>"+ dayName[i]+"</B></td>"
+			sHTML += "<td width='27' align='right' style='font-family:MS Pゴシック;font-size:12px;'><B>"+ dayName[i]+"</B></td>"
 		}
 		sHTML +="</tr><tr>"
 		
