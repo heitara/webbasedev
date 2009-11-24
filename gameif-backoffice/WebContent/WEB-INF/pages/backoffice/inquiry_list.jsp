@@ -40,17 +40,17 @@
 				<tr>
 					<th><label for="inquiryList_inquiryDate">お問合せ期間：</label></th>
 					<td>
-						<input type="text" name="model.inquiryStartDate" value="" size="10">
+						<input type="text" name="inquiryStartDate" value="" size="10">
 						<img id="imgStartDate" src="images/btn_b_date.gif" onclick="popUpCalendar(this,document.forms[0].inquiryStartDate,'yyyy-mm-dd'); return false;">
 						<span class="explain">～</span>
-						<input type="text" name="model.inquiryEndDate" value="" size="10">
+						<input type="text" name="inquiryEndDate" value="" size="10">
 						<img id="imgEndDate" src="images/btn_b_date.gif" onclick="popUpCalendar(this,document.forms[0].inquiryEndDate,'yyyy-mm-dd'); return false;">
 					</td>
 				</tr>
 				<tr>
 					<th><label for="inquiryList_inquiryDate">お問合せ種別：</label></th>
 					<td>
-						<s:checkboxlist name="model.inquiryType" list="backOfficeProperties.inquiryTypes" cssClass="big"/>
+						<s:checkboxlist name="inquiryType" list="backOfficeProperties.inquiryTypes" cssClass="big"/>
 					</td>
 					
 					
@@ -58,26 +58,26 @@
 				<tr>
 					<th><label for="inquiryList_authorityCode">お問合せ種類：</label></th>
 					<td>
-						<s:checkboxlist name="model.inquiryKindCode" list="masterInfoBusinessLogic.allInquiryKindList" cssClass="big" listKey="inquiryKindCode" listValue="inquiryKindName"/>
+						<s:checkboxlist name="inquiryKindCode" list="masterInfoBusinessLogic.allInquiryKindList" cssClass="big" listKey="inquiryKindCode" listValue="inquiryKindName"/>
 					</td>
 				</tr>
 				<tr>
 					<th><label for="inquiryList_correspondStatus">対応状態：</label></th>
 					<td>
-						<s:select name="model.correspondStatus" list="backOfficeProperties.correspondStatus" cssClass="big" headerKey="9999" headerValue="全て" />
+						<s:select name="correspondStatus" list="backOfficeProperties.correspondStatus" cssClass="big" headerKey="9999" headerValue="全て" />
 					</td>
 				</tr>
 				<tr>
 					<th><label for="inquiryList_userMailadd">メールアドレス：</label></th>
 					<td>
-						<s:textfield name="model.userMailadd" maxlength="10" cssClass="ime_mode_n" />
+						<s:textfield name="userMailadd" maxlength="10" cssClass="ime_mode_n" />
 						<span class="explain">（部分一致）</span>
 					</td>
 				</tr>
 				<tr>
 					<th><label for="inquiryList_inquiryObject">お問合せ件名：</label></th>
 					<td>
-						<s:textfield name="model.inquiryObject" maxlength="100" cssClass="ime_mode_y" cssStyle="width:360px;" />
+						<s:textfield name="inquiryObject" maxlength="100" cssClass="ime_mode_y" cssStyle="width:360px;" />
 						<span class="explain">（部分一致）</span>
 					</td>
 				</tr>
