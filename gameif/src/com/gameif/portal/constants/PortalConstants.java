@@ -70,8 +70,12 @@ public class PortalConstants {
 	
 	/** 問合せの対応状況 */
 	public class CorrespondStatus {
+		/** 未対応  */
 		public final static int NO_CORRESPOND = 0;
+		/** 対応済 */
 		public final static int CORRESPONDED = 1;
+		/** 対応中 */
+		public final static int IN_CORRESPOND = 2;
 	}
 	
 	/** サーバ稼動状態 */
