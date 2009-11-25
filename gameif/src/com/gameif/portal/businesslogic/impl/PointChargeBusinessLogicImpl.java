@@ -24,6 +24,7 @@ import com.gameif.portal.dao.IMemSettlementTrnsDao;
 import com.gameif.portal.dao.IMemberInfoDao;
 import com.gameif.portal.dao.IPlayHistDao;
 import com.gameif.portal.dao.IPointMstDao;
+import com.gameif.portal.dao.IServerMstDao;
 import com.gameif.portal.dao.IServicePointDao;
 import com.gameif.portal.dao.IServicePointGiveHistDao;
 import com.gameif.portal.dao.IServicePointTypeMstDao;
@@ -32,10 +33,10 @@ import com.gameif.portal.entity.MemSettlementHist;
 import com.gameif.portal.entity.MemSettlementTrns;
 import com.gameif.portal.entity.MemberInfo;
 import com.gameif.portal.entity.PointMst;
+import com.gameif.portal.entity.ServerMst;
 import com.gameif.portal.entity.ServicePoint;
 import com.gameif.portal.entity.ServicePointGiveHist;
 import com.gameif.portal.entity.ServicePointTypeMst;
-import com.gameif.portal.entity.TitleMst;
 import com.gameif.portal.util.ContextUtil;
 
 public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
@@ -59,6 +60,7 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 	private TemplateMailer templateMailer;
 	private TitleCharge titleCharge;
 	private IPlayHistDao playHistDao;
+	private IServerMstDao serverMstDao;
 	
 	// 有効期間
 	private Integer validDays;
@@ -148,7 +150,6 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		if (settleTrns == null) {
 
 			// データが存在しない
-//			throw new DataNotExistsException("MemSettlementTrns Data not exists.");
 			throw new SystemException("MemSettlementTrns Data not exists.");
 		}
 
@@ -179,7 +180,6 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		if (member == null) {
 
 			// データが存在しない
-//			throw new DataNotExistsException("MemberInfo Data does not exist.");
 			throw new SystemException("MemberInfo Data does not exist.");
 		}
 
@@ -200,15 +200,17 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		params.setChargePoint(Integer.parseInt(settleTrns.getPointAmountAct().toString()));
 		params.setChargeDate(settlementDate);
 
-		TitleMst title = titleMstDao.selectValidTitleByKey(settleTrns.getTitleId());
-		if (title == null) {
+		ServerMst server = new ServerMst();
+		server.setTitleId(settleTrns.getTitleId());
+		server.setServerId(settleTrns.getServerId());
+		server = serverMstDao.selectByKey(server);
+		if (server == null) {
 
 			// データが存在しない
-//			throw new DataNotExistsException("Title Data does not exist.");
-			throw new SystemException("Title Data does not exist.");
+			throw new SystemException("Server Data does not exist.");
 		}
 
-		params.setChargeUrl(title.getPaymentUrl());
+		params.setChargeUrl(server.getChargeUrl());
 		params.setSpType(PortalConstants.ChargeSpType.ACCOUNT_POINT);
 		
 		StringBuilder sb = new StringBuilder();
@@ -234,7 +236,6 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 			.append(chargeRes);
 			logger.warn(sbWarn.toString());
 			
-//			throw new LogicException("Failed to charge.");
 			throw new SystemException("Failed to charge.");
 		}
 
@@ -251,6 +252,8 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 			props.put("nickName", member.getNickName());
 			// ゲーム
 			props.put("titleName", titleMstDao.selectNameById(settlementHist.getTitleId()));
+			// サーバ
+			props.put("servername", server.getServerName());
 			// データID
 			props.put("point", settlementHist.getPointAmountAct().toString());
 			// 送信
@@ -297,7 +300,6 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		HashMap params = new HashMap();
 		params.put("servicePointTypeCd", PortalConstants.ServicePointTypeCd.CHARGE);
 		params.put("titleId", settlementHist.getTitleId());
-//		params.put("memNum", ContextUtil.getMemberNo());
 		params.put("memNum", settlementHist.getMemNum());
 		params.put("settlementNum", settlementHist.getSettlementNum());
 		params.put("now", new Date());
@@ -328,7 +330,6 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 
 			servicePoint = new ServicePoint();
 
-//			servicePoint.setMemNum(ContextUtil.getMemberNo());
 			servicePoint.setMemNum(settlementHist.getMemNum());
 			servicePoint.setGiveDate(giveDate);
 			servicePoint.setPointStartDate(giveDate);
@@ -337,10 +338,8 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 			// サービスポイント = 決済ポイント数 * 基準パーセント数
 			servicePoint.setPointAmount(amount);
 			servicePoint.setCreatedDate(giveDate);
-//			servicePoint.setCreatedUser(ContextUtil.getMemberNo().toString());
 			servicePoint.setCreatedUser(settlementHist.getMemNum().toString());
 			servicePoint.setLastUpdateDate(giveDate);
-//			servicePoint.setLastUpdateUser(ContextUtil.getMemberNo().toString());
 			servicePoint.setLastUpdateUser(settlementHist.getMemNum().toString());
 
 			// サービスポイント残高テーブルに登録する
@@ -350,7 +349,6 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 			servicePoint.setPointAmount(servicePoint.getPointAmount().add(amount));
 			servicePoint.setPointEndDate(endDate);
 			servicePoint.setLastUpdateDate(giveDate);
-//			servicePoint.setLastUpdateUser(ContextUtil.getMemberNo().toString());
 			servicePoint.setLastUpdateUser(settlementHist.getMemNum().toString());
 			
 			// 残高を更新する
@@ -360,7 +358,6 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		// サービスポイント贈与履歴
 		ServicePointGiveHist servicePointGiveHist = new ServicePointGiveHist();
 		servicePointGiveHist.setServicePointNo(servicePoint.getServicePointNo());
-//		servicePointGiveHist.setMemNum(ContextUtil.getMemberNo());
 		servicePointGiveHist.setMemNum(settlementHist.getMemNum());
 		servicePointGiveHist.setServicePointTypeId(servicePointTypeMst.getServicePointTypeId());
 		servicePointGiveHist.setTitleId(settlementHist.getTitleId());
@@ -369,10 +366,8 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		servicePointGiveHist.setPointEndDate(endDate);
 		servicePointGiveHist.setPointAmount(amount);
 		servicePointGiveHist.setCreatedDate(giveDate);
-//		servicePointGiveHist.setCreatedUser(ContextUtil.getMemberNo().toString());
 		servicePointGiveHist.setCreatedUser(settlementHist.getMemNum().toString());
 		servicePointGiveHist.setLastUpdateDate(giveDate);
-//		servicePointGiveHist.setLastUpdateUser(ContextUtil.getMemberNo().toString());
 		servicePointGiveHist.setLastUpdateUser(settlementHist.getMemNum().toString());
 		
 		// サービスポイント贈与履歴テーブルに登録する
@@ -567,6 +562,20 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 	 */
 	public void setPlayHistDao(IPlayHistDao playHistDao) {
 		this.playHistDao = playHistDao;
+	}
+
+	/**
+	 * @return the serverMstDao
+	 */
+	public IServerMstDao getServerMstDao() {
+		return serverMstDao;
+	}
+
+	/**
+	 * @param serverMstDao the serverMstDao to set
+	 */
+	public void setServerMstDao(IServerMstDao serverMstDao) {
+		this.serverMstDao = serverMstDao;
 	}
 
 	/**
