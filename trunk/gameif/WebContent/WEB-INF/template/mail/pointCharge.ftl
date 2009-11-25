@@ -11,6 +11,8 @@ ${nickName}　様
 
 ゲーム： ${titleName}
 
+サーバ： ${serverName}
+
 ポイント： ${point}GP
 
 

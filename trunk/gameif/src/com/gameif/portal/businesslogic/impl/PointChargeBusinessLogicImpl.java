@@ -183,13 +183,15 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 			throw new SystemException("MemberInfo Data does not exist.");
 		}
 
-		// 会員属性：課金会員
-		member.setMemAtbtCd(PortalConstants.MemberAtbtCd.CHARGE);
-		member.setLastUpdateDate(settlementDate);
-		member.setLastUpdateIp(ContextUtil.getClientIP());
-		member.setLastUpdateUser(settleTrns.getMemNum().toString());
-
-		memberInfoDao.update(member);
+		// 会員属性：「一般会員」＝＞「課金会員」
+		if (member.getMemAtbtCd().equals(PortalConstants.MemberAtbtCd.NORMAL)) {
+			member.setMemAtbtCd(PortalConstants.MemberAtbtCd.CHARGE);
+			member.setLastUpdateDate(settlementDate);
+			member.setLastUpdateIp(ContextUtil.getClientIP());
+			member.setLastUpdateUser(settleTrns.getMemNum().toString());
+	
+			memberInfoDao.update(member); 
+		}
 
 		// ポイントチャージ
 		ChargeParameter params = new ChargeParameter();
@@ -253,7 +255,7 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 			// ゲーム
 			props.put("titleName", titleMstDao.selectNameById(settlementHist.getTitleId()));
 			// サーバ
-			props.put("servername", server.getServerName());
+			props.put("serverName", server.getServerName());
 			// データID
 			props.put("point", settlementHist.getPointAmountAct().toString());
 			// 送信
