@@ -197,6 +197,9 @@
 		<property name="playHistDao">
 			<ref bean="playHistDao" />
 		</property>
+		<property name="serverMstDao">
+			<ref bean="serverMstDao" />
+		</property>
 	</bean>
 	
 	<!-- maintenanceBusinessLogic -->
