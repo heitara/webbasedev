@@ -35,10 +35,11 @@ response.setDateHeader("Expires",0);
 	<meta name="description" content="ブラウザゲーム(WEBGAME)のバックオフィス" />
 	<meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
 	<meta content="index, follow" name="robots"/>
+	<base href="<%=getServletContext().getInitParameter("backOfficeTopUrl")%>/"/>
 	<link type="text/css" href="css/common.css" rel="stylesheet"></link>
 	<link type="text/css" href="css/main.css" rel="stylesheet"></link>
 	<script src="js/jquery/jquery.js" type="text/javascript"></script>
-	<script src="js/portal/common.js" type="text/javascript"></script>
+	<script src="js/common.js" type="text/javascript"></script>
 	<decorator:head />
 </head>
 <body>
