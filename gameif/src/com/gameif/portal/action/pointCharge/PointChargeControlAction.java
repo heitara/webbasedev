@@ -454,13 +454,6 @@ public class PointChargeControlAction extends
 			pointChargeBusinessLogic.createSettlementHist(this.getModel());
 //			pointChargeDetailBusinessLogic.createSettlementHist(this.getModel());
 			responseData("OK", "");
-		} catch (LogicException lex) {
-			
-			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
-					+ lex.getMessage());
-
-			responseData("NG", lex.getMessage());
-			
 		} catch (Exception ex) {
 			
 			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
