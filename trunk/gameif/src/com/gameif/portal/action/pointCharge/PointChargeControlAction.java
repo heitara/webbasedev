@@ -452,9 +452,17 @@ public class PointChargeControlAction extends
 		try {
 			// 本決済を登録する
 			pointChargeBusinessLogic.createSettlementHist(this.getModel());
+//			pointChargeDetailBusinessLogic.createSettlementHist(this.getModel());
 			responseData("OK", "");
-		} catch (Exception ex) {
+		} catch (LogicException lex) {
+			
+			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
+					+ lex.getMessage());
 
+			responseData("NG", lex.getMessage());
+			
+		} catch (Exception ex) {
+			
 			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
 					+ ex.getMessage());
 
