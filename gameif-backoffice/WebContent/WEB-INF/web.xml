@@ -4,6 +4,11 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
     http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 	
+	<context-param>
+		<param-name>backOfficeTopUrl</param-name>
+		<param-value>http://localhost:8080/gameif-backoffice</param-value>
+	</context-param>
+	
 	<filter>
 		<filter-name>setcharacterencodingfilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
