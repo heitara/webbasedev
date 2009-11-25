@@ -193,6 +193,12 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 			memberInfoDao.update(member); 
 		}
 
+		// 仮決済情報を削除する
+		memSettlementTrnsDao.deleteByKey(settleTrns.getSettlementTrnsNum());
+		
+		// サービスポイントを贈与する
+		checkSettlementAmount(settlementHist, member);
+
 		// ポイントチャージ
 		ChargeParameter params = new ChargeParameter();
 		params.setMemNum(member.getMemNum());
@@ -240,12 +246,6 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 			
 			throw new SystemException("Failed to charge.");
 		}
-
-		// 仮決済情報を削除する
-		memSettlementTrnsDao.deleteByKey(settleTrns.getSettlementTrnsNum());
-		
-		// サービスポイントを贈与する
-		checkSettlementAmount(settlementHist, member);
 
 		try {
 			// 招待メールを送信する。
