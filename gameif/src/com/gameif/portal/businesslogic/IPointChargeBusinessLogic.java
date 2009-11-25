@@ -22,7 +22,7 @@ public interface IPointChargeBusinessLogic {
 	 * @param settlementTrns 決済履歴情報（必要な項目が格納されていること）
 	 */
 	@Transactional
-	public void createSettlementHist(MemSettlementHist settlementHist) throws LogicException;
+	public void createSettlementHist(MemSettlementHist settlementHist) throws Exception;
 	
 	/**
 	 * 会員番号とタイトルIDより、ゲームのプレイ回数を取得する

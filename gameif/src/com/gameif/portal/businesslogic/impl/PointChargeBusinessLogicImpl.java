@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gameif.common.businesslogic.BaseBusinessLogic;
 import com.gameif.common.exception.DataNotExistsException;
 import com.gameif.common.exception.LogicException;
+import com.gameif.common.exception.SystemException;
 import com.gameif.common.helper.TemplateMailer;
 import com.gameif.portal.businesslogic.IPointChargeBusinessLogic;
 import com.gameif.portal.businesslogic.titleif.charge.ChargeConstants;
@@ -138,7 +139,7 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 	 */
 	@Transactional
 	@Override
-	public void createSettlementHist(MemSettlementHist settlementHist) throws LogicException {
+	public void createSettlementHist(MemSettlementHist settlementHist) throws Exception {
 
 		// 仮決済情報を取得する
 		MemSettlementTrns settleTrns = new MemSettlementTrns();
@@ -147,8 +148,8 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		if (settleTrns == null) {
 
 			// データが存在しない
-			throw new DataNotExistsException(
-					"MemSettlementTrns Data not exists.");
+//			throw new DataNotExistsException("MemSettlementTrns Data not exists.");
+			throw new SystemException("MemSettlementTrns Data not exists.");
 		}
 
 		// 本決済を登録する
@@ -166,6 +167,8 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		settlementHist.setPointAmountAct(settleTrns.getPointAmountAct());
 		// ログ
 		settlementHist.setSettlementLog(makeSettlementLog(settlementHist));
+		settlementHist.setCreatedUser(settleTrns.getCreatedUser());
+		settlementHist.setCreatedDate(settlementDate);
 		settlementHist.setLastUpdateUser(settleTrns.getCreatedUser());
 		settlementHist.setLastUpdateDate(settlementDate);
 
@@ -176,7 +179,8 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		if (member == null) {
 
 			// データが存在しない
-			throw new DataNotExistsException("MemberInfo Data does not exist.");
+//			throw new DataNotExistsException("MemberInfo Data does not exist.");
+			throw new SystemException("MemberInfo Data does not exist.");
 		}
 
 		// 会員属性：課金会員
@@ -200,7 +204,8 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		if (title == null) {
 
 			// データが存在しない
-			throw new DataNotExistsException("Title Data does not exist.");
+//			throw new DataNotExistsException("Title Data does not exist.");
+			throw new SystemException("Title Data does not exist.");
 		}
 
 		params.setChargeUrl(title.getPaymentUrl());
@@ -229,7 +234,8 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 			.append(chargeRes);
 			logger.warn(sbWarn.toString());
 			
-			throw new LogicException("Failed to charge.");
+//			throw new LogicException("Failed to charge.");
+			throw new SystemException("Failed to charge.");
 		}
 
 		// 仮決済情報を削除する
