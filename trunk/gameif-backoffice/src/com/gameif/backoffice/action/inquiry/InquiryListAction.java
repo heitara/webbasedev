@@ -29,6 +29,9 @@ public class InquiryListAction extends ModelDrivenActionSupport<InquirySearchCon
 	 * @return 問合せ一覧画面
 	 */
 	public String input() {
+		Date now = new Date();
+		this.getModel().setInquiryStartDate(now);
+		this.getModel().setInquiryEndDate(now);
 		return INPUT;
 	}
 	
