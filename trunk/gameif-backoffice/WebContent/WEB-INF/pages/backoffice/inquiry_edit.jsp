@@ -3,7 +3,7 @@
 <html>
 <head>
 	<title>お問合せ情報</title>
-	<script src="js/portal/validate.js" type="text/javascript"></script>
+	<script src="js/validate.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -105,16 +105,14 @@
 						<tr>
 							<th><span class="required">*</span><label for="object">回答件名：</label></th>	
 							<td>
-								<s:textfield name="responseSubject" maxlength="100" cssClass="big ime_mode_y" cssStyle="width:360px;" title="回答件名" onblur="validate(this, 'REQ,ZEN');" />
-								<span class="explain">※ 全角文字で入力してください。</span>
+								<s:textfield name="responseSubject" maxlength="100" cssClass="big ime_mode_y" cssStyle="width:360px;" title="回答件名" onblur="validate(this, 'REQ');" />
 								<span id="error_responseSubject" class="input_error"><s:fielderror><s:param>responseSubject</s:param></s:fielderror></span>
 							</td>
 						</tr>
 						<tr>
 							<th><span class="required">*</span><label for="contents">回答内容：</label></th>
 							<td>
-								<s:textarea name="responseContents" rows="15" cssClass="big ime_mode_n" cssStyle="width:360px;" title="回答内容" onblur="validate(this, 'REQ,ZEN,LEN_10_1000');" />
-								<span class="explain">※ 全角文字で入力してください。</span>
+								<s:textarea name="responseContents" rows="15" cssClass="big ime_mode_n" cssStyle="width:400px;" title="回答内容" onblur="validate(this, 'REQ,LEN_10_1000');" />
 								<span id="error_responseContents" class="input_error"><s:fielderror><s:param>responseContents</s:param></s:fielderror></span>
 							</td>
 						</tr>
@@ -124,14 +122,12 @@
 							<th><span class="required">*</span><label for="object">回答件名：</label></th>	
 							<td>
 								<s:textfield name="responseSubject" maxlength="100" cssClass="big ime_mode_y" cssStyle="width:360px;" title="回答件名" disabled="true" />
-								<span class="explain">※ 全角文字で入力してください。</span>
 							</td>
 						</tr>
 						<tr>
 							<th><span class="required">*</span><label for="contents">回答内容：</label></th>
 							<td>
 								<s:textarea name="responseContents" rows="15" cssClass="big ime_mode_n" cssStyle="width:360px;" title="回答内容" disabled="true" />
-								<span class="explain">※ 全角文字で入力してください。</span>
 							</td>
 						</tr>
 					</s:elseif>
