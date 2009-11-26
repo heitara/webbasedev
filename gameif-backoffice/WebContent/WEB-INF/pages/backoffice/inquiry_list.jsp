@@ -7,6 +7,9 @@
 	<script src="js/popcalendar.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		function checkCount() {
+			if (!confirm("送信します。よろしいですか？")) {
+				return false;
+			}
 			var count = 0;
 		    var checkboxs = document.getElementsByName("selectedInquiryList");
 		    for(var i=0;i<checkboxs.length;i++){
@@ -29,7 +32,7 @@
 <dl class="light_box tspace_n">
 	<dt><strong>お問合せ一覧</strong><span>&nbsp;</span></dt>
 	<dd>
-		<s:form cssClass="entry" method="post">
+		<s:form name="frm_nosubmit_inquirylist" cssClass="entry" method="post">
 			<table>
 				<tr>
 					<th></th>

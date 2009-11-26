@@ -10,7 +10,7 @@
 <!-- パスワード変更：開始 -->
 <dl class="light_box tspace_n">
 	<dd>
-		<form name="frm_user_login" action="checkUserLogin.html" class="entry" method="post">
+		<form name="frm_nosubmit_login" action="checkUserLogin.html" class="entry" method="post">
 			<table>
 				<tr>
 					<th></th>
