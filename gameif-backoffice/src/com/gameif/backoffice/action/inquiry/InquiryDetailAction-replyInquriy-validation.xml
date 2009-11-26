@@ -8,19 +8,11 @@
 			<param name="trim">true</param>
         	<message><![CDATA[<br/>回答件名を入力してください。]]></message>
         </field-validator>
-        <field-validator type="regex" short-circuit="true">
-        	<param name="expression"><![CDATA[([^ -~｡-ﾟ]*)]]></param>
-        	<message><![CDATA[<br/>回答件名は全角文字で入力してください。]]></message>
-        </field-validator>
     </field>
     <field name="responseContents">
         <field-validator type="requiredstring" short-circuit="true">
 			<param name="trim">true</param>
         	<message><![CDATA[<br/>回答内容を入力してください。]]></message>
-        </field-validator>
-        <field-validator type="regex" short-circuit="true">
-        	<param name="expression"><![CDATA[([^ -~｡-ﾟ]*)]]></param>
-        	<message><![CDATA[<br/>回答内容は全角文字で入力してください。]]></message>
         </field-validator>
     </field>
 </validators>
