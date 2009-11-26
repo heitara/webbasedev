@@ -100,7 +100,7 @@ public class InquiryInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		if (newInquiryInfo.getInquiryType().equals(BackofficeConstants.InquiryType.MEDIA)) {
 			props.put("name", newInquiryInfo.getCompanyUserName());
 		} else if (newInquiryInfo.getInquiryType().equals(BackofficeConstants.InquiryType.OTHER)) {
-			props.put("name", inquiryInfo.getUserName());
+			props.put("name", newInquiryInfo.getUserName());
 		} else if (newInquiryInfo.getInquiryType().equals(BackofficeConstants.InquiryType.MEMBER)) {
 			props.put("name", nickName);
 		}
