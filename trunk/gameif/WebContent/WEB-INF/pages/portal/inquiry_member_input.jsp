@@ -46,16 +46,14 @@
 					<tr>
 						<th><span class="required">*</span><label for="object">お問合せ件名：</label></th>	
 						<td>
-							<s:textfield name="inquiryObject" maxlength="100" cssClass="big ime_mode_y" cssStyle="width:360px;" title="お問合せ件名" onblur="validate(this, 'REQ,ZEN');" />
-							<span class="explain">※ 全角文字で入力してください。</span>
+							<s:textfield name="inquiryObject" maxlength="100" cssClass="big ime_mode_y" cssStyle="width:360px;" title="お問合せ件名" onblur="validate(this, 'REQ');" />
 							<span id="error_inquiryObject" class="input_error"><s:fielderror><s:param>inquiryObject</s:param></s:fielderror></span>
 						</td>
 					</tr>
 					<tr>
 						<th><span class="required">*</span><label for="contents">内容：</label></th>
 						<td>
-							<s:textarea name="inquiryContents" rows="15" cssClass="big ime_mode_n" cssStyle="width:360px;" title="内容" onblur="validate(this, 'REQ,ZEN,LEN_10_1000');" />
-							<span class="explain">※ 全角文字で入力してください。</span>
+							<s:textarea name="inquiryContents" rows="15" cssClass="big ime_mode_n" cssStyle="width:360px;" title="内容" onblur="validate(this, 'REQ,LEN_10_1000');" />
 							<span id="error_inquiryContents" class="input_error"><s:fielderror><s:param>inquiryContents</s:param></s:fielderror></span>
 						</td>
 					</tr>
