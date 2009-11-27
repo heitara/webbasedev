@@ -54,6 +54,7 @@
 						<th><span class="required">*</span><label for="contents">内容：</label></th>
 						<td>
 							<s:textarea name="inquiryContents" rows="15" cssClass="big ime_mode_n" cssStyle="width:360px;" title="内容" onblur="validate(this, 'REQ,LEN_10_1000');" />
+							<span class="explain">※不具合報告の場合は、クライアントOS、ブラウザとバージョン情報もご提供ください。</span>
 							<span id="error_inquiryContents" class="input_error"><s:fielderror><s:param>inquiryContents</s:param></s:fielderror></span>
 						</td>
 					</tr>

@@ -36,6 +36,8 @@ window.onload = function() { setInterval(changeBana, 4000); };
 	<dt><strong>お知らせ</strong><span><a href="<%=getServletContext().getInitParameter("portalNewsTopUrl")%>" title="お知らせをもっと見る">MORE</a></span></dt>
 	<dd class="news_list">
 		<ul>
+			<li><span>2009/11/28</span><a href="http://info.game-if.com/home/maintenance/140-2009-11-27-16-04-32">緊急メンテナンス終了のお知らせ </a></li>
+			<li><span>2009/11/28</span><a href="http://info.game-if.com/home/maintenance/139-2009-11-27-15-28-49">緊急メンテナンスのお知らせ</a></li>
 			<li><span>2009/11/25</span><a href="http://info.game-if.com/home/maintenance/137-2009-11-25-03-15-28">「戦闘システムに接続できない」不具合解消のお知らせ</a></li>
 			<li><span>2009/11/24</span><a href="http://info.game-if.com/home/notice/136-2009-11-24-15-22-59">「戦闘システムに接続できない」問題について</a></li>
 			<li><span>2009/11/24</span><a href="http://info.game-if.com/home/maintenance/135-2009-11-24-11-39-03">「レジオン-創世伝説-」サーバ接続不具合復旧のお知らせ </a></li>
