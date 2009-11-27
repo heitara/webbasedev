@@ -50,21 +50,8 @@
 	<filter>
 		<filter-name>Login Filter</filter-name>
 		<filter-class>com.gameif.backoffice.filter.BackOfficeLoginFilter</filter-class>
-		<!-- 
-		<init-param>
-			<param-name>edu.yale.its.tp.cas.client.filter.loginUrl</param-name>
-			<param-value>https://auth.test.game-if.com:8443/cas/login</param-value>
-		</init-param>
-		<init-param>
-			<param-name>edu.yale.its.tp.cas.client.filter.validateUrl</param-name>
-			<param-value>https://auth.test.game-if.com:8443/cas/serviceValidate</param-value>
-		</init-param>
-		<init-param>
-			<param-name>edu.yale.its.tp.cas.client.filter.serverName</param-name>
-			<param-value>localhost:8080</param-value>
-		</init-param>
-		 -->
 	</filter>
+	
 	<filter-mapping>
 		<filter-name>Login Filter</filter-name>
 		<url-pattern>/createAuthority.html</url-pattern>
