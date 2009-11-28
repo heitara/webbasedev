@@ -14,5 +14,6 @@ public interface IAuthorityBusinessLogic {
 	public void updateAuthorityInfo(AuthorityInfo authorityInfo);
 	public List<AuthorityMst> selectAuthorityList(AuthorityMst authorityMst);
 	public void deleteAuthorityMst(List<String> authorityCodes);
+	public List<AuthorityMst> getAll();
 
 }

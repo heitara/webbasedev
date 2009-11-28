@@ -10,6 +10,7 @@
 		<result property="password" column="password" />
 		<result property="nickName" column="nick_name" />
 		<result property="authorityCode" column="authority_code" />
+		<result property="authorityName" column="authority_name" />
 		<result property="createdDate" column="created_date"/>
 		<result property="createdUser" column="created_user"/>
 		<result property="lastUpdateDate" column="last_update_date"/>
@@ -22,6 +23,7 @@
 				password,
 				nick_name,
 				authority_code,
+				null as authority_name,
 				created_date,
 				created_user,
 				last_update_date,
@@ -30,6 +32,56 @@
 		WHERE	user_id = #userId#
 		AND     password = #password#
         ]]>
+	</select>
+	
+	
+	<insert id = "save" parameterClass="loginUser"> 
+        <![CDATA[
+		INSERT INTO login_user
+			(user_id,
+			password,
+			nick_name,
+			authority_code,
+			created_date,
+			created_user,
+			last_update_date,
+			last_update_user)
+		VALUES
+			(#userId#,
+			#password#,
+			#nickName#,
+			#authorityCode#,
+			#createdDate#,
+			#createdUser#,
+			#lastUpdateDate#,
+			#lastUpdateUser#)
+        ]]>
+	</insert>
+	
+	<select id="selectByUserSearchCondition" parameterClass="com.gameif.backoffice.bean.UserSearchCondition" resultMap="loginUserResult">
+        <![CDATA[
+		SELECT	lu.user_id as user_id,
+				lu.password as password,
+				lu.nick_name as nick_name,
+				lu.authority_code as authority_code,
+				am.authority_name as authority_name,
+				lu.created_date as created_date,
+				lu.created_user as created_user,
+				lu.last_update_date as last_update_date,
+				lu.last_update_user as last_update_user
+		FROM	login_user lu,
+				authority_mst am
+		WHERE	lu.authority_code = am.authority_code
+		]]>
+		<isNotEmpty property="userId">
+		AND     lu.user_id = #userId#
+		</isNotEmpty>
+		<isNotEmpty property="nickName">
+		AND     lu.nick_name = #nickName#
+		</isNotEmpty>
+		<isNotEmpty property="authorityCode">
+		AND     lu.authority_code = #authorityCode#
+		</isNotEmpty>
 	</select>
 
 </sqlMap>

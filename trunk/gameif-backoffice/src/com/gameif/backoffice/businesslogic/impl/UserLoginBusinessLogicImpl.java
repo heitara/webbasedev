@@ -1,5 +1,8 @@
 package com.gameif.backoffice.businesslogic.impl;
 
+import java.util.List;
+
+import com.gameif.backoffice.bean.UserSearchCondition;
 import com.gameif.backoffice.businesslogic.IUserLoginBusinessLogic;
 import com.gameif.backoffice.dao.ILoginUserDao;
 import com.gameif.backoffice.entity.LoginUser;
@@ -49,7 +52,37 @@ IUserLoginBusinessLogic {
 	public void setLoginUserDao(ILoginUserDao loginUserDao) {
 		this.loginUserDao = loginUserDao;
 	}
+
+	@Override
+	public List<LoginUser> getLoginUserList(UserSearchCondition condition) {
+		return loginUserDao.selectByUserSearchCondition(condition);
+	}
+
+	@Override
+	public void addLoginUser(LoginUser loginUser) {
+		loginUserDao.save(loginUser);
+	}
+
+	@Override
+	public int updateLoginUser(LoginUser loginUser) {
+		return loginUserDao.update(loginUser);
+	}
+
+	@Override
+	public boolean isExists(String userId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public LoginUser getLoginUserByUserId(String userId) {
+		LoginUser entity = new LoginUser();
+		entity.setUserId(userId);
+		
+		return loginUserDao.selectByKey(entity);
+	}
 	
 	
 
 }
+

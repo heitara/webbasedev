@@ -13,8 +13,10 @@ public class LoginUser extends BaseEntity {
 	
 	private String userId;
 	private String password;
+	private String confirmPassword;
 	private String nickName;
 	private String authorityCode;
+	private String authorityName;
 	private Date createdDate;
 	private String createdUser;
 	private Date lastUpdateDate;
@@ -51,6 +53,20 @@ public class LoginUser extends BaseEntity {
 	}
 
 	/**
+	 * @return the confirmPassword
+	 */
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	/**
+	 * @param confirmPassword the confirmPassword to set
+	 */
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+
+	/**
 	 * @return the nickName
 	 */
 	public String getNickName() {
@@ -78,6 +94,20 @@ public class LoginUser extends BaseEntity {
 	 */
 	public void setAuthorityCode(String authorityCode) {
 		this.authorityCode = authorityCode;
+	}
+
+	/**
+	 * @return the authorityName
+	 */
+	public String getAuthorityName() {
+		return authorityName;
+	}
+
+	/**
+	 * @param authorityName the authorityName to set
+	 */
+	public void setAuthorityName(String authorityName) {
+		this.authorityName = authorityName;
 	}
 
 	/**

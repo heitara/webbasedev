@@ -50,6 +50,7 @@
 			<result name="inputAdd">/WEB-INF/pages/backoffice/authority_add.jsp</result>
 			<result name="inputEdit">/WEB-INF/pages/backoffice/authority_edit.jsp</result>
 			<result name="inputList">/WEB-INF/pages/backoffice/authority_list.jsp</result>
+			<result name="input">/WEB-INF/pages/backoffice/authority_list.jsp</result>
 		</action>
 		
 		<action name="*InquriyList" class="inquiryListAction" method="{1}">
@@ -72,6 +73,29 @@
 			<interceptor-ref name="gameifStack"></interceptor-ref>
 			<result name="inputEdit">/WEB-INF/pages/backoffice/inquiry_edit.jsp</result>
 			<result name="success" type="redirect">/inputEditInquriy.html?inquiryNum=${inquiryNum}</result>
+		</action>
+		
+		<action name="*LoginUserList" class="loginUserListAction" method="{1}">
+			<interceptor-ref name="scopedModelDriven">
+				<param name="scope">request</param>
+				<param name="name">userSearchCondition</param>
+				<param name="className">com.gameif.backoffice.bean.UserSearchCondition</param>
+			</interceptor-ref>
+			<interceptor-ref name="gameifStack"></interceptor-ref>
+			<result name="input">/WEB-INF/pages/backoffice/login_user_list.jsp</result>
+			<result name="success">/WEB-INF/pages/backoffice/login_user_list.jsp</result>
+		</action>
+		
+		<action name="*LoginUser" class="loginUserDetailAction" method="{1}">
+			<interceptor-ref name="scopedModelDriven">
+				<param name="scope">request</param>
+				<param name="name">loginUser</param>
+				<param name="className">com.gameif.backoffice.entity.LoginUser</param>
+			</interceptor-ref>
+			<interceptor-ref name="gameifStack"></interceptor-ref>
+			<result name="inputEdit">/WEB-INF/pages/backoffice/login_user_edit.jsp</result>
+			<result name="input">/WEB-INF/pages/backoffice/login_user_add.jsp</result>
+			<result name="list">/WEB-INF/pages/backoffice/login_user_list.jsp</result>
 		</action>
 		
 		<action name="logoutProxy" class="logoutProxyAction">

@@ -73,6 +73,27 @@
 		</property>
 	</bean>
 	
+	<!-- inquiryListAction -->
+	<bean id="loginUserListAction" class="com.gameif.backoffice.action.user.UserInfoListAction" scope="prototype">
+		<property name="userLoginBusinessLogic">
+			<ref bean="userLoginBusinessLogic" />
+		</property>
+		<property name="authorityBusinessLogic">
+			<ref bean="authorityBusinessLogic" />
+		</property>
+	</bean>
+	
+	<!-- loginUserDetailAction -->
+	<bean id="loginUserDetailAction" class="com.gameif.backoffice.action.user.UserInfoDetailAction" scope="prototype">
+		<property name="userLoginBusinessLogic">
+			<ref bean="userLoginBusinessLogic" />
+		</property>
+		<property name="authorityBusinessLogic">
+			<ref bean="authorityBusinessLogic" />
+		</property>
+	</bean>
+	
+	
 	<!-- logoutProxyAction -->
 	<bean id="logoutProxyAction" class="com.gameif.backoffice.action.menu.LogoutProxyAction" scope="prototype" />
 </beans>

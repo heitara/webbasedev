@@ -99,5 +99,18 @@
 			authority_code = #value#
         ]]>
 	</delete>
+	
+	<select id="selectAll" parameterClass="authorityMst" resultMap="authorityResult">
+        <![CDATA[
+		SELECT	authority_code,
+				authority_name,
+				remarks,
+				created_date,
+				created_user,
+				last_update_date,
+				last_update_user
+		FROM	authority_mst
+        ]]>
+	</select>
 
 </sqlMap>

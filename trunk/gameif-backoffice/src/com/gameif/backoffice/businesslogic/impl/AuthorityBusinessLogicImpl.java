@@ -178,4 +178,9 @@ IAuthorityBusinessLogic {
 			IAuthorityDetailMstDao authorityDetailMstDao) {
 		this.authorityDetailMstDao = authorityDetailMstDao;
 	}
+
+	@Override
+	public List<AuthorityMst> getAll() {
+		return authorityMstDao.selectAll(null);
+	}
 }
