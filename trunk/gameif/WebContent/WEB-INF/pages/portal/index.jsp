@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="s" uri="/struts-tags"%>
+<%@page import="java.util.List"%>
+<%@page import="org.springframework.context.ApplicationContext"%>
+<%@page import="org.springframework.web.context.support.WebApplicationContextUtils"%>
+<%@page import="com.gameif.portal.helper.RSSNews"%>
+<%@page import="com.gameif.portal.helper.RSSReader"%>
 <html>
 <head><title>トップページ</title>
 <script language="javascript" type="text/javascript">
@@ -35,22 +40,15 @@ window.onload = function() { setInterval(changeBana, 4000); };
 <dl class="title_box tspace_b">
 	<dt><strong>お知らせ</strong><span><a href="<%=getServletContext().getInitParameter("portalNewsTopUrl")%>" title="お知らせをもっと見る">MORE</a></span></dt>
 	<dd class="news_list">
-		<ul>
-			<li><span>2009/11/28</span><a href="http://info.game-if.com/home/maintenance/140-2009-11-27-16-04-32">緊急メンテナンス終了のお知らせ </a></li>
-			<li><span>2009/11/28</span><a href="http://info.game-if.com/home/maintenance/139-2009-11-27-15-28-49">緊急メンテナンスのお知らせ</a></li>
-			<li><span>2009/11/25</span><a href="http://info.game-if.com/home/maintenance/137-2009-11-25-03-15-28">「戦闘システムに接続できない」不具合解消のお知らせ</a></li>
-			<li><span>2009/11/24</span><a href="http://info.game-if.com/home/notice/136-2009-11-24-15-22-59">「戦闘システムに接続できない」問題について</a></li>
-			<li><span>2009/11/24</span><a href="http://info.game-if.com/home/maintenance/135-2009-11-24-11-39-03">「レジオン-創世伝説-」サーバ接続不具合復旧のお知らせ </a></li>
-			<li><span>2009/11/24</span><a href="http://info.game-if.com/home/notice/134-2009-11-24-10-02-49">「サーバーに接続できません」問題について</a></li>
-			<li><span>2009/11/24</span><a href="http://info.game-if.com/home/event/133-2009-11-23-19-26-41">「レジオン-創世伝説-」、クローズドβテストスタート！</a></li>
-			<li><span>2009/11/17</span><a href="http://info.game-if.com/home/event/132-2009-11-16-19-59-17">「レジオン-創世伝説-」、クローズドβテスト募集開始！</a></li>
-			<li><span>2009/11/17</span><a href="http://info.game-if.com/home/notice/131-2009-11-16-19-15-29">「創世伝説」、邦題「レジオン-創世伝説-」に決定、ロゴ公開！ </a></li>
-			<li><span>2009/11/17</span><a href="http://info.game-if.com/component/content/article/1-kiyaku">【重要】会員サービス利用規約</a></li>
-			<!-- <li><span>2009/11/17</span><a href="http://info.game-if.com/component/content/article/2-privarypolicy">【重要】プライバシーポリシー</a></li>
-			<li><span>2009/11/17</span><a href="http://info.game-if.com/component/content/article/3-menseki">【重要】免責事項</a></li>
-			<li><span>2009/11/17</span><a href="http://info.game-if.com/component/content/article/4-shopinfo">【重要】特定商取引法に基づく表示内容</a></li>
-			<li><span>2009/09/04</span><a href="http://info.game-if.com/home/notice/101-2009-09-04-11-00-00">ブラウザゲーム「創世伝説」の国内独占提供契約締結</a></li> -->
-		</ul>
+	<ul>
+<%
+		ApplicationContext ctxt = WebApplicationContextUtils.getWebApplicationContext(request.getSession().getServletContext());
+		RSSReader rssReader = (RSSReader)ctxt.getBean("rssReader");
+		List<RSSNews> rssNewsList = rssReader.getRssByCache();		
+		for (RSSNews rssNews : rssNewsList) {%>
+			<li><span><%=rssNews.getCreateDateStr()%></span><a href="<%=rssNews.getLink()%>"><%=rssNews.getTitle()%></a></li><%
+		}%>
+	</ul>
 	</dd>
 </dl>
 <!-- お知らせ一覧：終了 -->
