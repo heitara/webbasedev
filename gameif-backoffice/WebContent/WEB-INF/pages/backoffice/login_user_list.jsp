@@ -49,13 +49,19 @@
 					</td>
 				</tr>
 				<tr>
-					<td colspan="2" />
+					<th><label for="searchLoginUser_authorityCode">権限：</label></th>
+					<td>
+						<s:select name="authorityCode" id="authorityCode" cssClass="big" list="authorityBusinessLogic.all" listKey="authorityCode" listValue="authorityName" title="権限"/>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="1" />
 				</tr>
 				<tr>
 					<th></th>
 					<td>
-						<s:submit value="検索" action="searchLoginUser" />
-						<s:submit value="新規追加" action="inputAddLoginUser" />
+						<s:submit value="検索" action="executeLoginUserList" />
+						<s:submit value="新規追加" action="inputLoginUser" />
 						<s:reset value="クリア"/>
 					</td>
 				</tr>
