@@ -27,6 +27,7 @@
 			<map>
 				<entry key="0" value="未対応"/>
 				<entry key="1" value="対応済"/>
+				<entry key="2" value="対応中"/>
 			</map>
 		</property>
 	</bean>
