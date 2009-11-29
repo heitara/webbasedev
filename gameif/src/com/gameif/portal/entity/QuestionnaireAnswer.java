@@ -1,7 +1,6 @@
 package com.gameif.portal.entity;
 
 import java.util.Date;
-import java.util.List;
 
 import com.gameif.common.entity.BaseEntity;
 
