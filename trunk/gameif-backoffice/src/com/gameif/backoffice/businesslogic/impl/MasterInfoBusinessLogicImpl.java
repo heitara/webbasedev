@@ -5,8 +5,10 @@ import java.util.List;
 import com.gameif.backoffice.businesslogic.IMasterInfoBusinessLogic;
 import com.gameif.backoffice.dao.IFunctionMstDao;
 import com.gameif.backoffice.dao.IInquiryKindMstDao;
+import com.gameif.backoffice.dao.IInquirySendmailTemplateDao;
 import com.gameif.backoffice.entity.FunctionMst;
 import com.gameif.backoffice.entity.InquiryKindMst;
+import com.gameif.backoffice.entity.InquirySendmailTemplate;
 import com.gameif.common.businesslogic.BaseBusinessLogic;
 
 public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
@@ -19,6 +21,7 @@ public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
 
 	private IFunctionMstDao functionMstDao;
 	private IInquiryKindMstDao inquiryKindMstDao;
+	private IInquirySendmailTemplateDao inquirySendmailTemplateDao;
 
 	@Override
 	public List<FunctionMst> getAllFunctionList() {
@@ -31,6 +34,14 @@ public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	@Override
 	public List<InquiryKindMst> getAllInquiryKindList() {
 		return inquiryKindMstDao.selectAll(null);
+	}
+	
+	/**
+	 * 問合せ返信テンプレートを取得する
+	 * @return
+	 */
+	public List<InquirySendmailTemplate> getAllInquirySendmailTemplate() {
+		return inquirySendmailTemplateDao.selectAll(null);
 	}
 
 	/**
@@ -61,6 +72,21 @@ public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	 */
 	public void setInquiryKindMstDao(IInquiryKindMstDao inquiryKindMstDao) {
 		this.inquiryKindMstDao = inquiryKindMstDao;
+	}
+
+	/**
+	 * @return the inquirySendmailTemplateDao
+	 */
+	public IInquirySendmailTemplateDao getInquirySendmailTemplateDao() {
+		return inquirySendmailTemplateDao;
+	}
+
+	/**
+	 * @param inquirySendmailTemplateDao the inquirySendmailTemplateDao to set
+	 */
+	public void setInquirySendmailTemplateDao(
+			IInquirySendmailTemplateDao inquirySendmailTemplateDao) {
+		this.inquirySendmailTemplateDao = inquirySendmailTemplateDao;
 	}
 
 }

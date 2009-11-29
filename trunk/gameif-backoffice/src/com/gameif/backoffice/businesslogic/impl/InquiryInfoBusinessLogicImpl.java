@@ -1,7 +1,6 @@
 package com.gameif.backoffice.businesslogic.impl;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -9,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gameif.common.businesslogic.BaseBusinessLogic;
 import com.gameif.common.exception.DataNotExistsException;
 import com.gameif.common.exception.LogicException;
-import com.gameif.common.helper.TemplateMailer;
+import com.gameif.common.helper.SimpleMailer;
 import com.gameif.backoffice.bean.InquirySearchCondition;
 import com.gameif.backoffice.businesslogic.IInquiryInfoBusinessLogic;
 import com.gameif.backoffice.constants.BackofficeConstants;
@@ -30,7 +29,8 @@ public class InquiryInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	private static final long serialVersionUID = -1651956051303763371L;
 
 	private IInquiryInfoDao inquiryInfoDao;
-	private TemplateMailer templateMailer;
+//	private TemplateMailer templateMailer;
+	private SimpleMailer simpleMailer;
 	private IMemberInfoDao memberInfoDao;
 	private ITitleMstDao titleMstDao;
 	private IInquiryKindMstDao inquiryKindMstDao;
@@ -85,8 +85,8 @@ public class InquiryInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		newInquiryInfo.setResponseSubject(inquiryInfo.getResponseSubject());
 		// 回答内容
 		newInquiryInfo.setResponseContents(inquiryInfo.getResponseContents());
-		// 対応状況：「対応済」
-		newInquiryInfo.setCorrespondStatus(BackofficeConstants.CorrespondStatus.CORRESPONDED);
+		// 対応状況
+		newInquiryInfo.setCorrespondStatus(inquiryInfo.getCorrespondStatus());
 		newInquiryInfo.setCorrespondUserId(ContextUtil.getUserId());
 		newInquiryInfo.setCorrespondUserName(ContextUtil.getNickName());
 		newInquiryInfo.setLastUpdateDate(now);
@@ -94,22 +94,25 @@ public class InquiryInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		
 		inquiryInfoDao.update(newInquiryInfo);
 		
-		// 問合せを返信する。
-		HashMap<String, String> props = new HashMap<String, String>();
-		// 名前
-		if (newInquiryInfo.getInquiryType().equals(BackofficeConstants.InquiryType.MEDIA)) {
-			props.put("name", newInquiryInfo.getCompanyUserName());
-		} else if (newInquiryInfo.getInquiryType().equals(BackofficeConstants.InquiryType.OTHER)) {
-			props.put("name", newInquiryInfo.getUserName());
-		} else if (newInquiryInfo.getInquiryType().equals(BackofficeConstants.InquiryType.MEMBER)) {
-			props.put("name", nickName);
-		}
-		// 問合せ内容
-		props.put("originalMsg", newInquiryInfo.getInquiryContents());
-		// 回答内容
-		props.put("responseMsg", newInquiryInfo.getResponseContents());
+//		// 問合せを返信する。
+//		HashMap<String, String> props = new HashMap<String, String>();
+//		// 名前
+//		if (newInquiryInfo.getInquiryType().equals(BackofficeConstants.InquiryType.MEDIA)) {
+//			props.put("name", newInquiryInfo.getCompanyUserName());
+//		} else if (newInquiryInfo.getInquiryType().equals(BackofficeConstants.InquiryType.OTHER)) {
+//			props.put("name", newInquiryInfo.getUserName());
+//		} else if (newInquiryInfo.getInquiryType().equals(BackofficeConstants.InquiryType.MEMBER)) {
+//			props.put("name", nickName);
+//		}
+//		// 問合せ内容
+//		props.put("originalMsg", newInquiryInfo.getInquiryContents());
+//		// 回答内容
+//		props.put("responseMsg", newInquiryInfo.getResponseContents());
+//		// 送信
+//		templateMailer.sendAsyncMail(newInquiryInfo.getUserMailadd(), "replyInquiry", props, newInquiryInfo.getResponseSubject());
+		
 		// 送信
-		templateMailer.sendAsyncMail(newInquiryInfo.getUserMailadd(), "replyInquiry", props, newInquiryInfo.getResponseSubject());
+		simpleMailer.sendAsyncMail(newInquiryInfo.getUserMailadd(), null, newInquiryInfo.getResponseSubject(), newInquiryInfo.getResponseContents(), false);
 	}
 
 	/**
@@ -153,20 +156,34 @@ public class InquiryInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		return inquiryInfoDao;
 	}
 
+//	/**
+//	 * @return the templateMailer
+//	 */
+//	public TemplateMailer getTemplateMailer() {
+//		return templateMailer;
+//	}
+//
+//	/**
+//	 * @param templateMailer the templateMailer to set
+//	 */
+//	public void setTemplateMailer(TemplateMailer templateMailer) {
+//		this.templateMailer = templateMailer;
+//	}
+
 	/**
-	 * @return the templateMailer
+	 * @return the simpleMailer
 	 */
-	public TemplateMailer getTemplateMailer() {
-		return templateMailer;
+	public SimpleMailer getSimpleMailer() {
+		return simpleMailer;
 	}
 
 	/**
-	 * @param templateMailer the templateMailer to set
+	 * @param simpleMailer the simpleMailer to set
 	 */
-	public void setTemplateMailer(TemplateMailer templateMailer) {
-		this.templateMailer = templateMailer;
+	public void setSimpleMailer(SimpleMailer simpleMailer) {
+		this.simpleMailer = simpleMailer;
 	}
-
+	
 	/**
 	 * @return the memberInfoDao
 	 */
