@@ -1,5 +1,6 @@
 package com.gameif.backoffice.action.inquiry;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -29,7 +30,14 @@ public class InquiryListAction extends ModelDrivenActionSupport<InquirySearchCon
 	 * @return 問合せ一覧画面
 	 */
 	public String input() {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		Date now = new Date();
+//		try {
+//			this.getModel().setInquiryStartDate(df.parse(df.format(now)));
+//			this.getModel().setInquiryEndDate(df.parse(df.format(now)));
+//		} catch (Exception ex) {
+//			logger.error(ex);
+//		}
 		this.getModel().setInquiryStartDate(now);
 		this.getModel().setInquiryEndDate(now);
 		return INPUT;
@@ -37,6 +45,9 @@ public class InquiryListAction extends ModelDrivenActionSupport<InquirySearchCon
 	
 	public String search() {
 		setInquiryList(inquiryInfoBusinessLogic.searchInquiryList(this.getModel()));
+		if (getInquiryList() == null || getInquiryList().size() < 1) {
+			addFieldError("errMessage", getText("common.dataNotExist"));
+		}
 		return SUCCESS;
 	}
 	
