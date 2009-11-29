@@ -222,6 +222,13 @@
 		</property>
 	</bean>
 	
+	<!-- questionnaireAnswerAction -->
+	<bean id="questionnaireAnswerAction" class="com.gameif.portal.action.questionnaire.QuestionnaireAnswerAction" scope="prototype">
+		<property name="questionnaireAnswerBusinessLogic">
+			<ref bean="questionnaireAnswerBusinessLogic" />
+		</property>
+	</bean>
+	
 	<!-- loginStatusProxyAction -->
 	<bean id="loginStatusProxyAction" class="com.gameif.portal.action.menu.LoginStatusProxyAction" scope="prototype" />
 	<!-- logoutProxyAction -->
