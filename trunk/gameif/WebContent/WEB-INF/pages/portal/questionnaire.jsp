@@ -16,12 +16,14 @@
 			</h4>
 			<p style="border-top:1px dashed #CCC;padding-top:15px;line-height:18px;margin-top:10px">
 			</p>
-			<div>
-				<span class="logic_error"><s:fielderror><s:param>errMessage</s:param></s:fielderror></span><br/>
-			</div>
 			<s:property value="htmlContents" escape="false"/>
 			<div class="submit">
-				<s:submit type="submit" value="送信" cssClass="an_btn" onclick="return checkFormInput();"/>
+				<s:if test="repeatFlag">
+					<s:submit type="submit" value="送信" cssClass="an_btn" disabled="true"/>
+				</s:if>
+				<s:else>
+					<s:submit type="submit" value="送信" cssClass="an_btn" />
+				</s:else>
 			</div>
 		</s:form>
 	</dd>
