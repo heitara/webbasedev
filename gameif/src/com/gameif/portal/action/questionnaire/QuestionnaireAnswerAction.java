@@ -15,6 +15,7 @@ public class QuestionnaireAnswerAction  extends ModelDrivenActionSupport<Questio
 	private IQuestionnaireAnswerBusinessLogic questionnaireAnswerBusinessLogic;
 	
 	private String htmlContents;
+	private Boolean repeatFlag;
 	
 	/**
 	 * アンケート画面へ案内する
@@ -29,6 +30,10 @@ public class QuestionnaireAnswerAction  extends ModelDrivenActionSupport<Questio
 		}
 		setHtmlContents(questionnaireMst.getHtmlContents());
 		
+		
+		// 該当ユーザー既に回答しましたかどうかのチェック
+		repeatFlag = questionnaireAnswerBusinessLogic.IsDataExist(this.getModel().getQuestionNo());
+		
 		return INPUT;
 	}
 	
@@ -37,11 +42,6 @@ public class QuestionnaireAnswerAction  extends ModelDrivenActionSupport<Questio
 	 * @return
 	 */
 	public String create() {
-		// 該当ユーザー既に回答しましたかどうかのチェック
-		if (questionnaireAnswerBusinessLogic.IsDataExist(this.getModel().getQuestionNo())) {
-			addFieldError("errMessage", getText("questionnaire.dataExist"));
-			return INPUT;
-		}
 		// アンケートをsubmitする
 		questionnaireAnswerBusinessLogic.createQuestionnaireAnswer(this.getModel());
 		return SUCCESS;
@@ -67,6 +67,20 @@ public class QuestionnaireAnswerAction  extends ModelDrivenActionSupport<Questio
 	 */
 	public void setHtmlContents(String htmlContents) {
 		this.htmlContents = htmlContents;
+	}
+
+	/**
+	 * @return the repeatFlag
+	 */
+	public Boolean getRepeatFlag() {
+		return repeatFlag;
+	}
+
+	/**
+	 * @param repeatFlag the repeatFlag to set
+	 */
+	public void setRepeatFlag(Boolean repeatFlag) {
+		this.repeatFlag = repeatFlag;
 	}
 
 }
