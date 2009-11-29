@@ -51,7 +51,7 @@
 				<tr>
 					<th><label for="searchLoginUser_authorityCode">権限：</label></th>
 					<td>
-						<s:select name="authorityCode" id="authorityCode" cssClass="big" list="authorityBusinessLogic.all" listKey="authorityCode" listValue="authorityName" title="権限"/>
+						<s:select name="authorityCode" id="authorityCode" cssClass="big" list="authorityBusinessLogic.all" listKey="authorityCode" listValue="authorityName" headerKey="" headerValue="全て" title="権限"/>
 					</td>
 				</tr>
 				<tr>
@@ -75,24 +75,27 @@
 								<th>*</th>
 								<th>ユーザID</th>
 								<th>ニックネーム</th>
+								<th>権限</th>
 							</tr>
-							<s:iterator value="loginUserList" id="authorityCode" status="st">
+							<s:iterator value="userList" status="st">
 								<tr <s:if test="#st.odd">class="odd" </s:if> >
 									<td>
-										<s:hidden name="authorityCode"></s:hidden>
-										<s:checkbox name="selectedAuthList" id="selectedAuthList" value="false" fieldValue="%{authorityCode}"></s:checkbox>
+										<s:checkbox name="selectedAuthList" id="selectedAuthList" value="false" fieldValue="%{userId}"></s:checkbox>
 									</td>
 									<td>
-										<a href="inputEditAuthority.html?authority.authorityCode=<s:property value="userId"/>" ><s:property value="authorityCode"/></a>
+										<a href="initEditLoginUser.html?userId=<s:property value="userId"/>" ><s:property value="userId"/></a>
 									</td>
 									<td>
 										<s:property value="nickName"/>
 									</td>
+									<td>
+										<s:property value="authorityName"/>
+									</td>
 								</tr>
 							</s:iterator>
-							<s:if test="loginUserList != null && loginUserList.size() > 0">
+							<s:if test="userList != null && userList.size() > 0">
 								<tr>
-									<td colspan="3">
+									<td colspan="4">
 										<s:submit value="削除" action="deleteLoginUser" cssClass="big" onclick="return checkCount();"/>
 									</td>
 								</tr>
