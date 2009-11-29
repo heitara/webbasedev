@@ -71,4 +71,11 @@
 			<value>titleMst</value>
 		</property>
 	</bean>
+	
+	<!-- inquirySendmailTemplateDao -->
+	<bean id="inquirySendmailTemplateDao" class="com.gameif.backoffice.dao.impl.InquirySendmailTemplateDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>inquirySendmailTemplate</value>
+		</property>
+	</bean>
 </beans>

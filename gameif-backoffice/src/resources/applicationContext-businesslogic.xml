@@ -22,6 +22,9 @@
 		<property name="inquiryKindMstDao">
 			<ref bean="inquiryKindMstDao" />
 		</property>
+		<property name="inquirySendmailTemplateDao">
+			<ref bean="inquirySendmailTemplateDao" />
+		</property>
 	</bean>
 	
 	<!-- authorityBusinessLogic -->
@@ -41,8 +44,8 @@
 		<property name="inquiryInfoDao">
 			<ref bean="inquiryInfoDao" />
 		</property>
-		<property name="templateMailer">
-			<ref bean="templateMailer" />
+		<property name="simpleMailer">
+			<ref bean="simpleMailer" />
 		</property>
 		<property name="memberInfoDao">
 			<ref bean="memberInfoDao" />
@@ -52,6 +55,14 @@
 		</property>
 		<property name="inquiryKindMstDao">
 			<ref bean="inquiryKindMstDao" />
+		</property>
+	</bean>
+	
+	<!-- inquiryMailTemplateBusinessLogic -->
+	<bean id="inquiryMailTemplateBusinessLogic"
+		class="com.gameif.backoffice.businesslogic.impl.InquiryMailTemplateBusinessLogicImpl">
+		<property name="inquirySendmailTemplateDao">
+			<ref bean="inquirySendmailTemplateDao" />
 		</property>
 	</bean>
 </beans>
