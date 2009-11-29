@@ -390,6 +390,7 @@ response.setDateHeader("Expires",0);
 			<dd class="guide">
 				<a href="<%=portalNewsTopUrl%>/component/content/article/11-faq" title="ＦＡＱ">ＦＡＱ</a>
 				<a href="<%=isLogined ? "inputMemberInquiry.html" : "inputInquiry.html"%>" title="お問合せ">お問合せ</a>
+				<a href="inputQuestionnaireAnswer.html?questionNo=1" title="アンケート">アンケート</a>
 			</dd>
 		</dl>
 		<!-- サポート：終了 -->
