@@ -42,5 +42,7 @@
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/inviteLink.xml" />
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/inviteLinkHist.xml" />
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/maintenanceInfo.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/questionnaireAnswer.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/questionnaireMst.xml" />
 	
 </sqlMapConfig>
