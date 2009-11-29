@@ -96,4 +96,18 @@
 	
 	<!-- logoutProxyAction -->
 	<bean id="logoutProxyAction" class="com.gameif.backoffice.action.menu.LogoutProxyAction" scope="prototype" />
+	
+	<!-- inquiryDetailAction -->
+	<bean id="inquiryMailTemplateAction" class="com.gameif.backoffice.action.inquiryMailTemplate.InquiryMailTemplateAction" scope="prototype">
+		<property name="inquiryMailTemplateBusinessLogic">
+			<ref bean="inquiryMailTemplateBusinessLogic" />
+		</property>
+	</bean>
+	
+	<!-- inquiryBindMailTemplateAction -->
+	<bean id="inquiryBindMailTemplateAction" class="com.gameif.backoffice.action.inquiryMailTemplate.InquiryBindMailTemplateAction" scope="prototype">
+		<property name="inquiryMailTemplateBusinessLogic">
+			<ref bean="inquiryMailTemplateBusinessLogic" />
+		</property>
+	</bean>
 </beans>
