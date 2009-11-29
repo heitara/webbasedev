@@ -4,6 +4,7 @@
 <head>
 	<title>お問合せ情報</title>
 	<script src="js/validate.js" type="text/javascript"></script>
+	<script src="js/bindMaster.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -77,6 +78,12 @@
 						</tr>
 					</s:elseif>
 					<tr>
+						<th><label for="mail">IPアドレス：</label></th>
+						<td>
+							<s:property value="model.inquiryIp"/>
+						</td>
+					</tr>
+					<tr>
 						<th><label for="mail">対応状態：</label></th>
 						<td>
 							<s:property value="backOfficeProperties.correspondStatus[model.correspondStatus]"/>
@@ -101,18 +108,24 @@
 						</td>
 					</tr>
 					<tr class="space_row"><td colspan="2"></td></tr>
-					<s:if test="model.correspondStatus == null || model.correspondStatus == 0">
+					<s:if test="model.correspondStatus == null || model.correspondStatus == 0 || model.correspondStatus == 2">
 						<tr>
 							<th><span class="required">*</span><label for="object">回答件名：</label></th>	
 							<td>
-								<s:textfield name="responseSubject" maxlength="100" cssClass="big ime_mode_y" cssStyle="width:360px;" title="回答件名" onblur="validate(this, 'REQ');" />
+								<s:textfield name="model.responseSubject" maxlength="100" cssClass="big ime_mode_y" cssStyle="width:360px;" title="回答件名" onblur="validate(this, 'REQ');" />
 								<span id="error_responseSubject" class="input_error"><s:fielderror><s:param>responseSubject</s:param></s:fielderror></span>
+							</td>
+						</tr>
+						<tr>
+							<th><label for="object">返信テンプレート：</label></th>	
+							<td>
+								<s:select name="inquirySendmailId" list="masterInfoBusinessLogic.allInquirySendmailTemplate" title="返信テンプレート" listKey="inquirySendmailId" listValue="inquirySendmailName" cssClass="big" headerKey="0" headerValue="" onchange="importContents(this, 'responseContents');"></s:select>
 							</td>
 						</tr>
 						<tr>
 							<th><span class="required">*</span><label for="contents">回答内容：</label></th>
 							<td>
-								<s:textarea name="responseContents" rows="15" cssClass="big ime_mode_n" cssStyle="width:400px;" title="回答内容" onblur="validate(this, 'REQ,LEN_10_1000');" />
+								<s:textarea id="responseContents" name="model.responseContents" rows="15" cssClass="big ime_mode_n" cssStyle="width:580px;" title="回答内容" onblur="validate(this, 'REQ,LEN_10_1000');" />
 								<span id="error_responseContents" class="input_error"><s:fielderror><s:param>responseContents</s:param></s:fielderror></span>
 							</td>
 						</tr>
@@ -121,25 +134,33 @@
 						<tr>
 							<th><span class="required">*</span><label for="object">回答件名：</label></th>	
 							<td>
-								<s:textfield name="responseSubject" maxlength="100" cssClass="big ime_mode_y" cssStyle="width:360px;" title="回答件名" disabled="true" />
+								<s:textfield name="model.responseSubject" maxlength="100" cssClass="big ime_mode_y" cssStyle="width:360px;" title="回答件名" disabled="true" />
+							</td>
+						</tr>
+						<tr>
+							<th><label for="object">返信テンプレート：</label></th>	
+							<td>
+								<s:select name="inquirySendmailId" list="masterInfoBusinessLogic.allInquirySendmailTemplate" title="返信テンプレート" listKey="inquirySendmailId" listValue="inquirySendmailName" cssClass="big" headerKey="0" headerValue="" disabled="true"></s:select>
 							</td>
 						</tr>
 						<tr>
 							<th><span class="required">*</span><label for="contents">回答内容：</label></th>
 							<td>
-								<s:textarea name="responseContents" rows="15" cssClass="big ime_mode_n" cssStyle="width:360px;" title="回答内容" disabled="true" />
+								<s:textarea name="model.responseContents" rows="15" cssClass="big ime_mode_n" cssStyle="width:580px;" title="回答内容" disabled="true" />
 							</td>
 						</tr>
 					</s:elseif>
 				</table>
 				<div class="submit">
 					<s:token />
-					<s:if test="model.correspondStatus == null || model.correspondStatus == 0">
-						<s:submit value="返信" action="replyInquriy" />
+					<s:if test="model.correspondStatus == null || model.correspondStatus == 0 || model.correspondStatus == 2">
+						<s:submit value="対応中に返信" action="reserveInquriy" />
+						<s:submit value="対応済に返信" action="replyInquriy" />
 						<s:submit value="クリア" onclick="this.form.reset();return false;" />
 					</s:if>
 					<s:elseif test="model.correspondStatus == 1">
-						<s:submit value="返信" disabled="true"/>
+						<s:submit value="対応中に返信" disabled="true"/>
+						<s:submit value="対応済に返信" disabled="true"/>
 						<s:submit value="クリア" disabled="true"/>
 					</s:elseif>
 					<a href="inputInquriyList.html" title="戻る">戻る</a>
