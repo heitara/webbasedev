@@ -20,6 +20,7 @@
 				<entry key="deleteInvite" value="友達削除"/>
 				<entry key="getGameLoginServicePoint" value="サービスポイント受取"/>
 				<entry key="applyBetaTester" value="テスター応募"/>
+				<entry key="questionnaireAnswer" value="アンケート"/>
 			</map>
 		</property>
 		<property name="sexListMap">
