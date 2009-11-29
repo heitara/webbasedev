@@ -282,6 +282,18 @@
 			<result name="success" type="redirect"><![CDATA[finishApplyBetaTester.html?titleId=${titleId}&status=${status}]]></result>
 			<result name="finish">/WEB-INF/pages/portal/tester_apply_success.jsp</result>
 		</action>
+
+		<!-- アンケート -->
+		<action name="*QuestionnaireAnswer" class="questionnaireAnswerAction" method="{1}">
+			<interceptor-ref name="scopedModelDriven">
+				<param name="scope">request</param>
+				<param name="name">questionnaireAnswer</param>
+				<param name="className">com.gameif.portal.entity.QuestionnaireAnswer</param>
+			</interceptor-ref>
+			<interceptor-ref name="gameifStack"></interceptor-ref>
+			<result name="input">/WEB-INF/pages/portal/questionnaire.jsp</result>
+			<result name="success" type="redirect">/finishedPage.html?action=questionnaireAnswer</result>
+		</action>
 		
 	</package>
 	
