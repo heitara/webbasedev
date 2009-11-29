@@ -34,6 +34,8 @@ public class BackofficeConstants {
 		public final static int NO_CORRESPOND = 0;
 		/** 対応済 */
 		public final static int CORRESPONDED = 1;
+		/** 対応中 */
+		public final static int IN_CORRESPOND = 2;
 	}
 
 	/** 問合せ種別 */
