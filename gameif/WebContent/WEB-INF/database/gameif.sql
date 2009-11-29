@@ -611,16 +611,17 @@ CREATE TABLE  `media_mst` (
 
 
 
-DROP TABLE IF EXISTS `advert_agency_mst`;
-CREATE TABLE  `advert_agency_mst` (
-  `advert_agency_num` int(11) NOT NULL,
-  `advert_agency_name` varchar(50) DEFAULT NULL,
-  `advert_agency_type` char(1) DEFAULT NULL,
+DROP TABLE IF EXISTS `media_mst`;
+CREATE TABLE  `media_mst` (
+  `media_num` int(11) NOT NULL,
+  `media_name` varchar(50) DEFAULT NULL,
+  `media_kind_num` int(11) DEFAULT NULL,
+  `manager_type` char(1) DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
   `created_user` varchar(50) DEFAULT NULL,
   `last_update_date` datetime DEFAULT NULL,
   `last_update_user` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`advert_agency_num`)
+  PRIMARY KEY (`media_num`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
@@ -685,6 +686,88 @@ CREATE TABLE  `maintenance_info` (
   `function_code` varchar(4) NOT NULL,
   `mainten_status` char(1) DEFAULT NULL,
   PRIMARY KEY (`function_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+
+
+DROP TABLE IF EXISTS `inquiry_sendmail_template`;
+CREATE TABLE  `inquiry_sendmail_template` (
+  `inquiry_sendmail_id` int(11) NOT NULL AUTO_INCREMENT,
+  `inquiry_sendmail_name` varchar(50) DEFAULT NULL,
+  `inquiry_sendmail_contents`  text,
+  `created_date` datetime DEFAULT NULL,
+  `created_user` varchar(50) DEFAULT NULL,
+  `last_update_date` datetime DEFAULT NULL,
+  `last_update_user` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`inquiry_sendmail_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+
+DROP TABLE IF EXISTS `questionnaire_mst`;
+CREATE TABLE  `questionnaire_mst` (
+  `question_no` int(11) NOT NULL,
+  `question_name` varchar(100) DEFAULT NULL,
+  `html_contents` text,
+  PRIMARY KEY (`question_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+DROP TABLE IF EXISTS `questionnaire_answer`;
+CREATE TABLE  `questionnaire_answer` (
+  `mem_num` bigint(20) NOT NULL,
+  `question_no` int(11) NOT NULL,
+  `answer_date` datetime DEFAULT NULL,
+  `question1` smallint(6) DEFAULT NULL,
+  `remarks1` varchar(600) DEFAULT NULL,
+  `question2` smallint(6) DEFAULT NULL,
+  `remarks2` varchar(600) DEFAULT NULL,
+  `question3` smallint(6) DEFAULT NULL,
+  `remarks3` varchar(600) DEFAULT NULL,
+  `question4` smallint(6) DEFAULT NULL,
+  `remarks4` varchar(600) DEFAULT NULL,
+  `question5` smallint(6) DEFAULT NULL,
+  `remarks5` varchar(600) DEFAULT NULL,
+  `question6` smallint(6) DEFAULT NULL,
+  `remarks6` varchar(600) DEFAULT NULL,
+  `question7` smallint(6) DEFAULT NULL,
+  `remarks7` varchar(600) DEFAULT NULL,
+  `question8` smallint(6) DEFAULT NULL,
+  `remarks8` varchar(600) DEFAULT NULL,
+  `question9` smallint(6) DEFAULT NULL,
+  `remarks9` varchar(600) DEFAULT NULL,
+  `question10` smallint(6) DEFAULT NULL,
+  `remarks10` varchar(600) DEFAULT NULL,
+  `question11` smallint(6) DEFAULT NULL,
+  `remarks11` varchar(600) DEFAULT NULL,
+  `question12` smallint(6) DEFAULT NULL,
+  `remarks12` varchar(600) DEFAULT NULL,
+  `question13` smallint(6) DEFAULT NULL,
+  `remarks13` varchar(600) DEFAULT NULL,
+  `question14` smallint(6) DEFAULT NULL,
+  `remarks14` varchar(600) DEFAULT NULL,
+  `question15` smallint(6) DEFAULT NULL,
+  `remarks15` varchar(600) DEFAULT NULL,
+  `question16` smallint(6) DEFAULT NULL,
+  `remarks16` varchar(600) DEFAULT NULL,
+  `question17` smallint(6) DEFAULT NULL,
+  `remarks17` varchar(600) DEFAULT NULL,
+  `question18` smallint(6) DEFAULT NULL,
+  `remarks18` varchar(600) DEFAULT NULL,
+  `question19` smallint(6) DEFAULT NULL,
+  `remarks19` varchar(600) DEFAULT NULL,
+  `question20` smallint(6) DEFAULT NULL,
+  `remarks20` varchar(600) DEFAULT NULL,
+  `question21` varchar(800) DEFAULT NULL,
+  `question22` varchar(800) DEFAULT NULL,
+  `question23` varchar(800) DEFAULT NULL,
+  `question24` varchar(800) DEFAULT NULL,
+  `question25` varchar(800) DEFAULT NULL,
+  PRIMARY KEY (`mem_num`,`question_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
