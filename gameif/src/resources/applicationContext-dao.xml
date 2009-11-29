@@ -218,4 +218,18 @@
 			<value>maintenanceInfo</value>
 		</property>
 	</bean>
+	
+	<!-- questionnaireMstDao -->
+	<bean id="questionnaireMstDao" class="com.gameif.portal.dao.impl.QuestionnaireMstDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>questionnaireMst</value>
+		</property>
+	</bean>
+	
+	<!-- questionnaireAnswerDao -->
+	<bean id="questionnaireAnswerDao" class="com.gameif.portal.dao.impl.QuestionnaireAnswerDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>questionnaireAnswer</value>
+		</property>
+	</bean>
 </beans>
