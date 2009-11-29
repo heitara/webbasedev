@@ -2,6 +2,7 @@ package com.gameif.backoffice.action.inquiry;
 
 import com.gameif.backoffice.businesslogic.IInquiryInfoBusinessLogic;
 import com.gameif.backoffice.businesslogic.IMasterInfoBusinessLogic;
+import com.gameif.backoffice.constants.BackofficeConstants;
 import com.gameif.backoffice.entity.InquiryInfo;
 import com.gameif.backoffice.helper.BackOfficeProperties;
 import com.gameif.backoffice.util.ContextUtil;
@@ -44,12 +45,13 @@ public class InquiryDetailAction extends ModelDrivenActionSupport<InquiryInfo> {
 	}
 	
 	/**
-	 * 問合せを回答する
+	 * 問合せを回答する(対応済に)
 	 * @return 問合せ編集画面
 	 */
 	public String reply() {
 		try {
-			
+
+			this.getModel().setCorrespondStatus(BackofficeConstants.CorrespondStatus.CORRESPONDED);
 			inquiryInfoBusinessLogic.replyInquiryInfo(this.getModel(), getNickName());
 			
 		} catch (DataNotExistsException dnex) {
@@ -71,6 +73,35 @@ public class InquiryDetailAction extends ModelDrivenActionSupport<InquiryInfo> {
 		
 		addFieldError("errMessage", getText("inquiry.replySuccess"));
 		
+		return SUCCESS;
+	}
+	
+	/**
+	 * 問合せを回答する(対応中に)
+	 * @return 問合せ編集画面
+	 */
+	public String reserve() {
+		try {
+			this.getModel().setCorrespondStatus(BackofficeConstants.CorrespondStatus.IN_CORRESPOND);
+			inquiryInfoBusinessLogic.replyInquiryInfo(this.getModel(), getNickName());
+			
+		} catch (DataNotExistsException dnex) {
+	
+			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
+					+ dnex.getMessage());
+	
+			addFieldError("errMessage", getText("common.dataNotExist"));
+	
+			return "inputEdit";
+	
+		} catch (LogicException lgex) {
+	
+			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
+					+ lgex.getMessage());
+	
+			return "warning";
+		}
+		addFieldError("errMessage", getText("inquiry.replySuccess"));
 		return SUCCESS;
 	}
 

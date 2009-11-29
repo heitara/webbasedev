@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0.2//EN" 
+	"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+
+<validators>
+    <field name="inquirySendmailName">
+        <field-validator type="requiredstring" short-circuit="true">
+			<param name="trim">true</param>
+        	<message><![CDATA[<br/>テンプレート名を入力してください。]]></message>
+        </field-validator>
+        <field-validator type="fieldexpression">
+        	<param name="expression"><![CDATA[(inquiryMailTemplateBusinessLogic.countInquiryMailTemplateByName(inquirySendmailName) < 1)]]></param>
+        	<message><![CDATA[<br/>入力されたテンプレート名は既に使われています。]]></message>
+        </field-validator>
+    </field>
+    <field name="inquirySendmailContents">
+        <field-validator type="requiredstring" short-circuit="true">
+			<param name="trim">true</param>
+        	<message><![CDATA[<br/>返信内容を入力してください。]]></message>
+        </field-validator>
+    </field>
+</validators>
