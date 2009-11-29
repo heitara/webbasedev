@@ -12,36 +12,36 @@ $("document").ready(
 	}
 );
 
-$("document").ready(
-	function() {
-		$("form").submit(
-			function() {				
-				var submitOk = false;
-				var errs = "";
-				$("input,textarea,select").trigger("blur");				
-				$("span.input_error").each(
-					function() {
-						errs += $(this).html();
-					}
-				);
-				if (errs.length < 1) {	
-					var formName = $("form").attr("name");
-					var index = formName.indexOf("frm_nosubmit_");
-					if (!window.isSubmited) {
-						if (index >= 0) {
-							window.isSubmited = true;
-							submitOk = true;
-						} else if (confirm("送信します。よろしいですか？")) {
-							window.isSubmited = true;
-							submitOk = true;
-						}
-					}
-				}
-				return submitOk;
-			}
-		);
-	}
-);
+//$("document").ready(
+//	function() {
+//		$("form").submit(
+//			function() {				
+//				var submitOk = false;
+//				var errs = "";
+//				$("input,textarea,select").trigger("blur");				
+//				$("span.input_error").each(
+//					function() {
+//						errs += $(this).html();
+//					}
+//				);
+//				if (errs.length < 1) {	
+//					var formName = $("form").attr("name");
+//					var index = formName.indexOf("frm_nosubmit_");
+//					if (!window.isSubmited) {
+//						if (index >= 0) {
+//							window.isSubmited = true;
+//							submitOk = true;
+//						} else if (confirm("送信します。よろしいですか？")) {
+//							window.isSubmited = true;
+//							submitOk = true;
+//						}
+//					}
+//				}
+//				return submitOk;
+//			}
+//		);
+//	}
+//);
 
 function getErrorMsbBox(field) {
 
