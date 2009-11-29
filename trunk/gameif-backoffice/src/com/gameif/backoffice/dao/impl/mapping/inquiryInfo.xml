@@ -228,8 +228,8 @@
 		WHERE
       		inquiry_num IN 
         ]]>
-      	<iterate open="(" close=")" conjunction="," property="inquiryList">
-      		#inquiryList[]#
+      	<iterate open="(" close=")" conjunction=",">
+      		#[]#
       	</iterate>
 	</delete>
 
