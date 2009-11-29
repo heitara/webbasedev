@@ -249,4 +249,15 @@
 			<ref bean="titleMstDao" />
 		</property>
 	</bean>
+	
+	<!-- questionnaireAnswerBusinessLogic -->
+	<bean id="questionnaireAnswerBusinessLogic"
+		class="com.gameif.portal.businesslogic.impl.QuestionnaireAnswerBusinessLogicImpl">
+		<property name="questionnaireMstDao">
+			<ref bean="questionnaireMstDao" />
+		</property>
+		<property name="questionnaireAnswerDao">
+			<ref bean="questionnaireAnswerDao" />
+		</property>
+	</bean>
 </beans>
