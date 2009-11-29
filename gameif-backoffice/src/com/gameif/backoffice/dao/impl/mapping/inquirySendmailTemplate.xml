@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="inquirySendmailTemplate">
+	<typeAlias alias="inquirySendmailTemplate" type="com.gameif.backoffice.entity.InquirySendmailTemplate" />
+	
+	<resultMap class="com.gameif.backoffice.entity.InquirySendmailTemplate" id="inquiryMailTemplateResult">
+		<result property="inquirySendmailId" column="inquiry_sendmail_id" />
+		<result property="inquirySendmailName" column="inquiry_sendmail_name" />
+		<result property="inquirySendmailContents" column="inquiry_sendmail_contents"/>
+		<result property="createdDate" column="created_date"/>
+		<result property="createdUser" column="created_user"/>
+		<result property="lastUpdateDate" column="last_update_date"/>
+		<result property="lastUpdateUser" column="last_update_user"/>
+	</resultMap>
+
+	<select id="selectAll" resultMap="inquiryMailTemplateResult">   
+        <![CDATA[
+	        SELECT
+				inquiry_sendmail_id,
+				inquiry_sendmail_name,
+				inquiry_sendmail_contents,
+				created_date,
+				created_user,
+				last_update_date,
+				last_update_user
+			FROM
+				inquiry_sendmail_template
+        ]]>
+	</select>
+
+	<select id="selectInquiryTemplateList" parameterClass="inquirySendmailTemplate" resultMap="inquiryMailTemplateResult">   
+        <![CDATA[
+	        SELECT
+				inquiry_sendmail_id,
+				inquiry_sendmail_name,
+				inquiry_sendmail_contents,
+				created_date,
+				created_user,
+				last_update_date,
+				last_update_user
+			FROM
+				inquiry_sendmail_template
+			WHERE
+				1 = 1
+        ]]>
+	    <isNotEmpty property="inquirySendmailName">
+      		<![CDATA[ AND inquiry_sendmail_name like '%$inquirySendmailName$%' ]]>
+	    </isNotEmpty>
+	</select>
+	
+	<delete id="deleteInquiryTemplateList" parameterClass="java.util.List">  
+        <![CDATA[
+        DELETE
+		FROM
+			inquiry_sendmail_template
+		WHERE
+      		inquiry_sendmail_id IN 
+        ]]>
+      	<iterate open="(" close=")" conjunction=",">
+      		#[]#
+      	</iterate>
+	</delete>
+	
+	<insert id = "save" parameterClass="inquirySendmailTemplate"> 
+        <![CDATA[
+		INSERT INTO inquiry_sendmail_template
+			(inquiry_sendmail_name,
+			inquiry_sendmail_contents,
+			created_date,
+			created_user,
+			last_update_date,
+			last_update_user)
+		VALUES
+			(#inquirySendmailName#,
+			#inquirySendmailContents#,
+			#createdDate#,
+			#createdUser#,
+			#lastUpdateDate#,
+			#lastUpdateUser#)
+        ]]>
+	</insert>
+
+	<update id="update" parameterClass="inquirySendmailTemplate">
+	<![CDATA[
+		UPDATE inquiry_sendmail_template
+		SET	inquiry_sendmail_name = #inquirySendmailName#,
+			inquiry_sendmail_contents = #inquirySendmailContents#,
+			created_date = #createdDate#,
+			created_user = #createdUser#,
+			last_update_date = #lastUpdateDate#,
+			last_update_user = #lastUpdateUser#
+		WHERE
+			inquiry_sendmail_id = #inquirySendmailId#
+	]]>
+	</update>
+
+	<select id="selectByKey" parameterClass="inquirySendmailTemplate" resultMap="inquiryMailTemplateResult">   
+        <![CDATA[
+	        SELECT
+				inquiry_sendmail_id,
+				inquiry_sendmail_name,
+				inquiry_sendmail_contents,
+				created_date,
+				created_user,
+				last_update_date,
+				last_update_user
+			FROM
+				inquiry_sendmail_template
+			WHERE
+				inquiry_sendmail_id = #inquirySendmailId#
+        ]]>
+	</select>
+
+	<select id="selectForUpdate" parameterClass="inquirySendmailTemplate" resultMap="inquiryMailTemplateResult">   
+        <![CDATA[
+	        SELECT
+				inquiry_sendmail_id,
+				inquiry_sendmail_name,
+				inquiry_sendmail_contents,
+				created_date,
+				created_user,
+				last_update_date,
+				last_update_user
+			FROM
+				inquiry_sendmail_template
+			WHERE
+				inquiry_sendmail_id = #inquirySendmailId#
+			FOR UPDATE
+        ]]>
+	</select>
+	
+	<select id="selectCountByName" parameterClass="java.lang.String" resultClass="int">
+      <![CDATA[
+        SELECT
+			count(inquiry_sendmail_id)
+		FROM
+			inquiry_sendmail_template
+		WHERE
+			inquiry_sendmail_name = #inquirySendmailName#
+      ]]>
+	</select>
+	
+	<select id="selectCountByNameWithId" parameterClass="java.util.HashMap" resultClass="int">
+      <![CDATA[
+        SELECT
+			count(inquiry_sendmail_id)
+		FROM
+			inquiry_sendmail_template
+		WHERE
+			inquiry_sendmail_name = #inquirySendmailName#
+		AND inquiry_sendmail_id != #inquirySendmailId#
+      ]]>
+	</select>
+	
+	<select id="selectContentsByTemplateId" parameterClass="java.lang.Integer" resultClass="string">
+      <![CDATA[
+        SELECT
+			inquiry_sendmail_contents
+		FROM
+			inquiry_sendmail_template
+		WHERE
+			inquiry_sendmail_id = #inquirySendmailId#
+      ]]>
+	</select>
+
+</sqlMap>
