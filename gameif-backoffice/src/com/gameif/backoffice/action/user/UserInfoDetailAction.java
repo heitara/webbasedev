@@ -12,34 +12,33 @@ public class UserInfoDetailAction extends ModelDrivenActionSupport<LoginUser> {
 	 */
 	private static final long serialVersionUID = -6386272793191635913L;
 
-	private String userId;
-
 	private IUserLoginBusinessLogic userLoginBusinessLogic;
 
 	/**
 	 * 権限マスタ処理ロジック
 	 */
 	private IAuthorityBusinessLogic authorityBusinessLogic;
-	
-	public String input(){
+
+	public String input() {
 		return INPUT;
 	}
 
 	public String initEdit() {
 		// ユーザIDが未入力の場合
-		if (userId == null || userId.isEmpty()) {
+		if (this.getModel().getUserId() == null
+				|| this.getModel().getUserId().isEmpty()) {
 			addActionError(getText("common.dataNotExist"));
 			return "list";
 		}
 		// ログインユーザ情報を取得
-		LoginUser loginUser = userLoginBusinessLogic
-				.getLoginUserByUserId(userId);
+		LoginUser loginUser = userLoginBusinessLogic.getLoginUserByUserId(this
+				.getModel().getUserId());
 		// ログインユーザ情報がない場合
 		if (loginUser == null) {
 			addActionError(getText("common.dataNotExist"));
 			return "list";
 		}
-		
+
 		this.setModel(loginUser);
 
 		return "inputEdit";
@@ -57,14 +56,6 @@ public class UserInfoDetailAction extends ModelDrivenActionSupport<LoginUser> {
 	public String add() {
 		userLoginBusinessLogic.addLoginUser(this.getModel());
 		return INPUT;
-	}
-
-	/**
-	 * @param userId
-	 *            the userId to set
-	 */
-	public void setUserId(String userId) {
-		this.userId = userId;
 	}
 
 	/**

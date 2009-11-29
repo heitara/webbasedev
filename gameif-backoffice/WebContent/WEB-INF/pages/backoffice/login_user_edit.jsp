@@ -22,7 +22,7 @@
 					<tr>
 						<th><span class="required">*</span><label for="updateLoginUser_nickName">ニックネーム：</label></th>
 						<td>
-							<s:textfield name="nickName" maxlength="20" title="ニックネーム" onblur="validate(this, 'REQ,KOT,NEQ_memId,EXN');"/>
+							<s:textfield name="model.nickName" maxlength="20" title="ニックネーム" onblur="validate(this, 'REQ,KOT,NEQ_memId,EXN');"/>
 							<span class="explain">※ 記号とスペース以外の文字で入力してください。</span>
 							<span id="error_nickName" class="input_error"><s:fielderror><s:param>nickName</s:param></s:fielderror></span>
 						</td>
@@ -30,7 +30,7 @@
 					<tr>
 						<th><span class="required">*</span><label for="point_titleId">権限：</label></th>
 						<td>
-							<s:select name="authorityCode" id="authorityCode" cssClass="big" list="authorityBusinessLogic.all" listKey="authorityCode" listValue="authorityName" title="権限"  onblur="validate(this,'REQ');" />
+							<s:select name="model.authorityCode" id="authorityCode" cssClass="big" list="authorityBusinessLogic.all" listKey="authorityCode" listValue="authorityName" title="権限"  onblur="validate(this,'REQ');" />
 							<span id="error_authorityCode" class="input_error"><s:fielderror><s:param>authorityCode</s:param></s:fielderror></span><br/>
 							<span class="explain">権限を選択してください。</span>
 						</td>

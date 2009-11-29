@@ -34,6 +34,21 @@
         ]]>
 	</select>
 	
+	<select id="selectByKey" parameterClass="loginUser" resultMap="loginUserResult">
+        <![CDATA[
+		SELECT	user_id,
+				password,
+				nick_name,
+				authority_code,
+				null as authority_name,
+				created_date,
+				created_user,
+				last_update_date,
+				last_update_user
+		FROM	login_user
+		WHERE	user_id = #userId#
+		]]>
+	</select>
 	
 	<insert id = "save" parameterClass="loginUser"> 
         <![CDATA[
