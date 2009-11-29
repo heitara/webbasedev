@@ -43,10 +43,10 @@
 				<tr>
 					<th><label for="inquiryList_inquiryDate">お問合せ期間：</label></th>
 					<td>
-						<input type="text" name="inquiryStartDate" value="" size="10">
+						<s:textfield id="inquiryStartDate" name="inquiryStartDate" size="10" />
 						<img id="imgStartDate" src="images/btn_b_date.gif" onclick="popUpCalendar(this,document.forms[0].inquiryStartDate,'yyyy-mm-dd'); return false;">
 						<span class="explain">～</span>
-						<input type="text" name="inquiryEndDate" value="" size="10">
+						<s:textfield id="inquiryEndDate" name="inquiryEndDate" size="10" />
 						<img id="imgEndDate" src="images/btn_b_date.gif" onclick="popUpCalendar(this,document.forms[0].inquiryEndDate,'yyyy-mm-dd'); return false;">
 					</td>
 				</tr>
@@ -112,7 +112,6 @@
 							<s:iterator value="inquiryList" id="inquiryList" status="st">
 								<tr <s:if test="#st.odd">class="odd" </s:if> >
 									<td>
-										<s:hidden name="inquiryNum"></s:hidden>
 										<s:checkbox name="selectedInquiryList" id="selectedInquiryList" value="false" fieldValue="%{inquiryNum}"></s:checkbox>
 									</td>
 									<td>

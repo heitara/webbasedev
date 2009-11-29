@@ -76,6 +76,58 @@
 		<filter-name>Login Filter</filter-name>
 		<url-pattern>/inputAddAuthority.html</url-pattern>
 	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Login Filter</filter-name>
+		<url-pattern>/inputInquriyList.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Login Filter</filter-name>
+		<url-pattern>/searchInquriyList.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Login Filter</filter-name>
+		<url-pattern>/deleteInquriyList.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Login Filter</filter-name>
+		<url-pattern>/inputEditInquriy.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Login Filter</filter-name>
+		<url-pattern>/replyInquriy.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Login Filter</filter-name>
+		<url-pattern>/reserveInquriy.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Login Filter</filter-name>
+		<url-pattern>/inputListInquiryTemplate.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Login Filter</filter-name>
+		<url-pattern>/searchInquiryTemplate.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Login Filter</filter-name>
+		<url-pattern>/deleteInquiryTemplate.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Login Filter</filter-name>
+		<url-pattern>/inputAddInquiryTemplate.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Login Filter</filter-name>
+		<url-pattern>/createInquiryTemplate.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Login Filter</filter-name>
+		<url-pattern>/inputEditInquiryTemplate.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Login Filter</filter-name>
+		<url-pattern>/updateInquiryTemplate.html</url-pattern>
+	</filter-mapping>
 	 
 	<filter-mapping>
 	    <filter-name>sitemesh</filter-name>
