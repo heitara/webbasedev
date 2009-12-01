@@ -28,6 +28,9 @@ public class PortalProperties {
 	/** 時間帯（臨時会員情報を削除するために、時間を指定する） */
 	private Map<String, String> timeZoneList;
 	
+	/** 退会原因 */
+	private Map<String, String> withdrawReason;
+	
 	public String getMailLoginUrl(String mail) {
 		
 		String mailLoginUrl = null;
@@ -115,6 +118,22 @@ public class PortalProperties {
 
 	public void setMailUrlMap(Map<String, String> mailUrlMap) {
 		this.mailUrlMap = mailUrlMap;
+	}
+
+
+	/**
+	 * @return the withdrawReason
+	 */
+	public Map<String, String> getWithdrawReason() {
+		return withdrawReason;
+	}
+
+
+	/**
+	 * @param withdrawReason the withdrawReason to set
+	 */
+	public void setWithdrawReason(Map<String, String> withdrawReason) {
+		this.withdrawReason = withdrawReason;
 	}
 	
 }
