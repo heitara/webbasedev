@@ -27,6 +27,7 @@ import com.gameif.portal.dao.IInviteLinkHistDao;
 import com.gameif.portal.dao.IMemAdvertActualInfoDao;
 import com.gameif.portal.dao.IMemberInfoDao;
 import com.gameif.portal.dao.IMemberLoginInfoDao;
+import com.gameif.portal.dao.IMemberWithdrawInfoDao;
 import com.gameif.portal.dao.ITempMemberInfoDao;
 import com.gameif.portal.dao.ITempPwdInfoDao;
 import com.gameif.portal.entity.AdvertAgencyMst;
@@ -37,6 +38,7 @@ import com.gameif.portal.entity.InviteLinkHist;
 import com.gameif.portal.entity.MemAdvertActualInfo;
 import com.gameif.portal.entity.MemberInfo;
 import com.gameif.portal.entity.MemberLoginInfo;
+import com.gameif.portal.entity.MemberWithdrawInfo;
 import com.gameif.portal.entity.TempMemberInfo;
 import com.gameif.portal.entity.TempPwdInfo;
 import com.gameif.portal.helper.PortalProperties;
@@ -59,6 +61,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	private IAdvertMstDao advertMstDao;
 	private IInviteLinkDao inviteLinkDao;
 	private IInviteLinkHistDao inviteLinkHistDao;
+	private IMemberWithdrawInfoDao memberWithdrawInfoDao;
 	
 	private Integer pwdRegetInvalidHour;
 	private Integer loginInvalidHour;
@@ -441,31 +444,57 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	 */
 	@Transactional
 	@Override
-	public void withdraw(MemberInfo memberInfo) throws LogicException {
+	public void withdraw(MemberInfo memberInfo, MemberWithdrawInfo withdrawInfo) throws LogicException {
 
 		// 存在性チェック、行ロックをかけて既存会員情報を検索する。
 		MemberInfo oldMemberInfo = getMemberInfoWithCheck(memberInfo, false);
 		
+		Date now = new Date();
+		
 		oldMemberInfo.setMemValidYNCd(PortalConstants.MemberValidYNCd.WITHDRAW);
-		oldMemberInfo.setWithdrawDate(new Date());
+		oldMemberInfo.setWithdrawDate(now);
 		oldMemberInfo.setWithdrawIp(ContextUtil.getClientIP());
 		oldMemberInfo.setLastUpdateUser(ContextUtil.getMemberNo().toString());
+		oldMemberInfo.setLastUpdateDate(now);
+		oldMemberInfo.setLastUpdateIp(ContextUtil.getClientIP());
 
 		// 会員情報を更新する。
 		memberInfoDao.update(oldMemberInfo);
 
 		// 会員ログイン情報を更新する。
 		updateLoginInfoByMemberInfo(oldMemberInfo);
+		
+		withdrawInfo.setMemNum(oldMemberInfo.getMemNum());
+		withdrawInfo.setWithdrawDate(now);
+		withdrawInfo.setWithdrawReasonDb(makeWithdrawReason(withdrawInfo.getWithdrawReason()));
+		// 退会情報を登録する
+		memberWithdrawInfoDao.save(withdrawInfo);
 
 		try {
 			// お知らせメールを送信する。
-			HashMap<String, String> props = new HashMap<String, String>();		
-			props.put("memId", oldMemberInfo.getMemId());
-			props.put("nickName", oldMemberInfo.getNickName());		
-			templateMailer.sendAsyncMail(oldMemberInfo.getMailPc(), "withdraw", props);
+			HashMap<String, String> props = new HashMap<String, String>();
+			props.put("nickName", oldMemberInfo.getNickName());			
+			props.put("memId", oldMemberInfo.getMemId());	
+			templateMailer.sendAsyncMail(oldMemberInfo.getMailPc(), "withdrawMember", props);
 		} catch (Exception ex) {
 			logger.error("error has occurred in sending withdraw mail. ", ex);
 		}
+	}
+	
+	/**
+	 * 退会原因を計算する(ビットごとのOR演算を行う)
+	 * @param checkedValue
+	 * @return
+	 */
+	private Integer makeWithdrawReason(Integer[] checkedValue) {
+		if (checkedValue == null || checkedValue.length == 0) {
+			return null;
+		}
+		Integer value = 0;
+		for (int i = 0; i < checkedValue.length; i++) {
+			value = value | (int)(Math.pow(2, checkedValue[i] - 1));
+		}
+		return value;
 	}
 
 	/**
@@ -827,6 +856,14 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	 */
 	public void setPortalProperties(PortalProperties portalProperties) {
 		this.portalProperties = portalProperties;
+	}
+
+	/**
+	 * @param memberWithdrawInfoDao the memberWithdrawInfoDao to set
+	 */
+	public void setMemberWithdrawInfoDao(
+			IMemberWithdrawInfoDao memberWithdrawInfoDao) {
+		this.memberWithdrawInfoDao = memberWithdrawInfoDao;
 	}
 	
 }
