@@ -119,6 +119,14 @@
 				<entry key="1900" value="2000"/>
 			</map>
 		</property>
+		<property name="withdrawReason">
+			<map>
+				<entry key="1" value="ゲームに不満があるから"/>
+				<entry key="2" value="サポートの対応に不満があるから"/>
+				<entry key="3" value="ユーザー間のトラブルがあるから"/>
+				<entry key="10" value="その他"/>
+			</map>
+		</property>
 	</bean>
 	
 </beans>
