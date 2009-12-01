@@ -44,6 +44,6 @@
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/maintenanceInfo.xml" />
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/questionnaireAnswer.xml" />
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/questionnaireMst.xml" />
-	<sqlMap resource="com/gameif/portal/dao/impl/mapping/memWithdrawInfo.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/memberWithdrawInfo.xml" />
 	
 </sqlMapConfig>
