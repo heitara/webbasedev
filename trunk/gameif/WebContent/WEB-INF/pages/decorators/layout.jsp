@@ -305,7 +305,12 @@ response.setDateHeader("Expires",0);
 		</dl>
 <%
 	}
+%>
+	<div style="margin-top:18px;">
+		<a href="inputQuestionnaireAnswer.html?questionNo=1" title="アンケートに参加してサービスポイントをもらいましょう！"><img src="images/btn_cb_questionnaire.gif" alt="アンケートに参加してサービスポイントをもらいましょう！"/></a>
+	</div>
 	
+<%
 	/* =============================================== マイゲーム ===================================================== */
 		
 	if (isLogined && !myTitles.isEmpty()) {
