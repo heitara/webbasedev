@@ -122,8 +122,6 @@
 			<result name="success"  type="redirect">/finishedPage.html?action=createInquiry</result>
 		</action>
 		
-		
-		
 		<action name="*Invite" class="inviteInputAction" method="{1}">
 			<interceptor-ref name="scopedModelDriven">
 				<param name="scope">request</param>
@@ -293,6 +291,22 @@
 			<interceptor-ref name="gameifStack"></interceptor-ref>
 			<result name="input">/WEB-INF/pages/portal/questionnaire.jsp</result>
 			<result name="success" type="redirect">/finishedPage.html?action=questionnaireAnswer</result>
+		</action>
+
+		<action name="*WithDrawInfo" class="memberWithDrawAction" method="{1}WithDrawInfo">
+			<interceptor-ref name="scopedModelDriven">
+				<param name="scope">request</param>
+				<param name="name">memberWithdrawInfo</param>
+				<param name="className">com.gameif.portal.entity.MemberWithdrawInfo</param>
+			</interceptor-ref>
+			<interceptor-ref name="token">
+				<param name="includeMethods">createWithDrawInfo</param>
+			</interceptor-ref>
+			<interceptor-ref name="gameifStack"></interceptor-ref>
+			<result name="input">/WEB-INF/pages/portal/mem_withdraw.jsp</result>
+			<result name="success" type="redirect">/finishedWithDrawInfo.html</result>
+			<result name="finished" >/WEB-INF/pages/portal/mem_withdraw_finished.jsp</result>
+			<result name="invalid.token">/WEB-INF/pages/common/warning.jsp</result>
 		</action>
 		
 	</package>
