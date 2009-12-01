@@ -4,6 +4,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.gameif.common.exception.LogicException;
 import com.gameif.portal.entity.MemberInfo;
+import com.gameif.portal.entity.MemberWithdrawInfo;
 
 public interface IMemberInfoBusinessLogic {
 
@@ -48,7 +49,7 @@ public interface IMemberInfoBusinessLogic {
 	 * @throws LogicException 存在しない異常
 	 */
 	@Transactional
-	public void withdraw(MemberInfo memberInfo) throws LogicException;
+	public void withdraw(MemberInfo memberInfo, MemberWithdrawInfo withdrawInfo) throws LogicException;
 
 	/**
 	 * 会員情報でログイン情報を更新する。
