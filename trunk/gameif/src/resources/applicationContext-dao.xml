@@ -232,4 +232,11 @@
 			<value>questionnaireAnswer</value>
 		</property>
 	</bean>
+	
+	<!-- memberWithdrawInfoDao -->
+	<bean id="memberWithdrawInfoDao" class="com.gameif.portal.dao.impl.MemberWithdrawInfoDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>memberWithdrawInfo</value>
+		</property>
+	</bean>
 </beans>

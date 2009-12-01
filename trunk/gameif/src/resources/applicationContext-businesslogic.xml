@@ -52,6 +52,9 @@
 		<property name="inviteLinkHistDao">
 			<ref bean="inviteLinkHistDao" />
 		</property>
+		<property name="memberWithdrawInfoDao">
+			<ref bean="memberWithdrawInfoDao" />
+		</property>
 	</bean>
 	
 	<!-- inquiryInfoBusinessLogic -->

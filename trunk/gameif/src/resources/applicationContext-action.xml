@@ -229,6 +229,16 @@
 		</property>
 	</bean>
 	
+	<!-- memberWithDrawAction -->
+	<bean id="memberWithDrawAction" class="com.gameif.portal.action.withdraw.MemberWithDrawAction" scope="prototype">
+		<property name="memberInfoBusinessLogic">
+			<ref bean="memberInfoBusinessLogic" />
+		</property>
+		<property name="portalProperties">
+			<ref bean="portalProperties" />
+		</property>
+	</bean>
+	
 	<!-- loginStatusProxyAction -->
 	<bean id="loginStatusProxyAction" class="com.gameif.portal.action.menu.LoginStatusProxyAction" scope="prototype" />
 	<!-- logoutProxyAction -->

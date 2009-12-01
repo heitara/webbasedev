@@ -95,6 +95,13 @@
 						<entry key="format" value="text"/>
 					</map>
 				</entry>
+				<entry key="withdrawMember">
+					<map>
+						<entry key="title" value="【ゲームイフ】退会完了のお知らせ"/>
+						<entry key="template" value="withdrawMember.ftl"/>
+						<entry key="format" value="text"/>
+					</map>
+				</entry>
 			</map>
 		</property>
 	</bean>
