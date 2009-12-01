@@ -90,12 +90,6 @@
 		<filter-name>CAS Filter</filter-name>
 		<url-pattern>/loginStatusProxy.html</url-pattern>
 	</filter-mapping>
-	<!-- 
-	<filter-mapping>
-		<filter-name>CAS Filter</filter-name>
-		<url-pattern>/inputInvite.html</url-pattern>
-	</filter-mapping>
-	 -->
 	<filter-mapping>
 		<filter-name>CAS Filter</filter-name>
 		<url-pattern>/inputMailInvite.html</url-pattern>
@@ -215,6 +209,15 @@
 	<filter-mapping>
 		<filter-name>CAS Filter</filter-name>
 		<url-pattern>/applyBetaTester.html</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/inputWithDrawInfo.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/createWithDrawInfo.html</url-pattern>
 	</filter-mapping>
 		
 	<filter-mapping>
