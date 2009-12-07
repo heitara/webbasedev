@@ -126,8 +126,16 @@
 									</div>
 								</dd>
 							</dl>
-						</s:else>					
+						</s:else>
 					</s:else>
+					<s:if test="testUser">
+						<select style="width:180px;margin:10px 0px; font-size:12px;" onchange="if(this.selectedIndex > 0) location = this.options[this.selectedIndex].value;">
+							<option value="">テストプレイ（サーバ選択）</option>
+							<s:iterator value="serverMap.get(#title.titleId)" id="server" status="st">
+								<option value="playGame.html?serverId=<s:property value="serverId"/>&titleId=<s:property value="titleId"/>">S0<s:property value="serverId"/>: <s:property value="serverName"/></option>
+							</s:iterator>
+						</select>
+					</s:if>
 				</td>
 			</tr>
 			<tr class="space"><td colspan="3"></td></tr>

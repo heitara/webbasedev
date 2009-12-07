@@ -39,7 +39,7 @@
 					<th><span class="required">*</span><label for="createMember_mailPc">メールアドレス：</label></th>
 					<td>
 						<s:textfield name="mailPc" maxlength="100" cssClass="ime_mode_n" title="メールアドレス" onblur="validate(this, 'REQ,EML,EXM');"/>
-						<span class="explain">※ メールアドレスを小文字で入力してください。</span>
+						<span class="explain">※ メールアドレスをで入力してください。（携帯用メールアドレス不可）</span>
 						<span id="error_mailPc" class="input_error"><s:fielderror><s:param>mailPc</s:param></s:fielderror></span>
 					</td>
 				</tr>
@@ -47,7 +47,6 @@
 				<tr>
 					<th><span class="required">*</span><label for="createMember_memPwd">パスワード：</label></th>
 					<td>
-	
 						<s:password name="memPwd" maxlength="20" cssClass="ime_mode_n" title="パスワード" onblur="validate(this, 'REQ,ALN,LEN_6_20,NEQ_memId');"/>
 						<span class="explain">※ 6～20桁の半角英数字で入力してください。</span>
 						<span id="error_memPwd" class="input_error"><s:fielderror><s:param>memPwd</s:param></s:fielderror></span>
