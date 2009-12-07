@@ -110,6 +110,9 @@
 		<property name="betaTesterBusinessLogic">
 			<ref bean="betaTesterBusinessLogic" />
 		</property>
+		<property name="memberInfoBusinessLogic">
+			<ref bean="memberInfoBusinessLogic" />
+		</property>
 		<property name="titleEntry">
 			<ref bean="titleEntry" />
 		</property>
@@ -119,6 +122,9 @@
 	<bean id="titleSelectControlAction" class="com.gameif.portal.action.titleif.TitleSelectControlAction" scope="prototype">
 		<property name="titlePlayBusinessLogic">
 			<ref bean="titlePlayBusinessLogic" />
+		</property>
+		<property name="memberInfoBusinessLogic">
+			<ref bean="memberInfoBusinessLogic" />
 		</property>
 	</bean>
 	
