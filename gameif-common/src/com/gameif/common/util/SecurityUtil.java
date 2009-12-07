@@ -1,5 +1,6 @@
 package com.gameif.common.util;
 
+import java.net.URLDecoder;
 import java.security.MessageDigest;
 import java.util.HashMap;
 import java.util.Map;
@@ -157,7 +158,12 @@ public class SecurityUtil {
 	
 	public final static String encodeBase64(String src) {
 		
-		return new sun.misc.BASE64Encoder().encode(src.getBytes());
+		String encoded = new sun.misc.BASE64Encoder().encode(src.getBytes());
+		
+		encoded = encoded.replaceAll("\r", "");
+		encoded = encoded.replaceAll("\n", "");
+		
+		return encoded;
 	}
 	
 	public final static String decodeBase64(String encoded) {
