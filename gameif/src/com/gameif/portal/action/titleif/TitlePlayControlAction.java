@@ -5,11 +5,13 @@ import java.util.Date;
 import com.gameif.common.action.BaseActionSupport;
 import com.gameif.portal.businesslogic.IBetaTesterBusinessLogic;
 import com.gameif.portal.businesslogic.IMasterInfoBusinessLogic;
+import com.gameif.portal.businesslogic.IMemberInfoBusinessLogic;
 import com.gameif.portal.businesslogic.ITitlePlayBusinessLogic;
 import com.gameif.portal.businesslogic.titleif.entry.EntryParameter;
 import com.gameif.portal.businesslogic.titleif.entry.TitleEntry;
 import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.entity.BetaTester;
+import com.gameif.portal.entity.MemberInfo;
 import com.gameif.portal.entity.PlayHist;
 import com.gameif.portal.entity.ServerMst;
 import com.gameif.portal.entity.TitleMst;
@@ -23,6 +25,7 @@ public class TitlePlayControlAction extends BaseActionSupport {
 	private IMasterInfoBusinessLogic masterInfoBusinessLogic;
 	private ITitlePlayBusinessLogic titlePlayBusinessLogic;
 	private IBetaTesterBusinessLogic betaTesterBusinessLogic;
+	private IMemberInfoBusinessLogic memberInfoBusinessLogic;
 
 	private Integer titleId;
 	private Integer serverId;
@@ -102,6 +105,20 @@ public class TitlePlayControlAction extends BaseActionSupport {
 			playable = true;
 			
 			TitleMst titleMst = masterInfoBusinessLogic.getValidTitle(serverMst.getTitleId());
+			
+			if (titleMst != null) {
+
+				// メンテナンス時、テストユーザはプレイ可能
+				MemberInfo memInfo = new MemberInfo();
+				memInfo.setMemNum(ContextUtil.getMemberNo());
+				memInfo = memberInfoBusinessLogic.getMemberInfo(memInfo);
+				
+				if (memInfo != null && PortalConstants.MemberAtbtCd.TEST.equals(memInfo.getMemAtbtCd())) {
+					
+					playable = true;
+					return playable;
+				}
+			}
 
 			// タイトルが有効期間以外或いはメンテナンス中の場合、プレイ不可
 			if (titleMst == null
@@ -178,5 +195,10 @@ public class TitlePlayControlAction extends BaseActionSupport {
 
 	public void setServer(String server) {
 		this.server = server;
+	}
+
+	public void setMemberInfoBusinessLogic(
+			IMemberInfoBusinessLogic memberInfoBusinessLogic) {
+		this.memberInfoBusinessLogic = memberInfoBusinessLogic;
 	}
 }
