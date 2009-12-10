@@ -44,10 +44,8 @@
 					<th><label for="inquiryList_inquiryDate">お問合せ期間：</label></th>
 					<td>
 						<s:textfield id="inquiryStartDate" name="inquiryStartDate" size="10" />
-						<img id="imgStartDate" src="images/btn_b_date.gif" onclick="popUpCalendar(this,document.forms[0].inquiryStartDate,'yyyy-mm-dd'); return false;">
 						<span class="explain">～</span>
 						<s:textfield id="inquiryEndDate" name="inquiryEndDate" size="10" />
-						<img id="imgEndDate" src="images/btn_b_date.gif" onclick="popUpCalendar(this,document.forms[0].inquiryEndDate,'yyyy-mm-dd'); return false;">
 					</td>
 				</tr>
 				<tr>

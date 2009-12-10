@@ -78,4 +78,25 @@
 			<value>inquirySendmailTemplate</value>
 		</property>
 	</bean>
+	
+	<!-- ticketMstDao -->
+	<bean id="ticketMstDao" class="com.gameif.backoffice.dao.impl.TicketMstDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>ticketMst</value>
+		</property>
+	</bean>
+	
+	<!-- ticketInfoDao -->
+	<bean id="ticketInfoDao" class="com.gameif.backoffice.dao.impl.TicketInfoDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>ticketInfo</value>
+		</property>
+	</bean>
+	
+	<!-- ticketGiveHistDao -->
+	<bean id="ticketGiveHistDao" class="com.gameif.backoffice.dao.impl.TicketGiveHistDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>ticketGiveHist</value>
+		</property>
+	</bean>
 </beans>

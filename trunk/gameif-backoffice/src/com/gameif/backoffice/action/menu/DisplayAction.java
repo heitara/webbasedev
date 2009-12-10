@@ -1,10 +1,19 @@
 package com.gameif.backoffice.action.menu;
 
+import com.gameif.backoffice.helper.BackOfficeProperties;
+
 public class DisplayAction {
 
-
+	private BackOfficeProperties backOfficeProperties;
 	private String action = null;
 	private String actionTitle = null;
+
+	/**
+	 * @param backOfficeProperties the backOfficeProperties to set
+	 */
+	public void setBackOfficeProperties(BackOfficeProperties backOfficeProperties) {
+		this.backOfficeProperties = backOfficeProperties;
+	}
 
 	public String getAction() {
 		return action;
@@ -25,6 +34,8 @@ public class DisplayAction {
 	public String finished() {
 		
 		if (action != null) {
+			
+			actionTitle = backOfficeProperties.getActionTitles().get(action);
 			
 			if (actionTitle != null) {
 				

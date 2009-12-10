@@ -6,4 +6,9 @@ import com.gameif.common.dao.impl.AbstractBaseDao;
 
 public class MemberInfoDaoImpl extends AbstractBaseDao<MemberInfo, MemberInfo> implements IMemberInfoDao {
 
+	@Override
+	public MemberInfo selectByMemId(String memId) {
+		return (MemberInfo) this.getSqlMapClientTemplate().queryForObject(namespace + ".selectByMemId", memId);
+	}
+
 }

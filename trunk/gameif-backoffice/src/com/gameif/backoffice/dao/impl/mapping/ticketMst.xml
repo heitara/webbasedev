@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="ticketMst">
+	<typeAlias alias="ticketMst" type="com.gameif.backoffice.entity.TicketMst" />
+	
+	<resultMap class="com.gameif.backoffice.entity.TicketMst" id="ticketResult">
+		<result property="ticketId" column="ticket_id" />
+		<result property="ticketName" column="ticket_name" />
+		<result property="ticketTypeCd" column="ticket_type_cd" />
+		<result property="ticketModelId" column="ticket_model_id" />
+		<result property="titleId" column="title_id" />
+		<result property="delayDays" column="delay_days" />
+		<result property="validDays" column="valid_days" />
+		<result property="iconUrl" column="icon_url" />
+		<result property="createdDate" column="created_date"/>
+		<result property="createdUser" column="created_user"/>
+		<result property="lastUpdateDate" column="last_update_date"/>
+		<result property="lastUpdateUser" column="last_update_user"/>
+	</resultMap>
+
+	<select id="selectTicketListByTitleId" resultMap="ticketResult">
+        <![CDATA[
+	        SELECT
+				ticket_id,
+				ticket_name,
+				ticket_type_cd,
+				ticket_model_id,
+				title_id,
+				delay_days,
+				valid_days,
+				icon_url,
+				created_date,
+				created_user,
+				last_update_date,
+				last_update_user
+			FROM
+				ticket_mst
+			WHERE
+				title_id = #value#
+        ]]>
+	</select>
+
+	<select id="selectByKey" resultMap="ticketResult">
+        <![CDATA[
+	        SELECT
+				ticket_id,
+				ticket_name,
+				ticket_type_cd,
+				ticket_model_id,
+				title_id,
+				delay_days,
+				valid_days,
+				icon_url,
+				created_date,
+				created_user,
+				last_update_date,
+				last_update_user
+			FROM
+				ticket_mst
+			WHERE
+				ticket_id = #ticketId#
+        ]]>
+	</select>
+
+</sqlMap>

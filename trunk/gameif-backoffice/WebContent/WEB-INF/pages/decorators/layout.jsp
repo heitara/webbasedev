@@ -85,7 +85,7 @@ response.setDateHeader("Expires",0);
 				<a href="inputListInquiryTemplate.html" title="問合せ返信テンプレート管理">問合せ返信テンプレート管理</a>
 				<a href="#" title="友達紹介管理">友達紹介管理</a>
 				<a href="#" title="キャンペーン管理">キャンペーン管理</a>
-				<a href="#" title="サービスポイント管理">サービスポイント管理</a>
+				<a href="inputGiveTicket.html" title="チケット付与">チケット付与</a>
 				<a href="#" title="売上げ集計">売上げ集計</a>
 				<a href="inputListAuthority.html" title="権限管理">権限管理</a>
 			</dd>
