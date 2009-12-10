@@ -9,9 +9,9 @@
 	</head>
 	<body>
 		<dl class="light_box tspace_n">
-			<dt><strong>サービスポイント受取</strong><span><a href="">► サービスポイント受取履歴</a></span></dt>
+			<dt><strong>サービスポイント受取</strong></dt>
 			<dd>
-				<s:form name="frm_service_point" method="post" cssClass="entry">
+				<s:form name="frm_sp_get" method="post" cssClass="entry">
 					<table>
 						<tr>
 							<th></th>

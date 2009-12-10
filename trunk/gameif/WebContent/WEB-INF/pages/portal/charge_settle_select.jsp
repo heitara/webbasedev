@@ -44,6 +44,11 @@
 			</div>
 			
 			<table align="center">
+				<tr>
+					<td colspan="2">
+						<span class="logic_error"><s:fielderror><s:param>errMessage</s:param></s:fielderror></span><br/>
+					</td>
+				</tr>
 				<s:iterator value="settleList" id="settle" status="st">
 					<tr valign="middle" >
 						<td>
