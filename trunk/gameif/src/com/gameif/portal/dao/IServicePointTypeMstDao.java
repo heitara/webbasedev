@@ -7,7 +7,7 @@ import com.gameif.portal.entity.ServicePointTypeMst;
 
 public interface IServicePointTypeMstDao extends IBaseDao<ServicePointTypeMst, ServicePointTypeMst> {
 	
-	public ServicePointTypeMst selectValidGameloginPoint(String servicePointTypeCd, Integer standardLevel);
+	public ServicePointTypeMst selectValidGameloginPoint(Integer servicePointTypeCd, Integer standardLevel);
 	
 	@SuppressWarnings("unchecked")
 	public ServicePointTypeMst selectChargePointRate(HashMap params);

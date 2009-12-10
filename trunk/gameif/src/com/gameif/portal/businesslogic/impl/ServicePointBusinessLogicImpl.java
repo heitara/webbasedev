@@ -3,6 +3,7 @@ package com.gameif.portal.businesslogic.impl;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -11,18 +12,31 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gameif.common.businesslogic.BaseBusinessLogic;
 import com.gameif.common.exception.DataNotExistsException;
 import com.gameif.common.exception.LogicException;
+import com.gameif.common.exception.OutOfMaxCountException;
 import com.gameif.common.helper.TemplateMailer;
 import com.gameif.portal.businesslogic.IServicePointBusinessLogic;
+import com.gameif.portal.businesslogic.titleif.charge.ChargeConstants;
+import com.gameif.portal.businesslogic.titleif.charge.ChargeParameter;
+import com.gameif.portal.businesslogic.titleif.charge.TitleCharge;
 import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.dao.IGameLoginCountDao;
+import com.gameif.portal.dao.IPointMstDao;
+import com.gameif.portal.dao.IServerMstDao;
 import com.gameif.portal.dao.IServicePointDao;
 import com.gameif.portal.dao.IServicePointGiveHistDao;
 import com.gameif.portal.dao.IServicePointTypeMstDao;
+import com.gameif.portal.dao.IServicePointUseHistDao;
 import com.gameif.portal.dao.ITitleMstDao;
 import com.gameif.portal.entity.GameLoginCount;
+import com.gameif.portal.entity.MySPGiveHist;
+import com.gameif.portal.entity.MySPInfo;
+import com.gameif.portal.entity.MySPUseHist;
+import com.gameif.portal.entity.PointMst;
+import com.gameif.portal.entity.ServerMst;
 import com.gameif.portal.entity.ServicePoint;
 import com.gameif.portal.entity.ServicePointGiveHist;
 import com.gameif.portal.entity.ServicePointTypeMst;
+import com.gameif.portal.entity.ServicePointUseHist;
 import com.gameif.portal.util.ContextUtil;
 
 public class ServicePointBusinessLogicImpl extends BaseBusinessLogic implements
@@ -41,6 +55,10 @@ public class ServicePointBusinessLogicImpl extends BaseBusinessLogic implements
 	private IServicePointGiveHistDao servicePointGiveHistDao;
 	private TemplateMailer templateMailer;
 	private ITitleMstDao titleMstDao;
+	private IPointMstDao pointMstDao;
+	private IServicePointUseHistDao servicePointUseHistDao;
+	private IServerMstDao serverMstDao;
+	private TitleCharge titleCharge;
 	
 	// 有効期間
 	private Integer validDays;
@@ -62,11 +80,13 @@ public class ServicePointBusinessLogicImpl extends BaseBusinessLogic implements
 		}
 		
 		// 有効なサービスポイントを取得する
-		ServicePointTypeMst servicePointTypeMst = servicePointTypeMstDao.selectValidGameloginPoint(PortalConstants.ServicePointTypeCd.GAME_LOGIN, gameLoginCount.getGameLoginCount());
+		ServicePointTypeMst servicePointTypeMst = servicePointTypeMstDao.
+													selectValidGameloginPoint(PortalConstants.ServicePointTypeCd.GAME_LOGIN, 
+																			  gameLoginCount.getGameLoginCount());
 		if (servicePointTypeMst == null || servicePointTypeMst.getServicePointTypeId() == null) {
 			
 			// データが存在しない
-			throw new DataNotExistsException("Data does not exist!!");
+			throw new DataNotExistsException("Data does not exist!");
 			
 		}
 		
@@ -83,16 +103,13 @@ public class ServicePointBusinessLogicImpl extends BaseBusinessLogic implements
 		ServicePoint servicePoint = new ServicePoint();
 		servicePoint.setMemNum(ContextUtil.getMemberNo());
 		servicePoint.setTitleId(titleId);
-		servicePoint.setGiveDate(giveDate);
 		// 有効なデータが存在かどうか
-		servicePoint = servicePointDao.selectByTitleAndMemnumForUpdate(servicePoint);
+		servicePoint = servicePointDao.selectForUpdate(servicePoint);
 		if (servicePoint == null) {
 			
 			servicePoint = new ServicePoint();
 			
 			servicePoint.setMemNum(ContextUtil.getMemberNo());
-			servicePoint.setGiveDate(giveDate);
-			servicePoint.setPointStartDate(giveDate);
 			servicePoint.setPointEndDate(endDate);
 			servicePoint.setTitleId(titleId);
 			servicePoint.setPointAmount(servicePointTypeMst.getPointAmount());
@@ -104,8 +121,14 @@ public class ServicePointBusinessLogicImpl extends BaseBusinessLogic implements
 			// サービスポイント残高テーブルに登録する
 			servicePointDao.save(servicePoint);
 		} else {
-			// 残高 = 元の残高 + 今回のポイント数
-			servicePoint.setPointAmount(servicePoint.getPointAmount().add(servicePointTypeMst.getPointAmount()));
+			// 既に期限切れました
+			if (giveDate.compareTo(servicePoint.getPointEndDate()) > 0) {
+				// 残高 = 今回のポイント数
+				servicePoint.setPointAmount(servicePointTypeMst.getPointAmount());
+			} else {
+				// 残高 = 元の残高 + 今回のポイント数
+				servicePoint.setPointAmount(servicePoint.getPointAmount().add(servicePointTypeMst.getPointAmount()));
+			}
 			servicePoint.setPointEndDate(endDate);
 			servicePoint.setLastUpdateDate(giveDate);
 			servicePoint.setLastUpdateUser(ContextUtil.getMemberNo().toString());
@@ -117,11 +140,10 @@ public class ServicePointBusinessLogicImpl extends BaseBusinessLogic implements
 		// サービスポイント贈与履歴
 		ServicePointGiveHist servicePointGiveHist = new ServicePointGiveHist();
 		servicePointGiveHist.setMemNum(ContextUtil.getMemberNo());
-		servicePointGiveHist.setServicePointNo(servicePoint.getServicePointNo());
 		servicePointGiveHist.setServicePointTypeId(servicePointTypeMst.getServicePointTypeId());
+		servicePointGiveHist.setServicePointTypeCd(PortalConstants.ServicePointTypeCd.GAME_LOGIN);
 		servicePointGiveHist.setTitleId(titleId);
 		servicePointGiveHist.setGiveDate(giveDate);
-		servicePointGiveHist.setPointStartDate(giveDate);
 		servicePointGiveHist.setPointEndDate(endDate);
 		servicePointGiveHist.setPointAmount(servicePointTypeMst.getPointAmount());
 		servicePointGiveHist.setCreatedDate(giveDate);
@@ -154,6 +176,131 @@ public class ServicePointBusinessLogicImpl extends BaseBusinessLogic implements
 			logger.error("error has occurred in sending presentServicePoint mail. ", ex);
 		}
 		
+	}
+
+	/**
+	 * サービスポイントを利用する
+	 */
+	@Transactional
+	@Override
+	public void chargeServicePoint(Integer titleId, Integer serverId, Integer pointId) throws LogicException {
+		
+		// ポイントマスタ（アイテム）を取得する
+		PointMst point = new PointMst();
+		point.setPointId(pointId);
+		point =	pointMstDao.selectByKey(point);
+		if (point == null) {
+			// データが存在しない
+			throw new DataNotExistsException("PointMst Data does not exist!");
+		}
+		
+		// サービスポイント残高情報を取得する(ForUpdate)
+		ServicePoint servicePoint = new ServicePoint();
+		servicePoint.setMemNum(ContextUtil.getMemberNo());
+		servicePoint.setTitleId(titleId);
+		servicePoint = servicePointDao.selectForUpdate(servicePoint);
+		if (servicePoint == null) {
+			// データが存在しない
+			throw new DataNotExistsException("ServicePoint Data does not exist!");
+		}
+		
+		if (0 < point.getPointAmountAct().compareTo(servicePoint.getPointAmount())) {
+
+			// データが存在しない
+			throw new OutOfMaxCountException("ServicePoint is not enough.");
+			
+		}
+		
+		Date now = new Date();
+		
+		// サービスポイント = 残高 - 今回使うポイント
+		servicePoint.setPointAmount(servicePoint.getPointAmount().subtract(point.getPointAmountAct()));
+		servicePoint.setLastUpdateDate(now);
+		servicePoint.setLastUpdateUser(ContextUtil.getMemberNo().toString());
+		// サービスポイント情報を更新する
+		servicePointDao.update(servicePoint);
+		
+		ServicePointUseHist servicePointUseHist = new ServicePointUseHist();
+		servicePointUseHist.setMemNum(ContextUtil.getMemberNo());
+		servicePointUseHist.setTitleId(titleId);
+		servicePointUseHist.setUseDate(now);
+		servicePointUseHist.setPointAmount(point.getPointAmount());
+		servicePointUseHist.setCreatedDate(now);
+		servicePointUseHist.setCreatedUser(ContextUtil.getMemberNo().toString());
+		servicePointUseHist.setLastUpdateDate(now);
+		servicePointUseHist.setLastUpdateUser(ContextUtil.getMemberNo().toString());
+		// サービスポイント利用履歴を保存する
+		servicePointUseHistDao.save(servicePointUseHist);
+
+		// ポイントチャージ
+		ChargeParameter params = new ChargeParameter();
+		params.setMemNum(ContextUtil.getMemberNo());
+		params.setMemId(ContextUtil.getAccountId());
+		params.setOrderNo(servicePointUseHist.getServicePointUseNo());
+		params.setTitleId(titleId);
+		params.setChargePoint(point.getPointAmountAct().intValue());
+		params.setChargeDate(now);
+
+		ServerMst server = new ServerMst();
+		server.setTitleId(titleId);
+		server.setServerId(serverId);
+		server = serverMstDao.selectByKey(server);
+		if (server == null) {
+
+			// データが存在しない
+			throw new DataNotExistsException("Server Data does not exist.");
+		}
+
+		params.setChargeUrl(server.getChargeUrl());
+		params.setSpType(PortalConstants.ChargeSpType.SERVICE_POINT);
+		
+		// チャージを行う
+		int chargeRes = titleCharge.chargePoint(params);
+		if (chargeRes != ChargeConstants.Result.SUCCESS) {
+			throw new LogicException("Failed to charge.");
+		}
+
+		try {
+			// 招待メールを送信する。
+			HashMap<String, String> props = new HashMap<String, String>();
+			// 名前
+			props.put("nickName", ContextUtil.getNickName());
+			// ゲーム
+			props.put("titleName", titleMstDao.selectNameById(titleId));
+			// サーバ
+			props.put("serverName", server.getServerName());
+			// データID
+			props.put("point",point.getPointAmount().toString());
+			// 送信
+			templateMailer.sendAsyncMail(ContextUtil.getMemberInfo().getMailPc(), "pointCharge", props, true);
+		} catch (Exception ex) {
+			logger.error("error has occurred in sending pointCharge mail. ", ex);
+		}
+		
+	}
+
+	/**
+	 * サービスポイント消費履歴一覧を取得する
+	 */
+	@Override
+	public List<MySPUseHist> getMyUseHistList() {
+		return servicePointUseHistDao.selectMyUseHistList(ContextUtil.getMemberNo());
+	}
+
+	/**
+	 * サービスポイント付与履歴一覧を取得する
+	 */
+	@Override
+	public List<MySPGiveHist> getMyGiveHistList() {
+		return servicePointGiveHistDao.selectMyGiveHistList(ContextUtil.getMemberNo());
+	}
+
+	/**
+	 * サービスポイント残高履歴一覧を取得する
+	 */
+	@Override
+	public List<MySPInfo> getMyServicePointList() {
+		return servicePointDao.selectMyServicePointList(ContextUtil.getMemberNo());
 	}
 
 	/**
@@ -242,6 +389,35 @@ public class ServicePointBusinessLogicImpl extends BaseBusinessLogic implements
 	 */
 	public void setTitleMstDao(ITitleMstDao titleMstDao) {
 		this.titleMstDao = titleMstDao;
+	}
+
+	/**
+	 * @param pointMstDao the pointMstDao to set
+	 */
+	public void setPointMstDao(IPointMstDao pointMstDao) {
+		this.pointMstDao = pointMstDao;
+	}
+
+	/**
+	 * @param servicePointUseHistDao the servicePointUseHistDao to set
+	 */
+	public void setServicePointUseHistDao(
+			IServicePointUseHistDao servicePointUseHistDao) {
+		this.servicePointUseHistDao = servicePointUseHistDao;
+	}
+
+	/**
+	 * @param serverMstDao the serverMstDao to set
+	 */
+	public void setServerMstDao(IServerMstDao serverMstDao) {
+		this.serverMstDao = serverMstDao;
+	}
+
+	/**
+	 * @param titleCharge the titleCharge to set
+	 */
+	public void setTitleCharge(TitleCharge titleCharge) {
+		this.titleCharge = titleCharge;
 	}
 
 	/**

@@ -99,4 +99,20 @@
 		</selectKey>
 	</insert>
 
+	<select id="selectAmountByMonth" parameterClass="java.util.HashMap" resultClass="java.math.BigDecimal">   
+        <![CDATA[
+	        SELECT
+				ifnull(sum(point_amount_act), 0) as point_amount_act
+			FROM
+				mem_settlement_hist
+			WHERE
+				mem_num = #memNum#
+			AND settlement_date >= DATE_SUB(now(), INTERVAL 1 MONTH )
+			AND settlement_date <= now()
+        ]]>
+	    <isNotEmpty property="settlementCode">
+	      	<![CDATA[ AND settlement_code = #settlementCode# ]]>
+	    </isNotEmpty>
+	</select>
+
 </sqlMap>

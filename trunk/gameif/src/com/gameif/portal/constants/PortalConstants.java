@@ -129,9 +129,15 @@ public class PortalConstants {
 	/** サービスポイント贈与タイプ */
 	public class ServicePointTypeCd {
 		/** 連続してゲームにログインした場合 */
-		public final static String GAME_LOGIN = "1";
+		public final static int GAME_LOGIN = 1;
 		/** 最近一ヶ月の累計課金金額が一定金額を超えた場合 */
-		public final static String CHARGE = "2";
+		public final static int CHARGE = 2;
+		/** 友達紹介 */
+		public final static int INVITE = 3;
+		/** アンケット */
+		public final static int QUESTIONNAIRE = 4;
+		/** チケット */
+		public final static int TICKET = 10;
 	}
 	
 	/** ポイント区別 */
@@ -163,5 +169,17 @@ public class PortalConstants {
 		public final static String MAINTENANCE = "1";
 		/** テストユーザ使用可 */
 		public final static String TEST = "2";
+	}
+	
+	/** 決済方法 */
+	public class SettlementCode {
+		// 
+		public final static String BITCASH = "bitcash";
+		public final static String CREDIT = "credit";
+		public final static String CYBEREDY = "cyberedy";
+		public final static String MOBILEEDY = "mobileedy";
+		public final static String NETCASH = "netcash";
+		public final static String WEBMONEY = "webmoney";
+		
 	}
 }

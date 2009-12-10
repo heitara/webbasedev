@@ -64,15 +64,20 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 	
 	// 有効期間
 	private Integer validDays;
+	// 購入できるポイントの限度額（100,000）
+	private BigDecimal limitAmountMax;
+	// 購入できるポイントの限度額（30,000）
+	private BigDecimal limitAmountMin;
 
 	/**
 	 * 仮決済を登録する
+	 * @param settlementTrns　仮決済情報
+	 * @return 0:正常終了、１：会員が18歳未満、クレジットカードは利用できない、２：限度額が30000をお超える、３：限度額が100000をお超える
 	 */
 	@Transactional
 	@Override
-	public void saveSettlementTrns(MemSettlementTrns settlementTrns)
-			throws LogicException {
-
+	public int saveSettlementTrns(MemSettlementTrns settlementTrns) throws LogicException {
+		
 		// 会員情報を取得する
 		MemberInfo memberInfo = new MemberInfo();
 		memberInfo.setMemNum(ContextUtil.getMemberNo());
@@ -94,6 +99,49 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		}
 
 		Date settleDate = new Date();
+		
+		// 会員生年月日が入力した場合
+		if (memberInfo.getBirthYmd() != null) {
+			Calendar c = Calendar.getInstance();
+			c.setTime(memberInfo.getBirthYmd());
+			// 会員生年月日　+　18年
+			c.add(Calendar.YEAR, 18);
+			Date ageDate = c.getTime();
+			if (ageDate.compareTo(settleDate) > 0 && settlementTrns.getSettlementCode().equals(PortalConstants.SettlementCode.CREDIT)) {
+				return 1;
+			} else {
+				// 最近一ヶ月間チャージするポイントを計算する
+				BigDecimal limitAmouont = memSettlementHistDao.selectAmountByMonth(null, ContextUtil.getMemberNo());
+				if (limitAmouont.compareTo(limitAmountMin) > 0) {
+					return 2;
+				}
+			}
+		}
+		
+		// クレジットカード決済の場合、限度額のチェックを行う
+		if (settlementTrns.getSettlementCode().equals(PortalConstants.SettlementCode.CREDIT)) {
+			// 最近一ヶ月間チャージするポイントを計算する
+			BigDecimal sumPointAmouont = memSettlementHistDao.selectAmountByMonth(PortalConstants.SettlementCode.CREDIT, ContextUtil.getMemberNo());
+			
+			Calendar c = Calendar.getInstance();
+			c.setTime(memberInfo.getEntryDate());
+			// 会員登録から30日間、
+			c.add(Calendar.DATE, 30);
+			Date loginDate = c.getTime();
+			
+			// 登録の31日目から、一ヶ月間に購入できるポイントの限度額が100,000です
+			if (loginDate.compareTo(settleDate) <= 0) {
+				if (sumPointAmouont.compareTo(limitAmountMax) > 0) {
+					return 3;
+				}
+			// 登録からの30日間、一ヶ月間に購入できるポイントの限度額が30,000です
+			} else {
+				if (sumPointAmouont.compareTo(limitAmountMin) > 0) {
+					return 2;
+				}
+			}
+		}
+		
 		settlementTrns.setMemNum(memberInfo.getMemNum());
 		settlementTrns.setMemAtbtCd(memberInfo.getMemAtbtCd());
 		settlementTrns.setSettlementDate(settleDate);
@@ -104,6 +152,8 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		settlementTrns.setCreatedUser(memberInfo.getMemNum().toString());
 		// 仮決済を登録する
 		memSettlementTrnsDao.save(settlementTrns);
+		
+		return 0;
 	}
 	
 	/**
@@ -324,17 +374,14 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		ServicePoint servicePoint = new ServicePoint();
 		servicePoint.setMemNum(ContextUtil.getMemberNo());
 		servicePoint.setTitleId(settlementHist.getTitleId());
-		servicePoint.setGiveDate(giveDate);
 		// 有効なデータが存在かどうか
-		servicePoint = servicePointDao.selectByTitleAndMemnumForUpdate(servicePoint);
+		servicePoint = servicePointDao.selectForUpdate(servicePoint);
 		BigDecimal amount = settlementHist.getPointAmountAct().multiply(servicePointTypeMst.getPointAmount()).divide(new BigDecimal(100));
 		if (servicePoint == null) {
 
 			servicePoint = new ServicePoint();
 
 			servicePoint.setMemNum(settlementHist.getMemNum());
-			servicePoint.setGiveDate(giveDate);
-			servicePoint.setPointStartDate(giveDate);
 			servicePoint.setPointEndDate(endDate);
 			servicePoint.setTitleId(settlementHist.getTitleId());
 			// サービスポイント = 決済ポイント数 * 基準パーセント数
@@ -347,8 +394,14 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 			// サービスポイント残高テーブルに登録する
 			servicePointDao.save(servicePoint);
 		} else {
-			// 残高 = 元の残高 + 今回のポイント数
-			servicePoint.setPointAmount(servicePoint.getPointAmount().add(amount));
+			// 既に期限切れました
+			if (giveDate.compareTo(servicePoint.getPointEndDate()) > 0) {
+				// 残高 = 今回のポイント数
+				servicePoint.setPointAmount(amount);
+			} else {
+				// 残高 = 元の残高 + 今回のポイント数
+				servicePoint.setPointAmount(servicePoint.getPointAmount().add(amount));
+			}
 			servicePoint.setPointEndDate(endDate);
 			servicePoint.setLastUpdateDate(giveDate);
 			servicePoint.setLastUpdateUser(settlementHist.getMemNum().toString());
@@ -359,12 +412,11 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		
 		// サービスポイント贈与履歴
 		ServicePointGiveHist servicePointGiveHist = new ServicePointGiveHist();
-		servicePointGiveHist.setServicePointNo(servicePoint.getServicePointNo());
 		servicePointGiveHist.setMemNum(settlementHist.getMemNum());
 		servicePointGiveHist.setServicePointTypeId(servicePointTypeMst.getServicePointTypeId());
+		servicePointGiveHist.setServicePointTypeCd(PortalConstants.ServicePointTypeCd.CHARGE);
 		servicePointGiveHist.setTitleId(settlementHist.getTitleId());
 		servicePointGiveHist.setGiveDate(giveDate);
-		servicePointGiveHist.setPointStartDate(giveDate);
 		servicePointGiveHist.setPointEndDate(endDate);
 		servicePointGiveHist.setPointAmount(amount);
 		servicePointGiveHist.setCreatedDate(giveDate);
@@ -592,6 +644,34 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 	 */
 	public void setValidDays(Integer validDays) {
 		this.validDays = validDays;
+	}
+
+	/**
+	 * @return the limitAmountMax
+	 */
+	public BigDecimal getLimitAmountMax() {
+		return limitAmountMax;
+	}
+
+	/**
+	 * @param limitAmountMax the limitAmountMax to set
+	 */
+	public void setLimitAmountMax(BigDecimal limitAmountMax) {
+		this.limitAmountMax = limitAmountMax;
+	}
+
+	/**
+	 * @return the limitAmountMin
+	 */
+	public BigDecimal getLimitAmountMin() {
+		return limitAmountMin;
+	}
+
+	/**
+	 * @param limitAmountMin the limitAmountMin to set
+	 */
+	public void setLimitAmountMin(BigDecimal limitAmountMin) {
+		this.limitAmountMin = limitAmountMin;
 	}
 
 }

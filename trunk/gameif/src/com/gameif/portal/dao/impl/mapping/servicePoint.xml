@@ -6,27 +6,29 @@
 	<typeAlias alias="servicePoint" type="com.gameif.portal.entity.ServicePoint" />
 	
 	<resultMap class="com.gameif.portal.entity.ServicePoint" id="servicePointResult">
-		<result property="servicePointNo" column="service_point_no" />
 		<result property="memNum" column="mem_num" />
-		<result property="giveDate" column="give_date" />
-		<result property="pointStartDate" column="point_start_date" />
-		<result property="pointEndDate" column="point_end_date" />
 		<result property="titleId" column="title_id" />
+		<result property="pointEndDate" column="point_end_date" />
 		<result property="pointAmount" column="point_amount" />
 		<result property="createdDate" column="created_date"/>
 		<result property="createdUser" column="created_user"/>
 		<result property="lastUpdateDate" column="last_update_date"/>
 		<result property="lastUpdateUser" column="last_update_user"/>
 	</resultMap>
+				
+	<resultMap class="com.gameif.portal.entity.MySPInfo" id="mySPInfoResult">
+		<result property="titleId" column="title_id"/>
+		<result property="titleName" column="title_name"/>
+		<result property="pointEndDate" column="point_end_date"/>
+		<result property="pointAmount" column="point_amount"/>
+	</resultMap>
 	
 	<insert id = "save" parameterClass="servicePoint"> 
         <![CDATA[
 			INSERT INTO service_point
 				(mem_num,
-				give_date,
-				point_start_date,
-				point_end_date,
 				title_id,
+				point_end_date,
 				point_amount,
 				created_date,
 				created_user,
@@ -34,32 +36,22 @@
 				last_update_user)
 			VALUES
 				(#memNum#,
-				#giveDate#,
-				#pointStartDate#,
-				#pointEndDate#,
 				#titleId#,
+				#pointEndDate#,
 				#pointAmount#,
 				#createdDate#,
 				#createdUser#,
 				#lastUpdateDate#,
 				#lastUpdateUser#)
         ]]>
-		<selectKey resultClass="java.lang.Long" keyProperty="servicePointNo">   
-        	<![CDATA[
-			SELECT last_insert_id() as service_point_no
-        	]]>
-		</selectKey>
 	</insert>
 
-	<select id="selectByTitleAndMemnumForUpdate" parameterClass="servicePoint" resultMap="servicePointResult">   
+	<select id="selectForUpdate" parameterClass="servicePoint" resultMap="servicePointResult">   
         <![CDATA[
 	        SELECT
-				service_point_no,
 				mem_num,
-				give_date,
-				point_start_date,
-				point_end_date,
 				title_id,
+				point_end_date,
 				point_amount,
 				created_date,
 				created_user,
@@ -70,7 +62,6 @@
 			WHERE
 				mem_num = #memNum#
 			AND title_id = #titleId#
-      		AND (#giveDate# BETWEEN point_start_date AND point_end_date)
 			FOR UPDATE
         ]]>
 	</select>
@@ -78,19 +69,35 @@
 	<update id="update" parameterClass="servicePoint">
 		<![CDATA[
 			UPDATE service_point
-			SET	mem_num = #memNum#,
-				give_date = #giveDate#,
-				point_start_date = #pointStartDate#,
+			SET	
 				point_end_date = #pointEndDate#,
-				title_id = #titleId#,
 				point_amount = #pointAmount#,
-				created_date = #createdDate#,
-				created_user = #createdUser#,
 				last_update_date = #lastUpdateDate#,
 				last_update_user = #lastUpdateUser#
 			WHERE
-				service_point_no = #servicePointNo#
+				mem_num = #memNum#
+			AND title_id = #titleId#
 		]]>
 	</update>
+	
+	<select id="selectMyServicePointList" resultMap="mySPInfoResult">
+        <![CDATA[
+			SELECT
+				title_mst.title_name,
+				title_mst.title_id,
+				service_point.point_end_date,
+				service_point.point_amount
+			FROM
+				title_mst
+			LEFT JOIN 
+				service_point
+			ON	
+				title_mst.title_id = service_point.title_id
+			AND 
+				service_point.mem_num = #value#
+			ORDER BY 
+				title_mst.title_id
+        ]]>
+	</select>
 
 </sqlMap>
