@@ -45,5 +45,12 @@
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/questionnaireAnswer.xml" />
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/questionnaireMst.xml" />
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/memberWithdrawInfo.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/servicePointUseHist.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/ticketMst.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/ticketModelMst.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/ticketModelDetail.xml"/>
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/ticketInfo.xml"/>
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/ticketGiveHist.xml"/>
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/ticketUseHist.xml"/>
 	
 </sqlMapConfig>
