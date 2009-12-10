@@ -5,20 +5,18 @@ import java.util.Date;
 
 import com.gameif.common.entity.BaseEntity;
 
-public class ServicePointGiveHist extends BaseEntity {
+public class ServicePointUseHist extends BaseEntity {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -2721743081474781512L;
+	private static final long serialVersionUID = 4834394992707522929L;
 
-	private Long servicePointGiveNo;
+	private Long servicePointUseNo;
 	private Long memNum;
-	private Integer servicePointTypeId;
-	private Integer servicePointTypeCd;
 	private Integer titleId;
-	private Date giveDate;
-	private Date pointEndDate;
+	private Integer serverId;
+	private Date useDate;
 	private BigDecimal pointAmount;
 	private Date createdDate;
 	private String createdUser;
@@ -26,18 +24,18 @@ public class ServicePointGiveHist extends BaseEntity {
 	private String lastUpdateUser;
 
 	/**
-	 * @return the servicePointGiveNo
+	 * @return the servicePointUseNo
 	 */
-	public Long getServicePointGiveNo() {
-		return servicePointGiveNo;
+	public Long getServicePointUseNo() {
+		return servicePointUseNo;
 	}
 
 	/**
-	 * @param servicePointGiveNo
-	 *            the servicePointGiveNo to set
+	 * @param servicePointUseNo
+	 *            the servicePointUseNo to set
 	 */
-	public void setServicePointGiveNo(Long servicePointGiveNo) {
-		this.servicePointGiveNo = servicePointGiveNo;
+	public void setServicePointUseNo(Long servicePointUseNo) {
+		this.servicePointUseNo = servicePointUseNo;
 	}
 
 	/**
@@ -56,36 +54,6 @@ public class ServicePointGiveHist extends BaseEntity {
 	}
 
 	/**
-	 * @return the servicePointTypeId
-	 */
-	public Integer getServicePointTypeId() {
-		return servicePointTypeId;
-	}
-
-	/**
-	 * @param servicePointTypeId
-	 *            the servicePointTypeId to set
-	 */
-	public void setServicePointTypeId(Integer servicePointTypeId) {
-		this.servicePointTypeId = servicePointTypeId;
-	}
-
-	/**
-	 * @return the servicePointTypeCd
-	 */
-	public Integer getServicePointTypeCd() {
-		return servicePointTypeCd;
-	}
-
-	/**
-	 * @param servicePointTypeCd
-	 *            the servicePointTypeCd to set
-	 */
-	public void setServicePointTypeCd(Integer servicePointTypeCd) {
-		this.servicePointTypeCd = servicePointTypeCd;
-	}
-
-	/**
 	 * @return the titleId
 	 */
 	public Integer getTitleId() {
@@ -101,33 +69,32 @@ public class ServicePointGiveHist extends BaseEntity {
 	}
 
 	/**
-	 * @return the giveDate
+	 * @return the serverId
 	 */
-	public Date getGiveDate() {
-		return giveDate;
+	public Integer getServerId() {
+		return serverId;
 	}
 
 	/**
-	 * @param giveDate
-	 *            the giveDate to set
+	 * @param serverId the serverId to set
 	 */
-	public void setGiveDate(Date giveDate) {
-		this.giveDate = giveDate;
+	public void setServerId(Integer serverId) {
+		this.serverId = serverId;
 	}
 
 	/**
-	 * @return the pointEndDate
+	 * @return the useDate
 	 */
-	public Date getPointEndDate() {
-		return pointEndDate;
+	public Date getUseDate() {
+		return useDate;
 	}
 
 	/**
-	 * @param pointEndDate
-	 *            the pointEndDate to set
+	 * @param useDate
+	 *            the useDate to set
 	 */
-	public void setPointEndDate(Date pointEndDate) {
-		this.pointEndDate = pointEndDate;
+	public void setUseDate(Date useDate) {
+		this.useDate = useDate;
 	}
 
 	/**

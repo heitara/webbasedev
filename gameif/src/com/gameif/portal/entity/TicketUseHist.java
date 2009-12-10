@@ -5,20 +5,20 @@ import java.util.Date;
 
 import com.gameif.common.entity.BaseEntity;
 
-public class ServicePointGiveHist extends BaseEntity {
+public class TicketUseHist extends BaseEntity {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -2721743081474781512L;
+	private static final long serialVersionUID = 5643535377548899480L;
 
-	private Long servicePointGiveNo;
+	private Long ticketUseNo;
 	private Long memNum;
-	private Integer servicePointTypeId;
-	private Integer servicePointTypeCd;
-	private Integer titleId;
-	private Date giveDate;
-	private Date pointEndDate;
+	private Integer ticketId;
+	private Date ticketUseDate;
+	private Date ticketStartDate;
+	private Date ticketEndDate;
+	private Integer ticketCount;
 	private BigDecimal pointAmount;
 	private Date createdDate;
 	private String createdUser;
@@ -26,18 +26,18 @@ public class ServicePointGiveHist extends BaseEntity {
 	private String lastUpdateUser;
 
 	/**
-	 * @return the servicePointGiveNo
+	 * @return the ticketUseNo
 	 */
-	public Long getServicePointGiveNo() {
-		return servicePointGiveNo;
+	public Long getTicketUseNo() {
+		return ticketUseNo;
 	}
 
 	/**
-	 * @param servicePointGiveNo
-	 *            the servicePointGiveNo to set
+	 * @param ticketUseNo
+	 *            the ticketUseNo to set
 	 */
-	public void setServicePointGiveNo(Long servicePointGiveNo) {
-		this.servicePointGiveNo = servicePointGiveNo;
+	public void setTicketUseNo(Long ticketUseNo) {
+		this.ticketUseNo = ticketUseNo;
 	}
 
 	/**
@@ -56,78 +56,78 @@ public class ServicePointGiveHist extends BaseEntity {
 	}
 
 	/**
-	 * @return the servicePointTypeId
+	 * @return the ticketId
 	 */
-	public Integer getServicePointTypeId() {
-		return servicePointTypeId;
+	public Integer getTicketId() {
+		return ticketId;
 	}
 
 	/**
-	 * @param servicePointTypeId
-	 *            the servicePointTypeId to set
+	 * @param ticketId
+	 *            the ticketId to set
 	 */
-	public void setServicePointTypeId(Integer servicePointTypeId) {
-		this.servicePointTypeId = servicePointTypeId;
+	public void setTicketId(Integer ticketId) {
+		this.ticketId = ticketId;
 	}
 
 	/**
-	 * @return the servicePointTypeCd
+	 * @return the ticketUseDate
 	 */
-	public Integer getServicePointTypeCd() {
-		return servicePointTypeCd;
+	public Date getTicketUseDate() {
+		return ticketUseDate;
 	}
 
 	/**
-	 * @param servicePointTypeCd
-	 *            the servicePointTypeCd to set
+	 * @param ticketUseDate
+	 *            the ticketUseDate to set
 	 */
-	public void setServicePointTypeCd(Integer servicePointTypeCd) {
-		this.servicePointTypeCd = servicePointTypeCd;
+	public void setTicketUseDate(Date ticketUseDate) {
+		this.ticketUseDate = ticketUseDate;
 	}
 
 	/**
-	 * @return the titleId
+	 * @return the ticketStartDate
 	 */
-	public Integer getTitleId() {
-		return titleId;
+	public Date getTicketStartDate() {
+		return ticketStartDate;
 	}
 
 	/**
-	 * @param titleId
-	 *            the titleId to set
+	 * @param ticketStartDate
+	 *            the ticketStartDate to set
 	 */
-	public void setTitleId(Integer titleId) {
-		this.titleId = titleId;
+	public void setTicketStartDate(Date ticketStartDate) {
+		this.ticketStartDate = ticketStartDate;
 	}
 
 	/**
-	 * @return the giveDate
+	 * @return the ticketEndDate
 	 */
-	public Date getGiveDate() {
-		return giveDate;
+	public Date getTicketEndDate() {
+		return ticketEndDate;
 	}
 
 	/**
-	 * @param giveDate
-	 *            the giveDate to set
+	 * @param ticketEndDate
+	 *            the ticketEndDate to set
 	 */
-	public void setGiveDate(Date giveDate) {
-		this.giveDate = giveDate;
+	public void setTicketEndDate(Date ticketEndDate) {
+		this.ticketEndDate = ticketEndDate;
 	}
 
 	/**
-	 * @return the pointEndDate
+	 * @return the ticketCount
 	 */
-	public Date getPointEndDate() {
-		return pointEndDate;
+	public Integer getTicketCount() {
+		return ticketCount;
 	}
 
 	/**
-	 * @param pointEndDate
-	 *            the pointEndDate to set
+	 * @param ticketCount
+	 *            the ticketCount to set
 	 */
-	public void setPointEndDate(Date pointEndDate) {
-		this.pointEndDate = pointEndDate;
+	public void setTicketCount(Integer ticketCount) {
+		this.ticketCount = ticketCount;
 	}
 
 	/**
@@ -138,8 +138,7 @@ public class ServicePointGiveHist extends BaseEntity {
 	}
 
 	/**
-	 * @param pointAmount
-	 *            the pointAmount to set
+	 * @param pointAmount the pointAmount to set
 	 */
 	public void setPointAmount(BigDecimal pointAmount) {
 		this.pointAmount = pointAmount;
@@ -204,5 +203,4 @@ public class ServicePointGiveHist extends BaseEntity {
 	public void setLastUpdateUser(String lastUpdateUser) {
 		this.lastUpdateUser = lastUpdateUser;
 	}
-
 }

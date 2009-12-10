@@ -17,7 +17,7 @@ public class ServicePointTypeMstDaoImpl extends
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public ServicePointTypeMst selectValidGameloginPoint(String servicePointTypeCd, Integer standardLevel) {
+	public ServicePointTypeMst selectValidGameloginPoint(Integer servicePointTypeCd, Integer standardLevel) {
 		
 		HashMap params = new HashMap();
 		

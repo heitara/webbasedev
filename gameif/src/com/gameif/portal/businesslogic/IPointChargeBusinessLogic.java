@@ -12,8 +12,7 @@ public interface IPointChargeBusinessLogic {
 	 * 仮決済を登録する
 	 * @param settlementTrns 仮決済情報（必要な項目が格納されていること）
 	 */
-	@Transactional
-	public void saveSettlementTrns(MemSettlementTrns settlementTrns) throws LogicException;
+	public int saveSettlementTrns(MemSettlementTrns settlementTrns) throws LogicException;
 	
 	public MemSettlementTrns getSettlementTrnsByKey(Long settleTrnsNum);
 
