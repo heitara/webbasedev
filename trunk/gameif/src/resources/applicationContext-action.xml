@@ -245,6 +245,13 @@
 		</property>
 	</bean>
 	
+	<!-- ticketControlAction -->
+	<bean id="ticketControlAction" class="com.gameif.portal.action.ticket.TicketControlAction" scope="prototype">
+		<property name="ticketBusinessLogic">
+			<ref bean="ticketBusinessLogic" />
+		</property>
+	</bean>
+	
 	<!-- loginStatusProxyAction -->
 	<bean id="loginStatusProxyAction" class="com.gameif.portal.action.menu.LoginStatusProxyAction" scope="prototype" />
 	<!-- logoutProxyAction -->

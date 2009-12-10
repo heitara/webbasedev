@@ -165,7 +165,15 @@
 		class="com.gameif.portal.businesslogic.impl.PointChargeBusinessLogicImpl">
 		<!-- サービスポイントの失効時間（単位:日） -->
 		<property name="validDays">
-			<value>${pointChargeBusinessLogic.validDays}</value>
+			<value>${servicePoint.validDays}</value>
+		</property>
+		<!-- 購入できるポイントの限度額（100,000） -->
+		<property name="limitAmountMax">
+			<value>${pointCharge.limitAmountMax}</value>
+		</property>
+		<!-- 購入できるポイントの限度額（30,000） -->
+		<property name="limitAmountMin">
+			<value>${pointCharge.limitAmountMin}</value>
 		</property>
 		<property name="memSettlementHistDao">
 			<ref bean="memSettlementHistDao" />
@@ -222,6 +230,10 @@
 	<!-- servicePointBusinessLogic -->
 	<bean id="servicePointBusinessLogic"
 		class="com.gameif.portal.businesslogic.impl.ServicePointBusinessLogicImpl">
+		<!-- サービスポイントの失効時間（単位:日） -->
+		<property name="validDays">
+			<value>${servicePoint.validDays}</value>
+		</property>
 		<property name="gameLoginCountDao">
 			<ref bean="gameLoginCountDao" />
 		</property>
@@ -239,6 +251,15 @@
 		</property>
 		<property name="titleMstDao">
 			<ref bean="titleMstDao" />
+		</property>
+		<property name="pointMstDao">
+			<ref bean="pointMstDao" />
+		</property>
+		<property name="servicePointUseHistDao">
+			<ref bean="servicePointUseHistDao" />
+		</property>
+		<property name="serverMstDao">
+			<ref bean="serverMstDao" />
 		</property>
 	</bean>
 	
@@ -261,6 +282,42 @@
 		</property>
 		<property name="questionnaireAnswerDao">
 			<ref bean="questionnaireAnswerDao" />
+		</property>
+	</bean>
+	
+	<!-- ticketBusinessLogic -->
+	<bean id="ticketBusinessLogic"
+		class="com.gameif.portal.businesslogic.impl.TicketBusinessLogicImpl">
+		<!-- サービスポイントの失効時間（単位:日） -->
+		<property name="validDays">
+			<value>${servicePoint.validDays}</value>
+		</property>
+		<property name="ticketInfoDao">
+			<ref bean="ticketInfoDao" />
+		</property>
+		<property name="ticketUseHistDao">
+			<ref bean="ticketUseHistDao" />
+		</property>
+		<property name="ticketModelMstDao">
+			<ref bean="ticketModelMstDao" />
+		</property>
+		<property name="ticketModelDetailDao">
+			<ref bean="ticketModelDetailDao" />
+		</property>
+		<property name="servicePointDao">
+			<ref bean="servicePointDao" />
+		</property>
+		<property name="servicePointGiveHistDao">
+			<ref bean="servicePointGiveHistDao" />
+		</property>
+		<property name="titleMstDao">
+			<ref bean="titleMstDao" />
+		</property>
+		<property name="templateMailer">
+			<ref bean="templateMailer" />
+		</property>
+		<property name="ticketGiveHistDao">
+			<ref bean="ticketGiveHistDao" />
 		</property>
 	</bean>
 </beans>
