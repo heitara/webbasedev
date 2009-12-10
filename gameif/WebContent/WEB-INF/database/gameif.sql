@@ -433,18 +433,15 @@ CREATE TABLE  `beta_tester` (
 
 DROP TABLE IF EXISTS `service_point`;
 CREATE TABLE  `service_point` (
-  `service_point_no` bigint(20) NOT NULL AUTO_INCREMENT,
   `mem_num` bigint(20) NOT NULL,
-  `give_date` datetime DEFAULT NULL,
-  `point_start_date` datetime DEFAULT NULL,
+  `title_id` int(11) NOT NULL,
   `point_end_date` datetime DEFAULT NULL,
-  `title_id` int(11) DEFAULT NULL,
   `point_amount` decimal(10,0) DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
   `created_user` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `last_update_date` datetime DEFAULT NULL,
   `last_update_user` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`service_point_no`)
+  PRIMARY KEY (`mem_num`,`title_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
@@ -486,22 +483,60 @@ CREATE TABLE  `service_point_type_mst` (
 
 
 DROP TABLE IF EXISTS `service_point_give_hist`;
-CREATE TABLE  `service_point_give_hist` (
-  `service_point_give_hist_no` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `service_point_give_hist` (
+  `service_point_give_no` bigint(20) NOT NULL AUTO_INCREMENT,
   `mem_num` bigint(20) NOT NULL,
-  `service_point_no` bigint(20) NOT NULL,
   `service_point_type_id` int(11) DEFAULT NULL,
+  `service_point_type_cd` int(11) DEFAULT NULL,
   `title_id` int(11) DEFAULT NULL,
   `give_date` datetime DEFAULT NULL,
-  `point_start_date` datetime DEFAULT NULL,
   `point_end_date` datetime DEFAULT NULL,
   `point_amount` decimal(10,0) DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `created_user` varchar(50) DEFAULT NULL,
+  `last_update_date` datetime DEFAULT NULL,
+  `last_update_user` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`service_point_give_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+DROP TABLE IF EXISTS `service_point_change_hist`;
+CREATE TABLE `service_point_change_hist` (
+  `service_point_change_no` bigint(20) NOT NULL AUTO_INCREMENT,
+  `mem_num` bigint(20) NOT NULL,
+  `from_title_id` int(11) NOT NULL,
+  `from_point_end_date` datetime DEFAULT NULL,
+  `from_point_amount` decimal(10,0) DEFAULT NULL,
+  `to_title_id` int(11) NOT NULL,
+  `to_point_end_date` datetime DEFAULT NULL,
+  `to_point_amount` decimal(10,0) DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
   `created_user` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `last_update_date` datetime DEFAULT NULL,
   `last_update_user` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`service_point_give_hist_no`)
+  PRIMARY KEY (`service_point_change_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+
+DROP TABLE IF EXISTS `service_point_use_hist`;
+CREATE TABLE `service_point_use_hist` (
+  `service_point_use_no` bigint(20) NOT NULL AUTO_INCREMENT,
+  `mem_num` bigint(20) DEFAULT NULL,
+  `title_id` int(11) DEFAULT NULL,
+  `server_id` int(11) DEFAULT NULL,
+  `use_date` datetime DEFAULT NULL,
+  `point_amount` decimal(10,0) DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `created_user` varchar(50) DEFAULT NULL,
+  `last_update_date` datetime DEFAULT NULL,
+  `last_update_user` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`service_point_use_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
 
 
 
@@ -768,6 +803,123 @@ CREATE TABLE  `questionnaire_answer` (
   `question24` varchar(800) DEFAULT NULL,
   `question25` varchar(800) DEFAULT NULL,
   PRIMARY KEY (`mem_num`,`question_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+
+
+DROP TABLE IF EXISTS `mem_withdraw_info`;
+CREATE TABLE `member_withdraw_info` (
+  `mem_num` bigint(20) NOT NULL,
+  `withdraw_date` datetime DEFAULT NULL,
+  `withdraw_reason` int(11) DEFAULT NULL,
+  `remarks` varchar(2000) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`mem_num`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+DROP TABLE IF EXISTS `ticket_mst`;
+CREATE TABLE `ticket_mst` (
+  `ticket_id` int(11) NOT NULL,
+  `ticket_name` varchar(50) DEFAULT NULL,
+  `ticket_type_cd` smallint(6) DEFAULT NULL,
+  `ticket_model_id` int(11) NOT NULL,
+  `delay_days` smallint(6) DEFAULT NULL,
+  `valid_days` smallint(6) DEFAULT NULL,
+  `title_id` int(11) DEFAULT NULL,
+  `icon_url` varchar(100) DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `created_user` varchar(50) DEFAULT NULL,
+  `last_update_date` datetime DEFAULT NULL,
+  `last_update_user` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`ticket_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+DROP TABLE IF EXISTS `ticket_model_mst`;
+CREATE TABLE `ticket_model_mst` (
+  `model_id` int(11) NOT NULL,
+  `limit_point_lower` decimal(10,0) NOT NULL,
+  `limit_point_upper` decimal(10,0) NOT NULL,
+  `model_name` varchar(50) DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `created_user` varchar(50) DEFAULT NULL,
+  `last_update_date` datetime DEFAULT NULL,
+  `last_update_user` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`model_id`,`limit_point_upper`,`limit_point_lower`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+DROP TABLE IF EXISTS `ticket_model_detail`;
+CREATE TABLE `ticket_model_detail` (
+  `model_detail_id` int(11) NOT NULL,
+  `model_id` int(11) NOT NULL,
+  `limit_point_lower` decimal(10,0) NOT NULL,
+  `limit_point_upper` decimal(10,0) NOT NULL,
+  `person_count` int(11) DEFAULT NULL,
+  `person_count_lower` int(11) DEFAULT NULL,
+  `person_count_upper` int(11) DEFAULT NULL,
+  `prize_point` decimal(10,0) DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `created_user` varchar(50) DEFAULT NULL,
+  `last_update_date` datetime DEFAULT NULL,
+  `last_update_user` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`model_detail_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+DROP TABLE IF EXISTS `ticket_info`;
+CREATE TABLE `ticket_info` (
+  `mem_num` bigint(20) NOT NULL,
+  `ticket_id` int(11) NOT NULL,
+  `ticket_start_date` datetime DEFAULT NULL,
+  `ticket_end_date` datetime DEFAULT NULL,
+  `ticket_count` int(11) DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `created_user` varchar(50) DEFAULT NULL,
+  `last_update_date` datetime DEFAULT NULL,
+  `last_update_user` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`mem_num`,`ticket_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+DROP TABLE IF EXISTS `ticket_give_hist`;
+CREATE TABLE `ticket_give_hist` (
+  `ticket_give_no` bigint(20) NOT NULL AUTO_INCREMENT,
+  `mem_num` bigint(20) DEFAULT NULL,
+  `ticket_id` int(11) DEFAULT NULL,
+  `ticket_type_cd` smallint(6) DEFAULT NULL,
+  `ticket_give_date` datetime DEFAULT NULL,
+  `ticket_start_date` datetime DEFAULT NULL,
+  `ticket_end_date` datetime DEFAULT NULL,
+  `ticket_count` int(11) DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `created_user` varchar(50) DEFAULT NULL,
+  `last_update_date` datetime DEFAULT NULL,
+  `last_update_user` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`ticket_give_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+DROP TABLE IF EXISTS `ticket_use_hist`;
+CREATE TABLE `ticket_use_hist` (
+  `ticket_use_no` bigint(20) NOT NULL AUTO_INCREMENT,
+  `mem_num` bigint(20) DEFAULT NULL,
+  `ticket_id` int(11) DEFAULT NULL,
+  `ticket_use_date` datetime DEFAULT NULL,
+  `ticket_start_date` datetime DEFAULT NULL,
+  `ticket_end_date` datetime DEFAULT NULL,
+  `ticket_count` int(11) DEFAULT NULL,
+  `point_amount` decimal(10,0) DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `created_user` varchar(50) DEFAULT NULL,
+  `last_update_date` datetime DEFAULT NULL,
+  `last_update_user` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`ticket_use_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
