@@ -12,11 +12,9 @@
 	-->
 	
 	<bean id="displayAction" class="com.gameif.backoffice.action.menu.DisplayAction" scope="prototype">
-		<!-- 
-		<property name="portalProperties">
-			<ref bean="portalProperties" />
+		<property name="backOfficeProperties">
+			<ref bean="backOfficeProperties" />
 		</property>
-		 -->
 	</bean>
 			
 	<!-- userLoginAction -->
@@ -108,6 +106,26 @@
 	<bean id="inquiryBindMailTemplateAction" class="com.gameif.backoffice.action.inquiryMailTemplate.InquiryBindMailTemplateAction" scope="prototype">
 		<property name="inquiryMailTemplateBusinessLogic">
 			<ref bean="inquiryMailTemplateBusinessLogic" />
+		</property>
+	</bean>
+	
+	<!-- ticketControlAction -->
+	<bean id="ticketControlAction" class="com.gameif.backoffice.action.ticket.TicketControlAction" scope="prototype">
+		<property name="ticketBusinessLogic">
+			<ref bean="ticketBusinessLogic" />
+		</property>
+		<property name="masterInfoBusinessLogic">
+			<ref bean="masterInfoBusinessLogic" />
+		</property>
+		<property name="backOfficeProperties">
+			<ref bean="backOfficeProperties" />
+		</property>
+	</bean>
+	
+	<!-- ticketBindMasterAction -->
+	<bean id="ticketBindMasterAction" class="com.gameif.backoffice.action.ticket.TicketBindMasterAction" scope="prototype">
+		<property name="ticketBusinessLogic">
+			<ref bean="ticketBusinessLogic" />
 		</property>
 	</bean>
 </beans>

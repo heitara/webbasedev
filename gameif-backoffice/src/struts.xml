@@ -114,11 +114,25 @@
 			<result name="inputEdit">/WEB-INF/pages/backoffice/inquiry_mail_template_edit.jsp</result>
 			<result name="input">/WEB-INF/pages/backoffice/inquiry_mail_template_list.jsp</result>
 		</action>
+
+		<action name="*Ticket" class="ticketControlAction" method="{1}">
+			<interceptor-ref name="scopedModelDriven">
+				<param name="scope">request</param>
+				<param name="name">ticketGiveHist</param>
+				<param name="className">com.gameif.backoffice.entity.TicketGiveHist</param>
+			</interceptor-ref>
+			<interceptor-ref name="gameifStack"></interceptor-ref>
+			<result name="inputGive">/WEB-INF/pages/backoffice/ticket_give.jsp</result>
+			<result name="finishedGive" type="redirect">/finishedPage.html?action=giveTicket</result>
+		</action>
 		
 	</package>
 	
 	<package name="gamejax" extends="json-default">
 		<action name="importMailContents" class="inquiryBindMailTemplateAction" method="importMailContents">
+            <result type="json"></result>
+		</action>
+		<action name="bindTicketMst" class="ticketBindMasterAction" method="bindTicketMst">
             <result type="json"></result>
 		</action>
 	</package>

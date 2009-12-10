@@ -85,4 +85,47 @@
         ]]>
 	</select>
 
+	<select id="selectByMemId" resultMap="memberResult">   
+        <![CDATA[
+        SELECT
+			mem_num,
+			mem_id,
+			nick_name,
+			mem_pwd,
+			mem_kind_cd,
+			mem_atbt_cd,
+			mem_valid_yn_cd,
+			question_cd,
+			answer,
+			mail_pc,
+			mail_mobile,
+			kanji_fname,
+			kanji_lname,
+			kana_fname,
+			kana_lname,
+			sex_cd,
+			birth_ymd,
+			divis_cd,
+			occup_cd,
+			city_name,
+			building_name,
+			tel_num,
+			mailmag_req_cd,
+			mailmag_obj_cd,
+			note,
+			entry_date,
+			entry_ip,
+			withdraw_date,
+			withdraw_ip,
+			last_update_date,
+			last_update_ip,
+			last_update_user,
+			version_no
+		FROM
+			member_info
+		WHERE
+			mem_id = #value#
+        ]]>
+	</select>
+
 </sqlMap>

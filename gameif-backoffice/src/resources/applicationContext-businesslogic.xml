@@ -25,6 +25,9 @@
 		<property name="inquirySendmailTemplateDao">
 			<ref bean="inquirySendmailTemplateDao" />
 		</property>
+		<property name="titleMstDao">
+			<ref bean="titleMstDao" />
+		</property>
 	</bean>
 	
 	<!-- authorityBusinessLogic -->
@@ -63,6 +66,23 @@
 		class="com.gameif.backoffice.businesslogic.impl.InquiryMailTemplateBusinessLogicImpl">
 		<property name="inquirySendmailTemplateDao">
 			<ref bean="inquirySendmailTemplateDao" />
+		</property>
+	</bean>
+	
+	<!-- ticketBusinessLogic -->
+	<bean id="ticketBusinessLogic"
+		class="com.gameif.backoffice.businesslogic.impl.TicketBusinessLogicImpl">
+		<property name="ticketMstDao">
+			<ref bean="ticketMstDao" />
+		</property>
+		<property name="memberInfoDao">
+			<ref bean="memberInfoDao" />
+		</property>
+		<property name="ticketGiveHistDao">
+			<ref bean="ticketGiveHistDao" />
+		</property>
+		<property name="ticketInfoDao">
+			<ref bean="ticketInfoDao" />
 		</property>
 	</bean>
 </beans>

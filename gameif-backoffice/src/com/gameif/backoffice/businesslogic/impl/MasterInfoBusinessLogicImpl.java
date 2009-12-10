@@ -6,9 +6,11 @@ import com.gameif.backoffice.businesslogic.IMasterInfoBusinessLogic;
 import com.gameif.backoffice.dao.IFunctionMstDao;
 import com.gameif.backoffice.dao.IInquiryKindMstDao;
 import com.gameif.backoffice.dao.IInquirySendmailTemplateDao;
+import com.gameif.backoffice.dao.ITitleMstDao;
 import com.gameif.backoffice.entity.FunctionMst;
 import com.gameif.backoffice.entity.InquiryKindMst;
 import com.gameif.backoffice.entity.InquirySendmailTemplate;
+import com.gameif.backoffice.entity.TitleMst;
 import com.gameif.common.businesslogic.BaseBusinessLogic;
 
 public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
@@ -22,6 +24,7 @@ public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	private IFunctionMstDao functionMstDao;
 	private IInquiryKindMstDao inquiryKindMstDao;
 	private IInquirySendmailTemplateDao inquirySendmailTemplateDao;
+	private ITitleMstDao titleMstDao;
 
 	@Override
 	public List<FunctionMst> getAllFunctionList() {
@@ -40,8 +43,17 @@ public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	 * 問合せ返信テンプレートを取得する
 	 * @return
 	 */
+	@Override
 	public List<InquirySendmailTemplate> getAllInquirySendmailTemplate() {
 		return inquirySendmailTemplateDao.selectAll(null);
+	}
+
+	/**
+	 * 現時点で有効なタイトルを取得する
+	 */
+	@Override
+	public List<TitleMst> getValidTitleList() {
+		return titleMstDao.selectValidTitleList();
 	}
 
 	/**
@@ -87,6 +99,13 @@ public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	public void setInquirySendmailTemplateDao(
 			IInquirySendmailTemplateDao inquirySendmailTemplateDao) {
 		this.inquirySendmailTemplateDao = inquirySendmailTemplateDao;
+	}
+
+	/**
+	 * @param titleMstDao the titleMstDao to set
+	 */
+	public void setTitleMstDao(ITitleMstDao titleMstDao) {
+		this.titleMstDao = titleMstDao;
 	}
 
 }

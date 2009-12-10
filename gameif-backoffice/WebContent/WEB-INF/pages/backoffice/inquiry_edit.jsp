@@ -108,7 +108,9 @@
 						</td>
 					</tr>
 					<tr class="space_row"><td colspan="2"></td></tr>
+					<!-- 
 					<s:if test="model.correspondStatus == null || model.correspondStatus == 0 || model.correspondStatus == 2">
+					 -->
 						<tr>
 							<th><span class="required">*</span><label for="object">回答件名：</label></th>	
 							<td>
@@ -129,6 +131,7 @@
 								<span id="error_responseContents" class="input_error"><s:fielderror><s:param>responseContents</s:param></s:fielderror></span>
 							</td>
 						</tr>
+					<!-- 
 					</s:if>
 					<s:elseif test="model.correspondStatus == 1">
 						<tr>
@@ -150,19 +153,24 @@
 							</td>
 						</tr>
 					</s:elseif>
+					 -->
 				</table>
 				<div class="submit">
 					<s:token />
+					<!-- 
 					<s:if test="model.correspondStatus == null || model.correspondStatus == 0 || model.correspondStatus == 2">
+					 -->
 						<s:submit value="対応中に返信" action="reserveInquriy" />
 						<s:submit value="対応済に返信" action="replyInquriy" />
 						<s:submit value="クリア" onclick="this.form.reset();return false;" />
+					<!-- 
 					</s:if>
 					<s:elseif test="model.correspondStatus == 1">
 						<s:submit value="対応中に返信" disabled="true"/>
 						<s:submit value="対応済に返信" disabled="true"/>
 						<s:submit value="クリア" disabled="true"/>
 					</s:elseif>
+					 -->
 					<a href="inputInquriyList.html" title="戻る">戻る</a>
 				</div>
 

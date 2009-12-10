@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="ticketGiveHist">
+	<typeAlias alias="ticketGiveHist" type="com.gameif.backoffice.entity.TicketGiveHist" />
+
+	<insert id="save" parameterClass="ticketGiveHist">
+	<![CDATA[
+		INSERT INTO ticket_give_hist
+			(
+			mem_num,
+			ticket_id,
+			ticket_type_cd,
+			ticket_give_date,
+			ticket_start_date,
+			ticket_end_date,
+			ticket_count,
+			created_date,
+			created_user,
+			last_update_date,
+			last_update_user
+			)
+		VALUES
+			(
+			#memNum#,
+			#ticketId#,
+			#ticketTypeCd#,
+			#ticketGiveDate#,
+			#ticketStartDate#,
+			#ticketEndDate#,
+			#ticketCount#,
+			#createdDate#,
+			#createdUser#,
+			#lastUpdateDate#,
+			#lastUpdateUser#
+			)
+	]]>
+	</insert>
+
+</sqlMap>
