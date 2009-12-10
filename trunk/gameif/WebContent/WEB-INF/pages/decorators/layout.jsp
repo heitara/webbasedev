@@ -156,6 +156,10 @@ response.setDateHeader("Expires",0);
 			<dt><a href="editMemberInfo.html" title="会員情報変更"><img src="images/btn_b_chinfo.gif" alt="会員情報変更"/></a></dt>
 			<dd><a href="editPassword.html" title="パスワード変更"><img src="images/btn_b_chpass.gif" alt="パスワード変更"/></a></dd>
 		</dl>
+		<dl class="quickstart tspace_s">
+			<dt><a href="inputListTicket.html" title="チケット情報">チケット情報</a></dt>
+			<dd><a href="inputChargeServicePoint.html" title="サービスポイント利用">サービスポイント利用</a></dd>
+		</dl>
 <%
 	} else {
 	
