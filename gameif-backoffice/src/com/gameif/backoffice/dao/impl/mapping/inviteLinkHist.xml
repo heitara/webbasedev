@@ -44,8 +44,9 @@
 				member_info AS child_member_info
 			ON 
 				invite_link_hist.child_mem_num = child_member_info.mem_num
-			WHERE	
-				invite_link_hist.approve_status = '1'
+			WHERE
+				(invite_link_hist.approve_status IS NULL
+			OR 	invite_link_hist.approve_status IN ('1', '2'))
         ]]>
 	    <isNotEmpty property="entryStartDate">
 	    	<![CDATA[ AND child_member_info.entry_date >= #entryStartDate# ]]>

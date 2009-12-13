@@ -49,7 +49,8 @@
 			AND     
 				invite_info.invite_status = '1'
 			AND 
-				invite_info.approve_status = '1'
+				(invite_info.approve_status IS NULL
+			OR 	invite_info.approve_status IN ('1', '2'))
         ]]>
 	    <isNotEmpty property="entryStartDate">
 	    	<![CDATA[ AND child_member_info.entry_date >= #entryStartDate# ]]>
