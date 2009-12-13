@@ -60,9 +60,11 @@ public class BackofficeConstants {
 	public class ApproveStatus {
 		/** 未承認 */
 		public final static String NO_APPROVE = "1";
+		/** 承認待ち */
+		public final static String APPROVING = "2";
 		/** 承認済 */
-		public final static String APPROVED = "2";
+		public final static String APPROVED = "3";
 		/** 却下 */
-		public final static String REJECTED = "3";
+		public final static String REJECTED = "4";
 	}
 }
