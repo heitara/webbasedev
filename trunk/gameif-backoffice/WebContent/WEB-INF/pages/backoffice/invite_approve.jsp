@@ -85,30 +85,34 @@
 					<td colspan="2">
 						<table class="friendhist tspace_y" align="center">
 							<tr id="listTitle">
-								<th>*</th>
-								<th class="friend">紹介者ＩＤ</th>
-								<th class="friend">紹介者ニックネーム</th>
-								<th class="mail">紹介者メールアドレス</th>
-								<th class="mail">紹介者登録ＩＰ</th>
-								<th class="friend">被紹介者ＩＤ</th>
-								<th class="friend">被紹介者ニックネーム</th>
-								<th class="mail">被紹介者メールアドレス</th>
-								<th class="mail">被紹介者登録ＩＰ</th>
-								<th class="mail">被紹介者登録日</th>
+								<th rowspan="2">*</th>
+								<th colspan="4" class="friend">紹介者</th>
+								<th colspan="5" class="friend">被紹介者</th>
+							</tr>
+							<tr id="listTitle">
+								<th class="status">ＩＤ</th>
+								<th class="status">ニックネーム</th>
+								<th class="mail">メールアドレス</th>
+								<th class="entry_ymd">登録ＩＰ</th>
+								<th class="status">ＩＤ</th>
+								<th class="status">ニックネーム</th>
+								<th class="mail">メールアドレス</th>
+								<th class="entry_ymd">登録ＩＰ</th>
+								<th class="entry_ymd">登録日</th>
 							</tr>
 							<s:iterator value="inviteList" id="inviteList" status="st">
 								<tr <s:if test="#st.odd">class="odd" </s:if> >
 									<td>
 										<s:checkbox name="selectedInviteList" id="selectedInviteList" value="false" fieldValue="%{memNum},%{childMemNum}"></s:checkbox>
 									</td>
-									<td class="friend"><s:property value="memId"/></td>
-									<td class="friend"><s:property value="nickName"/></td>
+									<td class="status"><s:property value="memId"/></td>
+									<td class="status"><s:property value="nickName"/></td>
 									<td class="mail"><s:property value="mailAdd"/></td>
-									<td class="mail"><s:property value="entryIp"/></td>
-									<td class="friend"><s:property value="childMemId"/></td>
-									<td class="friend"><s:property value="childNickName"/></td>
+									<td class="entry_ymd"><s:property value="entryIp"/></td>
+									<td class="status"><s:property value="childMemId"/></td>
+									<td class="status"><s:property value="childNickName"/></td>
 									<td class="mail"><s:property value="childMailAdd"/></td>
-									<td class="mail"><s:property value="childEntryIp"/></td>
+									<td class="entry_ymd"><s:property value="childEntryIp"/></td>
 									<td class="entry_ymd"><s:property value="entryDate"/></td>
 								</tr>
 							</s:iterator>
