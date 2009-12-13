@@ -53,6 +53,12 @@
 				<entry key="12" value="ゲームに連続ログイン"/>
 			</map>
 		</property>
+		<property name="inviteType">
+			<map>
+				<entry key="1" value="メールで紹介"/>
+				<entry key="2" value="リンクで紹介"/>
+			</map>
+		</property>
 	</bean>
 	
 </beans>

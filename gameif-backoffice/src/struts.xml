@@ -125,6 +125,16 @@
 			<result name="inputGive">/WEB-INF/pages/backoffice/ticket_give.jsp</result>
 			<result name="finishedGive" type="redirect">/finishedPage.html?action=giveTicket</result>
 		</action>
+
+		<action name="*InviteList" class="inviteControlAction" method="{1}">
+			<interceptor-ref name="scopedModelDriven">
+				<param name="scope">request</param>
+				<param name="name">inviteSearchCondition</param>
+				<param name="className">com.gameif.backoffice.bean.InviteSearchCondition</param>
+			</interceptor-ref>
+			<interceptor-ref name="gameifStack"></interceptor-ref>
+			<result name="input">/WEB-INF/pages/backoffice/invite_approve.jsp</result>
+		</action>
 		
 	</package>
 	

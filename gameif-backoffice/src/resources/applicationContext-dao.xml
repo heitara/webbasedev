@@ -99,4 +99,18 @@
 			<value>ticketGiveHist</value>
 		</property>
 	</bean>
+	
+	<!-- inviteInfoDao -->
+	<bean id="inviteInfoDao" class="com.gameif.backoffice.dao.impl.InviteInfoDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>inviteInfo</value>
+		</property>
+	</bean>
+	
+	<!-- inviteLinkHistDao -->
+	<bean id="inviteLinkHistDao" class="com.gameif.backoffice.dao.impl.InviteLinkHistDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>inviteLinkHist</value>
+		</property>
+	</bean>
 </beans>

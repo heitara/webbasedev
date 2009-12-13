@@ -128,4 +128,14 @@
 			<ref bean="ticketBusinessLogic" />
 		</property>
 	</bean>
+	
+	<!-- inviteControlAction -->
+	<bean id="inviteControlAction" class="com.gameif.backoffice.action.invite.InviteControlAction" scope="prototype">
+		<property name="inviteInfoBusinessLogic">
+			<ref bean="inviteInfoBusinessLogic" />
+		</property>
+		<property name="backOfficeProperties">
+			<ref bean="backOfficeProperties" />
+		</property>
+	</bean>
 </beans>
