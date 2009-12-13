@@ -14,6 +14,8 @@ public class BackOfficeProperties {
 	private Map<Integer, String> correspondStatus;
 	/** 問合せの対応状況マップ */
 	private Map<Integer, String> ticketTypeCd;
+	/** 友達紹介の種別 */
+	private Map<String, String> inviteType;
 
 	/**
 	 * @return the actionTitles
@@ -88,6 +90,21 @@ public class BackOfficeProperties {
 	 */
 	public void setTicketTypeCd(Map<Integer, String> ticketTypeCd) {
 		this.ticketTypeCd = ticketTypeCd;
+	}
+
+	/**
+	 * @return the inviteType
+	 */
+	public Map<String, String> getInviteType() {
+		return inviteType;
+	}
+
+	/**
+	 * @param inviteType
+	 *            the inviteType to set
+	 */
+	public void setInviteType(Map<String, String> inviteType) {
+		this.inviteType = inviteType;
 	}
 
 }

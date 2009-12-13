@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="inviteLinkHist">
+	<typeAlias alias="inviteLinkHist" type="com.gameif.backoffice.entity.InviteLinkHist" />
+	<typeAlias alias="inviteSearchCondition" type="com.gameif.backoffice.bean.InviteSearchCondition" />
+	
+	<resultMap class="com.gameif.backoffice.entity.InviteListInfo" id="inviteListResult">
+		<result property="memNum" column="mem_num" />
+		<result property="memId" column="mem_id" />
+		<result property="nickName" column="nick_name" />
+		<result property="mailAdd" column="mail_pc" />
+		<result property="entryIp" column="entry_ip" />
+		<result property="childMemNum" column="child_mem_num" />
+		<result property="childMemId" column="child_mem_id" />
+		<result property="childNickName" column="child_nick_name" />
+		<result property="childMailAdd" column="child_mail_pc" />
+		<result property="childEntryIp" column="child_entry_ip" />
+		<result property="entryDate" column="entry_date" />
+	</resultMap>
+
+	<select id="selectInviteLinkList" parameterClass="inviteSearchCondition" resultMap="inviteListResult">
+        <![CDATA[
+			SELECT	
+				member_info.mem_num AS mem_num,
+				member_info.mem_id AS mem_id,
+				member_info.nick_name AS nick_name,
+				member_info.mail_pc AS mail_pc,
+				member_info.entry_ip AS entry_ip,
+				child_member_info.mem_num AS child_mem_num,
+				child_member_info.mem_id AS child_mem_id,
+				child_member_info.nick_name AS child_nick_name,
+				child_member_info.mail_pc AS child_mail_pc,
+				child_member_info.entry_ip AS child_entry_ip,
+				child_member_info.entry_date AS entry_date
+			FROM
+				invite_link_hist
+			INNER JOIN
+				member_info
+			ON 
+				invite_link_hist.mem_num = member_info.mem_num
+			INNER JOIN
+				member_info AS child_member_info
+			ON 
+				invite_link_hist.child_mem_num = child_member_info.mem_num
+			WHERE	
+				invite_link_hist.approve_status = '1'
+        ]]>
+	    <isNotEmpty property="entryStartDate">
+	    	<![CDATA[ AND child_member_info.entry_date >= #entryStartDate# ]]>
+	    </isNotEmpty>
+	    <isNotEmpty property="entryEndDate">
+	     	<![CDATA[ AND child_member_info.entry_date <= #entryEndDate# ]]>
+	    </isNotEmpty>
+	    <isNotEmpty property="memId">
+	      	<![CDATA[ AND member_info.mem_id like '%$memId$%' ]]>
+	    </isNotEmpty>
+	    <isNotEmpty property="childMemId">
+	      	<![CDATA[ AND child_member_info.mem_id like '%$childMemId$%' ]]>
+	    </isNotEmpty>
+	    ORDER BY child_member_info.entry_date DESC, member_info.mem_num ASC, child_member_info.mem_num ASC
+	</select>
+
+	<update id="updateApproveStatus" parameterClass="inviteLinkHist">
+		<![CDATA[
+			UPDATE invite_link_hist
+			SET	approve_status = #approveStatus#
+			WHERE
+				mem_num = #memNum#
+			AND child_mem_num = #childMemNum#
+		]]>
+	</update>
+
+</sqlMap>

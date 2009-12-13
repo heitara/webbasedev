@@ -85,4 +85,15 @@
 			<ref bean="ticketInfoDao" />
 		</property>
 	</bean>
+	
+	<!-- inviteInfoBusinessLogic -->
+	<bean id="inviteInfoBusinessLogic"
+		class="com.gameif.backoffice.businesslogic.impl.InviteInfoBusinessLogicImpl">
+		<property name="inviteInfoDao">
+			<ref bean="inviteInfoDao" />
+		</property>
+		<property name="inviteLinkHistDao">
+			<ref bean="inviteLinkHistDao" />
+		</property>
+	</bean>
 </beans>

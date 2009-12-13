@@ -47,4 +47,22 @@ public class BackofficeConstants {
 		/** その他 */ 
 		public final static int OTHER = 2;
 	}
+	
+	/** 友達紹介の種別 */
+	public class InviteType {
+		/** メールで紹介 */
+		public final static String MAIL = "1";
+		/** リンクで紹介 */
+		public final static String LINK = "2";
+	}
+	
+	/** 友達の承認ステータス */
+	public class ApproveStatus {
+		/** 未承認 */
+		public final static String NO_APPROVE = "1";
+		/** 承認済 */
+		public final static String APPROVED = "2";
+		/** 却下 */
+		public final static String REJECTED = "3";
+	}
 }

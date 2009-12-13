@@ -24,5 +24,7 @@
 	<sqlMap resource="com/gameif/backoffice/dao/impl/mapping/ticketGiveHist.xml" />
 	<sqlMap resource="com/gameif/backoffice/dao/impl/mapping/ticketMst.xml" />
 	<sqlMap resource="com/gameif/backoffice/dao/impl/mapping/ticketInfo.xml" />
+	<sqlMap resource="com/gameif/backoffice/dao/impl/mapping/inviteInfo.xml" />
+	<sqlMap resource="com/gameif/backoffice/dao/impl/mapping/inviteLinkHist.xml" />
 
 </sqlMapConfig>
