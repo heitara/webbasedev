@@ -118,8 +118,9 @@
 									<td class="friend"><s:property value="backOfficeProperties.inquiryTypes[inquiryType]"/></td>
 									<td class="entry_ymd"><s:property value="inquiryDate"/></td>
 									<td class="entry_ymd"><s:property value="userMailadd"/></td>
-									<s:if test="correspondStatus == null"></s:if>
+									<s:if test="correspondStatus == null">
 										<td class="mail"></td>
+									</s:if>
 									<s:else>
 										<td class="mail"><s:property value="backOfficeProperties.correspondStatus[correspondStatus]"/></td>
 									</s:else>
