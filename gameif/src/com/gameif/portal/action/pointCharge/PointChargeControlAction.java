@@ -427,6 +427,8 @@ public class PointChargeControlAction extends
 			.append("ResResult=").append(this.getModel().getResResult());
 			
 			logger.warn(sb.toString());
+			
+			responseData("OK", "");
 			return;
 		}
 		
@@ -440,8 +442,6 @@ public class PointChargeControlAction extends
 			
 			logger.warn(sb.toString());
 			
-//			responseData("NG", convertUTF2ShiftJis(getText("charge.checkSumError")));
-//			responseData("NG", getText("charge.checkSumError"));
 			responseData("NG", "Response time is expired.");
 			
 			return;
@@ -457,8 +457,6 @@ public class PointChargeControlAction extends
 			
 			logger.warn(sb.toString());
 			
-//			responseData("NG", convertUTF2ShiftJis(getText("charge.expired")));
-//			responseData("NG", getText("charge.expired"));
 			responseData("NG", "Response time is expired.");
 			return;
 			
@@ -467,31 +465,16 @@ public class PointChargeControlAction extends
 		try {
 			// 本決済を登録する
 			pointChargeBusinessLogic.createSettlementHist(this.getModel());
-//			pointChargeDetailBusinessLogic.createSettlementHist(this.getModel());
 			responseData("OK", "");
 		} catch (Exception ex) {
 			
 			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
 					+ ex.getMessage());
 
-//			responseData("NG", convertUTF2ShiftJis(getText("charge.unexpectedError")));
-//			responseData("NG", getText("charge.unexpectedError"));
 			responseData("NG", "An unexpected error has occurred.");
 		}
 
 		return;
-	}
-	
-	private String convertUTF2ShiftJis(String src) {
-		logger.info("src string : " + src);
-		String desc = "";
-		try {
-			desc = new String(src.getBytes("UTF-8"), "unicode");
-		} catch (Exception e) {
-		}
-		logger.info("desc string : " + desc);
-		return desc;
-		
 	}
 	
 	/**
