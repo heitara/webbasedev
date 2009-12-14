@@ -419,7 +419,7 @@ public class PointChargeControlAction extends
 		// 購入結果をログに出力する
 		outPutReceivesLog();
 
-		if (!getModel().getResResult().equals("OK")) {
+		if (getModel().getResResult().equals("NG")) {
 			
 			StringBuilder sb = new StringBuilder();
 			sb.append(ContextUtil.getRequestBaseInfo())
@@ -427,10 +427,6 @@ public class PointChargeControlAction extends
 			.append("ResResult=").append(this.getModel().getResResult());
 			
 			logger.warn(sb.toString());
-
-//			responseData("NG", convertUTF2ShiftJis(getText("charge.resultNG")));
-//			responseData("NG", getText("charge.resultNG"));
-			responseData("NG", "Response result is NG.");
 			return;
 		}
 		
@@ -447,6 +443,7 @@ public class PointChargeControlAction extends
 //			responseData("NG", convertUTF2ShiftJis(getText("charge.checkSumError")));
 //			responseData("NG", getText("charge.checkSumError"));
 			responseData("NG", "Response time is expired.");
+			
 			return;
 		}
 		
