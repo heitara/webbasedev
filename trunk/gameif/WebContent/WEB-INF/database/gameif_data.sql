@@ -140,7 +140,7 @@ INSERT INTO `point_mst` (`point_id`,`title_id`,`server_id`,`point_name`,`point_s
 TRUNCATE TABLE `settlement_mst`;
 INSERT INTO `settlement_mst` (`settlement_code`,`settlement_name`,`icon_url`,`settlement_status`,`created_date`,`created_user`, `last_update_date`,`last_update_user`) VALUES
 ('bitcash', 'bitcash', 'images/charge_bitcash_small.gif', '1', '2009-10-10 12:30:21', 'chou', '2009-10-10 12:30:21', 'chou'),
-('credit', 'credit', 'images/charge_credit.gif', '1', '2009-10-10 12:30:21', 'chou', '2009-10-10 12:30:21', 'chou'),
+('credit3d', 'credit3d', 'images/charge_credit.gif', '1', '2009-10-10 12:30:21', 'chou', '2009-10-10 12:30:21', 'chou'),
 ('cyberedy', 'cyberedy', 'images/charge_edy_small.gif', '1', '2009-10-10 12:30:21', 'chou', '2009-10-10 12:30:21', 'chou'),
 ('mobileedy', 'mobileedy', 'images/charge_edy_mobile_small.gif', '1', '2009-10-10 12:30:21', 'chou', '2009-10-10 12:30:21', 'chou'),
 ('netcash', 'netcash', 'images/charge_netcash_small.gif', '1', '2009-10-10 12:30:21', 'chou', '2009-10-10 12:30:21', 'chou'),
