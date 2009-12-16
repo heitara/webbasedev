@@ -96,11 +96,24 @@
 				cookie
 			FROM
 				invite_link_hist
+				
 			WHERE
 				mem_num = #memNum#
 			AND	child_mem_num = #childMemNum#
 			FOR UPDATE
         ]]>
 	</select>
+
+	<update id="update" parameterClass="inviteLinkHist">
+		<![CDATA[
+			UPDATE invite_link_hist
+			SET	title_id = #titleId#,
+				approve_status = #approveStatus#,
+				cookie = #cookie#
+			WHERE
+				mem_num = #memNum#
+			AND child_mem_num = #childMemNum#
+		]]>
+	</update>
 
 </sqlMap>
