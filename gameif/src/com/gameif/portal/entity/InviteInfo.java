@@ -22,6 +22,9 @@ public class InviteInfo extends BaseEntity {
 	private Date friendCreateDate;
 	private String friendName;
 	private Long childMemNum;
+	private String approveStatus;
+	private String parentCookie;
+	private String childCookie;
 	private String deleteFlag;
 	private Date createdDate;
 	private String createdUser;
@@ -96,7 +99,8 @@ public class InviteInfo extends BaseEntity {
 	}
 
 	/**
-	 * @param inviteDate the inviteDate to set
+	 * @param inviteDate
+	 *            the inviteDate to set
 	 */
 	public void setInviteDate(Date inviteDate) {
 		this.inviteDate = inviteDate;
@@ -110,7 +114,8 @@ public class InviteInfo extends BaseEntity {
 	}
 
 	/**
-	 * @param inviteStatus the inviteStatus to set
+	 * @param inviteStatus
+	 *            the inviteStatus to set
 	 */
 	public void setInviteStatus(String inviteStatus) {
 		this.inviteStatus = inviteStatus;
@@ -124,7 +129,8 @@ public class InviteInfo extends BaseEntity {
 	}
 
 	/**
-	 * @param friendCreateDate the friendCreateDate to set
+	 * @param friendCreateDate
+	 *            the friendCreateDate to set
 	 */
 	public void setFriendCreateDate(Date friendCreateDate) {
 		this.friendCreateDate = friendCreateDate;
@@ -138,7 +144,8 @@ public class InviteInfo extends BaseEntity {
 	}
 
 	/**
-	 * @param friendName the friendName to set
+	 * @param friendName
+	 *            the friendName to set
 	 */
 	public void setFriendName(String friendName) {
 		this.friendName = friendName;
@@ -152,7 +159,8 @@ public class InviteInfo extends BaseEntity {
 	}
 
 	/**
-	 * @param childMemNum the childMemNum to set
+	 * @param childMemNum
+	 *            the childMemNum to set
 	 */
 	public void setChildMemNum(Long childMemNum) {
 		this.childMemNum = childMemNum;
@@ -186,6 +194,51 @@ public class InviteInfo extends BaseEntity {
 	 */
 	public void setTitleId(Integer titleId) {
 		this.titleId = titleId;
+	}
+
+	/**
+	 * @return the approveStatus
+	 */
+	public String getApproveStatus() {
+		return approveStatus;
+	}
+
+	/**
+	 * @param approveStatus
+	 *            the approveStatus to set
+	 */
+	public void setApproveStatus(String approveStatus) {
+		this.approveStatus = approveStatus;
+	}
+
+	/**
+	 * @return the parentCookie
+	 */
+	public String getParentCookie() {
+		return parentCookie;
+	}
+
+	/**
+	 * @param parentCookie
+	 *            the parentCookie to set
+	 */
+	public void setParentCookie(String parentCookie) {
+		this.parentCookie = parentCookie;
+	}
+
+	/**
+	 * @return the childCookie
+	 */
+	public String getChildCookie() {
+		return childCookie;
+	}
+
+	/**
+	 * @param childCookie
+	 *            the childCookie to set
+	 */
+	public void setChildCookie(String childCookie) {
+		this.childCookie = childCookie;
 	}
 
 	public String getDeleteFlag() {

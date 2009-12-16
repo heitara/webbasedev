@@ -4,12 +4,14 @@ public class PortalConstants {
 	
 	public final static String YES = "1";
 	public final static String NO = "0";
+	public final static String INVITE_COOKIE_VALUE = "K849ojrEaMhdaAC";
 	
 	public class Key {
 		
 		public final static String SEURE_PARAM_KEY = "enc";
 		public final static String ENTRY_PARAM_TITLE_KEY = "title";
 		public final static String ENTRY_PARAM_APPLY_KEY = "apply";
+		public final static String INVITE_COOKIE_KEY = "inviteCookie";
 	}
 	
 	/** ユーザ属性コード */
@@ -173,7 +175,6 @@ public class PortalConstants {
 	
 	/** 決済方法 */
 	public class SettlementCode {
-		// 
 		public final static String BITCASH = "bitcash";
 		public final static String CREDIT = "credit";
 		public final static String CYBEREDY = "cyberedy";
@@ -181,5 +182,17 @@ public class PortalConstants {
 		public final static String NETCASH = "netcash";
 		public final static String WEBMONEY = "webmoney";
 		
+	}
+	
+	/** 友達の承認ステータス */
+	public class ApproveStatus {
+		/** 未承認 */
+		public final static String NO_APPROVE = "1";
+		/** 承認待ち */
+		public final static String APPROVING = "2";
+		/** 承認済 */
+		public final static String APPROVED = "3";
+		/** 却下 */
+		public final static String REJECTED = "4";
 	}
 }

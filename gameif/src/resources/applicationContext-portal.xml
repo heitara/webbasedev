@@ -129,6 +129,14 @@
 				<entry key="10" value="その他"/>
 			</map>
 		</property>
+		<property name="approveStatus">
+			<map>
+				<entry key="1" value="未承認"/>
+				<entry key="2" value="承認待ち"/>
+				<entry key="3" value="承認済"/>
+				<entry key="4" value="却下"/>
+			</map>
+		</property>
 	</bean>
 	
 </beans>

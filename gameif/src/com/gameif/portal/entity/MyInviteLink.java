@@ -7,6 +7,9 @@ public class MyInviteLink {
 	private String nickName;
 	private Date entryDate;
 	private String titleName;
+	private Long memNum;
+	private Long childMemNum;
+	private String approveStatus;
 	
 	/**
 	 * @return the nickName
@@ -49,7 +52,46 @@ public class MyInviteLink {
 	public void setTitleName(String titleName) {
 		this.titleName = titleName;
 	}
-	
-	
 
+	/**
+	 * @return the memNum
+	 */
+	public Long getMemNum() {
+		return memNum;
+	}
+
+	/**
+	 * @param memNum the memNum to set
+	 */
+	public void setMemNum(Long memNum) {
+		this.memNum = memNum;
+	}
+
+	/**
+	 * @return the childMemNum
+	 */
+	public Long getChildMemNum() {
+		return childMemNum;
+	}
+
+	/**
+	 * @param childMemNum the childMemNum to set
+	 */
+	public void setChildMemNum(Long childMemNum) {
+		this.childMemNum = childMemNum;
+	}
+
+	/**
+	 * @return the approveStatus
+	 */
+	public String getApproveStatus() {
+		return approveStatus;
+	}
+
+	/**
+	 * @param approveStatus the approveStatus to set
+	 */
+	public void setApproveStatus(String approveStatus) {
+		this.approveStatus = approveStatus;
+	}
 }

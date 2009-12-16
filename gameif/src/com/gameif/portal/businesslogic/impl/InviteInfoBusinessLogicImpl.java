@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.gameif.common.businesslogic.BaseBusinessLogic;
 import com.gameif.common.exception.LogicException;
+import com.gameif.common.exception.OutOfDateException;
 import com.gameif.common.exception.OutOfMaxCountException;
 import com.gameif.common.helper.TemplateMailer;
 import com.gameif.common.util.SecurityUtil;
@@ -17,9 +18,14 @@ import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.dao.IInviteInfoDao;
 import com.gameif.portal.dao.IInviteLinkDao;
 import com.gameif.portal.dao.IInviteLinkHistDao;
+import com.gameif.portal.dao.IMemberInfoDao;
+import com.gameif.portal.dao.IMemberLoginHistDao;
+import com.gameif.portal.dao.IPlayHistDao;
 import com.gameif.portal.dao.ITitleMstDao;
 import com.gameif.portal.entity.InviteInfo;
 import com.gameif.portal.entity.InviteLink;
+import com.gameif.portal.entity.InviteLinkHist;
+import com.gameif.portal.entity.MemberInfo;
 import com.gameif.portal.entity.MyInviteLink;
 import com.gameif.portal.util.ContextUtil;
 
@@ -36,10 +42,14 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	private ITitleMstDao titleMstDao;
 	private IInviteLinkDao inviteLinkDao;
 	private IInviteLinkHistDao inviteLinkHistDao;
+	private IMemberInfoDao memberInfoDao;
+	private IMemberLoginHistDao memberLoginHistDao;
+	private IPlayHistDao playHistDao;
 
 	private Integer deleDays;
 	private Integer maxMailCount;
 	private String inviteUrl;
+	private Integer playCount;
 
 	/**
 	 * @param inviteInfoDao
@@ -94,6 +104,27 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	}
 
 	/**
+	 * @param memberInfoDao the memberInfoDao to set
+	 */
+	public void setMemberInfoDao(IMemberInfoDao memberInfoDao) {
+		this.memberInfoDao = memberInfoDao;
+	}
+
+	/**
+	 * @param memberLoginHistDao the memberLoginHistDao to set
+	 */
+	public void setMemberLoginHistDao(IMemberLoginHistDao memberLoginHistDao) {
+		this.memberLoginHistDao = memberLoginHistDao;
+	}
+
+	/**
+	 * @param playHistDao the playHistDao to set
+	 */
+	public void setPlayHistDao(IPlayHistDao playHistDao) {
+		this.playHistDao = playHistDao;
+	}
+
+	/**
 	 * @return the deleDays
 	 */
 	public Integer getDeleDays() {
@@ -136,6 +167,20 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	 */
 	public void setInviteUrl(String inviteUrl) {
 		this.inviteUrl = inviteUrl;
+	}
+
+	/**
+	 * @return the playCount
+	 */
+	public Integer getPlayCount() {
+		return playCount;
+	}
+
+	/**
+	 * @param playCount the playCount to set
+	 */
+	public void setPlayCount(Integer playCount) {
+		this.playCount = playCount;
 	}
 
 	/**
@@ -188,6 +233,12 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 			newInviteInfo.setInviteStatus(PortalConstants.InviteStatus.NO_RESPONSE);
 			// 削除フラグ
 			newInviteInfo.setDeleteFlag(PortalConstants.DeleteFlag.NORMAL);
+			// 承認ステータス
+			newInviteInfo.setApproveStatus(PortalConstants.ApproveStatus.NO_APPROVE);
+			// 親のクッキーを設定する
+			newInviteInfo.setParentCookie(PortalConstants.INVITE_COOKIE_VALUE);
+			// 子のクッキーを設定する
+			newInviteInfo.setChildCookie(null);
 
 			newInviteInfo.setCreatedDate(inviteDate);
 			newInviteInfo.setCreatedUser(ContextUtil.getMemberNo().toString());
@@ -216,6 +267,9 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 			// 送信
 			templateMailer.sendAsyncMail(newInviteInfo.getInviteMailTo(), "inviteFriend", props, true);
 		}
+		
+		ContextUtil.setInviteCookie(PortalConstants.INVITE_COOKIE_VALUE);
+		
 		// ロジック削除されたデータを削除する
 		inviteInfoDao.deleteInvalidInvite(ContextUtil.getMemberNo(), getDeleDays());
 	}
@@ -263,6 +317,12 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 			inviteInfo.setInviteStatus(PortalConstants.InviteStatus.NO_RESPONSE);
 			// 削除フラグ
 			inviteInfo.setDeleteFlag(PortalConstants.DeleteFlag.NORMAL);
+			// 承認ステータス
+			inviteInfo.setApproveStatus(PortalConstants.ApproveStatus.NO_APPROVE);
+			// 親のクッキーを設定する
+			inviteInfo.setParentCookie(PortalConstants.INVITE_COOKIE_VALUE);
+			// 子のクッキーを設定する
+			inviteInfo.setChildCookie(null);
 			inviteInfo.setLastUpdateDate(inviteDate);
 			inviteInfo.setLastUpdateUser(ContextUtil.getMemberNo().toString());
 
@@ -291,6 +351,8 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 			templateMailer.sendAsyncMail(inviteInfo.getInviteMailTo(), "inviteFriend", props, true);
 
 		}
+		
+		ContextUtil.setInviteCookie(PortalConstants.INVITE_COOKIE_VALUE);
 	}
 
 	/**
@@ -345,6 +407,7 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 			inviteLink.setMemNum(ContextUtil.getMemberNo());
 			inviteLink.setLinkKey(linkKey);
 			inviteLink.setCreatedDate(new Date());
+			inviteLink.setCookie(ContextUtil.getInviteCookie());
 
 			inviteLinkDao.save(inviteLink);
 		}
@@ -366,6 +429,8 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 					.append(titleId.toString())
 					.toString();
 		
+		ContextUtil.setInviteCookie(PortalConstants.INVITE_COOKIE_VALUE);
+		
 		return LinkUrl;
 	}
 
@@ -377,6 +442,147 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	@Override
 	public List<MyInviteLink> selectLinkMembersByMemNum(Long memNum) {
 		return inviteLinkHistDao.selectLinkMembersByMemNum(memNum);
+	}
+
+	@Transactional
+	@Override
+	public void checkMailStatus(Long inviteId) throws LogicException {
+		
+		// 紹介情報を検索する
+		InviteInfo inviteInfo = inviteInfoDao.selectForUpdate(inviteId);
+		if (inviteInfo == null) {
+			
+			// データが存在しない
+			throw new OutOfDateException("InviteInfo Data does not exist.");
+			
+		}
+		
+		// 同じIPが存在する場合、「承認待ち」状態に変更し、手動的に承認を行う
+		// 紹介された友達のゲームプレイ日数が指定日数により小さい場合、「承認待ち」状態に変更し、手動的に承認を行う
+		// 紹介された友達のゲームプレイ日数が指定日数により小さい場合、「承認待ち」状態に変更し、手動的に承認を行う
+		if (checkEntryIp(inviteInfo.getChildMemNum()) || 
+			checkPlayCount(inviteInfo.getChildMemNum()) ||
+			checkMailCookie(inviteInfo)) {
+			// 「承認済」に変更する
+			inviteInfo.setApproveStatus(PortalConstants.ApproveStatus.APPROVED);
+		} else {
+
+			// 「承認待ち」に変更する
+			inviteInfo.setApproveStatus(PortalConstants.ApproveStatus.APPROVING);
+		}
+		
+		inviteInfo.setLastUpdateDate(new Date());
+		inviteInfo.setLastUpdateUser(ContextUtil.getMemberNo().toString());
+		inviteInfoDao.update(inviteInfo);
+		
+	}
+
+	@Transactional
+	@Override
+	public void checkLinkStatus(Long memNum, Long childMemNum) throws LogicException {
+		
+		InviteLinkHist inviteLinkHist = inviteLinkHistDao.selectForUpdate(memNum, childMemNum);
+		if (inviteLinkHist == null) {
+			
+			// データが存在しない
+			throw new OutOfDateException("InviteLinkHist Data does not exist.");
+			
+		}
+		
+		// 同じIPが存在する場合、「承認待ち」状態に変更し、手動的に承認を行う
+		// 紹介された友達のゲームプレイ日数が指定日数により小さい場合、「承認待ち」状態に変更し、手動的に承認を行う
+		// 紹介された友達のゲームプレイ日数が指定日数により小さい場合、「承認待ち」状態に変更し、手動的に承認を行う
+		if (checkEntryIp(inviteLinkHist.getChildMemNum()) || 
+			checkPlayCount(inviteLinkHist.getChildMemNum()) ||
+			checkLinkCookie(inviteLinkHist)) {
+			// 「承認済」に変更する
+			inviteLinkHist.setApproveStatus(PortalConstants.ApproveStatus.APPROVED);
+		} else {
+
+			// 「承認待ち」に変更する
+			inviteLinkHist.setApproveStatus(PortalConstants.ApproveStatus.APPROVING);
+		}
+		
+		inviteLinkHistDao.update(inviteLinkHist);
+		
+	}
+	
+	/**
+	 * 紹介された友達の登録IPが既にログイン履歴テーブルに存在かどうかのチェック
+	 * @param childMemNum　紹介された友達の会員番号
+	 * @return false:存在しない、true:存在する（手動的に承認を行う）
+	 */
+	private Boolean checkEntryIp(Long childMemNum) {
+		Boolean bRtn = false;
+		
+		MemberInfo member = new MemberInfo();
+		member.setMemNum(childMemNum);
+		member = memberInfoDao.selectByKey(member);
+		if (member == null) {
+			return true;
+		}
+		
+		Integer count = memberLoginHistDao.selectCountByEntryIp(member.getEntryIp(), member.getMemNum());
+		if (count > 0) {
+			bRtn = true;
+		}
+		
+		return bRtn;
+	}
+	
+	/**
+	 * 紹介された友達のゲームプレイ日数をチェックする
+	 * @param childMemNum　紹介された友達の	会員番号
+	 * @return false:自動的に承認する、true:手動的に承認を行う
+	 */
+	private Boolean checkPlayCount(Long childMemNum) {
+		Boolean bRtn = false;
+		
+		Integer count = playHistDao.selectPlayDaysByMemNum(childMemNum);
+		if (count < playCount) {
+			bRtn = true;
+		}
+		
+		return bRtn;
+	}
+	
+	/**
+	 * メールで紹介の場合、クッキーの値をチェックする
+	 * @param inviteInfo
+	 * @return false:自動的に承認する、true:手動的に承認を行う
+	 */
+	private Boolean checkMailCookie(InviteInfo inviteInfo) {
+		Boolean bRtn = false;
+		
+		// 紹介者のクッキーがNULLではない場合、「承認待ち」状態に変更し、手動的に承認を行う
+		// 現時点で、紹介のクッキーと紹介する時のクッキーが違う場合、「承認待ち」状態に変更し、手動的に承認を行う
+		if (inviteInfo.getChildCookie() != null || !inviteInfo.getParentCookie().equals(ContextUtil.getInviteCookie())) {
+			bRtn = true;
+		}
+		return bRtn;
+		
+	}
+	
+	/**
+	 * リンクで紹介の場合、クッキーの値をチェックする
+	 * @param inviteLinkHist リンクで紹介履歴情報
+	 * @return false:自動的に承認する、true:手動的に承認を行う
+	 */
+	private Boolean checkLinkCookie(InviteLinkHist inviteLinkHist) {
+		Boolean bRtn = false;
+		
+		InviteLink inviteLink = inviteLinkDao.selectByMemNum(inviteLinkHist.getMemNum());
+		if (inviteLink == null) {
+			return true;
+		}
+		
+		// 紹介者のクッキーがNULLではない場合、「承認待ち」状態に変更し、手動的に承認を行う
+		// 現時点で、紹介のクッキーと紹介する時のクッキーが違う場合、「承認待ち」状態に変更し、手動的に承認を行う
+		if (inviteLinkHist.getCookie() != null || !inviteLink.getCookie().equals(ContextUtil.getInviteCookie())) {
+			bRtn = true;
+		}
+		
+		return bRtn;
 	}
 
 }

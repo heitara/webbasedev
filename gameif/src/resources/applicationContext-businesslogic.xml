@@ -77,6 +77,9 @@
 		<property name="inviteUrl">
 			<value>${inviteInfoBusinessLogic.inviteUrl}</value>
 		</property>
+		<property name="playCount">
+			<value>${inviteInfoBusinessLogic.playCount}</value>
+		</property>
 		<property name="inviteInfoDao">
 			<ref bean="inviteInfoDao" />
 		</property>
@@ -91,6 +94,15 @@
 		</property>
 		<property name="inviteLinkHistDao">
 			<ref bean="inviteLinkHistDao" />
+		</property>
+		<property name="memberInfoDao">
+			<ref bean="memberInfoDao" />
+		</property>
+		<property name="memberLoginHistDao">
+			<ref bean="memberLoginHistDao" />
+		</property>
+		<property name="playHistDao">
+			<ref bean="playHistDao" />
 		</property>
 	</bean>
 	

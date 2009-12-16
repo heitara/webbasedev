@@ -48,10 +48,11 @@
 					<th class="friend">友達</th>
 					<th class="mail">メールアドレス</th>
 					<th class="status">
-						<s:select name="inviteStatusSelect" list="portalProperties.inviteStatusList"  headerKey="9999" headerValue="全て" onclick="selectInvitedHist(this, 'inviteStatus_')"/>
+						<s:select name="inviteStatusSelect" list="portalProperties.inviteStatusList" cssStyle="width:100px;" headerKey="9999" headerValue="全て" onclick="selectInvitedHist(this, 'inviteStatus_')"/>
 					</th>
 					<th class="present_ymd">紹介日</th>
 					<th class="entry_ymd">会員登録日</th>
+					<th class="status">承認ステータス</th>
 				</tr>
 				<s:iterator value="listInviteHist" id="inviteId" status="st">
 					<tr id="inviteStatus_<s:property value='inviteStatus'/>" <s:if test="#st.odd">class="odd" </s:if> >
@@ -71,6 +72,17 @@
 						</td>
 						<td class="present_ymd"><s:property value="inviteDate"/></td>
 						<td class="entry_ymd"><s:property value="friendCreateDate"/></td>
+						<td class="status">
+							<!-- 会員登録済の場合、承認ステータスを表示する -->
+							<s:if test='"1".equals(inviteStatus)'>
+								<s:if test='"1".equals(approveStatus)'>
+									<a href="checkMailStatusInviteHist.html?inviteId=<s:property value="inviteId"/>" title="判定">判定</a>
+								</s:if>
+								<s:else>
+									<s:property value="portalProperties.approveStatus[approveStatus]"/>
+								</s:else>
+							</s:if>
+						</td>
 					</tr>
 				</s:iterator>
 			</table>

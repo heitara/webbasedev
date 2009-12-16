@@ -288,4 +288,11 @@
 			<value>ticketUseHist</value>
 		</property>
 	</bean>
+	
+	<!-- memberLoginHistDao -->
+	<bean id="memberLoginHistDao" class="com.gameif.portal.dao.impl.MemberLoginHistDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>memberLoginHist</value>
+		</property>
+	</bean>
 </beans>

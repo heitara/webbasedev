@@ -1,5 +1,6 @@
 package com.gameif.portal.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.gameif.common.dao.impl.AbstractBaseDao;
@@ -28,6 +29,17 @@ public class InviteLinkHistDaoImpl extends AbstractBaseDao<InviteLinkHist, Invit
 	@Override
 	public List<MyInviteLink> selectLinkMembersByMemNum(Long memNum) {
 		return (List<MyInviteLink>) (getSqlMapClientTemplate().queryForList(namespace + ".selectLinkMembersByMemNum", memNum));
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public InviteLinkHist selectForUpdate(Long memNum, Long childMemNum) {
+		
+		HashMap params = new HashMap();
+		params.put("memNum", memNum);
+		params.put("childMemNum", childMemNum);
+
+		return (InviteLinkHist) (getSqlMapClientTemplate().queryForObject(namespace + ".selectForUpdate", params));
 	}
 
 }
