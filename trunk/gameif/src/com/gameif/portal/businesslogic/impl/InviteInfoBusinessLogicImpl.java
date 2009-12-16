@@ -464,11 +464,11 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 			checkPlayCount(inviteInfo.getChildMemNum()) ||
 			checkMailCookie(inviteInfo)) {
 			// 「承認済」に変更する
-			inviteInfo.setApproveStatus(PortalConstants.ApproveStatus.APPROVED);
+			inviteInfo.setApproveStatus(PortalConstants.ApproveStatus.APPROVING);
 		} else {
 
 			// 「承認待ち」に変更する
-			inviteInfo.setApproveStatus(PortalConstants.ApproveStatus.APPROVING);
+			inviteInfo.setApproveStatus(PortalConstants.ApproveStatus.APPROVED);
 		}
 		
 		inviteInfo.setLastUpdateDate(new Date());
@@ -496,11 +496,11 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 			checkPlayCount(inviteLinkHist.getChildMemNum()) ||
 			checkLinkCookie(inviteLinkHist)) {
 			// 「承認済」に変更する
-			inviteLinkHist.setApproveStatus(PortalConstants.ApproveStatus.APPROVED);
+			inviteLinkHist.setApproveStatus(PortalConstants.ApproveStatus.APPROVING);
 		} else {
 
 			// 「承認待ち」に変更する
-			inviteLinkHist.setApproveStatus(PortalConstants.ApproveStatus.APPROVING);
+			inviteLinkHist.setApproveStatus(PortalConstants.ApproveStatus.APPROVED);
 		}
 		
 		inviteLinkHistDao.update(inviteLinkHist);
@@ -556,7 +556,9 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		
 		// 紹介者のクッキーがNULLではない場合、「承認待ち」状態に変更し、手動的に承認を行う
 		// 現時点で、紹介のクッキーと紹介する時のクッキーが違う場合、「承認待ち」状態に変更し、手動的に承認を行う
-		if (inviteInfo.getChildCookie() != null || !inviteInfo.getParentCookie().equals(ContextUtil.getInviteCookie())) {
+		if (inviteInfo.getChildCookie() != null || 
+			inviteInfo.getParentCookie() == null ||
+			!inviteInfo.getParentCookie().equals(ContextUtil.getInviteCookie())) {
 			bRtn = true;
 		}
 		return bRtn;
@@ -578,7 +580,9 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		
 		// 紹介者のクッキーがNULLではない場合、「承認待ち」状態に変更し、手動的に承認を行う
 		// 現時点で、紹介のクッキーと紹介する時のクッキーが違う場合、「承認待ち」状態に変更し、手動的に承認を行う
-		if (inviteLinkHist.getCookie() != null || !inviteLink.getCookie().equals(ContextUtil.getInviteCookie())) {
+		if (inviteLinkHist.getCookie() != null ||
+			inviteLink.getCookie() == null ||
+			!inviteLink.getCookie().equals(ContextUtil.getInviteCookie())) {
 			bRtn = true;
 		}
 		
