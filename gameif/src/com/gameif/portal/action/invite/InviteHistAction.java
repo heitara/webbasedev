@@ -250,6 +250,7 @@ public class InviteHistAction extends ModelDrivenActionSupport<InviteInfo> {
 	
 			return "warning";
 		}
+		showMail();
 		return "showMail";
 	}
 
@@ -268,6 +269,7 @@ public class InviteHistAction extends ModelDrivenActionSupport<InviteInfo> {
 	
 			return "warning";
 		}
+		showLink();
 		return "showLink";
 	}
 
