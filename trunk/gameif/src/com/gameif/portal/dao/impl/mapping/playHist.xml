@@ -215,4 +215,15 @@
       ]]>
 	</select>
 	
+	<select id="selectPlayDaysByMemNum" parameterClass="java.lang.Long" resultClass="int">
+      <![CDATA[
+        SELECT
+			count(distinct(DATE_FORMAT(play_date, '%Y%m%H')))
+		FROM
+			play_hist
+		WHERE	
+			mem_num = #value#
+      ]]>
+	</select>
+	
 </sqlMap>

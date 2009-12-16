@@ -293,6 +293,10 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 			inviteInfo.setFriendCreateDate(memberInfo.getEntryDate());
 			// 子の会員番号を設定する
 			inviteInfo.setChildMemNum(memberInfo.getMemNum());
+			// 承認状態：「未承認」
+			inviteInfo.setApproveStatus(PortalConstants.ApproveStatus.NO_APPROVE);
+			//　紹介された友達は登録時に、紹介のクッキーを取得する
+			inviteInfo.setChildCookie(ContextUtil.getInviteCookie());
 			inviteInfo.setLastUpdateDate(memberInfo.getEntryDate());
 			inviteInfo.setLastUpdateUser(memberInfo.getMemNum().toString());
 			
@@ -322,6 +326,10 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 			inviteLinkHist.setMemNum(inviteLink.getMemNum());
 			inviteLinkHist.setChildMemNum(memberInfo.getMemNum());
 			inviteLinkHist.setTitleId(tempMemberInfo.getTitleId());
+			// 承認状態：「未承認」
+			inviteLinkHist.setApproveStatus(PortalConstants.ApproveStatus.NO_APPROVE);
+			//　紹介された友達は登録時に、紹介のクッキーを取得する
+			inviteLinkHist.setCookie(ContextUtil.getInviteCookie());
 			
 			// リンクで友達履歴を登録する
 			inviteLinkHistDao.save(inviteLinkHist);

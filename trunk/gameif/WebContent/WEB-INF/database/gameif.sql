@@ -99,6 +99,9 @@ CREATE TABLE  `invite_info` (
   `friend_create_date` datetime DEFAULT NULL,
   `friend_name` varchar(100) DEFAULT NULL,
   `child_mem_num` bigint(20) DEFAULT NULL,
+  `approve_status` char(1) DEFAULT NULL,
+  `parent_cookie` varchar(50) DEFAULT NULL,
+  `child_cookie` varchar(50) DEFAULT NULL,
   `delete_flag` char(1) DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
   `created_user` varchar(50) DEFAULT NULL,
@@ -699,6 +702,7 @@ CREATE TABLE  `invite_link` (
   `mem_num` bigint(20) NOT NULL,
   `link_key` varchar(50) DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
+  `cookie` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`mem_num`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -710,6 +714,8 @@ CREATE TABLE  `invite_link_hist` (
   `child_mem_num` bigint(20) NOT NULL,
   `mem_num` bigint(20) NOT NULL,
   `title_id` int(11) DEFAULT NULL,
+  `approve_status` char(1) DEFAULT NULL,
+  `cookie` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`child_mem_num`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 

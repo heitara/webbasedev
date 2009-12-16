@@ -20,12 +20,21 @@
 						<th class="friend">ニックネーム</th>
 						<th class="entry_ymd">登録日</th>
 						<th class="mail">タイトル</th>
+						<th class="status">承認ステータス</th>
 					</tr>
 					<s:iterator value="inviteLinkHistList" id="linkHist" status="st">
 						<tr <s:if test="#st.odd">class="odd" </s:if> >
 							<td class="friend"><s:property value="nickName"/></td>
 							<td class="entry_ymd"><s:property value="entryDate"/></td>
 							<td class="mail"><s:property value="titleName"/></td>
+							<td class="status">
+								<s:if test='"1".equals(approveStatus)'>
+									<a href="checkLinkStatusInviteHist.html?memNum=<s:property value="memNum"/>&childMemNum=<s:property value="childMemNum"/>" title="判定">判定</a>
+								</s:if>
+								<s:else>
+									<s:property value="portalProperties.approveStatus[approveStatus]"/>
+								</s:else>
+							</td>
 						</tr>
 					</s:iterator>
 				</table>

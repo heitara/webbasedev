@@ -3,6 +3,7 @@ package com.gameif.portal.action.invite;
 import java.util.List;
 
 import com.gameif.common.action.ModelDrivenActionSupport;
+import com.gameif.common.exception.LogicException;
 import com.gameif.portal.businesslogic.IInviteInfoBusinessLogic;
 import com.gameif.portal.businesslogic.IMaintenanceBusinessLogic;
 import com.gameif.portal.constants.PortalConstants;
@@ -28,6 +29,9 @@ public class InviteHistAction extends ModelDrivenActionSupport<InviteInfo> {
 	
 	private List<Long> selectedInvites;
 	private List<MyInviteLink> inviteLinkHistList;
+	private Long inviteId;
+	private Long memNum;
+	private Long childMemNum;
 
 	/**
 	 * @return the portalProperties
@@ -133,6 +137,48 @@ public class InviteHistAction extends ModelDrivenActionSupport<InviteInfo> {
 	}
 
 	/**
+	 * @return the inviteId
+	 */
+	public Long getInviteId() {
+		return inviteId;
+	}
+
+	/**
+	 * @param inviteId the inviteId to set
+	 */
+	public void setInviteId(Long inviteId) {
+		this.inviteId = inviteId;
+	}
+
+	/**
+	 * @return the memNum
+	 */
+	public Long getMemNum() {
+		return memNum;
+	}
+
+	/**
+	 * @param memNum the memNum to set
+	 */
+	public void setMemNum(Long memNum) {
+		this.memNum = memNum;
+	}
+
+	/**
+	 * @return the childMemNum
+	 */
+	public Long getChildMemNum() {
+		return childMemNum;
+	}
+
+	/**
+	 * @param childMemNum the childMemNum to set
+	 */
+	public void setChildMemNum(Long childMemNum) {
+		this.childMemNum = childMemNum;
+	}
+
+	/**
 	 * メールで友達紹介履歴画面に案内する。
 	 * 
 	 * @return メールで友達紹介履歴画面
@@ -188,6 +234,41 @@ public class InviteHistAction extends ModelDrivenActionSupport<InviteInfo> {
 		inviteInfoBusinessLogic.deleteInviteInfo(getSelectedInvites());
 		
 		return "deleteSuccess";
+	}
+	
+	/**
+	 * メールで紹介の場合、承認かどうかを判定する
+	 * @return
+	 */
+	public String checkMailStatus() {
+		try {
+			inviteInfoBusinessLogic.checkMailStatus(getInviteId());
+		} catch (LogicException lgex) {
+	
+			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
+					+ lgex.getMessage());
+	
+			return "warning";
+		}
+		return "showMail";
+	}
+
+	
+	/**
+	 * リンクで紹介の場合、承認かどうかを判定する
+	 * @return
+	 */
+	public String checkLinkStatus() {
+		try {
+			inviteInfoBusinessLogic.checkLinkStatus(getMemNum(), getChildMemNum());
+		} catch (LogicException lgex) {
+	
+			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
+					+ lgex.getMessage());
+	
+			return "warning";
+		}
+		return "showLink";
 	}
 
 }

@@ -14,6 +14,7 @@ public class InviteLink extends BaseEntity {
 	private Long memNum;
 	private String linkKey;
 	private Date createdDate;
+	private String cookie;
 
 	/**
 	 * @return the memNum
@@ -58,6 +59,21 @@ public class InviteLink extends BaseEntity {
 	 */
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
+	}
+
+	/**
+	 * @return the cookie
+	 */
+	public String getCookie() {
+		return cookie;
+	}
+
+	/**
+	 * @param cookie
+	 *            the cookie to set
+	 */
+	public void setCookie(String cookie) {
+		this.cookie = cookie;
 	}
 
 }

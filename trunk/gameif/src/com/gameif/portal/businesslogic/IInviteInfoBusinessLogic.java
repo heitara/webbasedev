@@ -15,4 +15,6 @@ public interface IInviteInfoBusinessLogic {
 	public void deleteInviteInfo(List<Long> inviteList);
 	public String createMemInviteLink(Integer titleId);
 	public List<MyInviteLink> selectLinkMembersByMemNum(Long memNum);
+	public void checkMailStatus(Long inviteId) throws LogicException;
+	public void checkLinkStatus(Long memNum, Long childMemNum) throws LogicException;
 }

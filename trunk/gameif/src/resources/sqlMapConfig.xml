@@ -52,5 +52,6 @@
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/ticketInfo.xml"/>
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/ticketGiveHist.xml"/>
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/ticketUseHist.xml"/>
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/memberLoginHist.xml"/>
 	
 </sqlMapConfig>

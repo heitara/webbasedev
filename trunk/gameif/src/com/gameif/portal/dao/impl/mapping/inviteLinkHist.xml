@@ -9,12 +9,17 @@
 		<result property="memNum" column="mem_num" />
 		<result property="childMemNum" column="child_mem_num" />
 		<result property="titleId" column="title_id" />
+		<result property="approveStatus" column="approve_status"/>
+		<result property="cookie" column="cookie"/>
 	</resultMap>
 	
 	<resultMap class="com.gameif.portal.entity.MyInviteLink" id="myInviteLinkHistResult">
 		<result property="nickName" column="nick_name" />
 		<result property="entryDate" column="entry_date" />
 		<result property="titleName" column="title_name" />
+		<result property="memNum" column="mem_num" />
+		<result property="childMemNum" column="child_mem_num" />
+		<result property="approveStatus" column="approve_status"/>
 	</resultMap>
 	
 	<insert id = "save" parameterClass="inviteLinkHist"> 
@@ -22,11 +27,15 @@
 			INSERT INTO invite_link_hist
 				(mem_num,
 				child_mem_num,
-				title_id)
+				title_id,
+				approve_status,
+				cookie)
 			VALUES
 				(#memNum#,
 				#childMemNum#,
-				#titleId#)
+				#titleId#,
+				#approveStatus#,
+				#cookie#)
 	        ]]>
 	</insert>
 	
@@ -35,7 +44,9 @@
 	        SELECT
 				mem_num,
 				child_mem_num,
-				title_id
+				title_id,
+				approve_status,
+				cookie
 			FROM
 				invite_link_hist
 			WHERE
@@ -48,7 +59,10 @@
 	        SELECT
 				member_info.nick_name, 
 				member_info.entry_date,
-				p.title_name
+				p.mem_num,
+				p.child_mem_num,
+				p.title_name,
+				p.approve_status
 			FROM
 				member_info
 			INNER JOIN 
@@ -56,6 +70,7 @@
 					SELECT 
 						invite_link_hist.mem_num,
 						invite_link_hist.child_mem_num,
+						invite_link_hist.approve_status,
 						ifnull(title_mst.title_name, '') as title_name
 					FROM
 						invite_link_hist
@@ -68,6 +83,23 @@
 				member_info.mem_num = p.child_mem_num
 			AND p.mem_num = #memNum#
 			ORDER BY member_info.mem_num DESC
+        ]]>
+	</select>
+	
+	<select id="selectForUpdate" parameterClass="java.util.HashMap" resultMap="inviteLinkHistResult">   
+        <![CDATA[
+	        SELECT
+				mem_num,
+				child_mem_num,
+				title_id,
+				approve_status,
+				cookie
+			FROM
+				invite_link_hist
+			WHERE
+				mem_num = #memNum#
+			AND	child_mem_num = #childMemNum#
+			FOR UPDATE
         ]]>
 	</select>
 

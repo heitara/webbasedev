@@ -1,8 +1,11 @@
 package com.gameif.portal.util;
 
+import javax.servlet.http.Cookie;
+
 import org.apache.struts2.ServletActionContext;
 
 import com.gameif.common.util.ByteUtil;
+import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.entity.MemberInfo;
 import com.opensymphony.xwork2.ActionContext;
 
@@ -178,5 +181,40 @@ public class ContextUtil {
 		info.append(getRequestedURIQuery());
 		
 		return info.toString();
+	}
+	
+	/**
+	 * 
+	 * @param cookieValue
+	 */
+	public final static void setInviteCookie(String cookieValue) {
+
+	    Cookie cookie = new Cookie(PortalConstants.Key.INVITE_COOKIE_KEY, cookieValue);
+	    cookie.setPath("/");
+	    cookie.setMaxAge(365*24*60*60);
+	    ServletActionContext.getResponse().addCookie(cookie);
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public final static String getInviteCookie() {
+		
+		String value = null;
+	    Cookie cookies[] = ServletActionContext.getRequest().getCookies();
+	    
+	    if (cookies != null) {
+	    	
+	        for (Cookie cookie : cookies) {
+	        	
+	        	if (cookie.getName().equals(PortalConstants.Key.INVITE_COOKIE_KEY)) {
+	        	
+	        		value = cookie.getValue();
+	        	}
+	        }
+	    }
+		
+		return value;
 	}
 }

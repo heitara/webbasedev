@@ -59,4 +59,10 @@ public class PlayHistDaoImpl extends
 		
 		return (Integer) this.getSqlMapClientTemplate().queryForObject(namespace + ".selectPlayHistCount", params);
 	}
+
+	@Override
+	public Integer selectPlayDaysByMemNum(Long memNum) {
+		
+		return (Integer) this.getSqlMapClientTemplate().queryForObject(namespace + ".selectPlayDaysByMemNum", memNum);
+	}
 }

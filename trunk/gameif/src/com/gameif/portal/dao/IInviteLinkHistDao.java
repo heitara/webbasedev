@@ -16,5 +16,7 @@ public interface IInviteLinkHistDao extends IBaseDao<InviteLinkHist, InviteLinkH
 	 * @return 友達リスト
 	 */
 	public List<MyInviteLink> selectLinkMembersByMemNum(Long memNum);
+	
+	public InviteLinkHist selectForUpdate(Long memNum, Long childMemNum);
 
 }

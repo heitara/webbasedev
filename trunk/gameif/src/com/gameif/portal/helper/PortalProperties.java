@@ -31,6 +31,9 @@ public class PortalProperties {
 	/** 退会原因 */
 	private Map<String, String> withdrawReason;
 	
+	/** 友達紹介の承認ステータス */
+	private Map<String, String> approveStatus;
+	
 	public String getMailLoginUrl(String mail) {
 		
 		String mailLoginUrl = null;
@@ -134,6 +137,22 @@ public class PortalProperties {
 	 */
 	public void setWithdrawReason(Map<String, String> withdrawReason) {
 		this.withdrawReason = withdrawReason;
+	}
+
+
+	/**
+	 * @return the approveStatus
+	 */
+	public Map<String, String> getApproveStatus() {
+		return approveStatus;
+	}
+
+
+	/**
+	 * @param approveStatus the approveStatus to set
+	 */
+	public void setApproveStatus(Map<String, String> approveStatus) {
+		this.approveStatus = approveStatus;
 	}
 	
 }

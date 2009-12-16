@@ -18,6 +18,9 @@
 		<result property="friendCreateDate" column="friend_create_date"/>
 		<result property="friendName" column="friend_name"/>
 		<result property="childMemNum" column="child_mem_num"/>
+		<result property="approveStatus" column="approve_status"/>
+		<result property="parentCookie" column="parent_cookie"/>
+		<result property="childCookie" column="child_cookie"/>
 		<result property="deleteFlag" column="delete_flag"/>
 		<result property="createdDate" column="created_date"/>
 		<result property="createdUser" column="created_user"/>
@@ -38,6 +41,9 @@
 			friend_create_date,
 			friend_name,
 			child_mem_num,
+			approve_status,
+			parent_cookie,
+			child_cookie,
 			delete_flag,
 			created_date,
 			created_user,
@@ -54,6 +60,9 @@
 			#friendCreateDate#,
 			#friendName#,
 			#childMemNum#,
+			#approveStatus#,
+			#parentCookie#,
+			#childCookie#,
 			#deleteFlag#,
 			#createdDate#,
 			#createdUser#,
@@ -81,6 +90,9 @@
 			friend_create_date,
 			friend_name,
 			child_mem_num,
+			approve_status,
+			parent_cookie,
+			child_cookie,
 			delete_flag,
 			created_date,
 			created_user,
@@ -140,6 +152,9 @@
 			friend_create_date,
 			friend_name,
 			child_mem_num,
+			approve_status,
+			parent_cookie,
+			child_cookie,
 			delete_flag,
 			created_date,
 			created_user,
@@ -167,6 +182,9 @@
 			friend_create_date = #friendCreateDate#,
 			friend_name = #friendName#,
 			child_mem_num = #childMemNum#,
+			approve_status = #approveStatus#,
+			parent_cookie = #parentCookie#,
+			child_cookie = #childCookie#,
 			delete_flag = #deleteFlag#,
 			created_date = #createdDate#,
 			created_user = #createdUser#,
@@ -191,6 +209,9 @@
 			friend_create_date,
 			friend_name,
 			child_mem_num,
+			approve_status,
+			parent_cookie,
+			child_cookie,
 			delete_flag,
 			created_date,
 			created_user,
@@ -218,6 +239,9 @@
 			friend_create_date,
 			friend_name,
 			child_mem_num,
+			approve_status,
+			parent_cookie,
+			child_cookie,
 			delete_flag,
 			created_date,
 			created_user,
