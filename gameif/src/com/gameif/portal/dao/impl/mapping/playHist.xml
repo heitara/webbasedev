@@ -218,7 +218,7 @@
 	<select id="selectPlayDaysByMemNum" parameterClass="java.lang.Long" resultClass="int">
       <![CDATA[
         SELECT
-			count(distinct(DATE_FORMAT(play_date, '%Y%m%H')))
+			count(distinct(DATE_FORMAT(play_date, '%Y%m%d')))
 		FROM
 			play_hist
 		WHERE	
