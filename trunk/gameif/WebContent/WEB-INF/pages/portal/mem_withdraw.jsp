@@ -30,22 +30,19 @@
 	</dt>
 	<dd>
 		<s:form name="frm_withdraw" method="post" cssClass="entry">
-			<div style="padding:0px 10px 30px 0px;font-size:12px;color:#555;">
-				退会される前に、下記の注意事項をよくお読みください。<br/><br/>
-				<p style="color:#600;line-height:20px;margin:15px">
-				こちらで退会されたアカウントは、復旧することはできませんので、ご注意ください。<br/>
-				掲示板なとの書き込みにつきましては、退会されましても削除されずに残りますので、ご注意ください。<br/>
-				 退会されますと、ご利用されていた各ゲームのデータ（残高、キャラクターやアイテム等）の復旧等につきましてはいかなる場合においても対応いたしかねますので、ご注意ください。<br/><br/>
-				</p>
-				上記の事項にご同意頂けます場合には、アンケートにご回答いただき、退会ボタンを押してください。<br/>
-			</div>
-			<div style="color:#666;border-top:1px dashed #CCC;">
+			<div style="font-size:14px;color:#500;font-weight:bold;">退会される前に、下記の注意事項をご確認ください。</div>
+			<ul>
+				<li>退会したアカウント及関連データはいかなる場合においても復旧することはできません。</li>
+				<li>掲示板の書き込みは、退会されても削除されず、そのまま残ります。</li>
+			</ul>
+			上記の事項に同意する場合には、アンケートにご回答頂き、、退会ボタンを押してください。<br/>
+			<div style="color:#333;border-top:1px dashed #CCC;padding-top:10px;margin-top:10px;">
                 <s:checkboxlist name="withdrawReason" list="portalProperties.withdrawReason" ></s:checkboxlist>
 				<span id="error_withdrawReason" class="input_error"><s:fielderror><s:param>withdrawReason</s:param></s:fielderror></span>
 			</div>
 			<div style="color:#666;">
 				<p>
-				※ご意見、ご要望があれば、お書きください。
+				※ご意見、ご要望があれば、書いてください。
 				</p>
 				<s:textarea name="remarks" rows="15" cssStyle="height:180px;width:500px;" title="内容" onblur="validate(this, 'LEN_0_1000');" />
 				<span id="error_remarks" class="input_error"><s:fielderror><s:param>remarks</s:param></s:fielderror></span>

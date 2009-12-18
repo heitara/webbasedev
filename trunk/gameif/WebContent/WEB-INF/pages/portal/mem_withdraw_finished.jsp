@@ -9,7 +9,7 @@
 		<dl class="finish">
 			<dt>退会が完了しました。</dt>
 			<dd>
-				<div class="msg">ゲームイフをご利用頂きありがとうございました。</div>
+				<div class="msg">ゲームイフをご利用頂き、ありがとうございました。</div>
 		</dl>
 	</dd>
 </dl>
