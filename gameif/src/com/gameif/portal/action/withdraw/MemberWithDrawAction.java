@@ -20,6 +20,7 @@ public class MemberWithDrawAction extends ModelDrivenActionSupport<MemberWithdra
 	
 	public IMemberInfoBusinessLogic memberInfoBusinessLogic;
 	private PortalProperties portalProperties;
+	private String logoutUrl;
 
 	/**
 	 * 会員退会画面へ案内する
@@ -52,6 +53,7 @@ public class MemberWithDrawAction extends ModelDrivenActionSupport<MemberWithdra
 		
 		// セッションをクリアする
 		ServletActionContext.getRequest().getSession().invalidate();
+		logoutUrl = ServletActionContext.getServletContext().getInitParameter("portalAuthTopUrl") + "/logout";
 		
 		return SUCCESS;
 	}
@@ -84,6 +86,14 @@ public class MemberWithDrawAction extends ModelDrivenActionSupport<MemberWithdra
 	 */
 	public PortalProperties getPortalProperties() {
 		return portalProperties;
+	}
+
+	public String getLogoutUrl() {
+		return logoutUrl;
+	}
+
+	public void setLogoutUrl(String logoutUrl) {
+		this.logoutUrl = logoutUrl;
 	}
 
 }
