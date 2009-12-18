@@ -309,8 +309,13 @@
 			</interceptor-ref>
 			<interceptor-ref name="gameifStack"></interceptor-ref>
 			<result name="input">/WEB-INF/pages/portal/mem_withdraw.jsp</result>
+			<!--
 			<result name="success" type="redirect">/finishedWithDrawInfo.html</result>
+			-->
+			<result name="success" type="redirect">${logoutUrl}</result>
+			<!--			
 			<result name="finished" >/WEB-INF/pages/portal/mem_withdraw_finished.jsp</result>
+			-->			
 			<result name="invalid.token">/WEB-INF/pages/common/warning.jsp</result>
 		</action>
 
