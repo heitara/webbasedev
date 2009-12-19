@@ -111,7 +111,7 @@ INSERT INTO `title_mst` (`title_id`, `title_name`, `title_about`, `service_start
 
 TRUNCATE TABLE `invite_template_mst`;
 INSERT INTO `invite_template_mst` (`invite_template_id`, `title_id`, `invite_template_subject`, `invite_template_msg`, `created_date`, `created_user`, `last_update_date`, `last_update_user`) VALUES
-(1, 1, 'クローズドβテストに参加しよう！', 'ブラウザゲーム「レジオン -創世伝説-」で、今クローズドβテスターを募集しているけど、一緒に参加してみましょうか？', '2009-10-13 10:53:15', 'chou', '2009-10-13 10:53:15', 'chou'),
+(1, 1, 'レジオンをやってみましょうか？', 'ブラウザゲーム「レジオン -創世伝説-」を一緒にプレイしてみましょうか？', '2009-10-13 10:53:15', 'chou', '2009-10-13 10:53:15', 'chou'),
 (2, 1, '新しいブラウザゲームを見つけた', '「レジオン -創世伝説-」というブラウザゲームがそろそろサービス開始なんだけど、一緒にプレイしてみましょうか？', '2009-10-13 10:53:15', 'chou', '2009-10-13 10:53:15', 'chou');
 
 TRUNCATE TABLE `service_point_type_mst`;
@@ -182,18 +182,24 @@ INSERT INTO `media_mst` (`media_num`, `media_name`, `media_kind_num`, `manager_t
 
 TRUNCATE TABLE `advert_agency_mst`;
 INSERT INTO `advert_agency_mst` (`advert_agency_num`, `advert_agency_name`, `advert_agency_type`, `created_date`, `created_user`, `last_update_date`, `last_update_user`) VALUES
+(0, 'ゲームイフ・検証', '0', '2009-11-17 11:00:00', 'lee', '2009-11-17 11:00:00', 'lee'),
 (1, '直接媒体・広告代理店無し', '1', '2009-11-17 11:00:00', 'lee', '2009-11-17 11:00:00', 'lee'),
 (2, 'チャネリング・株式会社ゲームイフ', '2', '2009-11-17 11:00:00', 'lee', '2009-11-17 11:00:00', 'lee'),
 (3, 'アクセストレード・株式会社インタースペース', '3', '2009-11-17 11:00:00', 'chou', '2009-11-17 11:00:00', 'chou');
 
+
 TRUNCATE TABLE `advert_mst`;
 INSERT INTO `advert_mst` (`advert_num`, `advert_name`, `advert_agency_num`, `media_num`, `pay_kind`, `advert_budget`, `advert_actual`, `start_date`, `end_date`, `title_id`, `remarks`, `created_date`, `created_user`, `last_update_date`, `last_update_user`) VALUES
+(100, 'ゲームイフ・検証', 0, 0, 0, 0, NULL, '2009-11-17 11:00:00', '2020-12-31 11:00:00', 1, '', '2009-11-17 11:00:00', 'lee', '2009-11-17 11:00:00', 'lee'),
 (101, 'アクセストレード・アフィリエイト', 3, 0, 48, 800000, NULL, '2009-11-17 11:00:00', '2020-12-31 11:00:00', 1, '', '2009-11-17 11:00:00', 'chou', '2009-11-17 11:00:00', 'chou'),
 (102, 'Google・アドウェア', 1, 1, 4, 100000, NULL, '2009-11-17 11:00:00', '2020-12-31 11:00:00', 1, '', '2009-11-17 11:00:00', 'chou', '2009-11-17 11:00:00', 'chou'),
 (103, 'Yahoo!・オーバーチュア', 1, 2, 4, 100000, NULL, '2009-11-06 15:47:36', '2010-11-06 15:47:36', 1, '', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
 (104, 'OnlineGamer・CBT募集', 1, 4, 0, 0, NULL, '2009-11-06 15:47:36', '2010-11-06 15:47:36', 1, '', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
 (105, 'OnlineGameZoom・CBT募集', 1, 5, 0, 0, NULL, '2009-11-06 15:47:36', '2010-11-06 15:47:36', 1, '', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
-(106, '4Gamer・CBT募集', 1, 3, 0, 0, NULL, '2009-11-06 15:47:36', '2010-11-06 15:47:36', 1, '', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou');
+(106, '4Gamer・CBT募集', 1, 3, 0, 0, NULL, '2009-11-06 15:47:36', '2010-11-06 15:47:36', 1, '', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
+(107, 'OnlineGameZoom・12月期間保証', 1, 5, 1, 0, NULL, '2009-12-01 00:00:00', '2009-12-31 23:59:59', 1, '', '2009-11-25 15:47:36', 'chou', '2009-11-25 15:47:36', 'lee'),
+(108, 'Facebook広告', 1, 6, 4, 150000, NULL, '2009-12-18 22:11:48', '2010-01-18 22:11:48', 1, NULL, '2009-12-18 22:13:01', 'lee', '2009-12-18 22:13:01', 'lee');
+
 
 TRUNCATE TABLE `maintenance_info`;
 INSERT INTO `maintenance_info` (`function_code`, `mainten_status`) VALUES
