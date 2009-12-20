@@ -74,9 +74,8 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 	 * @param settlementTrns　仮決済情報
 	 * @return 0:正常終了、１：会員が18歳未満、クレジットカードは利用できない、２：限度額が30000をお超える、３：限度額が100000をお超える
 	 */
-	@Transactional
 	@Override
-	public int saveSettlementTrns(MemSettlementTrns settlementTrns) throws LogicException {
+	public int createSettlementTrns(MemSettlementTrns settlementTrns) throws LogicException {
 		
 		// 会員情報を取得する
 		MemberInfo memberInfo = new MemberInfo();
@@ -137,10 +136,26 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 			// 登録からの30日間、一ヶ月間に購入できるポイントの限度額が30,000です
 			} else {
 				if (sumPointAmouont.compareTo(limitAmountMin) > 0) {
-					return 2;
+					return 4;
 				}
 			}
 		}
+		
+		// 仮決済を登録する
+		saveSettlementTrns(settlementTrns, memberInfo, pointMst, settleDate);
+		
+		return 0;
+	}
+	
+	/**
+	 * 仮決済を登録する
+	 * @param settlementTrns 仮登録情報
+	 * @param memberInfo　会員情報
+	 * @param pointMst　ポイント情報
+	 * @param settleDate　決済日時
+	 */
+	@Transactional
+	private void saveSettlementTrns(MemSettlementTrns settlementTrns, MemberInfo memberInfo, PointMst pointMst, Date settleDate) {
 		
 		settlementTrns.setMemNum(memberInfo.getMemNum());
 		settlementTrns.setMemAtbtCd(memberInfo.getMemAtbtCd());
@@ -152,8 +167,6 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		settlementTrns.setCreatedUser(memberInfo.getMemNum().toString());
 		// 仮決済を登録する
 		memSettlementTrnsDao.save(settlementTrns);
-		
-		return 0;
 	}
 	
 	/**
@@ -194,9 +207,7 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 	public void createSettlementHist(MemSettlementHist settlementHist) throws Exception {
 
 		// 仮決済情報を取得する
-		MemSettlementTrns settleTrns = new MemSettlementTrns();
-		settleTrns.setSettlementTrnsNum(settlementHist.getSettlementTrnsNum());
-		settleTrns = memSettlementTrnsDao.selectByKey(settleTrns);
+		MemSettlementTrns settleTrns = memSettlementTrnsDao.selectForUpdate(settlementHist.getSettlementTrnsNum());
 		if (settleTrns == null) {
 
 			// データが存在しない
@@ -245,9 +256,6 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 
 		// 仮決済情報を削除する
 		memSettlementTrnsDao.deleteByKey(settleTrns.getSettlementTrnsNum());
-		
-		// サービスポイントを贈与する
-		checkSettlementAmount(settlementHist, member);
 
 		// ポイントチャージ
 		ChargeParameter params = new ChargeParameter();
@@ -261,7 +269,7 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		ServerMst server = new ServerMst();
 		server.setTitleId(settleTrns.getTitleId());
 		server.setServerId(settleTrns.getServerId());
-		server = serverMstDao.selectByKey(server);
+		server = serverMstDao.selectForUpdate(server);
 		if (server == null) {
 
 			// データが存在しない
@@ -313,6 +321,9 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		} catch (Exception ex) {
 			logger.error("error has occurred in sending pointCharge mail. ", ex);
 		}
+		
+		// サービスポイントを贈与する
+		checkSettlementAmount(settlementHist, member);
 
 	}
 
@@ -353,10 +364,9 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		params.put("servicePointTypeCd", PortalConstants.ServicePointTypeCd.CHARGE);
 		params.put("titleId", settlementHist.getTitleId());
 		params.put("memNum", settlementHist.getMemNum());
-		params.put("settlementNum", settlementHist.getSettlementNum());
 		params.put("now", new Date());
 
-		ServicePointTypeMst servicePointTypeMst = servicePointTypeMstDao.selectChargePointRate(params);
+		ServicePointTypeMst servicePointTypeMst = servicePointTypeMstDao.selectChargePointRateForUpdate(params);
 		if (servicePointTypeMst == null || servicePointTypeMst.getServicePointTypeId() == null) {
 			return;
 		}

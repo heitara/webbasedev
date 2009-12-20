@@ -120,4 +120,30 @@
         ]]>
 	</select>
 
+	<select id="selectForUpdate" parameterClass="com.gameif.portal.entity.ServerMst" resultMap="serverResult">   
+        <![CDATA[
+		SELECT	server_id,
+				title_id,
+				server_name,
+				service_start_date,
+				service_end_date,
+				service_status,
+				server_domain,
+				play_url,
+				charge_url,
+				order_num,
+				players_num,
+				popularity_flag,
+				recommend_flag,
+				created_date,
+				created_user,
+				last_update_date,
+				last_update_user
+		FROM	server_mst
+		WHERE	server_id = #serverId#
+		AND		title_id = #titleId#
+		FOR 	UPDATE
+        ]]>
+	</select>
+
 </sqlMap>

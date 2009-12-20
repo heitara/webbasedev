@@ -37,7 +37,7 @@
         ]]>
 	</select>
 	
-	<select id="selectChargePointRate" parameterClass="java.util.Map" resultMap="servicePointTypeResult">   
+	<select id="selectChargePointRateForUpdate" parameterClass="java.util.Map" resultMap="servicePointTypeResult">   
         <![CDATA[
 	        SELECT
 				service_point_type_id,
@@ -61,8 +61,6 @@
 					WHERE mem_num = #memNum#
 					AND title_id = #titleId# 
 					AND settlement_date >= DATE_SUB(#now#, INTERVAL 1 MONTH)
-					AND settlement_date < #now#
-					AND settlement_num != #settlementNum#
 					)
         ]]>
 	</select>

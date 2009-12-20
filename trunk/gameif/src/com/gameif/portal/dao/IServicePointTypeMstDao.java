@@ -10,6 +10,6 @@ public interface IServicePointTypeMstDao extends IBaseDao<ServicePointTypeMst, S
 	public ServicePointTypeMst selectValidGameloginPoint(Integer servicePointTypeCd, Integer standardLevel);
 	
 	@SuppressWarnings("unchecked")
-	public ServicePointTypeMst selectChargePointRate(HashMap params);
+	public ServicePointTypeMst selectChargePointRateForUpdate(HashMap params);
 
 }
