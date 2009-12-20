@@ -178,7 +178,8 @@ INSERT INTO `media_mst` (`media_num`, `media_name`, `media_kind_num`, `manager_t
 (2, 'Yahoo!', 6, '1', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
 (3, '4Gamer.net', 1, '1', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
 (4, 'OnlineGamer', 1, '1', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
-(5, 'OnlineGameZoom', 1, '1', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou');
+(5, 'OnlineGameZoom', 1, '1', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
+(6, 'Facebook', 2, '1', '2009-12-18 22:10:19', 'lee', '2009-12-18 22:10:24', 'lee');
 
 TRUNCATE TABLE `advert_agency_mst`;
 INSERT INTO `advert_agency_mst` (`advert_agency_num`, `advert_agency_name`, `advert_agency_type`, `created_date`, `created_user`, `last_update_date`, `last_update_user`) VALUES
