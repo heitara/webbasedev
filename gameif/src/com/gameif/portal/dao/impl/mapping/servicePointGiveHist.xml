@@ -59,7 +59,7 @@
 			WHERE
 				service_point_give_hist.mem_num = #value#
 			ORDER BY 
-				service_point_give_hist.point_amount DESC, service_point_give_hist.title_id
+				service_point_give_hist.give_date DESC, service_point_give_hist.title_id
         ]]>
 	</select>
 
