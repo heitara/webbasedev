@@ -35,9 +35,9 @@ public class ServicePointTypeMstDaoImpl extends
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public ServicePointTypeMst selectChargePointRate(HashMap params) {
+	public ServicePointTypeMst selectChargePointRateForUpdate(HashMap params) {
 		
-		return (ServicePointTypeMst) this.getSqlMapClientTemplate().queryForObject(namespace + ".selectChargePointRate", params);
+		return (ServicePointTypeMst) this.getSqlMapClientTemplate().queryForObject(namespace + ".selectChargePointRateForUpdate", params);
 	}
 
 }

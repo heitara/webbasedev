@@ -191,7 +191,7 @@ public class PointChargeControlAction extends
 		try {
 
 			// 仮決済を登録する
-			int rtn = pointChargeBusinessLogic.saveSettlementTrns(settlementTrns);
+			int rtn = pointChargeBusinessLogic.createSettlementTrns(settlementTrns);
 			// 0:正常終了
 			if (rtn != 0) {
 				settleList = masterInfoBusinessLogic.getSettlementListForCharge();
@@ -200,13 +200,17 @@ public class PointChargeControlAction extends
 				case 1:
 					addFieldError("errMessage", getText("charge.limitAge"));
 					break;
-				// ２：限度額が30000をお超える
+				// ２：18歳未満の方は、一ヶ月3万円以上を決済することができません。
 				case 2:
-					addFieldError("errMessage", getText("charge.limitAmountMin"));
+					addFieldError("errMessage", getText("charge.limitAmountWithAge"));
 					break;
-				// ３：限度額が100000をお超える
+				// ３：クレジットカード決済では、一ヶ月10万円以上を超えることができません。
 				case 3:
 					addFieldError("errMessage", getText("charge.limitAmountMax"));
+					break;
+				// ４：会員登録から一ヶ月未満の方は、クレジットカード決済で3万円以上を超えることができません
+				case 4:
+					addFieldError("errMessage", getText("charge.limitAmountMin"));
 					break;
 				}
 				return "settleSelect";

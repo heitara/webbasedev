@@ -28,4 +28,10 @@ public class ServerMstDaoImpl extends
 		
 		return (ServerMst)getSqlMapClientTemplate().queryForObject(namespace + ".selectServerByDomain", domain);
 	}
+
+	@Override
+	public ServerMst selectForUpdate(ServerMst serverMst) {
+		
+		return (ServerMst)getSqlMapClientTemplate().queryForObject(namespace + ".selectForUpdate", serverMst);
+	}
 }
