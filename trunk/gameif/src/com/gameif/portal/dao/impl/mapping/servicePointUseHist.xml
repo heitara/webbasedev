@@ -70,7 +70,7 @@
 			WHERE
 				service_point_use_hist.mem_num = #value#
 			ORDER BY 
-				service_point_use_hist.point_amount DESC, service_point_use_hist.title_id, service_point_use_hist.server_id
+				service_point_use_hist.use_date DESC, service_point_use_hist.title_id, service_point_use_hist.server_id
         ]]>
 	</select>
 
