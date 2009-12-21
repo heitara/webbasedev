@@ -264,9 +264,6 @@
 		<property name="titleMstDao">
 			<ref bean="titleMstDao" />
 		</property>
-		<property name="pointMstDao">
-			<ref bean="pointMstDao" />
-		</property>
 		<property name="servicePointUseHistDao">
 			<ref bean="servicePointUseHistDao" />
 		</property>

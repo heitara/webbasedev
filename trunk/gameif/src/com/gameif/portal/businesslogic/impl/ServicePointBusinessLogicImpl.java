@@ -1,5 +1,6 @@
 package com.gameif.portal.businesslogic.impl;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -20,7 +21,6 @@ import com.gameif.portal.businesslogic.titleif.charge.ChargeParameter;
 import com.gameif.portal.businesslogic.titleif.charge.TitleCharge;
 import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.dao.IGameLoginCountDao;
-import com.gameif.portal.dao.IPointMstDao;
 import com.gameif.portal.dao.IServerMstDao;
 import com.gameif.portal.dao.IServicePointDao;
 import com.gameif.portal.dao.IServicePointGiveHistDao;
@@ -31,7 +31,6 @@ import com.gameif.portal.entity.GameLoginCount;
 import com.gameif.portal.entity.MySPGiveHist;
 import com.gameif.portal.entity.MySPInfo;
 import com.gameif.portal.entity.MySPUseHist;
-import com.gameif.portal.entity.PointMst;
 import com.gameif.portal.entity.ServerMst;
 import com.gameif.portal.entity.ServicePoint;
 import com.gameif.portal.entity.ServicePointGiveHist;
@@ -55,7 +54,6 @@ public class ServicePointBusinessLogicImpl extends BaseBusinessLogic implements
 	private IServicePointGiveHistDao servicePointGiveHistDao;
 	private TemplateMailer templateMailer;
 	private ITitleMstDao titleMstDao;
-	private IPointMstDao pointMstDao;
 	private IServicePointUseHistDao servicePointUseHistDao;
 	private IServerMstDao serverMstDao;
 	private TitleCharge titleCharge;
@@ -183,16 +181,7 @@ public class ServicePointBusinessLogicImpl extends BaseBusinessLogic implements
 	 */
 	@Transactional
 	@Override
-	public void chargeServicePoint(Integer titleId, Integer serverId, Integer pointId) throws LogicException {
-		
-		// ポイントマスタ（アイテム）を取得する
-		PointMst point = new PointMst();
-		point.setPointId(pointId);
-		point =	pointMstDao.selectByKey(point);
-		if (point == null) {
-			// データが存在しない
-			throw new DataNotExistsException("PointMst Data does not exist!");
-		}
+	public void chargeServicePoint(Integer titleId, Integer serverId, BigDecimal pointAmount) throws LogicException {
 		
 		// サービスポイント残高情報を取得する(ForUpdate)
 		ServicePoint servicePoint = new ServicePoint();
@@ -204,7 +193,7 @@ public class ServicePointBusinessLogicImpl extends BaseBusinessLogic implements
 			throw new DataNotExistsException("ServicePoint Data does not exist!");
 		}
 		
-		if (0 < point.getPointAmountAct().compareTo(servicePoint.getPointAmount())) {
+		if (0 < pointAmount.compareTo(servicePoint.getPointAmount())) {
 
 			// データが存在しない
 			throw new OutOfMaxCountException("ServicePoint is not enough.");
@@ -214,7 +203,7 @@ public class ServicePointBusinessLogicImpl extends BaseBusinessLogic implements
 		Date now = new Date();
 		
 		// サービスポイント = 残高 - 今回使うポイント
-		servicePoint.setPointAmount(servicePoint.getPointAmount().subtract(point.getPointAmountAct()));
+		servicePoint.setPointAmount(servicePoint.getPointAmount().subtract(pointAmount));
 		servicePoint.setLastUpdateDate(now);
 		servicePoint.setLastUpdateUser(ContextUtil.getMemberNo().toString());
 		// サービスポイント情報を更新する
@@ -224,7 +213,7 @@ public class ServicePointBusinessLogicImpl extends BaseBusinessLogic implements
 		servicePointUseHist.setMemNum(ContextUtil.getMemberNo());
 		servicePointUseHist.setTitleId(titleId);
 		servicePointUseHist.setUseDate(now);
-		servicePointUseHist.setPointAmount(point.getPointAmount());
+		servicePointUseHist.setPointAmount(pointAmount);
 		servicePointUseHist.setCreatedDate(now);
 		servicePointUseHist.setCreatedUser(ContextUtil.getMemberNo().toString());
 		servicePointUseHist.setLastUpdateDate(now);
@@ -238,13 +227,13 @@ public class ServicePointBusinessLogicImpl extends BaseBusinessLogic implements
 		params.setMemId(ContextUtil.getAccountId());
 		params.setOrderNo(servicePointUseHist.getServicePointUseNo());
 		params.setTitleId(titleId);
-		params.setChargePoint(point.getPointAmountAct().intValue());
+		params.setChargePoint(pointAmount.intValue());
 		params.setChargeDate(now);
 
 		ServerMst server = new ServerMst();
 		server.setTitleId(titleId);
 		server.setServerId(serverId);
-		server = serverMstDao.selectByKey(server);
+		server = serverMstDao.selectForUpdate(server);
 		if (server == null) {
 
 			// データが存在しない
@@ -270,7 +259,7 @@ public class ServicePointBusinessLogicImpl extends BaseBusinessLogic implements
 			// サーバ
 			props.put("serverName", server.getServerName());
 			// データID
-			props.put("point",point.getPointAmount().toString());
+			props.put("point",pointAmount.toString());
 			// 送信
 			templateMailer.sendAsyncMail(ContextUtil.getMemberInfo().getMailPc(), "pointCharge", props, true);
 		} catch (Exception ex) {
@@ -301,6 +290,12 @@ public class ServicePointBusinessLogicImpl extends BaseBusinessLogic implements
 	@Override
 	public List<MySPInfo> getMyServicePointList() {
 		return servicePointDao.selectMyServicePointList(ContextUtil.getMemberNo());
+	}
+
+	@Override
+	public BigDecimal getBalanceByTitle(Integer titleId, Long memNum) {
+		
+		return servicePointDao.selectBalanceByTitle(titleId, memNum);
 	}
 
 	/**
@@ -389,13 +384,6 @@ public class ServicePointBusinessLogicImpl extends BaseBusinessLogic implements
 	 */
 	public void setTitleMstDao(ITitleMstDao titleMstDao) {
 		this.titleMstDao = titleMstDao;
-	}
-
-	/**
-	 * @param pointMstDao the pointMstDao to set
-	 */
-	public void setPointMstDao(IPointMstDao pointMstDao) {
-		this.pointMstDao = pointMstDao;
 	}
 
 	/**

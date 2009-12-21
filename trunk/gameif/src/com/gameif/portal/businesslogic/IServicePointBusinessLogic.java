@@ -1,5 +1,6 @@
 package com.gameif.portal.businesslogic;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.gameif.common.exception.LogicException;
@@ -10,9 +11,10 @@ import com.gameif.portal.entity.MySPUseHist;
 public interface IServicePointBusinessLogic {
 	
 	public void getGameLoginServicePoint(Integer titleId) throws LogicException;
-	public void chargeServicePoint(Integer titleId, Integer serverId, Integer pointId) throws LogicException;
+	public void chargeServicePoint(Integer titleId, Integer serverId, BigDecimal pointAmount) throws LogicException;
 	public List<MySPUseHist> getMyUseHistList();
 	public List<MySPGiveHist> getMyGiveHistList();
 	public List<MySPInfo> getMyServicePointList();
+	public BigDecimal getBalanceByTitle(Integer titleId, Long memNum);
 
 }

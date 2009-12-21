@@ -1,5 +1,6 @@
 package com.gameif.portal.action.servicePoint;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.gameif.common.action.BaseActionSupport;
@@ -25,7 +26,7 @@ public class ServicePointControlAction extends BaseActionSupport {
 
 	private Integer titleId;
 	private Integer serverId;
-	private Integer pointId;
+	private BigDecimal pointAmount;
 	
 	
 	private List<MySPUseHist> useHistList;
@@ -76,7 +77,7 @@ public class ServicePointControlAction extends BaseActionSupport {
 	 */
 	public String charge() {
 		try {
-			servicePointBusinessLogic.chargeServicePoint(titleId, serverId, pointId);
+			servicePointBusinessLogic.chargeServicePoint(titleId, serverId, pointAmount);
 		} catch (DataNotExistsException dneEx) {
 			// データ存在しない
 			addFieldError("errMessage", getText("servicePoint.noValidPoint"));
@@ -183,17 +184,17 @@ public class ServicePointControlAction extends BaseActionSupport {
 	}
 
 	/**
-	 * @return the pointId
+	 * @return the pointAmount
 	 */
-	public Integer getPointId() {
-		return pointId;
+	public BigDecimal getPointAmount() {
+		return pointAmount;
 	}
 
 	/**
-	 * @param pointId the pointId to set
+	 * @param pointAmount the pointAmount to set
 	 */
-	public void setPointId(Integer pointId) {
-		this.pointId = pointId;
+	public void setPointAmount(BigDecimal pointAmount) {
+		this.pointAmount = pointAmount;
 	}
 
 	/**
