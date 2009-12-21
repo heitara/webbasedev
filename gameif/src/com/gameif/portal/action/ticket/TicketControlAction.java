@@ -54,7 +54,7 @@ public class TicketControlAction extends BaseActionSupport {
 	 */
 	public String use() {
 		try {
-			point = ticketBusinessLogic.useTicket(this.getTicketId(), this.getTicketId());
+			point = ticketBusinessLogic.useTicket(this.getTicketId(), this.getTitleId());
 		} catch (DataNotExistsException dneEx) {
 			// メンテナンス
 			addFieldError("errMessage", getText("ticket.dataNotExist"));
