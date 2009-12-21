@@ -28,8 +28,8 @@
 					<s:iterator value="ticketList" id="ticketList" status="st">
 						<tr <s:if test="#st.odd">class="odd" </s:if> >
 							<td class="friend"><img src="<s:property value="iconUrl"/>" title="<s:property value="ticketName"/>"/></td>
-							<td class="mail"><s:property value="ticketStartDate"/></td>
-							<td class="mail"><s:property value="ticketEndDate"/></td>
+							<td class="mail"><s:date name="ticketStartDate" format="yyyy/MM/dd"/></td>
+							<td class="mail"><s:date name="ticketEndDate" format="yyyy/MM/dd"/></td>
 							<td class="mail"><s:property value="titleName"/></td>
 							<td class="entry_ymd"><s:property value="ticketCount"/></td>
 							<td class="mail"><a href="useTicket.html?ticketId=<s:property value="ticketId"/>" >使用</a></td>

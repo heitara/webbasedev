@@ -20,7 +20,7 @@
 					</tr>
 					<s:iterator value="giveHistList" id="giveHistList" status="st">
 						<tr <s:if test="#st.odd">class="odd" </s:if> >
-							<td class="entry_ymd"><s:property value="giveDate"/></td>
+							<td class="entry_ymd"><s:date name="giveDate" format="yyyy/MM/dd HH:mm:ss"/></td>
 							<td class="friend"><s:property value="titleName"/></td>
 							<td class="mail"><s:property value="pointAmount"/></td>
 						</tr>
