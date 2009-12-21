@@ -3,33 +3,30 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <html>
 <head>
-	<title>チケット利用履歴</title>
+	<title>チケット使用履歴</title>
 	<script src="js/portal/validate.js" type="text/javascript"></script>
 	<script src="js/portal/common.js" type="text/javascript"></script>
 </head>
 <body>
 	<dl class="light_box tspace_n">
-		<dt><strong>チケット利用履歴</strong><span><a href="inputListTicket.html">► チケット残高照会</a><a href="inputGiveListTicket.html">► チケット付与履歴</a></span></dt>
+		<dt><strong>チケット使用履歴</strong><span><a href="inputListTicket.html">► チケット使用</a>　<a href="inputUseListTicket.html">► チケット使用履歴</a>　<a href="inputGiveListTicket.html">► チケット付与履歴</a></span></dt>
 		<dd>
-			<s:form name="frm_ticket_use_list" method="post" cssClass="entry">
-				<table class="friendhist tspace_y" align="center">
-					<tr id="listTitle">
-						<th class="entry_ymd">利用日期</th>
-						<th class="friend">チケット</th>
-						<th class="mail">枚数</th>
-						<th class="mail">取得ポイント</th>
+			<table class="friendhist tspace_y" align="center">
+				<tr id="listTitle" style="height:20px;">
+					<th>使用日時</th>
+					<th>使用チケット</th>
+					<th>使用枚数</th>
+					<th>獲得ポイント</th>
+				</tr>
+				<s:iterator value="useHistList" id="useHistList" status="st">
+					<tr>
+						<td><s:date name="ticketUseDate" format="yyyy/MM/dd HH:mm:ss"/></td>
+						<td><s:property value="ticketName"/></td>
+						<td><s:property value="ticketCount"/></td>
+						<td><s:property value="pointAmount"/></td>
 					</tr>
-					<s:iterator value="useHistList" id="useHistList" status="st">
-						<tr <s:if test="#st.odd">class="odd" </s:if> >
-							<td class="entry_ymd"><s:date name="ticketUseDate" format="yyyy/MM/dd HH:mm:ss"/></td>
-							<td class="friend"><s:property value="ticketName"/></td>
-							<td class="mail"><s:property value="ticketCount"/></td>
-							<td class="mail"><s:property value="pointAmount"/></td>
-						</tr>
-					</s:iterator>
-				</table>
-				<br/>
-			</s:form>
+				</s:iterator>
+			</table>
 		</dd>
 	</dl>
 </body>
