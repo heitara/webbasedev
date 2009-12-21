@@ -19,12 +19,54 @@
 <dl class="light_box tspace_n">
 	<dt><strong>サービスポイント利用</strong><span><a href="inputServicePoint.html">► サービスポイント残高照会</a>　<a href="inputUseListServicePoint.html">► サービスポイント利用履歴</a>　<a href="inputGiveListServicePoint.html">► サービスポイント付与履歴</a></span></dt>
 	<dd>
-		<s:form name="frm_sp_use" action="useServicePoint" method="post" cssClass="entry">
+		<h3 style="color:#F60;margin:20px 0px 10px 0px;">サービスポイントを使ってゲーム内GPを購入しましょう！</h3>
+		<div style="margin:10px 0px;padding:7px 10px;font-size:10px;border:1px solid #EEE;background-color:#F6F6F6;line-height:18px;">
+			購入前に対象タイトルのサービスポイント残高を確認してください。<br/>
+			サービスポイントで購入したゲーム内GPでは、ゲーム内取引を行うことができませんのでご注意ください。
+		</div>
+		<table width="100%" align="center" cellspacing="1" cellpadding="5" border="0" style="background-color:#FFF;margin-top:10px;border:1px solid #DDD;">
+			<tr align="center" bgcolor="#999" style="background-color:#666;color:#FFF;">
+				<td>対象タイトル</td>
+				<td>サービスポイント残高</td>
+				<td>有効期限</td>
+			</tr>
+			<s:iterator value="servicePointList" id="servicePointList">
+				<tr align="center">
+					<td>
+						<s:if test="titleName != null">
+							<s:property value="titleName"/>
+						</s:if>
+						<s:else>
+							<span>-</span>
+						</s:else>
+					</td>
+					<td>
+						<s:if test="pointAmount != null">
+							<s:text name="format.money">
+								<s:param value="pointAmount" />
+							</s:text>
+						</s:if>
+						<s:else>
+							<span>0</span>
+						</s:else> PT
+					</td>
+					<td>
+						<s:if test="pointEndDate != null">
+							<s:date name="pointEndDate" format="yyyy/MM/dd"/>
+						</s:if>
+						<s:else>
+							<span>-</span>
+						</s:else>
+					</td>
+				</tr>
+			</s:iterator>
+		</table>
+		<s:form name="frm_sp_use" action="useServicePoint" method="post" cssClass="entry" cssStyle="margin:0px;">
 			<table>
 				<tr>
 					<th></th>
 					<td>
-						<span class="logic_error"><s:fielderror><s:param>errMessage</s:param></s:fielderror></span><br/>
+						<span class="input_error" style="font-size:12px;"><s:fielderror><s:param>errMessage</s:param></s:fielderror></span><br/>
 					</td>
 				</tr>
 				<tr>
@@ -46,11 +88,11 @@
 				<tr>
 					<th><span class="required">*</span><label for="point_pointId">チャージポイント：</label></th>
 					<td>
-						<s:textfield name="pointAmount" maxlength="6" cssClass="ime_mode_n min" title="チャージポイント" onblur="validate(this, 'REQ,NUM');"></s:textfield>
-						<span style="font-size:11px;color:#500;">※利用可ポイント：</span>&nbsp;
+						<s:textfield name="pointAmount" maxlength="6" cssClass="ime_mode_n big" title="チャージポイント" onblur="validate(this, 'REQ,NUM');"></s:textfield>
+						<span style="font-size:11px;color:#500;">※利用可能なサービスポイント：</span>&nbsp;
 						<span id="balance" style="font-size:12px;color:#500;font-weight:bold;"></span>
 						<span style="font-size:11px;color:#500;">PT</span>
-						<span id="error_pointAmount" class="input_error"><s:fielderror><s:param>pointAmount</s:param></s:fielderror></span><br/>
+						<span id="error_pointAmount" class="input_error"><s:fielderror><s:param>pointAmount</s:param></s:fielderror></span>
 						<span class="explain">チャージするポイントを入力してください。</span>
 					</td>
 				</tr>
