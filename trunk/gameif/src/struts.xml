@@ -246,6 +246,7 @@
 			<result name="invalid.token">/WEB-INF/pages/common/warning.jsp</result>
 			<!-- メンテナンス画面に案内する -->
 			<result name="maintenance" type="redirect">/maintenancePage.html</result>
+			<result name="settlementHist">/WEB-INF/pages/portal/charge_settle_hist.jsp</result>
 		</action>
 
 		<action name="loginStatusProxy" class="loginStatusProxyAction">
