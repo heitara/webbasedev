@@ -80,4 +80,34 @@ function bindServerAndPoint(obj, cServer, cPoint) {
 			} catch (ex) {}
 		}
 	);
+}	
+
+function bindServerAndBalance(obj, cServer) { 
+	$.get("bindServerAndBalanceForCharge.html", {titleId: obj.value}, function(data) {
+			// サーバをバインドする
+			var serverList = eval("(" + data + ")").serverList;
+			$(cServer).empty();
+			if (serverList.length > 1) {
+				$(cServer).get(0).options.length = serverList.length + 1;	
+			} else {
+				$(cServer).get(0).options.length = serverList.length;	
+			}
+			try {
+				$.each(serverList,function(i){
+					if (serverList.length == 1) {
+						$(cServer).get(0).options[i].value = serverList[i].serverId;
+						$(cServer).get(0).options[i].text = serverList[i].serverName;
+					}
+					else {
+						$(cServer).get(0).options[i + 1].value = serverList[i].serverId;
+						$(cServer).get(0).options[i + 1].text = serverList[i].serverName;
+					}
+				});
+				
+			} catch (ex) {}
+			// ポイントをバインドする
+			var balance = eval("(" + data + ")").balance;
+			document.getElementById("balance").innerHTML = balance;
+		}
+	);
 }
