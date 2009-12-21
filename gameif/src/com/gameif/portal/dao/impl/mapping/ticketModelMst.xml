@@ -23,7 +23,7 @@
 		WHERE
 			model_id = (
 				SELECT
-					model_id
+					ticket_model_id
 				FROM 
 					ticket_mst
 				WHERE
