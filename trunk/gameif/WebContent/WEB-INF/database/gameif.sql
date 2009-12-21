@@ -815,7 +815,7 @@ CREATE TABLE  `questionnaire_answer` (
 
 
 
-DROP TABLE IF EXISTS `mem_withdraw_info`;
+DROP TABLE IF EXISTS `member_withdraw_info`;
 CREATE TABLE `member_withdraw_info` (
   `mem_num` bigint(20) NOT NULL,
   `withdraw_date` datetime DEFAULT NULL,
