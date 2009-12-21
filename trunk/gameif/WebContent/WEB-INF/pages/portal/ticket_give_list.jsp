@@ -9,29 +9,26 @@
 </head>
 <body>
 	<dl class="light_box tspace_n">
-		<dt><strong>チケット付与履歴</strong><span><a href="inputListTicket.html">► チケット残高照会</a><a href="inputUseListTicket.html">► チケット利用履歴</a></span></dt>
+		<dt><strong>チケット付与履歴</strong><span><a href="inputListTicket.html">► チケット使用</a>　<a href="inputUseListTicket.html">► チケット使用履歴</a>　<a href="inputGiveListTicket.html">► チケット付与履歴</a></span></dt>
 		<dd>
-			<s:form name="frm_ticket_give_list" method="post" cssClass="entry">
-				<table class="friendhist tspace_y" align="center">
-					<tr id="listTitle">
-						<th class="entry_ymd">付与日期</th>
-						<th class="friend">チケット</th>
-						<th class="mail">枚数</th>
-						<th class="mail">開始日期</th>
-						<th class="mail">失効日期</th>
+			<table class="friendhist tspace_y" align="center">
+				<tr id="listTitle">
+					<th>付与日期</th>
+					<th>付与チケット</th>
+					<th>枚数</th>
+					<th>使用可能日</th>
+					<th>使用期限</th>
+				</tr>
+				<s:iterator value="giveHistList" id="giveHistList">
+					<tr>
+						<td><s:date name="ticketGiveDate" format="yyyy/MM/dd HH:mm:ss"/></td>
+						<td><s:property value="ticketName"/></td>
+						<td><s:property value="ticketCount"/></td>
+						<td><s:date name="ticketStartDate" format="yyyy/MM/dd"/></td>
+						<td><s:date name="ticketEndDate" format="yyyy/MM/dd"/></td>
 					</tr>
-					<s:iterator value="giveHistList" id="giveHistList" status="st">
-						<tr <s:if test="#st.odd">class="odd" </s:if> >
-							<td class="entry_ymd"><s:date name="ticketGiveDate" format="yyyy/MM/dd HH:mm:ss"/></td>
-							<td class="friend"><s:property value="ticketName"/></td>
-							<td class="mail"><s:property value="ticketCount"/></td>
-							<td class="mail"><s:date name="ticketStartDate" format="yyyy/MM/dd"/></td>
-							<td class="mail"><s:date name="ticketEndDate" format="yyyy/MM/dd"/></td>
-						</tr>
-					</s:iterator>
-				</table>
-				<br/>
-			</s:form>
+				</s:iterator>
+			</table>
 		</dd>
 	</dl>
 </body>
