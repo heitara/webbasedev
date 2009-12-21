@@ -156,9 +156,10 @@ response.setDateHeader("Expires",0);
 			<dt><a href="editMemberInfo.html" title="会員情報変更"><img src="images/btn_b_chinfo.gif" alt="会員情報変更"/></a></dt>
 			<dd><a href="editPassword.html" title="パスワード変更"><img src="images/btn_b_chpass.gif" alt="パスワード変更"/></a></dd>
 		</dl>
-		<dl class="quickstart tspace_s">
-			<dt><a href="inputListTicket.html" title="チケット情報">チケット情報</a></dt>
-			<dd><a href="inputChargeServicePoint.html" title="サービスポイント利用">サービスポイント利用</a></dd>
+			
+		<dl class="quickstart tspace_s" style="height:27px;">
+			<dt><a href="inputListTicket.html" title="サービスチケット"><img src="images/btn_c_serviceticket.gif" alt="サービスチケット"/></a></dt>
+			<dd><a href="inputChargeServicePoint.html" title="サービスポイント"><img src="images/btn_c_servicepoint.gif" alt="サービスポイント"/></a></dd>
 		</dl>
 <%
 	} else {
@@ -403,8 +404,8 @@ response.setDateHeader("Expires",0);
 				<a href="<%=isLogined ? "inputMemberInquiry.html" : "inputInquiry.html"%>" title="お問合せ">お問合せ</a>
 				<!-- 
 				<a href="inputQuestionnaireAnswer.html?questionNo=1" title="アンケート">アンケート</a>
-				 -->
 				<a href="inputWithDrawInfo.html" title="退会">退会</a>
+				 -->
 			</dd>
 		</dl>
 		<!-- サポート：終了 -->
