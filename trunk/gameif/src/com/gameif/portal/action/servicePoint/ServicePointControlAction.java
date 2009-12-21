@@ -68,6 +68,7 @@ public class ServicePointControlAction extends BaseActionSupport {
 	 * @return サービスポイント利用画面へ
 	 */
 	public String inputCharge() {
+		setServicePointList(servicePointBusinessLogic.getMyServicePointList());
 		return "inputCharge";
 	}
 	
@@ -79,10 +80,12 @@ public class ServicePointControlAction extends BaseActionSupport {
 		try {
 			servicePointBusinessLogic.useServicePoint(titleId, serverId, pointAmount);
 		} catch (DataNotExistsException dneEx) {
+			setServicePointList(servicePointBusinessLogic.getMyServicePointList());
 			// データ存在しない
 			addFieldError("errMessage", getText("servicePoint.noValidPoint"));
 			return "inputCharge";
 		} catch (OutOfMaxCountException ex) {
+			setServicePointList(servicePointBusinessLogic.getMyServicePointList());
 			// サービスポイントが足りない
 			addFieldError("errMessage", getText("servicePoint.pointLack"));
 			return "inputCharge";
