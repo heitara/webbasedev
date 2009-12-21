@@ -22,7 +22,6 @@
 				<entry key="applyBetaTester" value="テスター応募"/>
 				<entry key="questionnaireAnswer" value="アンケート回答"/>
 				<entry key="chargeServicePoint" value="サービスポイント利用"/>
-				<entry key="useTicket" value="チケット利用"/>
 			</map>
 		</property>
 		<property name="sexListMap">
