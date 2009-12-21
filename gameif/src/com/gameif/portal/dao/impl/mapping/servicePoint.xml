@@ -99,5 +99,18 @@
 				title_mst.title_id
         ]]>
 	</select>
+	
+	<select id="selectBalanceByTitle" parameterClass="java.util.HashMap" resultClass="java.math.BigDecimal">
+        <![CDATA[
+	        SELECT
+				IFNULL(point_amount, 0) as point_amount
+			FROM
+				service_point
+			WHERE
+				mem_num = #memNum#
+			AND title_id = #titleId#
+			AND point_end_date >= now()
+        ]]>
+	</select>
 
 </sqlMap>
