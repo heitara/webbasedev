@@ -270,6 +270,9 @@
 		<property name="serverMstDao">
 			<ref bean="serverMstDao" />
 		</property>
+		<property name="titleCharge">
+			<ref bean="titleCharge" />
+		</property>
 	</bean>
 	
 	<!-- betaTesterBusinessLogic -->

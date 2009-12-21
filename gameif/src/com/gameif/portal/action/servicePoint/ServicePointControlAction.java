@@ -75,9 +75,9 @@ public class ServicePointControlAction extends BaseActionSupport {
 	 * サービスポイントを利用する
 	 * @return
 	 */
-	public String charge() {
+	public String use() {
 		try {
-			servicePointBusinessLogic.chargeServicePoint(titleId, serverId, pointAmount);
+			servicePointBusinessLogic.useServicePoint(titleId, serverId, pointAmount);
 		} catch (DataNotExistsException dneEx) {
 			// データ存在しない
 			addFieldError("errMessage", getText("servicePoint.noValidPoint"));

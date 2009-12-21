@@ -55,7 +55,7 @@
 				service_point_use_hist.server_id,
 				service_point_use_hist.use_date,
 				service_point_use_hist.point_amount,
-				title_mst.title_name,
+				title_mst.title_name as title_name,
 				server_mst.server_name
 			FROM
 				service_point_use_hist
