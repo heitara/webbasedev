@@ -153,6 +153,9 @@ public class TicketBusinessLogicImpl extends BaseBusinessLogic implements
 		Integer personCount = ticketModelDetailDao.selectSumPersonCount(model);
 		// ランダム値を取得する（0～人数）
 		Integer randomCount = (int)(Math.random() * personCount);
+		if (randomCount < 1) {
+			randomCount = 1;
+		}
 		// 今回取得できるポイントを検索する
 		actPointAmount = ticketModelDetailDao.selectActpoint(model, randomCount);
 		
