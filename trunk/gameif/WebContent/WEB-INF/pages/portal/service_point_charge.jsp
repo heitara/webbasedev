@@ -8,8 +8,7 @@
 		window.onload = function(){   
 			var titleId = document.getElementById("titleId");
 			var serverId = $("#serverId");
-			var pointId = $("#pointId");
-			bindServerAndPoint(titleId, serverId, pointId);
+			bindServerAndBalance(titleId, serverId);
         };
 	</script>
 </head>
@@ -30,7 +29,7 @@
 				<tr>
 					<th><span class="required">*</span><label for="point_titleId">ゲーム選択：</label></th>
 					<td>
-						<s:select name="titleId" id="titleId" cssClass="big" list="masterInfoBusinessLogic.validTitleList" listKey="titleId" listValue="titleName" title="ゲーム"  onchange="bindServerAndPoint(this, serverId, pointId);" onblur="validate(this,'REQ');" />
+						<s:select name="titleId" id="titleId" cssClass="big" list="masterInfoBusinessLogic.validTitleList" listKey="titleId" listValue="titleName" title="ゲーム"  onchange="bindServerAndBalance(this, serverId);" onblur="validate(this,'REQ');" />
 						<span id="error_titleId" class="input_error"><s:fielderror><s:param>titleId</s:param></s:fielderror></span><br/>
 						<span class="explain">ポイントをチャージするゲームを選択してください。</span>
 					</td>
@@ -46,9 +45,10 @@
 				<tr>
 					<th><span class="required">*</span><label for="point_pointId">チャージポイント：</label></th>
 					<td>
-						<select id="pointId" name="pointId" title="チャージポイント" class="big" onblur="validate(this,'REQ');"></select>
-						<span id="error_pointId" class="input_error"><s:fielderror><s:param>pointId</s:param></s:fielderror></span><br/>
-						<span class="explain">チャージするポイントを選択してください。</span>
+						<s:textfield name="pointAmount" maxlength="4" cssClass="ime_mode_n min" title="チャージポイント" onblur="validate(this, 'REQ,NUM');"></s:textfield>
+						<span class="explain">※利用可ポイント：  </span><span id="balance" ></span><span class="explain"> PT</span>
+						<span id="error_pointAmount" class="input_error"><s:fielderror><s:param>pointAmount</s:param></s:fielderror></span><br/>
+						<span class="explain">チャージするポイントを入力してください。</span>
 					</td>
 				</tr>
 			</table>

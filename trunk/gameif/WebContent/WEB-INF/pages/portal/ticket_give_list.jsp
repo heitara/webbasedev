@@ -22,11 +22,11 @@
 					</tr>
 					<s:iterator value="giveHistList" id="giveHistList" status="st">
 						<tr <s:if test="#st.odd">class="odd" </s:if> >
-							<td class="entry_ymd"><s:property value="ticketGiveDate"/></td>
+							<td class="entry_ymd"><s:date name="ticketGiveDate" format="yyyy/MM/dd HH:mm:ss"/></td>
 							<td class="friend"><s:property value="ticketName"/></td>
 							<td class="mail"><s:property value="ticketCount"/></td>
-							<td class="mail"><s:property value="ticketStartDate"/></td>
-							<td class="mail"><s:property value="ticketEndDate"/></td>
+							<td class="mail"><s:date name="ticketStartDate" format="yyyy/MM/dd"/></td>
+							<td class="mail"><s:date name="ticketEndDate" format="yyyy/MM/dd"/></td>
 						</tr>
 					</s:iterator>
 				</table>

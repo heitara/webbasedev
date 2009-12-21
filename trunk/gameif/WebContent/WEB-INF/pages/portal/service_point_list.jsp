@@ -30,7 +30,9 @@
 							</td>
 							<td class="mail">
 								<s:if test="pointAmount != null">
-									<s:property value="pointAmount"/>
+									<s:text name="format.money">
+										<s:param value="pointAmount" />
+									</s:text>
 								</s:if>
 								<s:else>
 									<span>--</span>
@@ -38,7 +40,7 @@
 							</td>
 							<td class="entry_ymd">
 								<s:if test="pointEndDate != null">
-									<s:property value="pointEndDate"/>
+									<s:date name="pointEndDate" format="yyyy/MM/dd"/>
 								</s:if>
 								<s:else>
 									<span>--</span>

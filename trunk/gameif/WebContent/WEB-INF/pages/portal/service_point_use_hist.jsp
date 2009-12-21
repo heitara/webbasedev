@@ -21,7 +21,7 @@
 					</tr>
 					<s:iterator value="useHistList" id="useHistList" status="st">
 						<tr <s:if test="#st.odd">class="odd" </s:if> >
-							<td class="entry_ymd"><s:property value="useDate"/></td>
+							<td class="entry_ymd"><s:date name="useDate" format="yyyy/MM/dd HH:mm:ss"/></td>
 							<td class="friend"><s:property value="titleName"/></td>
 							<td class="mail"><s:property value="serverName"/></td>
 							<td class="mail"><s:property value="pointAmount"/></td>
