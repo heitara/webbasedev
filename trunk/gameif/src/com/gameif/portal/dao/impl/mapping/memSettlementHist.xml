@@ -35,6 +35,17 @@
 		<result property="lastUpdateUser" column="last_update_user"/>
 	</resultMap>
 	
+	<resultMap class="com.gameif.portal.entity.MySettlementHist" id="mySettleHistResult">
+		<result property="settlementCode" column="settlement_code" />
+		<result property="settlementName" column="settlement_name" />
+		<result property="titleId" column="title_id" />
+		<result property="titleName" column="title_name" />
+		<result property="serverId" column="server_id" />
+		<result property="serverName" column="server_name" />
+		<result property="settlementDate" column="settlement_date" />
+		<result property="pointAmountAct" column="point_amount_act" />
+	</resultMap>
+	
 	<insert id = "save" parameterClass="memSettlementHist"> 
         <![CDATA[
 		INSERT INTO mem_settlement_hist
@@ -113,6 +124,37 @@
 	    <isNotEmpty property="settlementCode">
 	      	<![CDATA[ AND settlement_code = #settlementCode# ]]>
 	    </isNotEmpty>
+	</select>
+
+	<select id="selectSettlementHistListByMemNum" parameterClass="java.lang.Long" resultMap="mySettleHistResult">   
+        <![CDATA[
+	        SELECT
+	        	mem_settlement_hist.settlement_code,
+	        	mem_settlement_hist.title_id,
+	        	mem_settlement_hist.server_id,
+	        	mem_settlement_hist.settlement_date,
+	        	mem_settlement_hist.point_amount_act,
+	        	title_mst.title_name,
+	        	server_mst.server_name,
+	        	settlement_mst.settlement_name
+	        	
+			FROM
+				mem_settlement_hist
+			LEFT JOIN
+				title_mst
+			ON 
+				mem_settlement_hist.title_id = title_mst.title_id
+			LEFT JOIN
+				server_mst
+			ON 
+				mem_settlement_hist.server_id = server_mst.server_id
+			LEFT JOIN 
+				settlement_mst
+			ON
+				mem_settlement_hist.settlement_code = settlement_mst.settlement_code
+			WHERE
+				mem_settlement_hist.mem_num = #value#
+        ]]>
 	</select>
 
 </sqlMap>
