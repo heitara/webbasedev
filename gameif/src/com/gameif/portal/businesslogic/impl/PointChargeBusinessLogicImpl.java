@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -32,6 +33,7 @@ import com.gameif.portal.dao.ITitleMstDao;
 import com.gameif.portal.entity.MemSettlementHist;
 import com.gameif.portal.entity.MemSettlementTrns;
 import com.gameif.portal.entity.MemberInfo;
+import com.gameif.portal.entity.MySettlementHist;
 import com.gameif.portal.entity.PointMst;
 import com.gameif.portal.entity.ServerMst;
 import com.gameif.portal.entity.ServicePoint;
@@ -461,6 +463,11 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 	@Override
 	public Integer countPlayHist(Integer titleId) {
 		return playHistDao.selectPlayHistCount(ContextUtil.getMemberNo(), titleId);
+	}
+
+	@Override
+	public List<MySettlementHist> getSettlementHistListByMemNum(Long memNum) {
+		return memSettlementHistDao.selectSettlementHistListByMemNum(memNum);
 	}
 
 	/**

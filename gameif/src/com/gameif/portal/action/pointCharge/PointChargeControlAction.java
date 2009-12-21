@@ -21,6 +21,7 @@ import com.gameif.portal.businesslogic.IPointChargeBusinessLogic;
 import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.entity.MemSettlementHist;
 import com.gameif.portal.entity.MemSettlementTrns;
+import com.gameif.portal.entity.MySettlementHist;
 import com.gameif.portal.entity.PointMst;
 import com.gameif.portal.entity.SettlementMst;
 import com.gameif.portal.util.ContextUtil;
@@ -56,6 +57,7 @@ public class PointChargeControlAction extends
 	private String requestUrl;
 	private String spsKey;
 	private Long settleTrnsNum;
+	private List<MySettlementHist> settleHistList;
 
 	// 購入要求用パラメータ
 	private String pay_method;
@@ -779,6 +781,15 @@ public class PointChargeControlAction extends
 		
 		return receiveDate.before(new Date());
 	}
+	
+	/**
+	 * チャージ履歴画面に案内する
+	 * @return チャージ履歴画面
+	 */
+	public String chargeSettlementHist() {
+		setSettleHistList(pointChargeBusinessLogic.getSettlementHistListByMemNum(ContextUtil.getMemberNo()));
+		return "settlementHist";
+	}
 
 	/**
 	 * @return the masterInfoBusinessLogic
@@ -1455,6 +1466,20 @@ public class PointChargeControlAction extends
 	 */
 	public void setErrMsg(String errMsg) {
 		this.errMsg = errMsg;
+	}
+
+	/**
+	 * @return the settleHistList
+	 */
+	public List<MySettlementHist> getSettleHistList() {
+		return settleHistList;
+	}
+
+	/**
+	 * @param settleHistList the settleHistList to set
+	 */
+	public void setSettleHistList(List<MySettlementHist> settleHistList) {
+		this.settleHistList = settleHistList;
 	}
 
 }
