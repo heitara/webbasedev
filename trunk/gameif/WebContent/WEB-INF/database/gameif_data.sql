@@ -211,7 +211,6 @@ INSERT INTO `maintenance_info` (`function_code`, `mainten_status`) VALUES
 
 TRUNCATE TABLE `ticket_mst`;
 INSERT INTO `ticket_mst` (`ticket_id`, `ticket_name`, `ticket_type_cd`, `ticket_model_id`, `delay_days`, `valid_days`, `title_id`, `icon_url`, `created_date`, `created_user`, `last_update_date`, `last_update_user`) VALUES
-INSERT INTO `ticket_mst` (`ticket_id`, `ticket_name`, `ticket_type_cd`, `ticket_model_id`, `delay_days`, `valid_days`, `title_id`, `icon_url`, `created_date`, `created_user`, `last_update_date`, `last_update_user`) VALUES
 (1, '定のチケット100：固定100PT', 1, 1, 0, 60, 1, 'images/ticket/icon_st_1.gif', '2009-12-17 11:00:00', 'chou', '2009-12-17 11:00:00', 'chou'),
 (2, '定のチケット300：固定300PT', 2, 2, 0, 60, 1, 'images/ticket/icon_st_2.gif', '2009-12-17 11:00:00', 'chou', '2009-12-17 11:00:00', 'chou'),
 (3, '運のチケット10000：最低10PT・最高10000PT・平均160PT', 3, 3, 0, 60, 1, 'images/ticket/icon_st_3.gif', '2009-12-17 11:00:00', 'chou', '2009-12-17 11:00:00', 'chou');
