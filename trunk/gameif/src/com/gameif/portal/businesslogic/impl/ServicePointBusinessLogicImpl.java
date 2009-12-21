@@ -14,6 +14,7 @@ import com.gameif.common.businesslogic.BaseBusinessLogic;
 import com.gameif.common.exception.DataNotExistsException;
 import com.gameif.common.exception.LogicException;
 import com.gameif.common.exception.OutOfMaxCountException;
+import com.gameif.common.exception.SystemException;
 import com.gameif.common.helper.TemplateMailer;
 import com.gameif.portal.businesslogic.IServicePointBusinessLogic;
 import com.gameif.portal.businesslogic.titleif.charge.ChargeConstants;
@@ -181,7 +182,7 @@ public class ServicePointBusinessLogicImpl extends BaseBusinessLogic implements
 	 */
 	@Transactional
 	@Override
-	public void chargeServicePoint(Integer titleId, Integer serverId, BigDecimal pointAmount) throws LogicException {
+	public void useServicePoint(Integer titleId, Integer serverId, BigDecimal pointAmount) throws LogicException {
 		
 		// サービスポイント残高情報を取得する(ForUpdate)
 		ServicePoint servicePoint = new ServicePoint();
@@ -212,6 +213,7 @@ public class ServicePointBusinessLogicImpl extends BaseBusinessLogic implements
 		ServicePointUseHist servicePointUseHist = new ServicePointUseHist();
 		servicePointUseHist.setMemNum(ContextUtil.getMemberNo());
 		servicePointUseHist.setTitleId(titleId);
+		servicePointUseHist.setServerId(serverId);
 		servicePointUseHist.setUseDate(now);
 		servicePointUseHist.setPointAmount(pointAmount);
 		servicePointUseHist.setCreatedDate(now);
@@ -237,7 +239,7 @@ public class ServicePointBusinessLogicImpl extends BaseBusinessLogic implements
 		if (server == null) {
 
 			// データが存在しない
-			throw new DataNotExistsException("Server Data does not exist.");
+			throw new SystemException("Server Data does not exist.");
 		}
 
 		params.setChargeUrl(server.getChargeUrl());
@@ -246,7 +248,7 @@ public class ServicePointBusinessLogicImpl extends BaseBusinessLogic implements
 		// チャージを行う
 		int chargeRes = titleCharge.chargePoint(params);
 		if (chargeRes != ChargeConstants.Result.SUCCESS) {
-			throw new LogicException("Failed to charge.");
+			throw new SystemException("Failed to charge.");
 		}
 
 		try {

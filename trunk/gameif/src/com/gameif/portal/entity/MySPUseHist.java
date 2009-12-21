@@ -14,9 +14,9 @@ public class MySPUseHist extends BaseEntity {
 
 	private Long memNum;
 	private Integer titleId;
-	private Integer titleName;
+	private String titleName;
 	private Integer serverId;
-	private Integer serverName;
+	private String serverName;
 	private Date useDate;
 	private BigDecimal pointAmount;
 
@@ -53,7 +53,7 @@ public class MySPUseHist extends BaseEntity {
 	/**
 	 * @return the titleName
 	 */
-	public Integer getTitleName() {
+	public String getTitleName() {
 		return titleName;
 	}
 
@@ -61,7 +61,7 @@ public class MySPUseHist extends BaseEntity {
 	 * @param titleName
 	 *            the titleName to set
 	 */
-	public void setTitleName(Integer titleName) {
+	public void setTitleName(String titleName) {
 		this.titleName = titleName;
 	}
 
@@ -83,14 +83,14 @@ public class MySPUseHist extends BaseEntity {
 	/**
 	 * @return the serverName
 	 */
-	public Integer getServerName() {
+	public String getServerName() {
 		return serverName;
 	}
 
 	/**
 	 * @param serverName the serverName to set
 	 */
-	public void setServerName(Integer serverName) {
+	public void setServerName(String serverName) {
 		this.serverName = serverName;
 	}
 

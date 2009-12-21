@@ -24,11 +24,11 @@
         	<param name="expression"><![CDATA[([0-9]+)]]></param>
         	<message><![CDATA[<br/>ポイントは半角数字で入力してください。]]></message>
         </field-validator>
-        <!-- 
         <field-validator type="fieldexpression" short-circuit="true">
         	<param name="expression"><![CDATA[(pointAmount > 0)]]></param>
-        	<message><![CDATA[<br/>チャージポイントを選択してください。]]></message>
+        	<message><![CDATA[<br/>チャージ0ポイントを選択してください。]]></message>
         </field-validator>
+        <!-- 
         <field-validator type="fieldexpression" short-circuit="true">
         	<param name="expression"><![CDATA[(pointAmount < balance)]]></param>
         	<message><![CDATA[<br/>チャージポイントを選択してください。]]></message>
