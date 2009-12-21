@@ -10,7 +10,7 @@ import com.gameif.portal.entity.MyTicketUseHist;
 public interface ITicketBusinessLogic {
 	
 	public List<MyTicket> getMyTicketList();
-	public void useTicket(Integer ticketId, Integer titleId) throws LogicException;
+	public int useTicket(Integer ticketId, Integer titleId) throws LogicException;
 	public List<MyTicketUseHist> getMyUseHistList();
 	public List<MyTicketGiveHist> getMyGiveHistList();
 

@@ -273,6 +273,9 @@
 		<property name="titleCharge">
 			<ref bean="titleCharge" />
 		</property>
+		<property name="memberInfoDao">
+			<ref bean="memberInfoDao" />
+		</property>
 	</bean>
 	
 	<!-- betaTesterBusinessLogic -->
@@ -330,6 +333,9 @@
 		</property>
 		<property name="ticketGiveHistDao">
 			<ref bean="ticketGiveHistDao" />
+		</property>
+		<property name="memberInfoDao">
+			<ref bean="memberInfoDao" />
 		</property>
 	</bean>
 </beans>

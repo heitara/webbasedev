@@ -322,7 +322,7 @@
 		<action name="*Ticket" class="ticketControlAction" method="{1}">
 			<interceptor-ref name="gameifStack"></interceptor-ref>
 			<result name="inputList">/WEB-INF/pages/portal/ticket_list.jsp</result>
-			<result name="finishedUse" type="redirect">/finishedPage.html?action=useTicket</result>
+			<result name="finishedUse" type="redirect">/inputListTicket.html?point=${point}</result>
 			<result name="inputUseList">/WEB-INF/pages/portal/ticket_use_list.jsp</result>
 			<result name="inputGiveList">/WEB-INF/pages/portal/ticket_give_list.jsp</result>
 		</action>

@@ -253,6 +253,9 @@
 		<property name="ticketBusinessLogic">
 			<ref bean="ticketBusinessLogic" />
 		</property>
+		<property name="servicePointBusinessLogic">
+			<ref bean="servicePointBusinessLogic" />
+		</property>
 	</bean>
 	
 	<!-- loginStatusProxyAction -->

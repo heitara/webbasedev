@@ -16,6 +16,7 @@ import com.gameif.common.exception.OutOfDateException;
 import com.gameif.common.helper.TemplateMailer;
 import com.gameif.portal.businesslogic.ITicketBusinessLogic;
 import com.gameif.portal.constants.PortalConstants;
+import com.gameif.portal.dao.IMemberInfoDao;
 import com.gameif.portal.dao.IServicePointDao;
 import com.gameif.portal.dao.IServicePointGiveHistDao;
 import com.gameif.portal.dao.ITicketGiveHistDao;
@@ -24,6 +25,7 @@ import com.gameif.portal.dao.ITicketModelDetailDao;
 import com.gameif.portal.dao.ITicketModelMstDao;
 import com.gameif.portal.dao.ITicketUseHistDao;
 import com.gameif.portal.dao.ITitleMstDao;
+import com.gameif.portal.entity.MemberInfo;
 import com.gameif.portal.entity.MyTicket;
 import com.gameif.portal.entity.MyTicketGiveHist;
 import com.gameif.portal.entity.MyTicketUseHist;
@@ -53,6 +55,7 @@ public class TicketBusinessLogicImpl extends BaseBusinessLogic implements
 	private ITitleMstDao titleMstDao;
 	private TemplateMailer templateMailer;
 	private ITicketGiveHistDao ticketGiveHistDao;
+	private IMemberInfoDao memberInfoDao;
 	
 	// 有効期間
 	private Integer validDays;
@@ -66,16 +69,23 @@ public class TicketBusinessLogicImpl extends BaseBusinessLogic implements
 	}
 
 	@Override
-	public void useTicket(Integer ticketId, Integer titleId) throws LogicException {
+	public int useTicket(Integer ticketId, Integer titleId) throws LogicException {
 		
 		// 今回取得できるポイントを計算する
 		BigDecimal actPointAmount = getActPoint(ticketId);
+		MemberInfo member = memberInfoDao.selectByMemId(ContextUtil.getAccountId());
+		if (member == null) {
+			// データが存在しない
+			throw new OutOfDateException("MemberInfo Data does not exist.");
+		}
 		// チケット情報を更新する
-		updateTicketInfo(ticketId, actPointAmount, titleId);
+		updateTicketInfo(ticketId, actPointAmount, titleId, member.getMailPc());
+		
+		return actPointAmount.intValue();
 	}
 	
 	@Transactional
-	private void updateTicketInfo(Integer ticketId, BigDecimal actPointAmount, Integer titleId) throws LogicException {
+	private void updateTicketInfo(Integer ticketId, BigDecimal actPointAmount, Integer titleId, String mailPc) throws LogicException {
 		TicketInfo ticketInfo = ticketInfoDao.selectForUpdate(ContextUtil.getMemberNo(), ticketId);
 		if (ticketInfo == null) {
 			// データが存在しない
@@ -118,7 +128,7 @@ public class TicketBusinessLogicImpl extends BaseBusinessLogic implements
 			// データID
 			props.put("point", actPointAmount.toString());
 			// 送信
-			templateMailer.sendAsyncMail(ContextUtil.getMemberInfo().getMailPc(), "presentServicePoint", props, true);
+			templateMailer.sendAsyncMail(mailPc, "presentServicePoint", props, true);
 		} catch (Exception ex) {
 			logger.error("error has occurred in sending presentServicePoint mail. ", ex);
 		}
@@ -295,6 +305,13 @@ public class TicketBusinessLogicImpl extends BaseBusinessLogic implements
 	 */
 	public void setTemplateMailer(TemplateMailer templateMailer) {
 		this.templateMailer = templateMailer;
+	}
+
+	/**
+	 * @param memberInfoDao the memberInfoDao to set
+	 */
+	public void setMemberInfoDao(IMemberInfoDao memberInfoDao) {
+		this.memberInfoDao = memberInfoDao;
 	}
 
 	/**
