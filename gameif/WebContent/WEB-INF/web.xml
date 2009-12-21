@@ -228,6 +228,50 @@
 		<filter-name>CAS Filter</filter-name>
 		<url-pattern>/createWithDrawInfo.html</url-pattern>
 	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/inputGetServicePoint.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/getGameLoginServicePoint.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/inputChargeServicePoint.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/useServicePoint.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/inputUseListServicePoint.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/inputGiveListServicePoint.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/inputServicePoint.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/inputListTicket.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/useTicket.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/inputUseListTicket.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/inputGiveListTicket.html</url-pattern>
+	</filter-mapping>
 		
 	<filter-mapping>
 	    <filter-name>sitemesh</filter-name>
