@@ -52,7 +52,7 @@
 							<td><s:property value="ticketCount"/></td>
 							<td><s:date name="ticketStartDate" format="yyyy/MM/dd"/></td>
 							<td><s:date name="ticketEndDate" format="yyyy/MM/dd"/></td>
-							<td><a href="useTicket.html?ticketId=<s:property value="ticketId"/>" >今すぐ使用</a></td>
+							<td><a href="useTicket.html?ticketId=<s:property value="ticketId"/>&titleId=<s:property value="titleId"/>" >今すぐ使用</a></td>
 						</tr>
 					</s:iterator>
 				</table><br/>
