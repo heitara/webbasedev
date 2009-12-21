@@ -5,7 +5,9 @@ import java.util.List;
 import com.gameif.common.action.BaseActionSupport;
 import com.gameif.common.exception.DataNotExistsException;
 import com.gameif.common.exception.LogicException;
+import com.gameif.portal.businesslogic.IServicePointBusinessLogic;
 import com.gameif.portal.businesslogic.ITicketBusinessLogic;
+import com.gameif.portal.entity.MySPInfo;
 import com.gameif.portal.entity.MyTicket;
 import com.gameif.portal.entity.MyTicketGiveHist;
 import com.gameif.portal.entity.MyTicketUseHist;
@@ -19,12 +21,16 @@ public class TicketControlAction extends BaseActionSupport {
 	private static final long serialVersionUID = -681752908371642208L;
 
 	private ITicketBusinessLogic ticketBusinessLogic;
+	private IServicePointBusinessLogic servicePointBusinessLogic;
 	
 	private List<MyTicket> ticketList;
 	private Integer ticketId;
 	private Integer titleId;
 	private List<MyTicketUseHist> useHistList;
 	private List<MyTicketGiveHist> giveHistList;
+	private Integer point;
+	private List<MySPInfo> servicePointList;
+	
 
 	/**
 	 * チケット情報画面へ案内する
@@ -32,6 +38,7 @@ public class TicketControlAction extends BaseActionSupport {
 	 * @return チケット情報画面
 	 */
 	public String inputList() {
+		setServicePointList(servicePointBusinessLogic.getMyServicePointList());
 		// チケット情報を検索する
 		setTicketList(ticketBusinessLogic.getMyTicketList());
 		if (getTicketList() == null || getTicketList().size() == 0) {
@@ -47,7 +54,7 @@ public class TicketControlAction extends BaseActionSupport {
 	 */
 	public String use() {
 		try {
-			ticketBusinessLogic.useTicket(this.getTicketId(), this.getTicketId());
+			point = ticketBusinessLogic.useTicket(this.getTicketId(), this.getTicketId());
 		} catch (DataNotExistsException dneEx) {
 			// メンテナンス
 			addFieldError("errMessage", getText("ticket.dataNotExist"));
@@ -86,6 +93,13 @@ public class TicketControlAction extends BaseActionSupport {
 	 */
 	public void setTicketBusinessLogic(ITicketBusinessLogic ticketBusinessLogic) {
 		this.ticketBusinessLogic = ticketBusinessLogic;
+	}
+
+	/**
+	 * @param servicePointBusinessLogic the servicePointBusinessLogic to set
+	 */
+	public void setServicePointBusinessLogic(IServicePointBusinessLogic servicePointBusinessLogic) {
+		this.servicePointBusinessLogic = servicePointBusinessLogic;
 	}
 
 	/**
@@ -156,6 +170,34 @@ public class TicketControlAction extends BaseActionSupport {
 	 */
 	public void setGiveHistList(List<MyTicketGiveHist> giveHistList) {
 		this.giveHistList = giveHistList;
+	}
+
+	/**
+	 * @return the point
+	 */
+	public Integer getPoint() {
+		return point;
+	}
+
+	/**
+	 * @param point the point to set
+	 */
+	public void setPoint(Integer point) {
+		this.point = point;
+	}
+
+	/**
+	 * @return the servicePointList
+	 */
+	public List<MySPInfo> getServicePointList() {
+		return servicePointList;
+	}
+
+	/**
+	 * @param servicePointList the servicePointList to set
+	 */
+	public void setServicePointList(List<MySPInfo> servicePointList) {
+		this.servicePointList = servicePointList;
 	}
 
 }

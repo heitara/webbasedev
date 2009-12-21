@@ -22,6 +22,7 @@ import com.gameif.portal.businesslogic.titleif.charge.ChargeParameter;
 import com.gameif.portal.businesslogic.titleif.charge.TitleCharge;
 import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.dao.IGameLoginCountDao;
+import com.gameif.portal.dao.IMemberInfoDao;
 import com.gameif.portal.dao.IServerMstDao;
 import com.gameif.portal.dao.IServicePointDao;
 import com.gameif.portal.dao.IServicePointGiveHistDao;
@@ -29,6 +30,7 @@ import com.gameif.portal.dao.IServicePointTypeMstDao;
 import com.gameif.portal.dao.IServicePointUseHistDao;
 import com.gameif.portal.dao.ITitleMstDao;
 import com.gameif.portal.entity.GameLoginCount;
+import com.gameif.portal.entity.MemberInfo;
 import com.gameif.portal.entity.MySPGiveHist;
 import com.gameif.portal.entity.MySPInfo;
 import com.gameif.portal.entity.MySPUseHist;
@@ -58,6 +60,7 @@ public class ServicePointBusinessLogicImpl extends BaseBusinessLogic implements
 	private IServicePointUseHistDao servicePointUseHistDao;
 	private IServerMstDao serverMstDao;
 	private TitleCharge titleCharge;
+	private IMemberInfoDao memberInfoDao;
 	
 	// 有効期間
 	private Integer validDays;
@@ -201,6 +204,13 @@ public class ServicePointBusinessLogicImpl extends BaseBusinessLogic implements
 			
 		}
 		
+		MemberInfo member = new MemberInfo();
+		member = memberInfoDao.selectForUpdate(ContextUtil.getMemberNo());
+		if (member == null) {
+			// データが存在しない
+			throw new DataNotExistsException("MemberInfo Data does not exist!");
+		}
+		
 		Date now = new Date();
 		
 		// サービスポイント = 残高 - 今回使うポイント
@@ -263,7 +273,7 @@ public class ServicePointBusinessLogicImpl extends BaseBusinessLogic implements
 			// データID
 			props.put("point",pointAmount.toString());
 			// 送信
-			templateMailer.sendAsyncMail(ContextUtil.getMemberInfo().getMailPc(), "pointCharge", props, true);
+			templateMailer.sendAsyncMail(member.getMailPc(), "pointCharge", props, true);
 		} catch (Exception ex) {
 			logger.error("error has occurred in sending pointCharge mail. ", ex);
 		}
@@ -408,6 +418,13 @@ public class ServicePointBusinessLogicImpl extends BaseBusinessLogic implements
 	 */
 	public void setTitleCharge(TitleCharge titleCharge) {
 		this.titleCharge = titleCharge;
+	}
+
+	/**
+	 * @param memberInfoDao the memberInfoDao to set
+	 */
+	public void setMemberInfoDao(IMemberInfoDao memberInfoDao) {
+		this.memberInfoDao = memberInfoDao;
 	}
 
 	/**

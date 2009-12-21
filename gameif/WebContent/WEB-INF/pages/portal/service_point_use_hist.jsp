@@ -9,7 +9,7 @@
 </head>
 <body>
 	<dl class="light_box tspace_n">
-		<dt><strong>サービスポイント利用履歴</strong><span><a href="inputServicePoint.html">► サービスポイント残高照会</a> <a href="inputChargeServicePoint.html">► サービスポイント利用</a> <a href="inputGiveListServicePoint.html">► サービスポイント付与履歴</a></span></span></dt>
+		<dt><strong>サービスポイント利用履歴</strong><span><a href="inputServicePoint.html">► サービスポイント残高照会</a> <a href="inputChargeServicePoint.html">► サービスポイント利用</a> <a href="inputGiveListServicePoint.html">► サービスポイント付与履歴</a></span></dt>
 		<dd>
 			<s:form name="frm_sp_use_list" method="post" cssClass="entry">
 				<table class="friendhist tspace_y" align="center">

@@ -4,7 +4,8 @@
 <head>
 	<title>サービスポイント利用 </title>
 	<script src="js/portal/validate.js" type="text/javascript"></script>
-	<script src="js/portal/bindMaster.js" type="text/javascript"></script>	<script type="text/javascript">
+	<script src="js/portal/bindMaster.js" type="text/javascript"></script>	
+	<script type="text/javascript">
 		window.onload = function(){   
 			var titleId = document.getElementById("titleId");
 			var serverId = $("#serverId");
@@ -18,7 +19,7 @@
 <dl class="light_box tspace_n">
 	<dt><strong>サービスポイント利用</strong><span><a href="inputServicePoint.html">► サービスポイント残高照会</a>　<a href="inputUseListServicePoint.html">► サービスポイント利用履歴</a>　<a href="inputGiveListServicePoint.html">► サービスポイント付与履歴</a></span></dt>
 	<dd>
-		<s:form name="frm_sp_use" action="chargeServicePoint" method="post" cssClass="entry">
+		<s:form name="frm_sp_use" action="useServicePoint" method="post" cssClass="entry">
 			<table>
 				<tr>
 					<th></th>
@@ -45,8 +46,10 @@
 				<tr>
 					<th><span class="required">*</span><label for="point_pointId">チャージポイント：</label></th>
 					<td>
-						<s:textfield name="pointAmount" maxlength="4" cssClass="ime_mode_n min" title="チャージポイント" onblur="validate(this, 'REQ,NUM');"></s:textfield>
-						<span class="explain">※利用可ポイント：  </span><span id="balance" ></span><span class="explain"> PT</span>
+						<s:textfield name="pointAmount" maxlength="6" cssClass="ime_mode_n min" title="チャージポイント" onblur="validate(this, 'REQ,NUM');"></s:textfield>
+						<span style="font-size:11px;color:#500;">※利用可ポイント：</span>&nbsp;
+						<span id="balance" style="font-size:12px;color:#500;font-weight:bold;"></span>
+						<span style="font-size:11px;color:#500;">PT</span>
 						<span id="error_pointAmount" class="input_error"><s:fielderror><s:param>pointAmount</s:param></s:fielderror></span><br/>
 						<span class="explain">チャージするポイントを入力してください。</span>
 					</td>
