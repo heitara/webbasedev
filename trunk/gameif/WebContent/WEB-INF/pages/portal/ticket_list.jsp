@@ -11,11 +11,11 @@
 			var point = document.getElementById("point").value;
 			if (point != null && eval(point) > 0) {
 				var msg = "";
-				if (eval(point) >= 500) {
+				if (eval(point) > 100) {
 					msg = "おめでとうございます。\n";
 				}
-				alert("サービスポイント" + point + "PTを獲得しました。");
-				document.getElementById("point").value = "0";
+				alert(msg + "サービスポイント" + point + "PTを獲得しました。");
+				location = "inputListTicket.html";
 			}
         };
 	</script>
