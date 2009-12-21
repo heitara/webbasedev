@@ -1,10 +1,13 @@
 package com.gameif.portal.businesslogic;
 
+import java.util.List;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gameif.common.exception.LogicException;
 import com.gameif.portal.entity.MemSettlementHist;
 import com.gameif.portal.entity.MemSettlementTrns;
+import com.gameif.portal.entity.MySettlementHist;
 
 public interface IPointChargeBusinessLogic {
 
@@ -30,5 +33,7 @@ public interface IPointChargeBusinessLogic {
 	 * @return プレイ回数
 	 */
 	public Integer countPlayHist(Integer titleId);
+	
+	public List<MySettlementHist> getSettlementHistListByMemNum(Long memNum);
 
 }
