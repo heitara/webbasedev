@@ -76,6 +76,7 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 	 * @param settlementTrns　仮決済情報
 	 * @return 0:正常終了、１：会員が18歳未満、クレジットカードは利用できない、２：限度額が30000をお超える、３：限度額が100000をお超える
 	 */
+	@Transactional
 	@Override
 	public int createSettlementTrns(MemSettlementTrns settlementTrns) throws LogicException {
 		
@@ -144,21 +145,6 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		}
 		
 		// 仮決済を登録する
-		saveSettlementTrns(settlementTrns, memberInfo, pointMst, settleDate);
-		
-		return 0;
-	}
-	
-	/**
-	 * 仮決済を登録する
-	 * @param settlementTrns 仮登録情報
-	 * @param memberInfo　会員情報
-	 * @param pointMst　ポイント情報
-	 * @param settleDate　決済日時
-	 */
-	@Transactional
-	private void saveSettlementTrns(MemSettlementTrns settlementTrns, MemberInfo memberInfo, PointMst pointMst, Date settleDate) {
-		
 		settlementTrns.setMemNum(memberInfo.getMemNum());
 		settlementTrns.setMemAtbtCd(memberInfo.getMemAtbtCd());
 		settlementTrns.setSettlementDate(settleDate);
@@ -167,8 +153,10 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		settlementTrns.setSettlementLog(makeSettlementTrnsLog(settlementTrns));
 		settlementTrns.setCreatedDate(settleDate);
 		settlementTrns.setCreatedUser(memberInfo.getMemNum().toString());
-		// 仮決済を登録する
+		
 		memSettlementTrnsDao.save(settlementTrns);
+		
+		return 0;
 	}
 	
 	/**
@@ -325,7 +313,7 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		}
 		
 		// サービスポイントを贈与する
-		checkSettlementAmount(settlementHist, member);
+//		checkSettlementAmount(settlementHist, member);
 
 	}
 
