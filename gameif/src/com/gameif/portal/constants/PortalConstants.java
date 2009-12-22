@@ -176,7 +176,7 @@ public class PortalConstants {
 	/** 決済方法 */
 	public class SettlementCode {
 		public final static String BITCASH = "bitcash";
-		public final static String CREDIT = "credit";
+		public final static String CREDIT = "credit3d";
 		public final static String CYBEREDY = "cyberedy";
 		public final static String MOBILEEDY = "mobileedy";
 		public final static String NETCASH = "netcash";
