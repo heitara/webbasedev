@@ -68,6 +68,7 @@ public class TicketBusinessLogicImpl extends BaseBusinessLogic implements
 		return ticketInfoDao.selectMyTicketList(ContextUtil.getMemberNo());
 	}
 
+	@Transactional
 	@Override
 	public int useTicket(Integer ticketId, Integer titleId) throws LogicException {
 		
@@ -84,7 +85,6 @@ public class TicketBusinessLogicImpl extends BaseBusinessLogic implements
 		return actPointAmount.intValue();
 	}
 	
-	@Transactional
 	private void updateTicketInfo(Integer ticketId, BigDecimal actPointAmount, Integer titleId, String mailPc) throws LogicException {
 		TicketInfo ticketInfo = ticketInfoDao.selectForUpdate(ContextUtil.getMemberNo(), ticketId);
 		if (ticketInfo == null) {
