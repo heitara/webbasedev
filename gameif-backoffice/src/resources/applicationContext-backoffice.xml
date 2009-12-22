@@ -41,16 +41,9 @@
 			<map>
 				<entry key="1" value="友達紹介"/>
 				<entry key="2" value="アンケット"/>
-				<entry key="3" value="信仰ランキング"/>
-				<entry key="4" value="軍団長ランキング"/>
-				<entry key="5" value="城ランキング"/>
-				<entry key="6" value="金貨ランキング"/>
-				<entry key="7" value="攻撃ランキング"/>
-				<entry key="8" value="防御ランキング"/>
-				<entry key="9" value="魔法ランキング"/>
-				<entry key="10" value="知恵ランキング"/>
-				<entry key="11" value="ギルドランキング"/>
-				<entry key="12" value="ゲームに連続ログイン"/>
+				<entry key="3" value="ランキング"/>
+				<entry key="4" value="改善提案"/>
+				<entry key="5" value="ゲームに連続ログイン"/>
 			</map>
 		</property>
 		<property name="inviteType">
