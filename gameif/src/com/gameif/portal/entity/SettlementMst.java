@@ -15,6 +15,7 @@ public class SettlementMst extends BaseEntity {
 	private String settlementName;
 	private String iconUrl;
 	private String settlementStatus;
+	private Integer orderBy;
 	private Date createdDate;
 	private String createdUser;
 	private Date lastUpdateDate;
@@ -78,6 +79,20 @@ public class SettlementMst extends BaseEntity {
 	 */
 	public void setSettlementStatus(String settlementStatus) {
 		this.settlementStatus = settlementStatus;
+	}
+
+	/**
+	 * @return the orderBy
+	 */
+	public Integer getOrderBy() {
+		return orderBy;
+	}
+
+	/**
+	 * @param orderBy the orderBy to set
+	 */
+	public void setOrderBy(Integer orderBy) {
+		this.orderBy = orderBy;
 	}
 
 	/**
