@@ -354,6 +354,7 @@ CREATE TABLE  `settlement_mst` (
   `settlement_name` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
   `icon_url` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `settlement_status` char(1) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `order_by` int(11) DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
   `created_user` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `last_update_date` datetime DEFAULT NULL,
