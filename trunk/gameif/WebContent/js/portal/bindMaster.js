@@ -105,9 +105,6 @@ function bindServerAndBalance(obj, cServer) {
 				});
 				
 			} catch (ex) {}
-			// ポイントをバインドする
-			var balance = eval("(" + data + ")").balance;
-			document.getElementById("balance").innerHTML = balance;
 		}
 	);
 }
