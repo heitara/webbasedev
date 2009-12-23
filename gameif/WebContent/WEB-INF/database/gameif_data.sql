@@ -204,10 +204,11 @@ INSERT INTO `advert_mst` (`advert_num`, `advert_name`, `advert_agency_num`, `med
 
 TRUNCATE TABLE `maintenance_info`;
 INSERT INTO `maintenance_info` (`function_code`, `mainten_status`) VALUES
-('20', '0'),
+('20', '2'),
 ('30', '0'),
 ('40', '0'),
-('43', '0');
+('43', '0'),
+('50', '0');
 
 TRUNCATE TABLE `ticket_mst`;
 INSERT INTO `ticket_mst` (`ticket_id`, `ticket_name`, `ticket_type_cd`, `ticket_model_id`, `delay_days`, `valid_days`, `title_id`, `icon_url`, `created_date`, `created_user`, `last_update_date`, `last_update_user`) VALUES
