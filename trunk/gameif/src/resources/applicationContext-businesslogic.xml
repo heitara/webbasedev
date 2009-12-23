@@ -325,17 +325,8 @@
 		<property name="servicePointGiveHistDao">
 			<ref bean="servicePointGiveHistDao" />
 		</property>
-		<property name="titleMstDao">
-			<ref bean="titleMstDao" />
-		</property>
-		<property name="templateMailer">
-			<ref bean="templateMailer" />
-		</property>
 		<property name="ticketGiveHistDao">
 			<ref bean="ticketGiveHistDao" />
-		</property>
-		<property name="memberInfoDao">
-			<ref bean="memberInfoDao" />
 		</property>
 	</bean>
 </beans>

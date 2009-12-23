@@ -222,6 +222,9 @@
 		<property name="pointChargeBusinessLogic">
 			<ref bean="pointChargeBusinessLogic" />
 		</property>
+		<property name="maintenanceBusinessLogic">
+			<ref bean="maintenanceBusinessLogic" />
+		</property>
 	</bean>
 	
 	<!-- betaTesterControlAction -->
@@ -258,6 +261,9 @@
 		</property>
 		<property name="servicePointBusinessLogic">
 			<ref bean="servicePointBusinessLogic" />
+		</property>
+		<property name="maintenanceBusinessLogic">
+			<ref bean="maintenanceBusinessLogic" />
 		</property>
 	</bean>
 	
