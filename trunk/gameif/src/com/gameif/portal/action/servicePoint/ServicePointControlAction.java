@@ -8,6 +8,7 @@ import com.gameif.common.exception.DataNotExistsException;
 import com.gameif.common.exception.LogicException;
 import com.gameif.common.exception.OutOfMaxCountException;
 import com.gameif.portal.businesslogic.IMasterInfoBusinessLogic;
+import com.gameif.portal.businesslogic.IPointChargeBusinessLogic;
 import com.gameif.portal.businesslogic.IServicePointBusinessLogic;
 import com.gameif.portal.entity.MySPGiveHist;
 import com.gameif.portal.entity.MySPInfo;
@@ -23,6 +24,7 @@ public class ServicePointControlAction extends BaseActionSupport {
 
 	private IMasterInfoBusinessLogic masterInfoBusinessLogic;
 	private IServicePointBusinessLogic servicePointBusinessLogic;
+	private IPointChargeBusinessLogic pointChargeBusinessLogic;
 
 	private Integer titleId;
 	private Integer serverId;
@@ -77,6 +79,15 @@ public class ServicePointControlAction extends BaseActionSupport {
 	 * @return
 	 */
 	public String use() {
+		
+		// ゲームをプレーすることがあるかどうかのチェック
+		Integer count = pointChargeBusinessLogic.countPlayHist(getTitleId());
+		if (count < 1) {
+			// プレーすることがない
+			addFieldError("errMessage", getText("title.noData"));
+			return "inputCharge";
+		}
+		
 		try {
 			servicePointBusinessLogic.useServicePoint(titleId, serverId, pointAmount);
 		} catch (DataNotExistsException dneEx) {
@@ -155,6 +166,21 @@ public class ServicePointControlAction extends BaseActionSupport {
 	public void setServicePointBusinessLogic(
 			IServicePointBusinessLogic servicePointBusinessLogic) {
 		this.servicePointBusinessLogic = servicePointBusinessLogic;
+	}
+
+	/**
+	 * @return the pointChargeBusinessLogic
+	 */
+	public IPointChargeBusinessLogic getPointChargeBusinessLogic() {
+		return pointChargeBusinessLogic;
+	}
+
+	/**
+	 * @param pointChargeBusinessLogic the pointChargeBusinessLogic to set
+	 */
+	public void setPointChargeBusinessLogic(
+			IPointChargeBusinessLogic pointChargeBusinessLogic) {
+		this.pointChargeBusinessLogic = pointChargeBusinessLogic;
 	}
 
 	/**
