@@ -37,7 +37,7 @@
 			</interceptor-ref>
 			<interceptor-ref name="gameifStack"></interceptor-ref>
 			<result name="input">/WEB-INF/pages/backoffice/user_login.jsp</result>
-			<result name="success" type="redirect">https://padmin.game-if.com/indexPage.html</result>
+			<result name="success" type="redirect">${backOfficeTopUrl}/indexPage.html</result>
 		</action>
 		
 		<action name="*Authority" class="authorityAction" method="{1}">
@@ -72,7 +72,7 @@
 			</interceptor-ref>
 			<interceptor-ref name="gameifStack"></interceptor-ref>
 			<result name="inputEdit">/WEB-INF/pages/backoffice/inquiry_edit.jsp</result>
-			<result name="success" type="redirect">https://padmin.game-if.com/inputEditInquriy.html?inquiryNum=${inquiryNum}</result>
+			<result name="success" type="redirect">${backOfficeTopUrl}/inputEditInquriy.html?inquiryNum=${inquiryNum}</result>
 		</action>
 		
 		<action name="*LoginUserList" class="loginUserListAction" method="{1}">
@@ -123,7 +123,7 @@
 			</interceptor-ref>
 			<interceptor-ref name="gameifStack"></interceptor-ref>
 			<result name="inputGive">/WEB-INF/pages/backoffice/ticket_give.jsp</result>
-			<result name="finishedGive" type="redirect">https://padmin.game-if.com/finishedPage.html?action=giveTicket</result>
+			<result name="finishedGive" type="redirect">/finishedPage.html?action=giveTicket</result>
 		</action>
 
 		<action name="*InviteList" class="inviteControlAction" method="{1}">
