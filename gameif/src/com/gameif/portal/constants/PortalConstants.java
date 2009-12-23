@@ -161,6 +161,8 @@ public class PortalConstants {
 		public final static String INVITE_MAIL = "40";
 		/** リンクで友達招待 */
 		public final static String INVITE_LINK = "43";
+		/** チケット */
+		public final static String TICKET = "50";
 	}
 	
 	/** サーバ稼動状態 */
