@@ -3,20 +3,15 @@ package com.gameif.portal.businesslogic.impl;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gameif.common.businesslogic.BaseBusinessLogic;
 import com.gameif.common.exception.LogicException;
 import com.gameif.common.exception.OutOfDateException;
-import com.gameif.common.helper.TemplateMailer;
 import com.gameif.portal.businesslogic.ITicketBusinessLogic;
 import com.gameif.portal.constants.PortalConstants;
-import com.gameif.portal.dao.IMemberInfoDao;
 import com.gameif.portal.dao.IServicePointDao;
 import com.gameif.portal.dao.IServicePointGiveHistDao;
 import com.gameif.portal.dao.ITicketGiveHistDao;
@@ -24,8 +19,6 @@ import com.gameif.portal.dao.ITicketInfoDao;
 import com.gameif.portal.dao.ITicketModelDetailDao;
 import com.gameif.portal.dao.ITicketModelMstDao;
 import com.gameif.portal.dao.ITicketUseHistDao;
-import com.gameif.portal.dao.ITitleMstDao;
-import com.gameif.portal.entity.MemberInfo;
 import com.gameif.portal.entity.MyTicket;
 import com.gameif.portal.entity.MyTicketGiveHist;
 import com.gameif.portal.entity.MyTicketUseHist;
@@ -43,8 +36,6 @@ public class TicketBusinessLogicImpl extends BaseBusinessLogic implements
 	 * 
 	 */
 	private static final long serialVersionUID = 1582545586364815483L;
-	
-	private final static Log logger = LogFactory.getLog(ServicePointBusinessLogicImpl.class);
 
 	private ITicketInfoDao ticketInfoDao;
 	private ITicketUseHistDao ticketUseHistDao;
@@ -52,10 +43,7 @@ public class TicketBusinessLogicImpl extends BaseBusinessLogic implements
 	private ITicketModelDetailDao ticketModelDetailDao;
 	private IServicePointDao servicePointDao;
 	private IServicePointGiveHistDao servicePointGiveHistDao;
-	private ITitleMstDao titleMstDao;
-	private TemplateMailer templateMailer;
 	private ITicketGiveHistDao ticketGiveHistDao;
-	private IMemberInfoDao memberInfoDao;
 	
 	// 有効期間
 	private Integer validDays;
@@ -74,18 +62,14 @@ public class TicketBusinessLogicImpl extends BaseBusinessLogic implements
 		
 		// 今回取得できるポイントを計算する
 		BigDecimal actPointAmount = getActPoint(ticketId);
-		MemberInfo member = memberInfoDao.selectByMemId(ContextUtil.getAccountId());
-		if (member == null) {
-			// データが存在しない
-			throw new OutOfDateException("MemberInfo Data does not exist.");
-		}
+		
 		// チケット情報を更新する
-		updateTicketInfo(ticketId, actPointAmount, titleId, member.getMailPc());
+		updateTicketInfo(ticketId, actPointAmount, titleId);
 		
 		return actPointAmount.intValue();
 	}
 	
-	private void updateTicketInfo(Integer ticketId, BigDecimal actPointAmount, Integer titleId, String mailPc) throws LogicException {
+	private void updateTicketInfo(Integer ticketId, BigDecimal actPointAmount, Integer titleId) throws LogicException {
 		TicketInfo ticketInfo = ticketInfoDao.selectForUpdate(ContextUtil.getMemberNo(), ticketId);
 		if (ticketInfo == null) {
 			// データが存在しない
@@ -117,21 +101,6 @@ public class TicketBusinessLogicImpl extends BaseBusinessLogic implements
 		
 		// サービスポイントを計算する
 		updateServicePoint(actPointAmount, titleId, now);
-
-		try {
-			// 招待メールを送信する。
-			HashMap<String, String> props = new HashMap<String, String>();
-			// 名前
-			props.put("nickName", ContextUtil.getNickName());
-			// ゲーム
-			props.put("titleName", titleMstDao.selectNameById(titleId));
-			// データID
-			props.put("point", actPointAmount.toString());
-			// 送信
-			templateMailer.sendAsyncMail(mailPc, "presentServicePoint", props, true);
-		} catch (Exception ex) {
-			logger.error("error has occurred in sending presentServicePoint mail. ", ex);
-		}
 		
 	}
 	
@@ -290,31 +259,10 @@ public class TicketBusinessLogicImpl extends BaseBusinessLogic implements
 	}
 
 	/**
-	 * @param titleMstDao the titleMstDao to set
-	 */
-	public void setTitleMstDao(ITitleMstDao titleMstDao) {
-		this.titleMstDao = titleMstDao;
-	}
-
-	/**
 	 * @param ticketGiveHistDao the ticketGiveHistDao to set
 	 */
 	public void setTicketGiveHistDao(ITicketGiveHistDao ticketGiveHistDao) {
 		this.ticketGiveHistDao = ticketGiveHistDao;
-	}
-
-	/**
-	 * @param templateMailer the templateMailer to set
-	 */
-	public void setTemplateMailer(TemplateMailer templateMailer) {
-		this.templateMailer = templateMailer;
-	}
-
-	/**
-	 * @param memberInfoDao the memberInfoDao to set
-	 */
-	public void setMemberInfoDao(IMemberInfoDao memberInfoDao) {
-		this.memberInfoDao = memberInfoDao;
 	}
 
 	/**
