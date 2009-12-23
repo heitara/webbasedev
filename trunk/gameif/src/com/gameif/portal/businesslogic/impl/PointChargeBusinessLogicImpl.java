@@ -109,13 +109,16 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 			// 会員生年月日　+　18年
 			c.add(Calendar.YEAR, 18);
 			Date ageDate = c.getTime();
-			if (ageDate.compareTo(settleDate) > 0 && settlementTrns.getSettlementCode().equals(PortalConstants.SettlementCode.CREDIT)) {
-				return 1;
-			} else {
-				// 最近一ヶ月間チャージするポイントを計算する
-				BigDecimal limitAmouont = memSettlementHistDao.selectAmountByMonth(null, ContextUtil.getMemberNo());
-				if (limitAmouont.compareTo(limitAmountMin) > 0) {
-					return 2;
+			// 18歳未満の方
+			if (ageDate.compareTo(settleDate) > 0 ) {
+				if ( settlementTrns.getSettlementCode().equals(PortalConstants.SettlementCode.CREDIT)) {
+					return 1;
+				} else {
+					// 最近一ヶ月間チャージするポイントを計算する
+					BigDecimal limitAmouont = memSettlementHistDao.selectAmountByMonth(null, ContextUtil.getMemberNo());
+					if (limitAmouont.add(pointMst.getPointAmountAct()).compareTo(limitAmountMin) > 0) {
+						return 2;
+					}
 				}
 			}
 		}
@@ -133,12 +136,12 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 			
 			// 登録の31日目から、一ヶ月間に購入できるポイントの限度額が100,000です
 			if (loginDate.compareTo(settleDate) <= 0) {
-				if (sumPointAmouont.compareTo(limitAmountMax) > 0) {
+				if (sumPointAmouont.add(pointMst.getPointAmountAct()).compareTo(limitAmountMax) > 0) {
 					return 3;
 				}
 			// 登録からの30日間、一ヶ月間に購入できるポイントの限度額が30,000です
 			} else {
-				if (sumPointAmouont.compareTo(limitAmountMin) > 0) {
+				if (sumPointAmouont.add(pointMst.getPointAmountAct()).compareTo(limitAmountMin) > 0) {
 					return 4;
 				}
 			}
