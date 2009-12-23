@@ -17,7 +17,7 @@
 <body>
 <!-- ポイントチャージ：開始 -->
 <dl class="light_box tspace_n">
-	<dt><strong>サービスポイント利用</strong><span><a href="inputServicePoint.html">► サービスポイント残高照会</a>　<a href="inputUseListServicePoint.html">► サービスポイント利用履歴</a>　<a href="inputGiveListServicePoint.html">► サービスポイント付与履歴</a></span></dt>
+	<dt><strong>サービスポイント利用</strong><span><a href="inputChargeServicePoint.html">► サービスポイント利用</a>　<a href="inputUseListServicePoint.html">► サービスポイント利用履歴</a>　<a href="inputGiveListServicePoint.html">► サービスポイント獲得履歴</a></span></dt>
 	<dd>
 		<h3 style="color:#F60;margin:20px 0px 10px 0px;">サービスポイントを使ってゲーム内GPを購入しましょう！</h3>
 		<div style="margin:10px 0px;padding:7px 10px;font-size:10px;border:1px solid #EEE;background-color:#F6F6F6;line-height:18px;">
@@ -89,17 +89,14 @@
 					<th><span class="required">*</span><label for="point_pointId">チャージポイント：</label></th>
 					<td>
 						<s:textfield name="pointAmount" maxlength="6" cssClass="ime_mode_n big" title="チャージポイント" onblur="validate(this, 'REQ,NUM');"></s:textfield>
-						<span style="font-size:11px;color:#500;">※利用可能なサービスポイント：</span>&nbsp;
-						<span id="balance" style="font-size:12px;color:#500;font-weight:bold;"></span>
-						<span style="font-size:11px;color:#500;">PT</span>
-						<span id="error_pointAmount" class="input_error"><s:fielderror><s:param>pointAmount</s:param></s:fielderror></span>
+						<span id="error_pointAmount" class="input_error"><s:fielderror><s:param>pointAmount</s:param></s:fielderror></span><br/>
 						<span class="explain">チャージするポイントを入力してください。</span>
 					</td>
 				</tr>
 			</table>
 			<div class="submit">
 				<s:token />
-				<s:submit value="チャージ" cssClass="submit" />
+				<s:submit value="ゲーム内ポイント購入" cssClass="submit" cssStyle="width:180px;"/>
 			</div>
 		</s:form>
 	</dd>
