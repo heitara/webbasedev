@@ -50,7 +50,7 @@
 				<tr>
 					<th><span class="required">*</span><label for="point_serverId">サーバ選択：</label></th>
 					<td>
-						<select id="serverId" name="serverId" title="サーバ" class="big" onblur="validate(this,'REQ');"></select>
+						<select id="serverId" name="serverId" title="サーバ" class="big"　style="font-family:'ＭＳ ゴシック';" onblur="validate(this,'REQ');"></select>
 						<span id="error_serverId" class="input_error"><s:fielderror><s:param>serverId</s:param></s:fielderror></span><br/>
 						<span class="explain">ポイントをチャージするサーバを選択してください。</span>
 					</td>

@@ -11,7 +11,7 @@
 			var point = document.getElementById("point").value;
 			if (point != null && eval(point) > 0) {
 				var msg = "";
-				if (eval(point) > 100) {
+				if (eval(point) >= 500) {
 					msg = "おめでとうございます。\n";
 				}
 				alert(msg + "サービスポイント" + point + "PTを獲得しました。");
