@@ -152,6 +152,14 @@
 		<filter-name>Login Filter</filter-name>
 		<url-pattern>/rejectInviteList.html</url-pattern>
 	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Login Filter</filter-name>
+		<url-pattern>/inputGiveTicket.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Login Filter</filter-name>
+		<url-pattern>/giveTicket.html</url-pattern>
+	</filter-mapping>
 	 
 	<filter-mapping>
 	    <filter-name>sitemesh</filter-name>
