@@ -33,7 +33,6 @@
 			<div style="margin-bottom:30px;text-align:center;">
 					<img src="images/point_flow_10.gif"/>
 					<img src="images/point_flow_00.gif"/>
-	
 					<img src="images/point_flow_21.gif"/>
 					<img src="images/point_flow_00.gif"/>
 					<img src="images/point_flow_30.gif"/>
@@ -42,7 +41,12 @@
 					<img src="images/point_flow_00.gif"/>
 					<img src="images/point_flow_50.gif"/>
 			</div>
-			
+			<center>
+				<div style="width:92%;text-align:left;padding:10px;border:1px solid #CCC;background-color:#F6F6F6;">
+					クレジットカード決済の場合は、3Dセキュア認証が必須となっておりますので、ご注意ください。<br/>
+					詳しくは <a href="http://info.game-if.com/component/content/article/21-3d" target="_blank">こちら</a> をご参照ください。				
+				</div>
+			</center>
 			<table align="center">
 				<tr>
 					<td colspan="2">
