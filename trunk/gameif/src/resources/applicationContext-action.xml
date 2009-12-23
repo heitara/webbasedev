@@ -206,9 +206,6 @@
 		<property name="masterInfoBusinessLogic">
 			<ref bean="masterInfoBusinessLogic" />
 		</property>
-		<property name="servicePointBusinessLogic">
-			<ref bean="servicePointBusinessLogic" />
-		</property>
 	</bean>
 	
 	<!-- servicePointControlAction -->
