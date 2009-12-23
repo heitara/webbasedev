@@ -596,7 +596,6 @@ public class PointChargeControlAction extends
 		setPay_item_id(request.getParameter("pay_item_id"));
 		// 商品名称
 		setItem_name(request.getParameter("item_name"));
-		logger.info(getItem_name());
 		// 税額
 		setTax(request.getParameter("tax"));
 		// 金額(税込)
@@ -651,7 +650,6 @@ public class PointChargeControlAction extends
 		this.getModel().setResErrCode(request.getParameter("res_err_code"));
 		// レスポンス日時
 		this.getModel().setResDate(request.getParameter("res_date"));
-		logger.info(this.getModel().getResDate());
 		// レスポンス許容時間
 		this.getModel().setLimitSecond(request.getParameter("limit_second"));
 		// チェックサム
