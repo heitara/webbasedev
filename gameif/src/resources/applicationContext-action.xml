@@ -219,6 +219,9 @@
 		<property name="servicePointBusinessLogic">
 			<ref bean="servicePointBusinessLogic" />
 		</property>
+		<property name="pointChargeBusinessLogic">
+			<ref bean="pointChargeBusinessLogic" />
+		</property>
 	</bean>
 	
 	<!-- betaTesterControlAction -->
