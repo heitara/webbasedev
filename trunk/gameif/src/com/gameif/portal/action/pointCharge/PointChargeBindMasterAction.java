@@ -1,22 +1,17 @@
 package com.gameif.portal.action.pointCharge;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import com.gameif.portal.businesslogic.IMasterInfoBusinessLogic;
-import com.gameif.portal.businesslogic.IServicePointBusinessLogic;
 import com.gameif.portal.entity.PointMst;
 import com.gameif.portal.entity.ServerMst;
-import com.gameif.portal.util.ContextUtil;
 
 public class PointChargeBindMasterAction {
 	private IMasterInfoBusinessLogic masterInfoBusinessLogic;
-	private IServicePointBusinessLogic servicePointBusinessLogic;
 
 	private Integer titleId;
 	private List<ServerMst> serverList;
 	private List<PointMst> pointList;
-	private BigDecimal balance;
 
 	/**
 	 * タイトルIDにより、有効なサーバ情報とポイント情報を取得する
@@ -37,11 +32,6 @@ public class PointChargeBindMasterAction {
 	public String bindServerAndBalance() {
 		// サーバ情報
 		serverList = masterInfoBusinessLogic.getAllValidServerListByTitle(titleId);
-		// 指定タイトルのサービスポイント残高情報
-		balance = servicePointBusinessLogic.getBalanceByTitle(titleId, ContextUtil.getMemberNo());
-		if (balance == null) {
-			balance = new BigDecimal("0");
-		}
 		return "success";
 	}
 
@@ -59,21 +49,6 @@ public class PointChargeBindMasterAction {
 	public void setMasterInfoBusinessLogic(
 			IMasterInfoBusinessLogic masterInfoBusinessLogic) {
 		this.masterInfoBusinessLogic = masterInfoBusinessLogic;
-	}
-
-//	/**
-//	 * @return the servicePointBusinessLogic
-//	 */
-//	public IServicePointBusinessLogic getServicePointBusinessLogic() {
-//		return servicePointBusinessLogic;
-//	}
-
-	/**
-	 * @param servicePointBusinessLogic the servicePointBusinessLogic to set
-	 */
-	public void setServicePointBusinessLogic(
-			IServicePointBusinessLogic servicePointBusinessLogic) {
-		this.servicePointBusinessLogic = servicePointBusinessLogic;
 	}
 
 	/**
@@ -118,20 +93,6 @@ public class PointChargeBindMasterAction {
 	 */
 	public void setPointList(List<PointMst> pointList) {
 		this.pointList = pointList;
-	}
-
-	/**
-	 * @return the balance
-	 */
-	public BigDecimal getBalance() {
-		return balance;
-	}
-
-	/**
-	 * @param balance the balance to set
-	 */
-	public void setBalance(BigDecimal balance) {
-		this.balance = balance;
 	}
 
 }
