@@ -4,12 +4,16 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.gameif.common.action.BaseActionSupport;
+import com.gameif.common.exception.BetaTestException;
 import com.gameif.common.exception.DataNotExistsException;
 import com.gameif.common.exception.LogicException;
+import com.gameif.common.exception.MaintenanceException;
 import com.gameif.common.exception.OutOfMaxCountException;
+import com.gameif.portal.businesslogic.IMaintenanceBusinessLogic;
 import com.gameif.portal.businesslogic.IMasterInfoBusinessLogic;
 import com.gameif.portal.businesslogic.IPointChargeBusinessLogic;
 import com.gameif.portal.businesslogic.IServicePointBusinessLogic;
+import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.entity.MySPGiveHist;
 import com.gameif.portal.entity.MySPInfo;
 import com.gameif.portal.entity.MySPUseHist;
@@ -25,6 +29,7 @@ public class ServicePointControlAction extends BaseActionSupport {
 	private IMasterInfoBusinessLogic masterInfoBusinessLogic;
 	private IServicePointBusinessLogic servicePointBusinessLogic;
 	private IPointChargeBusinessLogic pointChargeBusinessLogic;
+	private IMaintenanceBusinessLogic maintenanceBusinessLogic;
 
 	private Integer titleId;
 	private Integer serverId;
@@ -41,6 +46,9 @@ public class ServicePointControlAction extends BaseActionSupport {
 	 * @return inputGet サービスポイント受取画面
 	 */
 	public String inputGet() {
+		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.SERVICE_POINT)) {
+			return "maintenance";
+		}
 		return "inputGet";
 	}
 
@@ -50,6 +58,10 @@ public class ServicePointControlAction extends BaseActionSupport {
 	 * @return
 	 */
 	public String getGameLogin() {
+		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.SERVICE_POINT)) {
+			return "maintenance";
+		}
+		
 		try {
 			servicePointBusinessLogic.getGameLoginServicePoint(titleId);
 		} catch (DataNotExistsException dneEx) {
@@ -70,6 +82,10 @@ public class ServicePointControlAction extends BaseActionSupport {
 	 * @return サービスポイント利用画面へ
 	 */
 	public String inputCharge() {
+		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.SERVICE_POINT)) {
+			return "maintenance";
+		}
+		
 		setServicePointList(servicePointBusinessLogic.getMyServicePointList());
 		return "inputCharge";
 	}
@@ -79,6 +95,9 @@ public class ServicePointControlAction extends BaseActionSupport {
 	 * @return
 	 */
 	public String use() {
+		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.SERVICE_POINT)) {
+			return "maintenance";
+		}
 		
 		// ゲームをプレーすることがあるかどうかのチェック
 		Integer count = pointChargeBusinessLogic.countPlayHist(getTitleId());
@@ -89,7 +108,18 @@ public class ServicePointControlAction extends BaseActionSupport {
 		}
 		
 		try {
+			// メンテナンスとCBTチェック
+			maintenanceBusinessLogic.maintenanceCheckByTitleId(titleId);
+			
 			servicePointBusinessLogic.useServicePoint(titleId, serverId, pointAmount);
+		} catch (MaintenanceException mtEx) {
+			// メンテナンス
+			addFieldError("errMessage", getText("title.maintenance"));
+			return "inputCharge";
+		} catch (BetaTestException testEx) {
+			// テスト中
+			addFieldError("errMessage", getText("title.test"));
+			return "inputCharge";
 		} catch (DataNotExistsException dneEx) {
 			setServicePointList(servicePointBusinessLogic.getMyServicePointList());
 			// データ存在しない
@@ -114,6 +144,10 @@ public class ServicePointControlAction extends BaseActionSupport {
 	 * @return サービスポイント消費履歴画面
 	 */
 	public String inputUseList() {
+		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.SERVICE_POINT)) {
+			return "maintenance";
+		}
+		
 		setUseHistList(servicePointBusinessLogic.getMyUseHistList());
 		return "inputUseList";
 	}
@@ -123,6 +157,10 @@ public class ServicePointControlAction extends BaseActionSupport {
 	 * @return サービスポイント付与履歴画面
 	 */
 	public String inputGiveList() {
+		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.SERVICE_POINT)) {
+			return "maintenance";
+		}
+		
 		setGiveHistList(servicePointBusinessLogic.getMyGiveHistList());
 		return "inputGiveList";
 	}
@@ -132,6 +170,10 @@ public class ServicePointControlAction extends BaseActionSupport {
 	 * @return サービスポイント付与履歴画面
 	 */
 	public String input() {
+		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.SERVICE_POINT)) {
+			return "maintenance";
+		}
+		
 		setServicePointList(servicePointBusinessLogic.getMyServicePointList());
 		return INPUT;
 	}
@@ -181,6 +223,21 @@ public class ServicePointControlAction extends BaseActionSupport {
 	public void setPointChargeBusinessLogic(
 			IPointChargeBusinessLogic pointChargeBusinessLogic) {
 		this.pointChargeBusinessLogic = pointChargeBusinessLogic;
+	}
+
+	/**
+	 * @return the maintenanceBusinessLogic
+	 */
+	public IMaintenanceBusinessLogic getMaintenanceBusinessLogic() {
+		return maintenanceBusinessLogic;
+	}
+
+	/**
+	 * @param maintenanceBusinessLogic the maintenanceBusinessLogic to set
+	 */
+	public void setMaintenanceBusinessLogic(
+			IMaintenanceBusinessLogic maintenanceBusinessLogic) {
+		this.maintenanceBusinessLogic = maintenanceBusinessLogic;
 	}
 
 	/**

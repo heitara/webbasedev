@@ -5,8 +5,10 @@ import java.util.List;
 import com.gameif.common.action.BaseActionSupport;
 import com.gameif.common.exception.DataNotExistsException;
 import com.gameif.common.exception.LogicException;
+import com.gameif.portal.businesslogic.IMaintenanceBusinessLogic;
 import com.gameif.portal.businesslogic.IServicePointBusinessLogic;
 import com.gameif.portal.businesslogic.ITicketBusinessLogic;
+import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.entity.MySPInfo;
 import com.gameif.portal.entity.MyTicket;
 import com.gameif.portal.entity.MyTicketGiveHist;
@@ -22,6 +24,7 @@ public class TicketControlAction extends BaseActionSupport {
 
 	private ITicketBusinessLogic ticketBusinessLogic;
 	private IServicePointBusinessLogic servicePointBusinessLogic;
+	private IMaintenanceBusinessLogic maintenanceBusinessLogic;
 	
 	private List<MyTicket> ticketList;
 	private Integer ticketId;
@@ -38,6 +41,10 @@ public class TicketControlAction extends BaseActionSupport {
 	 * @return チケット情報画面
 	 */
 	public String inputList() {
+		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.TICKET)) {
+			return "maintenance";
+		}
+		
 		setServicePointList(servicePointBusinessLogic.getMyServicePointList());
 		// チケット情報を検索する
 		setTicketList(ticketBusinessLogic.getMyTicketList());
@@ -53,6 +60,10 @@ public class TicketControlAction extends BaseActionSupport {
 	 * @return
 	 */
 	public String use() {
+		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.TICKET)) {
+			return "maintenance";
+		}
+		
 		try {
 			point = ticketBusinessLogic.useTicket(this.getTicketId(), this.getTitleId());
 		} catch (DataNotExistsException dneEx) {
@@ -74,6 +85,10 @@ public class TicketControlAction extends BaseActionSupport {
 	 * @return サービスポイント消費履歴画面
 	 */
 	public String inputUseList() {
+		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.TICKET)) {
+			return "maintenance";
+		}
+		
 		setUseHistList(ticketBusinessLogic.getMyUseHistList());
 		return "inputUseList";
 	}
@@ -83,6 +98,10 @@ public class TicketControlAction extends BaseActionSupport {
 	 * @return サービスポイント付与履歴画面
 	 */
 	public String inputGiveList() {
+		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.TICKET)) {
+			return "maintenance";
+		}
+		
 		setGiveHistList(ticketBusinessLogic.getMyGiveHistList());
 		return "inputGiveList";
 	}
@@ -100,6 +119,14 @@ public class TicketControlAction extends BaseActionSupport {
 	 */
 	public void setServicePointBusinessLogic(IServicePointBusinessLogic servicePointBusinessLogic) {
 		this.servicePointBusinessLogic = servicePointBusinessLogic;
+	}
+
+	/**
+	 * @param maintenanceBusinessLogic the maintenanceBusinessLogic to set
+	 */
+	public void setMaintenanceBusinessLogic(
+			IMaintenanceBusinessLogic maintenanceBusinessLogic) {
+		this.maintenanceBusinessLogic = maintenanceBusinessLogic;
 	}
 
 	/**
