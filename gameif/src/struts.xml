@@ -273,6 +273,8 @@
 			<result name="inputUseList">/WEB-INF/pages/portal/service_point_use_hist.jsp</result>
 			<result name="inputGiveList">/WEB-INF/pages/portal/service_point_give_hist.jsp</result>
 			<result name="input">/WEB-INF/pages/portal/service_point_list.jsp</result>
+			<!-- メンテナンス画面に案内する -->
+			<result name="maintenance" type="redirect">/maintenancePage.html</result>
 		</action>
 
 		<!-- テスター募集 -->
@@ -326,6 +328,8 @@
 			<result name="finishedUse" type="redirect">/inputListTicket.html?point=${point}</result>
 			<result name="inputUseList">/WEB-INF/pages/portal/ticket_use_list.jsp</result>
 			<result name="inputGiveList">/WEB-INF/pages/portal/ticket_give_list.jsp</result>
+			<!-- メンテナンス画面に案内する -->
+			<result name="maintenance" type="redirect">/maintenancePage.html</result>
 		</action>
 		
 	</package>
