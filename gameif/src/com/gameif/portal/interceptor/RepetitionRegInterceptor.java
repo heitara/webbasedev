@@ -49,14 +49,14 @@ public class RepetitionRegInterceptor extends CommonInterceptor {
                 
                 String clientIp = ContextUtil.getClientIP();
                 
-                //TODO: ①memberInfoBusinessLogic.countMembersByIPInTime()メソッド要実装
-                //TODO: ②repetion_errorに該当するresult要定義、エラー画面要作成
+                //①memberInfoBusinessLogic.countMembersByIPInTime()メソッド要実装
+                //②repetion_errorに該当するresult要定義、エラー画面要作成
                 int memberNum = memberInfoBusinessLogic.countMembersByIPInTime(clientIp, checkTime);
                 
                 if (memberNum >= repetitionMax) {
                         
                         logger.warn(getRequestInfo(ai) + " | 会員登録連続して行いました。");
-                        return "repetion_error";
+                        return "warning";
                 }
                 
                 return ai.invoke();
