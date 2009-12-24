@@ -301,6 +301,7 @@
 		WHERE
 			last_update_ip = #clientIp#
 		AND last_update_date >= DATE_SUB(now(), INTERVAL #checkTime# SECOND)
+		AND mem_atbt_cd IN ('1', '2')
       ]]>
 	</select>
 	
