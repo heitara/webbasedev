@@ -18,6 +18,9 @@
 		<property name="checkTime">
 			<value>${repetitionRegInterceptor.checkTime}</value>
 		</property>
+		<property name="memberInfoBusinessLogic">
+			<ref bean="memberInfoBusinessLogic" />
+		</property>
 	</bean>
 	
 	<bean id="indexAction" class="com.gameif.portal.action.menu.IndexAction" scope="prototype" />
