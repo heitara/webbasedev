@@ -12,6 +12,7 @@
 			<interceptor name="secureParameter" class="secureParameterInterceptor"/>
 			<interceptor name="entryParameter" class="entryParameterInterceptor"/>
 			<interceptor name="actionLogger" class="actionLoggerInterceptor"/>
+			<interceptor name="repetitionReg" class="repetitionRegInterceptor"/>
 			<interceptor-stack name="gameifStack">
 				<interceptor-ref name="defaultStack"/>
 				<interceptor-ref name="actionLogger"/>
@@ -54,6 +55,9 @@
 			</interceptor-ref>
 			<interceptor-ref name="entryParameter">
 				<param name="includeMethods">createTemp,finishedActivate</param>
+			</interceptor-ref>
+			<interceptor-ref name="repetitionReg">
+				<param name="includeMethods">createTemp,activate</param>
 			</interceptor-ref>
 			<result name="input">/WEB-INF/pages/portal/mem_registry.jsp</result>
 			<result name="success" type="redirect">/finishedCreateMember.html?enc=${enc}</result>
