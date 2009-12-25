@@ -9,33 +9,30 @@
 </head>
 <body>
 	<dl class="light_box tspace_n">
-		<dt><strong>チャージ履歴</strong><span><a href="chargePointSelect.html">► ポイントチャージ</a></span></dt>
+		<dt><strong>チャージ履歴</strong><span><a href="chargePointSelect.html">► ポイントチャージ</a>　<a href="chargeSettlementHist.html">► チャージ履歴</a></span></dt>
 		<dd>
-			<s:form name="frm_sp_use_list" method="post" cssClass="entry">
-				<table class="friendhist tspace_y" align="center">
-					<tr id="listTitle">
-						<th class="entry_ymd">チャージ日期</th>
-						<th class="friend">タイトル</th>
-						<th class="mail">サーバー</th>
-						<th class="mail">チャージポイント</th>
-						<th class="friend">決済方式</th>
+			<table class="friendhist tspace_y" align="center">
+				<tr id="listTitle" align="center">
+					<th>チャージ日期</th>
+					<th>タイトル</th>
+					<th>サーバー</th>
+					<th>チャージポイント</th>
+					<th>決済方式</th>
+				</tr>
+				<s:iterator value="settleHistList" id="settleHistList" status="st">
+					<tr align="center">
+						<td><s:date name="settlementDate" format="yyyy/MM/dd HH:mm:ss"/></td>
+						<td><s:property value="titleName"/></td>
+						<td><s:property value="serverName"/></td>
+						<td>
+							<s:text name="format.money">
+								<s:param value="pointAmountAct" />
+							</s:text>
+						</td>
+						<td><s:property value="settlementName"/></td>
 					</tr>
-					<s:iterator value="settleHistList" id="settleHistList" status="st">
-						<tr <s:if test="#st.odd">class="odd" </s:if> >
-							<td class="entry_ymd"><s:date name="settlementDate" format="yyyy/MM/dd HH:mm:ss"/></td>
-							<td class="friend"><s:property value="titleName"/></td>
-							<td class="mail"><s:property value="serverName"/></td>
-							<td class="mail">
-								<s:text name="format.money">
-									<s:param value="pointAmountAct" />
-								</s:text>
-							</td>
-							<td class="mail"><s:property value="settlementName"/></td>
-						</tr>
-					</s:iterator>
-				</table>
-				<br/>
-			</s:form>
+				</s:iterator>
+			</table>
 		</dd>
 	</dl>
 </body>
