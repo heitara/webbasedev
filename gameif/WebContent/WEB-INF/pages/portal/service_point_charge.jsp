@@ -22,7 +22,8 @@
 		<h3 style="color:#F60;margin:20px 0px 10px 0px;">サービスポイントを使ってゲーム内GPを購入しましょう！</h3>
 		<div style="margin:10px 0px;padding:7px 10px;font-size:10px;border:1px solid #EEE;background-color:#F6F6F6;line-height:18px;">
 			購入前に対象タイトルのサービスポイント残高を確認してください。<br/>
-			サービスポイントで購入したゲーム内GPでは、ゲーム内取引を行うことができませんのでご注意ください。
+			ゲーム内にログインしたことがない場合は、ゲーム内GPを購入することができません。<br/>
+			また、サービスポイントで購入したゲーム内GPでは、ゲーム内取引を行うことができませんのでご注意ください。
 		</div>
 		<table width="100%" align="center" cellspacing="1" cellpadding="5" border="0" style="background-color:#FFF;margin-top:10px;border:1px solid #DDD;">
 			<tr align="center" bgcolor="#999" style="background-color:#666;color:#FFF;">
