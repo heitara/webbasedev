@@ -295,6 +295,10 @@
 			<param-value>33</param-value>
 		</init-param>
 		<init-param>
+			<param-name>kaptcha.textproducer.font.names</param-name>
+			<param-value>ＭＳ ゴシック</param-value>
+		</init-param>
+		<init-param>
 			<param-name>kaptcha.background.clear.from</param-name>
 			<param-value>white</param-value>
 		</init-param>
@@ -308,11 +312,11 @@
 		</init-param>
 		<init-param>
 			<param-name>kaptcha.textproducer.char.string</param-name>
-			<param-value>abcdekmswx234567</param-value>
+			<param-value>あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわを</param-value>
 		</init-param>
 		<init-param>
 			<param-name>kaptcha.image.width</param-name>
-			<param-value>163</param-value>
+			<param-value>193</param-value>
 		</init-param>
 		<init-param>
 			<param-name>kaptcha.image.height</param-name>
