@@ -11,12 +11,14 @@ import com.gameif.portal.businesslogic.ITitlePlayBusinessLogic;
 import com.gameif.portal.dao.IGameLoginCountDao;
 import com.gameif.portal.dao.IInviteInfoDao;
 import com.gameif.portal.dao.IInviteLinkHistDao;
+import com.gameif.portal.dao.IPlayGuarantyDao;
 import com.gameif.portal.dao.IPlayHistDao;
 import com.gameif.portal.entity.GameLoginCount;
 import com.gameif.portal.entity.InviteInfo;
 import com.gameif.portal.entity.InviteLinkHist;
 import com.gameif.portal.entity.MyServer;
 import com.gameif.portal.entity.MyTitle;
+import com.gameif.portal.entity.PlayGuaranty;
 import com.gameif.portal.entity.PlayHist;
 import com.gameif.portal.util.ContextUtil;
 
@@ -28,6 +30,9 @@ public class TitlePlayBusinessLogicImpl extends BaseBusinessLogic implements ITi
 	private IGameLoginCountDao gameLoginCountDao;
 	private IInviteInfoDao inviteInfoDao;
 	private IInviteLinkHistDao inviteLinkHistDao;
+	private IPlayGuarantyDao playGuarantyDao;
+	
+	private Integer limitDays;
 
 	/**
 	 * ゲームプレイ履歴を登録する。
@@ -162,6 +167,26 @@ public class TitlePlayBusinessLogicImpl extends BaseBusinessLogic implements ITi
 		return parentNum;
 	}
 
+	@Override
+	public Integer getMemCountByIp(String playIp, Long memNum) {
+		return playHistDao.selectMemCountByIp(playIp, memNum, limitDays);
+	}
+
+	@Override
+	public Integer getGuarantyByMenNum(Long memNum) {
+		return playGuarantyDao.selectGuarantyByMenNum(memNum);
+	}
+
+	@Override
+	public void createPlayGuaranty(Long memNum, String playIp) {
+		
+		PlayGuaranty playGuaranty = new PlayGuaranty();
+		playGuaranty.setMemNum(memNum);
+		playGuaranty.setPlayIp(playIp);
+		
+		playGuarantyDao.save(playGuaranty);
+	}
+
 	public void setPlayHistDao(IPlayHistDao playHistDao) {
 		this.playHistDao = playHistDao;
 	}
@@ -185,5 +210,26 @@ public class TitlePlayBusinessLogicImpl extends BaseBusinessLogic implements ITi
 	 */
 	public void setInviteLinkHistDao(IInviteLinkHistDao inviteLinkHistDao) {
 		this.inviteLinkHistDao = inviteLinkHistDao;
+	}
+
+	/**
+	 * @param playGuarantyDao the playGuarantyDao to set
+	 */
+	public void setPlayGuarantyDao(IPlayGuarantyDao playGuarantyDao) {
+		this.playGuarantyDao = playGuarantyDao;
+	}
+
+	/**
+	 * @return the limitDays
+	 */
+	public Integer getLimitDays() {
+		return limitDays;
+	}
+
+	/**
+	 * @param limitDays the limitDays to set
+	 */
+	public void setLimitDays(Integer limitDays) {
+		this.limitDays = limitDays;
 	}
 }

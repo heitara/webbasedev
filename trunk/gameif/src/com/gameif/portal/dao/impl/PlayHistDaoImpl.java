@@ -65,4 +65,17 @@ public class PlayHistDaoImpl extends
 		
 		return (Integer) this.getSqlMapClientTemplate().queryForObject(namespace + ".selectPlayDaysByMemNum", memNum);
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Integer selectMemCountByIp(String playIp, Long memNum, Integer limitDays) {
+		
+		HashMap params = new HashMap();
+		
+		params.put("playIp", playIp);
+		params.put("memNum", memNum);
+		params.put("limitDays", limitDays);
+		
+		return (Integer) this.getSqlMapClientTemplate().queryForObject(namespace + ".selectMemCountByIp", params);
+	}
 }

@@ -144,6 +144,9 @@
 	<!-- titlePlayBusinessLogic -->
 	<bean id="titlePlayBusinessLogic"
 		class="com.gameif.portal.businesslogic.impl.TitlePlayBusinessLogicImpl">
+		<property name="limitDays">
+			<value>${titlePlayBusinessLogic.limitDays}</value>
+		</property>
 		<property name="playHistDao">
 			<ref bean="playHistDao" />
 		</property>
@@ -155,6 +158,9 @@
 		</property>
 		<property name="inviteLinkHistDao">
 			<ref bean="inviteLinkHistDao" />
+		</property>
+		<property name="playGuarantyDao">
+			<ref bean="playGuarantyDao" />
 		</property>
 	</bean>
 	

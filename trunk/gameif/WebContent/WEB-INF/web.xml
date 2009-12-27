@@ -272,6 +272,14 @@
 		<filter-name>CAS Filter</filter-name>
 		<url-pattern>/inputGiveListTicket.html</url-pattern>
 	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Login Filter</filter-name>
+		<url-pattern>/inputPlayGuaranty.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Login Filter</filter-name>
+		<url-pattern>/createPlayGuaranty.html</url-pattern>
+	</filter-mapping>
 		
 	<filter-mapping>
 	    <filter-name>sitemesh</filter-name>

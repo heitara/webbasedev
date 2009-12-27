@@ -49,4 +49,14 @@ public interface ITitlePlayBusinessLogic {
 	 * @return 紹介者の会員番号
 	 */
 	public Long getParentNum();
+	
+	/**
+	 * 指定期間以内、プレー履歴に同一IPに対して複数ユーザがあるかどうかのチェック
+	 * @return
+	 */
+	public Integer getMemCountByIp(String playIp, Long memNum);
+	
+	public Integer getGuarantyByMenNum(Long memNum);
+	
+	public void createPlayGuaranty(Long memNum, String playIp);
 }

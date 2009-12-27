@@ -10,6 +10,7 @@
 		<result property="titleId" column="title_id" />
 		<result property="serverId" column="server_id" />
 		<result property="playDate" column="play_date" />
+		<result property="playIp" column="play_ip" />
 	</resultMap>
 	
 	<resultMap class="com.gameif.portal.entity.MyTitle" id="myTitleResult">
@@ -74,14 +75,16 @@
 			mem_num,
 			title_id,
 			server_id,
-			play_date
+			play_date,
+			play_ip
 			)
 		VALUES
 			(
 			#memNum#,
 			#titleId#,
 			#serverId#,
-			#playDate#
+			#playDate#,
+			#playIp#
 			)
 	]]>
 	</insert>
@@ -223,6 +226,20 @@
 			play_hist
 		WHERE	
 			mem_num = #value#
+      ]]>
+	</select>
+	
+	<select id="selectMemCountByIp" parameterClass="java.util.Map" resultClass="int">
+      <![CDATA[
+        SELECT
+			count(mem_num)
+		FROM
+			play_hist
+		WHERE	
+			(mem_num > #memNum#
+		OR mem_num < #memNum# )
+		AND	play_ip = #playIp#
+		AND play_date >= DATE_SUB(now(), INTERVAL #limitDays# DAY)
       ]]>
 	</select>
 	

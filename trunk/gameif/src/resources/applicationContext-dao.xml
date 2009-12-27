@@ -295,4 +295,11 @@
 			<value>memberLoginHist</value>
 		</property>
 	</bean>
+	
+	<!-- playGuarantyDao -->
+	<bean id="playGuarantyDao" class="com.gameif.portal.dao.impl.PlayGuarantyDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>playGuaranty</value>
+		</property>
+	</bean>
 </beans>
