@@ -311,8 +311,20 @@ CREATE TABLE IF NOT EXISTS `play_hist` (
   `title_id` int(11) NOT NULL,
   `server_id` int(11) NOT NULL,
   `play_date` datetime DEFAULT NULL,
-  PRIMARY KEY (`mem_num`,`title_id`,`server_id`,`play_date`)
+  `play_ip` varchar(15) DEFAULT NULL,
+  PRIMARY KEY (`mem_num`,`title_id`,`server_id`,`play_date`,`play_ip`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+
+DROP TABLE IF EXISTS `play_guaranty`;
+CREATE TABLE  `play_guaranty` (
+  `mem_num` bigint(20) NOT NULL,
+  `play_ip` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`mem_num`,`play_ip`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 
 
 

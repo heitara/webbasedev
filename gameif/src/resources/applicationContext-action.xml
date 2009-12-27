@@ -267,6 +267,25 @@
 		</property>
 	</bean>
 	
+	<!-- ticketControlAction -->
+	<bean id="titlePlayGuarantyControlAction" class="com.gameif.portal.action.titleif.TitlePlayGuarantyControlAction" scope="prototype">
+		<property name="masterInfoBusinessLogic">
+			<ref bean="masterInfoBusinessLogic" />
+		</property>
+		<property name="titlePlayBusinessLogic">
+			<ref bean="titlePlayBusinessLogic" />
+		</property>
+		<property name="betaTesterBusinessLogic">
+			<ref bean="betaTesterBusinessLogic" />
+		</property>
+		<property name="memberInfoBusinessLogic">
+			<ref bean="memberInfoBusinessLogic" />
+		</property>
+		<property name="titleEntry">
+			<ref bean="titleEntry" />
+		</property>
+	</bean>
+	
 	<!-- loginStatusProxyAction -->
 	<bean id="loginStatusProxyAction" class="com.gameif.portal.action.menu.LoginStatusProxyAction" scope="prototype" />
 	<!-- logoutProxyAction -->

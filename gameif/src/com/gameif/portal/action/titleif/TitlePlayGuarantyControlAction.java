@@ -17,9 +17,12 @@ import com.gameif.portal.entity.ServerMst;
 import com.gameif.portal.entity.TitleMst;
 import com.gameif.portal.util.ContextUtil;
 
-public class TitlePlayControlAction extends BaseActionSupport {
+public class TitlePlayGuarantyControlAction extends BaseActionSupport {
 
-	private static final long serialVersionUID = -6317164626114870434L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8307010479171625362L;
 
 	private TitleEntry titleEntry;
 	private IMasterInfoBusinessLogic masterInfoBusinessLogic;
@@ -33,19 +36,16 @@ public class TitlePlayControlAction extends BaseActionSupport {
 	private String server;
 	private String service4Login;
 
-	@Override
-	public String execute() {
-		
-		// 同一IPに対して、複数プレヤーが存在するかどうかのチェック
-		Integer count = titlePlayBusinessLogic.getMemCountByIp(ContextUtil.getClientIP(), ContextUtil.getMemberNo());
-		if (count > 0) {
-			// 複数プレヤーが存在する場合
-			if (titlePlayBusinessLogic.getGuarantyByMenNum(ContextUtil.getMemberNo()) < 1) {
-				return "guaranty";
-			}
-		}
+	public String input() {
+		return INPUT;
+	}
+
+	public String create() {
 
 		String result = SELECT;
+		
+		titlePlayBusinessLogic.createPlayGuaranty(ContextUtil.getMemberNo(), ContextUtil.getClientIP());
+		
 		ServerMst serverMst = null;
 
 		if (titleId != null && serverId != null) {
@@ -68,9 +68,9 @@ public class TitlePlayControlAction extends BaseActionSupport {
 		if (serverMst != null) {
 
 			Date now = new Date();
-			
-			if (isPlayable(serverMst, now)) {				
-				
+
+			if (isPlayable(serverMst, now)) {
+
 				// ゲームプレイ用ＵＲＬを生成する。
 				EntryParameter parameter = new EntryParameter();
 
@@ -81,7 +81,7 @@ public class TitlePlayControlAction extends BaseActionSupport {
 				parameter.setPlayDate(now);
 				parameter.setParentMemNum(titlePlayBusinessLogic.getParentNum());
 
-				playUrl = serverMst.getPlayUrl() + "?" + titleEntry.getTitleEntryKey(parameter);
+				playUrl = serverMst.getPlayUrl() + "?"+ titleEntry.getTitleEntryKey(parameter);
 
 				// ゲームプレイ履歴を出力する。
 				PlayHist playHist = new PlayHist();
@@ -216,20 +216,8 @@ public class TitlePlayControlAction extends BaseActionSupport {
 		return titleEntry;
 	}
 
-	public IMasterInfoBusinessLogic getMasterInfoBusinessLogic() {
-		return masterInfoBusinessLogic;
-	}
-
 	public ITitlePlayBusinessLogic getTitlePlayBusinessLogic() {
 		return titlePlayBusinessLogic;
-	}
-
-	public IBetaTesterBusinessLogic getBetaTesterBusinessLogic() {
-		return betaTesterBusinessLogic;
-	}
-
-	public IMemberInfoBusinessLogic getMemberInfoBusinessLogic() {
-		return memberInfoBusinessLogic;
 	}
 
 	public Integer getTitleId() {
@@ -243,5 +231,5 @@ public class TitlePlayControlAction extends BaseActionSupport {
 	public String getServer() {
 		return server;
 	}
-	
+
 }

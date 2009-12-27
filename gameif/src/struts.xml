@@ -169,6 +169,12 @@
 		<action name="playGame" class="titlePlayControlAction">
 			<result name="success" type="redirect">${playUrl}</result>
 			<result name="select" type="redirectAction">games</result>
+			<result name="guaranty" type="redirectAction">
+				<param name="actionName">inputPlayGuaranty</param>
+				<param name="serverId">${serverId}</param>
+				<param name="titleId">${titleId}</param>
+				<param name="server">${server}</param>
+			</result>
 		</action>
 
 		<action name="games" class="titleSelectControlAction">
@@ -334,6 +340,13 @@
 			<result name="inputGiveList">/WEB-INF/pages/portal/ticket_give_list.jsp</result>
 			<!-- メンテナンス画面に案内する -->
 			<result name="maintenance" type="redirect">/maintenancePage.html</result>
+		</action>
+
+		<action name="*PlayGuaranty" class="titlePlayGuarantyControlAction" method="{1}">
+			<interceptor-ref name="gameifStack"></interceptor-ref>
+			<result name="input">/WEB-INF/pages/portal/play_guaranty.jsp</result>
+			<result name="success" type="redirect">${playUrl}</result>
+			<result name="select" type="redirectAction">games</result>
 		</action>
 		
 	</package>

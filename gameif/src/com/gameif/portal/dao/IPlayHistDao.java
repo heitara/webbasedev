@@ -20,5 +20,7 @@ public interface IPlayHistDao extends IBaseDao<PlayHist, PlayHist> {
 	public Integer selectPlayHistCount(Long memNum, Integer titleId);
 	
 	public Integer selectPlayDaysByMemNum(Long memNum);
+	
+	public Integer selectMemCountByIp(String playIp, Long memNum, Integer limitDays);
 }
 
