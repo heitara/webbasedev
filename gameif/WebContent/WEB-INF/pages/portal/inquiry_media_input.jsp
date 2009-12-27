@@ -15,7 +15,7 @@
 	<dl class="light_box tspace_n">
 		<dt><strong>メディア様のお問合せ</strong><span><a href="inputInquiry.html">► 一般のお問合せ</a> &nbsp; <a href="inputMemberInquiry.html">► 会員様のお問合せ</a></span></dt>
 		<dd>
-			<s:form name="frm_inquiry_media_input" method="post" cssClass="entry">
+			<s:form name="frm_inquiry_media_input" method="post" action="" cssClass="entry">
 				<table>
 					<tr>
 						<th><span class="required">*</span><label for="company_name">御社名：</label></th>
@@ -73,7 +73,7 @@
 						<td>
 							<img id="kaptchaPic" src="images/kaptcha"/>
 							<a href="javascript:RefreshImg();"><img id="newKaptcha" src="images/capture_update.gif"/></a><br/>
-							<s:textfield name="kaptcha" maxlength="20"  cssClass="ime_mode_n" title="画像認証" onblur="validate(this,'REQ,ALN');"/>
+							<s:textfield name="kaptcha" maxlength="20" title="画像認証" onblur="validate(this,'REQ');"/>
 							<span class="explain">※ 画像認証コードを入力してください。</span>
 							<span id="error_kaptcha" class="input_error"><s:fielderror><s:param>kaptcha</s:param></s:fielderror></span>
 						</td>

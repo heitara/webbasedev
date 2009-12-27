@@ -66,8 +66,8 @@
 					<td>
 						<img id="kaptchaPic" src="images/kaptcha"/>
 						<a href="javascript:RefreshImg();"><img id="newKaptcha" src="images/capture_update.gif"/></a><br/>
-						<s:textfield name="kaptcha" maxlength="20"  cssClass="ime_mode_n" title="画像認証" onblur="validate(this,'REQ,ALN');"/>
-						<span class="explain">※ 英数字5文字です。大文字小文字は区別しません。</span>
+						<s:textfield name="kaptcha" maxlength="20" title="画像認証" onblur="validate(this,'REQ');"/>
+							<span class="explain">※ 画像認証コードを入力してください。</span>
 						<span id="error_kaptcha" class="input_error"><s:fielderror><s:param>kaptcha</s:param></s:fielderror></span>
 					</td>
 				</tr>
