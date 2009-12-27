@@ -241,7 +241,7 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		if (member.getMemAtbtCd().equals(PortalConstants.MemberAtbtCd.NORMAL)) {
 			member.setMemAtbtCd(PortalConstants.MemberAtbtCd.CHARGE);
 			member.setLastUpdateDate(settlementDate);
-			member.setLastUpdateIp(ContextUtil.getClientIP());
+//			member.setLastUpdateIp(ContextUtil.getClientIP());
 			member.setLastUpdateUser(settleTrns.getMemNum().toString());
 	
 			memberInfoDao.update(member); 
@@ -267,6 +267,7 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 
 			// データが存在しない
 			throw new SystemException("Server Data does not exist.");
+			
 		}
 
 		params.setChargeUrl(server.getChargeUrl());
