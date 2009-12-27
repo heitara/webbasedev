@@ -63,6 +63,7 @@
 						<td>サービスポイント残高</td>
 						<td>タイトル</td>
 						<td>有効期限</td>
+						<td width="100">&nbsp;</td>
 					</tr>
 					<s:iterator value="servicePointList" id="servicePointList">
 						<tr align="center">
@@ -92,6 +93,7 @@
 									<span>-</span>
 								</s:else>
 							</td>
+							<td><a href="inputChargeServicePoint.html?titleId=<s:property value="titleId"/>&pointAmount=<s:property value="pointAmount"/>" >ポイント利用</a></td>
 						</tr>
 					</s:iterator>
 				</table>
