@@ -7,7 +7,7 @@
 	</head>
 	<body>
 		<dl class="light_box tspace_n">
-			<dt><strong>複数アカウントの警告</strong></dt>
+			<dt><strong>複数アカウントの警告</strong><span>&nbsp;</span></dt>
 			<dd>
 				<div style="margin:30px 0px;line-height:20px;">
 				<div style="font-size:16px;color:#F60;font-weight:bold;margin:10px 0px;">お客様ご利用のIPアドレスから、複数アカウントが作成されていることが確認されました。</div>
