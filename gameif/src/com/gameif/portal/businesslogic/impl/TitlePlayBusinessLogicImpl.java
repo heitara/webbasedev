@@ -168,20 +168,22 @@ public class TitlePlayBusinessLogicImpl extends BaseBusinessLogic implements ITi
 	}
 
 	@Override
-	public Integer getMemCountByIp(String playIp, Long memNum) {
-		return playHistDao.selectMemCountByIp(playIp, memNum, limitDays);
+	public Integer getMemCountByIp(String playIp, Long memNum, Integer titleId, Integer serverId) {
+		return playHistDao.selectMemCountByIp(playIp, memNum, limitDays, titleId, serverId);
 	}
 
 	@Override
-	public Integer getGuarantyByMenNum(Long memNum) {
-		return playGuarantyDao.selectGuarantyByMenNum(memNum);
+	public Integer getGuarantyByMenNum(Long memNum, Integer titleId, Integer serverId) {
+		return playGuarantyDao.selectGuarantyByMenNum(memNum, titleId, serverId);
 	}
 
 	@Override
-	public void createPlayGuaranty(Long memNum, String playIp) {
+	public void createPlayGuaranty(Long memNum, Integer titleId, Integer serverId, String playIp) {
 		
 		PlayGuaranty playGuaranty = new PlayGuaranty();
 		playGuaranty.setMemNum(memNum);
+		playGuaranty.setTitleId(titleId);
+		playGuaranty.setServerId(serverId);
 		playGuaranty.setPlayIp(playIp);
 		
 		playGuarantyDao.save(playGuaranty);

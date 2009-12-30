@@ -68,13 +68,15 @@ public class PlayHistDaoImpl extends
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Integer selectMemCountByIp(String playIp, Long memNum, Integer limitDays) {
+	public Integer selectMemCountByIp(String playIp, Long memNum, Integer limitDays, Integer titleId, Integer serverId) {
 		
 		HashMap params = new HashMap();
 		
 		params.put("playIp", playIp);
 		params.put("memNum", memNum);
 		params.put("limitDays", limitDays);
+		params.put("titleId", titleId);
+		params.put("serverId", serverId);
 		
 		return (Integer) this.getSqlMapClientTemplate().queryForObject(namespace + ".selectMemCountByIp", params);
 	}
