@@ -231,15 +231,15 @@
 	
 	<select id="selectMemCountByIp" parameterClass="java.util.Map" resultClass="int">
       <![CDATA[
-        SELECT
-			count(mem_num)
-		FROM
-			play_hist
-		WHERE	
-			(mem_num > #memNum#
-		OR mem_num < #memNum# )
-		AND	play_ip = #playIp#
-		AND play_date >= DATE_SUB(now(), INTERVAL #limitDays# DAY)
+        SELECT	count(h.mem_num)
+		FROM	play_hist h INNER JOIN member_info m ON h.mem_num = m.mem_num
+		WHERE	(h.mem_num > #memNum# OR h.mem_num < #memNum# )
+		AND		h.play_date >= DATE_SUB(now(), INTERVAL #limitDays# DAY)
+		AND		h.play_ip = #playIp#
+		AND		h.title_id = #titleId#
+		AND		h.server_id = #serverId#
+		AND		m.mem_atbt_cd IN ('1', '2')
+		AND		m.mem_valid_yn_cd IN ('1', '3')
       ]]>
 	</select>
 	

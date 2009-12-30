@@ -5,14 +5,13 @@
 <sqlMap namespace="playGuaranty">
 	<typeAlias alias="playGuaranty" type="com.gameif.portal.entity.PlayGuaranty" />
 
-	<select id="selectGuarantyByMenNum" parameterClass="java.lang.Long" resultClass="int">
+	<select id="selectGuarantyByMenNum" parameterClass="java.util.Map" resultClass="int">
       <![CDATA[
-        SELECT
-			count(mem_num)
-		FROM
-			play_guaranty
-		WHERE	
-			mem_num = #memNum#
+        SELECT	count(mem_num)
+		FROM	play_guaranty
+		WHERE	mem_num = #memNum#
+		AND		title_id = #titleId#
+		AND		server_id = #serverId#
       ]]>
 	</select>
 
@@ -21,11 +20,15 @@
 			INSERT INTO play_guaranty
 				(
 				mem_num,
+				title_id,
+				server_id,
 				play_ip
 				)
 			VALUES
 				(
 				#memNum#,
+				#titleId#,
+				#serverId#,
 				#playIp#
 				)
 		]]>

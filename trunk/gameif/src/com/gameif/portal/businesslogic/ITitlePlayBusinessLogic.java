@@ -54,9 +54,9 @@ public interface ITitlePlayBusinessLogic {
 	 * 指定期間以内、プレー履歴に同一IPに対して複数ユーザがあるかどうかのチェック
 	 * @return
 	 */
-	public Integer getMemCountByIp(String playIp, Long memNum);
+	public Integer getMemCountByIp(String playIp, Long memNum, Integer titleId, Integer serverId);
 	
-	public Integer getGuarantyByMenNum(Long memNum);
+	public Integer getGuarantyByMenNum(Long memNum, Integer titleId, Integer serverId);
 	
-	public void createPlayGuaranty(Long memNum, String playIp);
+	public void createPlayGuaranty(Long memNum, Integer titleId, Integer serverId, String playIp);
 }
