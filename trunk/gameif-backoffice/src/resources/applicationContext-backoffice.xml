@@ -44,6 +44,9 @@
 				<entry key="3" value="ランキング"/>
 				<entry key="4" value="改善提案"/>
 				<entry key="5" value="ゲームに連続ログイン"/>
+				<entry key="6" value="補償"/>
+				<entry key="7" value="テスト用"/>
+				<entry key="8" value="その他"/>
 			</map>
 		</property>
 		<property name="inviteType">
