@@ -214,7 +214,11 @@ TRUNCATE TABLE `ticket_mst`;
 INSERT INTO `ticket_mst` (`ticket_id`, `ticket_name`, `ticket_type_cd`, `ticket_model_id`, `delay_days`, `valid_days`, `title_id`, `icon_url`, `created_date`, `created_user`, `last_update_date`, `last_update_user`) VALUES
 (1, '定のチケット100：固定100PT', 1, 1, 0, 60, 1, 'images/ticket/icon_st_1.gif', '2009-12-17 11:00:00', 'chou', '2009-12-17 11:00:00', 'chou'),
 (2, '定のチケット300：固定300PT', 2, 2, 0, 60, 1, 'images/ticket/icon_st_2.gif', '2009-12-17 11:00:00', 'chou', '2009-12-17 11:00:00', 'chou'),
-(3, '運のチケット10000：最低10PT・最高10000PT・平均160PT', 3, 3, 0, 60, 1, 'images/ticket/icon_st_3.gif', '2009-12-17 11:00:00', 'chou', '2009-12-17 11:00:00', 'chou');
+(3, '運のチケット10000：最低10PT・最高10000PT・平均160PT', 3, 3, 0, 60, 1, 'images/ticket/icon_st_3.gif', '2009-12-17 11:00:00', 'chou', '2009-12-17 11:00:00', 'chou'),
+(4, '定のチケット500：固定500PT', 4, 4, 0, 60, 1, 'images/ticket/icon_st_4.gif', '2009-12-17 11:00:00', 'chou', '2009-12-17 11:00:00', 'chou'),
+(5, '定のチケット1000：固定1000PT', 5, 5, 0, 60, 1, 'images/ticket/icon_st_5.gif', '2009-12-17 11:00:00', 'chou', '2009-12-17 11:00:00', 'chou'),
+(6, '定のチケット5000：固定5000PT', 6, 6, 0, 60, 1, 'images/ticket/icon_st_6.gif', '2009-12-17 11:00:00', 'chou', '2009-12-17 11:00:00', 'chou'),
+(7, '定のチケット10000：固定10000PT', 7, 7, 0, 60, 1, 'images/ticket/icon_st_7.gif', '2009-12-17 11:00:00', 'chou', '2009-12-17 11:00:00', 'chou');
 
 TRUNCATE TABLE `ticket_model_mst`;
 INSERT INTO `ticket_model_mst` (`model_id`, `limit_point_lower`, `limit_point_upper`, `model_name`, `created_date`, `created_user`, `last_update_date`, `last_update_user`) VALUES
@@ -222,7 +226,11 @@ INSERT INTO `ticket_model_mst` (`model_id`, `limit_point_lower`, `limit_point_up
 (2, 0, 300, '300ポイント', '2009-12-17 11:00:00', 'chou', '2009-12-17 11:00:00', 'chou'),
 (3, 0, 100, '155ポイントLow', '2009-12-17 11:00:00', 'chou', '2009-12-17 11:00:00', 'chou'),
 (3, 100, 200, '155ポイントMiddle', '2009-12-17 11:00:00', 'chou', '2009-12-17 11:00:00', 'chou'),
-(3, 200, 10000, '155ポイントhigh', '2009-12-17 11:00:00', 'chou', '2009-12-17 11:00:00', 'chou');
+(3, 200, 10000, '155ポイントhigh', '2009-12-17 11:00:00', 'chou', '2009-12-17 11:00:00', 'chou'),
+(4, 0, 500, '500ポイント', '2009-12-17 11:00:00', 'chou', '2009-12-17 11:00:00', 'chou'),
+(5, 0, 1000, '1000ポイント', '2009-12-17 11:00:00', 'chou', '2009-12-17 11:00:00', 'chou'),
+(6, 0, 5000, '5000ポイント', '2009-12-17 11:00:00', 'chou', '2009-12-17 11:00:00', 'chou'),
+(7, 0, 10000, '10000ポイント', '2009-12-17 11:00:00', 'chou', '2009-12-17 11:00:00', 'chou');
 
 TRUNCATE TABLE `ticket_model_detail`;
 INSERT INTO `ticket_model_detail` (`model_detail_id`, `model_id`, `limit_point_lower`, `limit_point_upper`, `person_count`, `person_count_lower`, `person_count_upper`, `prize_point`,`created_date`, `created_user`, `last_update_date`, `last_update_user`) VALUES
@@ -243,4 +251,8 @@ INSERT INTO `ticket_model_detail` (`model_detail_id`, `model_id`, `limit_point_l
 (15, 3, 200, 10000, 10, 0, 10, 10, '2009-12-17 11:00:00', 'chou', '2009-12-17 11:00:00', 'chou'),
 (16, 3, 200, 10000, 40, 10, 50, 50, '2009-12-17 11:00:00', 'chou', '2009-12-17 11:00:00', 'chou'),
 (17, 3, 200, 10000, 650, 50, 700, 100, '2009-12-17 11:00:00', 'chou', '2009-12-17 11:00:00', 'chou'),
-(18, 3, 200, 10000, 10, 700, 710, 500, '2009-12-17 11:00:00', 'chou', '2009-12-17 11:00:00', 'chou');
+(18, 3, 200, 10000, 10, 700, 710, 500, '2009-12-17 11:00:00', 'chou', '2009-12-17 11:00:00', 'chou'),
+(19, 4, 0, 500, 1, 0, 1, 500, '2009-12-17 11:00:00', 'chou', '2009-12-17 11:00:00', 'chou'),
+(20, 5, 0, 1000, 1, 0, 1, 1000, '2009-12-17 11:00:00', 'chou', '2009-12-17 11:00:00', 'chou'),
+(21, 6, 0, 5000, 1, 0, 1, 5000, '2009-12-17 11:00:00', 'chou', '2009-12-17 11:00:00', 'chou'),
+(22, 7, 0, 10000, 1, 0, 1, 10000, '2009-12-17 11:00:00', 'chou', '2009-12-17 11:00:00', 'chou');
