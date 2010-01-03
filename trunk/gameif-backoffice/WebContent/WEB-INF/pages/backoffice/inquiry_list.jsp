@@ -116,7 +116,7 @@
 										<a href="inputEditInquriy.html?inquiryNum=<s:property value="inquiryNum"/>" ><s:property value="inquiryObject"/></a>
 									</td>
 									<td class="friend"><s:property value="backOfficeProperties.inquiryTypes[inquiryType]"/></td>
-									<td class="entry_ymd"><s:property value="inquiryDate"/></td>
+									<td class="entry_ymd"><s:date name="inquiryDate" format="yyyy/MM/dd HH:mm:ss"/></td>
 									<td class="entry_ymd"><s:property value="userMailadd"/></td>
 									<s:if test="correspondStatus == null">
 										<td class="mail"></td>
@@ -124,7 +124,7 @@
 									<s:else>
 										<td class="mail"><s:property value="backOfficeProperties.correspondStatus[correspondStatus]"/></td>
 									</s:else>
-									<td class="mail"><s:property value="responseDate"/></td>
+									<td class="mail"><s:date name="responseDate" format="yyyy/MM/dd HH:mm:ss"/></td>
 								</tr>
 							</s:iterator>
 						</table>

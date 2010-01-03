@@ -19,6 +19,12 @@
 					<s:if test="model.inquiryType == 0">
 						<tr class="space_row"><td colspan="2"></td></tr>
 						<tr>
+							<th><label for="mem_num">会員番号：</label></th>
+							<td>
+								<s:property value="model.memNum"/>
+							</td>
+						</tr>
+						<tr>
 							<th><label for="user_name">お名前：</label></th>
 							<td>
 								<s:property value="model.userName"/>
@@ -96,6 +102,12 @@
 						</td>
 					</tr>
 					<tr>
+						<th><label for="mail">お問合せ日時：</label></th>
+						<td>
+							<s:date name="model.inquiryDate" format="yyyy/MM/dd HH:mm:ss"/>
+						</td>
+					</tr>
+					<tr>
 						<th><label for="object">お問合せ件名：</label></th>
 						<td>
 							<s:property value="model.inquiryObject"/>
@@ -108,9 +120,7 @@
 						</td>
 					</tr>
 					<tr class="space_row"><td colspan="2"></td></tr>
-					<!-- 
 					<s:if test="model.correspondStatus == null || model.correspondStatus == 0 || model.correspondStatus == 2">
-					 -->
 						<tr>
 							<th><span class="required">*</span><label for="object">回答件名：</label></th>	
 							<td>
@@ -131,9 +141,14 @@
 								<span id="error_responseContents" class="input_error"><s:fielderror><s:param>responseContents</s:param></s:fielderror></span>
 							</td>
 						</tr>
-					<!-- 
 					</s:if>
 					<s:elseif test="model.correspondStatus == 1">
+						<tr>
+							<th><label for="response_date">回答日時：</label></th>
+							<td>
+								<s:date name="model.responseDate" format="yyyy/MM/dd HH:mm:ss"/>
+							</td>
+						</tr>
 						<tr>
 							<th><span class="required">*</span><label for="object">回答件名：</label></th>	
 							<td>
@@ -153,7 +168,6 @@
 							</td>
 						</tr>
 					</s:elseif>
-					 -->
 				</table>
 				<div class="submit">
 					<s:token />
