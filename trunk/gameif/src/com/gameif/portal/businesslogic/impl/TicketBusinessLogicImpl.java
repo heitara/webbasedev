@@ -8,8 +8,8 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gameif.common.businesslogic.BaseBusinessLogic;
+import com.gameif.common.exception.DataNotExistsException;
 import com.gameif.common.exception.LogicException;
-import com.gameif.common.exception.OutOfDateException;
 import com.gameif.portal.businesslogic.ITicketBusinessLogic;
 import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.dao.IServicePointDao;
@@ -73,9 +73,15 @@ public class TicketBusinessLogicImpl extends BaseBusinessLogic implements
 		TicketInfo ticketInfo = ticketInfoDao.selectForUpdate(ContextUtil.getMemberNo(), ticketId);
 		if (ticketInfo == null) {
 			// データが存在しない
-			throw new OutOfDateException("TicketInfo Data does not exist.");
+			throw new DataNotExistsException("TicketInfo Data does not exist.");
 		}
 		
+		if (ticketInfo.getTicketCount() < 1) {
+			// データが存在しない
+			throw new DataNotExistsException("Ticket Count is less than 1.");
+			
+		}
+			
 		Date now = new Date();
 		
 		ticketInfo.setTicketCount(ticketInfo.getTicketCount() - 1);
