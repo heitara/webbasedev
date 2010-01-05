@@ -22,19 +22,20 @@
 			<div style="width:573px;height:275px;padding:0px;border-left:1px solid #AAA;border-right:1px solid #AAA;">
 				<br/>
 				<div style="margin:0px 20px;height:200px;">
-					<h3 style="margin:0px;margin-bottom:20px;color:#900;font-size:16px;">ログイン注意事項</h3>
+					<h3 style="margin:0px;margin-bottom:20px;color:#F60;font-size:16px;">ログインについて</h3>
 					<p>
-					パスワードの入力が一定回数以上を間違えると、アカウントがブロックされますので、ご注意ください。
+					こちらでログインしていただきますと、ゲームプレイ、ポイント購入、掲示板の書込み等、<br/>ゲームイフが提供しているすべてのサービスがご利用になれます。
 					</p>
-					<p style="line-height:18px;">
-					正確なアカウントとパスワードを入力してもログインできない場合は、<br/>
-					下記の原因が考えられますので <a href="<%=getServletContext().getInitParameter("portalTopUrl")%>/inputInquiry.html" title="お問合せ">問合せーフォーム</a> により、速やかにご連絡ください。<br/>
-					</p>
+					<h4 style="color:#900;">
+					正確なアカウントとパスワードを入力してもログインできない場合は、下記の原因が考えられます。<br/>
+					</h4>
 					<ul style="line-height:18px;">
+						<li>アカウントが有効化されていない。</li>
 						<li>パスワードの誤入力回数がシステム制限回数を超えた。</li>
-						<li>不正行為と疑われる履歴が見つかり、アカウントを凍結した。</li>
+						<li>不正行為と疑われる履歴が見つかり、アカウントが凍結された。</li>
 						<li>アカウントが盗難された。</li>
 					</ul>
+					詳しくは「<a href="<%=getServletContext().getInitParameter("portalNewsTopUrl")%>/component/content/article/11-faq" title="よくある質問">よくある質問</a>」をご確認ください。
 				</div>
 			</div>
 			<div style="height:5px;background:url('images/bg_bd_b_login_about.gif');"></div>
