@@ -125,6 +125,7 @@
 			member_info
 		WHERE
 			mem_id = #value#
+		AND mem_valid_yn_cd IN ('1', '3')
         ]]>
 	</select>
 
