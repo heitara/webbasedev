@@ -24,6 +24,7 @@ public class InviteInfo extends BaseEntity {
 	private Long childMemNum;
 	private String approveStatus;
 	private String parentCookie;
+	private String parentApproveCookie;
 	private String childCookie;
 	private String deleteFlag;
 	private Date createdDate;
@@ -224,6 +225,21 @@ public class InviteInfo extends BaseEntity {
 	 */
 	public void setParentCookie(String parentCookie) {
 		this.parentCookie = parentCookie;
+	}
+
+	/**
+	 * @return the parentApproveCookie
+	 */
+	public String getParentApproveCookie() {
+		return parentApproveCookie;
+	}
+
+	/**
+	 * @param parentApproveCookie
+	 *            the parentApproveCookie to set
+	 */
+	public void setParentApproveCookie(String parentApproveCookie) {
+		this.parentApproveCookie = parentApproveCookie;
 	}
 
 	/**

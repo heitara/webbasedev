@@ -102,6 +102,13 @@
 						<entry key="format" value="text"/>
 					</map>
 				</entry>
+				<entry key="friendLogin">
+					<map>
+						<entry key="title" value="【ゲームイフ】友達登録完了のお知らせ"/>
+						<entry key="template" value="friendLogin.ftl"/>
+						<entry key="format" value="text"/>
+					</map>
+				</entry>
 			</map>
 		</property>
 	</bean>

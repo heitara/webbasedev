@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gameif.common.businesslogic.BaseBusinessLogic;
+import com.gameif.common.exception.DataNotExistsException;
 import com.gameif.common.exception.LogicException;
 import com.gameif.common.exception.OutOfDateException;
 import com.gameif.common.exception.OutOfMaxCountException;
@@ -321,6 +322,8 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 			inviteInfo.setApproveStatus(PortalConstants.ApproveStatus.NO_APPROVE);
 			// 親のクッキーを設定する
 			inviteInfo.setParentCookie(PortalConstants.INVITE_COOKIE_VALUE);
+			// 申請時の親のクッキー、「null」を設定する
+			inviteInfo.setParentApproveCookie(null);
 			// 子のクッキーを設定する
 			inviteInfo.setChildCookie(null);
 			inviteInfo.setLastUpdateDate(inviteDate);
@@ -453,24 +456,20 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		if (inviteInfo == null) {
 			
 			// データが存在しない
-			throw new OutOfDateException("InviteInfo Data does not exist.");
+			throw new DataNotExistsException("InviteInfo Data does not exist.");
 			
 		}
 		
-		// 同じIPが存在する場合、「承認待ち」状態に変更し、手動的に承認を行う
-		// 紹介された友達のゲームプレイ日数が指定日数により小さい場合、「承認待ち」状態に変更し、手動的に承認を行う
-		// 紹介された友達のゲームプレイ日数が指定日数により小さい場合、「承認待ち」状態に変更し、手動的に承認を行う
-		if (checkEntryIp(inviteInfo.getChildMemNum()) || 
-			checkPlayCount(inviteInfo.getChildMemNum()) ||
-			checkMailCookie(inviteInfo)) {
-			// 「承認済」に変更する
-			inviteInfo.setApproveStatus(PortalConstants.ApproveStatus.APPROVING);
+		// 同じIPが存在する場合、「申請中」状態に変更し、手動的に承認を行う
+		if (checkEntryIp(inviteInfo.getChildMemNum())) {
+			// 「IP重複」に変更する
+			inviteInfo.setApproveStatus(PortalConstants.ApproveStatus.IP_REPEAT);
 		} else {
-
-			// 「承認待ち」に変更する
-			inviteInfo.setApproveStatus(PortalConstants.ApproveStatus.APPROVED);
+			// 「申請中」に変更する
+			inviteInfo.setApproveStatus(PortalConstants.ApproveStatus.APPROVING);
 		}
 		
+		inviteInfo.setParentApproveCookie(ContextUtil.getInviteCookie());
 		inviteInfo.setLastUpdateDate(new Date());
 		inviteInfo.setLastUpdateUser(ContextUtil.getMemberNo().toString());
 		inviteInfoDao.update(inviteInfo);
@@ -485,24 +484,20 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		if (inviteLinkHist == null) {
 			
 			// データが存在しない
-			throw new OutOfDateException("InviteLinkHist Data does not exist.");
+			throw new DataNotExistsException("InviteLinkHist Data does not exist.");
 			
 		}
 		
-		// 同じIPが存在する場合、「承認待ち」状態に変更し、手動的に承認を行う
-		// 紹介された友達のゲームプレイ日数が指定日数により小さい場合、「承認待ち」状態に変更し、手動的に承認を行う
-		// 紹介された友達のゲームプレイ日数が指定日数により小さい場合、「承認待ち」状態に変更し、手動的に承認を行う
-		if (checkEntryIp(inviteLinkHist.getChildMemNum()) || 
-			checkPlayCount(inviteLinkHist.getChildMemNum()) ||
-			checkLinkCookie(inviteLinkHist)) {
-			// 「承認済」に変更する
-			inviteLinkHist.setApproveStatus(PortalConstants.ApproveStatus.APPROVING);
+		// 同じIPが存在する場合、「申請中」状態に変更し、手動的に承認を行う
+		if (checkEntryIp(inviteLinkHist.getChildMemNum())) {
+			// 「IP重複」に変更する
+			inviteLinkHist.setApproveStatus(PortalConstants.ApproveStatus.IP_REPEAT);
 		} else {
 
-			// 「承認待ち」に変更する
-			inviteLinkHist.setApproveStatus(PortalConstants.ApproveStatus.APPROVED);
+			// 「申請中」に変更する
+			inviteLinkHist.setApproveStatus(PortalConstants.ApproveStatus.APPROVING);
 		}
-		
+		inviteLinkHist.setApproveCookie(ContextUtil.getInviteCookie());
 		inviteLinkHistDao.update(inviteLinkHist);
 		
 	}
@@ -530,63 +525,63 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		return bRtn;
 	}
 	
-	/**
-	 * 紹介された友達のゲームプレイ日数をチェックする
-	 * @param childMemNum　紹介された友達の	会員番号
-	 * @return false:自動的に承認する、true:手動的に承認を行う
-	 */
-	private Boolean checkPlayCount(Long childMemNum) {
-		Boolean bRtn = false;
-		
-		Integer count = playHistDao.selectPlayDaysByMemNum(childMemNum);
-		if (count < playCount) {
-			bRtn = true;
-		}
-		
-		return bRtn;
-	}
-	
-	/**
-	 * メールで紹介の場合、クッキーの値をチェックする
-	 * @param inviteInfo
-	 * @return false:自動的に承認する、true:手動的に承認を行う
-	 */
-	private Boolean checkMailCookie(InviteInfo inviteInfo) {
-		Boolean bRtn = false;
-		
-		// 紹介者のクッキーがNULLではない場合、「承認待ち」状態に変更し、手動的に承認を行う
-		// 現時点で、紹介のクッキーと紹介する時のクッキーが違う場合、「承認待ち」状態に変更し、手動的に承認を行う
-		if (inviteInfo.getChildCookie() != null || 
-			inviteInfo.getParentCookie() == null ||
-			!inviteInfo.getParentCookie().equals(ContextUtil.getInviteCookie())) {
-			bRtn = true;
-		}
-		return bRtn;
-		
-	}
-	
-	/**
-	 * リンクで紹介の場合、クッキーの値をチェックする
-	 * @param inviteLinkHist リンクで紹介履歴情報
-	 * @return false:自動的に承認する、true:手動的に承認を行う
-	 */
-	private Boolean checkLinkCookie(InviteLinkHist inviteLinkHist) {
-		Boolean bRtn = false;
-		
-		InviteLink inviteLink = inviteLinkDao.selectByMemNum(inviteLinkHist.getMemNum());
-		if (inviteLink == null) {
-			return true;
-		}
-		
-		// 紹介者のクッキーがNULLではない場合、「承認待ち」状態に変更し、手動的に承認を行う
-		// 現時点で、紹介のクッキーと紹介する時のクッキーが違う場合、「承認待ち」状態に変更し、手動的に承認を行う
-		if (inviteLinkHist.getCookie() != null ||
-			inviteLink.getCookie() == null ||
-			!inviteLink.getCookie().equals(ContextUtil.getInviteCookie())) {
-			bRtn = true;
-		}
-		
-		return bRtn;
-	}
+//	/**
+//	 * 紹介された友達のゲームプレイ日数をチェックする
+//	 * @param childMemNum　紹介された友達の	会員番号
+//	 * @return false:自動的に承認する、true:手動的に承認を行う
+//	 */
+//	private Boolean checkPlayCount(Long childMemNum) {
+//		Boolean bRtn = false;
+//		
+//		Integer count = playHistDao.selectPlayDaysByMemNum(childMemNum);
+//		if (count < playCount) {
+//			bRtn = true;
+//		}
+//		
+//		return bRtn;
+//	}
+//	
+//	/**
+//	 * メールで紹介の場合、クッキーの値をチェックする
+//	 * @param inviteInfo
+//	 * @return false:自動的に承認する、true:手動的に承認を行う
+//	 */
+//	private Boolean checkMailCookie(InviteInfo inviteInfo) {
+//		Boolean bRtn = false;
+//		
+//		// 紹介者のクッキーがNULLではない場合、「承認待ち」状態に変更し、手動的に承認を行う
+//		// 現時点で、紹介のクッキーと紹介する時のクッキーが違う場合、「承認待ち」状態に変更し、手動的に承認を行う
+//		if (inviteInfo.getChildCookie() != null || 
+//			inviteInfo.getParentCookie() == null ||
+//			!inviteInfo.getParentCookie().equals(ContextUtil.getInviteCookie())) {
+//			bRtn = true;
+//		}
+//		return bRtn;
+//		
+//	}
+//	
+//	/**
+//	 * リンクで紹介の場合、クッキーの値をチェックする
+//	 * @param inviteLinkHist リンクで紹介履歴情報
+//	 * @return false:自動的に承認する、true:手動的に承認を行う
+//	 */
+//	private Boolean checkLinkCookie(InviteLinkHist inviteLinkHist) {
+//		Boolean bRtn = false;
+//		
+//		InviteLink inviteLink = inviteLinkDao.selectByMemNum(inviteLinkHist.getMemNum());
+//		if (inviteLink == null) {
+//			return true;
+//		}
+//		
+//		// 紹介者のクッキーがNULLではない場合、「承認待ち」状態に変更し、手動的に承認を行う
+//		// 現時点で、紹介のクッキーと紹介する時のクッキーが違う場合、「承認待ち」状態に変更し、手動的に承認を行う
+//		if (inviteLinkHist.getCookie() != null ||
+//			inviteLink.getCookie() == null ||
+//			!inviteLink.getCookie().equals(ContextUtil.getInviteCookie())) {
+//			bRtn = true;
+//		}
+//		
+//		return bRtn;
+//	}
 
 }

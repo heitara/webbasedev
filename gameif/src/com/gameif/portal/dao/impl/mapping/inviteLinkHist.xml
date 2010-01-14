@@ -11,6 +11,7 @@
 		<result property="titleId" column="title_id" />
 		<result property="approveStatus" column="approve_status"/>
 		<result property="cookie" column="cookie"/>
+		<result property="approveCookie" column="approve_cookie"/>
 	</resultMap>
 	
 	<resultMap class="com.gameif.portal.entity.MyInviteLink" id="myInviteLinkHistResult">
@@ -29,13 +30,15 @@
 				child_mem_num,
 				title_id,
 				approve_status,
-				cookie)
+				cookie,
+				approve_cookie)
 			VALUES
 				(#memNum#,
 				#childMemNum#,
 				#titleId#,
 				#approveStatus#,
-				#cookie#)
+				#cookie#,
+				#approveCookie#)
 	        ]]>
 	</insert>
 	
@@ -46,7 +49,8 @@
 				child_mem_num,
 				title_id,
 				approve_status,
-				cookie
+				cookie,
+				approve_cookie
 			FROM
 				invite_link_hist
 			WHERE
@@ -93,7 +97,8 @@
 				child_mem_num,
 				title_id,
 				approve_status,
-				cookie
+				cookie,
+				approve_cookie
 			FROM
 				invite_link_hist
 				
@@ -109,7 +114,8 @@
 			UPDATE invite_link_hist
 			SET	title_id = #titleId#,
 				approve_status = #approveStatus#,
-				cookie = #cookie#
+				cookie = #cookie#,
+				approve_cookie = #approveCookie#
 			WHERE
 				mem_num = #memNum#
 			AND child_mem_num = #childMemNum#

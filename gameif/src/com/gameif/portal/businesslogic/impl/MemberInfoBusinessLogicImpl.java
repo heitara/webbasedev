@@ -231,23 +231,53 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 			memAdvertActualInfoDao.save(memAdvertActualInfo);
 		}
 
+		Long parentMemNumMail = null;
+		Long parentMemNumLink = null;
+		
 		// メールで友達紹介する場合、紹介情報を更新する
-		updateInviteInfo(tempMemberInfo.getInviteId(), newMemberInfo);
+		parentMemNumMail = updateInviteInfo(tempMemberInfo.getInviteId(), newMemberInfo);
 		
 		// リンクで友達紹介する場合、紹介情報を保存する
-		saveMemInviteLinkHist(tempMemberInfo, newMemberInfo);
+		parentMemNumLink = saveMemInviteLinkHist(tempMemberInfo, newMemberInfo);
 		
 		// 臨時会員情報を削除する
 		tempMemberInfoDao.deleteByKey(memNum);
+		
 
+		MemberInfo parentMember = null;
+		if (parentMemNumMail != null && parentMemNumLink == null) {
+			parentMember = new MemberInfo();
+			parentMember.setMemNum(parentMemNumMail);
+			parentMember = memberInfoDao.selectByKey(parentMember);
+			
+		} else if (parentMemNumMail == null && parentMemNumLink != null) {
+
+			parentMember = new MemberInfo();
+			parentMember.setMemNum(parentMemNumMail);
+			parentMember = memberInfoDao.selectByKey(parentMember);
+			
+		} else if (parentMemNumMail != null && parentMemNumLink != null){
+
+			parentMember = new MemberInfo();
+			parentMember.setMemNum(parentMemNumMail);
+			parentMember = memberInfoDao.selectByKey(parentMember);
+		}
 		try {
 			// お知らせメールを送信する。
 			HashMap<String, String> props = new HashMap<String, String>();
 			props.put("memId", memberInfo.getMemId());
 			props.put("nickName", memberInfo.getNickName());
 			templateMailer.sendAsyncMail(memberInfo.getMailPc(), "createMember", props);
+			
+			// 友達登録完了のお知らせを送信する
+			if (parentMember != null) {
+				HashMap<String, String> propsLogin = new HashMap<String, String>();
+				propsLogin.put("parentNickName", parentMember.getNickName());
+				propsLogin.put("childNickName", memberInfo.getNickName());
+				templateMailer.sendAsyncMail(parentMember.getMailPc(), "friendLogin", propsLogin);
+			}
 		} catch (Exception ex) {
-			logger.error("error has occurred in sending createMember mail. ", ex);
+			logger.error("error has occurred in sending createMember or friendLogin mail. ", ex);
 		}
 		
 		return newMemNum;
@@ -277,16 +307,18 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	 * @param inviteId 紹介情報Id
 	 * @param memberInfo 会員情報（新規登録会員）
 	 */
-	private void updateInviteInfo(Long inviteId, MemberInfo memberInfo) {
+	private Long updateInviteInfo(Long inviteId, MemberInfo memberInfo) {
+		Long parentMemNum = null;
 		
 		// 友達紹介する場合、紹介情報を更新する
 		if (inviteId == null || inviteId.toString().trim().length() == 0) {
-			return;
+			return parentMemNum;
 		}
 		
 		// 該当紹介情報をロックする
 		InviteInfo inviteInfo = inviteInfoDao.selectForUpdate(inviteId);
 		if (inviteInfo != null && inviteInfo.getFriendCreateDate() == null) {
+			parentMemNum = inviteInfo.getMemNum();
 			// 登録済み
 			inviteInfo.setInviteStatus(PortalConstants.InviteStatus.REGISTERED);
 			// 登録日
@@ -304,6 +336,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 			inviteInfoDao.update(inviteInfo);
 		}
 		
+		return parentMemNum;
 	}
 
 	/**
@@ -311,16 +344,18 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	 * @param tempMemberInfo 臨時会員情報
 	 * @param memberInfo 会員情報（新規登録会員）
 	 */
-	private void saveMemInviteLinkHist(TempMemberInfo tempMemberInfo, MemberInfo memberInfo) {
+	private Long saveMemInviteLinkHist(TempMemberInfo tempMemberInfo, MemberInfo memberInfo) {
+		Long parentMemNum = null;
 		
 		String linkKey = tempMemberInfo.getLinkKey();
 		if (linkKey == null || linkKey.toString().trim().length() == 0) {
-			return;
+			return parentMemNum;
 		}
 		
 		// リンク情報を検索する
 		InviteLink inviteLink = inviteLinkDao.selectByLinkKey(linkKey);
 		if (inviteLink != null) {
+			parentMemNum = inviteLink.getMemNum();
 			
 			InviteLinkHist inviteLinkHist = new InviteLinkHist();
 			inviteLinkHist.setMemNum(inviteLink.getMemNum());
@@ -330,11 +365,14 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 			inviteLinkHist.setApproveStatus(PortalConstants.ApproveStatus.NO_APPROVE);
 			//　紹介された友達は登録時に、紹介のクッキーを取得する
 			inviteLinkHist.setCookie(ContextUtil.getInviteCookie());
+			// 申請時の父のクッキー値を「null」に設定する
+			inviteLinkHist.setApproveCookie(null);
 			
 			// リンクで友達履歴を登録する
 			inviteLinkHistDao.save(inviteLinkHist);
 		}
 		
+		return parentMemNum;
 	}
 
 	/**

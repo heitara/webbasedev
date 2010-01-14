@@ -229,6 +229,9 @@
 		<property name="serverMstDao">
 			<ref bean="serverMstDao" />
 		</property>
+		<property name="functionControlInfoDao">
+			<ref bean="functionControlInfoDao" />
+		</property>
 	</bean>
 	
 	<!-- maintenanceBusinessLogic -->

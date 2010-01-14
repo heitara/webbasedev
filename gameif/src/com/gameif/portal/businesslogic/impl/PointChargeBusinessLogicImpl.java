@@ -20,6 +20,7 @@ import com.gameif.portal.businesslogic.titleif.charge.ChargeConstants;
 import com.gameif.portal.businesslogic.titleif.charge.ChargeParameter;
 import com.gameif.portal.businesslogic.titleif.charge.TitleCharge;
 import com.gameif.portal.constants.PortalConstants;
+import com.gameif.portal.dao.IFunctionControlInfoDao;
 import com.gameif.portal.dao.IMemSettlementHistDao;
 import com.gameif.portal.dao.IMemSettlementTrnsDao;
 import com.gameif.portal.dao.IMemberInfoDao;
@@ -30,6 +31,7 @@ import com.gameif.portal.dao.IServicePointDao;
 import com.gameif.portal.dao.IServicePointGiveHistDao;
 import com.gameif.portal.dao.IServicePointTypeMstDao;
 import com.gameif.portal.dao.ITitleMstDao;
+import com.gameif.portal.entity.FunctionControlInfo;
 import com.gameif.portal.entity.MemSettlementHist;
 import com.gameif.portal.entity.MemSettlementTrns;
 import com.gameif.portal.entity.MemberInfo;
@@ -63,6 +65,7 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 	private TitleCharge titleCharge;
 	private IPlayHistDao playHistDao;
 	private IServerMstDao serverMstDao;
+	private IFunctionControlInfoDao functionControlInfoDao;
 	
 	// 有効期間
 	private Integer validDays;
@@ -241,7 +244,6 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		if (member.getMemAtbtCd().equals(PortalConstants.MemberAtbtCd.NORMAL)) {
 			member.setMemAtbtCd(PortalConstants.MemberAtbtCd.CHARGE);
 			member.setLastUpdateDate(settlementDate);
-//			member.setLastUpdateIp(ContextUtil.getClientIP());
 			member.setLastUpdateUser(settleTrns.getMemNum().toString());
 	
 			memberInfoDao.update(member); 
@@ -316,8 +318,14 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 			logger.error("error has occurred in sending pointCharge mail. ", ex);
 		}
 		
-		// サービスポイントを贈与する
-//		checkSettlementAmount(settlementHist, member);
+		FunctionControlInfo functionControlInfo = new FunctionControlInfo();
+		functionControlInfo.setFunctionCode(PortalConstants.FunctionCode.CHARGE);
+		functionControlInfo = functionControlInfoDao.selectByKey(functionControlInfo);
+		// チャージするときに、サービスポイント付与機能が開放の場合、
+		if (functionControlInfo != null && !functionControlInfo.getServiceStatus().equals(PortalConstants.FunctionServiceStatus.OFF)) {
+			// サービスポイントを贈与する
+			checkSettlementAmount(settlementHist, member, functionControlInfo);
+		}
 
 	}
 
@@ -350,19 +358,41 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 	 * @param settlementHist
 	 */
 	@SuppressWarnings("unchecked")
-	private void checkSettlementAmount(MemSettlementHist settlementHist, MemberInfo member) {
+	private void checkSettlementAmount(MemSettlementHist settlementHist, MemberInfo member, FunctionControlInfo functionControlInfo) {
+
+		ServicePointTypeMst servicePointTypeMst = null;
+		BigDecimal amount = new BigDecimal(0);
+		HashMap params = new HashMap();
 
 		// 有効なサービスポイントを取得する(最近一ヶ月の累計課金金額が一定金額を超えた場合)
-		
-		HashMap params = new HashMap();
-		params.put("servicePointTypeCd", PortalConstants.ServicePointTypeCd.CHARGE);
-		params.put("titleId", settlementHist.getTitleId());
-		params.put("memNum", settlementHist.getMemNum());
-		params.put("now", new Date());
+		if (functionControlInfo.getServiceStatus().equals(PortalConstants.FunctionServiceStatus.ON)) {
+			params.put("servicePointTypeCd", PortalConstants.ServicePointTypeCd.CHARGE_PERCENT);
+			params.put("titleId", settlementHist.getTitleId());
+			params.put("memNum", settlementHist.getMemNum());
+			params.put("chargeStartDate", functionControlInfo.getServiceStartDate());
+			params.put("chargeEndDate", functionControlInfo.getServiceEndDate());
+			
+			servicePointTypeMst = servicePointTypeMstDao.selectChargePointRateForUpdate(params);
+			
+		// タイムセール、今回決済金額によって、固定額のサービスポイントを付与する
+		} else if (functionControlInfo.getServiceStatus().equals(PortalConstants.FunctionServiceStatus.CHARGE_FIX)) {
+			params.put("servicePointTypeCd", PortalConstants.ServicePointTypeCd.CHARGE_FIX);
+			params.put("chargePoint", settlementHist.getPointAmountAct());
+			
+			servicePointTypeMst = servicePointTypeMstDao.selectChargeFixPointForUpdate(params);
+		}
 
-		ServicePointTypeMst servicePointTypeMst = servicePointTypeMstDao.selectChargePointRateForUpdate(params);
 		if (servicePointTypeMst == null || servicePointTypeMst.getServicePointTypeId() == null) {
 			return;
+		}
+
+		// 有効なサービスポイントを取得する(最近一ヶ月の累計課金金額が一定金額を超えた場合)
+		if (functionControlInfo.getServiceStatus().equals(PortalConstants.FunctionServiceStatus.ON)) {
+			amount = settlementHist.getPointAmountAct().multiply(servicePointTypeMst.getPointAmount()).divide(new BigDecimal(100));
+			
+		// タイムセール、今回決済金額によって、固定額のサービスポイントを付与する
+		} else if (functionControlInfo.getServiceStatus().equals(PortalConstants.FunctionServiceStatus.CHARGE_FIX)) {
+			amount = servicePointTypeMst.getPointAmount();
 		}
 
 		// 贈与日時
@@ -374,13 +404,12 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		c.setTime(giveDate);
 		c.add(Calendar.DATE, validDays);
 		endDate = c.getTime();
-
+		
 		ServicePoint servicePoint = new ServicePoint();
 		servicePoint.setMemNum(ContextUtil.getMemberNo());
 		servicePoint.setTitleId(settlementHist.getTitleId());
 		// 有効なデータが存在かどうか
 		servicePoint = servicePointDao.selectForUpdate(servicePoint);
-		BigDecimal amount = settlementHist.getPointAmountAct().multiply(servicePointTypeMst.getPointAmount()).divide(new BigDecimal(100));
 		if (servicePoint == null) {
 
 			servicePoint = new ServicePoint();
@@ -418,7 +447,7 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		ServicePointGiveHist servicePointGiveHist = new ServicePointGiveHist();
 		servicePointGiveHist.setMemNum(settlementHist.getMemNum());
 		servicePointGiveHist.setServicePointTypeId(servicePointTypeMst.getServicePointTypeId());
-		servicePointGiveHist.setServicePointTypeCd(PortalConstants.ServicePointTypeCd.CHARGE);
+		servicePointGiveHist.setServicePointTypeCd(PortalConstants.ServicePointTypeCd.CHARGE_PERCENT);
 		servicePointGiveHist.setTitleId(settlementHist.getTitleId());
 		servicePointGiveHist.setGiveDate(giveDate);
 		servicePointGiveHist.setPointEndDate(endDate);
@@ -639,6 +668,21 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 	 */
 	public void setServerMstDao(IServerMstDao serverMstDao) {
 		this.serverMstDao = serverMstDao;
+	}
+
+	/**
+	 * @return the functionControlInfoDao
+	 */
+	public IFunctionControlInfoDao getFunctionControlInfoDao() {
+		return functionControlInfoDao;
+	}
+
+	/**
+	 * @param functionControlInfoDao the functionControlInfoDao to set
+	 */
+	public void setFunctionControlInfoDao(
+			IFunctionControlInfoDao functionControlInfoDao) {
+		this.functionControlInfoDao = functionControlInfoDao;
 	}
 
 	/**

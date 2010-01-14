@@ -40,4 +40,17 @@ public class ServicePointTypeMstDaoImpl extends
 		return (ServicePointTypeMst) this.getSqlMapClientTemplate().queryForObject(namespace + ".selectChargePointRateForUpdate", params);
 	}
 
+	/**
+	 * 都度購入サービスポイントを取得する
+	 * @param servicePointTypeCd サービスポイント区別
+	 * @param titleId タイトルID
+	 * @param memNum 会員番号
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public ServicePointTypeMst selectChargeFixPointForUpdate(HashMap params) {
+		
+		return (ServicePointTypeMst) this.getSqlMapClientTemplate().queryForObject(namespace + ".selectChargeFixPointForUpdate", params);
+	}
+
 }
