@@ -131,11 +131,23 @@
 		<property name="approveStatus">
 			<map>
 				<entry key="1" value="未承認"/>
-				<entry key="2" value="承認待ち"/>
-				<entry key="3" value="承認済"/>
-				<entry key="4" value="却下"/>
+				<entry key="2" value="IP重複"/>
+				<entry key="3" value="申請中"/>
+				<entry key="4" value="承認済"/>
+				<entry key="5" value="褒美済"/>
+				<entry key="6" value="ボーナス褒美済"/>
+				<entry key="7" value="却下"/>
 			</map>
 		</property>
+		<!-- 
+		<property name="rejectReason">
+			<map>
+				<entry key="1" value="IP重複"/>
+				<entry key="2" value="ゲームをプレイすることがない"/>
+				<entry key="10" value="その他"/>
+			</map>
+		</property>
+	     -->
 	</bean>
 	
 </beans>

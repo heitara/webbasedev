@@ -12,4 +12,7 @@ public interface IServicePointTypeMstDao extends IBaseDao<ServicePointTypeMst, S
 	@SuppressWarnings("unchecked")
 	public ServicePointTypeMst selectChargePointRateForUpdate(HashMap params);
 
+	@SuppressWarnings("unchecked")
+	public ServicePointTypeMst selectChargeFixPointForUpdate(HashMap params);
+
 }

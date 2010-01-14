@@ -132,14 +132,27 @@ public class PortalConstants {
 	public class ServicePointTypeCd {
 		/** 連続してゲームにログインした場合 */
 		public final static int GAME_LOGIN = 1;
-		/** 最近一ヶ月の累計課金金額が一定金額を超えた場合 */
-		public final static int CHARGE = 2;
+		/** チャージに対して、指定期間内の累計課金金額が一定金額を超えた場合、今回決済金額の幾つパーセントのサービスポイントを付与する */
+		public final static int CHARGE_PERCENT = 2;
+		/** チャージに対して、今回決済金額によって、固定額のサービスポイントを付与する*/
+		public final static int CHARGE_FIX = 3;
 		/** 友達紹介 */
-		public final static int INVITE = 3;
+		public final static int INVITE = 4;
 		/** アンケット */
-		public final static int QUESTIONNAIRE = 4;
+		public final static int QUESTIONNAIRE = 5;
 		/** チケット */
 		public final static int TICKET = 10;
+	}
+	
+	/** 各機能の有効状態 */
+	public class FunctionServiceStatus {
+		/** 該当機能が利用できない */
+		public final static String OFF = "0";
+		/** 該当機能が利用できる */
+		/** チャージの場合は「指定期間内の累計課金金額が一定金額を超えたら、決済金額の幾つパーセントのサービスポイントを付与する」機能を使う */
+		public final static String ON = "1";
+		/** チャージの場合使うだけ、「今回決済金額によって、固定額のサービスポイントを付与する」機能を使う */
+		public final static String CHARGE_FIX = "2";
 	}
 	
 	/** ポイント区別 */
@@ -190,11 +203,17 @@ public class PortalConstants {
 	public class ApproveStatus {
 		/** 未承認 */
 		public final static String NO_APPROVE = "1";
-		/** 承認待ち */
-		public final static String APPROVING = "2";
+		/** IP重複 */
+		public final static String IP_REPEAT = "2";
+		/** 申請中 */
+		public final static String APPROVING = "3";
 		/** 承認済 */
-		public final static String APPROVED = "3";
+		public final static String APPROVED = "4";
+		/** 褒美済 */
+		public final static String REWARDED = "5";
+		/** ボーナス褒美済 */
+		public final static String BONUS_REWARDED = "6";
 		/** 却下 */
-		public final static String REJECTED = "4";
+		public final static String REJECTED = "7";
 	}
 }

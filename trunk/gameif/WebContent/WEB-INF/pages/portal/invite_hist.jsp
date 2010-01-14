@@ -76,7 +76,7 @@
 							<!-- 会員登録済の場合、承認ステータスを表示する -->
 							<s:if test='"1".equals(inviteStatus)'>
 								<s:if test='"1".equals(approveStatus)'>
-									<a href="checkMailStatusInviteHist.html?inviteId=<s:property value="inviteId"/>" title="判定">判定</a>
+									<a href="checkMailStatusInviteHist.html?inviteId=<s:property value="inviteId"/>" title="報酬申請">報酬申請</a>
 								</s:if>
 								<s:else>
 									<s:property value="portalProperties.approveStatus[approveStatus]"/>

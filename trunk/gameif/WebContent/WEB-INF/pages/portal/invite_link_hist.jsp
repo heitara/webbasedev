@@ -29,7 +29,7 @@
 							<td class="mail"><s:property value="titleName"/></td>
 							<td class="status">
 								<s:if test='"1".equals(approveStatus)'>
-									<a href="checkLinkStatusInviteHist.html?memNum=<s:property value="memNum"/>&childMemNum=<s:property value="childMemNum"/>" title="判定">判定</a>
+									<a href="checkLinkStatusInviteHist.html?memNum=<s:property value="memNum"/>&childMemNum=<s:property value="childMemNum"/>" title="褒賞申請">褒賞申請</a>
 								</s:if>
 								<s:else>
 									<s:property value="portalProperties.approveStatus[approveStatus]"/>

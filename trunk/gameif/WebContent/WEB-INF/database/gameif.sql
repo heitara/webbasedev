@@ -101,6 +101,7 @@ CREATE TABLE  `invite_info` (
   `child_mem_num` bigint(20) DEFAULT NULL,
   `approve_status` char(1) DEFAULT NULL,
   `parent_cookie` varchar(50) DEFAULT NULL,
+  `parent_approve_cookie` varchar(50) DEFAULT NULL,
   `child_cookie` varchar(50) DEFAULT NULL,
   `delete_flag` char(1) DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
@@ -731,6 +732,7 @@ CREATE TABLE  `invite_link_hist` (
   `title_id` int(11) DEFAULT NULL,
   `approve_status` char(1) DEFAULT NULL,
   `cookie` varchar(50) DEFAULT NULL,
+  `approve_cookie` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`child_mem_num`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -941,6 +943,36 @@ CREATE TABLE `ticket_use_hist` (
   `last_update_date` datetime DEFAULT NULL,
   `last_update_user` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`ticket_use_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+
+DROP TABLE IF EXISTS `campaign_mst`;
+CREATE TABLE `campaign_mst` (
+  `campaign_id` int(11) NOT NULL AUTO_INCREMENT,
+  `title_id` int(11) DEFAULT NULL,
+  `campaign_subject` varchar(400) DEFAULT NULL,
+  `campaign_contents`   text,
+  `campaign_start_date` datetime DEFAULT NULL,
+  `campaign_end_date` datetime DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `created_user` varchar(50) DEFAULT NULL,
+  `last_update_date` datetime DEFAULT NULL,
+  `last_update_user` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`campaign_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+
+DROP TABLE IF EXISTS `function_control_info`;
+CREATE TABLE  `function_control_info` (
+  `function_code` varchar(4) NOT NULL,
+  `service_status` char(1) DEFAULT NULL,
+  `service_start_date` datetime DEFAULT NULL,
+  `service_end_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`function_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 

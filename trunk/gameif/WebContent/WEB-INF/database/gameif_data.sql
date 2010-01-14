@@ -127,7 +127,15 @@ INSERT INTO `service_point_type_mst` (`service_point_type_id`, `service_point_ty
 (10, '2', 20, 50000, '', '2009-10-27 10:53:15', 'chou', '2009-10-27 10:53:15', 'chou'),
 (11, '2', 30, 100000, '', '2009-10-27 10:53:15', 'chou', '2009-10-27 10:53:15', 'chou'),
 (12, '2', 40, 300000, '', '2009-10-27 10:53:15', 'chou', '2009-10-27 10:53:15', 'chou'),
-(13, '2', 50, 500000, '', '2009-10-27 10:53:15', 'chou', '2009-10-27 10:53:15', 'chou');
+(13, '2', 50, 500000, '', '2009-10-27 10:53:15', 'chou', '2009-10-27 10:53:15', 'chou'),
+(14, '3', 20, 500, '', '2009-10-27 10:53:15', 'chou', '2009-10-27 10:53:15', 'chou'),
+(15, '3', 50, 1000, '', '2009-10-27 10:53:15', 'chou', '2009-10-27 10:53:15', 'chou'),
+(16, '3', 200, 3000, '', '2009-10-27 10:53:15', 'chou', '2009-10-27 10:53:15', 'chou'),
+(17, '3', 400, 5000, '', '2009-10-27 10:53:15', 'chou', '2009-10-27 10:53:15', 'chou'),
+(18, '3', 1000, 10000, '', '2009-10-27 10:53:15', 'chou', '2009-10-27 10:53:15', 'chou');
+
+
+
 
 TRUNCATE TABLE `point_mst`;
 INSERT INTO `point_mst` (`point_id`,`title_id`,`server_id`,`point_name`,`point_start_date`,`point_end_date`,`point_status`,`point_amount`,`point_amount_act`,`created_date`,`created_user`, `last_update_date`,`last_update_user`) VALUES
@@ -256,3 +264,7 @@ INSERT INTO `ticket_model_detail` (`model_detail_id`, `model_id`, `limit_point_l
 (20, 5, 0, 1000, 1, 0, 1, 1000, '2009-12-17 11:00:00', 'chou', '2009-12-17 11:00:00', 'chou'),
 (21, 6, 0, 5000, 1, 0, 1, 5000, '2009-12-17 11:00:00', 'chou', '2009-12-17 11:00:00', 'chou'),
 (22, 7, 0, 10000, 1, 0, 1, 10000, '2009-12-17 11:00:00', 'chou', '2009-12-17 11:00:00', 'chou');
+
+TRUNCATE TABLE `function_control_info`;
+INSERT INTO `function_control_info` (`function_code`, `service_status`, `service_start_date`, `service_end_date`) VALUES
+('20', '0', '2010-01-15 16:00:00', '2010-01-21 13:00:00');
