@@ -15,7 +15,7 @@
 	</head>
 	<body>
 		<dl class="light_box tspace_n">
-			<dt><strong>友達紹介（メール）</strong><span><a href="showMailInviteHist.html">► 友達紹介履歴（メール）</a></span></dt>
+			<dt><strong>友達紹介（メール）</strong><span><a href="inputLinkInvite.html">► 友達紹介（リンク）</a> <a href="showLinkInviteHist.html">► リンク紹介履歴参照・報酬申請</a> <a href="inputMailInvite.html" style="color:#FFF;">► 友達紹介（メール）</a> <a href="showMailInviteHist.html">► メール紹介履歴参照・報酬申請</a></span></dt>
 			<dd>
 				<s:form name="frm_invite_input" action="createInvite" method="post" cssClass="entry">
 					<table>
