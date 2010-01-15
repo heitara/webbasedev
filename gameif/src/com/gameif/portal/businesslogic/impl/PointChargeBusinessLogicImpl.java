@@ -406,7 +406,7 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 		endDate = c.getTime();
 		
 		ServicePoint servicePoint = new ServicePoint();
-		servicePoint.setMemNum(ContextUtil.getMemberNo());
+		servicePoint.setMemNum(settlementHist.getMemNum());
 		servicePoint.setTitleId(settlementHist.getTitleId());
 		// 有効なデータが存在かどうか
 		servicePoint = servicePointDao.selectForUpdate(servicePoint);
