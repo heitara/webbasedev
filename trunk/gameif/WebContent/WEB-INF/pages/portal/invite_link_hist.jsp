@@ -9,7 +9,7 @@
 </head>
 <body>
 	<dl class="light_box tspace_n">
-		<dt><strong>リンク紹介履歴参照・報酬申請</strong><span><a href="inputLinkInvite.html">► 友達紹介（リンク）</a> <a href="showLinkInviteHist.html" style="color:#FFF;">► リンク紹介履歴参照・報酬申請</a> <a href="inputMailInvite.html">► 友達紹介（メール）</a> <a href="showMailInviteHist.html">► メール紹介履歴参照・報酬申請</a></span></dt>
+		<dt><strong>リンク紹介履歴・報酬申請</strong><span><a href="inputLinkInvite.html">► 友達紹介（リンク）</a> <a href="showLinkInviteHist.html" style="color:#FFF;">► リンク紹介履歴・報酬申請</a> <a href="inputMailInvite.html">► 友達紹介（メール）</a> <a href="showMailInviteHist.html">► メール紹介履歴・報酬申請</a></span></dt>
 		<dd>
 			<div style="margin:30px 0px;line-height:20px;">
 			こちらのページでは、紹介リンクから会員登録を行ったユーザの一覧が表示されます。<br/>
