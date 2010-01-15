@@ -251,6 +251,15 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 
 		// 仮決済情報を削除する
 		memSettlementTrnsDao.deleteByKey(settleTrns.getSettlementTrnsNum());
+		
+		FunctionControlInfo functionControlInfo = new FunctionControlInfo();
+		functionControlInfo.setFunctionCode(PortalConstants.FunctionCode.CHARGE);
+		functionControlInfo = functionControlInfoDao.selectByKey(functionControlInfo);
+		// チャージするときに、サービスポイント付与機能が開放の場合、
+		if (functionControlInfo != null && !functionControlInfo.getServiceStatus().equals(PortalConstants.FunctionServiceStatus.OFF)) {
+			// サービスポイントを贈与する
+			checkSettlementAmount(settlementHist, member, functionControlInfo);
+		}
 
 		// ポイントチャージ
 		ChargeParameter params = new ChargeParameter();
@@ -316,15 +325,6 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 			templateMailer.sendAsyncMail(member.getMailPc(), "pointCharge", props, true);
 		} catch (Exception ex) {
 			logger.error("error has occurred in sending pointCharge mail. ", ex);
-		}
-		
-		FunctionControlInfo functionControlInfo = new FunctionControlInfo();
-		functionControlInfo.setFunctionCode(PortalConstants.FunctionCode.CHARGE);
-		functionControlInfo = functionControlInfoDao.selectByKey(functionControlInfo);
-		// チャージするときに、サービスポイント付与機能が開放の場合、
-		if (functionControlInfo != null && !functionControlInfo.getServiceStatus().equals(PortalConstants.FunctionServiceStatus.OFF)) {
-			// サービスポイントを贈与する
-			checkSettlementAmount(settlementHist, member, functionControlInfo);
 		}
 
 	}
