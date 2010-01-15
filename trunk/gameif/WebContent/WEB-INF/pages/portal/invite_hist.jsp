@@ -3,7 +3,7 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <html>
 <head>
-	<title>友達紹介履歴</title>
+	<title>メール紹介履歴参照・報酬申請</title>
 	<script src="js/portal/validate.js" type="text/javascript"></script>
 	<script src="js/portal/common.js" type="text/javascript"></script>
 	<script type="text/javascript">
@@ -28,12 +28,13 @@
 </head>
 <body>
 	<dl class="light_box tspace_n">
-		<dt><strong>友達紹介履歴（メール）</strong><span><a href="inputInvite.html">► 友達紹介（メール）</a></span></dt>
+		<dt><strong>メール紹介履歴参照・報酬申請</strong><span><a href="inputLinkInvite.html">► 友達紹介（リンク）</a> <a href="showLinkInviteHist.html">► リンク紹介履歴参照・報酬申請</a> <a href="inputMailInvite.html">► 友達紹介（メール）</a> <a href="showMailInviteHist.html" style="color:#FFF;">► メール紹介履歴参照・報酬申請</a></span></dt>
 		<dd>
 		<s:form name="frm_invite_hist" method="post" cssClass="entry">
 			<div>
 					このページでは、ゲームイフへ友達を紹介したステータスを確認できます。<br/>
-					相手から応答がない場合は、お知らせを送ってみましょう。
+					相手から応答がない場合は、お知らせを送ってみましょう。<br/>
+					友達紹介の成果報酬を申請するには「報酬申請」をボタンをクリックしてください。
 			</div>
 			<table class="friendhist tspace_y" align="center">
 				<tr>
@@ -45,7 +46,7 @@
 					<th class="select">
 						<s:checkbox name="selAll" id="selAll" value="false" fieldValue="1" onchange="checkAll(this,'selectedInvites');"/>
 					</th>
-					<th class="friend">友達</th>
+					<th style="text-align:center;">友達</th>
 					<th class="mail">メールアドレス</th>
 					<th class="status">
 						<s:select name="inviteStatusSelect" list="portalProperties.inviteStatusList" cssStyle="width:100px;" headerKey="9999" headerValue="全て" onclick="selectInvitedHist(this, 'inviteStatus_')"/>
@@ -76,7 +77,7 @@
 							<!-- 会員登録済の場合、承認ステータスを表示する -->
 							<s:if test='"1".equals(inviteStatus)'>
 								<s:if test='"1".equals(approveStatus)'>
-									<a href="checkMailStatusInviteHist.html?inviteId=<s:property value="inviteId"/>" title="褒賞申請">褒賞申請</a>
+									<input type="button" onclick="location='checkMailStatusInviteHist.html?inviteId=<s:property value="inviteId"/>';" value="報酬申請"/>
 								</s:if>
 								<s:else>
 									<s:property value="portalProperties.approveStatus[approveStatus]"/>
