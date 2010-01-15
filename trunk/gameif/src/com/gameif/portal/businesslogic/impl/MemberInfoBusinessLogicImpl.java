@@ -253,7 +253,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		} else if (parentMemNumMail == null && parentMemNumLink != null) {
 
 			parentMember = new MemberInfo();
-			parentMember.setMemNum(parentMemNumMail);
+			parentMember.setMemNum(parentMemNumLink);
 			parentMember = memberInfoDao.selectByKey(parentMember);
 			
 		} else if (parentMemNumMail != null && parentMemNumLink != null){
