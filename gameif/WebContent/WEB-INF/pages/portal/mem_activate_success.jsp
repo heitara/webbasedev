@@ -36,7 +36,10 @@
 		</dl>
 	</dd>
 </dl>
+<!-- Accesstradeアフィリエイトタグ -->
 <img src="https://is.accesstrade.net/cgi-bin/isatV2/legion/isatWeaselV2.cgi?result_id=13&verify=<s:property value="memNum"/>" width="1" height="1"/>
+
+<!-- MicroADアフィリエイトタグ -->
 <script type="text/javascript">
 <!--
 	var mad_client_id='8421';
@@ -45,6 +48,9 @@
 </script>
 <script src="https://send.microad.jp/js/conv0000.js">
 </script>
+<!-- JANetアフィリエイトタグ -->
+<img src="https://action.j-a-net.jp///<s:property value="memNum"/>/23048" width="1" height="1"/>
+
 <!-- BEGIN: Google Code account registry Conversion Page -->
 <script type="text/javascript">
 <!--
