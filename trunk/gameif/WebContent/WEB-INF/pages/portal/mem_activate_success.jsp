@@ -38,7 +38,6 @@
 </dl>
 <!-- Accesstradeアフィリエイトタグ -->
 <img src="https://is.accesstrade.net/cgi-bin/isatV2/legion/isatWeaselV2.cgi?result_id=13&verify=<s:property value="memNum"/>" width="1" height="1"/>
-
 <!-- MicroADアフィリエイトタグ -->
 <script type="text/javascript">
 <!--
