@@ -7,7 +7,7 @@
 	</head>
 	<body>
 		<dl class="light_box tspace_n">
-			<dt><strong>友達紹介（リンク）</strong><span><a href="showLinkInviteHist.html">► 友達紹介履歴（リンク）</a></span></dt>
+			<dt><strong>友達紹介（リンク）</strong><span><a href="inputLinkInvite.html" style="color:#FFF;">► 友達紹介（リンク）</a> <a href="showLinkInviteHist.html">► リンク紹介履歴参照・報酬申請</a> <a href="inputMailInvite.html">► 友達紹介（メール）</a> <a href="showMailInviteHist.html">► メール紹介履歴参照・報酬申請</a></span></dt>
 			<dd>
 				<div style="margin:30px 0px;line-height:20px;">
 				紹介するゲームを選択して「紹介リンク表示」ボタンをクリックしますと、あなた専用の紹介用リンクが表示されます。<br/>
