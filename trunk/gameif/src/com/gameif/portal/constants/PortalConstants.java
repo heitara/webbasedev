@@ -215,5 +215,7 @@ public class PortalConstants {
 		public final static String BONUS_REWARDED = "6";
 		/** 却下 */
 		public final static String REJECTED = "7";
+		/** 保留 */
+		public final static String RESERVE = "8";
 	}
 }
