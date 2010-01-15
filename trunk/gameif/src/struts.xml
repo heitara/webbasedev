@@ -162,6 +162,8 @@
 			<result name="showLink">/WEB-INF/pages/portal/invite_link_hist.jsp</result>
 			<result name="sendMailSuccess"  type="redirect">/finishedPage.html?action=sendMailAgain</result>
 			<result name="deleteSuccess"  type="redirect">/finishedPage.html?action=deleteInvite</result>
+			<result name="finishedCheckMail"  type="redirect">/showMailInviteHist.html</result>
+			<result name="finishedCheckLink"  type="redirect">/showLinkInviteHist.html</result>
 			<!-- メンテナンス画面に案内する -->
 			<result name="maintenance" type="redirect">/maintenancePage.html</result>
 		</action>
