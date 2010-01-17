@@ -32,7 +32,21 @@
 					<img src="images/point_flow_00.gif"/>
 					<img src="images/point_flow_50.gif"/>
 			</div>
-			<table>
+			<table width="95%" align="center">
+				<tr>
+				<td colspan="2">
+					<div style="border:1px solid #CCC;color:#668;padding:10px;background-color:#FFF;">
+						<div style="font-size:14px;font-weight:bold;color:#F60;">ただ今、ポイントチャージ還元のキャンペーン実施しております。</div>
+						<ul style="color:#600;">
+							<li>500 GPをチャージした場合、サービスポイント 20 PTをプレゼント。</li>
+							<li>1,000 GPをチャージした場合、サービスポイント 50 PTをプレゼント。</li>
+							<li>3,000 GPをチャージした場合、サービスポイント 200 PTをプレゼント。</li>
+							<li>5,000 GPをチャージした場合、サービスポイント 400 PTをプレゼント。</li>
+							<li>10,000 GPをチャージした場合、サービスポイント 1,000 PTをプレゼント。</li>
+						</ul>
+					</div>
+				</td>
+				</tr>
 				<tr>
 					<th></th>
 					<td>
