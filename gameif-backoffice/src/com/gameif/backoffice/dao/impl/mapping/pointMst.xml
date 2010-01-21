@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="pointMst">
+	<typeAlias alias="pointMst" type="com.gameif.backoffice.entity.PointMst" />
+	
+	<resultMap class="com.gameif.backoffice.entity.PointMst" id="pointResult">
+		<result property="pointId" column="point_id" />
+		<result property="titleId" column="title_id" />
+		<result property="serverId" column="server_id" />
+		<result property="pointName" column="point_name" />
+		<result property="pointStartDate" column="point_start_date" />
+		<result property="pointEndDate" column="point_end_date" />
+		<result property="pointStatus" column="point_status" />
+		<result property="pointAmount" column="point_amount" />
+		<result property="pointAmountAct" column="point_amount_act" />
+		<result property="createdDate" column="created_date"/>
+		<result property="createdUser" column="created_user"/>
+		<result property="lastUpdateDate" column="last_update_date"/>
+		<result property="lastUpdateUser" column="last_update_user"/>
+	</resultMap>
+	
+	<resultMap class="com.gameif.backoffice.entity.PointMst" id="pointResultForBind">
+		<result property="pointId" column="point_id" />
+		<result property="pointName" column="point_name" />
+	</resultMap>
+
+	<select id="selectPointListByTitle" resultMap="pointResultForBind">
+        <![CDATA[
+        SELECT
+			point_id,
+			point_name
+		FROM
+			point_mst
+		WHERE
+			title_id = #value#
+        ]]>
+	</select>
+
+</sqlMap>

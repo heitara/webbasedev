@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="memberLoginInfo">
+
+	<typeAlias alias="memberLoginInfo" type="com.gameif.backoffice.entity.MemberLoginInfo" />
+
+	<update id="update" parameterClass="memberLoginInfo">
+      <![CDATA[
+		UPDATE
+			member_login_info
+		SET
+			mem_id = #memId#,
+			nick_name = #nickName#,
+			mem_pwd = #memPwd#,
+			mem_valid_yn_cd = #memValidYNCd#,
+			version_no = version_no + 1
+		WHERE
+			mem_num = #memNum#
+      ]]>
+	</update>
+
+</sqlMap>

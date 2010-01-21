@@ -81,12 +81,13 @@ response.setDateHeader("Expires",0);
 		<dl class="title_box tspace_b">
 			<dd class="guide">
 				<a href="#" title="会員管理">会員管理</a>
+				<a href="inputFreezeMemberInfo.html" title="一括凍結">一括凍結</a>
 				<a href="inputInquriyList.html" title="問合せ管理">問合せ管理</a>
 				<a href="inputListInquiryTemplate.html" title="問合せ返信テンプレート管理">問合せ返信テンプレート管理</a>
 				<a href="inputInviteList.html" title="友達紹介管理">友達紹介管理</a>
 				<a href="#" title="キャンペーン管理">キャンペーン管理</a>
 				<a href="inputGiveTicket.html" title="チケット付与">チケット付与</a>
-				<a href="#" title="売上げ集計">売上げ集計</a>
+				<a href="inputSalesList.html" title="売上げ集計">売上げ集計</a>
 				<a href="inputListAuthority.html" title="権限管理">権限管理</a>
 			</dd>
 		</dl>

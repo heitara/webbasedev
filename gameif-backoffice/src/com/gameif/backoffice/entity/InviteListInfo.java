@@ -16,12 +16,13 @@ public class InviteListInfo extends BaseEntity {
 	private String nickName;
 	private String mailAdd;
 	private String entryIp;
+	private Date entryDate;
 	private Long childMemNum;
 	private String childMemId;
 	private String childNickName;
 	private String childMailAdd;
 	private String childEntryIp;
-	private Date entryDate;
+	private Date childEntryDate;
 
 	/**
 	 * @return the memNum
@@ -186,6 +187,20 @@ public class InviteListInfo extends BaseEntity {
 	 */
 	public void setEntryDate(Date entryDate) {
 		this.entryDate = entryDate;
+	}
+
+	/**
+	 * @return the childEntryDate
+	 */
+	public Date getChildEntryDate() {
+		return childEntryDate;
+	}
+
+	/**
+	 * @param childEntryDate the childEntryDate to set
+	 */
+	public void setChildEntryDate(Date childEntryDate) {
+		this.childEntryDate = childEntryDate;
 	}
 
 }

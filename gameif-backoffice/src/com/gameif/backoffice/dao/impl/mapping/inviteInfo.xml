@@ -6,66 +6,48 @@
 	<typeAlias alias="inviteInfo" type="com.gameif.backoffice.entity.InviteInfo" />
 	<typeAlias alias="inviteSearchCondition" type="com.gameif.backoffice.bean.InviteSearchCondition" />
 	
-	<resultMap class="com.gameif.backoffice.entity.InviteListInfo" id="inviteListResult">
-		<result property="memNum" column="mem_num" />
-		<result property="memId" column="mem_id" />
-		<result property="nickName" column="nick_name" />
-		<result property="mailAdd" column="mail_pc" />
-		<result property="entryIp" column="entry_ip" />
-		<result property="childMemNum" column="child_mem_num" />
-		<result property="childMemId" column="child_mem_id" />
-		<result property="childNickName" column="child_nick_name" />
-		<result property="childMailAdd" column="child_mail_pc" />
-		<result property="childEntryIp" column="child_entry_ip" />
-		<result property="entryDate" column="entry_date" />
+	<resultMap class="inviteInfo" id="inviteResult">
+		<result property="inviteId" column="invite_id"/>
+		<result property="memNum" column="mem_num"/>
+		<result property="inviteMailFrom" column="invite_mail_from"/>
+		<result property="inviteMailTo" column="invite_mail_to"/>
+		<result property="inviteDate" column="invite_date"/>
+		<result property="inviteMsg" column="invite_msg"/>
+		<result property="titleId" column="title_id"/>
+		<result property="inviteStatus" column="invite_status"/>
+		<result property="friendCreateDate" column="friend_create_date"/>
+		<result property="friendName" column="friend_name"/>
+		<result property="childMemNum" column="child_mem_num"/>
+		<result property="approveStatus" column="approve_status"/>
+		<result property="parentCookie" column="parent_cookie"/>
+		<result property="parentApproveCookie" column="parent_approve_cookie"/>
+		<result property="childCookie" column="child_cookie"/>
+		<result property="rejectReason" column="reject_reason"/>
+		<result property="deleteFlag" column="delete_flag"/>
+		<result property="createdDate" column="created_date"/>
+		<result property="createdUser" column="created_user"/>
+		<result property="lastUpdateDate" column="last_update_date"/>
+		<result property="lastUpdateUser" column="last_update_user"/>
 	</resultMap>
-
-	<select id="selectInviteMailList" parameterClass="inviteSearchCondition" resultMap="inviteListResult">
-        <![CDATA[
-			SELECT	
-				member_info.mem_num AS mem_num,
-				member_info.mem_id AS mem_id,
-				member_info.nick_name AS nick_name,
-				member_info.mail_pc AS mail_pc,
-				member_info.entry_ip AS entry_ip,
-				child_member_info.mem_num AS child_mem_num,
-				child_member_info.mem_id AS child_mem_id,
-				child_member_info.nick_name AS child_nick_name,
-				child_member_info.mail_pc AS child_mail_pc,
-				child_member_info.entry_ip AS child_entry_ip,
-				child_member_info.entry_date AS entry_date
-			FROM
-				invite_info
-			INNER JOIN
-				member_info
-			ON 
-				invite_info.mem_num = member_info.mem_num
-			INNER JOIN
-				member_info AS child_member_info
-			ON 
-				invite_info.child_mem_num = child_member_info.mem_num
-			WHERE	
-				invite_info.delete_flag = '0'
-			AND     
-				invite_info.invite_status = '1'
-			AND 
-				(invite_info.approve_status IS NULL
-			OR 	invite_info.approve_status IN ('1', '2'))
-        ]]>
-	    <isNotEmpty property="entryStartDate">
-	    	<![CDATA[ AND child_member_info.entry_date >= #entryStartDate# ]]>
-	    </isNotEmpty>
-	    <isNotEmpty property="entryEndDate">
-	     	<![CDATA[ AND child_member_info.entry_date <= #entryEndDate# ]]>
-	    </isNotEmpty>
-	    <isNotEmpty property="memId">
-	      	<![CDATA[ AND member_info.mem_id like '%$memId$%' ]]>
-	    </isNotEmpty>
-	    <isNotEmpty property="childMemId">
-	      	<![CDATA[ AND child_member_info.mem_id like '%$childMemId$%' ]]>
-	    </isNotEmpty>
-	    ORDER BY child_member_info.entry_date DESC, member_info.mem_num ASC, child_member_info.mem_num ASC
-	</select>
+	
+	<resultMap class="com.gameif.backoffice.entity.MyInviteInfo" id="myInviteResult">
+		<result property="memNum" column="mem_num"/>
+		<result property="memId" column="mem_id"/>
+		<result property="nickName" column="nick_name"/>
+		<result property="mailAdd" column="mail_pc"/>
+		<result property="entryIp" column="entry_ip"/>
+		<result property="entryDate" column="entry_date"/>
+		<result property="memValidYnCd" column="mem_valid_yn_cd"/>
+		<result property="titleId" column="title_id"/>
+		<result property="titleName" column="title_name"/>
+		<result property="parentApproveCookie" column="parent_approve_cookie"/>
+		<result property="parentCookie" column="parent_cookie"/>
+		<result property="childCookie" column="child_cookie"/>
+		<result property="approveStatus" column="approve_status"/>
+		<result property="playCount" column="play_count"/>
+		<result property="playStartDate" column="play_start_date"/>
+		<result property="playEndDate" column="play_end_date"/>
+	</resultMap>
 
 	<update id="updateApproveStatus" parameterClass="inviteInfo">
 	<![CDATA[
@@ -76,6 +58,146 @@
 		WHERE
 			mem_num = #memNum#
 		AND child_mem_num = #childMemNum#
+	]]>
+	</update>
+
+	<update id="updateApproveStatusByMemNum" parameterClass="inviteInfo">
+	<![CDATA[
+		UPDATE invite_info
+		SET	approve_status = #approveStatus#,
+			last_update_date = #lastUpdateDate#,
+			last_update_user = #lastUpdateUser#
+		WHERE
+			mem_num = #memNum#
+		AND invite_status = '1'
+		AND (approve_status IN ('1', '3')
+		OR approve_status IS NULL )
+	]]>
+	</update>
+
+	<select id="selectInviteHistByMemNum" parameterClass="java.lang.Long" resultMap="myInviteResult">   
+        <![CDATA[
+	        SELECT
+				member_info.mem_num,
+				member_info.mem_id,
+				member_info.nick_name,
+				member_info.mail_pc,
+				member_info.entry_ip,
+				member_info.entry_date,
+				member_info.mem_valid_yn_cd,
+				invite_info.title_id,
+				invite_info.parent_approve_cookie,
+				invite_info.approve_status,
+				invite_info.parent_cookie,
+				invite_info.child_cookie,
+				title_mst.title_name,
+				play_hist_temp.play_count,
+				play_hist_temp.play_start_date,
+				play_hist_temp.play_end_date
+			FROM
+				invite_info
+			INNER JOIN
+				member_info
+			ON
+				invite_info.child_mem_num = member_info.mem_num
+			LEFT JOIN
+				title_mst
+			ON
+				invite_info.title_id = title_mst.title_id
+			LEFT JOIN
+				(
+					SELECT 
+						mem_num,
+						COUNT(*) AS play_count,
+						MIN(play_date) AS play_start_date,
+						MIN(play_date) AS play_end_date
+					FROM
+						play_hist
+					GROUP BY mem_num
+				) play_hist_temp
+			ON
+				member_info.mem_num = play_hist_temp.mem_num
+			WHERE
+				invite_info.mem_num = #memNum#
+			AND invite_info.invite_status = '1'
+			AND invite_info.delete_flag = '0'
+			ORDER BY member_info.mem_num DESC
+        ]]>
+	</select>
+
+	<select id="selectRewardedListForUpdate" parameterClass="java.lang.Long" resultMap="inviteResult">   
+        <![CDATA[
+	        SELECT
+				invite_id,
+				mem_num,
+				invite_mail_from,
+				invite_mail_to,
+				invite_date,
+				invite_msg,
+				title_id,
+				invite_status,
+				friend_create_date,
+				friend_name,
+				child_mem_num,
+				approve_status,
+				parent_cookie,
+				parent_approve_cookie,
+				child_cookie,
+				reject_reason,
+				delete_flag,
+				created_date,
+				created_user,
+				last_update_date,
+				last_update_user
+			FROM
+				invite_info
+			WHERE
+				mem_num = #memNum#
+			AND 
+				delete_flag = '0'
+			AND
+				approve_status = '5'
+			FOR UPDATE
+        ]]>
+	</select>
+
+	<update id="updateRewardedStatus" parameterClass="inviteInfo">
+	<![CDATA[
+		UPDATE invite_info
+		SET	approve_status = #approveStatus#,
+			last_update_date = #lastUpdateDate#,
+			last_update_user = #lastUpdateUser#
+		WHERE
+			mem_num = #memNum#
+		AND approve_status = '4'
+	]]>
+	</update>
+
+	<update id="update" parameterClass="inviteInfo">
+	<![CDATA[
+		UPDATE invite_info
+		SET	mem_num = #memNum#,
+			invite_mail_from = #inviteMailFrom#,
+			invite_mail_to = #inviteMailTo#,
+			invite_date = #inviteDate#,
+			invite_msg = #inviteMsg#,
+			title_id = #titleId#,
+			invite_status = #inviteStatus#,
+			friend_create_date = #friendCreateDate#,
+			friend_name = #friendName#,
+			child_mem_num = #childMemNum#,
+			approve_status = #approveStatus#,
+			parent_cookie = #parentCookie#,
+			parent_approve_cookie = #parentApproveCookie#,
+			child_cookie = #childCookie#,
+			reject_reason = #rejectReason#,
+			delete_flag = #deleteFlag#,
+			created_date = #createdDate#,
+			created_user = #createdUser#,
+			last_update_date = #lastUpdateDate#,
+			last_update_user = #lastUpdateUser#
+		WHERE
+			invite_id = #inviteId#
 	]]>
 	</update>
 

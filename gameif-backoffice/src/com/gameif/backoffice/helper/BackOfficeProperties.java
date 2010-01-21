@@ -16,6 +16,12 @@ public class BackOfficeProperties {
 	private Map<Integer, String> ticketTypeCd;
 	/** 友達紹介の種別 */
 	private Map<String, String> inviteType;
+	/** ユーザ有効区別のコード */
+	private Map<String, String> memberValidYNCd;
+	/** 友達紹介の承認ステータス */
+	private Map<String, String> approveStatus;
+	/** 集計種別 */
+	private Map<String, String> salesType;
 
 	/**
 	 * @return the actionTitles
@@ -105,6 +111,51 @@ public class BackOfficeProperties {
 	 */
 	public void setInviteType(Map<String, String> inviteType) {
 		this.inviteType = inviteType;
+	}
+
+	/**
+	 * @return the memberValidYNCd
+	 */
+	public Map<String, String> getMemberValidYNCd() {
+		return memberValidYNCd;
+	}
+
+	/**
+	 * @param memberValidYNCd
+	 *            the memberValidYNCd to set
+	 */
+	public void setMemberValidYNCd(Map<String, String> memberValidYNCd) {
+		this.memberValidYNCd = memberValidYNCd;
+	}
+
+	/**
+	 * @return the approveStatus
+	 */
+	public Map<String, String> getApproveStatus() {
+		return approveStatus;
+	}
+
+	/**
+	 * @param approveStatus
+	 *            the approveStatus to set
+	 */
+	public void setApproveStatus(Map<String, String> approveStatus) {
+		this.approveStatus = approveStatus;
+	}
+
+	/**
+	 * @return the salesType
+	 */
+	public Map<String, String> getSalesType() {
+		return salesType;
+	}
+
+	/**
+	 * @param salesType
+	 *            the salesType to set
+	 */
+	public void setSalesType(Map<String, String> salesType) {
+		this.salesType = salesType;
 	}
 
 }

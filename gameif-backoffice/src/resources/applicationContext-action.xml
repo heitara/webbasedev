@@ -129,13 +129,60 @@
 		</property>
 	</bean>
 	
-	<!-- inviteControlAction -->
-	<bean id="inviteControlAction" class="com.gameif.backoffice.action.invite.InviteControlAction" scope="prototype">
+	<!-- inviteApproveAction -->
+	<bean id="inviteApproveAction" class="com.gameif.backoffice.action.invite.InviteApproveAction" scope="prototype">
 		<property name="inviteInfoBusinessLogic">
 			<ref bean="inviteInfoBusinessLogic" />
 		</property>
 		<property name="backOfficeProperties">
 			<ref bean="backOfficeProperties" />
+		</property>
+	</bean>
+	
+	<!-- inviteApproveDetailAction -->
+	<bean id="inviteApproveDetailAction" class="com.gameif.backoffice.action.invite.InviteApproveDetailAction" scope="prototype">
+		<property name="inviteInfoBusinessLogic">
+			<ref bean="inviteInfoBusinessLogic" />
+		</property>
+		<property name="backOfficeProperties">
+			<ref bean="backOfficeProperties" />
+		</property>
+		<property name="memberInfoBusinessLogic">
+			<ref bean="memberInfoBusinessLogic" />
+		</property>
+	</bean>
+	
+	<!-- salesBindMasterAction -->
+	<bean id="salesBindMasterAction" class="com.gameif.backoffice.action.sales.SalesBindMasterAction" scope="prototype">
+		<property name="salesBusinessLogic">
+			<ref bean="salesBusinessLogic" />
+		</property>
+	</bean>
+	
+	<!-- salesListControlAction -->
+	<bean id="salesListControlAction" class="com.gameif.backoffice.action.sales.SalesListControlAction" scope="prototype">
+		<property name="salesBusinessLogic">
+			<ref bean="salesBusinessLogic" />
+		</property>
+		<property name="backOfficeProperties">
+			<ref bean="backOfficeProperties" />
+		</property>
+		<property name="masterInfoBusinessLogic">
+			<ref bean="masterInfoBusinessLogic" />
+		</property>
+	</bean>
+	
+	<!-- memberInfoControlAction -->
+	<bean id="memberInfoControlAction" class="com.gameif.backoffice.action.member.MemberInfoControlAction" scope="prototype">
+		<property name="memberInfoBusinessLogic">
+			<ref bean="memberInfoBusinessLogic" />
+		</property>
+	</bean>
+	
+	<!-- campaignControlAction -->
+	<bean id="campaignControlAction" class="com.gameif.backoffice.action.campaign.CampaignControlAction" scope="prototype">
+		<property name="campaignBusinessLogic">
+			<ref bean="campaignBusinessLogic" />
 		</property>
 	</bean>
 </beans>

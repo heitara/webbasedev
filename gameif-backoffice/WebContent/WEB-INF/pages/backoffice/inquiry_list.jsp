@@ -71,7 +71,7 @@
 				<tr>
 					<th><label for="inquiryList_userMailadd">メールアドレス：</label></th>
 					<td>
-						<s:textfield name="userMailadd" maxlength="10" cssClass="ime_mode_n" />
+						<s:textfield name="userMailadd" maxlength="30" cssClass="ime_mode_n" />
 						<span class="explain">（部分一致）</span>
 					</td>
 				</tr>

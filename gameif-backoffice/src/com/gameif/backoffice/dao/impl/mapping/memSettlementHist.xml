@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="memSettlementHist">
+	<typeAlias alias="memSettlementHist" type="com.gameif.backoffice.entity.MemSettlementHist" />
+	<typeAlias alias="salesSearchCondition" type="com.gameif.backoffice.bean.SalesSearchCondition" />
+	
+	<resultMap class="com.gameif.backoffice.entity.MySettlementList" id="personListResult">
+		<result property="memId" column="mem_id" />
+		<result property="nickName" column="nick_name" />
+		<result property="settlementDate" column="settlement_date" />
+		<result property="pointAmount" column="point_amount_act" />
+	</resultMap>
+	
+	<resultMap class="com.gameif.backoffice.entity.MySettlementList" id="titleListResult">
+		<result property="titleName" column="title_name" />
+		<result property="settlementDate" column="settlement_date" />
+		<result property="pointAmount" column="point_amount_act" />
+	</resultMap>
+
+	<select id="selectPersonDayList" parameterClass="salesSearchCondition" resultMap="personListResult">   
+        <![CDATA[
+	        SELECT
+	        	member_info.mem_id,
+	        	member_info.nick_name,
+				DATE_FORMAT(mem_settlement_hist.settlement_date,'%Y-%m-%d') AS settlement_date,
+				SUM(mem_settlement_hist.point_amount_act) AS point_amount_act
+			FROM
+				mem_settlement_hist
+			INNER JOIN
+				member_info
+			ON
+				mem_settlement_hist.mem_num = member_info.mem_num
+			AND
+				mem_valid_yn_cd IN ('1', '3')
+			WHERE
+				1 = 1
+        ]]>
+	    <isNotEmpty property="settleStartDate">
+	      	<![CDATA[ AND mem_settlement_hist.settlement_date >= #settleStartDate# ]]>
+	    </isNotEmpty>
+	    <isNotEmpty property="settleEndDate">
+	      	<![CDATA[ AND mem_settlement_hist.settlement_date < DATE_ADD(#settleEndDate#, INTERVAL 1 DAY) ]]>
+	    </isNotEmpty>
+	    <isNotEmpty property="memId">
+      		<![CDATA[ AND member_info.mem_id like '%$memId$%' ]]>
+	    </isNotEmpty>
+	    <isNotEmpty property="titleId">
+	      	<![CDATA[ AND mem_settlement_hist.title_id = #titleId# ]]>
+	    </isNotEmpty>
+	    <isNotEmpty property="pointId">
+	      	<![CDATA[ AND mem_settlement_hist.point_id = #pointId# ]]>
+	    </isNotEmpty>
+	    GROUP BY member_info.mem_id, member_info.nick_name, DATE_FORMAT(mem_settlement_hist.settlement_date,'%Y-%m-%d')
+	    ORDER BY mem_id, settlement_date
+	</select>
+
+	<select id="selectPersonMonthList" parameterClass="salesSearchCondition" resultMap="personListResult">   
+        <![CDATA[
+	        SELECT
+	        	member_info.mem_id,
+	        	member_info.nick_name,
+				DATE_FORMAT(mem_settlement_hist.settlement_date,'%Y-%m-01') AS settlement_date,
+				SUM(mem_settlement_hist.point_amount_act) AS point_amount_act
+			FROM
+				mem_settlement_hist
+			INNER JOIN
+				member_info
+			ON
+				mem_settlement_hist.mem_num = member_info.mem_num
+			AND
+				mem_valid_yn_cd IN ('1', '3')
+			WHERE
+				1 = 1
+        ]]>
+	    <isNotEmpty property="settleStartDate">
+	      	<![CDATA[ AND DATE_FORMAT(mem_settlement_hist.settlement_date,'%Y-%m') >= DATE_FORMAT(#settleStartDate#, '%Y-%m') ]]>
+	    </isNotEmpty>
+	    <isNotEmpty property="settleEndDate">
+	      	<![CDATA[ AND DATE_FORMAT(mem_settlement_hist.settlement_date,'%Y-%m') <= DATE_FORMAT(#settleEndDate#, '%Y-%m') ]]>
+	    </isNotEmpty>
+	    <isNotEmpty property="memId">
+      		<![CDATA[ AND member_info.mem_id like '%$memId$%' ]]>
+	    </isNotEmpty>
+	    <isNotEmpty property="titleId">
+	      	<![CDATA[ AND mem_settlement_hist.title_id = #titleId# ]]>
+	    </isNotEmpty>
+	    <isNotEmpty property="pointId">
+	      	<![CDATA[ AND mem_settlement_hist.point_id = #pointId# ]]>
+	    </isNotEmpty>
+	    GROUP BY member_info.mem_id, member_info.nick_name, DATE_FORMAT(mem_settlement_hist.settlement_date,'%Y-%m-01')
+	    ORDER BY mem_id, settlement_date
+	</select>
+
+	<select id="selectTitleDayList" parameterClass="salesSearchCondition" resultMap="titleListResult">   
+        <![CDATA[
+	        SELECT
+	        	title_mst.title_name,
+				DATE_FORMAT(mem_settlement_hist.settlement_date,'%Y-%m-%d') AS settlement_date,
+				SUM(mem_settlement_hist.point_amount_act) AS point_amount_act
+			FROM
+				mem_settlement_hist
+			INNER JOIN
+				title_mst
+			ON
+				mem_settlement_hist.title_id = title_mst.title_id
+			WHERE
+				1 = 1
+        ]]>
+	    <isNotEmpty property="settleStartDate">
+	      	<![CDATA[ AND mem_settlement_hist.settlement_date >= #settleStartDate# ]]>
+	    </isNotEmpty>
+	    <isNotEmpty property="settleEndDate">
+	      	<![CDATA[ AND mem_settlement_hist.settlement_date < DATE_ADD(#settleEndDate#, INTERVAL 1 DAY) ]]>
+	    </isNotEmpty>
+	    <isNotEmpty property="titleId">
+	      	<![CDATA[ AND mem_settlement_hist.title_id = #titleId# ]]>
+	    </isNotEmpty>
+	    <isNotEmpty property="pointId">
+	      	<![CDATA[ AND mem_settlement_hist.point_id = #pointId# ]]>
+	    </isNotEmpty>
+	    GROUP BY title_mst.title_name, DATE_FORMAT(mem_settlement_hist.settlement_date,'%Y-%m-%d')
+	    ORDER BY title_name, settlement_date
+	</select>
+
+	<select id="selectTitleMonthList" parameterClass="salesSearchCondition" resultMap="titleListResult">   
+        <![CDATA[
+	        SELECT
+	        	title_mst.title_name,
+				DATE_FORMAT(mem_settlement_hist.settlement_date,'%Y-%m-01') AS settlement_date,
+				SUM(mem_settlement_hist.point_amount_act) AS point_amount_act
+			FROM
+				mem_settlement_hist
+			INNER JOIN
+				title_mst
+			ON
+				mem_settlement_hist.title_id = title_mst.title_id
+			WHERE
+				1 = 1
+        ]]>
+	    <isNotEmpty property="settleStartDate">
+	      	<![CDATA[ AND DATE_FORMAT(mem_settlement_hist.settlement_date,'%Y-%m') >= DATE_FORMAT(#settleStartDate#, '%Y-%m') ]]>
+	    </isNotEmpty>
+	    <isNotEmpty property="settleEndDate">
+	      	<![CDATA[ AND DATE_FORMAT(mem_settlement_hist.settlement_date,'%Y-%m') <= DATE_FORMAT(#settleEndDate#, '%Y-%m') ]]>
+	    </isNotEmpty>
+	    <isNotEmpty property="titleId">
+	      	<![CDATA[ AND mem_settlement_hist.title_id = #titleId# ]]>
+	    </isNotEmpty>
+	    <isNotEmpty property="pointId">
+	      	<![CDATA[ AND mem_settlement_hist.point_id = #pointId# ]]>
+	    </isNotEmpty>
+	    GROUP BY title_mst.title_name, DATE_FORMAT(mem_settlement_hist.settlement_date,'%Y-%m-01')
+	    ORDER BY title_name, settlement_date
+	</select>
+
+	<select id="selectPersonDayTotal" parameterClass="salesSearchCondition" resultClass="java.math.BigDecimal">   
+        <![CDATA[
+	        SELECT
+				SUM(mem_settlement_hist.point_amount_act) AS point_amount_act
+			FROM
+				mem_settlement_hist
+			INNER JOIN
+				member_info
+			ON
+				mem_settlement_hist.mem_num = member_info.mem_num
+			AND
+				mem_valid_yn_cd IN ('1', '3')
+			WHERE
+				1 = 1
+        ]]>
+	    <isNotEmpty property="settleStartDate">
+	      	<![CDATA[ AND mem_settlement_hist.settlement_date >= #settleStartDate# ]]>
+	    </isNotEmpty>
+	    <isNotEmpty property="settleEndDate">
+	      	<![CDATA[ AND mem_settlement_hist.settlement_date < DATE_ADD(#settleEndDate#, INTERVAL 1 DAY) ]]>
+	    </isNotEmpty>
+	    <isNotEmpty property="memId">
+      		<![CDATA[ AND member_info.mem_id like '%$memId$%' ]]>
+	    </isNotEmpty>
+	    <isNotEmpty property="titleId">
+	      	<![CDATA[ AND mem_settlement_hist.title_id = #titleId# ]]>
+	    </isNotEmpty>
+	    <isNotEmpty property="pointId">
+	      	<![CDATA[ AND mem_settlement_hist.point_id = #pointId# ]]>
+	    </isNotEmpty>
+	</select>
+
+	<select id="selectPersonMonthTotal" parameterClass="salesSearchCondition" resultClass="java.math.BigDecimal">   
+        <![CDATA[
+	        SELECT
+				SUM(mem_settlement_hist.point_amount_act) AS point_amount_act
+			FROM
+				mem_settlement_hist
+			INNER JOIN
+				member_info
+			ON
+				mem_settlement_hist.mem_num = member_info.mem_num
+			AND
+				mem_valid_yn_cd IN ('1', '3')
+			WHERE
+				1 = 1
+        ]]>
+	    <isNotEmpty property="settleStartDate">
+	      	<![CDATA[ AND DATE_FORMAT(mem_settlement_hist.settlement_date,'%Y-%m') >= DATE_FORMAT(#settleStartDate#, '%Y-%m') ]]>
+	    </isNotEmpty>
+	    <isNotEmpty property="settleEndDate">
+	      	<![CDATA[ AND DATE_FORMAT(mem_settlement_hist.settlement_date,'%Y-%m') <= DATE_FORMAT(#settleEndDate#, '%Y-%m') ]]>
+	    </isNotEmpty>
+	    <isNotEmpty property="memId">
+      		<![CDATA[ AND member_info.mem_id like '%$memId$%' ]]>
+	    </isNotEmpty>
+	    <isNotEmpty property="titleId">
+	      	<![CDATA[ AND mem_settlement_hist.title_id = #titleId# ]]>
+	    </isNotEmpty>
+	    <isNotEmpty property="pointId">
+	      	<![CDATA[ AND mem_settlement_hist.point_id = #pointId# ]]>
+	    </isNotEmpty>
+	</select>
+
+	<select id="selectTitleDayTotal" parameterClass="salesSearchCondition" resultClass="java.math.BigDecimal">   
+        <![CDATA[
+	        SELECT
+				SUM(mem_settlement_hist.point_amount_act) AS point_amount_act
+			FROM
+				mem_settlement_hist
+			INNER JOIN
+				title_mst
+			ON
+				mem_settlement_hist.title_id = title_mst.title_id
+			WHERE
+				1 = 1
+        ]]>
+	    <isNotEmpty property="settleStartDate">
+	      	<![CDATA[ AND mem_settlement_hist.settlement_date >= #settleStartDate# ]]>
+	    </isNotEmpty>
+	    <isNotEmpty property="settleEndDate">
+	      	<![CDATA[ AND mem_settlement_hist.settlement_date < DATE_ADD(#settleEndDate#, INTERVAL 1 DAY) ]]>
+	    </isNotEmpty>
+	    <isNotEmpty property="titleId">
+	      	<![CDATA[ AND mem_settlement_hist.title_id = #titleId# ]]>
+	    </isNotEmpty>
+	    <isNotEmpty property="pointId">
+	      	<![CDATA[ AND mem_settlement_hist.point_id = #pointId# ]]>
+	    </isNotEmpty>
+	</select>
+
+	<select id="selectTitleMonthTotal" parameterClass="salesSearchCondition" resultClass="java.math.BigDecimal">   
+        <![CDATA[
+	        SELECT
+				SUM(mem_settlement_hist.point_amount_act) AS point_amount_act
+			FROM
+				mem_settlement_hist
+			INNER JOIN
+				title_mst
+			ON
+				mem_settlement_hist.title_id = title_mst.title_id
+			WHERE
+				1 = 1
+        ]]>
+	    <isNotEmpty property="settleStartDate">
+	      	<![CDATA[ AND DATE_FORMAT(mem_settlement_hist.settlement_date,'%Y-%m') >= DATE_FORMAT(#settleStartDate#, '%Y-%m') ]]>
+	    </isNotEmpty>
+	    <isNotEmpty property="settleEndDate">
+	      	<![CDATA[ AND DATE_FORMAT(mem_settlement_hist.settlement_date,'%Y-%m') <= DATE_FORMAT(#settleEndDate#, '%Y-%m') ]]>
+	    </isNotEmpty>
+	    <isNotEmpty property="titleId">
+	      	<![CDATA[ AND mem_settlement_hist.title_id = #titleId# ]]>
+	    </isNotEmpty>
+	    <isNotEmpty property="pointId">
+	      	<![CDATA[ AND mem_settlement_hist.point_id = #pointId# ]]>
+	    </isNotEmpty>
+	</select>
+
+</sqlMap>

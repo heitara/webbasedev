@@ -60,11 +60,30 @@ public class BackofficeConstants {
 	public class ApproveStatus {
 		/** 未承認 */
 		public final static String NO_APPROVE = "1";
-		/** 承認待ち */
-		public final static String APPROVING = "2";
+		/** IP重複 */
+		public final static String IP_REPEAT = "2";
+		/** 申請中 */
+		public final static String APPROVING = "3";
 		/** 承認済 */
-		public final static String APPROVED = "3";
+		public final static String APPROVED = "4";
+		/** 褒美済 */
+		public final static String REWARDED = "5";
+		/** ボーナス褒美済 */
+		public final static String BONUS_REWARDED = "6";
 		/** 却下 */
-		public final static String REJECTED = "4";
+		public final static String REJECTED = "7";
+		/** 保留 */
+		public final static String RESERVE = "8";
+	}
+	
+	/** ユーザ有効区別コード */
+	public class MemberValidYNCd {
+		
+		/** 有効 */
+		public final static String VALID = "1";
+		/** 退会 */
+		public final static String WITHDRAW  = "2";
+		/** 凍結 */
+		public final static String FREEZE = "3";
 	}
 }

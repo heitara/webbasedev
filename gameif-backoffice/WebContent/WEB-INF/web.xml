@@ -136,6 +136,31 @@
 		<filter-name>Login Filter</filter-name>
 		<url-pattern>/giveTicket.html</url-pattern>
 	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>Login Filter</filter-name>
+		<url-pattern>/searchCampaign.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Login Filter</filter-name>
+		<url-pattern>/inputAddCampaign.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Login Filter</filter-name>
+		<url-pattern>/createCampaign.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Login Filter</filter-name>
+		<url-pattern>/inputEditCampaign.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Login Filter</filter-name>
+		<url-pattern>/updateCampaign.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Login Filter</filter-name>
+		<url-pattern>/deleteCampaign.html</url-pattern>
+	</filter-mapping>
 	<filter-mapping>
 		<filter-name>Login Filter</filter-name>
 		<url-pattern>/inputInviteList.html</url-pattern>
@@ -151,6 +176,42 @@
 	<filter-mapping>
 		<filter-name>Login Filter</filter-name>
 		<url-pattern>/rejectInviteList.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Login Filter</filter-name>
+		<url-pattern>/giveTicketInviteList.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Login Filter</filter-name>
+		<url-pattern>/inputInviteDetail.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Login Filter</filter-name>
+		<url-pattern>/approveInviteDetail.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Login Filter</filter-name>
+		<url-pattern>/rejectInviteDetail.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Login Filter</filter-name>
+		<url-pattern>/reserveInviteDetail.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Login Filter</filter-name>
+		<url-pattern>/inputFreezeMemberInfo.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Login Filter</filter-name>
+		<url-pattern>/freezeMemberInfo.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Login Filter</filter-name>
+		<url-pattern>/inputSalesList.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Login Filter</filter-name>
+		<url-pattern>/searchSalesList.html</url-pattern>
 	</filter-mapping>
 	 
 	<filter-mapping>

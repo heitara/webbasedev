@@ -129,4 +129,89 @@
         ]]>
 	</select>
 
+	<select id="selectByMemIdForUpdate" resultMap="memberResult">   
+        <![CDATA[
+        SELECT
+			mem_num,
+			mem_id,
+			nick_name,
+			mem_pwd,
+			mem_kind_cd,
+			mem_atbt_cd,
+			mem_valid_yn_cd,
+			question_cd,
+			answer,
+			mail_pc,
+			mail_mobile,
+			kanji_fname,
+			kanji_lname,
+			kana_fname,
+			kana_lname,
+			sex_cd,
+			birth_ymd,
+			divis_cd,
+			occup_cd,
+			city_name,
+			building_name,
+			tel_num,
+			mailmag_req_cd,
+			mailmag_obj_cd,
+			note,
+			entry_date,
+			entry_ip,
+			withdraw_date,
+			withdraw_ip,
+			last_update_date,
+			last_update_ip,
+			last_update_user,
+			version_no
+		FROM
+			member_info
+		WHERE
+			mem_id = #value#
+		AND mem_valid_yn_cd = '1'
+		FOR UPDATE
+        ]]>
+	</select>
+
+	<update id="update" parameterClass="memberInfo">
+	<![CDATA[
+		UPDATE member_info
+		SET	mem_id = #memId#,
+			nick_name = #nickName#,
+			mem_pwd = #memPwd#,
+			mem_kind_cd = #memKindCd#,
+			mem_atbt_cd = #memAtbtCd#,
+			mem_valid_yn_cd = #memValidYNCd#,
+			question_cd = #questionCd#,
+			answer = #answer#,
+			mail_pc = #mailPc#,
+			mail_mobile = #mailMobile#,
+			kanji_fname = #kanjiFname#,
+			kanji_lname = #kanjiLname#,
+			kana_fname = #kanaFname#,
+			kana_lname = #kanaLname#,
+			sex_cd = #sexCd#,
+			birth_ymd = #birthYmd#,
+			divis_cd = #divisCd#,
+			occup_cd = #occupCd#,
+			city_name = #cityName#,
+			building_name = #buildingName#,
+			tel_num = #telNum#,
+			mailmag_req_cd = #mailmagReqCd#,
+			mailmag_obj_cd = #mailmagObjCd#,
+			note = #note#,
+			entry_date = #entryDate#,
+			entry_ip = #entryIp#,
+			withdraw_date = #withdrawDate#,
+			withdraw_ip = #withdrawIp#,
+			last_update_date = #lastUpdateDate#,
+			last_update_ip = #lastUpdateIp#,
+			last_update_user = #lastUpdateUser#,
+			version_no = version_no + 1
+		WHERE
+			mem_num = #memNum#
+	]]>
+	</update>
+
 </sqlMap>

@@ -23,6 +23,10 @@ public class InviteInfo extends BaseEntity {
 	private String friendName;
 	private Long childMemNum;
 	private String approveStatus;
+	private String parentApproveCookie;
+	private String parentCookie;
+	private String childCookie;
+	private String rejectReason;
 	private String deleteFlag;
 	private Date createdDate;
 	private String createdUser;
@@ -207,6 +211,66 @@ public class InviteInfo extends BaseEntity {
 	 */
 	public void setApproveStatus(String approveStatus) {
 		this.approveStatus = approveStatus;
+	}
+
+	/**
+	 * @return the parentApproveCookie
+	 */
+	public String getParentApproveCookie() {
+		return parentApproveCookie;
+	}
+
+	/**
+	 * @param parentApproveCookie
+	 *            the parentApproveCookie to set
+	 */
+	public void setParentApproveCookie(String parentApproveCookie) {
+		this.parentApproveCookie = parentApproveCookie;
+	}
+
+	/**
+	 * @return the parentCookie
+	 */
+	public String getParentCookie() {
+		return parentCookie;
+	}
+
+	/**
+	 * @param parentCookie
+	 *            the parentCookie to set
+	 */
+	public void setParentCookie(String parentCookie) {
+		this.parentCookie = parentCookie;
+	}
+
+	/**
+	 * @return the childCookie
+	 */
+	public String getChildCookie() {
+		return childCookie;
+	}
+
+	/**
+	 * @param childCookie
+	 *            the childCookie to set
+	 */
+	public void setChildCookie(String childCookie) {
+		this.childCookie = childCookie;
+	}
+
+	/**
+	 * @return the rejectReason
+	 */
+	public String getRejectReason() {
+		return rejectReason;
+	}
+
+	/**
+	 * @param rejectReason
+	 *            the rejectReason to set
+	 */
+	public void setRejectReason(String rejectReason) {
+		this.rejectReason = rejectReason;
 	}
 
 	public String getDeleteFlag() {

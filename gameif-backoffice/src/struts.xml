@@ -126,7 +126,7 @@
 			<result name="finishedGive" type="redirect">/finishedPage.html?action=giveTicket</result>
 		</action>
 
-		<action name="*InviteList" class="inviteControlAction" method="{1}">
+		<action name="*InviteList" class="inviteApproveAction" method="{1}">
 			<interceptor-ref name="scopedModelDriven">
 				<param name="scope">request</param>
 				<param name="name">inviteSearchCondition</param>
@@ -134,6 +134,51 @@
 			</interceptor-ref>
 			<interceptor-ref name="gameifStack"></interceptor-ref>
 			<result name="input">/WEB-INF/pages/backoffice/invite_approve.jsp</result>
+			<result name="finished"  type="redirect">inputInviteList.html</result>
+		</action>
+
+		<action name="*InviteDetail" class="inviteApproveDetailAction" method="{1}">
+			<interceptor-ref name="scopedModelDriven">
+				<param name="scope">request</param>
+				<param name="name">memberInfo</param>
+				<param name="className">com.gameif.backoffice.entity.MemberInfo</param>
+			</interceptor-ref>
+			<interceptor-ref name="gameifStack"></interceptor-ref>
+			<result name="input">/WEB-INF/pages/backoffice/invite_approve_detail.jsp</result>
+			<result name="success"  type="redirect">inputInviteDetail.html?memNum=${memNum}</result>
+		</action>
+
+		<action name="*SalesList" class="salesListControlAction" method="{1}">
+			<interceptor-ref name="scopedModelDriven">
+				<param name="scope">request</param>
+				<param name="name">salesSearchCondition</param>
+				<param name="className">com.gameif.backoffice.bean.SalesSearchCondition</param>
+			</interceptor-ref>
+			<interceptor-ref name="gameifStack"></interceptor-ref>
+			<result name="input">/WEB-INF/pages/backoffice/sales_list.jsp</result>
+		</action>
+
+		<action name="*MemberInfo" class="memberInfoControlAction" method="{1}">
+			<interceptor-ref name="scopedModelDriven">
+				<param name="scope">request</param>
+				<param name="name">memberInfo</param>
+				<param name="className">com.gameif.backoffice.entity.MemberInfo</param>
+			</interceptor-ref>
+			<interceptor-ref name="gameifStack"></interceptor-ref>
+			<result name="inputFreeze">/WEB-INF/pages/backoffice/mem_freeze.jsp</result>
+			<result name="finishedFreeze" type="redirect">/finishedPage.html?action=freezeMember</result>
+		</action>
+
+		<action name="*Campaign" class="campaignControlAction" method="{1}">
+			<interceptor-ref name="scopedModelDriven">
+				<param name="scope">request</param>
+				<param name="name">campaignMst</param>
+				<param name="className">com.gameif.backoffice.entity.CampaignMst</param>
+			</interceptor-ref>
+			<interceptor-ref name="gameifStack"></interceptor-ref>
+			<result name="inputList">/WEB-INF/pages/backoffice/campaign_list.jsp</result>
+			<result name="inputAdd">/WEB-INF/pages/backoffice/campaign_add.jsp</result>
+			<result name="inputEdit">/WEB-INF/pages/backoffice/campaign_edit.jsp</result>
 		</action>
 		
 	</package>
@@ -143,6 +188,9 @@
             <result type="json"></result>
 		</action>
 		<action name="bindTicketMst" class="ticketBindMasterAction" method="bindTicketMst">
+            <result type="json"></result>
+		</action>
+		<action name="bindPointMst" class="salesBindMasterAction" method="bindPointMst">
             <result type="json"></result>
 		</action>
 	</package>

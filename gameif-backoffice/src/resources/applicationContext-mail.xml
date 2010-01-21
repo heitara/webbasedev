@@ -31,6 +31,13 @@
 						<entry key="format" value="text"/>
 					</map>
 				</entry>
+				<entry key="freezeMember">
+					<map>
+						<entry key="title" value="【ゲームイフ】会員凍結について"/>
+						<entry key="template" value="freezeMember.ftl"/>
+						<entry key="format" value="text"/>
+					</map>
+				</entry>
 			</map>
 		</property>
 	</bean>
