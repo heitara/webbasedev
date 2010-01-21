@@ -50,6 +50,9 @@
 <!-- JANetアフィリエイトタグ -->
 <img src="https://action.j-a-net.jp///<s:property value="memNum"/>/23048" width="1" height="1"/>
 
+<!-- A8Netアフィリエイトタグ -->
+<img src="https://px.a8.net/cgi-bin/a8fly/sales?pid=s00000009650001&so=<s:property value="memNum"/>&si=1.1.1.a8" width="1" height="1" />
+
 <!-- BEGIN: Google Code account registry Conversion Page -->
 <script type="text/javascript">
 <!--
