@@ -78,31 +78,35 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		InviteInfo inviteInfo = null;
 		Date now = new Date();
 		
-		for (int i = 0; i < inviteInfoList.size(); i++) {
-			
-			inviteInfo = new InviteInfo();
-			inviteInfo.setMemNum(memNum);
-			inviteInfo.setChildMemNum(inviteInfoList.get(i));
-			inviteInfo.setApproveStatus(approveStatus);
-			inviteInfo.setLastUpdateUser(ContextUtil.getUserId());
-			inviteInfo.setLastUpdateDate(now);
-			
-			inviteInfoDao.updateApproveStatus(inviteInfo);
-			
+		if (inviteInfoList != null) {
+			for (int i = 0; i < inviteInfoList.size(); i++) {
+				
+				inviteInfo = new InviteInfo();
+				inviteInfo.setMemNum(memNum);
+				inviteInfo.setChildMemNum(inviteInfoList.get(i));
+				inviteInfo.setApproveStatus(approveStatus);
+				inviteInfo.setLastUpdateUser(ContextUtil.getUserId());
+				inviteInfo.setLastUpdateDate(now);
+				
+				inviteInfoDao.updateApproveStatus(inviteInfo);
+				
+			}
 		}
 
 		// リンクで紹介する情報を「承認・却下」する
 		InviteLinkHist inviteLinkHist = null;
 		
-		for (int i = 0; i < inviteLinkList.size(); i++) {
-			
-			inviteLinkHist = new InviteLinkHist();
-			inviteLinkHist.setMemNum(memNum);
-			inviteLinkHist.setChildMemNum(inviteLinkList.get(i));
-			inviteLinkHist.setApproveStatus(approveStatus);
-			
-			inviteLinkHistDao.updateApproveStatus(inviteLinkHist);
-			
+		if (inviteLinkList != null) {
+			for (int i = 0; i < inviteLinkList.size(); i++) {
+				
+				inviteLinkHist = new InviteLinkHist();
+				inviteLinkHist.setMemNum(memNum);
+				inviteLinkHist.setChildMemNum(inviteLinkList.get(i));
+				inviteLinkHist.setApproveStatus(approveStatus);
+				
+				inviteLinkHistDao.updateApproveStatus(inviteLinkHist);
+				
+			}
 		}
 	}
 
