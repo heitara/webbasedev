@@ -81,7 +81,7 @@
 									<td class="status"><s:property value="nickName"/></td>
 									<td class="mail"><s:property value="mailAdd"/></td>
 									<td class="entry_ymd"><s:property value="entryIp"/></td>
-									<td class="entry_ymd"><s:property value="entryDate"/></td>
+									<td class="entry_ymd"><s:date name="entryDate" format="yyyy/MM/dd HH:mm:ss"/></td>
 								</tr>
 							</s:iterator>
 						</table>
