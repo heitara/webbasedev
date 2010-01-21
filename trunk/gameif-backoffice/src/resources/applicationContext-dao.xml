@@ -113,4 +113,32 @@
 			<value>inviteLinkHist</value>
 		</property>
 	</bean>
+	
+	<!-- pointMstDao -->
+	<bean id="pointMstDao" class="com.gameif.backoffice.dao.impl.PointMstDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>pointMst</value>
+		</property>
+	</bean>
+	
+	<!-- memSettlementHistDao -->
+	<bean id="memSettlementHistDao" class="com.gameif.backoffice.dao.impl.MemSettlementHistDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>memSettlementHist</value>
+		</property>
+	</bean>
+	
+	<!-- memberLoginInfoDao -->
+	<bean id="memberLoginInfoDao" class="com.gameif.backoffice.dao.impl.MemberLoginInfoDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>memberLoginInfo</value>
+		</property>
+	</bean>
+	
+	<!-- campaignMstDao -->
+	<bean id="campaignMstDao" class="com.gameif.backoffice.dao.impl.CampaignMstDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>campaignMst</value>
+		</property>
+	</bean>
 </beans>

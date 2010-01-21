@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="campaignMst">
+	<typeAlias alias="campaignMst" type="com.gameif.backoffice.entity.CampaignMst" />
+	
+	<resultMap class="com.gameif.backoffice.entity.CampaignMst" id="campaignResult">
+		<result property="campaignId" column="campaign_id" />
+		<result property="campaignSubject" column="campaign_subject" />
+		<result property="campaignContents" column="campaign_contents" />
+		<result property="titleId" column="title_id" />
+		<result property="campaignStartDate" column="campaign_start_ymd" />
+		<result property="campaignEndDate" column="campaign_end_ymd" />
+		<result property="createdDate" column="created_date"/>
+		<result property="createdUser" column="created_user"/>
+		<result property="lastUpdateDate" column="last_update_date"/>
+		<result property="lastUpdateUser" column="last_update_user"/>
+	</resultMap>
+	
+	<select id="selectCampaignList" parameterClass="campaignMst" resultMap="campaignResult">
+      <![CDATA[
+        SELECT
+        	campaign_id,
+			campaign_subject,
+			campaign_contents,
+			title_id,
+			campaign_start_ymd,
+			campaign_end_ymd,
+			created_date,
+			created_user,
+			last_update_date,
+			last_update_user
+		FROM
+			campaign_mst
+		WHERE
+			1 = 1
+      ]]>
+      <isNotEmpty property="campaignStartDate">
+      	<![CDATA[ AND campaign_start_ymd >= #campaignStartDate# ]]>
+      </isNotEmpty>
+      <isNotEmpty property="campaignEndDate">
+      	<![CDATA[ AND campaign_end_ymd < DATE_ADD(#campaignEndDate#, INTERVAL 1 DAY) ]]>
+      </isNotEmpty>
+      <isNotEmpty property="campaignSubject">
+      	<![CDATA[ AND campaign_subject like '%$campaignSubject$%' ]]>
+      </isNotEmpty>
+      ORDER BY campaign_id
+	</select>
+	
+	<delete id="deleteCampaignList" parameterClass="java.util.List">  
+        <![CDATA[
+        DELETE
+		FROM
+			campaign_mst
+		WHERE
+      		campaign_id IN 
+        ]]>
+      	<iterate open="(" close=")" conjunction=",">
+      		#[]#
+      	</iterate>
+	</delete>
+	
+	<insert id = "save" parameterClass="campaignMst"> 
+        <![CDATA[
+		INSERT INTO campaign_mst
+			(campaign_subject,
+			campaign_contents,
+			title_id,
+			campaign_start_date,
+			campaign_end_date,
+			created_date,
+			created_user,
+			last_update_date,
+			last_update_user)
+		VALUES
+			(#campaignSubject#,
+			#campaignContents#,
+			#titleId#,
+			#campaignStartDate#,
+			#campaignEndDate#,
+			#createdDate#,
+			#createdUser#,
+			#lastUpdateDate#,
+			#lastUpdateUser#)
+        ]]>
+	</insert>
+
+	<update id="update" parameterClass="campaignMst">
+	<![CDATA[
+		UPDATE campaign_mst
+		SET	title_id = #titleId#,
+			campaign_subject = #campaignSubject#,
+			campaign_contents = #campaignContents#,
+			campaign_start_date = #campaignStartDate#,
+			campaign_end_date = #campaignEndDate#,
+			last_update_date = #lastUpdateDate#,
+			last_update_user = #lastUpdateUser#
+		WHERE
+			campaign_id = #campaignId#
+	]]>
+	</update>
+
+	<select id="selectByKey" parameterClass="campaignMst" resultMap="campaignResult">   
+        <![CDATA[
+	        SELECT
+				campaign_id,
+				title_id,
+				campaign_subject,
+				campaign_contents,
+				campaign_start_date,
+				campaign_end_date,
+				created_date,
+				created_user,
+				last_update_date,
+				last_update_user
+			FROM
+				campaign_mst
+			WHERE
+				campaign_id = #campaignId#
+        ]]>
+	</select>
+
+	<select id="selectForUpdate" parameterClass="java.lang.Integer" resultMap="campaignResult">   
+        <![CDATA[
+	        SELECT
+				campaign_id,
+				title_id,
+				campaign_subject,
+				campaign_contents,
+				campaign_start_date,
+				campaign_end_date,
+				created_date,
+				created_user,
+				last_update_date,
+				last_update_user
+			FROM
+				campaign_mst
+			WHERE
+				campaign_id = #campaignId#
+			FOR UPDATE
+        ]]>
+	</select>
+
+</sqlMap>

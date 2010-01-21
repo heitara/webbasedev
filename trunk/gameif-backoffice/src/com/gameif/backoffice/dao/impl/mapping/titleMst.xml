@@ -57,6 +57,34 @@
 			AND service_end_date >= now()
         ]]>
 	</select>
+
+	<select id="selectAll" resultMap="titleResult">
+        <![CDATA[
+	        SELECT
+				title_id,
+				title_name,
+				title_about,
+				service_start_date,
+				service_end_date,
+				service_status,
+				recruit_status,
+				site_url,
+				news_url,
+				forum_url,
+				payment_url,
+				big_icon_url,
+				small_icon_url,
+				order_num,
+				players_num,
+				announce,
+				created_date,
+				created_user,
+				last_update_date,
+				last_update_user
+			FROM
+				title_mst
+        ]]>
+	</select>
 	
 	<select id="selectNameById" parameterClass="java.lang.Integer" resultClass="java.lang.String">
       <![CDATA[

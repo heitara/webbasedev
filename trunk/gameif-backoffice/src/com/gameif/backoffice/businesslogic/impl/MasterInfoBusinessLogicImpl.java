@@ -56,6 +56,15 @@ public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		return titleMstDao.selectValidTitleList();
 	}
 
+
+	/**
+	 * すべてタイトル情報を取得する
+	 */
+	@Override
+	public List<TitleMst> getAllTitleList() {
+		return titleMstDao.selectAll(null);
+	}
+
 	/**
 	 * @return the functionMstDao
 	 */

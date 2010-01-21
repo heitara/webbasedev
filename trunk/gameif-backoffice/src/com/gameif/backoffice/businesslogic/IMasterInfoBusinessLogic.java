@@ -13,5 +13,6 @@ public interface IMasterInfoBusinessLogic {
 	public List<InquiryKindMst> getAllInquiryKindList();
 	public List<InquirySendmailTemplate> getAllInquirySendmailTemplate();
 	public List<TitleMst> getValidTitleList();
+	public List<TitleMst> getAllTitleList();
 
 }

@@ -4,7 +4,6 @@
 <head>
 	<title>友達紹介承認</title>
 	<script src="js/validate.js" type="text/javascript"></script>
-	<script src="js/popcalendar.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		function checkCount() {
 			if (!confirm("送信します。よろしいですか？")) {
@@ -20,7 +19,7 @@
 		    	}
 		    }
 		    if (count < 1) {
-			    alert("紹介情報を選択してください。");
+			    alert("紹介者を選択してください。");
 			    return false;
 		    } else {
 			    return true;
@@ -41,31 +40,10 @@
 					</td>
 				</tr>
 				<tr>
-					<th><label for="inquiryList_entryDate">登録期間：</label></th>
-					<td>
-						<s:textfield name="entryStartDate" size="10" />
-						<span class="explain">～</span>
-						<s:textfield name="entryEndDate" size="10" />
-					</td>
-				</tr>
-				<tr>
 					<th><label for="inviteList_memId">紹介者ＩＤ：</label></th>
 					<td>
 						<s:textfield name="memId" maxlength="20" cssClass="ime_mode_n" title="紹介者ＩＤ" />
 						<span class="explain">（部分一致）</span>
-					</td>
-				</tr>
-				<tr>
-					<th><label for="inviteList_childMemId">被紹介者ＩＤ：</label></th>
-					<td>
-						<s:textfield name="childMemId" maxlength="20" cssClass="ime_mode_n" title="被紹介者ＩＤ" />
-						<span class="explain">（部分一致）</span>
-					</td>
-				</tr>
-				<tr>
-					<th><label for="inviteList_inviteType">紹介種別：</label></th>
-					<td>
-						<s:select name="inviteType" list="backOfficeProperties.inviteType" cssClass="big" />
 					</td>
 				</tr>
 				<tr>
@@ -85,16 +63,8 @@
 					<td colspan="2">
 						<table class="friendhist tspace_y" align="center">
 							<tr id="listTitle">
-								<th rowspan="2">*</th>
-								<th colspan="4" class="friend">紹介者</th>
-								<th colspan="5" class="friend">被紹介者</th>
-							</tr>
-							<tr id="listTitle">
-								<th class="status">ＩＤ</th>
-								<th class="status">ニックネーム</th>
-								<th class="mail">メールアドレス</th>
-								<th class="entry_ymd">登録ＩＰ</th>
-								<th class="status">ＩＤ</th>
+								<th class="status">*</th>
+								<th class="status">アカウントＩＤ</th>
 								<th class="status">ニックネーム</th>
 								<th class="mail">メールアドレス</th>
 								<th class="entry_ymd">登録ＩＰ</th>
@@ -103,16 +73,14 @@
 							<s:iterator value="inviteList" id="inviteList" status="st">
 								<tr <s:if test="#st.odd">class="odd" </s:if> >
 									<td>
-										<s:checkbox name="selectedInviteList" id="selectedInviteList" value="false" fieldValue="%{memNum},%{childMemNum}"></s:checkbox>
+										<s:checkbox name="selectedInviteList" id="selectedInviteList" value="false" fieldValue="%{memNum}"></s:checkbox>
 									</td>
-									<td class="status"><s:property value="memId"/></td>
+									<td class="status">
+										<a href="inputInviteDetail.html?memNum=<s:property value="memNum"/>" ><s:property value="memId"/></a>
+									</td>
 									<td class="status"><s:property value="nickName"/></td>
 									<td class="mail"><s:property value="mailAdd"/></td>
 									<td class="entry_ymd"><s:property value="entryIp"/></td>
-									<td class="status"><s:property value="childMemId"/></td>
-									<td class="status"><s:property value="childNickName"/></td>
-									<td class="mail"><s:property value="childMailAdd"/></td>
-									<td class="entry_ymd"><s:property value="childEntryIp"/></td>
 									<td class="entry_ymd"><s:property value="entryDate"/></td>
 								</tr>
 							</s:iterator>
@@ -122,6 +90,7 @@
 				<tr>
 					<td colspan="2" align="center">
 						<s:if test="inviteList != null && inviteList.size() > 0">
+							<s:submit value="チケット付与" action="giveTicketInviteList" cssClass="big" onclick="return checkCount();"/>
 							<s:submit value="一括承認" action="approveInviteList" cssClass="big" onclick="return checkCount();"/>
 							<s:submit value="一括却下" action="rejectInviteList" cssClass="big" onclick="return checkCount();"/>
 						</s:if>

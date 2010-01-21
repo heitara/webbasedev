@@ -95,5 +95,47 @@
 		<property name="inviteLinkHistDao">
 			<ref bean="inviteLinkHistDao" />
 		</property>
+		<property name="ticketGiveHistDao">
+			<ref bean="ticketGiveHistDao" />
+		</property>
+		<property name="ticketInfoDao">
+			<ref bean="ticketInfoDao" />
+		</property>
+		<property name="ticketMstDao">
+			<ref bean="ticketMstDao" />
+		</property>
+	</bean>
+	
+	<!-- memberInfoBusinessLogic -->
+	<bean id="memberInfoBusinessLogic"
+		class="com.gameif.backoffice.businesslogic.impl.MemberInfoBusinessLogicImpl">
+		<property name="memberInfoDao">
+			<ref bean="memberInfoDao" />
+		</property>
+		<property name="memberLoginInfoDao">
+			<ref bean="memberLoginInfoDao" />
+		</property>
+		<property name="templateMailer">
+			<ref bean="templateMailer" />
+		</property>
+	</bean>
+	
+	<!-- salesBusinessLogic -->
+	<bean id="salesBusinessLogic"
+		class="com.gameif.backoffice.businesslogic.impl.SalesBusinessLogicImpl">
+		<property name="pointMstDao">
+			<ref bean="pointMstDao" />
+		</property>
+		<property name="memSettlementHistDao">
+			<ref bean="memSettlementHistDao" />
+		</property>
+	</bean>
+	
+	<!-- campaignBusinessLogic -->
+	<bean id="campaignBusinessLogic"
+		class="com.gameif.backoffice.businesslogic.impl.CampaignBusinessLogicImpl">
+		<property name="campaignMstDao">
+			<ref bean="campaignMstDao" />
+		</property>
 	</bean>
 </beans>

@@ -13,6 +13,9 @@ public class InviteLinkHist extends BaseEntity {
 	private Long childMemNum;
 	private Integer titleId;
 	private String approveStatus;
+	private String cookie;
+	private String approveCookie;
+	private String rejectReason;
 
 	/**
 	 * @return the memNum
@@ -72,6 +75,51 @@ public class InviteLinkHist extends BaseEntity {
 	 */
 	public void setApproveStatus(String approveStatus) {
 		this.approveStatus = approveStatus;
+	}
+
+	/**
+	 * @return the approveCookie
+	 */
+	public String getApproveCookie() {
+		return approveCookie;
+	}
+
+	/**
+	 * @param approveCookie
+	 *            the approveCookie to set
+	 */
+	public void setApproveCookie(String approveCookie) {
+		this.approveCookie = approveCookie;
+	}
+
+	/**
+	 * @return the rejectReason
+	 */
+	public String getRejectReason() {
+		return rejectReason;
+	}
+
+	/**
+	 * @param rejectReason
+	 *            the rejectReason to set
+	 *            
+	 */
+	public void setRejectReason(String rejectReason) {
+		this.rejectReason = rejectReason;
+	}
+
+	/**
+	 * @return the cookie
+	 */
+	public String getCookie() {
+		return cookie;
+	}
+
+	/**
+	 * @param cookie the cookie to set
+	 */
+	public void setCookie(String cookie) {
+		this.cookie = cookie;
 	}
 
 }

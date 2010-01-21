@@ -79,9 +79,6 @@
       <isNotEmpty property="inquiryEndDate">
       	<![CDATA[ AND inquiry_date <= DATE_ADD(#inquiryEndDate#, INTERVAL 1 DAY) ]]>
       </isNotEmpty>
-      <isNotEmpty property="inquiryEndDate">
-      	<![CDATA[ AND inquiry_date <= DATE_ADD(#inquiryEndDate#, INTERVAL 1 DAY) ]]>
-      </isNotEmpty>
       <isNotEmpty property="inquiryType">
       	AND inquiry_type IN 
       	<iterate open="(" close=")" conjunction="," property="inquiryType">
