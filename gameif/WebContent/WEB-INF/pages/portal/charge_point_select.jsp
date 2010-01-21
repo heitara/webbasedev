@@ -33,6 +33,7 @@
 					<img src="images/point_flow_50.gif"/>
 			</div>
 			<table width="95%" align="center">
+				<!-- 
 				<tr>
 				<td colspan="2">
 					<div style="border:1px solid #CCC;color:#668;padding:10px;background-color:#FFF;">
@@ -47,6 +48,7 @@
 					</div>
 				</td>
 				</tr>
+				-->
 				<tr>
 					<th></th>
 					<td>
