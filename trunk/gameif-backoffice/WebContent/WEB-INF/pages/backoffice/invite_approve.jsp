@@ -91,8 +91,10 @@
 					<td colspan="2" align="center">
 						<s:if test="inviteList != null && inviteList.size() > 0">
 							<s:submit value="チケット付与" action="giveTicketInviteList" cssClass="big" onclick="return checkCount();"/>
+							<!-- 
 							<s:submit value="一括承認" action="approveInviteList" cssClass="big" onclick="return checkCount();"/>
 							<s:submit value="一括却下" action="rejectInviteList" cssClass="big" onclick="return checkCount();"/>
+							 -->
 						</s:if>
 					</td>
 				</tr>

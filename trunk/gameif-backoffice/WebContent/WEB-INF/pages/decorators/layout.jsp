@@ -88,6 +88,7 @@ response.setDateHeader("Expires",0);
 				<a href="#" title="キャンペーン管理">キャンペーン管理</a>
 				<a href="inputGiveTicket.html" title="チケット付与">チケット付与</a>
 				<a href="inputSalesList.html" title="売上げ集計">売上げ集計</a>
+				<a href="inputLoginUserList.html" title="ユーザ管理">ユーザ管理</a>
 				<a href="inputListAuthority.html" title="権限管理">権限管理</a>
 			</dd>
 		</dl>

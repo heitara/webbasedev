@@ -213,6 +213,30 @@
 		<filter-name>Login Filter</filter-name>
 		<url-pattern>/searchSalesList.html</url-pattern>
 	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Login Filter</filter-name>
+		<url-pattern>/inputLoginUserList.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Login Filter</filter-name>
+		<url-pattern>/executeLoginUserList.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Login Filter</filter-name>
+		<url-pattern>/inputLoginUser.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Login Filter</filter-name>
+		<url-pattern>/initEditLoginUser.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Login Filter</filter-name>
+		<url-pattern>/updateLoginUser.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Login Filter</filter-name>
+		<url-pattern>/addLoginUser.html</url-pattern>
+	</filter-mapping>
 	 
 	<filter-mapping>
 	    <filter-name>sitemesh</filter-name>
