@@ -164,9 +164,9 @@ function smiliePopup()
 						<#if forum?exists>
 							<#if (topic?exists && topic.id > -1)>
 							    <#if isEdit>
-							    	${I18n.getMessage("PostForm.edit")} u${topic.title?html}v
+							    	${I18n.getMessage("PostForm.edit")} ã€Œ${topic.title?html}ã€
 							    <#else>
-									${I18n.getMessage("PostForm.reply")} u${topic.title?html}v
+									${I18n.getMessage("PostForm.reply")} ã€Œ${topic.title?html}ã€
 								</#if>
 							<#else>
 								${I18n.getMessage("PostForm.title")}
@@ -350,7 +350,7 @@ function smiliePopup()
 									<li target="postPoll"><a href="javascript:void(0);" onClick="activateTab('postPoll', this);"><span>Poll</span></a></li>
 								</#if>
 								<#if attachmentsEnabled>
-								    <li target="postAttachments"><a href="javascript:void(0);" onClick="activateTab('postAttachments', this);"><span>“Y•tƒtƒ@ƒCƒ‹</span></a></li>
+								    <li target="postAttachments"><a href="javascript:void(0);" onClick="activateTab('postAttachments', this);"><span>æ·»ä»˜ãƒ•ã‚¡ã‚¤ãƒ«</span></a></li>
 								</#if>
 							</ul>
 						</div>
