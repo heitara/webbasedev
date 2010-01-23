@@ -32,7 +32,7 @@
 					<td>
 						<s:textfield id="settleStartDate" name="settleStartDate" size="10" />
 						<span class="explain">～</span>
-						<s:textfield id="settleEndDate" name="settleStartDate" size="10" />
+						<s:textfield id="settleEndDate" name="settleEndDate" size="10" />
 					</td>
 				</tr>
 				<tr>
