@@ -9,7 +9,7 @@
 <head><title>トップページ</title>
 <script language="javascript" type="text/javascript">
 var imgs = new Array("bn_b_main_01.jpg", "bn_b_main_02.jpg");
-var urls = new Array("http://info.game-if.com/home/event/176-2010-01-14-23-37-44", "inputInvite.html");
+var urls = new Array("http://info.game-if.com/home/event/186-2010-01-28-20-31-56", "inputInvite.html");
 
 function changeBana() {
 
@@ -31,7 +31,7 @@ window.onload = function() { setInterval(changeBana, 4000); };
 	<div class="rbox_side"></div><div class="rbox_round"></div><div class="rbox_main">
 		<div style="overflow:hidden;">
 			<!--画像-->
-			<a id="bana_url" href="http://info.game-if.com/home/event/176-2010-01-14-23-37-44"><img id="bana_img" src="images/bn_b_main_01.jpg"/></a>
+			<a id="bana_url" href="http://info.game-if.com/home/event/186-2010-01-28-20-31-56"><img id="bana_img" src="images/bn_b_main_01.jpg"/></a>
 		</div>
 	</div><div class="rbox_round"></div><div class="rbox_side"></div>
 </div>
