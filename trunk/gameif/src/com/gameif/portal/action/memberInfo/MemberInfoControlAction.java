@@ -553,8 +553,4 @@ public class MemberInfoControlAction extends
 	public void setUrlAftLgnApplyTest(String urlAftLgnApplyTest) {
 		this.urlAftLgnApplyTest = urlAftLgnApplyTest;
 	}
-
-	public static void main(String[] args) {
-		GiD8Vwe5
-	}
 }
