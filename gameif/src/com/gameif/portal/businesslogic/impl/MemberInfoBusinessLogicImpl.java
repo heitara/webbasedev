@@ -146,6 +146,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 							.append("&authKey=")
 							.append(tempMemberInfo.getAuthKey())
 							.toString()));
+
 		templateMailer.sendAsyncMail(tempMemberInfo.getMailPc(), "createTempMember", props);
 	}
 	
