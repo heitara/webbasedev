@@ -115,7 +115,7 @@ public class MemberInfoControlAction extends
 	 */
 	public String createTemp() {
 
-		memberInfoBusinessLogic.saveTempMemberInfo(getModel(), getInviteId(), getAdvertNum(), getLinkKey(), getTitle());
+		memberInfoBusinessLogic.saveTempMemberInfo(getModel(), getInviteId(), getAdvertNum(), getLinkKey(), getTitle());		
 		
 		mailLoginUrl = portalProperties.getMailLoginUrl(getModel().getMailPc());
 		enc = SecurityUtil.encodeParam("mailLoginUrl=" + mailLoginUrl + "&mailPc=" + getModel().getMailPc().trim());
@@ -552,5 +552,9 @@ public class MemberInfoControlAction extends
 
 	public void setUrlAftLgnApplyTest(String urlAftLgnApplyTest) {
 		this.urlAftLgnApplyTest = urlAftLgnApplyTest;
+	}
+
+	public static void main(String[] args) {
+		GiD8Vwe5
 	}
 }
