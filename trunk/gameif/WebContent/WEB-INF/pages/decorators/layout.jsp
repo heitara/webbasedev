@@ -396,6 +396,7 @@ response.setDateHeader("Expires",0);
 <%
 	}
 %>
+		<a href="inputInvite.html" title="友達を紹介してサービスポイントを獲得しよう！"><img src="images/bn_b_friends.gif" alt="友達紹介"/></a>
 		<!-- サポート：開始 -->
 		<dl class="title_box tspace_b">
 			<dt><strong>サポート</strong><span>&nbsp;</span></dt>
