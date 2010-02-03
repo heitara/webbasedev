@@ -8,9 +8,13 @@
 <html>
 <head><title>トップページ</title>
 <script language="javascript" type="text/javascript">
-var imgs = new Array("bn_b_main_01.jpg", "bn_b_main_02.jpg");
-var urls = new Array("http://info.game-if.com/home/event/186-2010-01-28-20-31-56", "inputInvite.html");
 
+var imgs = new Array("bn_b_main_02.jpg", "bn_b_main_01.jpg", "bn_b_main_03.jpg");
+var urls = new Array("inputInvite.html", "chargePointSelect.html", "http://info.game-if.com/home/event/189-2010-01-30-19-39-39");
+/*
+var imgs = new Array("bn_b_main_02.jpg", "bn_b_main_02.jpg", "bn_b_main_03.jpg");
+var urls = new Array("inputInvite.html", "inputInvite.html.html", "http://info.game-if.com/home/event/189-2010-01-30-19-39-39");
+*/
 function changeBana() {
 
 	if (window.chgIdx == null) {
@@ -22,7 +26,7 @@ function changeBana() {
 	document.getElementById("bana_url").href = urls[chgIdx];
 }
 
-window.onload = function() { setInterval(changeBana, 4000); };
+window.onload = function() { setInterval(changeBana, 5000); };
 </script>
 </head>
 <body>
@@ -31,7 +35,7 @@ window.onload = function() { setInterval(changeBana, 4000); };
 	<div class="rbox_side"></div><div class="rbox_round"></div><div class="rbox_main">
 		<div style="overflow:hidden;">
 			<!--画像-->
-			<a id="bana_url" href="http://info.game-if.com/home/event/186-2010-01-28-20-31-56"><img id="bana_img" src="images/bn_b_main_01.jpg"/></a>
+			<a id="bana_url" href="inputInvite.html"><img id="bana_img" src="images/bn_b_main_02.jpg"/></a>
 		</div>
 	</div><div class="rbox_round"></div><div class="rbox_side"></div>
 </div>
