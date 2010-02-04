@@ -9,8 +9,8 @@
 <head><title>トップページ</title>
 <script language="javascript" type="text/javascript">
 
-var imgs = new Array("bn_b_main_02.jpg", "bn_b_main_01.jpg", "bn_b_main_03.jpg");
-var urls = new Array("inputInvite.html", "chargePointSelect.html", "http://info.game-if.com/home/event/189-2010-01-30-19-39-39");
+var imgs = new Array("bn_b_main_02.jpg", "bn_b_main_01.jpg");
+var urls = new Array("inputInvite.html", "chargePointSelect.html");
 /*
 var imgs = new Array("bn_b_main_02.jpg", "bn_b_main_02.jpg", "bn_b_main_03.jpg");
 var urls = new Array("inputInvite.html", "inputInvite.html.html", "http://info.game-if.com/home/event/189-2010-01-30-19-39-39");
