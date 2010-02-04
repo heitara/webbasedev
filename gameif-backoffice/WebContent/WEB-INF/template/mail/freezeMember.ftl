@@ -1,25 +1,25 @@
-„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª
-yƒQ[ƒ€ƒCƒtz‰ïˆõ“€Œ‹‚Ì‚¨’m‚ç‚¹@ https://www.game-if.com
-„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª
+â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
+ã€ã‚²ãƒ¼ãƒ ã‚¤ãƒ•ã€‘ä¼šå“¡å‡çµã®ãŠçŸ¥ã‚‰ã›ã€€ https://www.game-if.com
+â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
 
-${nickName}@—l
+${nickName}ã€€æ§˜
 
-‚±‚Ì“x‚ÍAƒQ[ƒ€ƒCƒt‚ð‚²—˜—p’¸‚«‚ ‚è‚ª‚Æ‚¤‚²‚´‚¢‚Ü‚µ‚½B
-‰ïˆõ“€Œ‹ˆ—‚ªŠ®—¹‚µ‚Ü‚µ‚½‚Ì‚Å‚¨’m‚ç‚¹’v‚µ‚Ü‚·B
-
-
-ƒAƒJƒEƒ“ƒg‚h‚cF ${memId}
+ã“ã®åº¦ã¯ã€ã‚²ãƒ¼ãƒ ã‚¤ãƒ•ã‚’ã”åˆ©ç”¨é ‚ãã‚ã‚ŠãŒã¨ã†ã”ã–ã„ã¾ã—ãŸã€‚
+ä¼šå“¡åˆ©ç”¨å¥‘ç´„é•åã§å‡çµå‡¦ç†ãŒå®Œäº†ã—ã¾ã—ãŸã®ã§ãŠçŸ¥ã‚‰ã›è‡´ã—ã¾ã™ã€‚
 
 
-‚²•s–¾‚È“_‚â‚²Ž¿–â“™‚²‚´‚¢‚Ü‚µ‚½‚çA“–ƒ[ƒ‹‚Ö‚Ì•ÔM‚Å‚Í‚È‚­A
-ˆÈ‰º‚ÌƒtƒH[ƒ€‚æ‚è‚¨–â‚¢‡‚í‚¹’¸‚«‚Ü‚·‚æ‚¤‚¨Šè‚¢’v‚µ‚Ü‚·B
+ã‚¢ã‚«ã‚¦ãƒ³ãƒˆï¼©ï¼¤ï¼š ${memId}
 
-y‚¨–â‡‚¹z
+
+ã”ä¸æ˜Žãªç‚¹ã‚„ã”è³ªå•ç­‰ã”ã–ã„ã¾ã—ãŸã‚‰ã€å½“ãƒ¡ãƒ¼ãƒ«ã¸ã®è¿”ä¿¡ã§ã¯ãªãã€
+ä»¥ä¸‹ã®ãƒ•ã‚©ãƒ¼ãƒ ã‚ˆã‚ŠãŠå•ã„åˆã‚ã›é ‚ãã¾ã™ã‚ˆã†ãŠé¡˜ã„è‡´ã—ã¾ã™ã€‚
+
+ã€ãŠå•åˆã›ã€‘
 https://www.game-if.com/inputInquiry.html
 
-„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª
-Š”Ž®‰ïŽÐƒQ[ƒ€ƒCƒt@ƒJƒXƒ^ƒ}ƒTƒ|[ƒg
+â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
+æ ªå¼ä¼šç¤¾ã‚²ãƒ¼ãƒ ã‚¤ãƒ•ã€€ã‚«ã‚¹ã‚¿ãƒžã‚µãƒãƒ¼ãƒˆ
 
-ƒuƒ‰ƒEƒUƒQ[ƒ€ƒ|[ƒ^ƒ‹ƒTƒCƒg ƒQ[ƒ€ƒCƒtF https://www.game-if.com
-VŠ´Šo‚Ìƒuƒ‰ƒEƒUƒQ[ƒ€ ƒŒƒWƒIƒ“E‘n¢“`àF http://legion.game-if.com
-„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª
+ãƒ–ãƒ©ã‚¦ã‚¶ã‚²ãƒ¼ãƒ ãƒãƒ¼ã‚¿ãƒ«ã‚µã‚¤ãƒˆ ã‚²ãƒ¼ãƒ ã‚¤ãƒ•ï¼š https://www.game-if.com
+æ–°æ„Ÿè¦šã®ãƒ–ãƒ©ã‚¦ã‚¶ã‚²ãƒ¼ãƒ  ãƒ¬ã‚¸ã‚ªãƒ³ãƒ»å‰µä¸–ä¼èª¬ï¼š http://legion.game-if.com
+â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
