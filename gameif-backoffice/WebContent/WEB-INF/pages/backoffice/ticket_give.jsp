@@ -11,6 +11,16 @@
 			var ticketId = $("#ticketId");
 			bindTicket(titleId, ticketId);
         };
+
+        function changeGiveType(obj) {
+            if (obj.value == "1") {
+                document.getElementById("trMemNum").style.visibility="";
+                document.getElementById("trMemId").style.visibility="hidden";
+            } else if (obj.value == "2") {
+                document.getElementById("trMemNum").style.visibility="hidden";
+                document.getElementById("trMemId").style.visibility="";
+            }
+        }
 	</script>
 </head>
 <body>
@@ -58,10 +68,28 @@
 						<span id="error_ticketCount" class="input_error"><s:fielderror><s:param>ticketCount</s:param></s:fielderror></span>
 					</td>
 				</tr>
+				<tr class="space_row"><td colspan="2"></td></tr>
 				<tr>
+					<th><span class="required">*</span><label for="give_giveType">区別：</label></th>
+					<td>
+						<select name="giveType" id="giveType" onchange="changeGiveType(this)">
+							<option value=1 selected="selected">会員番号でチケットを付与</option>
+							<option value=2 >アカウントIDでチケットを付与</option>
+						</select>
+					</td>
+				</tr>
+				<tr id="trMemNum">
+					<th><span class="required">*</span><label for="give_memNumList">会員番号：</label></th>
+					<td>
+						<s:textarea name="memNumList" cssClass="ime_mode_y" title="会員番号" cssStyle="width:350px;height:300px" onblur="validate(this, 'REQ');"/><br/>
+						<span class="explain">(複数の会員番号を入力する場合、コンマで区切ってください。)</span>
+						<span id="error_memNumList" class="input_error"><s:fielderror><s:param>memNumList</s:param></s:fielderror></span>
+					</td>
+				</tr>
+				<tr id="trMemId" style="visibility:hidden">
 					<th><span class="required">*</span><label for="give_memId">アカウントID：</label></th>
 					<td>
-						<s:textarea name="memId" cssClass="ime_mode_y" title="アカウントID" cssStyle="width:300px;height:200px" onblur="validate(this, 'REQ');"/><br/>
+						<s:textarea name="memId" cssClass="ime_mode_y" title="アカウントID" cssStyle="width:350px;height:300px" onblur="validate(this, 'REQ');"/><br/>
 						<span class="explain">(複数のアカウントIDを入力する場合、コンマで区切ってください。)</span>
 						<span id="error_memId" class="input_error"><s:fielderror><s:param>memId</s:param></s:fielderror></span>
 					</td>
