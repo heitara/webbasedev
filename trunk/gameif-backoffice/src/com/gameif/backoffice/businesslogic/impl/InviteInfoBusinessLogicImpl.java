@@ -73,17 +73,20 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	
 	@Transactional
 	@Override
-	public void updateInviteInfoWithMemNum(List<Long> inviteInfoList, List<Long> inviteLinkList, String approveStatus, Long memNum) {
+	public void updateInviteInfoWithMemNum(List<String> inviteInfoList, List<String> inviteLinkList, String approveStatus, Long memNum) {
 		// メールで紹介する情報を「承認・却下」する
 		InviteInfo inviteInfo = null;
 		Date now = new Date();
 		
-		if (inviteInfoList != null) {
+		if (inviteInfoList != null && inviteInfoList.size() > 0) {
 			for (int i = 0; i < inviteInfoList.size(); i++) {
+				if (inviteInfoList.get(i).equals("false")) {
+					continue;
+				}
 				
 				inviteInfo = new InviteInfo();
 				inviteInfo.setMemNum(memNum);
-				inviteInfo.setChildMemNum(inviteInfoList.get(i));
+				inviteInfo.setChildMemNum(Long.parseLong(inviteInfoList.get(i)));
 				inviteInfo.setApproveStatus(approveStatus);
 				inviteInfo.setLastUpdateUser(ContextUtil.getUserId());
 				inviteInfo.setLastUpdateDate(now);
@@ -96,12 +99,14 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		// リンクで紹介する情報を「承認・却下」する
 		InviteLinkHist inviteLinkHist = null;
 		
-		if (inviteLinkList != null) {
+		if (inviteLinkList != null && inviteLinkList.size() > 0) {
 			for (int i = 0; i < inviteLinkList.size(); i++) {
-				
+				if (inviteLinkList.get(i).equals("false")) {
+					continue;
+				}
 				inviteLinkHist = new InviteLinkHist();
 				inviteLinkHist.setMemNum(memNum);
-				inviteLinkHist.setChildMemNum(inviteLinkList.get(i));
+				inviteLinkHist.setChildMemNum(Long.parseLong(inviteLinkList.get(i)));
 				inviteLinkHist.setApproveStatus(approveStatus);
 				
 				inviteLinkHistDao.updateApproveStatus(inviteLinkHist);
@@ -143,7 +148,7 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 		Date now = new Date();
 
 		TicketMst ticket = new TicketMst();
-		ticket.setTicketId(1);
+		ticket.setTicketId(2);
 		ticket = ticketMstDao.selectByKey(ticket);
 		if (ticket == null) {
 			return;
@@ -195,7 +200,7 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 			
 			// リンクで紹介する情報
 			inviteLinkRewardedList = inviteLinkHistDao.selectRewardedListForUpdate(inviteKeyList.get(i));
-			if (inviteRewardedList != null && inviteRewardedList.size() > 0) {
+			if (inviteLinkRewardedList != null && inviteLinkRewardedList.size() > 0) {
 				bonusInviteLinkCnt = inviteLinkRewardedList.size() / 5;
 				inviteLinkRest = inviteLinkRewardedList.size() % 5;
 				
@@ -244,6 +249,10 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	 * @param memNum
 	 */
 	private void updateTicketInfo(Integer rewardedCount, TicketMst ticket, Long memNum) {
+		
+		if (rewardedCount < 1) {
+			return;
+		}
 		
 		Date now = new Date();
 		Date startDate = new Date();
