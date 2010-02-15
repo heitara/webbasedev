@@ -33,7 +33,7 @@
 				</entry>
 				<entry key="freezeMember">
 					<map>
-						<entry key="title" value="【ゲームイフ】会員凍結について"/>
+						<entry key="title" value="【ゲームイフ】アカウント凍結のお知らせ"/>
 						<entry key="template" value="freezeMember.ftl"/>
 						<entry key="format" value="text"/>
 					</map>
