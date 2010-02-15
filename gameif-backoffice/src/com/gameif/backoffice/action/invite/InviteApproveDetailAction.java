@@ -25,8 +25,8 @@ public class InviteApproveDetailAction extends
 	private List<MyInviteInfo> inviteLinkHistList;
 	private List<MyInviteInfo> inviteHistList;
 
-	private List<Long> selectedInviteList;
-	private List<Long> selectedInviteLink;
+	private List<String> selectedInviteList;
+	private List<String> selectedInviteLink;
 
 	/**
 	 * 画面初期化
@@ -141,7 +141,7 @@ public class InviteApproveDetailAction extends
 	/**
 	 * @return the selectedInviteList
 	 */
-	public List<Long> getSelectedInviteList() {
+	public List<String> getSelectedInviteList() {
 		return selectedInviteList;
 	}
 
@@ -149,14 +149,14 @@ public class InviteApproveDetailAction extends
 	 * @param selectedInviteList
 	 *            the selectedInviteList to set
 	 */
-	public void setSelectedInviteList(List<Long> selectedInviteList) {
+	public void setSelectedInviteList(List<String> selectedInviteList) {
 		this.selectedInviteList = selectedInviteList;
 	}
 
 	/**
 	 * @return the selectedInviteLink
 	 */
-	public List<Long> getSelectedInviteLink() {
+	public List<String> getSelectedInviteLink() {
 		return selectedInviteLink;
 	}
 
@@ -164,7 +164,7 @@ public class InviteApproveDetailAction extends
 	 * @param selectedInviteLink
 	 *            the selectedInviteLink to set
 	 */
-	public void setSelectedInviteLink(List<Long> selectedInviteLink) {
+	public void setSelectedInviteLink(List<String> selectedInviteLink) {
 		this.selectedInviteLink = selectedInviteLink;
 	}
 
