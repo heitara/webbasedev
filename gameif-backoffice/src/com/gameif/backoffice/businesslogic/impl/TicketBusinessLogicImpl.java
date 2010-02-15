@@ -39,7 +39,7 @@ public class TicketBusinessLogicImpl extends BaseBusinessLogic implements ITicke
 
 	@Transactional
 	@Override
-	public void giveTicket(TicketGiveHist ticketGiveHist, String memId) throws LogicException {
+	public void giveTicketByMemId(TicketGiveHist ticketGiveHist, String memId) throws LogicException {
 
 		TicketMst ticket = new TicketMst();
 		ticket.setTicketId(ticketGiveHist.getTicketId());
@@ -74,6 +74,106 @@ public class TicketBusinessLogicImpl extends BaseBusinessLogic implements ITicke
 		
 		for (int i = 0; i < memberList.length; i++) {
 			member = memberInfoDao.selectByMemId(memberList[i]);
+			if (member == null) {
+				continue;
+			}
+			ticketInfo = ticketInfoDao.selectForUpdate(member.getMemNum(), ticketGiveHist.getTicketId());
+			if (ticketInfo == null) {
+				
+				ticketInfo = new TicketInfo();
+				
+				ticketInfo.setMemNum(member.getMemNum());
+				ticketInfo.setTicketId(ticketGiveHist.getTicketId());
+				ticketInfo.setTicketStartDate(startDate);
+				ticketInfo.setTicketEndDate(endDate);
+				ticketInfo.setTicketCount(ticketGiveHist.getTicketCount());
+				ticketInfo.setCreatedDate(now);
+				ticketInfo.setCreatedUser(ContextUtil.getUserId());
+				ticketInfo.setLastUpdateDate(now);
+				ticketInfo.setLastUpdateUser(ContextUtil.getUserId());
+
+				// チケット残高情報を登録する
+				ticketInfoDao.save(ticketInfo);
+			} else {
+				// 既に期限切れ
+				if (now.compareTo(ticketInfo.getTicketEndDate()) > 0) {
+					
+					ticketInfo.setTicketStartDate(startDate);
+					// 残高　＝　今回の枚数
+					ticketInfo.setTicketCount(ticketGiveHist.getTicketCount());
+					
+				} else {
+
+					// 残高　＝　元の枚数　+　今回の枚数
+					ticketInfo.setTicketCount(ticketInfo.getTicketCount() + ticketGiveHist.getTicketCount());
+				}
+				
+				ticketInfo.setTicketEndDate(endDate);
+				ticketInfo.setLastUpdateDate(now);
+				ticketInfo.setLastUpdateUser(ContextUtil.getUserId());
+				// チケット残高情報を更新する
+				ticketInfoDao.update(ticketInfo);
+			}
+			
+			newGivehist = new TicketGiveHist();
+			newGivehist.setMemNum(member.getMemNum());
+			newGivehist.setTicketId(ticketGiveHist.getTicketId());
+			newGivehist.setTicketTypeCd(ticketGiveHist.getTicketTypeCd());
+			newGivehist.setTicketGiveDate(now);
+			newGivehist.setTicketStartDate(startDate);
+			newGivehist.setTicketEndDate(endDate);
+			newGivehist.setTicketCount(ticketGiveHist.getTicketCount());
+			newGivehist.setCreatedDate(now);
+			newGivehist.setCreatedUser(ContextUtil.getUserId());
+			newGivehist.setLastUpdateDate(now);
+			newGivehist.setLastUpdateUser(ContextUtil.getUserId());
+			
+			// チケット付与履歴を登録する
+			ticketGiveHistDao.save(newGivehist);
+			
+		}
+		
+	}
+
+	@Transactional
+	@Override
+	public void giveTicketByMemNum(TicketGiveHist ticketGiveHist, String memNum) throws LogicException {
+
+		TicketMst ticket = new TicketMst();
+		ticket.setTicketId(ticketGiveHist.getTicketId());
+		ticket = ticketMstDao.selectByKey(ticket);
+		if (ticket == null) {
+
+			// データが存在しない
+			throw new DataNotExistsException("TicketInfo Data does not exist.");
+		}
+		
+		Date now = new Date();
+		Date startDate = new Date();
+		Date endDate = new Date();
+		
+		// 失効期間を計算する
+		// 開始日時
+		Calendar cStart = Calendar.getInstance();
+		cStart.setTime(now);
+		cStart.add(Calendar.DATE, ticket.getDelayDays());
+		startDate = cStart.getTime();
+		// 終了日時
+		Calendar cEnd = Calendar.getInstance();
+		cEnd.setTime(now);
+		cEnd.add(Calendar.DATE, ticket.getValidDays());
+		endDate = cEnd.getTime();
+		
+		String[] memberList = memNum.split(",");
+
+		TicketGiveHist newGivehist = null;
+		TicketInfo ticketInfo = null;
+		MemberInfo member = null;
+		
+		for (int i = 0; i < memberList.length; i++) {
+			member = new MemberInfo();
+			member.setMemNum(Long.parseLong(memberList[i]));
+			member = memberInfoDao.selectByKey(member);
 			if (member == null) {
 				continue;
 			}

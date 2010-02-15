@@ -16,7 +16,7 @@ public interface IInviteInfoBusinessLogic {
 	
 	public List<MyInviteInfo> selectInviteHistByMemNum(Long memNum);
 	
-	public void updateInviteInfoWithMemNum(List<Long> inviteInfoList, List<Long> inviteLinkList, String approveStatus, Long memNum);
+	public void updateInviteInfoWithMemNum(List<String> inviteInfoList, List<String> inviteLinkList, String approveStatus, Long memNum);
 	
 	public void giveTicket(List<Long> inviteKeyList);
 	
