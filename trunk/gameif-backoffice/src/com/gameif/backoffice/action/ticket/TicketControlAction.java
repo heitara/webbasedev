@@ -19,13 +19,19 @@ public class TicketControlAction extends ModelDrivenActionSupport<TicketGiveHist
 	
 	private String memId;
 	private Integer titleId;
+	private Integer giveType;
+	private String memNumList;
 	
 	public String inputGive() {
 		return "inputGive";
 	}
 	
 	public String give() {
-		ticketBusinessLogic.giveTicket(this.getModel(), memId);
+		if (getGiveType().equals(1)) {
+			ticketBusinessLogic.giveTicketByMemNum(this.getModel(), getMemNumList());
+		} else if (getGiveType().equals(2)) {
+			ticketBusinessLogic.giveTicketByMemId(this.getModel(), getMemId());
+		}
 		return "finishedGive";
 	}
 
@@ -91,6 +97,34 @@ public class TicketControlAction extends ModelDrivenActionSupport<TicketGiveHist
 	 */
 	public void setTitleId(Integer titleId) {
 		this.titleId = titleId;
+	}
+
+	/**
+	 * @return the giveType
+	 */
+	public Integer getGiveType() {
+		return giveType;
+	}
+
+	/**
+	 * @param giveType the giveType to set
+	 */
+	public void setGiveType(Integer giveType) {
+		this.giveType = giveType;
+	}
+
+	/**
+	 * @return the memNumList
+	 */
+	public String getMemNumList() {
+		return memNumList;
+	}
+
+	/**
+	 * @param memNumList the memNumList to set
+	 */
+	public void setMemNumList(String memNumList) {
+		this.memNumList = memNumList;
 	}
 
 }
