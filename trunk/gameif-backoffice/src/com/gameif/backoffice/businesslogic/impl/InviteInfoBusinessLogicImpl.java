@@ -214,7 +214,7 @@ public class InviteInfoBusinessLogicImpl extends BaseBusinessLogic implements
 			}
 			bonusCount = bonusInviteCnt + bonusInviteLinkCnt;
 			
-			if (inviteRest + inviteLinkRest > 5) {
+			if (inviteRest + inviteLinkRest >= 5) {
 				bonusCount = bonusCount + 1;
 				
 				for (int cnt = 1; cnt <= inviteRest; cnt++ ) {
