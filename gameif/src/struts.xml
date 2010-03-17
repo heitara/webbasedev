@@ -66,6 +66,34 @@
 			<result name="outOfDate" type="redirect">outOfDatePage.html</result>
 			<result name="finishedActivate">/WEB-INF/pages/portal/mem_activate_success.jsp</result>
 			<result name="invalid.token">/WEB-INF/pages/common/warning.jsp</result>
+			<result name="inputForOpenID">/WEB-INF/pages/portal/mem_openid_registry.jsp</result>
+			<result name="successForOpenID" type="redirect">${openIdReloginUrl}</result>
+			<!-- 
+			<result name="mailRepeatForOpenID">/WEB-INF/pages/portal/mem_openid_mail_repeat.jsp</result>
+			 -->
+		</action>
+
+		<action name="*OpenID" class="memberInfoAction" method="{1}OpenID">
+			<interceptor-ref name="scopedModelDriven">
+				<param name="scope">request</param>
+				<param name="name">memberInfo</param>
+				<param name="className">com.gameif.portal.entity.MemberInfo</param>
+			</interceptor-ref>
+			<interceptor-ref name="checkbox">
+				<param name="uncheckedValue">0</param>
+			</interceptor-ref>
+			<interceptor-ref name="token">
+				<param name="includeMethods">createOpenID</param>
+			</interceptor-ref>
+			<interceptor-ref name="gameifStack"></interceptor-ref>
+			<interceptor-ref name="entryParameter">
+				<param name="includeMethods">createOpenID</param>
+			</interceptor-ref>
+			<interceptor-ref name="repetitionReg">
+				<param name="includeMethods">createOpenID</param>
+			</interceptor-ref>
+			<result name="input">/WEB-INF/pages/portal/mem_openid_registry.jsp</result>
+			<result name="success" type="redirect">${openIdReloginUrl}</result>
 		</action>
 
 		<action name="*MemberInfo" class="memberInfoAction" method="{1}MemberInfo">
