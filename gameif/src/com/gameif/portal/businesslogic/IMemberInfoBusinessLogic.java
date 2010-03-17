@@ -128,4 +128,21 @@ public interface IMemberInfoBusinessLogic {
 	 * @throws LogicException 存在しない異常、または排他異常
 	 */
 	public void changeTempPwd(MemberInfo memberInfo, String tempKey) throws LogicException;
+
+	/**
+	 * OpenID会員情報を登録する。
+	 * @param memberInfo 会員情報
+	 * @param inviteId 友達紹介ID
+	 * @param advertNum 広告番号
+	 * @param linkKey リンク紹介キー
+	 * @param titleId　タイトルID
+	 * @return 会員番号
+	 * @throws LogicException
+	 */
+	public Long saveOpenIDMemberInfo(
+			MemberInfo memberInfo,
+			Long inviteId,
+			Integer advertNum,
+			String linkKey,
+			Integer titleId);
 }
