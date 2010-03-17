@@ -22,7 +22,7 @@
 				<div class="msg">
 				<p>ゲームプレイ、テスターに応募、ポイントチャージ等機能がご利用になるには、ポータルサイトにログインする必要があります。</p>				
 				しばらくお待ちいただきますと、画面が自動的にログイン画面に遷移します。<br/>
-				時間が経ってもログイン画面が見えない場合は、下のログインボタンををクリックしてください。	
+				時間が経ってもログイン画面が見えない場合は、下のログインボタンををクリックしてください。
 				<br/><br/>
 					<a href="loginStatusProxy.html?target=<s:property value="urlAfterLogin" escape="false"/>" title="ログイン"><img src="images/btn_c_portal_login.png" alt="ログイン"/></a>
 				</div>
