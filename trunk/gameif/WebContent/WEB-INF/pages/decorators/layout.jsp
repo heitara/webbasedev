@@ -131,7 +131,7 @@ response.setDateHeader("Expires",0);
 	<a href="<%=portalTopUrl%>" title="トップページ">トップ</a>
 	<a href="games.html" title="ゲーム">ゲーム</a>
 	<a href="chargePointSelect.html" title="ポイントチャージ">ポイントチャージ</a>
-	<a href="<%=communityTopUrl%>" title="コミュニティ">コミュニティ</a>
+	<!-- <a href="<%=communityTopUrl%>" title="コミュニティ">コミュニティ</a> -->
 	<a href="<%=portalNewsTopUrl%>" title="お知らせ">お知らせ</a>
 </div>
 <!-- ページメニュー：終了 -->
@@ -180,6 +180,16 @@ response.setDateHeader("Expires",0);
 					</div>
 				</div>
 			</form>
+			<br/>
+			<div style="width:130;height:70px;background:url('images/bg_pnl_openid.gif');">
+				<div style="padding:28px 5px 5px 5px;text-align:center;">
+					<a href="<%=getServletContext().getInitParameter("portalAuthTopUrl")%>/openIDSelect?_eventId=submit&op=Yahoo" title="Yahoo! IDでログイン"><img src="images/btn_s_openid_yahoo.gif" alt="Yahoo! IDでログイン"/></a>
+					<a href="<%=getServletContext().getInitParameter("portalAuthTopUrl")%>/openIDSelect?_eventId=submit&op=Mixi" title="Mixi IDでログイン"><img src="images/btn_s_openid_mixi.gif" alt="Mixi IDでログイン"/></a>
+					<a href="<%=getServletContext().getInitParameter("portalAuthTopUrl")%>/openIDSelect?_eventId=submit&op=Google" title="Google IDでログイン"><img src="images/btn_s_openid_google.gif" alt="Google IDでログイン"/></a>
+					<a href="<%=getServletContext().getInitParameter("portalAuthTopUrl")%>/openIDSelect?_eventId=submit&op=Excite" title="Excite IDでログイン"><img src="images/btn_s_openid_excite.gif" alt="Excite IDでログイン"/></a>
+					<a href="<%=getServletContext().getInitParameter("portalAuthTopUrl")%>/openIDSelect?_eventId=submit&op=Biglobe" title="Biglobe IDでログイン"><img src="images/btn_s_openid_biglobe.gif" alt="Biglobe IDでログイン"/></a>
+				</div>
+			</div>
 			<br/>
 <%
 		}
@@ -393,15 +403,15 @@ response.setDateHeader("Expires",0);
 %>
 			</dd>
 		</dl>
+		<a href="inputInvite.html" title="友達を紹介してサービスポイントを獲得しよう！"><img src="images/bn_b_friends.gif" alt="友達紹介"/></a>
 <%
 	}
 %>
-		<a href="inputInvite.html" title="友達を紹介してサービスポイントを獲得しよう！"><img src="images/bn_b_friends.gif" alt="友達紹介"/></a>
 		<!-- サポート：開始 -->
 		<dl class="title_box tspace_b">
 			<dt><strong>サポート</strong><span>&nbsp;</span></dt>
 			<dd class="guide">
-				<a href="<%=portalNewsTopUrl%>/component/content/article/11-faq" title="ＦＡＱ">ＦＡＱ</a>
+				<a href="<%=portalNewsTopUrl%>/component/content/article/11-faq" title="よくある質問">よくある質問</a>
 				<a href="<%=isLogined ? "inputMemberInquiry.html" : "inputInquiry.html"%>" title="お問合せ">お問合せ</a>
 				<!-- 
 				<a href="inputQuestionnaireAnswer.html?questionNo=1" title="アンケート">アンケート</a>
