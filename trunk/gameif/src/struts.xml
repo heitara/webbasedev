@@ -66,11 +66,6 @@
 			<result name="outOfDate" type="redirect">outOfDatePage.html</result>
 			<result name="finishedActivate">/WEB-INF/pages/portal/mem_activate_success.jsp</result>
 			<result name="invalid.token">/WEB-INF/pages/common/warning.jsp</result>
-			<result name="inputForOpenID">/WEB-INF/pages/portal/mem_openid_registry.jsp</result>
-			<result name="successForOpenID" type="redirect">${openIdReloginUrl}</result>
-			<!-- 
-			<result name="mailRepeatForOpenID">/WEB-INF/pages/portal/mem_openid_mail_repeat.jsp</result>
-			 -->
 		</action>
 
 		<action name="*OpenID" class="memberInfoAction" method="{1}OpenID">
