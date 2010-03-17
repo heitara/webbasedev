@@ -20,6 +20,9 @@
 	<dt><strong>ポイントチャージ</strong><span><a href="chargePointSelect.html">► ポイントチャージ</a>　<a href="chargeSettlementHist.html">► チャージ履歴</a></span></dt>
 	<dd>
 		<s:form name="frm_nosubmit_point_select" action="chargeSettleSelectInit" method="post" cssClass="entry">
+			<center>
+			<a id="bana_url" href="http://www.webmoney.jp/campaign/2010spring_festa/daikangen/index.html" target="_blank"><img id="bana_img" src="images/bn_b_main_04.jpg"/></a>
+			</center><br/>
 			<div style="margin-bottom:30px;text-align:center;">
 					<img src="images/point_flow_11.gif"/>
 					<img src="images/point_flow_00.gif"/>
@@ -32,6 +35,7 @@
 					<img src="images/point_flow_00.gif"/>
 					<img src="images/point_flow_50.gif"/>
 			</div>
+
 			<table width="95%" align="center">
 				
 				<tr>
