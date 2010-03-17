@@ -158,46 +158,121 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	@Transactional
 	@Override
 	public Long saveMemberInfo(Long memNum, String authKey) throws LogicException {
-		Long newMemNum;
 		
 		TempMemberInfo tempMemberInfo = tempMemberInfoDao.selectValidInfoForUpdate(memNum, authKey, loginInvalidHour);
+		
 		if (tempMemberInfo == null) {
 			
 			// データが存在しない
 			throw new OutOfDateException("Data not exists Or Data is out of date.");
 		}
 
-		AdvertMst advert = null;
-		if (tempMemberInfo.getAdvertNum() != null) {
-			// 広告代理マスタの存在性チェック
-			advert = advertMstDao.selectAdvertByKey(tempMemberInfo.getAdvertNum());
-		}
+		AdvertMst advert = getAdvertMst(tempMemberInfo.getAdvertNum());
 		
 		MemberInfo memberInfo = new MemberInfo();
 		
-		// アカウントＩＤとメールアドレスは小文字に変換、両辺スペース削除
 		memberInfo.setMemId(tempMemberInfo.getMemId());
-		memberInfo.setMailPc(tempMemberInfo.getMailPc());
-		// ニックネームは両辺スペース削除
 		memberInfo.setNickName(tempMemberInfo.getNickName().trim());
+		memberInfo.setMemPwd(tempMemberInfo.getMemPwd());
+		memberInfo.setMailPc(tempMemberInfo.getMailPc());
+		
+		// 会員情報を登録する。
+		saveMemberInfoOnly(memberInfo, advert);
+		
+		// 会員ログイン情報を登録する。
+		saveMemberLoginInfoOnly(memberInfo);
 
-		// 会員種別：ゲームイフ会員/アフィリエイト会員
-		if (advert == null) {
-			memberInfo.setMemKindCd(PortalConstants.MemberKindCd.GAMEIF);
-		} else {
-			memberInfo.setMemKindCd(getMemKindByAdvertNum(advert.getAdvertNum()));
+		// 会員広告募集実績を登録する。
+		saveAdvertActualInfo(memberInfo, advert);
+		
+		// 会員仮登録情報を削除する。
+		deleteTempMemberInfo(memberInfo);
+
+		// 会員登録のお知らせメールを送信する。
+		sendRegMemberMail(memberInfo);
+		
+		// 友達紹介紹介状態を更新する。
+		updateInviteInfo(memberInfo, tempMemberInfo.getInviteId(), tempMemberInfo.getLinkKey(), tempMemberInfo.getTitleId());
+		
+		return memberInfo.getMemNum();
+	}
+
+	/**
+	 * OpenID会員情報を登録する。
+	 * @param memberInfo 会員情報
+	 * @param inviteId 友達紹介ID
+	 * @param advertNum 広告番号
+	 * @param linkKey リンク紹介キー
+	 * @param titleId　タイトルID
+	 * @return 会員番号
+	 * @throws LogicException
+	 */
+	@Transactional
+	@Override
+	public Long saveOpenIDMemberInfo(MemberInfo memberInfo, Long inviteId, Integer advertNum, String linkKey, Integer titleId) {
+		
+		AdvertMst advert = getAdvertMst(advertNum);
+		
+		memberInfo.setMemPwd("*");
+
+		// 会員情報を登録する。
+		saveMemberInfoOnly(memberInfo, advert);
+		
+		// 会員ログイン情報を登録する。
+		saveMemberLoginInfoOnly(memberInfo);
+
+		// 会員広告募集実績を登録する。
+		saveAdvertActualInfo(memberInfo, advert);
+		
+		// 会員仮登録情報を削除する。
+		deleteTempMemberInfo(memberInfo);
+
+		// 会員登録のお知らせメールを送信する。
+		sendRegMemberMail(memberInfo);
+		
+		// 友達紹介紹介状態を更新する。
+		updateInviteInfo(memberInfo, inviteId, linkKey, titleId);
+		
+		return memberInfo.getMemNum();
+	}
+	
+	/**
+	 * 広告情報を検索する。
+	 * @param advertNum 広告番号
+	 * @return 広告情報
+	 * @throws LogicException
+	 */
+	private AdvertMst getAdvertMst(Integer advertNum) {
+
+		AdvertMst advert = null;
+		
+		if (advertNum != null) {
+			
+			// 広告代理マスタの存在性チェック
+			advert = advertMstDao.selectAdvertByKey(advertNum);
 		}
+		
+		return advert;
+	}
+	
+	/**
+	 * 会員情報を登録する。
+	 * @param memberInfo 会員情報
+	 * @param advert 広告
+	 * @throws LogicException
+	 */
+	private void saveMemberInfoOnly(MemberInfo memberInfo, AdvertMst advert) {
+				
 		// 会員属性：通常会員
 		memberInfo.setMemAtbtCd(PortalConstants.MemberAtbtCd.NORMAL);
+		// 会員種別：ゲームイフ会員　或いは　アフィリエイト広告会員
+		memberInfo.setMemKindCd(advert == null ? PortalConstants.MemberKindCd.GAMEIF : getMemKindByAdvertNum(advert.getAdvertNum()));
 		// 会員有効区別：有効会員
 		memberInfo.setMemValidYNCd(PortalConstants.MemberValidYNCd.VALID);
 		// メルマガ対象：対象会員
 		memberInfo.setMailmagObjCd(PortalConstants.YES);
 		// メルマガ配信希望
 		memberInfo.setMailmagReqCd(PortalConstants.YES);
-
-		// パスワードと秘密質問をMD5アルゴリズムで暗号化する。
-		memberInfo.setMemPwd(tempMemberInfo.getMemPwd());
 		
 		memberInfo.setEntryDate(new Date());
 		memberInfo.setEntryIp(ContextUtil.getClientIP());
@@ -208,87 +283,137 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		memberInfoDao.save(memberInfo);
 
 		// 会員番号取得のため、アカウントＩＤで会員情報を検索する。
-		MemberInfo newMemberInfo = memberInfoDao.selectByMemId(memberInfo.getMemId());
+		MemberInfo entriedMemberInfo = memberInfoDao.selectByMemId(memberInfo.getMemId());
 		
-		memberInfo.setMemNum(newMemberInfo.getMemNum());
-		newMemNum = newMemberInfo.getMemNum();
+		memberInfo.setMemNum(entriedMemberInfo.getMemNum());
+	}
+	
+	/**
+	 * 会員ログイン情報を登録する。
+	 * @param memberInfo 会員情報
+	 * @throws LogicException
+	 */
+	private void saveMemberLoginInfoOnly(MemberInfo memberInfo) {
+
+		MemberLoginInfo memberLoginInfo = new MemberLoginInfo();
+		
+		memberLoginInfo.setMemNum(memberInfo.getMemNum());
+		memberLoginInfo.setMemId(memberInfo.getMemId());
+		memberLoginInfo.setNickName(memberInfo.getNickName());
+		memberLoginInfo.setMemPwd(memberInfo.getMemPwd());
+		memberLoginInfo.setMemValidYNCd(memberInfo.getMemValidYNCd());
 
 		// 会員ログイン情報を登録する。
-		MemberLoginInfo memberLoginInfo = new MemberLoginInfo();
-		memberLoginInfo.setMemNum(newMemberInfo.getMemNum());
-		memberLoginInfo.setMemId(newMemberInfo.getMemId());
-		memberLoginInfo.setNickName(newMemberInfo.getNickName());
-		memberLoginInfo.setMemPwd(newMemberInfo.getMemPwd());
-		memberLoginInfo.setMemValidYNCd(newMemberInfo.getMemValidYNCd());
 		memberLoginInfoDao.save(memberLoginInfo);
+	}
+	
+	/**
+	 * 会員仮登録情報を削除する。
+	 * @param memberInfo 会員情報
+	 * @throws LogicException
+	 */
+	private void deleteTempMemberInfo(MemberInfo memberInfo) {
 		
-		// 広告代理から登録場合、情報を会員広告募集実績テーブルに登録する
+		tempMemberInfoDao.deleteByKey(memberInfo.getMemNum());
+	}
+	
+	/**
+	 * 会員登録広告実績情報を登録する。
+	 * @param memberInfo 会員情報
+	 * @param advert 広告
+	 * @throws LogicException
+	 */
+	private void saveAdvertActualInfo(MemberInfo memberInfo, AdvertMst advert) {
+
 		if (advert != null) {
+			
 			MemAdvertActualInfo memAdvertActualInfo = new MemAdvertActualInfo();
-			memAdvertActualInfo.setMemNum(newMemberInfo.getMemNum());
+			
+			memAdvertActualInfo.setMemNum(memberInfo.getMemNum());
 			memAdvertActualInfo.setAdvertNum(advert.getAdvertNum());
-			memAdvertActualInfo.setMemLoginDate(newMemberInfo.getEntryDate());
-			memAdvertActualInfo.setMemLoginIp(newMemberInfo.getEntryIp());
+			memAdvertActualInfo.setMemLoginDate(memberInfo.getEntryDate());
+			memAdvertActualInfo.setMemLoginIp(memberInfo.getEntryIp());
+			
+			// 会員広告募集実績テーブルに登録する
 			memAdvertActualInfoDao.save(memAdvertActualInfo);
 		}
+	}
+	
+	/**
+	 * 会員登録メールを送信する。
+	 * @param memberInfo 会員情報
+	 */
+	private void sendRegMemberMail(MemberInfo memberInfo) {
+
+		HashMap<String, String> props = new HashMap<String, String>();
+		props.put("memId", memberInfo.getMemId());
+		props.put("nickName", memberInfo.getNickName());
+		
+		// 会員登録お知らせメールを送信する。
+		templateMailer.sendAsyncMail(memberInfo.getMailPc(), "createMember", props);
+	}
+	
+	/**
+	 * 友達紹介関連情報を更新する。
+	 * @param memberInfo 会員情報
+	 * @param inviteId 友達紹介ID
+	 * @param linkKey リンク紹介キー
+	 * @param titleId タイトルID
+	 */
+	private void updateInviteInfo(MemberInfo memberInfo, Long inviteId, String linkKey, Integer titleId) {
 
 		Long parentMemNumMail = null;
 		Long parentMemNumLink = null;
 		
 		// メールで友達紹介する場合、紹介情報を更新する
-		parentMemNumMail = updateInviteInfo(tempMemberInfo.getInviteId(), newMemberInfo);
+		parentMemNumMail = updateInviteInfo(inviteId, memberInfo);
 		
 		// リンクで友達紹介する場合、紹介情報を保存する
-		parentMemNumLink = saveMemInviteLinkHist(tempMemberInfo, newMemberInfo);
+		parentMemNumLink = saveMemInviteLinkHist(linkKey, titleId, memberInfo);
 		
-		// 臨時会員情報を削除する
-		tempMemberInfoDao.deleteByKey(memNum);
-		
-
-		MemberInfo parentMember = null;
-		if (parentMemNumMail != null && parentMemNumLink == null) {
-			parentMember = new MemberInfo();
-			parentMember.setMemNum(parentMemNumMail);
-			parentMember = memberInfoDao.selectByKey(parentMember);
-			
-		} else if (parentMemNumMail == null && parentMemNumLink != null) {
-
-			parentMember = new MemberInfo();
-			parentMember.setMemNum(parentMemNumLink);
-			parentMember = memberInfoDao.selectByKey(parentMember);
-			
-		} else if (parentMemNumMail != null && parentMemNumLink != null){
-
-			parentMember = new MemberInfo();
-			parentMember.setMemNum(parentMemNumMail);
-			parentMember = memberInfoDao.selectByKey(parentMember);
-		}
 		try {
-			// お知らせメールを送信する。
-			HashMap<String, String> props = new HashMap<String, String>();
-			props.put("memId", memberInfo.getMemId());
-			props.put("nickName", memberInfo.getNickName());
-			templateMailer.sendAsyncMail(memberInfo.getMailPc(), "createMember", props);
 			
-			// 友達登録完了のお知らせを送信する
+			MemberInfo parentMember = null;
+			
+			if (parentMemNumMail != null && parentMemNumLink == null) {
+				
+				parentMember = new MemberInfo();
+				parentMember.setMemNum(parentMemNumMail);
+				parentMember = memberInfoDao.selectByKey(parentMember);
+				
+			} else if (parentMemNumMail == null && parentMemNumLink != null) {
+
+				parentMember = new MemberInfo();
+				parentMember.setMemNum(parentMemNumLink);
+				parentMember = memberInfoDao.selectByKey(parentMember);
+				
+			} else if (parentMemNumMail != null && parentMemNumLink != null){
+
+				parentMember = new MemberInfo();
+				parentMember.setMemNum(parentMemNumMail);
+				parentMember = memberInfoDao.selectByKey(parentMember);
+			}
+			
 			if (parentMember != null) {
+				
 				HashMap<String, String> propsLogin = new HashMap<String, String>();
 				propsLogin.put("parentNickName", parentMember.getNickName());
 				propsLogin.put("childNickName", memberInfo.getNickName());
+
+				// 友達紹介者に会員登録お知らせメールを送信する。
 				templateMailer.sendAsyncMail(parentMember.getMailPc(), "friendLogin", propsLogin);
 			}
+			
 		} catch (Exception ex) {
+			
 			logger.error("error has occurred in sending createMember or friendLogin mail. ", ex);
 		}
-		
-		return newMemNum;
-		
 	}
 	
 	/**
-	 * 広告番号より、広告代理店の区別を取得する
+	 * 広告番号より、広告代理店の区別を取得する。
 	 * @param advertNum 広告番号
-	 * @return
+	 * @return 広告代理店の区別
 	 */
 	private String getMemKindByAdvertNum(Integer advertNum) {
 		
@@ -318,6 +443,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		
 		// 該当紹介情報をロックする
 		InviteInfo inviteInfo = inviteInfoDao.selectForUpdate(inviteId);
+		
 		if (inviteInfo != null && inviteInfo.getFriendCreateDate() == null) {
 			parentMemNum = inviteInfo.getMemNum();
 			// 登録済み
@@ -345,10 +471,9 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	 * @param tempMemberInfo 臨時会員情報
 	 * @param memberInfo 会員情報（新規登録会員）
 	 */
-	private Long saveMemInviteLinkHist(TempMemberInfo tempMemberInfo, MemberInfo memberInfo) {
+	private Long saveMemInviteLinkHist(String linkKey, Integer titleId, MemberInfo memberInfo) {
 		Long parentMemNum = null;
 		
-		String linkKey = tempMemberInfo.getLinkKey();
 		if (linkKey == null || linkKey.toString().trim().length() == 0) {
 			return parentMemNum;
 		}
@@ -361,7 +486,7 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 			InviteLinkHist inviteLinkHist = new InviteLinkHist();
 			inviteLinkHist.setMemNum(inviteLink.getMemNum());
 			inviteLinkHist.setChildMemNum(memberInfo.getMemNum());
-			inviteLinkHist.setTitleId(tempMemberInfo.getTitleId());
+			inviteLinkHist.setTitleId(titleId);
 			// 承認状態：「未承認」
 			inviteLinkHist.setApproveStatus(PortalConstants.ApproveStatus.NO_APPROVE);
 			//　紹介された友達は登録時に、紹介のクッキーを取得する
