@@ -145,4 +145,11 @@ public interface IMemberInfoBusinessLogic {
 			Integer advertNum,
 			String linkKey,
 			Integer titleId);
+
+	/**
+	 * 会員ＩＤより会員情報を取得する。
+	 * @param memId 会員ID
+	 * @return 会員情報
+	 */
+	public MemberInfo getMemberInfoByMemId(String memId);
 }
