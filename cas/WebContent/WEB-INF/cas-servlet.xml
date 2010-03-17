@@ -41,9 +41,13 @@
 			name="mappings">
 			<props>
 				<prop key="/login">loginController</prop>
-				<!-- 2009/10/4　李　追加 -->
+				<!-- 2009/10/04　李　追加 -->
             	<prop key="/remoteLogin">remoteLoginController</prop>
-				<!-- 2009/10/4　李　追加 -->
+				<!-- 2009/10/04　李　追加 -->
+				<!-- 2010/03/04　李　追加 -->
+            	<prop key="/openIDSelect">openIDSelectController</prop>
+            	<prop key="/openIDLogin">openIDLoginController</prop>
+				<!-- 2010/03/04　李　追加 -->
 			</props>
 		</property>
 		<property
@@ -179,6 +183,77 @@
 	    p:warnCookieGenerator-ref="warnCookieGenerator"
 	    p:ticketGrantingTicketCookieGenerator-ref="ticketGrantingTicketCookieGenerator" />
 	<!-- 2009/10/4　李　追加 -->
+	
+	<!-- 2010/03/14　李　追加 -->
+	<bean id="openIDSelectController"
+		class="org.springframework.webflow.executor.mvc.FlowController"
+		p:flowExecutor-ref="openIDSelectFlowExecutor"
+		p:defaultFlowId="openIDSelect-webflow">
+	<property name="argumentHandler">
+	<bean class="org.springframework.webflow.executor.support.RequestParameterFlowExecutorArgumentHandler"
+		p:flowExecutionKeyArgumentName="lt"
+		p:defaultFlowId="openIDSelect-webflow" />
+	</property>
+	</bean>
+	<flow:executor id="openIDSelectFlowExecutor" registry-ref="openIDSelectFlowRegistry">
+		<flow:execution-attributes>
+			<flow:alwaysRedirectOnPause value="false"/>
+		</flow:execution-attributes>
+	</flow:executor>
+	<flow:registry id="openIDSelectFlowRegistry">
+		<flow:location path="/WEB-INF/openIDSelect-webflow.xml"/>
+	</flow:registry>
+	<bean id="openIDSelectAction"
+	    class="org.jasig.cas.web.flow.OpenIDSelectAction"
+	    p:argumentExtractors-ref="argumentExtractors"
+	    p:openIDManager-ref="openIDManager"/>
+	
+	<bean id="openIDLoginController"
+			class="org.springframework.webflow.executor.mvc.FlowController"
+			p:flowExecutor-ref="openIDLoginFlowExecutor"
+			p:defaultFlowId="openIDLogin-webflow">
+		<property name="argumentHandler">
+		<bean class="org.springframework.webflow.executor.support.RequestParameterFlowExecutorArgumentHandler"
+			p:flowExecutionKeyArgumentName="lt"
+			p:defaultFlowId="openIDLogin-webflow" />
+		</property>
+	</bean>
+	<flow:executor id="openIDLoginFlowExecutor" registry-ref="openIDLoginFlowRegistry">
+		<flow:execution-attributes>
+			<flow:alwaysRedirectOnPause value="false"/>
+		</flow:execution-attributes>
+	</flow:executor>
+	<flow:registry id="openIDLoginFlowRegistry">
+		<flow:location path="/WEB-INF/openIDLogin-webflow.xml"/>
+	</flow:registry>
+	
+	<bean id="openIDLoginAction"
+	    class="org.jasig.cas.web.flow.OpenIDLoginAction"
+	    p:argumentExtractors-ref="argumentExtractors"
+	    p:warnCookieGenerator-ref="warnCookieGenerator"
+	    p:ticketGrantingTicketCookieGenerator-ref="ticketGrantingTicketCookieGenerator" />
+	 
+	<bean id="openIDManager"
+		class="org.expressme.openid.OpenIdManager"
+		scope="singleton"
+		p:realm="${openId.realm}"
+		p:returnTo="${openId.returnTo}" />
+		
+	<bean id="openIDAuthenticationViaFormAction" class="org.jasig.cas.web.flow.OpenIDAuthenticationViaFormAction"
+		p:centralAuthenticationService-ref="centralAuthenticationService"
+		p:warnCookieGenerator-ref="warnCookieGenerator"
+		p:formObjectName="credentials"
+		p:formObjectClass="org.jasig.cas.authentication.principal.OpenIDCredentials"
+	    p:openIDManager-ref="openIDManager"
+	    p:openIDEntryHandler-ref="openIDEntryHandler"
+	    p:entryTransKey="${openId.entryTransKey}"/>
+	
+	<bean id="openIDEntryHandler" class="org.jasig.cas.adaptors.jdbc.OpenIDEntryHandler">
+		<property name="dataSource" ref="casDataSource" />
+		<!-- ログイン情報検索ＳＱＬ-->
+		<property name="selMemInfoSql" value="SELECT mem_num AS userNo, nick_name AS nickName FROM member_info WHERE mem_id = ? AND mem_valid_yn_cd = '1'" />
+	</bean>
+	<!-- ▲ 2010-03-14 李 追加 -->
 
 	<bean id="proxyValidateController" class="org.jasig.cas.web.ServiceValidateController"
 		p:centralAuthenticationService-ref="centralAuthenticationService"

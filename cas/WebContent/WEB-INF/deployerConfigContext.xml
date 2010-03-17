@@ -71,8 +71,12 @@
 					| need to change this bean declaration (or add additional declarations) to declare a CredentialsToPrincipalResolver that supports the
 					| Credentials you are using.
 					+-->
-				<bean
-					class="org.jasig.cas.authentication.principal.UsernamePasswordCredentialsToPrincipalResolver" />
+				<bean class="org.jasig.cas.authentication.principal.UsernamePasswordCredentialsToPrincipalResolver" />
+				
+				<!-- ▼ 2010-03-14　李 追加 -->
+				<bean class="org.jasig.cas.authentication.principal.OpenIDCredentialsToPrincipalResolver" />
+				<!-- ▲ 2010-03-14　李 追加 -->
+				
 				<!--
 					| HttpBasedServiceCredentialsToPrincipalResolver supports HttpBasedCredentials.  It supports the CAS 2.0 approach of
 					| authenticating services by SSL callback, extracting the callback URL from the Credentials and representing it as a
@@ -81,8 +85,7 @@
 					| If you are representing services by something more or other than an HTTPS URL whereat they are able to
 					| receive a proxy callback, you will need to change this bean declaration (or add additional declarations).
 					+-->
-				<bean
-					class="org.jasig.cas.authentication.principal.HttpBasedServiceCredentialsToPrincipalResolver" />
+				<bean class="org.jasig.cas.authentication.principal.HttpBasedServiceCredentialsToPrincipalResolver" />
 			</list>
 		</property>
 
@@ -138,7 +141,14 @@
 					<property name="passwordEncoder" ref="gameifPasswordEncoder"/>
 				</bean>
 				<!-- ▲ 2009-09-11 李 追加 -->
-
+				
+				<!-- ▼ 2010-03-14 李 追加 -->
+				<bean id="openIDAuthHandler" class="org.jasig.cas.adaptors.jdbc.OpenIDAuthenticationHandler">
+					<property name="dataSource" ref="casDataSource" />
+					<!-- ログイン成功状態更新ＳＱＬ -->
+					<property name="successUpSql" value="UPDATE member_login_info SET login_date = ?, login_ip = ?, login_fail_cnt = 0 WHERE mem_id = lower(?)" />
+				</bean>
+				<!-- ▲ 2010-03-14 李 追加 -->
 			</list>
 		</property>
 	</bean>

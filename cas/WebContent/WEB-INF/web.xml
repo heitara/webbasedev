@@ -39,6 +39,10 @@
 		<param-value>http://localhost:8080/gameif</param-value>
 	</context-param>
 	<context-param>
+		<param-name>portalAuthTopUrl</param-name>
+		<param-value>https://auth.test.game-if.com:8443/cas</param-value>
+	</context-param>
+	<context-param>
 		<param-name>portalNewsTopUrl</param-name>
 		<param-value>http://localhost/info/index.php</param-value>
 	</context-param>
@@ -46,6 +50,19 @@
 		<param-name>comunityTopUrl</param-name>
 		<param-value>http://localhost:8080/forum</param-value>
 	</context-param>
+	
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>Shift-JIS</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
 	
 	<filter>
 		<filter-name>CAS Client Info Logging Filter</filter-name>
@@ -56,6 +73,11 @@
         <filter-name>springSecurityFilterChain</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
     </filter>
+    
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
     <filter-mapping>
       <filter-name>springSecurityFilterChain</filter-name>
@@ -224,6 +246,14 @@
 	<servlet-mapping>
 	    <servlet-name>cas</servlet-name>
 	    <url-pattern>/remoteLogin</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+	    <servlet-name>cas</servlet-name>
+	    <url-pattern>/openIDSelect</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+	    <servlet-name>cas</servlet-name>
+	    <url-pattern>/openIDLogin</url-pattern>
 	</servlet-mapping>
 
 	<session-config>
