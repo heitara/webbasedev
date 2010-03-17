@@ -9,8 +9,8 @@
 <head><title>トップページ</title>
 <script language="javascript" type="text/javascript">
 
-var imgs = new Array("bn_b_main_02.jpg", "bn_b_main_01.jpg");
-var urls = new Array("inputInvite.html", "chargePointSelect.html");
+var imgs = new Array("bn_b_main_04.jpg", "bn_b_main_02.jpg", "bn_b_main_01.jpg");
+var urls = new Array("http://www.webmoney.jp/campaign/2010spring_festa/daikangen/index.html", "inputInvite.html", "chargePointSelect.html");
 /*
 var imgs = new Array("bn_b_main_02.jpg", "bn_b_main_02.jpg", "bn_b_main_03.jpg");
 var urls = new Array("inputInvite.html", "inputInvite.html.html", "http://info.game-if.com/home/event/189-2010-01-30-19-39-39");
@@ -26,7 +26,17 @@ function changeBana() {
 	document.getElementById("bana_url").href = urls[chgIdx];
 }
 
-window.onload = function() { setInterval(changeBana, 5000); };
+function openAdvPage(atag) {
+
+	if (atag.href.indexOf(document.domain) >= 0) {
+		location = atag.href;
+	} else {
+		window.open(atag.href);
+	}
+	return false;
+}
+
+window.onload = function() { setInterval(changeBana, 4000); };
 </script>
 </head>
 <body>
@@ -35,7 +45,7 @@ window.onload = function() { setInterval(changeBana, 5000); };
 	<div class="rbox_side"></div><div class="rbox_round"></div><div class="rbox_main">
 		<div style="overflow:hidden;">
 			<!--画像-->
-			<a id="bana_url" href="inputInvite.html"><img id="bana_img" src="images/bn_b_main_02.jpg"/></a>
+			<a id="bana_url" href="http://www.webmoney.jp/campaign/2010spring_festa/daikangen/index.html" onclick="return openAdvPage(this);"><img id="bana_img" src="images/bn_b_main_04.jpg"/></a>
 		</div>
 	</div><div class="rbox_round"></div><div class="rbox_side"></div>
 </div>
