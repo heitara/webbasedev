@@ -7,6 +7,8 @@ import java.util.Date;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
+import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.views.freemarker.tags.SetModel;
 
 import com.gameif.common.action.ModelDrivenActionSupport;
 import com.gameif.common.exception.AuthorityException;
@@ -22,8 +24,7 @@ import com.gameif.portal.entity.TitleMst;
 import com.gameif.portal.helper.PortalProperties;
 import com.gameif.portal.util.ContextUtil;
 
-public class MemberInfoControlAction extends
-		ModelDrivenActionSupport<MemberInfo> {
+public class MemberInfoControlAction extends ModelDrivenActionSupport<MemberInfo> {
 
 	private static final long serialVersionUID = 171926714928924158L;
 
@@ -54,6 +55,10 @@ public class MemberInfoControlAction extends
 	
 	private String enc;
 	private String mailLoginUrl;
+	
+	private String openIdSign;
+	private String openIdReloginUrl;
+	private String openIdEntryTransKey;
 	
 	public String getKanjiNameForCheck() {
 
@@ -247,7 +252,7 @@ public class MemberInfoControlAction extends
 
 			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
 					+ ex.getMessage());
-
+			
 			return "warning";
 		}
 
@@ -349,6 +354,133 @@ public class MemberInfoControlAction extends
 		}
 
 		return SUCCESS;
+	}
+	
+
+
+	/**
+	 * OpenID会員情報入力画面に案内する。
+	 * 
+	 * @return　OpenID会員情報入力画面コード
+	 */
+	public String registryOpenID() {
+		
+		if (!checkOpenIDSign()) {
+			
+			return "warning";
+		}
+
+		if (memberInfoBusinessLogic.countMembersByMemId(getModel().getMemId()) > 0) {
+
+			try {
+
+				setModel(memberInfoBusinessLogic.getMemberInfoByMemId(getModel().getMemId()));
+				setOpenIDReloginUrl();
+				
+			} catch (UnsupportedEncodingException e) {
+
+				return "warning";
+			}
+			
+			return SUCCESS;
+		}
+
+		return INPUT;
+	}
+
+	/**
+	 * OpenID会員情報を登録する。
+	 * @return　OpenID会員登録完了画面コード
+	 */
+	public String createOpenID() {
+		
+		if (!checkOpenIDSign()) {
+			
+			return "warning";
+		}
+
+		if (memberInfoBusinessLogic.countMembersByMemId(getModel().getMemId()) > 0) {
+
+			try {
+
+				setModel(memberInfoBusinessLogic.getMemberInfoByMemId(getModel().getMemId()));
+				setOpenIDReloginUrl();
+				
+			} catch (UnsupportedEncodingException e) {
+
+				return "warning";
+			}
+			
+			return SUCCESS;
+		}
+		
+		Long memNum = memberInfoBusinessLogic.saveOpenIDMemberInfo(getModel(), getInviteId(), getAdvertNum(), getLinkKey(), getTitle());
+		
+		try {
+			
+			getModel().setMemNum(memNum);
+			setOpenIDReloginUrl();
+			
+		} catch (UnsupportedEncodingException e) {
+			
+			return "warning";
+		}
+		
+		return SUCCESS;
+	}
+	
+	/**
+	 * OpenID有効化完了後の認証サーバへの遷移URLを設定する。
+	 * @throws UnsupportedEncodingException
+	 */
+	private void setOpenIDReloginUrl() throws UnsupportedEncodingException {
+		
+		long time = System.currentTimeMillis();
+		
+		String sign = SecurityUtil.getMD5String(
+						new StringBuffer()
+						.append(getModel().getMemNum())
+						.append(getModel().getMemId())
+						.append(getModel().getNickName())
+						.append(time)
+						.append(openIdEntryTransKey)
+						.toString()
+				);
+		
+		openIdReloginUrl = new StringBuffer()
+						.append(ServletActionContext.getServletContext().getInitParameter("portalAuthTopUrl"))
+						.append("/openIDLogin?from=portal&memNum=")
+						.append(getModel().getMemNum())
+						.append("&memId=")
+						.append(URLEncoder.encode(getModel().getMemId(), "UTF-8"))
+						.append("&nickName=")
+						.append(URLEncoder.encode(getModel().getNickName(), "UTF-8"))
+						.append("&time=")
+						.append(time)
+						.append("&openIdSign=")
+						.append(sign)
+						.toString();
+	}
+	
+	/**
+	 * 認証サーバからの情報の改竄チェックを行う。
+	 * @return true:チェックOK、false:チェックNG
+	 */
+	private boolean checkOpenIDSign() {
+
+		boolean isCheckOk = false;
+
+		String signCrm = SecurityUtil.getMD5String(new StringBuffer()
+			.append(getModel().getMemId())
+			.append(openIdEntryTransKey)
+			.toString());
+		
+		if (openIdSign != null && openIdSign.equals(signCrm)) {
+			
+			isCheckOk = true;
+		}
+		
+		return isCheckOk;
 	}
 
 	public String getNewPwd() {
@@ -552,5 +684,29 @@ public class MemberInfoControlAction extends
 
 	public void setUrlAftLgnApplyTest(String urlAftLgnApplyTest) {
 		this.urlAftLgnApplyTest = urlAftLgnApplyTest;
+	}
+
+	public String getOpenIdSign() {
+		return openIdSign;
+	}
+
+	public void setOpenIdSign(String openIdSign) {
+		this.openIdSign = openIdSign;
+	}
+
+	public String getOpenIdReloginUrl() {
+		return openIdReloginUrl;
+	}
+
+	public void setOpenIdReloginUrl(String openIdReloginUrl) {
+		this.openIdReloginUrl = openIdReloginUrl;
+	}
+
+	public String getOpenIdEntryTransKey() {
+		return openIdEntryTransKey;
+	}
+
+	public void setOpenIdEntryTransKey(String openIdEntryTransKey) {
+		this.openIdEntryTransKey = openIdEntryTransKey;
 	}
 }
