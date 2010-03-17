@@ -48,6 +48,9 @@
 		<property name="urlAftLgnApplyTest">
 			<value>${memberInfoControlAction.urlAftLgn.applyTest}</value>
 		</property>
+		<property name="openIdEntryTransKey">
+			<value>${memberInfoControlAction.openIdEntryTransKey}</value>
+		</property>
 	</bean>
 	
 	<!-- inquiryInfoAction -->
