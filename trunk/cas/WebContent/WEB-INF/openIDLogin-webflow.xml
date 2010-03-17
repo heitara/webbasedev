@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+              http://www.springframework.org/schema/webflow
+              http://www.springframework.org/schema/webflow/spring-webflow-1.0.xsd">
+    <start-state idref="openIDLogin"/>
+
+    <action-state id="openIDLogin">
+        <action bean="openIDLoginAction" />
+        <transition on="doAuthenticateOpenID" to="doAuthenticateOpenID" />
+        <transition on="doAuthenticateOpenIDFromPortal" to="doAuthenticateOpenIDFromPortal" />
+		<transition on="gotoOpenIDSelect" to="gotoOpenIDSelect" />
+    </action-state>
+	
+	<action-state id="doAuthenticateOpenID">
+		<action bean="openIDAuthenticationViaFormAction" method="doAuthenticateOpenID"/>
+		<transition on="success" to="submit" />
+		<transition on="false" to="gotoOpenIDEntryPage" />
+		<transition on="error" to="gotoOpenIDSelect" />
+	</action-state>
+	
+	<action-state id="doAuthenticateOpenIDFromPortal">
+		<action bean="openIDAuthenticationViaFormAction" method="doAuthenticateOpenIDFromPortal"/>
+		<transition on="success" to="submit" />
+		<transition on="error" to="gotoOpenIDSelect" />
+	</action-state>
+	
+    <action-state id="submit">
+        <action bean="openIDAuthenticationViaFormAction" method="submit" />
+        <transition on="success" to="sendTicketGrantingTicket" />
+        <transition on="error" to="gotoOpenIDSelect" />
+    </action-state>
+	
+    <action-state id="sendTicketGrantingTicket">
+        <action bean="sendTicketGrantingTicketAction" />
+        <transition on="success" to="serviceCheck" />
+    </action-state>
+    
+    <decision-state id="serviceCheck">
+        <if test="${flowScope.service != null}" then="generateServiceTicket" else="viewGenericLoginSuccess" />
+    </decision-state>
+   
+    <action-state id="generateServiceTicket">
+        <action bean="generateServiceTicketAction" />
+		<transition on="success" to ="redirect" />
+        <transition on="error" to="viewLoginForm" />
+        <transition on="gateway" to="redirect" />
+    </action-state>    
+
+    <action-state id="gotoOpenIDSelect">
+        <action bean="openIDAuthenticationViaFormAction" method="prepareGotoOpenIDSelect"/>
+        <transition on="redirectToOpenIDSelectPage" to="redirectToOpenIDSelectPage" />
+    </action-state>
+    
+	<end-state id="redirectToOpenIDSelectPage" view="externalRedirect:${flowScope.openIDSelectPage}" />
+	
+	<end-state id="gotoOpenIDEntryPage" view="externalRedirect:${flowScope.openIDEntryPage}" />
+
+    <end-state id="redirect" view="bean:dynamicRedirectViewSelector" />
+   
+    <end-state id="viewServiceErrorView" view="viewServiceErrorView" />
+   
+    <end-state id="viewServiceSsoErrorView" view="viewServiceSsoErrorView" />
+    
+    <end-state id="viewGenericLoginSuccess" view="casLoginGenericSuccessView" />
+    
+    <global-transitions>
+        <transition to="viewServiceErrorView" on-exception="org.springframework.webflow.execution.repository.NoSuchFlowExecutionException" />
+        <transition to="viewServiceSsoErrorView" on-exception="org.jasig.cas.services.UnauthorizedSsoServiceException" />
+        <transition to="viewServiceErrorView" on-exception="org.jasig.cas.services.UnauthorizedServiceException" />
+    </global-transitions>
+</flow>
