@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0.2//EN" 
+	"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+
+<validators>
+	<field name="nickName">
+		<field-validator type="requiredstring" short-circuit="true">
+			<param name="trim">true</param>
+			<message><![CDATA[<br/>ニックネームを入力してください。]]></message>
+		</field-validator>
+		<field-validator type="regex" short-circuit="true">
+			<param name="expression"><![CDATA[([a-zA-Z0-9｡-ﾟぁ-ゞァ-ヶ一-龠Ａ-Ｚａ-ｚ]+)]]></param>
+			<message><![CDATA[<br/>ニックネームに記号或いはスペースが含まれています。]]></message>
+		</field-validator>
+		<field-validator type="fieldexpression">
+			<param name="expression"><![CDATA[(memberInfoBusinessLogic.countMembersByNickName(nickName) < 1)]]></param>
+			<message><![CDATA[<br/>入力されたニックネームは既に使われています。]]></message>
+		</field-validator>
+		<field-validator type="fieldexpression">
+			<param name="expression"><![CDATA[(nickName != memId)]]></param>
+			<message><![CDATA[<br/>ニックネームがアカウントＩＤと一致しないでください。]]></message>
+		</field-validator>
+	</field>
+    <field name="mailPc">
+        <field-validator type="requiredstring" short-circuit="true">
+			<param name="trim">true</param>
+        	<message><![CDATA[<br/>メールアドレスを入力してください。]]></message>
+        </field-validator>
+        <field-validator type="email" short-circuit="true">
+        	<message><![CDATA[<br/>メールアドレスが不正です。]]></message>
+        </field-validator>
+        <field-validator type="fieldexpression">
+        	<param name="expression"><![CDATA[(memberInfoBusinessLogic.countMembersByMailPc(mailPc) < 1)]]></param>
+        	<message><![CDATA[<br/>入力されたメールアドレスは既に使われています。]]></message>
+        </field-validator>
+    </field>
+</validators>
