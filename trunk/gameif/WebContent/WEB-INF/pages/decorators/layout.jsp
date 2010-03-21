@@ -202,6 +202,10 @@ response.setDateHeader("Expires",0);
 		<!-- ショットカットボタンエリア：終了 -->
 <%
 	}
+%>
+	<a href="http://www.webmoney.jp/service/walletplus/0318campaign/" target="_blank" style="margin-top:200px;"><img src="images/advert/wm_cp_1003_200X100.jpg"/></a>
+<%
+
 	/* =============================================== マイゲーム ===================================================== */
 	
 	List<MyTitle> myTitles = null;
