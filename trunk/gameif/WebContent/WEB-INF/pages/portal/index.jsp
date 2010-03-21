@@ -9,8 +9,8 @@
 <head><title>トップページ</title>
 <script language="javascript" type="text/javascript">
 
-var imgs = new Array("bn_b_main_04.jpg", "bn_b_main_02.jpg", "bn_b_main_01.jpg");
-var urls = new Array("http://www.webmoney.jp/campaign/2010spring_festa/daikangen/index.html", "inputInvite.html", "chargePointSelect.html");
+var imgs = new Array("bn_b_main_02.jpg", "bn_b_main_04.jpg", "bn_b_main_01.jpg");
+var urls = new Array("inputInvite.html", "http://www.webmoney.jp/campaign/2010spring_festa/daikangen/index.html", "chargePointSelect.html");
 /*
 var imgs = new Array("bn_b_main_02.jpg", "bn_b_main_02.jpg", "bn_b_main_03.jpg");
 var urls = new Array("inputInvite.html", "inputInvite.html.html", "http://info.game-if.com/home/event/189-2010-01-30-19-39-39");
@@ -45,7 +45,7 @@ window.onload = function() { setInterval(changeBana, 4000); };
 	<div class="rbox_side"></div><div class="rbox_round"></div><div class="rbox_main">
 		<div style="overflow:hidden;">
 			<!--画像-->
-			<a id="bana_url" href="http://www.webmoney.jp/campaign/2010spring_festa/daikangen/index.html" onclick="return openAdvPage(this);"><img id="bana_img" src="images/bn_b_main_04.jpg"/></a>
+			<a id="bana_url" href="inputInvite.html" onclick="return openAdvPage(this);"><img id="bana_img" src="images/bn_b_main_02.jpg"/></a>
 		</div>
 	</div><div class="rbox_round"></div><div class="rbox_side"></div>
 </div>
