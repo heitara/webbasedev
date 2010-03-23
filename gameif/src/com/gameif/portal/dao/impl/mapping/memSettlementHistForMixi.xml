@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="memSettlementHistForMixi">
+	<typeAlias alias="memSettlementHistForMixi" type="com.gameif.portal.entity.MemSettlementHistForMixi" />
+	
+	<resultMap class="com.gameif.portal.entity.MemSettlementHistForMixi" id="settleHistForMixiResult">
+		<result property="settlementNum" column="settlement_num" />
+		<result property="settlementTrnsNum" column="settlement_trns_num" />
+		<result property="settlementCode" column="settlement_code" />
+		<result property="memNum" column="mem_num" />
+		<result property="memAtbtCd" column="mem_atbt_cd" />
+		<result property="titleId" column="title_id" />
+		<result property="serverId" column="server_id" />
+		<result property="pointId" column="point_id" />
+		<result property="settlementDate" column="settlement_date" />
+		<result property="pointAmount" column="point_amount" />
+		<result property="pointAmountAct" column="point_amount_act" />
+		<result property="settlementLog" column="settlement_log"/>
+		<result property="settlementRemarks" column="settlement_remarks"/>
+		<result property="resResult" column="res_result"/>
+		<result property="resTrackingId" column="res_tracking_id"/>
+		<result property="resSpsCustNo" column="res_sps_cust_no"/>
+		<result property="resSpsPaymentNo" column="res_sps_payment_no"/>
+		<result property="resPayinfoKey" column="res_payinfo_key"/>
+		<result property="resPaymentDate" column="res_payment_date"/>
+		<result property="resErrCode" column="res_err_code"/>
+		<result property="resDate" column="res_date"/>
+		<result property="limitSecond" column="limit_second"/>
+		<result property="spsHashcode" column="sps_hashcode"/>
+		<result property="createdDate" column="created_date"/>
+		<result property="createdUser" column="created_user"/>
+		<result property="lastUpdateDate" column="last_update_date"/>
+		<result property="lastUpdateUser" column="last_update_user"/>
+	</resultMap>
+	
+	<insert id = "save" parameterClass="memSettlementHistForMixi"> 
+        <![CDATA[
+		INSERT INTO mem_settlement_hist_for_mixi
+			(settlement_trns_num,
+			settlement_code,
+			mem_num,
+			mem_atbt_cd,
+			title_id,
+			server_id,
+			point_id,
+			settlement_date,
+			point_amount,
+			point_amount_act,
+			settlement_log,
+			settlement_remarks,
+			res_result,
+			res_tracking_id,
+			res_sps_cust_no,
+			res_sps_payment_no,
+			res_payinfo_key,
+			res_payment_date,
+			res_err_code,
+			res_date,
+			limit_second,
+			sps_hashcode,
+			created_date,
+			created_user,
+			last_update_date,
+			last_update_user)
+		VALUES
+			(#settlementTrnsNum#,
+			#settlementCode#,
+			#memNum#,
+			#memAtbtCd#,
+			#titleId#,
+			#serverId#,
+			#pointId#,
+			#settlementDate#,
+			#pointAmount#,
+			#pointAmountAct#,
+			#settlementLog#,
+			#settlementRemarks#,
+			#resResult#,
+			#resTrackingId#,
+			#resSpsCustNo#,
+			#resSpsPaymentNo#,
+			#resPayinfoKey#,
+			#resPaymentDate#,
+			#resErrCode#,
+			#resDate#,
+			#limitSecond#,
+			#spsHashcode#,
+			#createdDate#,
+			#createdUser#,
+			#lastUpdateDate#,
+			#lastUpdateUser#)
+        ]]>
+		<selectKey resultClass="java.lang.Long" keyProperty="settlementNum">   
+        	<![CDATA[
+			SELECT last_insert_id() as settlement_num
+        	]]>
+		</selectKey>
+	</insert>
+
+</sqlMap>

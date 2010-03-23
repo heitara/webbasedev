@@ -26,5 +26,16 @@
 				#memLoginIp#)
         ]]>
 	</insert>
+	
+	<select id="selectMemAdvertActualInfoByMemNum" parameterClass="java.lang.Long" resultClass="int">
+      <![CDATA[
+        SELECT
+			advert_num
+		FROM
+			mem_advert_actual_info
+		WHERE
+			mem_num = #value#
+      ]]>
+	</select>
 
 </sqlMap>

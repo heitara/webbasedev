@@ -4,5 +4,5 @@ import com.gameif.common.dao.IBaseDao;
 import com.gameif.portal.entity.MemAdvertActualInfo;
 
 public interface IMemAdvertActualInfoDao extends IBaseDao<MemAdvertActualInfo, MemAdvertActualInfo> {
-
+	public int selectMemAdvertActualInfoByMemNum(Long memNum);
 }
