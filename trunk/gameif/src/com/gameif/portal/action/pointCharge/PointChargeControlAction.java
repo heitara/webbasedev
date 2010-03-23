@@ -17,6 +17,7 @@ import com.gameif.common.exception.LogicException;
 import com.gameif.common.exception.MaintenanceException;
 import com.gameif.portal.businesslogic.IMaintenanceBusinessLogic;
 import com.gameif.portal.businesslogic.IMasterInfoBusinessLogic;
+import com.gameif.portal.businesslogic.IMemberInfoForMixiBusinessLogic;
 import com.gameif.portal.businesslogic.IPointChargeBusinessLogic;
 import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.entity.MemSettlementHist;
@@ -36,6 +37,7 @@ public class PointChargeControlAction extends
 	private IMasterInfoBusinessLogic masterInfoBusinessLogic;
 	private IPointChargeBusinessLogic pointChargeBusinessLogic;
 	private IMaintenanceBusinessLogic maintenanceBusinessLogic;
+	private IMemberInfoForMixiBusinessLogic memberInfoForMixiBusinessLogic;
 
 	/**
 	 * @return the maintenanceBusinessLogic
@@ -58,6 +60,18 @@ public class PointChargeControlAction extends
 	private String spsKey;
 	private Long settleTrnsNum;
 	private List<MySettlementHist> settleHistList;
+	private Long memNum;
+	private Boolean forMixi;
+	
+	// For BigLobe
+	private String requestUrlForBigLobe;
+	private String GwShopCode;
+	private String GwGoodsCode;
+	private String GoodsName;
+	private String NextUrl;
+	private Long settlementTrnsNum;
+	private String Print;
+	private String GwUserId;
 
 	// 購入要求用パラメータ
 	private String pay_method;
@@ -121,6 +135,7 @@ public class PointChargeControlAction extends
 	 * @return
 	 */
 	public String chargeSettleSelectInit() {
+		
 		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.CHARGE)) {
 			return "maintenance";
 		}
@@ -150,7 +165,190 @@ public class PointChargeControlAction extends
 			return "warning";
 
 		}
+		
+		// BigLobe会員場合、BigLobeチャージ画面へ遷移する
+		int advertNum = pointChargeBusinessLogic.getMemAdvertActualInfoByMemNum(ContextUtil.getMemberNo());
+		if (advertNum == PortalConstants.AdvertNum.BIGLOBE) {
+			// 仮決済情報をテーブルに登録する
+			return saveSettleTrnsForBigLobe();
+		}
 		return "settleSelectInit";
+	}
+	
+	/**
+	 * 仮決済情報をテーブルに登録する
+	 * @return
+	 */
+	private String saveSettleTrnsForBigLobe() {
+		
+		MemSettlementTrns settlementTrns = new MemSettlementTrns();
+
+		// ゲーム
+		settlementTrns.setTitleId(this.getModel().getTitleId());
+		// サーバ
+		settlementTrns.setServerId(this.getModel().getServerId());
+		// チャージポイント
+		settlementTrns.setPointId(this.getModel().getPointId());
+		// 決済方法
+		settlementTrns.setSettlementCode(null);
+
+		try {
+
+			// 仮決済を登録する
+			int rtn = pointChargeBusinessLogic.createSettlementTrns(settlementTrns, false);
+			// 0:正常終了
+			if (rtn != 0) {
+				settleList = masterInfoBusinessLogic.getSettlementListForCharge();
+				switch (rtn) {
+				// ２：18歳未満の方は、一ヶ月3万円以上を決済することができません。
+				case 2:
+					addFieldError("errMessage", getText("charge.limitAmountWithAge"));
+					break;
+				}
+				return "pointSelect";
+			}
+		} catch (LogicException ex) {
+
+			logger.warn(ContextUtil.getRequestBaseInfo() + " | " + ex.getMessage());
+
+			return "warning";
+		}
+
+		setSettleTrnsNum(settlementTrns.getSettlementTrnsNum());
+
+		return "bigLobeDetail";
+	}
+	
+	/**
+	 * チャージ明細画面に案内する(BigLobe)
+	 * 
+	 * @return detail（チャージ明細画面に案内する、SBPSと連動する）
+	 */
+	public String blChargeDetail() {
+		
+		setSettleTrnsNum(Long.parseLong(ServletActionContext.getRequest().getParameter("settleTrnsNum")));
+
+		MemSettlementTrns settleTrns = pointChargeBusinessLogic.getSettlementTrnsByKey(getSettleTrnsNum());
+		
+		// 仮決済情報をログに出力する
+		outPutSettleTrnsLogForBigLobe(settleTrns);
+
+		// 入力パラメータ初期化
+		setSettlementTrnsNum(settleTrns.getSettlementTrnsNum());
+		
+		return "bigLobeDetailInit";
+		
+	}
+	
+	/**
+	 * 仮決済情報をログに出力する(For BigLobe)
+	 * @param settlementTrns
+	 * @return
+	 */
+	private void outPutSettleTrnsLogForBigLobe(MemSettlementTrns settlementTrns) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(ContextUtil.getRequestBaseInfo())
+		.append(" | External I/F--SettlementTrns Result For Biglobe: ")
+		.append("settlementTrnsNum=").append(settlementTrns.getSettlementTrnsNum()).append(",")
+		.append("custCode=").append(settlementTrns.getMemNum()).append(",")
+		.append("title=").append(settlementTrns.getTitleId()).append(",")
+		.append("serverId=").append(settlementTrns.getServerId()).append(",")
+		.append("itemId=").append(settlementTrns.getPointId()).append(",")
+		.append("pointAmount=").append(settlementTrns.getPointAmount()).append(",")
+		.append("pointAmountAct=").append(settlementTrns.getPointAmountAct()).append(",");
+		
+		SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+		sb.append("settlementDate=").append(df.format(settlementTrns.getSettlementDate()));
+		
+		logger.info(sb.toString());
+	}
+
+	/**
+	 * 購入結果を受取る(For BigLobe)
+	 * 
+	 * @return
+	 */
+	public void blChargeReceive() {
+		// 購入結果を取得する
+		String clientIp;
+		HttpServletRequest request = ServletActionContext.getRequest();
+		
+		setGwShopCode(request.getParameter("GwShopCode"));
+		setGwGoodsCode(request.getParameter("GwGoodsCode"));
+		setGwUserId(request.getParameter("GwUserId"));
+		setSettlementTrnsNum(Long.parseLong(request.getParameter("settlementTrnsNum")));
+		clientIp = ContextUtil.getClientIP();
+		
+		// ログ出力
+		StringBuilder sbLog = new StringBuilder();
+		sbLog.append(ContextUtil.getRequestBaseInfo())
+		.append(" | External I/F--Settlement Result For Biglobe: ")
+		.append("GwShopCode=").append(getGwShopCode()).append(",")
+		.append("GwGoodsCode=").append(getGwGoodsCode()).append(",")
+		.append("GwUserId=").append(getGwUserId()).append(",")
+		.append("settlementTrnsNum=").append(getSettlementTrnsNum()).append(",")
+		.append("clientIp=").append(clientIp);
+
+		logger.info(sbLog.toString());
+		
+		//クライアントIPチェック
+		if (!clientIp.equals(PortalConstants.BigLobeServerIp.IP_ONE) &&
+			!clientIp.equals(PortalConstants.BigLobeServerIp.IP_TWO) &&	
+			!clientIp.equals(PortalConstants.BigLobeServerIp.IP_THREE)) {
+			responseDataForBigLobe("NG");
+		}
+
+		try {
+			// 本決済を登録する
+			this.getModel().setSettlementTrnsNum(getSettlementTrnsNum());
+			this.getModel().setSettlementRemarks(sbLog.toString());
+			pointChargeBusinessLogic.createSettlementHist(this.getModel());
+			responseDataForBigLobe("OK");
+		} catch (Exception ex) {
+			
+			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
+					+ ex.getMessage());
+
+			responseDataForBigLobe("NG");
+		}
+
+		return;
+	}
+	
+	/**
+	 * 決済結果をBigLobeへレスポンスする
+	 * @param resultStatus
+	 * @param errMsg
+	 */
+	private void responseDataForBigLobe(String result) {
+		HttpServletResponse response = ServletActionContext.getResponse();
+		try {
+			response.setContentType("text/csv; charset=Shift_JIS");
+			response.setCharacterEncoding("Shift_JIS");
+			response.setHeader("X-BLRETSTAT", result);
+			response.getWriter().println();
+		}
+		catch (Exception ex) {
+			logger.warn(ContextUtil.getRequestBaseInfo() + " | " + ex.getMessage());	
+		}
+	}
+	
+	/**
+	 * 決済完了画面に案内する
+	 * 
+	 * @return
+	 */
+	public String blChargeSuccess() {
+		return "bigLobeSuccess";
+	}
+	
+	/**
+	 * エラーが発生しました場合、エラー画面に案内する
+	 * 
+	 * @return
+	 */
+	public String blChargeError() {
+		return "bigLobeError";
 	}
 
 	/**
@@ -175,6 +373,8 @@ public class PointChargeControlAction extends
 	 * @return detail（チャージ明細画面に案内する）
 	 */
 	public String chargeSaveSettleTrns() {
+		setForMixi(false);
+		
 		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.CHARGE)) {
 			return "maintenance";
 		}
@@ -193,7 +393,7 @@ public class PointChargeControlAction extends
 		try {
 
 			// 仮決済を登録する
-			int rtn = pointChargeBusinessLogic.createSettlementTrns(settlementTrns);
+			int rtn = pointChargeBusinessLogic.createSettlementTrns(settlementTrns, getForMixi());
 			// 0:正常終了
 			if (rtn != 0) {
 				settleList = masterInfoBusinessLogic.getSettlementListForCharge();
@@ -255,9 +455,16 @@ public class PointChargeControlAction extends
 	 * @return
 	 */
 	private void outPutSettleTrnsLog(MemSettlementTrns settlementTrns) {
+		Boolean bForMixi;
+		if (settlementTrns.getSettlementLog().indexOf("ForMixi=true") > -1) {
+			bForMixi = true;
+		} else {
+			bForMixi = false;;
+		}
 		StringBuilder sb = new StringBuilder();
 		sb.append(ContextUtil.getRequestBaseInfo())
 		.append(" | External I/F--SettlementTrns Result: ")
+		.append("forMixi=").append(bForMixi.toString()).append(",")
 		.append("merchantId=").append(getMerchant_id()).append(",")
 		.append("serviceId=").append(getService_id()).append(",")
 		.append("orderId=").append(settlementTrns.getSettlementTrnsNum()).append(",")
@@ -790,6 +997,108 @@ public class PointChargeControlAction extends
 	}
 
 	/**
+	 * ポイントチャージ（ポイント選択）画面に案内する(for mixi)
+	 * 
+	 * @return
+	 */
+	public String chargePointSelectForMixi() {
+		// 会員の存在性チェック
+		if (!memberInfoForMixiBusinessLogic.checkIsExistForMixi(this.getMemNum())) {
+			return "warning";
+		}
+		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.CHARGE)) {
+			return "maintenance";
+		}
+		return "pointSelectForMixi";
+	}
+
+	/**
+	 * ポイントチャージ（決済方法選択）画面に案内する
+	 * 
+	 * @return
+	 */
+	public String chargeSettleSelectInitForMixi() {
+		
+		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.CHARGE)) {
+			return "maintenance";
+		}
+		
+		try {
+			// メンテナンスとCBTチェック
+			maintenanceBusinessLogic.maintenanceCheckByTitleId(this.getModel().getTitleId());
+		} catch (MaintenanceException mtEx) {
+			// メンテナンス
+			addFieldError("errMessage", getText("title.maintenance"));
+			return "pointSelectForMixi";
+		} catch (BetaTestException testEx) {
+			// テスト中
+			addFieldError("errMessage", getText("title.test"));
+			return "pointSelectForMixi";
+		} catch (LogicException lgex) {
+			logger.warn(ContextUtil.getRequestBaseInfo() + " | "
+					+ lgex.getMessage());
+			return "warning";
+
+		}
+		return "settleSelectInitForMixi";
+	}
+
+	/**
+	 * ポイントチャージ（決済方法選択）画面初期化
+	 * 
+	 * @return
+	 */
+	public String chargeSettleSelectForMixi() {
+		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.CHARGE)) {
+			return "maintenance";
+		}
+		// テスト会員の場合、すべての決済方法を取得する
+		// 上記以外の場合、稼動中の決済方法を取得する
+		settleList = masterInfoBusinessLogic.getSettlementListForCharge();
+
+		return "settleSelectForMixi";
+	}
+
+	/**
+	 * 仮決済を登録する
+	 * 
+	 * @return detail（チャージ明細画面に案内する）
+	 */
+	public String chargeSaveSettleTrnsForMixi() {
+		setForMixi(true);
+		if (maintenanceBusinessLogic.maintenanceCheckByFunctionCd(PortalConstants.FunctionCode.CHARGE)) {
+			return "maintenance";
+		}
+		
+		MemSettlementTrns settlementTrns = new MemSettlementTrns();
+
+		// ゲーム
+		settlementTrns.setTitleId(this.getModel().getTitleId());
+		// サーバ
+		settlementTrns.setServerId(this.getModel().getServerId());
+		// チャージポイント
+		settlementTrns.setPointId(this.getModel().getPointId());
+		// 決済方法
+		settlementTrns.setSettlementCode(this.getModel().getSettlementCode());
+
+		try {
+
+			// 仮決済を登録する
+			pointChargeBusinessLogic.createSettlementTrns(settlementTrns, getForMixi());
+			
+		} catch (LogicException ex) {
+
+			logger.warn(ContextUtil.getRequestBaseInfo() + " | " + ex.getMessage());
+
+			return "warning";
+		}
+
+		setSettleTrnsNum(settlementTrns.getSettlementTrnsNum());
+
+		return "detail";
+	}
+
+	/**
 	 * @return the masterInfoBusinessLogic
 	 */
 	public IMasterInfoBusinessLogic getMasterInfoBusinessLogic() {
@@ -822,6 +1131,21 @@ public class PointChargeControlAction extends
 	}
 
 	/**
+	 * @return the memberInfoForMixiBusinessLogic
+	 */
+	public IMemberInfoForMixiBusinessLogic getMemberInfoForMixiBusinessLogic() {
+		return memberInfoForMixiBusinessLogic;
+	}
+
+	/**
+	 * @param memberInfoForMixiBusinessLogic the memberInfoForMixiBusinessLogic to set
+	 */
+	public void setMemberInfoForMixiBusinessLogic(
+			IMemberInfoForMixiBusinessLogic memberInfoForMixiBusinessLogic) {
+		this.memberInfoForMixiBusinessLogic = memberInfoForMixiBusinessLogic;
+	}
+
+	/**
 	 * @return the settleList
 	 */
 	public List<SettlementMst> getSettleList() {
@@ -849,6 +1173,118 @@ public class PointChargeControlAction extends
 	 */
 	public void setRequestUrl(String requestUrl) {
 		this.requestUrl = requestUrl;
+	}
+
+	/**
+	 * @return the requestUrlForBigLobe
+	 */
+	public String getRequestUrlForBigLobe() {
+		return requestUrlForBigLobe;
+	}
+
+	/**
+	 * @param requestUrlForBigLobe the requestUrlForBigLobe to set
+	 */
+	public void setRequestUrlForBigLobe(String requestUrlForBigLobe) {
+		this.requestUrlForBigLobe = requestUrlForBigLobe;
+	}
+
+	/**
+	 * @return the gwShopCode
+	 */
+	public String getGwShopCode() {
+		return GwShopCode;
+	}
+
+	/**
+	 * @param gwShopCode the gwShopCode to set
+	 */
+	public void setGwShopCode(String gwShopCode) {
+		GwShopCode = gwShopCode;
+	}
+
+	/**
+	 * @return the gwGoodsCode
+	 */
+	public String getGwGoodsCode() {
+		return GwGoodsCode;
+	}
+
+	/**
+	 * @param gwGoodsCode the gwGoodsCode to set
+	 */
+	public void setGwGoodsCode(String gwGoodsCode) {
+		GwGoodsCode = gwGoodsCode;
+	}
+
+	/**
+	 * @return the goodsName
+	 */
+	public String getGoodsName() {
+		return GoodsName;
+	}
+
+	/**
+	 * @param goodsName the goodsName to set
+	 */
+	public void setGoodsName(String goodsName) {
+		GoodsName = goodsName;
+	}
+
+	/**
+	 * @return the gwUserId
+	 */
+	public String getGwUserId() {
+		return GwUserId;
+	}
+
+	/**
+	 * @param gwUserId the gwUserId to set
+	 */
+	public void setGwUserId(String gwUserId) {
+		GwUserId = gwUserId;
+	}
+
+	/**
+	 * @return the nextUrl
+	 */
+	public String getNextUrl() {
+		return NextUrl;
+	}
+
+	/**
+	 * @param nextUrl the nextUrl to set
+	 */
+	public void setNextUrl(String nextUrl) {
+		NextUrl = nextUrl;
+	}
+
+	/**
+	 * @return the settlementTrnsNum
+	 */
+	public Long getSettlementTrnsNum() {
+		return settlementTrnsNum;
+	}
+
+	/**
+	 * @param settlementTrnsNum the settlementTrnsNum to set
+	 */
+	public void setSettlementTrnsNum(Long settlementTrnsNum) {
+		this.settlementTrnsNum = settlementTrnsNum;
+	}
+
+	/**
+	 * @return the print
+	 */
+	public String getPrint() {
+		return Print;
+	}
+
+	/**
+	 * @param print the print to set
+	 */
+	public void setPrint(String print) {
+		Print = print;
 	}
 
 	/**
@@ -1478,6 +1914,34 @@ public class PointChargeControlAction extends
 	 */
 	public void setSettleHistList(List<MySettlementHist> settleHistList) {
 		this.settleHistList = settleHistList;
+	}
+
+	/**
+	 * @return the memNum
+	 */
+	public Long getMemNum() {
+		return memNum;
+	}
+
+	/**
+	 * @param memNum the memNum to set
+	 */
+	public void setMemNum(Long memNum) {
+		this.memNum = memNum;
+	}
+
+	/**
+	 * @return the forMixi
+	 */
+	public Boolean getForMixi() {
+		return forMixi;
+	}
+
+	/**
+	 * @param forMixi the forMixi to set
+	 */
+	public void setForMixi(Boolean forMixi) {
+		this.forMixi = forMixi;
 	}
 
 }
