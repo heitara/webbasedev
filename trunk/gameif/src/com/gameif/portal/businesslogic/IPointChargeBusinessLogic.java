@@ -15,7 +15,7 @@ public interface IPointChargeBusinessLogic {
 	 * 仮決済を登録する
 	 * @param settlementTrns 仮決済情報（必要な項目が格納されていること）
 	 */
-	public int createSettlementTrns(MemSettlementTrns settlementTrns) throws LogicException;
+	public int createSettlementTrns(MemSettlementTrns settlementTrns, Boolean forMixi) throws LogicException;
 	
 	public MemSettlementTrns getSettlementTrnsByKey(Long settleTrnsNum);
 
@@ -35,5 +35,7 @@ public interface IPointChargeBusinessLogic {
 	public Integer countPlayHist(Integer titleId);
 	
 	public List<MySettlementHist> getSettlementHistListByMemNum(Long memNum);
+	
+	public int getMemAdvertActualInfoByMemNum(Long memNum);
 
 }

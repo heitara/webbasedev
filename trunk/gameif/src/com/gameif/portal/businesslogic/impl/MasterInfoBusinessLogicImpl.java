@@ -144,6 +144,15 @@ public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	}
 	
 	/**
+	 * タイトルIDより、有効なサーバ情報を取得する(For Mixi)
+	 */
+	@Override
+	public List<ServerMst> getAllValidServerListForMixiByTitle(Integer titleId) {
+		
+		return serverMstDao.selectValidServerListForMixiByTitle(titleId);
+	}
+	
+	/**
 	 * キーより、紹介テンプレートを取得する
 	 */
 	@Override
