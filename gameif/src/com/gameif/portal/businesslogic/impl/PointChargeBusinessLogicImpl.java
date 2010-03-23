@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gameif.common.businesslogic.BaseBusinessLogic;
@@ -21,9 +22,12 @@ import com.gameif.portal.businesslogic.titleif.charge.ChargeParameter;
 import com.gameif.portal.businesslogic.titleif.charge.TitleCharge;
 import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.dao.IFunctionControlInfoDao;
+import com.gameif.portal.dao.IMemAdvertActualInfoDao;
 import com.gameif.portal.dao.IMemSettlementHistDao;
+import com.gameif.portal.dao.IMemSettlementHistForMixiDao;
 import com.gameif.portal.dao.IMemSettlementTrnsDao;
 import com.gameif.portal.dao.IMemberInfoDao;
+import com.gameif.portal.dao.IMemberInfoForMixiDao;
 import com.gameif.portal.dao.IPlayHistDao;
 import com.gameif.portal.dao.IPointMstDao;
 import com.gameif.portal.dao.IServerMstDao;
@@ -33,8 +37,10 @@ import com.gameif.portal.dao.IServicePointTypeMstDao;
 import com.gameif.portal.dao.ITitleMstDao;
 import com.gameif.portal.entity.FunctionControlInfo;
 import com.gameif.portal.entity.MemSettlementHist;
+import com.gameif.portal.entity.MemSettlementHistForMixi;
 import com.gameif.portal.entity.MemSettlementTrns;
 import com.gameif.portal.entity.MemberInfo;
+import com.gameif.portal.entity.MemberInfoForMixi;
 import com.gameif.portal.entity.MySettlementHist;
 import com.gameif.portal.entity.PointMst;
 import com.gameif.portal.entity.ServerMst;
@@ -66,6 +72,9 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 	private IPlayHistDao playHistDao;
 	private IServerMstDao serverMstDao;
 	private IFunctionControlInfoDao functionControlInfoDao;
+	private IMemberInfoForMixiDao memberInfoForMixiDao;
+	private IMemSettlementHistForMixiDao memSettlementHistForMixiDao;
+	private IMemAdvertActualInfoDao memAdvertActualInfoDao;
 	
 	// 有効期間
 	private Integer validDays;
@@ -81,88 +90,128 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 	 */
 	@Transactional
 	@Override
-	public int createSettlementTrns(MemSettlementTrns settlementTrns) throws LogicException {
+	public int createSettlementTrns(MemSettlementTrns settlementTrns, Boolean forMixi) throws LogicException {
 		
-		// 会員情報を取得する
-		MemberInfo memberInfo = new MemberInfo();
-		memberInfo.setMemNum(ContextUtil.getMemberNo());
-		memberInfo = memberInfoDao.selectByKey(memberInfo);
-		if (memberInfo == null) {
-
-			// データが存在しない
-			throw new DataNotExistsException("Data not exists.");
-		}
-
-		// チャージポイント情報を取得する
-		PointMst pointMst = new PointMst();
-		pointMst.setPointId(settlementTrns.getPointId());
-		pointMst = pointMstDao.selectByKey(pointMst);
-		if (pointMst == null) {
-
-			// データが存在しない
-			throw new DataNotExistsException("Data not exists.");
-		}
-
-		Date settleDate = new Date();
-		
-		// 会員生年月日が入力した場合
-		if (memberInfo.getBirthYmd() != null) {
-			Calendar c = Calendar.getInstance();
-			c.setTime(memberInfo.getBirthYmd());
-			// 会員生年月日　+　18年
-			c.add(Calendar.YEAR, 18);
-			Date ageDate = c.getTime();
-			// 18歳未満の方
-			if (ageDate.compareTo(settleDate) > 0 ) {
-				if ( settlementTrns.getSettlementCode().equals(PortalConstants.SettlementCode.CREDIT)) {
-					return 1;
-				} else {
-					// 最近一ヶ月間チャージするポイントを計算する
-					BigDecimal limitAmouont = memSettlementHistDao.selectAmountByMonth(null, ContextUtil.getMemberNo());
-					if (limitAmouont.add(pointMst.getPointAmountAct()).compareTo(limitAmountMin) > 0) {
-						return 2;
+		// ポータルからチャージの場合
+		if (!forMixi) {
+			// 会員情報を取得する
+			MemberInfo memberInfo = new MemberInfo();
+			memberInfo.setMemNum(ContextUtil.getMemberNo());
+			memberInfo = memberInfoDao.selectByKey(memberInfo);
+			if (memberInfo == null) {
+	
+				// データが存在しない
+				throw new DataNotExistsException("Data not exists.");
+			}
+	
+			// チャージポイント情報を取得する
+			PointMst pointMst = new PointMst();
+			pointMst.setPointId(settlementTrns.getPointId());
+			pointMst = pointMstDao.selectByKey(pointMst);
+			if (pointMst == null) {
+	
+				// データが存在しない
+				throw new DataNotExistsException("Data not exists.");
+			}
+	
+			Date settleDate = new Date();
+			
+			// 会員生年月日が入力した場合
+			if (memberInfo.getBirthYmd() != null) {
+				Calendar c = Calendar.getInstance();
+				c.setTime(memberInfo.getBirthYmd());
+				// 会員生年月日　+　18年
+				c.add(Calendar.YEAR, 18);
+				Date ageDate = c.getTime();
+				// 18歳未満の方
+				if (ageDate.compareTo(settleDate) > 0 ) {
+					if ( settlementTrns.getSettlementCode().equals(PortalConstants.SettlementCode.CREDIT)) {
+						return 1;
+					} else {
+						// 最近一ヶ月間チャージするポイントを計算する
+						BigDecimal limitAmouont = memSettlementHistDao.selectAmountByMonth(null, ContextUtil.getMemberNo());
+						if (limitAmouont.add(pointMst.getPointAmountAct()).compareTo(limitAmountMin) > 0) {
+							return 2;
+						}
 					}
 				}
 			}
-		}
-		
-		// クレジットカード決済の場合、限度額のチェックを行う
-		if (settlementTrns.getSettlementCode().equals(PortalConstants.SettlementCode.CREDIT)) {
-			// 最近一ヶ月間チャージするポイントを計算する
-			BigDecimal sumPointAmouont = memSettlementHistDao.selectAmountByMonth(PortalConstants.SettlementCode.CREDIT, ContextUtil.getMemberNo());
 			
-			Calendar c = Calendar.getInstance();
-			c.setTime(memberInfo.getEntryDate());
-			// 会員登録から30日間、
-			c.add(Calendar.DATE, 30);
-			Date loginDate = c.getTime();
-			
-			// 登録の31日目から、一ヶ月間に購入できるポイントの限度額が100,000です
-			if (loginDate.compareTo(settleDate) <= 0) {
-				if (sumPointAmouont.add(pointMst.getPointAmountAct()).compareTo(limitAmountMax) > 0) {
-					return 3;
-				}
-			// 登録からの30日間、一ヶ月間に購入できるポイントの限度額が30,000です
-			} else {
-				if (sumPointAmouont.add(pointMst.getPointAmountAct()).compareTo(limitAmountMin) > 0) {
-					return 4;
+			// クレジットカード決済の場合、限度額のチェックを行う
+			if (settlementTrns.getSettlementCode().equals(PortalConstants.SettlementCode.CREDIT)) {
+				// 最近一ヶ月間チャージするポイントを計算する
+				BigDecimal sumPointAmouont = memSettlementHistDao.selectAmountByMonth(PortalConstants.SettlementCode.CREDIT, ContextUtil.getMemberNo());
+				
+				Calendar c = Calendar.getInstance();
+				c.setTime(memberInfo.getEntryDate());
+				// 会員登録から30日間、
+				c.add(Calendar.DATE, 30);
+				Date loginDate = c.getTime();
+				
+				// 登録の31日目から、一ヶ月間に購入できるポイントの限度額が100,000です
+				if (loginDate.compareTo(settleDate) <= 0) {
+					if (sumPointAmouont.add(pointMst.getPointAmountAct()).compareTo(limitAmountMax) > 0) {
+						return 3;
+					}
+				// 登録からの30日間、一ヶ月間に購入できるポイントの限度額が30,000です
+				} else {
+					if (sumPointAmouont.add(pointMst.getPointAmountAct()).compareTo(limitAmountMin) > 0) {
+						return 4;
+					}
 				}
 			}
+			
+			// 仮決済を登録する
+			settlementTrns.setMemNum(memberInfo.getMemNum());
+			settlementTrns.setMemAtbtCd(memberInfo.getMemAtbtCd());
+			settlementTrns.setSettlementDate(settleDate);
+			settlementTrns.setPointAmount(pointMst.getPointAmount());
+			settlementTrns.setPointAmountAct(pointMst.getPointAmountAct());
+			settlementTrns.setSettlementLog(makeSettlementTrnsLog(settlementTrns, forMixi));
+			settlementTrns.setCreatedDate(settleDate);
+			settlementTrns.setCreatedUser(memberInfo.getMemNum().toString());
+			
+			memSettlementTrnsDao.save(settlementTrns);
+		
+			return 0;
+		// Mixiからチャージの場合
+		} else {
+			// 会員情報を取得する
+			MemberInfoForMixi member = new MemberInfoForMixi();
+			member.setMemNum(ContextUtil.getMemberNo());
+			member = memberInfoForMixiDao.selectByKey(member);
+			if (member == null) {
+	
+				// データが存在しない
+				throw new DataNotExistsException("Data not exists.");
+			}
+	
+			// チャージポイント情報を取得する
+			PointMst pointMst = new PointMst();
+			pointMst.setPointId(settlementTrns.getPointId());
+			pointMst = pointMstDao.selectByKey(pointMst);
+			if (pointMst == null) {
+	
+				// データが存在しない
+				throw new DataNotExistsException("Data not exists.");
+			}
+	
+			Date settleDate = new Date();
+			
+			// 仮決済を登録する
+			settlementTrns.setMemNum(member.getMemNum());
+			settlementTrns.setMemAtbtCd(member.getMemAtbtCd());
+			settlementTrns.setSettlementDate(settleDate);
+			settlementTrns.setPointAmount(pointMst.getPointAmount());
+			settlementTrns.setPointAmountAct(pointMst.getPointAmountAct());
+			settlementTrns.setSettlementLog(makeSettlementTrnsLog(settlementTrns, forMixi));
+			settlementTrns.setCreatedDate(settleDate);
+			settlementTrns.setCreatedUser(member.getMemNum().toString());
+			
+			memSettlementTrnsDao.save(settlementTrns);
+		
+			return 0;
 		}
-		
-		// 仮決済を登録する
-		settlementTrns.setMemNum(memberInfo.getMemNum());
-		settlementTrns.setMemAtbtCd(memberInfo.getMemAtbtCd());
-		settlementTrns.setSettlementDate(settleDate);
-		settlementTrns.setPointAmount(pointMst.getPointAmount());
-		settlementTrns.setPointAmountAct(pointMst.getPointAmountAct());
-		settlementTrns.setSettlementLog(makeSettlementTrnsLog(settlementTrns));
-		settlementTrns.setCreatedDate(settleDate);
-		settlementTrns.setCreatedUser(memberInfo.getMemNum().toString());
-		
-		memSettlementTrnsDao.save(settlementTrns);
-		
-		return 0;
 	}
 	
 	/**
@@ -170,8 +219,9 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 	 * @param settlementTrns 仮決済情報
 	 * @return
 	 */
-	private String makeSettlementTrnsLog(MemSettlementTrns settlementTrns) {
+	private String makeSettlementTrnsLog(MemSettlementTrns settlementTrns, Boolean forMixi) {
 		return new StringBuilder()
+		.append("ForMixi=").append(forMixi.toString()).append(",")
 		.append(settlementTrns.getSettlementCode()).append(",")
 		.append(settlementTrns.getMemNum()).append(",")
 		.append(settlementTrns.getMemAtbtCd()).append(",")
@@ -209,122 +259,229 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 			// データが存在しない
 			throw new SystemException("MemSettlementTrns Data not exists.");
 		}
+		
+		Boolean forMixi;
+		if (settleTrns.getSettlementLog() != null && settleTrns.getSettlementLog().indexOf("ForMixi=true") > -1) {
+			forMixi = true;
+		} else {
+			forMixi = false;
+		}
 
 		// 本決済を登録する
 		Date settlementDate = new Date();
-		
-		settlementHist.setSettlementTrnsNum(settleTrns.getSettlementTrnsNum());
-		settlementHist.setSettlementCode(settleTrns.getSettlementCode());
-		settlementHist.setMemNum(settleTrns.getMemNum());
-		settlementHist.setMemAtbtCd(settleTrns.getMemAtbtCd());
-		settlementHist.setTitleId(settleTrns.getTitleId());
-		settlementHist.setServerId(settleTrns.getServerId());
-		settlementHist.setPointId(settleTrns.getPointId());
-		settlementHist.setSettlementDate(settlementDate);
-		settlementHist.setPointAmount(settleTrns.getPointAmount());
-		settlementHist.setPointAmountAct(settleTrns.getPointAmountAct());
-		// ログ
-		settlementHist.setSettlementLog(makeSettlementLog(settlementHist));
-		settlementHist.setCreatedUser(settleTrns.getCreatedUser());
-		settlementHist.setCreatedDate(settlementDate);
-		settlementHist.setLastUpdateUser(settleTrns.getCreatedUser());
-		settlementHist.setLastUpdateDate(settlementDate);
 
-		memSettlementHistDao.save(settlementHist);
-
-		// 会員属性を更新する
-		MemberInfo member = memberInfoDao.selectForUpdate(settleTrns.getMemNum());
-		if (member == null) {
-
-			// データが存在しない
-			throw new SystemException("MemberInfo Data does not exist.");
-		}
-
-		// 会員属性：「一般会員」＝＞「課金会員」
-		if (member.getMemAtbtCd().equals(PortalConstants.MemberAtbtCd.NORMAL)) {
-			member.setMemAtbtCd(PortalConstants.MemberAtbtCd.CHARGE);
-			member.setLastUpdateDate(settlementDate);
-			member.setLastUpdateUser(settleTrns.getMemNum().toString());
+		// ポータルからチャージの場合
+		if (!forMixi) {
+			settlementHist.setSettlementTrnsNum(settleTrns.getSettlementTrnsNum());
+			settlementHist.setSettlementCode(settleTrns.getSettlementCode());
+			settlementHist.setMemNum(settleTrns.getMemNum());
+			settlementHist.setMemAtbtCd(settleTrns.getMemAtbtCd());
+			settlementHist.setTitleId(settleTrns.getTitleId());
+			settlementHist.setServerId(settleTrns.getServerId());
+			settlementHist.setPointId(settleTrns.getPointId());
+			settlementHist.setSettlementDate(settlementDate);
+			settlementHist.setPointAmount(settleTrns.getPointAmount());
+			settlementHist.setPointAmountAct(settleTrns.getPointAmountAct());
+			// ログ
+			settlementHist.setSettlementLog(makeSettlementLog(settlementHist));
+			settlementHist.setCreatedUser(settleTrns.getCreatedUser());
+			settlementHist.setCreatedDate(settlementDate);
+			settlementHist.setLastUpdateUser(settleTrns.getCreatedUser());
+			settlementHist.setLastUpdateDate(settlementDate);
 	
-			memberInfoDao.update(member); 
-		}
-
-		// 仮決済情報を削除する
-		memSettlementTrnsDao.deleteByKey(settleTrns.getSettlementTrnsNum());
+			memSettlementHistDao.save(settlementHist);
+	
+			// 会員属性を更新する
+			MemberInfo member = memberInfoDao.selectForUpdate(settleTrns.getMemNum());
+			if (member == null) {
+	
+				// データが存在しない
+				throw new SystemException("MemberInfo Data does not exist.");
+			}
+	
+			// 会員属性：「一般会員」＝＞「課金会員」
+			if (member.getMemAtbtCd().equals(PortalConstants.MemberAtbtCd.NORMAL)) {
+				member.setMemAtbtCd(PortalConstants.MemberAtbtCd.CHARGE);
+				member.setLastUpdateDate(settlementDate);
+				member.setLastUpdateUser(settleTrns.getMemNum().toString());
 		
-		FunctionControlInfo functionControlInfo = new FunctionControlInfo();
-		functionControlInfo.setFunctionCode(PortalConstants.FunctionCode.CHARGE);
-		functionControlInfo = functionControlInfoDao.selectByKey(functionControlInfo);
-		// チャージするときに、サービスポイント付与機能が開放の場合、
-		if (functionControlInfo != null && !functionControlInfo.getServiceStatus().equals(PortalConstants.FunctionServiceStatus.OFF)) {
-			// サービスポイントを贈与する
-			checkSettlementAmount(settlementHist, member, functionControlInfo);
-		}
-
-		// ポイントチャージ
-		ChargeParameter params = new ChargeParameter();
-		params.setMemNum(member.getMemNum());
-		params.setMemId(member.getMemId());
-		params.setOrderNo(settlementHist.getSettlementNum());
-		params.setTitleId(settleTrns.getTitleId());
-		params.setChargePoint(Integer.parseInt(settleTrns.getPointAmountAct().toString()));
-		params.setChargeDate(settlementDate);
-
-		ServerMst server = new ServerMst();
-		server.setTitleId(settleTrns.getTitleId());
-		server.setServerId(settleTrns.getServerId());
-		server = serverMstDao.selectForUpdate(server);
-		if (server == null) {
-
-			// データが存在しない
-			throw new SystemException("Server Data does not exist.");
+				memberInfoDao.update(member); 
+			}
+	
+			// 仮決済情報を削除する
+			memSettlementTrnsDao.deleteByKey(settleTrns.getSettlementTrnsNum());
 			
-		}
+			FunctionControlInfo functionControlInfo = new FunctionControlInfo();
+			functionControlInfo.setFunctionCode(PortalConstants.FunctionCode.CHARGE);
+			functionControlInfo = functionControlInfoDao.selectByKey(functionControlInfo);
+			// チャージするときに、サービスポイント付与機能が開放の場合、
+			if (functionControlInfo != null && !functionControlInfo.getServiceStatus().equals(PortalConstants.FunctionServiceStatus.OFF)) {
+				// サービスポイントを贈与する
+				checkSettlementAmount(settlementHist, member, functionControlInfo);
+			}
 
-		params.setChargeUrl(server.getChargeUrl());
-		params.setSpType(PortalConstants.ChargeSpType.ACCOUNT_POINT);
+			// ポイントチャージ
+			ChargeParameter params = new ChargeParameter();
+			params.setMemNum(member.getMemNum());
+			params.setMemId(member.getMemId());
+			params.setOrderNo(settlementHist.getSettlementNum());
+			params.setTitleId(settleTrns.getTitleId());
+			params.setChargePoint(Integer.parseInt(settleTrns.getPointAmountAct().toString()));
+			params.setChargeDate(settlementDate);
+
+			ServerMst server = new ServerMst();
+			server.setTitleId(settleTrns.getTitleId());
+			server.setServerId(settleTrns.getServerId());
+			server = serverMstDao.selectForUpdate(server);
+			if (server == null) {
+
+				// データが存在しない
+				throw new SystemException("Server Data does not exist.");
+				
+			}
+
+			params.setChargeUrl(server.getChargeUrl());
+			params.setSpType(PortalConstants.ChargeSpType.ACCOUNT_POINT);
+			
+			StringBuilder sb = new StringBuilder();
+			sb.append(ContextUtil.getRequestBaseInfo())
+			.append(" | External I/F--TitleCharge params: ")
+			.append("forMixi=").append(forMixi.toString()).append(",")
+			.append("memnum=").append(params.getMemNum()).append(",")
+			.append("memId=").append(params.getMemId()).append(",")
+			.append("orderNo=").append(params.getOrderNo()).append(",")
+			.append("titleId=").append(params.getTitleId()).append(",")
+			.append("chargePoint=").append(params.getChargePoint()).append(",")
+			.append("chargeDate=").append(params.getChargeDate()).append(",")
+			.append("chargeUrl=").append(params.getChargeUrl()).append(",")
+			.append("spType=").append(params.getSpType());
+			logger.info(sb.toString());
+			
+			// チャージを行う
+			int chargeRes = titleCharge.chargePoint(params);
+			if (chargeRes != ChargeConstants.Result.SUCCESS) {
+				
+				StringBuilder sbWarn = new StringBuilder();
+				sbWarn.append(ContextUtil.getRequestBaseInfo())
+				.append(" | External I/F--TitleCharge Result: ")
+				.append(chargeRes);
+				logger.warn(sbWarn.toString());
+				
+				throw new SystemException("Failed to charge.");
+			}
+
+			try {
+				// 招待メールを送信する。
+				HashMap<String, String> props = new HashMap<String, String>();
+				// 名前
+				props.put("nickName", member.getNickName());
+				// ゲーム
+				props.put("titleName", titleMstDao.selectNameById(settlementHist.getTitleId()));
+				// サーバ
+				props.put("serverName", server.getServerName());
+				// データID
+				props.put("point", settlementHist.getPointAmountAct().toString());
+				// 送信
+				templateMailer.sendAsyncMail(member.getMailPc(), "pointCharge", props, true);
+			} catch (Exception ex) {
+				logger.error("error has occurred in sending pointCharge mail. ", ex);
+			}
+
+		// Mixiチャージの場合
+		} else {
+			MemSettlementHistForMixi settlementHistForMixi = new MemSettlementHistForMixi(); 
+			
+			BeanUtils.copyProperties(settlementHist, settlementHistForMixi);
+			
+			settlementHistForMixi.setSettlementTrnsNum(settleTrns.getSettlementTrnsNum());
+			settlementHistForMixi.setSettlementCode(settleTrns.getSettlementCode());
+			settlementHistForMixi.setMemNum(settleTrns.getMemNum());
+			settlementHistForMixi.setMemAtbtCd(settleTrns.getMemAtbtCd());
+			settlementHistForMixi.setTitleId(settleTrns.getTitleId());
+			settlementHistForMixi.setServerId(settleTrns.getServerId());
+			settlementHistForMixi.setPointId(settleTrns.getPointId());
+			settlementHistForMixi.setSettlementDate(settlementDate);
+			settlementHistForMixi.setPointAmount(settleTrns.getPointAmount());
+			settlementHistForMixi.setPointAmountAct(settleTrns.getPointAmountAct());
+			// ログ
+			settlementHistForMixi.setSettlementLog(makeSettlementLog(settlementHist));
+			settlementHistForMixi.setCreatedUser(settleTrns.getCreatedUser());
+			settlementHistForMixi.setCreatedDate(settlementDate);
+			settlementHistForMixi.setLastUpdateUser(settleTrns.getCreatedUser());
+			settlementHistForMixi.setLastUpdateDate(settlementDate);
+	
+			memSettlementHistForMixiDao.save(settlementHistForMixi);
+	
+			// 会員属性を更新する
+			MemberInfoForMixi member = memberInfoForMixiDao.selectForUpdate(settleTrns.getMemNum());
+			if (member == null) {
+	
+				// データが存在しない
+				throw new SystemException("MemberInfoForMixi Data does not exist.");
+			}
+	
+			// 会員属性：「一般会員」＝＞「課金会員」
+			if (member.getMemAtbtCd().equals(PortalConstants.MemberAtbtCd.NORMAL)) {
+				member.setMemAtbtCd(PortalConstants.MemberAtbtCd.CHARGE);
+				member.setLastUpdateDate(settlementDate);
+				member.setLastUpdateUser(settleTrns.getMemNum().toString());
 		
-		StringBuilder sb = new StringBuilder();
-		sb.append(ContextUtil.getRequestBaseInfo())
-		.append(" | External I/F--TitleCharge params: ")
-		.append("memnum=").append(params.getMemNum()).append(",")
-		.append("memId=").append(params.getMemId()).append(",")
-		.append("orderNo=").append(params.getOrderNo()).append(",")
-		.append("titleId=").append(params.getTitleId()).append(",")
-		.append("chargePoint=").append(params.getChargePoint()).append(",")
-		.append("chargeDate=").append(params.getChargeDate()).append(",")
-		.append("chargeUrl=").append(params.getChargeUrl()).append(",")
-		.append("spType=").append(params.getSpType());
-		logger.info(sb.toString());
-		
-		// チャージを行う
-		int chargeRes = titleCharge.chargePoint(params);
-		if (chargeRes != ChargeConstants.Result.SUCCESS) {
-			
-			StringBuilder sbWarn = new StringBuilder();
-			sbWarn.append(ContextUtil.getRequestBaseInfo())
-			.append(" | External I/F--TitleCharge Result: ")
-			.append(chargeRes);
-			logger.warn(sbWarn.toString());
-			
-			throw new SystemException("Failed to charge.");
-		}
+				memberInfoForMixiDao.update(member); 
+			}
+	
+			// 仮決済情報を削除する
+			memSettlementTrnsDao.deleteByKey(settleTrns.getSettlementTrnsNum());
 
-		try {
-			// 招待メールを送信する。
-			HashMap<String, String> props = new HashMap<String, String>();
-			// 名前
-			props.put("nickName", member.getNickName());
-			// ゲーム
-			props.put("titleName", titleMstDao.selectNameById(settlementHist.getTitleId()));
-			// サーバ
-			props.put("serverName", server.getServerName());
-			// データID
-			props.put("point", settlementHist.getPointAmountAct().toString());
-			// 送信
-			templateMailer.sendAsyncMail(member.getMailPc(), "pointCharge", props, true);
-		} catch (Exception ex) {
-			logger.error("error has occurred in sending pointCharge mail. ", ex);
+			// ポイントチャージ
+			ChargeParameter params = new ChargeParameter();
+			params.setMemNum(member.getMemNum());
+			params.setMemId(member.getMemId());
+			params.setOrderNo(settlementHist.getSettlementNum());
+			params.setTitleId(settleTrns.getTitleId());
+			params.setChargePoint(Integer.parseInt(settleTrns.getPointAmountAct().toString()));
+			params.setChargeDate(settlementDate);
+
+			ServerMst server = new ServerMst();
+			server.setTitleId(settleTrns.getTitleId());
+			server.setServerId(settleTrns.getServerId());
+			server = serverMstDao.selectForUpdate(server);
+			if (server == null) {
+
+				// データが存在しない
+				throw new SystemException("Server Data does not exist.");
+				
+			}
+
+			params.setChargeUrl(server.getChargeUrl());
+			params.setSpType(PortalConstants.ChargeSpType.ACCOUNT_POINT);
+			
+			StringBuilder sb = new StringBuilder();
+			sb.append(ContextUtil.getRequestBaseInfo())
+			.append(" | External I/F--TitleCharge params: ")
+			.append("forMixi=").append(forMixi.toString()).append(",")
+			.append("memnum=").append(params.getMemNum()).append(",")
+			.append("memId=").append(params.getMemId()).append(",")
+			.append("orderNo=").append(params.getOrderNo()).append(",")
+			.append("titleId=").append(params.getTitleId()).append(",")
+			.append("chargePoint=").append(params.getChargePoint()).append(",")
+			.append("chargeDate=").append(params.getChargeDate()).append(",")
+			.append("chargeUrl=").append(params.getChargeUrl()).append(",")
+			.append("spType=").append(params.getSpType());
+			logger.info(sb.toString());
+			
+			// チャージを行う
+			int chargeRes = titleCharge.chargePoint(params);
+			if (chargeRes != ChargeConstants.Result.SUCCESS) {
+				
+				StringBuilder sbWarn = new StringBuilder();
+				sbWarn.append(ContextUtil.getRequestBaseInfo())
+				.append(" | External I/F--TitleCharge Result: ")
+				.append(chargeRes);
+				logger.warn(sbWarn.toString());
+				
+				throw new SystemException("Failed to charge.");
+			}
+			
 		}
 
 	}
@@ -489,6 +646,11 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 	@Override
 	public List<MySettlementHist> getSettlementHistListByMemNum(Long memNum) {
 		return memSettlementHistDao.selectSettlementHistListByMemNum(memNum);
+	}
+
+	@Override
+	public int getMemAdvertActualInfoByMemNum(Long memNum) {
+		return memAdvertActualInfoDao.selectMemAdvertActualInfoByMemNum(memNum);
 	}
 
 	/**
@@ -683,6 +845,50 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements
 	public void setFunctionControlInfoDao(
 			IFunctionControlInfoDao functionControlInfoDao) {
 		this.functionControlInfoDao = functionControlInfoDao;
+	}
+
+	/**
+	 * @return the memberInfoForMixiDao
+	 */
+	public IMemberInfoForMixiDao getMemberInfoForMixiDao() {
+		return memberInfoForMixiDao;
+	}
+
+	/**
+	 * @param memberInfoForMixiDao the memberInfoForMixiDao to set
+	 */
+	public void setMemberInfoForMixiDao(IMemberInfoForMixiDao memberInfoForMixiDao) {
+		this.memberInfoForMixiDao = memberInfoForMixiDao;
+	}
+
+	/**
+	 * @return the memSettlementHistForMixiDao
+	 */
+	public IMemSettlementHistForMixiDao getMemSettlementHistForMixiDao() {
+		return memSettlementHistForMixiDao;
+	}
+
+	/**
+	 * @param memSettlementHistForMixiDao the memSettlementHistForMixiDao to set
+	 */
+	public void setMemSettlementHistForMixiDao(
+			IMemSettlementHistForMixiDao memSettlementHistForMixiDao) {
+		this.memSettlementHistForMixiDao = memSettlementHistForMixiDao;
+	}
+
+	/**
+	 * @return the memAdvertActualInfoDao
+	 */
+	public IMemAdvertActualInfoDao getMemAdvertActualInfoDao() {
+		return memAdvertActualInfoDao;
+	}
+
+	/**
+	 * @param memAdvertActualInfoDao the memAdvertActualInfoDao to set
+	 */
+	public void setMemAdvertActualInfoDao(
+			IMemAdvertActualInfoDao memAdvertActualInfoDao) {
+		this.memAdvertActualInfoDao = memAdvertActualInfoDao;
 	}
 
 	/**

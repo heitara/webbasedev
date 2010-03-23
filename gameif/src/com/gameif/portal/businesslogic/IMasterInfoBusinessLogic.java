@@ -28,6 +28,7 @@ public interface IMasterInfoBusinessLogic {
 	public ServerMst getServerByDomain(String domain);
 	public List<ServerMst> getAllValidServerList();
 	public List<ServerMst> getAllValidServerListByTitle(Integer titleId);
+	public List<ServerMst> getAllValidServerListForMixiByTitle(Integer titleId);
 	
 	public List<PointMst> getAllValidPointListByTitle(Integer titleId);
 	public List<SettlementMst> getAllSettlementList();
