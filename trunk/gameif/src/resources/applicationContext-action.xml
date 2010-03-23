@@ -194,6 +194,18 @@
 		<property name="limit_second">
 			<value>${pointChargeControlAction.limit_second}</value>
 		</property>
+		<!-- リクエスト先URL（For　Biglobe） -->
+		<property name="requestUrlForBigLobe">
+			<value>${pointChargeControlAction.requestUrlForBigLobe}</value>
+		</property>
+		<!-- ショップコード（For　Biglobe） -->
+		<property name="gwShopCode">
+			<value>${pointChargeControlAction.GwShopCode}</value>
+		</property>
+		<!-- 商品コード（For　Biglobe） -->
+		<property name="gwGoodsCode">
+			<value>${pointChargeControlAction.GwGoodsCode}</value>
+		</property>
 		
 		<property name="masterInfoBusinessLogic">
 			<ref bean="masterInfoBusinessLogic" />
@@ -288,6 +300,23 @@
 			<ref bean="titleEntry" />
 		</property>
 	</bean>
+	
+	<!-- serverSelectControlAction -->
+	<bean id="serverSelectControlAction" class="com.gameif.portal.action.mixi.ServerSelectControlAction" scope="prototype">
+		<property name="memberInfoForMixiBusinessLogic">
+			<ref bean="memberInfoForMixiBusinessLogic" />
+		</property>
+	</bean>
+	
+	<!-- mixiControlAction -->
+	<bean id="mixiControlAction" class="com.gameif.portal.action.mixi.MixiControlAction" scope="prototype">
+		<property name="memberInfoForMixiBusinessLogic">
+			<ref bean="memberInfoForMixiBusinessLogic" />
+		</property>
+	</bean>
+	
+	<!-- mixiSignedFetchVerifyAction -->
+	<bean id="mixiSignedFetchVerifyAction" class="com.gameif.portal.action.mixi.MixiSignedFetchVerifyAction" scope="prototype"/>
 	
 	<!-- loginStatusProxyAction -->
 	<bean id="loginStatusProxyAction" class="com.gameif.portal.action.menu.LoginStatusProxyAction" scope="prototype" />
