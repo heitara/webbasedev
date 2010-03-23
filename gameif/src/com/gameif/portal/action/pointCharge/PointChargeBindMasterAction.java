@@ -24,6 +24,18 @@ public class PointChargeBindMasterAction {
 		pointList = masterInfoBusinessLogic.getAllValidPointListByTitle(titleId);
 		return "success";
 	}
+
+	/**
+	 * タイトルIDにより、有効なサーバ情報とポイント情報を取得する
+	 * @return
+	 */
+	public String bindServerAndPointForMixi() {
+		// サーバ情報
+		serverList = masterInfoBusinessLogic.getAllValidServerListForMixiByTitle(titleId);
+		// ポイント情報
+		pointList = masterInfoBusinessLogic.getAllValidPointListByTitle(titleId);
+		return "success";
+	}
 	
 	/**
 	 * タイトルIDにより、有効なサーバ情報とサービスポイントの残高を取得する
