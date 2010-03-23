@@ -14,6 +14,7 @@ public class ServerMst extends BaseEntity {
 	private Date serviceStartDate;
 	private Date serviceEndDate;
 	private String serviceStatus;
+	private String forMixi;
 	private String serverDomain;
 	private String playUrl;
 	private String chargeUrl;
@@ -81,6 +82,21 @@ public class ServerMst extends BaseEntity {
 	public void setServiceStatus(String serviceStatus) {
 		this.serviceStatus = serviceStatus;
 	}
+	
+	/**
+	 * @return the forMixi
+	 */
+	public String getForMixi() {
+		return forMixi;
+	}
+	
+	/**
+	 * @param forMixi the forMixi to set
+	 */
+	public void setForMixi(String forMixi) {
+		this.forMixi = forMixi;
+	}
+	
 	public String getServerDomain() {
 		return serverDomain;
 	}
