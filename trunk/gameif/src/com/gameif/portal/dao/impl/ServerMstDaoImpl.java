@@ -22,6 +22,13 @@ public class ServerMstDaoImpl extends
 		
 		return getSqlMapClientTemplate().queryForList(namespace + ".selectValidServerListByTitle", titleId);
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ServerMst> selectValidServerListForMixiByTitle(Integer titleId) {
+		
+		return getSqlMapClientTemplate().queryForList(namespace + ".selectValidServerListForMixiByTitle", titleId);
+	}
 	
 	@Override
 	public ServerMst selectServerByDomain(String domain) {
@@ -33,5 +40,12 @@ public class ServerMstDaoImpl extends
 	public ServerMst selectForUpdate(ServerMst serverMst) {
 		
 		return (ServerMst)getSqlMapClientTemplate().queryForObject(namespace + ".selectForUpdate", serverMst);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ServerMst> selectServersListForMixi(Integer titleId) {
+		
+		return getSqlMapClientTemplate().queryForList(namespace + ".selectServersListForMixi", titleId);
 	}
 }
