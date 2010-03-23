@@ -232,6 +232,12 @@
 		<property name="functionControlInfoDao">
 			<ref bean="functionControlInfoDao" />
 		</property>
+		<property name="memberInfoForMixiDao">
+			<ref bean="memberInfoForMixiDao" />
+		</property>
+		<property name="memAdvertActualInfoDao">
+			<ref bean="memAdvertActualInfoDao" />
+		</property>
 	</bean>
 	
 	<!-- maintenanceBusinessLogic -->
@@ -336,6 +342,17 @@
 		</property>
 		<property name="ticketGiveHistDao">
 			<ref bean="ticketGiveHistDao" />
+		</property>
+	</bean>
+	
+	<!-- memberInfoForMixiBusinessLogic -->
+	<bean id="memberInfoForMixiBusinessLogic"
+		class="com.gameif.portal.businesslogic.impl.MemberInfoForMixiBusinessLogicImpl">
+		<property name="serverMstDao">
+			<ref bean="serverMstDao" />
+		</property>
+		<property name="memberInfoForMixiDao">
+			<ref bean="memberInfoForMixiDao" />
 		</property>
 	</bean>
 </beans>

@@ -128,6 +128,13 @@
 		</property>
 	</bean>
 	
+	<!-- memSettlementHistForMixiDao -->
+	<bean id="memSettlementHistForMixiDao" class="com.gameif.portal.dao.impl.MemSettlementHistForMixiDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>memSettlementHistForMixi</value>
+		</property>
+	</bean>
+	
 	<!-- memSettlementTrnsDao -->
 	<bean id="memSettlementTrnsDao" class="com.gameif.portal.dao.impl.MemSettlementTrnsDaoImpl" parent="baseDao">
 		<property name="namespace">
@@ -307,6 +314,13 @@
 	<bean id="functionControlInfoDao" class="com.gameif.portal.dao.impl.FunctionControlInfoDaoImpl" parent="baseDao">
 		<property name="namespace">
 			<value>functionControlInfo</value>
+		</property>
+	</bean>
+	
+	<!-- memberInfoForMixiDao -->
+	<bean id="memberInfoForMixiDao" class="com.gameif.portal.dao.impl.MemberInfoForMixiDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>memberInfoForMixi</value>
 		</property>
 	</bean>
 </beans>
