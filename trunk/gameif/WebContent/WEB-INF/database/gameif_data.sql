@@ -187,27 +187,46 @@ INSERT INTO `media_mst` (`media_num`, `media_name`, `media_kind_num`, `manager_t
 (3, '4Gamer.net', 1, '1', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
 (4, 'OnlineGamer', 1, '1', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
 (5, 'OnlineGameZoom', 1, '1', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
-(6, 'Facebook', 2, '1', '2009-12-18 22:10:19', 'lee', '2009-12-18 22:10:24', 'lee');
+(6, 'Facebook', 2, '1', '2009-12-18 22:10:19', 'lee', '2009-12-18 22:10:24', 'lee'),
+(7, 'Youtubeアニメ無料動画', 4, '1', '2009-12-27 20:34:03', 'lee', '2009-12-27 20:34:07', 'lee'),
+(8, '無料動画アニメスクープ', 4, '1', '2009-12-27 20:34:54', 'lee', '2009-12-27 20:35:00', 'lee'),
+(9, 'ウェブマネー', 9, '1', '2010-02-16 23:48:15', 'lee', '2010-02-16 23:48:15', 'lee'),
+(10, 'プチゲーム', 1, '1', '2010-02-18 12:05:23', 'lee', '2010-02-18 12:05:27', 'lee'),
+(11, 'Biglobe', 6, '1', '2010-03-26 12:05:23', 'lee', '2010-03-26 12:05:27', 'lee');
+
 
 TRUNCATE TABLE `advert_agency_mst`;
 INSERT INTO `advert_agency_mst` (`advert_agency_num`, `advert_agency_name`, `advert_agency_type`, `created_date`, `created_user`, `last_update_date`, `last_update_user`) VALUES
 (0, 'ゲームイフ・検証', '0', '2009-11-17 11:00:00', 'lee', '2009-11-17 11:00:00', 'lee'),
 (1, '直接媒体・広告代理店無し', '1', '2009-11-17 11:00:00', 'lee', '2009-11-17 11:00:00', 'lee'),
 (2, 'チャネリング・株式会社ゲームイフ', '2', '2009-11-17 11:00:00', 'lee', '2009-11-17 11:00:00', 'lee'),
-(3, 'アクセストレード・株式会社インタースペース', '3', '2009-11-17 11:00:00', 'chou', '2009-11-17 11:00:00', 'chou');
+(3, 'アクセストレード・株式会社インタースペース', '3', '2009-11-17 11:00:00', 'chou', '2009-11-17 11:00:00', 'chou'),
+(4, 'MacroAd・株式会社マイクロアド', '3', '2009-12-21 18:14:01', 'lee', '2009-12-21 18:14:06', 'lee'),
+(5, 'JANet・株式会社アドウェイズ', '3', '2010-01-07 17:46:02', 'lee', '2010-01-07 17:46:07', 'lee'),
+(6, 'A8Net・ファンコミュニケーションズ', '3', '2010-01-20 03:32:48', 'lee', '2010-01-20 03:32:53', 'lee');
 
 
 TRUNCATE TABLE `advert_mst`;
 INSERT INTO `advert_mst` (`advert_num`, `advert_name`, `advert_agency_num`, `media_num`, `pay_kind`, `advert_budget`, `advert_actual`, `start_date`, `end_date`, `title_id`, `remarks`, `created_date`, `created_user`, `last_update_date`, `last_update_user`) VALUES
-(100, 'ゲームイフ・検証', 0, 0, 0, 0, NULL, '2009-11-17 11:00:00', '2020-12-31 11:00:00', 1, '', '2009-11-17 11:00:00', 'lee', '2009-11-17 11:00:00', 'lee'),
-(101, 'アクセストレード・アフィリエイト', 3, 0, 48, 800000, NULL, '2009-11-17 11:00:00', '2020-12-31 11:00:00', 1, '', '2009-11-17 11:00:00', 'chou', '2009-11-17 11:00:00', 'chou'),
-(102, 'Google・アドウェア', 1, 1, 4, 100000, NULL, '2009-11-17 11:00:00', '2020-12-31 11:00:00', 1, '', '2009-11-17 11:00:00', 'chou', '2009-11-17 11:00:00', 'chou'),
-(103, 'Yahoo!・オーバーチュア', 1, 2, 4, 100000, NULL, '2009-11-06 15:47:36', '2010-11-06 15:47:36', 1, '', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
-(104, 'OnlineGamer・CBT募集', 1, 4, 0, 0, NULL, '2009-11-06 15:47:36', '2010-11-06 15:47:36', 1, '', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
-(105, 'OnlineGameZoom・CBT募集', 1, 5, 0, 0, NULL, '2009-11-06 15:47:36', '2010-11-06 15:47:36', 1, '', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
-(106, '4Gamer・CBT募集', 1, 3, 0, 0, NULL, '2009-11-06 15:47:36', '2010-11-06 15:47:36', 1, '', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
-(107, 'OnlineGameZoom・12月期間保証', 1, 5, 1, 0, NULL, '2009-12-01 00:00:00', '2009-12-31 23:59:59', 1, '', '2009-11-25 15:47:36', 'chou', '2009-11-25 15:47:36', 'lee'),
-(108, 'Facebook広告', 1, 6, 4, 150000, NULL, '2009-12-18 22:11:48', '2010-01-18 22:11:48', 1, NULL, '2009-12-18 22:13:01', 'lee', '2009-12-18 22:13:01', 'lee');
+(100, 'ゲームイフ・検証', 0, 0, 0, 0, NULL, '2009-11-17 11:00:00', '2020-12-31 11:00:00', 1, 'https://www.game-if.com/entryProxy.html?enc=YWR2ZXJ0TnVtPTEwMA==&title=1&apply=1', '2009-11-17 11:00:00', 'lee', '2009-11-17 11:00:00', 'lee'),
+(101, 'アクセストレード・アフィリエイト', 3, 0, 24, 800000, NULL, '2009-11-17 11:00:00', '2020-12-31 11:00:00', 1, 'https://www.game-if.com/entryProxy.html?enc=YWR2ZXJ0TnVtPTEwMQ==&title=1&apply=1', '2009-11-17 11:00:00', 'chou', '2009-11-17 11:00:00', 'chou'),
+(102, 'Google・アドウェア', 1, 1, 4, 100000, NULL, '2009-11-17 11:00:00', '2020-12-31 11:00:00', 1, 'https://www.game-if.com/entryProxy.html?enc=YWR2ZXJ0TnVtPTEwMg==&title=1&apply=1', '2009-11-17 11:00:00', 'chou', '2009-11-17 11:00:00', 'chou'),
+(103, 'Yahoo!・オーバーチュア', 1, 2, 4, 100000, NULL, '2009-11-06 15:47:36', '2010-11-06 15:47:36', 1, 'https://www.game-if.com/entryProxy.html?enc=YWR2ZXJ0TnVtPTEwMw==&title=1&apply=1', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
+(104, 'OnlineGamer・CBT募集', 1, 4, 0, 0, NULL, '2009-11-06 15:47:36', '2010-11-06 15:47:36', 1, 'https://www.game-if.com/entryProxy.html?enc=YWR2ZXJ0TnVtPTEwNA==&title=1&apply=1', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
+(105, 'OnlineGameZoom・CBT募集', 1, 5, 0, 0, NULL, '2009-11-06 15:47:36', '2010-11-06 15:47:36', 1, 'https://www.game-if.com/entryProxy.html?enc=YWR2ZXJ0TnVtPTEwNQ==&title=1&apply=1', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
+(106, '4Gamer・CBT募集', 1, 3, 0, 0, NULL, '2009-11-06 15:47:36', '2010-11-06 15:47:36', 1, 'https://www.game-if.com/entryProxy.html?enc=YWR2ZXJ0TnVtPTEwNg==&title=1&apply=1', '2009-11-06 15:47:36', 'chou', '2009-11-06 15:47:36', 'chou'),
+(107, 'OnlineGameZoom・12月期間保証', 1, 5, 1, 0, NULL, '2009-12-01 00:00:00', '2009-12-31 23:59:59', 1, 'https://www.game-if.com/entryProxy.html?enc=YWR2ZXJ0TnVtPTEwNw==&title=1&apply=1', '2009-11-25 15:47:36', 'chou', '2009-11-25 15:47:36', 'lee'),
+(108, 'Facebook広告', 1, 6, 4, 150000, NULL, '2009-12-18 22:11:48', '2010-01-18 22:11:48', 1, 'https://www.game-if.com/entryProxy.html?enc=YWR2ZXJ0TnVtPTEwOA==&title=1&apply=1', '2009-12-18 22:13:01', 'lee', '2009-12-18 22:13:01', 'lee'),
+(109, 'MacroAd・アフィリエイト', 4, 0, 4, 200000, NULL, '2009-12-22 10:00:00', '2010-01-31 18:17:29', 1, 'https://www.game-if.com/entryProxy.html?enc=YWR2ZXJ0TnVtPTEwOQ==&title=1&apply=1', '2009-12-21 18:17:50', 'lee', '2009-12-21 18:17:50', 'lee'),
+(110, 'OnlineGamer・1月純広告', 3, 4, 1, 200000, NULL, '2010-01-01 00:00:00', '2010-01-31 23:59:59', 1, 'https://www.game-if.com/entryProxy.html?enc=YWR2ZXJ0TnVtPTExMA==&title=1&apply=1', '2009-12-25 14:10:01', 'lee', '2009-12-25 14:10:05', 'lee'),
+(111, 'Youtubeアニメ無料動画・1月固定費', 3, 7, 25, NULL, NULL, '2009-12-28 00:00:01', '2010-01-27 23:59:59', 1, 'https://www.game-if.com/entryProxy.html?enc=YWR2ZXJ0TnVtPTExMQ==&title=1&apply=1', '2009-12-27 20:37:34', 'lee', '2009-12-27 20:37:39', 'lee'),
+(112, '無料動画アニメスクープ・1月固定費', 3, 8, 25, NULL, NULL, '2009-12-28 00:00:01', '2010-01-27 23:59:59', 1, 'https://www.game-if.com/entryProxy.html?enc=YWR2ZXJ0TnVtPTExMg==&title=1&apply=1', '2009-12-27 20:39:07', 'lee', '2009-12-27 20:39:07', 'lee'),
+(113, 'JANet・アフィリエイト', 5, 0, 8, 500000, NULL, '2010-01-11 17:49:24', '2020-01-11 17:49:24', 1, 'https://www.game-if.com/entryProxy.html?enc=YWR2ZXJ0TnVtPTExMw==&title=1&apply=1', '2010-01-07 17:49:44', 'lee', '2010-01-07 17:49:49', 'lee'),
+(114, 'A8Net・アフィリエイト', 6, 0, 8, 500000, NULL, '2010-02-01 00:00:00', '2020-01-31 00:00:00', 1, 'https://www.game-if.com/entryProxy.html?enc=YWR2ZXJ0TnVtPTExNA==&title=1&apply=1', '2010-01-20 03:31:14', 'lee', '2010-01-20 03:31:18', 'lee'),
+(115, 'メルマガ・ウェブマネー', 2, 9, 0, 0, NULL, '2010-02-22 23:49:48', '2010-03-05 23:49:55', 1, 'https://www.game-if.com/entryProxy.html?enc=YWR2ZXJ0TnVtPTExNQ==&title=1&apply=1', '2010-02-16 23:50:13', 'lee', '2010-02-16 23:50:13', 'lee'),
+(116, 'チャネリング・プチゲーム', 2, 10, 16, 0, NULL, '2010-02-25 10:00:00', '2011-02-25 10:00:00', 1, 'https://www.game-if.com/entryProxy.html?enc=YWR2ZXJ0TnVtPTExNg==&title=1&apply=1', '2010-02-18 12:08:45', 'lee', '2010-02-18 12:08:50', 'lee'),
+(117, 'チャネリング・Biglobe', 2, 11, 16, 0, NULL, '2010-04-08 10:00:00', '2012-04-08 10:00:00', 1, 'https://www.game-if.com/entryProxy.html?enc=YWR2ZXJ0TnVtPTExNw==&title=1&apply=1', '2010-03-26 12:08:45', 'lee', '2010-03-26 12:08:50', 'lee');
+
 
 
 TRUNCATE TABLE `maintenance_info`;
