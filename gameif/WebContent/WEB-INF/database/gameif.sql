@@ -1,4 +1,3 @@
-
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 
@@ -116,7 +115,7 @@ CREATE TABLE  `invite_info` (
 DROP TABLE IF EXISTS `member_info`;
 CREATE TABLE IF NOT EXISTS `member_info` (
   `mem_num` bigint(20) NOT NULL AUTO_INCREMENT,
-  `mem_id` varchar(20) NOT NULL,
+  `mem_id` varchar(150) NOT NULL,
   `nick_name` varchar(32) DEFAULT NULL,
   `mem_pwd` varchar(32) NOT NULL,
   `mem_kind_cd` char(1) DEFAULT NULL,
@@ -157,7 +156,7 @@ DROP TABLE IF EXISTS `member_info_hist`;
 CREATE TABLE IF NOT EXISTS `member_info_hist` (
   `mem_num` bigint(20) NOT NULL,
   `backup_date` datetime NOT NULL,
-  `mem_id` varchar(20) NOT NULL,
+  `mem_id` varchar(150) NOT NULL,
   `nick_name` varchar(32) DEFAULT NULL,
   `mem_pwd` varchar(32) NOT NULL,
   `mem_kind_cd` char(1) DEFAULT NULL,
@@ -207,7 +206,7 @@ CREATE TABLE IF NOT EXISTS `member_login_hist` (
 DROP TABLE IF EXISTS `member_login_info`;
 CREATE TABLE IF NOT EXISTS `member_login_info` (
   `mem_num` bigint(20) NOT NULL,
-  `mem_id` varchar(20) NOT NULL,
+  `mem_id` varchar(150) NOT NULL,
   `nick_name` varchar(32) DEFAULT NULL,
   `mem_pwd` varchar(32) NOT NULL,
   `mem_valid_yn_cd` char(1) NOT NULL,
@@ -622,7 +621,7 @@ CREATE TABLE  `function_mst` (
 DROP TABLE IF EXISTS `temp_member_info`;
 CREATE TABLE  `temp_member_info` (
   `mem_num` bigint(20) NOT NULL AUTO_INCREMENT,
-  `mem_id` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `mem_id` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   `nick_name` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
   `mem_pwd` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `mail_pc` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
@@ -979,38 +978,57 @@ CREATE TABLE  `function_control_info` (
 
 
 
-DROP TABLE IF EXISTS `member_info_for_mixi`;
-CREATE TABLE  `member_info_for_mixi` (
+DROP TABLE IF EXISTS `opensocial_member`;
+CREATE TABLE  `opensocial_member` (
   `mem_num` bigint(20) NOT NULL AUTO_INCREMENT,
-  `mem_id` varchar(100) NOT NULL,
+  `mem_id` varchar(150) NOT NULL,
+  `nickName` varchar(32) NOT NULL,
+  `provider_id` varchar(5) NOT NULL,
   `mem_atbt_cd` char(1) NOT NULL,
   `mem_valid_yn_cd` char(1) NOT NULL,
-  `nick_name` varchar(50) DEFAULT NULL,
-  `address` varchar(100) DEFAULT NULL,
-  `age` int(11) DEFAULT NULL,
-  `birth_ymd` datetime DEFAULT NULL,
+  `mail_pc` varchar(100) NOT NULL,
+  `mail_mobile` varchar(10) DEFAULT NULL,
+  `kanji_fname` varchar(10) DEFAULT NULL,
+  `kanji_lname` varchar(10) DEFAULT NULL,
+  `kana_fname` varchar(10) DEFAULT NULL,
+  `kana_lname` varchar(10) DEFAULT NULL,
   `sex_cd` char(1) DEFAULT NULL,
-  `blood_type` varchar(10) DEFAULT NULL,
+  `birth_ymd` datetime DEFAULT NULL,
+  `address` varchar(100) DEFAULT NULL,
   `entry_date` datetime DEFAULT NULL,
   `entry_ip` varchar(15) DEFAULT NULL,
-  `login_date` datetime DEFAULT NULL,
-  `login_ip` varchar(15) DEFAULT NULL,
   `last_update_date` datetime DEFAULT NULL,
   `last_update_ip` varchar(15) DEFAULT NULL,
   `last_update_user` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`mem_num`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+ALTER TABLE `opensocial_member` AUTO_INCREMENT=100000000;
 
 
 
-DROP TABLE IF EXISTS `mem_settlement_hist_for_mixi`;
-CREATE TABLE  `mem_settlement_hist_for_mixi` (
+
+DROP TABLE IF EXISTS `opensocial_play_hist`;
+CREATE TABLE IF NOT EXISTS `opensocial_play_hist` (
+  `mem_num` bigint(20) NOT NULL,
+  `title_id` int(11) NOT NULL,
+  `server_id` int(11) NOT NULL,
+  `play_date` datetime DEFAULT NULL,
+  `play_ip` varchar(15) DEFAULT NULL,
+  PRIMARY KEY (`mem_num`,`title_id`,`server_id`,`play_date`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+
+DROP TABLE IF EXISTS `opensocial_settlement_hist`;
+CREATE TABLE  `opensocial_settlement_hist` (
   `settlement_num` bigint(20) NOT NULL AUTO_INCREMENT,
   `settlement_trns_num` bigint(20) DEFAULT NULL,
-  `settlement_code` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `settlement_code` varchar(20) DEFAULT NULL,
   `mem_num` bigint(20) DEFAULT NULL,
-  `mem_atbt_cd` char(1) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mem_atbt_cd` char(1) DEFAULT NULL,
+  `provider_id` varchar(5) NOT NULL,
   `title_id` int(11) DEFAULT NULL,
   `server_id` int(11) DEFAULT NULL,
   `point_id` int(11) DEFAULT NULL,
@@ -1035,6 +1053,7 @@ CREATE TABLE  `mem_settlement_hist_for_mixi` (
   `last_update_user` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`settlement_num`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 
 
 
