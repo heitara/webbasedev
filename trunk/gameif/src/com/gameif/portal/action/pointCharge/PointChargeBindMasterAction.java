@@ -5,8 +5,10 @@ import java.util.List;
 import com.gameif.portal.businesslogic.IMasterInfoBusinessLogic;
 import com.gameif.portal.entity.PointMst;
 import com.gameif.portal.entity.ServerMst;
+import com.gameif.portal.util.ContextUtil;
 
 public class PointChargeBindMasterAction {
+	
 	private IMasterInfoBusinessLogic masterInfoBusinessLogic;
 
 	private Integer titleId;
@@ -29,9 +31,13 @@ public class PointChargeBindMasterAction {
 	 * タイトルIDにより、有効なサーバ情報とポイント情報を取得する
 	 * @return
 	 */
-	public String bindServerAndPointForMixi() {
+	public String bindOpensocialServerAndPoint() {
+		
+		ServerMst serverMst = new ServerMst();
+		serverMst.setTitleId(titleId);
+		serverMst.setProviderId(ContextUtil.getOpensocialProviderId());
 		// サーバ情報
-		serverList = masterInfoBusinessLogic.getAllValidServerListForMixiByTitle(titleId);
+		serverList = masterInfoBusinessLogic.getAllValidServerListTitleAndProvider(serverMst);
 		// ポイント情報
 		pointList = masterInfoBusinessLogic.getAllValidPointListByTitle(titleId);
 		return "success";

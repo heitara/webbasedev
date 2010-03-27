@@ -8,7 +8,6 @@ import java.util.Date;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.struts2.ServletActionContext;
-import org.apache.struts2.views.freemarker.tags.SetModel;
 
 import com.gameif.common.action.ModelDrivenActionSupport;
 import com.gameif.common.exception.AuthorityException;
