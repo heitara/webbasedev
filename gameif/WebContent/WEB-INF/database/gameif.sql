@@ -258,10 +258,10 @@ CREATE TABLE IF NOT EXISTS `server_mst` (
   `server_id` int(11) NOT NULL,
   `title_id` int(11) NOT NULL,
   `server_name` varchar(30) DEFAULT NULL,
+  `provider_id` varchar(5) DEFAULT NULL,
   `service_start_date` datetime DEFAULT NULL,
   `service_end_date` datetime DEFAULT NULL,
   `service_status` char(1) DEFAULT NULL,
-  `for_mixi` char(1) DEFAULT NULL,
   `server_domain` varchar(50) DEFAULT NULL,
   `play_url` varchar(100) DEFAULT NULL,
   `charge_url` varchar(100) DEFAULT NULL,
@@ -387,6 +387,7 @@ CREATE TABLE  `mem_settlement_trns` (
   `settlement_code` varchar(20) DEFAULT NULL,
   `mem_num` bigint(20) DEFAULT NULL,
   `mem_atbt_cd` char(1) DEFAULT NULL,
+  `provider_id` varchar(5) DEFAULT NULL,
   `title_id` int(11) DEFAULT NULL,
   `server_id` int(11) DEFAULT NULL,
   `point_id` int(11) DEFAULT NULL,
@@ -982,7 +983,7 @@ DROP TABLE IF EXISTS `opensocial_member`;
 CREATE TABLE  `opensocial_member` (
   `mem_num` bigint(20) NOT NULL AUTO_INCREMENT,
   `mem_id` varchar(150) NOT NULL,
-  `nickName` varchar(32) NOT NULL,
+  `nick_name` varchar(32) NOT NULL,
   `provider_id` varchar(5) NOT NULL,
   `mem_atbt_cd` char(1) NOT NULL,
   `mem_valid_yn_cd` char(1) NOT NULL,
@@ -1001,11 +1002,7 @@ CREATE TABLE  `opensocial_member` (
   `last_update_ip` varchar(15) DEFAULT NULL,
   `last_update_user` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`mem_num`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-ALTER TABLE `opensocial_member` AUTO_INCREMENT=100000000;
-
-
+) ENGINE=InnoDB AUTO_INCREMENT=1000000000 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
 DROP TABLE IF EXISTS `opensocial_play_hist`;
