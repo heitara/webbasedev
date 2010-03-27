@@ -8,6 +8,18 @@ import com.gameif.portal.entity.ServerMst;
 
 public class ServerMstDaoImpl extends
 	AbstractBaseDao<ServerMst, ServerMst> implements IServerMstDao {
+	
+	@Override
+	public ServerMst selectServerByDomain(String domain) {
+		
+		return (ServerMst)getSqlMapClientTemplate().queryForObject(namespace + ".selectServerByDomain", domain);
+	}
+
+	@Override
+	public ServerMst selectForUpdate(ServerMst serverMst) {
+		
+		return (ServerMst)getSqlMapClientTemplate().queryForObject(namespace + ".selectForUpdate", serverMst);
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -25,27 +37,8 @@ public class ServerMstDaoImpl extends
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<ServerMst> selectValidServerListForMixiByTitle(Integer titleId) {
+	public List<ServerMst> selectServerListByTitleAndProvider(ServerMst serverMst) {
 		
-		return getSqlMapClientTemplate().queryForList(namespace + ".selectValidServerListForMixiByTitle", titleId);
-	}
-	
-	@Override
-	public ServerMst selectServerByDomain(String domain) {
-		
-		return (ServerMst)getSqlMapClientTemplate().queryForObject(namespace + ".selectServerByDomain", domain);
-	}
-
-	@Override
-	public ServerMst selectForUpdate(ServerMst serverMst) {
-		
-		return (ServerMst)getSqlMapClientTemplate().queryForObject(namespace + ".selectForUpdate", serverMst);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<ServerMst> selectServersListForMixi(Integer titleId) {
-		
-		return getSqlMapClientTemplate().queryForList(namespace + ".selectServersListForMixi", titleId);
+		return getSqlMapClientTemplate().queryForList(namespace + ".selectServersListByTitleAndProvider", serverMst);
 	}
 }

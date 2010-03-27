@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+    
+<sqlMap namespace="opensocialPlayHist">
+
+	<resultMap class="com.gameif.portal.entity.OpensocialPlayHist" id="playHistResult">
+		<result property="memNum" column="mem_num" />
+		<result property="titleId" column="title_id" />
+		<result property="serverId" column="server_id" />
+		<result property="playDate" column="play_date" />
+		<result property="playIp" column="play_ip" />
+	</resultMap>
+
+	<insert id="save" parameterClass="com.gameif.portal.entity.OpensocialPlayHist">
+	<![CDATA[
+		INSERT INTO opensocial_play_hist
+			(
+			mem_num,
+			title_id,
+			server_id,
+			play_date,
+			play_ip
+			)
+		VALUES
+			(
+			#memNum#,
+			#titleId#,
+			#serverId#,
+			#playDate#,
+			#playIp#
+			)
+	]]>
+	</insert>
+    
+    <select id="selectPlayHistCount" parameterClass="java.util.Map" resultClass="int">
+      <![CDATA[
+        SELECT
+            count(mem_num)
+        FROM
+            opensocial_play_hist
+        WHERE   
+            mem_num = #memNum#
+        AND title_id = #titleId#
+      ]]>
+    </select>
+	
+</sqlMap>

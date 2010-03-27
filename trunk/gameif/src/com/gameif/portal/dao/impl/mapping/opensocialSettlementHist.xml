@@ -2,13 +2,14 @@
 <!DOCTYPE sqlMap      
     PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
     "http://ibatis.apache.org/dtd/sql-map-2.dtd">
-<sqlMap namespace="memSettlementHistForMixi">
-	<typeAlias alias="memSettlementHistForMixi" type="com.gameif.portal.entity.MemSettlementHistForMixi" />
+<sqlMap namespace="opensocialSettlementHist">
+	<typeAlias alias="opensocialSettlementHist" type="com.gameif.portal.entity.OpensocialSettlementHist" />
 	
-	<resultMap class="com.gameif.portal.entity.MemSettlementHistForMixi" id="settleHistForMixiResult">
+	<resultMap class="com.gameif.portal.entity.OpensocialSettlementHist" id="settleHistResult">
 		<result property="settlementNum" column="settlement_num" />
 		<result property="settlementTrnsNum" column="settlement_trns_num" />
 		<result property="settlementCode" column="settlement_code" />
+        <result property="providerId" column="provider_id" />
 		<result property="memNum" column="mem_num" />
 		<result property="memAtbtCd" column="mem_atbt_cd" />
 		<result property="titleId" column="title_id" />
@@ -35,11 +36,12 @@
 		<result property="lastUpdateUser" column="last_update_user"/>
 	</resultMap>
 	
-	<insert id = "save" parameterClass="memSettlementHistForMixi"> 
+	<insert id = "save" parameterClass="opensocialSettlementHist"> 
         <![CDATA[
-		INSERT INTO mem_settlement_hist_for_mixi
-			(settlement_trns_num,
+		INSERT INTO opensocial_settlement_hist (
+			settlement_trns_num,
 			settlement_code,
+			provider_id,
 			mem_num,
 			mem_atbt_cd,
 			title_id,
@@ -63,10 +65,11 @@
 			created_date,
 			created_user,
 			last_update_date,
-			last_update_user)
-		VALUES
-			(#settlementTrnsNum#,
+			last_update_user
+        ) VALUES (
+			#settlementTrnsNum#,
 			#settlementCode#,
+			#providerId#,
 			#memNum#,
 			#memAtbtCd#,
 			#titleId#,
@@ -90,7 +93,8 @@
 			#createdDate#,
 			#createdUser#,
 			#lastUpdateDate#,
-			#lastUpdateUser#)
+			#lastUpdateUser#
+		)
         ]]>
 		<selectKey resultClass="java.lang.Long" keyProperty="settlementNum">   
         	<![CDATA[

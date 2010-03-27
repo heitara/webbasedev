@@ -27,10 +27,13 @@
         ]]>
 	</insert>
 	
-	<select id="selectMemAdvertActualInfoByMemNum" parameterClass="java.lang.Long" resultClass="int">
-      <![CDATA[
+	<select id="selectMemAdvertActualInfoByMemNum" parameterClass="java.lang.Long" resultMap="memAdvertActualResult"> 
+        <![CDATA[
         SELECT
-			advert_num
+			mem_num,
+			advert_num,
+			mem_login_date,
+			mem_login_ip
 		FROM
 			mem_advert_actual_info
 		WHERE

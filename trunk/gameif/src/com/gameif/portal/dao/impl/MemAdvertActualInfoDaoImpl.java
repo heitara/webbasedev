@@ -9,8 +9,8 @@ public class MemAdvertActualInfoDaoImpl extends
 		IMemAdvertActualInfoDao {
 
 	@Override
-	public int selectMemAdvertActualInfoByMemNum(Long memNum) {
-		return (Integer) (getSqlMapClientTemplate().queryForObject(namespace + ".selectMemAdvertActualInfoByMemNum", memNum));
+	public MemAdvertActualInfo selectMemAdvertActualInfoByMemNum(Long memNum) {
+		return (MemAdvertActualInfo) (getSqlMapClientTemplate().queryForObject(namespace + ".selectMemAdvertActualInfoByMemNum", memNum));
 	}
 
 }

@@ -175,6 +175,7 @@
 					GROUP BY server_id
 				) p ON s.server_id = p.server_id
 		WHERE	s.title_id=#titleId#
+		AND     s.provider_id = 0
 		ORDER BY p.play_date DESC, p.play_count DESC, s.order_num DESC
         ]]>
 	</select>
@@ -202,6 +203,7 @@
 					GROUP BY server_id
 				) p ON s.server_id = p.server_id
 		WHERE	s.title_id=#titleId#
+        AND		s.provider_id = 0
 		ORDER BY p.play_date DESC, p.play_count DESC, s.order_num DESC
         ]]>
 	</select>
