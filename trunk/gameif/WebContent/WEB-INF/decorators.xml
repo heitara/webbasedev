@@ -6,11 +6,18 @@
 	<excludes>
 		<pattern>/inputMailSelInvite.html*</pattern>
 		<pattern>/loginMailSelInvite.html*</pattern>
-		<pattern>/chargeDetail.html*</pattern>
+		<pattern>/chargeSaveSettleTrns.html*</pattern>
 		<pattern>/chargeReceive.html*</pattern>
+        <pattern>/blChargePrepare.html*</pattern>
+        <pattern>/blChargeReceive.html*</pattern>
+        <pattern>/opensocial/chargeSaveSettleTrns.html*</pattern>
+        <pattern>/opensocial/chargeReceive.html*</pattern>
 	</excludes>
 	
 	<decorator name="layout" page="layout.jsp">
 		<pattern>/*</pattern>
 	</decorator>
+    <decorator name="opensocial" page="opensocial.jsp">
+        <pattern>/opensocial/*</pattern>
+    </decorator>
 </decorators>
