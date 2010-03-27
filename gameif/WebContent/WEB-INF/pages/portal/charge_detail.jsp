@@ -4,12 +4,10 @@
 <head>
 	<title>ポイントチャージ</title>
 	<meta content="text/html; charset=shift-jis" http-equiv="content-type"/>
-	<script src="js/portal/validate.js" type="text/javascript"></script>
-	<script src="js/portal/bindMaster.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		function doSubmit() {
-			document.form1.action = document.getElementById("requestUrl").value;
-			document.form1.submit();
+			document.chargeForm.action = document.getElementById("requestUrl").value;
+			document.chargeForm.submit();
 			return;
 		}
 	</script>
@@ -19,7 +17,7 @@
 <!-- ポイントチャージ：開始 -->
 <dl>
 	<dd>
-		<form name="form1" method="post">
+		<form name="chargeForm" method="post">
 			<s:hidden name="pay_method"></s:hidden>
 			<s:hidden name="merchant_id"></s:hidden>
 			<s:hidden name="service_id"></s:hidden>

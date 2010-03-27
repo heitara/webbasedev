@@ -29,7 +29,7 @@
 <dl class="light_box tspace_n">
 	<dt><strong>ポイントチャージ</strong><span><a href="chargePointSelect.html">► ポイントチャージ</a>　<a href="chargeSettlementHist.html">► チャージ履歴</a></span></dt>
 	<dd>
-		<s:form name="frm_nosubmit_settle_select" method="post" cssClass="entry">
+		<s:form name="frm_nosubmit_settle_select" action="chargeSaveSettleTrns" method="post" cssClass="entry">
 			<div style="margin-bottom:30px;text-align:center;">
 					<img src="images/point_flow_10.gif"/>
 					<img src="images/point_flow_00.gif"/>
@@ -69,7 +69,7 @@
 				<s:hidden name="serverId" ></s:hidden>
 				<s:hidden name="pointId" ></s:hidden>
 				<s:token />
-				<s:submit value="次へ" action="chargeSaveSettleTrns" cssClass="submit" onclick="return checkCount();"/>
+				<s:submit value="次へ" cssClass="submit" onclick="return checkCount();"/>
 				<s:submit value="戻る" action="chargePointSelect" cssClass="submit" />
 			</div>
 		</s:form>
