@@ -102,7 +102,8 @@ INSERT INTO `question_mst` (`question_code`, `question_name`, `created_date`, `c
 
 TRUNCATE TABLE `server_mst`;
 INSERT INTO `server_mst` (`server_id`, `title_id`, `server_name`, `service_start_date`, `service_end_date`, `service_status`, `server_domain`, `play_url`, `charge_url`, `order_num`, `players_num`, `popularity_flag`, `recommend_flag`, `created_date`, `created_user`, `last_update_date`, `last_update_user`) VALUES
-(1, 1, 'レジェンド', '2009-11-01 11:00:00', '2020-12-31 11:00:00', '0', 'g01.legion.game-if.com', 'http://g01.legion.game-if.com/index.htm', 'http://g01.legion.game-if.com/module/pay.asp', 1, 0, '2', '1', '2009-11-01 11:00:00', 'lee', '2009-11-01 11:00:00', 'lee');
+(1, 1, 'レジェンド', '2009-11-01 11:00:00', '2020-12-31 11:00:00', '1', 'gs01.legion.game-if.com', 'http://gs01.legion.game-if.com/', 'http://gs01.legion.game-if.com/module/pay.asp?act=paying', 1, 0, '2', '1', '2009-11-01 11:00:00', 'lee', '2009-11-01 11:00:00', 'lee'),
+(2, 1, 'ミクシィ・レジオン', '2010-03-01 11:00:00', '2020-12-31 11:00:00', '1', 'mx01.legion.game-if.com', 'http://mx01.legion.game-if.com/', 'http://mx01.legion.game-if.com/module/pay.asp?act=paying', 1, 0, '2', '1', '2010-03-01 11:00:00', 'lee', '2010-03-01 11:00:00', 'lee');
 
 
 TRUNCATE TABLE `title_mst`;
