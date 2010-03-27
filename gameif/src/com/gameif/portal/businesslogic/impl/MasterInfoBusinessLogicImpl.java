@@ -4,31 +4,24 @@ import java.util.List;
 
 import com.gameif.common.businesslogic.BaseBusinessLogic;
 import com.gameif.portal.businesslogic.IMasterInfoBusinessLogic;
-import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.dao.IDivisionMstDao;
 import com.gameif.portal.dao.IInquiryKindMstDao;
 import com.gameif.portal.dao.IInviteTemplateDao;
-import com.gameif.portal.dao.IMemberInfoDao;
 import com.gameif.portal.dao.IOccupationMstDao;
 import com.gameif.portal.dao.IPointMstDao;
 import com.gameif.portal.dao.IQuestionMstDao;
 import com.gameif.portal.dao.IServerMstDao;
-import com.gameif.portal.dao.ISettlementMstDao;
 import com.gameif.portal.dao.ITitleMstDao;
 import com.gameif.portal.entity.DivisionMst;
 import com.gameif.portal.entity.InquiryKindMst;
 import com.gameif.portal.entity.InviteTemplateMst;
-import com.gameif.portal.entity.MemberInfo;
 import com.gameif.portal.entity.OccupationMst;
 import com.gameif.portal.entity.PointMst;
 import com.gameif.portal.entity.QuestionMst;
 import com.gameif.portal.entity.ServerMst;
-import com.gameif.portal.entity.SettlementMst;
 import com.gameif.portal.entity.TitleMst;
-import com.gameif.portal.util.ContextUtil;
 
-public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
-		IMasterInfoBusinessLogic {
+public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements IMasterInfoBusinessLogic {
 
 	private static final long serialVersionUID = -105096134811999134L;
 
@@ -40,8 +33,6 @@ public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	private IInquiryKindMstDao inquiryKindMstDao;
 	private IInviteTemplateDao inviteTemplateDao;
 	private IPointMstDao pointMstDao;
-	private ISettlementMstDao settlementMstDao;
-	private IMemberInfoDao memberInfoDao;
 
 	/**
 	 * 都道府県を取得する
@@ -147,9 +138,9 @@ public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	 * タイトルIDより、有効なサーバ情報を取得する(For Mixi)
 	 */
 	@Override
-	public List<ServerMst> getAllValidServerListForMixiByTitle(Integer titleId) {
-		
-		return serverMstDao.selectValidServerListForMixiByTitle(titleId);
+	public List<ServerMst> getAllValidServerListTitleAndProvider(ServerMst serverMst) {
+				
+		return serverMstDao.selectServerListByTitleAndProvider(serverMst);
 	}
 	
 	/**
@@ -170,37 +161,6 @@ public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	@Override
 	public List<PointMst> getAllValidPointListByTitle(Integer titleId) {
 		return pointMstDao.selectValidPointListByTitle(titleId);
-	}
-	
-	/**
-	 * すべて決済情報を取得する
-	 */
-	@Override
-	public List<SettlementMst> getAllSettlementList() {
-		return settlementMstDao.selectAll(null);
-	}
-
-	/**
-	 * すべて決済情報を取得する(メンテナンス状態除く)
-	 */
-	@Override
-	public List<SettlementMst> getValidSettlementList() {
-		return settlementMstDao.selectValidSettlementList();
-	}
-
-	/**
-	 * 会員属性より、すべて決済情報を取得する
-	 */
-	@Override
-	public List<SettlementMst> getSettlementListForCharge() {
-		MemberInfo member = new MemberInfo();
-		member.setMemNum(ContextUtil.getMemberNo());
-		member = memberInfoDao.selectByKey(member);
-		if (member != null && member.getMemAtbtCd().equals(PortalConstants.MemberAtbtCd.TEST)) {
-			return settlementMstDao.selectAll(null);
-		} else {
-			return settlementMstDao.selectValidSettlementList();
-		}
 	}
 
 	@Override
@@ -263,19 +223,4 @@ public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements
 	public void setPointMstDao(IPointMstDao pointMstDao) {
 		this.pointMstDao = pointMstDao;
 	}
-
-	/**
-	 * @param settlementMstDao the settlementMstDao to set
-	 */
-	public void setSettlementMstDao(ISettlementMstDao settlementMstDao) {
-		this.settlementMstDao = settlementMstDao;
-	}
-
-	/**
-	 * @param memberInfoDao the memberInfoDao to set
-	 */
-	public void setMemberInfoDao(IMemberInfoDao memberInfoDao) {
-		this.memberInfoDao = memberInfoDao;
-	}
-	
 }

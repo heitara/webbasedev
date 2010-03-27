@@ -3,6 +3,7 @@ package com.gameif.portal.businesslogic;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gameif.common.exception.LogicException;
+import com.gameif.portal.entity.MemAdvertActualInfo;
 import com.gameif.portal.entity.MemberInfo;
 import com.gameif.portal.entity.MemberWithdrawInfo;
 
@@ -152,4 +153,6 @@ public interface IMemberInfoBusinessLogic {
 	 * @return 会員情報
 	 */
 	public MemberInfo getMemberInfoByMemId(String memId);
+
+	public MemAdvertActualInfo getMemAdvertActualInfoByMemNum(Long memNum);
 }
