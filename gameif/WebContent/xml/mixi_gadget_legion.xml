@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Module>
+  <ModulePrefs title="Hello, world!">
+    <Require feature="opensocial-0.8" />
+  </ModulePrefs>
+  <Content type="html"><![CDATA[
+
+<div>Hello, <span id="target"></span>!</div>
+
+<div>Hello, <span id="dom_handle"></span>!</div>
+
+<script type="text/javascript">
+ 
+
+	function requestGameIF() {
+
+		var servletUrl="https://www.game-if.com/mixiSignedVerify.html";
+		
+		var params={};		
+		params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
+		params[gadgets.io.RequestParameters.AUTHORIZATION] = gadgets.io.AuthorizationType.SIGNED;
+		params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
+		
+		alert(servletUrl);
+		alert(params[gadgets.io.RequestParameters.METHOD]);
+		alert(params[gadgets.io.RequestParameters.AUTHORIZATION]);
+		alert(params[gadgets.io.RequestParameters.CONTENT_TYPE]);
+
+		gadgets.io.makeRequest(servletUrl, responseFunc, params);
+			
+	}
+
+	var responseFunc = function responseGameIF(resdata) {
+		alert(resdata);
+		console.log(resdata);
+		document.getElementById('target').innerHTML = resdata.message;
+	}
+
+	gadgets.util.runOnLoadHandlers(
+			new function() { requestGameIF(); }
+		);
+
+</script>
+
+  ]]></Content>
+</Module>
