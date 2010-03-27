@@ -10,11 +10,11 @@ public class ServerMst extends BaseEntity {
 
 	private Integer serverId;
 	private Integer titleId;
+	private String providerId;
 	private String serverName;
 	private Date serviceStartDate;
 	private Date serviceEndDate;
 	private String serviceStatus;
-	private String forMixi;
 	private String serverDomain;
 	private String playUrl;
 	private String chargeUrl;
@@ -39,64 +39,36 @@ public class ServerMst extends BaseEntity {
 	public void setTitleId(Integer titleId) {
 		this.titleId = titleId;
 	}
+	public String getProviderId() {
+		return providerId;
+	}
+	public void setProviderId(String providerId) {
+		this.providerId = providerId;
+	}
 	public String getServerName() {
 		return serverName;
 	}
 	public void setServerName(String serverName) {
 		this.serverName = serverName;
 	}
-	
-	/**
-	 * @return the serviceStartDate
-	 */
 	public Date getServiceStartDate() {
 		return serviceStartDate;
 	}
-	/**
-	 * @param serviceStartDate the serviceStartDate to set
-	 */
 	public void setServiceStartDate(Date serviceStartDate) {
 		this.serviceStartDate = serviceStartDate;
 	}
-	/**
-	 * @return the serviceEndDate
-	 */
 	public Date getServiceEndDate() {
 		return serviceEndDate;
 	}
-	/**
-	 * @param serviceEndDate the serviceEndDate to set
-	 */
 	public void setServiceEndDate(Date serviceEndDate) {
 		this.serviceEndDate = serviceEndDate;
 	}
-	/**
-	 * @return the serviceStatus
-	 */
 	public String getServiceStatus() {
 		return serviceStatus;
 	}
-	/**
-	 * @param serviceStatus the serviceStatus to set
-	 */
 	public void setServiceStatus(String serviceStatus) {
 		this.serviceStatus = serviceStatus;
 	}
-	
-	/**
-	 * @return the forMixi
-	 */
-	public String getForMixi() {
-		return forMixi;
-	}
-	
-	/**
-	 * @param forMixi the forMixi to set
-	 */
-	public void setForMixi(String forMixi) {
-		this.forMixi = forMixi;
-	}
-	
 	public String getServerDomain() {
 		return serverDomain;
 	}
@@ -163,5 +135,6 @@ public class ServerMst extends BaseEntity {
 	public void setLastUpdateUser(String lastUpdateUser) {
 		this.lastUpdateUser = lastUpdateUser;
 	}
+	
 	
 }
