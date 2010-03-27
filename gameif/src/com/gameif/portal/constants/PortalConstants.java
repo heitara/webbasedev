@@ -196,7 +196,7 @@ public class PortalConstants {
 		public final static String MOBILEEDY = "mobileedy";
 		public final static String NETCASH = "netcash";
 		public final static String WEBMONEY = "webmoney";
-		
+		public final static String BIGLOBE = "biglobe";
 	}
 	
 	/** 友達の承認ステータス */
@@ -218,17 +218,9 @@ public class PortalConstants {
 		/** 保留 */
 		public final static String RESERVE = "8";
 	}
-	
-	/** メディアコード */
-	public class AdvertNum {
-		/** BigLobe */
-		public final static int BIGLOBE = 117;
-	}
-	
+		
 	/** 決済サーバIPアドレス */
-	public class BigLobeServerIp{
-		public final static String IP_ONE = "202.225.171.61";
-		public final static String IP_TWO = "202.225.171.62";
-		public final static String IP_THREE = "202.225.171.63";
+	public class OpensocialProvider{
+		public final static String NONE = "0";
 	}
 }
