@@ -13,6 +13,9 @@
 			<interceptor name="entryParameter" class="entryParameterInterceptor"/>
 			<interceptor name="actionLogger" class="actionLoggerInterceptor"/>
 			<interceptor name="repetitionReg" class="repetitionRegInterceptor"/>
+            <interceptor name="chargeMaintenance" class="pointChargeMaintenanceInterceptor"/>
+            <interceptor name="chargeTitleMaintenance" class="pointChargeTitleMaintenanceInterceptor"/>
+            <interceptor name="biglobeCharge" class="biglobePointChargeInterceptor"/>
 			<interceptor-stack name="gameifStack">
 				<interceptor-ref name="defaultStack"/>
 				<interceptor-ref name="actionLogger"/>
@@ -49,7 +52,7 @@
 			<interceptor-ref name="token">
 				<param name="includeMethods">createTemp</param>
 			</interceptor-ref>
-			<interceptor-ref name="gameifStack"></interceptor-ref>			
+			<interceptor-ref name="gameifStack"></interceptor-ref>
 			<interceptor-ref name="secureParameter">
 				<param name="includeMethods">activate,finishedCreate,finishedActivate</param>
 			</interceptor-ref>
@@ -253,58 +256,37 @@
 				<param name="className">com.gameif.portal.entity.MemSettlementHist</param>
 			</interceptor-ref>
 			<interceptor-ref name="gameifStack"></interceptor-ref>
-			
-			<result name="pointSelect">/WEB-INF/pages/portal/charge_point_select.jsp</result>
-			<result name="pointSelectForMixi">/WEB-INF/pages/portal/charge_point_select_for_mixi.jsp</result>
-			
-			<result name="bigLobeDetail" type="redirectAction">
-				<param name="actionName">blChargeDetail</param>
-				<param name="settleTrnsNum">${settleTrnsNum}</param>
-			</result>
-			<result name="bigLobeDetailInit">/WEB-INF/pages/portal/charge_detail_for_biglobe.jsp</result>
-			
-			<result name="settleSelectInitForMixi" type="chain">
-				<param name="actionName">chargeSettleSelectForMixi</param>
-				<param name="titleId">%{model.titleId}</param>
-				<param name="serverId">%{model.serverId}</param>
-				<param name="pointId">%{model.pointId}</param>
-			</result>
-			
+            <interceptor-ref name="chargeMaintenance">
+                <param name="includeMethods">chargePointSelect,chargeSettleSelect,chargeSaveSettleTrns</param>
+            </interceptor-ref>
+            <interceptor-ref name="chargeTitleMaintenance">
+                <param name="includeMethods">chargeSettleSelect,chargeSaveSettleTrns</param>
+            </interceptor-ref>
+            <interceptor-ref name="biglobeCharge">
+                <param name="includeMethods">chargeSettleSelect</param>
+            </interceptor-ref>
+			<result name="pointSelect">/WEB-INF/pages/portal/charge_point_select.jsp</result>            
 			<result name="settleSelect">/WEB-INF/pages/portal/charge_settle_select.jsp</result>
-			<result name="settleSelectForMixi">/WEB-INF/pages/portal/charge_settle_select_for_mixi.jsp</result>
-			
-			<result name="detail" type="redirectAction">
-				<param name="actionName">chargeDetail</param>
-				<param name="settleTrnsNum">${settleTrnsNum}</param>
-				<param name="forMixi">${forMixi}</param>
-			</result>
-			
-			<result name="detailInit">/WEB-INF/pages/portal/charge_detail.jsp</result>
-			<!-- 
-			<result name="receive">/WEB-INF/pages/portal/charge_receive.jsp</result>
-			 -->
+			<result name="requestSbps">/WEB-INF/pages/portal/charge_detail.jsp</result>
+			<result name="success">/WEB-INF/pages/portal/charge_success.jsp</result>
 			<result name="cancel">/WEB-INF/pages/portal/charge_cancel.jsp</result>
 			<result name="error">/WEB-INF/pages/portal/charge_error.jsp</result>
-			<result name="success">/WEB-INF/pages/portal/charge_success.jsp</result>
-			
-			<result name="invalid.token">/WEB-INF/pages/common/warning.jsp</result>
-			<!-- メンテナンス画面に案内する -->
-			<result name="maintenance" type="redirect">/maintenancePage.html</result>
 			<result name="settlementHist">/WEB-INF/pages/portal/charge_settle_hist.jsp</result>
+			<result name="maintenance" type="redirect">/maintenancePage.html</result>
+			<result name="invalid.token">/WEB-INF/pages/common/warning.jsp</result>
+            <result name="biglobeCharge" type="redirect">blChargePrepare.html?titleId=${titleId}&amp;serverId=${serverId}&amp;pointId=${pointId}</result>
 		</action>
 
-		<action name="blCharge*" class="pointChargeControlAction" method="blCharge{1}">
+		<action name="blCharge*" class="biglobePointChargeControlAction" method="charge{1}">
 			<interceptor-ref name="scopedModelDriven">
 				<param name="scope">request</param>
 				<param name="name">memSettlementHist</param>
 				<param name="className">com.gameif.portal.entity.MemSettlementHist</param>
 			</interceptor-ref>
-			<interceptor-ref name="gameifStack"></interceptor-ref>
-			
-			<result name="bigLobeDetailInit">/WEB-INF/pages/portal/charge_detail_for_biglobe.jsp</result>
-			<result name="bigLobeError">/WEB-INF/pages/portal/charge_error.jsp</result>
-			<result name="bigLobeSuccess">/WEB-INF/pages/portal/charge_success.jsp</result>
-			
+			<interceptor-ref name="gameifStack"></interceptor-ref>			
+			<result name="bigLobeDetail">/WEB-INF/pages/biglobe/charge_detail.jsp</result>
+            <result name="success">/WEB-INF/pages/portal/charge_success.jsp</result>
+			<result name="error">/WEB-INF/pages/portal/charge_error.jsp</result>
 			<result name="invalid.token">/WEB-INF/pages/common/warning.jsp</result>
 			<!-- メンテナンス画面に案内する -->
 			<result name="maintenance" type="redirect">/maintenancePage.html</result>
@@ -399,12 +381,40 @@
 			<result name="success" type="redirect">${playUrl}</result>
 			<result name="select" type="redirectAction">games</result>
 		</action>
-
-		<action name="*ServerSelect" class="serverSelectControlAction" method="{1}">
-			<result name="success">/WEB-INF/pages/portal/mixi_server_list.jsp</result>
-		</action>
 		
 	</package>
+	
+    <package name="opensocial" extends="gameif" namespace="/opensocial">
+        <interceptors>
+            <interceptor name="opensocialChargeParameter" class="opensocialPointChargeInterceptor"/>
+        </interceptors>
+        <action name="charge*" class="opensocialPointChargeControlAction" method="charge{1}">
+            <interceptor-ref name="scopedModelDriven">
+                <param name="scope">request</param>
+                <param name="name">memSettlementHist</param>
+                <param name="className">com.gameif.portal.entity.OpensocialSettlementHist</param>
+            </interceptor-ref>
+            <interceptor-ref name="gameifStack"></interceptor-ref>
+            <interceptor-ref name="opensocialChargeParameter">
+                <param name="includeMethods">chargePointSelect,chargeSettleSelect,chargeSaveSettleTrns</param>
+            </interceptor-ref>
+            <interceptor-ref name="chargeMaintenance">
+                <param name="includeMethods">chargePointSelect,chargeSettleSelect,chargeSaveSettleTrns</param>
+            </interceptor-ref>
+            <interceptor-ref name="chargeTitleMaintenance">
+                <param name="includeMethods">chargeSettleSelect,chargeSaveSettleTrns</param>
+            </interceptor-ref>
+            <result name="pointSelect">/WEB-INF/pages/opensocial/charge_point_select.jsp</result>            
+            <result name="settleSelect">/WEB-INF/pages/opensocial/charge_settle_select.jsp</result>
+            <result name="requestSbps">/WEB-INF/pages/opensocial/charge_detail.jsp</result>
+            <result name="success">/WEB-INF/pages/opensocial/charge_success.jsp</result>
+            <result name="cancel">/WEB-INF/pages/opensocial/charge_cancel.jsp</result>
+            <result name="error">/WEB-INF/pages/opensocial/charge_error.jsp</result>
+            <result name="warning">/WEB-INF/pages/opensocial/warning.jsp</result>
+            <result name="maintenance">/WEB-INF/pages/opensocial/maintenance.jsp</result>
+            <result name="invalid.token">/WEB-INF/pages/opensocial/warning.jsp</result>
+        </action>
+    </package>
 	
 	<package name="gamejax" extends="json-default">
 		<action name="*Exist" class="existCheckAction" method="{1}">
@@ -425,13 +435,8 @@
             <result type="json"></result>
 		</action>
 		
-		<!-- ポイントチャージに関するマスタ情報を取得する -->
-		<action name="selectServerList" class="mixiControlAction" method="selectServerList">
-            <result type="json"></result>
-		</action>
-		
-		<!-- ポイントチャージに関するマスタ情報を取得する -->
-		<action name="mixiSignedVerify" class="mixiSignedFetchVerifyAction" method="mixiSignedVerify">
+		<!-- Opensocialゲームプレイ -->
+		<action name="opensocialTitlePlay" class="opensocialTitlePlayControlAction">
             <result type="json"></result>
 		</action>
 	</package>
