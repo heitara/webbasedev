@@ -1,6 +1,7 @@
 package com.gameif.portal.util;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
 
@@ -12,6 +13,10 @@ import com.opensymphony.xwork2.ActionContext;
 import edu.yale.its.tp.cas.client.filter.CASFilter;
 
 public class ContextUtil {
+	
+	private final static String EXT_SESS_K_MEM_NUM = "extsess.key.memNum";
+	private final static String EXT_SESS_K_MEM_ID = "extsess.key.memId";
+	private final static String EXT_SESS_K_PROVIDER_ID = "extsess.key.providerId";
 
 	/**
 	 * セッションから会員情報（会員番号、アカウントＩＤ、ニックネーム包含）を取得する。
@@ -172,7 +177,7 @@ public class ContextUtil {
 		
 		StringBuffer info = new StringBuffer();
 		
-		String account = getAccountId();
+		String account = getAccountIdWithExt();
 		
 		info.append(getClientIP());
 		info.append(" | ");
@@ -216,5 +221,67 @@ public class ContextUtil {
 	    }
 		
 		return value;
+	}
+	
+
+	public static String getRequestUrl() {
+		
+		HttpServletRequest request = ServletActionContext.getRequest();
+		
+		return new StringBuffer()
+			.append(request.getSession().getServletContext().getInitParameter("portalTopUrl"))
+			.append(request.getRequestURI())
+			.toString();
+	}
+	
+	
+	public static void setExternalLoginSessionInfo(Long memNum, String memId, String providerId) {
+		
+		HttpServletRequest request = ServletActionContext.getRequest();
+		request.getSession().setAttribute(EXT_SESS_K_MEM_NUM, memNum);
+		request.getSession().setAttribute(EXT_SESS_K_MEM_ID, memId);
+		request.getSession().setAttribute(EXT_SESS_K_PROVIDER_ID, providerId);
+	}
+	
+	public static Long getExternalMemberNo() {
+
+		HttpServletRequest request = ServletActionContext.getRequest();
+		return (Long)request.getSession().getAttribute(EXT_SESS_K_MEM_NUM);
+	}
+	
+	public static String getExternalAccountId() {
+
+		HttpServletRequest request = ServletActionContext.getRequest();
+		return (String)request.getSession().getAttribute(EXT_SESS_K_MEM_ID);
+	}
+	
+	public static String getOpensocialProviderId() {
+
+		HttpServletRequest request = ServletActionContext.getRequest();
+		return (String)request.getSession().getAttribute(EXT_SESS_K_PROVIDER_ID);
+	}
+	
+	public static Long getMemberNoWithExt() {
+		
+		Long memNum = getMemberNo();
+		
+		if (memNum == null) {
+			
+			memNum = getExternalMemberNo();
+		}
+	
+		return memNum;
+	}
+	
+	public static String getAccountIdWithExt() {
+		
+		String memId = getAccountId();
+		
+		if (memId == null) {
+			
+			memId = getExternalAccountId();
+		}
+	
+		return memId;
 	}
 }
