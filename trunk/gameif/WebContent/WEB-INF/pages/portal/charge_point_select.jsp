@@ -4,12 +4,13 @@
 <head>
 	<title>ポイント選択 | ポイントチャージ </title>
 	<script src="js/portal/validate.js" type="text/javascript"></script>
-	<script src="js/portal/bindMaster.js" type="text/javascript"></script>	<script type="text/javascript">
+	<script src="js/portal/bindMaster.js" type="text/javascript"></script>
+	<script type="text/javascript">
 		window.onload = function(){   
 			var titleId = document.getElementById("titleId");
 			var serverId = $("#serverId");
 			var pointId = $("#pointId");
-			bindServerAndPoint(titleId, serverId, pointId);
+			bindServerAndPoint(titleId, serverId, pointId, "bindServerAndPointForCharge");
         };
 	</script>
 </head>
@@ -19,10 +20,7 @@
 <dl class="light_box tspace_n">
 	<dt><strong>ポイントチャージ</strong><span><a href="chargePointSelect.html">► ポイントチャージ</a>　<a href="chargeSettlementHist.html">► チャージ履歴</a></span></dt>
 	<dd>
-		<s:form name="frm_nosubmit_point_select" action="chargeSettleSelectInit" method="post" cssClass="entry">
-			<center>
-			<a id="bana_url" href="http://www.webmoney.jp/campaign/2010spring_festa/daikangen/index.html" target="_blank"><img id="bana_img" src="images/bn_b_main_04.jpg"/></a>
-			</center><br/>
+		<s:form name="frm_nosubmit_point_select" action="chargeSettleSelect" method="post" cssClass="entry">
 			<div style="margin-bottom:30px;text-align:center;">
 					<img src="images/point_flow_11.gif"/>
 					<img src="images/point_flow_00.gif"/>
@@ -41,14 +39,22 @@
 				<tr>
 				<td colspan="2">
 					<div style="border:1px solid #CCC;color:#668;padding:10px;background-color:#FFF;">
-						<div style="font-size:14px;font-weight:bold;color:#F60;">ただ今、ポイントチャージ還元のキャンペーン実施しております。</div>
-						<ul style="color:#600;">
-							<li>500 GPをチャージした場合、サービスポイント 20 PTをプレゼント。</li>
-							<li>1,000 GPをチャージした場合、サービスポイント 50 PTをプレゼント。</li>
-							<li>3,000 GPをチャージした場合、サービスポイント 200 PTをプレゼント。</li>
-							<li>5,000 GPをチャージした場合、サービスポイント 400 PTをプレゼント。</li>
-							<li>10,000 GPをチャージした場合、サービスポイント 1,000 PTをプレゼント。</li>
-						</ul>
+						<table width="100%">
+							<tr>
+								<td align="left"><a href="http://www.webmoney.jp/service/walletplus/0318campaign/" target="_blank" style="margin-top:200px;"><img src="images/advert/wm_cp_1003_200X100.jpg"/></a></td>
+								<td style="font-size:60px;color:#F30;">+</td>
+								<td>
+									<div style="font-size:14px;font-weight:bold;color:#F30;margin-bottom:10px;">ゲームイフのキャンペーンでサービスポイントももらえます。</div>
+									<ul style="color:#600;margin-left:-20px;">
+										<li>500 GPをチャージした場合、サービスポイント 20 PTをプレゼント。</li>
+										<li>1,000 GPをチャージした場合、サービスポイント 50 PTをプレゼント。</li>
+										<li>3,000 GPをチャージした場合、サービスポイント 200 PTをプレゼント。</li>
+										<li>5,000 GPをチャージした場合、サービスポイント 400 PTをプレゼント。</li>
+										<li>10,000 GPをチャージした場合、サービスポイント 1,000 PTをプレゼント。</li>
+									</ul>
+								</td>
+							</tr>
+						</table>
 					</div>
 				</td>
 				</tr>
@@ -62,7 +68,7 @@
 				<tr>
 					<th><span class="required">*</span><label for="point_titleId">ゲーム選択：</label></th>
 					<td>
-						<s:select name="titleId" id="titleId" cssClass="big" list="masterInfoBusinessLogic.validTitleList" listKey="titleId" listValue="titleName" title="ゲーム"  onchange="bindServerAndPoint(this, serverId, pointId);" onblur="validate(this,'REQ');" />
+						<s:select name="titleId" id="titleId" cssClass="big" list="masterInfoBusinessLogic.validTitleList" listKey="titleId" listValue="titleName" title="ゲーム"  onchange="bindServerAndPoint(this, serverId, pointId, 'bindServerAndPointForCharge');" onblur="validate(this,'REQ');" />
 						<span id="error_titleId" class="input_error"><s:fielderror><s:param>titleId</s:param></s:fielderror></span><br/>
 						<span class="explain">ポイントをチャージするゲームを選択してください。</span>
 					</td>
