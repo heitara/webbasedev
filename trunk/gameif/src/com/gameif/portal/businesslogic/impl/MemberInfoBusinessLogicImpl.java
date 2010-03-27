@@ -921,6 +921,12 @@ public class MemberInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 			logger.error("error has occurred in sending updateTempPassword mail. ", ex);
 		}
 	}
+
+	@Override
+	public MemAdvertActualInfo getMemAdvertActualInfoByMemNum(Long memNum) {
+		
+		return memAdvertActualInfoDao.selectMemAdvertActualInfoByMemNum(memNum);
+	}
 	
 	public void setMemberInfoDao(IMemberInfoDao memberInfoDao) {
 		

@@ -8,6 +8,7 @@ import com.gameif.common.exception.LogicException;
 import com.gameif.portal.entity.MemSettlementHist;
 import com.gameif.portal.entity.MemSettlementTrns;
 import com.gameif.portal.entity.MySettlementHist;
+import com.gameif.portal.entity.SettlementMst;
 
 public interface IPointChargeBusinessLogic {
 
@@ -15,7 +16,7 @@ public interface IPointChargeBusinessLogic {
 	 * 仮決済を登録する
 	 * @param settlementTrns 仮決済情報（必要な項目が格納されていること）
 	 */
-	public int createSettlementTrns(MemSettlementTrns settlementTrns, Boolean forMixi) throws LogicException;
+	public int createSettlementTrns(MemSettlementTrns settlementTrns) throws LogicException;
 	
 	public MemSettlementTrns getSettlementTrnsByKey(Long settleTrnsNum);
 
@@ -32,10 +33,10 @@ public interface IPointChargeBusinessLogic {
 	 * @param titleId タイトルID
 	 * @return プレイ回数
 	 */
-	public Integer countPlayHist(Integer titleId);
+	public Integer countPlayHist(Integer titleId, Long memNum);
 	
 	public List<MySettlementHist> getSettlementHistListByMemNum(Long memNum);
-	
-	public int getMemAdvertActualInfoByMemNum(Long memNum);
+
+	public List<SettlementMst> getSettlementListForCharge(Long memNum);
 
 }
