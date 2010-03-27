@@ -128,13 +128,6 @@
 		</property>
 	</bean>
 	
-	<!-- memSettlementHistForMixiDao -->
-	<bean id="memSettlementHistForMixiDao" class="com.gameif.portal.dao.impl.MemSettlementHistForMixiDaoImpl" parent="baseDao">
-		<property name="namespace">
-			<value>memSettlementHistForMixi</value>
-		</property>
-	</bean>
-	
 	<!-- memSettlementTrnsDao -->
 	<bean id="memSettlementTrnsDao" class="com.gameif.portal.dao.impl.MemSettlementTrnsDaoImpl" parent="baseDao">
 		<property name="namespace">
@@ -317,10 +310,24 @@
 		</property>
 	</bean>
 	
-	<!-- memberInfoForMixiDao -->
-	<bean id="memberInfoForMixiDao" class="com.gameif.portal.dao.impl.MemberInfoForMixiDaoImpl" parent="baseDao">
+	<!-- opensocialMemberDao -->
+	<bean id="opensocialMemberDao" class="com.gameif.portal.dao.impl.OpensocialMemberDaoImpl" parent="baseDao">
 		<property name="namespace">
-			<value>memberInfoForMixi</value>
+			<value>opensocialMember</value>
 		</property>
 	</bean>
+	
+	<!-- playHistDao -->
+	<bean id="opensocialPlayHistDao" class="com.gameif.portal.dao.impl.OpensocialPlayHistDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>opensocialPlayHist</value>
+		</property>
+    </bean>
+    
+    <!-- opensocialSettlementHistDao -->
+    <bean id="opensocialSettlementHistDao" class="com.gameif.portal.dao.impl.OpensocialSettlementHistDaoImpl" parent="baseDao">
+        <property name="namespace">
+            <value>opensocialSettlementHist</value>
+        </property>
+    </bean>
 </beans>

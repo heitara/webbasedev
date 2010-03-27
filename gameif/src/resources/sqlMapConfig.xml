@@ -55,7 +55,8 @@
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/memberLoginHist.xml"/>
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/playGuaranty.xml"/>
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/functionControlInfo.xml"/>
-	<sqlMap resource="com/gameif/portal/dao/impl/mapping/memberInfoForMixi.xml"/>
-	<sqlMap resource="com/gameif/portal/dao/impl/mapping/memSettlementHistForMixi.xml"/>
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/opensocialMember.xml"/>
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/opensocialSettlementHist.xml"/>
+    <sqlMap resource="com/gameif/portal/dao/impl/mapping/opensocialPlayHist.xml"/>
 	
 </sqlMapConfig>

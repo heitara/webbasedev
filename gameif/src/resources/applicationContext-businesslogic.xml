@@ -133,12 +133,6 @@
 		<property name="pointMstDao">
 			<ref bean="pointMstDao" />
 		</property>
-		<property name="settlementMstDao">
-			<ref bean="settlementMstDao" />
-		</property>
-		<property name="memberInfoDao">
-			<ref bean="memberInfoDao" />
-		</property>
 	</bean>
 	
 	<!-- titlePlayBusinessLogic -->
@@ -229,14 +223,11 @@
 		<property name="serverMstDao">
 			<ref bean="serverMstDao" />
 		</property>
+        <property name="settlementMstDao">
+            <ref bean="settlementMstDao" />
+        </property>
 		<property name="functionControlInfoDao">
 			<ref bean="functionControlInfoDao" />
-		</property>
-		<property name="memberInfoForMixiDao">
-			<ref bean="memberInfoForMixiDao" />
-		</property>
-		<property name="memAdvertActualInfoDao">
-			<ref bean="memAdvertActualInfoDao" />
 		</property>
 	</bean>
 	
@@ -345,14 +336,59 @@
 		</property>
 	</bean>
 	
-	<!-- memberInfoForMixiBusinessLogic -->
-	<bean id="memberInfoForMixiBusinessLogic"
-		class="com.gameif.portal.businesslogic.impl.MemberInfoForMixiBusinessLogicImpl">
-		<property name="serverMstDao">
-			<ref bean="serverMstDao" />
-		</property>
-		<property name="memberInfoForMixiDao">
-			<ref bean="memberInfoForMixiDao" />
+	<!-- opensocialMemberBusinessLogic -->
+	<bean id="opensocialMemberBusinessLogic"
+		class="com.gameif.portal.businesslogic.impl.OpensocialMemberBusinessLogicImpl">
+		<property name="opensocialMemberDao">
+			<ref bean="opensocialMemberDao" />
 		</property>
 	</bean>
+	<!-- opensocialTitlePlayBusinessLogic -->
+	<bean id="opensocialTitlePlayBusinessLogic"
+		class="com.gameif.portal.businesslogic.impl.OpensocialTitlePlayBusinessLogicImpl">
+		<property name="opensocialPlayHistDao">
+			<ref bean="opensocialPlayHistDao" />
+		</property>
+	</bean>
+    <!-- opensocialTitlePlayBusinessLogic -->
+    <bean id="opensocialPointChargeBusinessLogic"
+        class="com.gameif.portal.businesslogic.impl.OpensocialPointChargeBusinessLogicImpl">
+        
+        <!-- サービスポイントの失効時間（単位:日） -->
+        <property name="validDays">
+            <value>${servicePoint.validDays}</value>
+        </property>
+        <!-- 購入できるポイントの限度額（100,000） -->
+        <property name="limitAmountMax">
+            <value>${pointCharge.limitAmountMax}</value>
+        </property>
+        <!-- 購入できるポイントの限度額（30,000） -->
+        <property name="limitAmountMin">
+            <value>${pointCharge.limitAmountMin}</value>
+        </property>
+        <property name="memSettlementTrnsDao">
+            <ref bean="memSettlementTrnsDao" />
+        </property>
+        <property name="pointMstDao">
+            <ref bean="pointMstDao" />
+        </property>
+        <property name="titleCharge">
+            <ref bean="titleCharge" />
+        </property>
+        <property name="serverMstDao">
+            <ref bean="serverMstDao" />
+        </property>
+        <property name="settlementMstDao">
+            <ref bean="settlementMstDao" />
+        </property>
+        <property name="opensocialMemberDao">
+            <ref bean="opensocialMemberDao" />
+        </property>
+        <property name="opensocialSettlementHistDao">
+            <ref bean="opensocialSettlementHistDao" />
+        </property>
+        <property name="opensocialPlayHistDao">
+            <ref bean="opensocialPlayHistDao" />
+        </property>
+    </bean>
 </beans>

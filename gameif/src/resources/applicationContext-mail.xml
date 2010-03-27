@@ -160,23 +160,23 @@
 	<bean id="freeMarkerConfigurer"
 		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
 		<property name="templateLoaderPath">
-			<value>${freeMarkerConf.templateLoaderPath}</value>
+			<value>WEB-INF/template/mail/</value>
 		</property>
 		<property name="freemarkerSettings">
 			<props>
-				<prop key="template_update_delay">${freeMarkerConf.template_update_delay}</prop>
-				<prop key="default_encoding">${freeMarkerConf.default_encoding}</prop>
-				<prop key="locale">${freeMarkerConf.locale}</prop>
+				<prop key="template_update_delay">1800</prop>
+				<prop key="default_encoding">UTF-8</prop>
+				<prop key="locale">ja_JP</prop>
 			</props>
 		</property>
 	</bean>
 	
 	<bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
 	    <property name="corePoolSize">
-	    	<value>${taskExecutor.corePoolSize}</value>
+	    	<value>5</value>
 	    </property>
 	    <property name="maxPoolSize">
-	    	<value>${taskExecutor.maxPoolSize}</value>
+	    	<value>30</value>
 	    </property>
 	</bean>
 </beans>
