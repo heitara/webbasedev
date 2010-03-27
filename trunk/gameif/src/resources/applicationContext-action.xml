@@ -22,6 +22,24 @@
 			<ref bean="memberInfoBusinessLogic" />
 		</property>
 	</bean>
+    <bean id="pointChargeMaintenanceInterceptor" class="com.gameif.portal.interceptor.PointChargeMaintenanceInterceptor">
+        <property name="maintenanceBusinessLogic">
+            <ref bean="maintenanceBusinessLogic" />
+        </property>
+    </bean>
+    <bean id="pointChargeTitleMaintenanceInterceptor" class="com.gameif.portal.interceptor.PointChargeTitleMaintenanceInterceptor">
+        <property name="maintenanceBusinessLogic">
+            <ref bean="maintenanceBusinessLogic" />
+        </property>
+    </bean>
+    <bean id="biglobePointChargeInterceptor" class="com.gameif.portal.interceptor.BiglobePointChargeInterceptor">
+        <property name="memberInfoBusinessLogic">
+            <ref bean="memberInfoBusinessLogic" />
+        </property>
+        <property name="advertNum">
+            <value>${biglobePointChargeInterceptor.advertNum}</value>
+        </property>
+    </bean>
 	
 	<bean id="indexAction" class="com.gameif.portal.action.menu.IndexAction" scope="prototype" />
 	
@@ -158,6 +176,12 @@
 	<!-- ポイントチャージ用アクション -->
 	<!-- pointChargeControlAction -->
 	<bean id="pointChargeControlAction" class="com.gameif.portal.action.pointCharge.PointChargeControlAction" scope="prototype">
+		<property name="masterInfoBusinessLogic">
+			<ref bean="masterInfoBusinessLogic" />
+		</property>
+		<property name="pointChargeBusinessLogic">
+			<ref bean="pointChargeBusinessLogic" />
+		</property>
 		<!-- マーチャントID -->
 		<property name="merchant_id">
 			<value>${pointChargeControlAction.merchant_id}</value>
@@ -194,28 +218,29 @@
 		<property name="limit_second">
 			<value>${pointChargeControlAction.limit_second}</value>
 		</property>
-		<!-- リクエスト先URL（For　Biglobe） -->
-		<property name="requestUrlForBigLobe">
-			<value>${pointChargeControlAction.requestUrlForBigLobe}</value>
-		</property>
-		<!-- ショップコード（For　Biglobe） -->
-		<property name="gwShopCode">
-			<value>${pointChargeControlAction.GwShopCode}</value>
-		</property>
-		<!-- 商品コード（For　Biglobe） -->
-		<property name="gwGoodsCode">
-			<value>${pointChargeControlAction.GwGoodsCode}</value>
-		</property>
-		
-		<property name="masterInfoBusinessLogic">
-			<ref bean="masterInfoBusinessLogic" />
-		</property>
+	</bean>
+	
+	<!-- BIGLOBEポイントチャージ用アクション -->
+	<!-- biglobePointChargeControlAction -->
+	<bean id="biglobePointChargeControlAction" class="com.gameif.portal.action.pointCharge.BiglobePointChargeControlAction" scope="prototype">
 		<property name="pointChargeBusinessLogic">
 			<ref bean="pointChargeBusinessLogic" />
 		</property>
-		<property name="maintenanceBusinessLogic">
-			<ref bean="maintenanceBusinessLogic" />
+		<!-- リクエスト先URL（For　Biglobe） -->
+		<property name="requestUrl">
+			<value>${biglobePointChargeControlAction.requestUrl}</value>
 		</property>
+		<!-- ショップコード（For　Biglobe） -->
+		<property name="biglobeShopCode">
+			<value>${biglobePointChargeControlAction.shopCode}</value>
+		</property>
+		<!-- プロバイダーＩＰ（For　Biglobe） -->
+		<property name="providerIps">
+            <value>${biglobePointChargeControlAction.providerIps}</value>
+		</property>
+        <property name="shopGoodsCodes">
+            <value>${biglobePointChargeControlAction.shopGoodsCodes}</value>
+        </property>
 	</bean>
 	
 	<!-- ポイントチャージ画面にて、マスタデータバインド用アクション -->
@@ -300,24 +325,7 @@
 			<ref bean="titleEntry" />
 		</property>
 	</bean>
-	
-	<!-- serverSelectControlAction -->
-	<bean id="serverSelectControlAction" class="com.gameif.portal.action.mixi.ServerSelectControlAction" scope="prototype">
-		<property name="memberInfoForMixiBusinessLogic">
-			<ref bean="memberInfoForMixiBusinessLogic" />
-		</property>
-	</bean>
-	
-	<!-- mixiControlAction -->
-	<bean id="mixiControlAction" class="com.gameif.portal.action.mixi.MixiControlAction" scope="prototype">
-		<property name="memberInfoForMixiBusinessLogic">
-			<ref bean="memberInfoForMixiBusinessLogic" />
-		</property>
-	</bean>
-	
-	<!-- mixiSignedFetchVerifyAction -->
-	<bean id="mixiSignedFetchVerifyAction" class="com.gameif.portal.action.mixi.MixiSignedFetchVerifyAction" scope="prototype"/>
-	
+		
 	<!-- loginStatusProxyAction -->
 	<bean id="loginStatusProxyAction" class="com.gameif.portal.action.menu.LoginStatusProxyAction" scope="prototype" />
 	<!-- logoutProxyAction -->
@@ -333,4 +341,78 @@
 			</map>
 		</property>
 	</bean>
+	
+    <!-- opensocialPointChargeInterceptor -->
+    <bean id="opensocialPointChargeInterceptor" class="com.gameif.portal.interceptor.OpensocialPointChargeInterceptor">
+        <property name="opensocialMemberBusinessLogic">
+            <ref bean="opensocialMemberBusinessLogic" />
+        </property>
+    </bean>
+	
+	<!-- opensocialTitlePlayControlAction -->
+	<bean id="opensocialTitlePlayControlAction" class="com.gameif.portal.action.titleif.OpensocialTitlePlayControlAction" scope="prototype">
+		<property name="titleEntry">
+			<ref bean="titleEntry" />
+		</property>
+		<property name="masterInfoBusinessLogic">
+			<ref bean="masterInfoBusinessLogic" />
+		</property>
+		<property name="opensocialTitlePlayBusinessLogic">
+			<ref bean="opensocialTitlePlayBusinessLogic" />
+		</property>
+		<property name="opensocialMemberBusinessLogic">
+			<ref bean="opensocialMemberBusinessLogic" />
+		</property>
+		<property name="opensocialPageTemplater">
+			<ref bean="opensocialPageTemplater" />
+		</property>
+	</bean>
+    
+    <!-- ポイントチャージ用アクション -->
+    <!-- pointChargeControlAction -->
+    <bean id="opensocialPointChargeControlAction" class="com.gameif.portal.action.pointCharge.OpensocialPointChargeControlAction" scope="prototype">
+        <property name="masterInfoBusinessLogic">
+            <ref bean="masterInfoBusinessLogic" />
+        </property>
+        <property name="opensocialPointChargeBusinessLogic">
+            <ref bean="opensocialPointChargeBusinessLogic" />
+        </property>
+        <!-- マーチャントID -->
+        <property name="merchant_id">
+            <value>${pointChargeControlAction.merchant_id}</value>
+        </property>
+        <!-- サービスID -->
+        <property name="service_id">
+            <value>${pointChargeControlAction.service_id}</value>
+        </property>
+        <!-- 購入要求接続先URL -->
+        <property name="requestUrl">
+            <value>${pointChargeControlAction.requestUrl}</value>
+        </property>
+        <!-- 決済完了時URL -->
+        <property name="success_url">
+            <value>${pointChargeControlAction.opensocial.success_url}</value>
+        </property>
+        <!-- キャンセル時URL -->
+        <property name="cancel_url">
+            <value>${pointChargeControlAction.opensocial.cancel_url}</value>
+        </property>
+        <!-- エラー時URL -->
+        <property name="error_url">
+            <value>${pointChargeControlAction.opensocial.error_url}</value>
+        </property>
+        <!-- 決済通知用CGI -->
+        <property name="pagecon_url">
+            <value>${pointChargeControlAction.opensocial.pagecon_url}</value>
+        </property>
+        <!-- SPSより払い出されたキー -->
+        <property name="spsKey">
+            <value>${pointChargeControlAction.spsKey}</value>
+        </property>
+        <!-- リクエスト許容時間（単位:秒） -->
+        <property name="limit_second">
+            <value>${pointChargeControlAction.limit_second}</value>
+        </property>
+    </bean>
+	
 </beans>
