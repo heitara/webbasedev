@@ -11,7 +11,7 @@
 		<result property="serviceStartDate" column="service_start_date" />
 		<result property="serviceEndDate" column="service_end_date" />
 		<result property="serviceStatus" column="service_status" />
-		<result property="forMixi" column="for_mixi"/>
+		<result property="providerId" column="provider_id"/>
 		<result property="serverDomain" column="server_domain" />
 		<result property="playUrl" column="play_url" />
 		<result property="chargeUrl" column="charge_url" />
@@ -38,7 +38,7 @@
 				service_start_date,
 				service_end_date,
 				service_status,
-				for_mixi,
+				provider_id,
 				server_domain,
 				play_url,
 				charge_url,
@@ -56,64 +56,6 @@
         ]]>
 	</select>
 
-	<select id="selectValidServerList" resultMap="serverResult">
-        <![CDATA[
-        SELECT
-			server_id,
-			title_id,
-			server_name,
-			service_start_date,
-			service_end_date,
-			service_status,
-			for_mixi,
-			server_domain,
-			play_url,
-			charge_url,
-			order_num,
-			players_num,
-			popularity_flag,
-			recommend_flag,
-			created_date,
-			created_user,
-			last_update_date,
-			last_update_user
-		FROM
-			server_mst
-		WHERE
-			service_start_date <= now()
-		AND service_end_date >= now()
-        ]]>
-	</select>
-
-	<select id="selectValidServerListByTitle" resultMap="serverResultForBind">
-        <![CDATA[
-        SELECT
-			server_id,
-			server_name
-		FROM
-			server_mst
-		WHERE
-			title_id = #value#
-		AND	service_start_date <= now()
-		AND service_end_date >= now()
-        ]]>
-	</select>
-
-	<select id="selectValidServerListForMixiByTitle" resultMap="serverResultForBind">
-        <![CDATA[
-        SELECT
-			server_id,
-			server_name
-		FROM
-			server_mst
-		WHERE
-			title_id = #value#
-		AND	service_start_date <= now()
-		AND service_end_date >= now()
-		AND for_mixi = '1'
-        ]]>
-	</select>
-
 	<select id="selectServerByDomain" resultMap="serverResult">
         <![CDATA[
 		SELECT	server_id,
@@ -122,7 +64,7 @@
 				service_start_date,
 				service_end_date,
 				service_status,
-				for_mixi,
+				provider_id,
 				server_domain,
 				play_url,
 				charge_url,
@@ -147,7 +89,7 @@
 				service_start_date,
 				service_end_date,
 				service_status,
-				for_mixi,
+				provider_id,
 				server_domain,
 				play_url,
 				charge_url,
@@ -166,7 +108,7 @@
         ]]>
 	</select>
 
-	<select id="selectServersListForMixi" resultMap="serverResult">
+	<select id="selectValidServerList" resultMap="serverResult">
         <![CDATA[
         SELECT
 			server_id,
@@ -175,7 +117,7 @@
 			service_start_date,
 			service_end_date,
 			service_status,
-			for_mixi,
+			provider_id,
 			server_domain,
 			play_url,
 			charge_url,
@@ -192,7 +134,52 @@
 		WHERE
 			service_start_date <= now()
 		AND service_end_date >= now()
-		AND for_mixi = '1'
+		AND	provider_id = 0
+        ]]>
+	</select>
+
+	<select id="selectValidServerListByTitle" resultMap="serverResultForBind">
+        <![CDATA[
+        SELECT
+			server_id,
+			server_name
+		FROM
+			server_mst
+		WHERE
+			title_id = #value#
+		AND	service_start_date <= now()
+		AND service_end_date >= now()
+		AND	provider_id = 0
+        ]]>
+	</select>
+
+	<select id="selectServersListByTitleAndProvider" resultMap="serverResult">
+        <![CDATA[
+        SELECT
+			server_id,
+			title_id,
+			server_name,
+			service_start_date,
+			service_end_date,
+			service_status,
+			provider_id,
+			server_domain,
+			play_url,
+			charge_url,
+			order_num,
+			players_num,
+			popularity_flag,
+			recommend_flag,
+			created_date,
+			created_user,
+			last_update_date,
+			last_update_user
+		FROM
+			server_mst
+		WHERE
+			service_start_date <= now()
+		AND service_end_date >= now()
+		AND provider_id = #providerId#
 		AND title_id = #titleId#
         ]]>
 	</select>

@@ -8,6 +8,7 @@
 	<resultMap class="com.gameif.portal.entity.MemSettlementTrns" id="settleTrnsResult">
 		<result property="settlementTrnsNum" column="settlement_trns_num" />
 		<result property="settlementCode" column="settlement_code" />
+        <result property="providerId" column="provider_id" />
 		<result property="memNum" column="mem_num" />
 		<result property="memAtbtCd" column="mem_atbt_cd" />
 		<result property="titleId" column="title_id" />
@@ -23,8 +24,9 @@
 	
 	<insert id = "save" parameterClass="memSettlementTrns"> 
         <![CDATA[
-		INSERT INTO mem_settlement_trns
-			(settlement_code,
+		INSERT INTO mem_settlement_trns (
+			settlement_code,
+			provider_id,
 			mem_num,
 			mem_atbt_cd,
 			title_id,
@@ -35,9 +37,10 @@
 			point_amount_act,
 			settlement_log,
 			created_date,
-			created_user)
-		VALUES
-			(#settlementCode#,
+			created_user
+        ) VALUES (
+			#settlementCode#,
+			#providerId#,
 			#memNum#,
 			#memAtbtCd#,
 			#titleId#,
@@ -48,7 +51,8 @@
 			#pointAmountAct#,
 			#settlementLog#,
 			#createdDate#,
-			#createdUser#)
+			#createdUser#
+		)
         ]]>
 		<selectKey resultClass="java.lang.Long" keyProperty="settlementTrnsNum">   
         	<![CDATA[
@@ -62,6 +66,7 @@
         SELECT
 			settlement_trns_num,
 			settlement_code,
+            provider_id,
 			mem_num,
 			mem_atbt_cd,
 			title_id,
@@ -85,6 +90,7 @@
         SELECT
 			settlement_trns_num,
 			settlement_code,
+            provider_id,
 			mem_num,
 			mem_atbt_cd,
 			title_id,
