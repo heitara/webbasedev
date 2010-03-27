@@ -100,7 +100,7 @@ public class ServicePointControlAction extends BaseActionSupport {
 		}
 		
 		// ゲームをプレーすることがあるかどうかのチェック
-		Integer count = pointChargeBusinessLogic.countPlayHist(getTitleId());
+		Integer count = pointChargeBusinessLogic.countPlayHist(getTitleId(), ContextUtil.getMemberNo());
 		if (count < 1) {
 			// プレーすることがない
 			addFieldError("errMessage", getText("title.noData"));
