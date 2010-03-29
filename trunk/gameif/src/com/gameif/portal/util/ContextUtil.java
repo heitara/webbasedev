@@ -255,7 +255,7 @@ public class ContextUtil {
 		return (String)request.getSession().getAttribute(EXT_SESS_K_MEM_ID);
 	}
 	
-	public static String getOpensocialProviderId() {
+	public static String getProviderId() {
 
 		HttpServletRequest request = ServletActionContext.getRequest();
 		return (String)request.getSession().getAttribute(EXT_SESS_K_PROVIDER_ID);

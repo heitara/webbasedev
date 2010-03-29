@@ -1,5 +1,7 @@
 package com.gameif.portal.businesslogic.titleif.charge;
 
+import java.util.Map;
+
 import com.gameif.common.util.SecurityUtil;
 
 public class DefaultChargeKeyGenerator implements IChargeKeyGenerator {
@@ -12,16 +14,12 @@ public class DefaultChargeKeyGenerator implements IChargeKeyGenerator {
 	private String orderKey;
 	/** 受注番号のパラメータ名 */
 	private String pointKey;
-	/** ポイント区別のパラメータ名 */
-	private String spKey;
-	/** 親の会員番号のパラメータ名 */
-//	private String parentAccountKey;
 
 	/** セキュリティ文字列のパラメータ名 */
 	private String validateCdKey;
 	
 	/** サーバ間連携パスワード */
-	private String unionCd;
+	private Map<Integer, String> unionCdMap;
 
 	/**
 	 * ポイントチャージに必要なＵＲＬパラメータを生成する。
@@ -60,17 +58,8 @@ public class DefaultChargeKeyGenerator implements IChargeKeyGenerator {
 							.append(timeKey)
 							.append("=")
 							.append(unixTime)
-//							.append(unionCd)
-//							.append("&")
-//							.append(spKey)
-//							.append("=")
-//							.append(parameter.getSpType())
-//							.append("&")
-//							.append(parentAccountKey)
-//							.append("=")
-//							.append(parameter.getParentNum())
 							.toString();
-		String validateCd = SecurityUtil.getMD5String(chargeInfo + unionCd + "&sp=" + parameter.getSpType());
+		String validateCd = SecurityUtil.getMD5String(chargeInfo + unionCdMap.get(parameter.getServerId()) + "&sp=" + parameter.getSpType());
 		
 		return new StringBuffer()
 				.append(chargeInfo)
@@ -99,25 +88,11 @@ public class DefaultChargeKeyGenerator implements IChargeKeyGenerator {
 		this.pointKey = pointKey;
 	}
 
-	/**
-	 * @param spKey the spKey to set
-	 */
-	public void setSpKey(String spKey) {
-		this.spKey = spKey;
-	}
-
-//	/**
-//	 * @param parentAccountKey the parentAccountKey to set
-//	 */
-//	public void setParentAccountKey(String parentAccountKey) {
-//		this.parentAccountKey = parentAccountKey;
-//	}
-	
 	public void setValidateCdKey(String validateCdKey) {
 		this.validateCdKey = validateCdKey;
 	}
 
-	public void setUnionCd(String unionCd) {
-		this.unionCd = unionCd;
+	public void setUnionCdMap(Map<Integer, String> unionCdMap) {
+		this.unionCdMap = unionCdMap;
 	}
 }

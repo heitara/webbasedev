@@ -7,6 +7,8 @@ import com.gameif.portal.entity.InquiryKindMst;
 import com.gameif.portal.entity.InviteTemplateMst;
 import com.gameif.portal.entity.OccupationMst;
 import com.gameif.portal.entity.PointMst;
+import com.gameif.portal.entity.ProviderMst;
+import com.gameif.portal.entity.ProviderTitleMst;
 import com.gameif.portal.entity.QuestionMst;
 import com.gameif.portal.entity.ServerMst;
 import com.gameif.portal.entity.TitleMst;
@@ -31,5 +33,7 @@ public interface IMasterInfoBusinessLogic {
 	
 	public List<PointMst> getAllValidPointListByTitle(Integer titleId);
 	public PointMst getPointMstByKey(Integer pointId);
+	public ProviderMst getProviderMstByKey(String providerId);
+	public ProviderTitleMst getProviderTitleMstByKey(ProviderTitleMst providerTitle);
 	
 }

@@ -1,8 +1,12 @@
 package com.gameif.portal.interceptor;
 
 import java.util.Map;
+
 import javax.servlet.http.Cookie;
+
 import org.apache.struts2.ServletActionContext;
+
+import com.gameif.common.util.ByteUtil;
 import com.gameif.common.util.SecurityUtil;
 import com.gameif.portal.constants.PortalConstants;
 import com.opensymphony.xwork2.ActionInvocation;
@@ -14,7 +18,7 @@ public class EntryParameterInterceptor extends BaseParameterInterceptor {
 	@Override
 	public String doIntercept(ActionInvocation ai) throws Exception {
 		
-		String encodedParams = getParameterFromCookie(PortalConstants.Key.SEURE_PARAM_KEY);
+		String encodedParams = ByteUtil.stringFromHexString(getParameterFromCookie(PortalConstants.Key.SEURE_PARAM_KEY));
 		String title = getParameterFromCookie(PortalConstants.Key.ENTRY_PARAM_TITLE_KEY);
 		String apply = getParameterFromCookie(PortalConstants.Key.ENTRY_PARAM_APPLY_KEY);		
 			

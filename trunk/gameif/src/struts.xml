@@ -265,8 +265,10 @@
             <interceptor-ref name="biglobeCharge">
                 <param name="includeMethods">chargeSettleSelect</param>
             </interceptor-ref>
-			<result name="pointSelect">/WEB-INF/pages/portal/charge_point_select.jsp</result>            
+			<result name="pointSelect">/WEB-INF/pages/portal/charge_point_select.jsp</result>
+			<result name="pointSubmit" type="redirect">chargeSettleSelect.html?titleId=${titleId}&amp;serverId=${serverId}&amp;pointId=${pointId}</result>
 			<result name="settleSelect">/WEB-INF/pages/portal/charge_settle_select.jsp</result>
+			<result name="settleSubmit" type="redirect">chargeSaveSettleTrns.html?titleId=${titleId}&amp;serverId=${serverId}&amp;pointId=${pointId}&amp;settlementCode=${settlementCode}</result>
 			<result name="requestSbps">/WEB-INF/pages/portal/charge_detail.jsp</result>
 			<result name="success">/WEB-INF/pages/portal/charge_success.jsp</result>
 			<result name="cancel">/WEB-INF/pages/portal/charge_cancel.jsp</result>
@@ -404,8 +406,10 @@
             <interceptor-ref name="chargeTitleMaintenance">
                 <param name="includeMethods">chargeSettleSelect,chargeSaveSettleTrns</param>
             </interceptor-ref>
-            <result name="pointSelect">/WEB-INF/pages/opensocial/charge_point_select.jsp</result>            
-            <result name="settleSelect">/WEB-INF/pages/opensocial/charge_settle_select.jsp</result>
+            <result name="pointSelect">/WEB-INF/pages/opensocial/charge_point_select.jsp</result>
+			<result name="pointSubmit" type="redirect">chargeSettleSelect.html?titleId=${titleId}&amp;serverId=${serverId}&amp;pointId=${pointId}</result>
+			<result name="settleSelect">/WEB-INF/pages/opensocial/charge_settle_select.jsp</result>
+			<result name="settleSubmit" type="redirect">chargeSaveSettleTrns.html?titleId=${titleId}&amp;serverId=${serverId}&amp;pointId=${pointId}&amp;settlementCode=${settlementCode}</result>
             <result name="requestSbps">/WEB-INF/pages/opensocial/charge_detail.jsp</result>
             <result name="success">/WEB-INF/pages/opensocial/charge_success.jsp</result>
             <result name="cancel">/WEB-INF/pages/opensocial/charge_cancel.jsp</result>
@@ -413,6 +417,49 @@
             <result name="warning">/WEB-INF/pages/opensocial/warning.jsp</result>
             <result name="maintenance">/WEB-INF/pages/opensocial/maintenance.jsp</result>
             <result name="invalid.token">/WEB-INF/pages/opensocial/warning.jsp</result>
+        </action>
+    </package>
+	
+    <package name="joint" extends="gameif" namespace="/joint">
+        <interceptors>
+            <interceptor name="jointTitlePlayParameter" class="jointTitlePlayInterceptor"/>
+            <interceptor name="jointPointChargeParameter" class="jointPointChargeInterceptor"/>
+        </interceptors>
+		<action name="playGame" class="jointTitlePlayControlAction">
+            <interceptor-ref name="gameifStack"></interceptor-ref>
+            <interceptor-ref name="jointTitlePlayParameter"></interceptor-ref>
+			<result name="success" type="redirect">${playUrl}</result>
+			<result name="maintenance" type="redirect">${maintenanceUrl}</result>
+			<result name="error" type="redirect">${errorUrl}</result>
+		</action>
+        <action name="charge*" class="jointPointChargeControlAction" method="charge{1}">
+            <interceptor-ref name="scopedModelDriven">
+                <param name="scope">request</param>
+                <param name="name">memSettlementHist</param>
+                <param name="className">com.gameif.portal.entity.JointSettlementHist</param>
+            </interceptor-ref>
+            <interceptor-ref name="gameifStack"></interceptor-ref>
+            <interceptor-ref name="jointPointChargeParameter">
+                <param name="includeMethods">chargePointSelect,chargeSettleSelect,chargeSaveSettleTrns</param>
+            </interceptor-ref>
+            <interceptor-ref name="chargeMaintenance">
+                <param name="includeMethods">chargePointSelect,chargeSettleSelect,chargeSaveSettleTrns</param>
+            </interceptor-ref>
+            <interceptor-ref name="chargeTitleMaintenance">
+                <param name="includeMethods">chargeSettleSelect,chargeSaveSettleTrns</param>
+            </interceptor-ref>
+
+			<result name="pointSelect">/WEB-INF/pages/joint/charge_point_select.jsp</result>
+			<result name="pointSubmit" type="redirect">chargeSettleSelect.html?titleId=${titleId}&amp;serverId=${serverId}&amp;pointId=${pointId}</result>
+			<result name="settleSelect">/WEB-INF/pages/joint/charge_settle_select.jsp</result>
+			<result name="settleSubmit" type="redirect">chargeSaveSettleTrns.html?titleId=${titleId}&amp;serverId=${serverId}&amp;pointId=${pointId}&amp;settlementCode=${settlementCode}</result>
+            <result name="requestSbps">/WEB-INF/pages/joint/charge_detail.jsp</result>
+            <result name="success" type="redirect">${chargeSuccessUrl}</result>
+            <result name="cancel" type="redirect">${chargeCancelUrl}</result>
+            <result name="error" type="redirect">${chargeErrorUrl}</result>
+			<result name="input" type="redirect">chargePointSelect.html?titleId=${titleId}&amp;serverId=${serverId}</result>
+            <result name="maintenance" type="redirect">${chargeMaintenanceUrl}</result>
+            <result name="invalid.token">/WEB-INF/pages/common/warning.jsp</result>
         </action>
     </package>
 	

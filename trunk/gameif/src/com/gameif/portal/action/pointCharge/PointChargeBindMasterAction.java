@@ -35,7 +35,7 @@ public class PointChargeBindMasterAction {
 		
 		ServerMst serverMst = new ServerMst();
 		serverMst.setTitleId(titleId);
-		serverMst.setProviderId(ContextUtil.getOpensocialProviderId());
+		serverMst.setProviderId(ContextUtil.getProviderId());
 		// サーバ情報
 		serverList = masterInfoBusinessLogic.getAllValidServerListTitleAndProvider(serverMst);
 		// ポイント情報

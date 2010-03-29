@@ -6,7 +6,7 @@
            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
 
 	<bean id="secureParameterInterceptor" class="com.gameif.portal.interceptor.SecureParameterInterceptor" scope="prototype"/>
-	<bean id="entryParameterInterceptor" class="com.gameif.portal.interceptor.EntryParameterInterceptor" />
+	<bean id="entryParameterInterceptor" class="com.gameif.portal.interceptor.EntryParameterInterceptor" scope="prototype"/>
 	<bean id="actionLoggerInterceptor" class="com.gameif.portal.interceptor.ActionLogInterceptor" />
 	<!-- actionLoggerInterceptor：同ＩＰで短時間以内に連続して会員登録を行った場合、制限をかける -->
 	<bean id="repetitionRegInterceptor" class="com.gameif.portal.interceptor.RepetitionRegInterceptor">
@@ -38,6 +38,25 @@
         </property>
         <property name="advertNum">
             <value>${biglobePointChargeInterceptor.advertNum}</value>
+        </property>
+    </bean>
+    <bean id="jointTitlePlayInterceptor" class="com.gameif.portal.interceptor.JointTitlePlayInterceptor">
+        <property name="masterInfoBusinessLogic">
+            <ref bean="masterInfoBusinessLogic" />
+        </property>
+        <property name="timeOutMinutes">
+            <value>${jointTitlePlayInterceptor.timeOutMinutes}</value>
+        </property>
+    </bean>
+    <bean id="jointPointChargeInterceptor" class="com.gameif.portal.interceptor.JointPointChargeInterceptor">
+        <property name="masterInfoBusinessLogic">
+            <ref bean="masterInfoBusinessLogic" />
+        </property>
+        <property name="jointMemberBusinessLogic">
+            <ref bean="jointMemberBusinessLogic" />
+        </property>
+        <property name="timeOutMinutes">
+            <value>${jointTitlePlayInterceptor.timeOutMinutes}</value>
         </property>
     </bean>
 	
@@ -404,6 +423,69 @@
         <!-- 決済通知用CGI -->
         <property name="pagecon_url">
             <value>${pointChargeControlAction.opensocial.pagecon_url}</value>
+        </property>
+        <!-- SPSより払い出されたキー -->
+        <property name="spsKey">
+            <value>${pointChargeControlAction.spsKey}</value>
+        </property>
+        <!-- リクエスト許容時間（単位:秒） -->
+        <property name="limit_second">
+            <value>${pointChargeControlAction.limit_second}</value>
+        </property>
+    </bean>
+	
+	<!-- jointTitlePlayControlAction -->
+	<bean id="jointTitlePlayControlAction" class="com.gameif.portal.action.titleif.JointTitlePlayControlAction" scope="prototype">
+		<property name="titleEntry">
+			<ref bean="titleEntry" />
+		</property>
+		<property name="masterInfoBusinessLogic">
+			<ref bean="masterInfoBusinessLogic" />
+		</property>
+		<property name="jointTitlePlayBusinessLogic">
+			<ref bean="jointTitlePlayBusinessLogic" />
+		</property>
+		<property name="jointMemberBusinessLogic">
+			<ref bean="jointMemberBusinessLogic" />
+		</property>
+	</bean>
+    
+    <!-- ポイントチャージ用アクション -->
+    <!-- pointChargeControlAction -->
+    <bean id="jointPointChargeControlAction" class="com.gameif.portal.action.pointCharge.JointPointChargeControlAction" scope="prototype">
+        <property name="masterInfoBusinessLogic">
+            <ref bean="masterInfoBusinessLogic" />
+        </property>
+        <property name="jointPointChargeBusinessLogic">
+            <ref bean="jointPointChargeBusinessLogic" />
+        </property>
+        <!-- マーチャントID -->
+        <property name="merchant_id">
+            <value>${pointChargeControlAction.merchant_id}</value>
+        </property>
+        <!-- サービスID -->
+        <property name="service_id">
+            <value>${pointChargeControlAction.service_id}</value>
+        </property>
+        <!-- 購入要求接続先URL -->
+        <property name="requestUrl">
+            <value>${pointChargeControlAction.requestUrl}</value>
+        </property>
+        <!-- 決済完了時URL -->
+        <property name="success_url">
+            <value>${pointChargeControlAction.joint.success_url}</value>
+        </property>
+        <!-- キャンセル時URL -->
+        <property name="cancel_url">
+            <value>${pointChargeControlAction.joint.cancel_url}</value>
+        </property>
+        <!-- エラー時URL -->
+        <property name="error_url">
+            <value>${pointChargeControlAction.joint.error_url}</value>
+        </property>
+        <!-- 決済通知用CGI -->
+        <property name="pagecon_url">
+            <value>${pointChargeControlAction.joint.pagecon_url}</value>
         </property>
         <!-- SPSより払い出されたキー -->
         <property name="spsKey">

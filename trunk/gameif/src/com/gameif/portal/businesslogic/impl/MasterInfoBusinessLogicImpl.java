@@ -9,6 +9,8 @@ import com.gameif.portal.dao.IInquiryKindMstDao;
 import com.gameif.portal.dao.IInviteTemplateDao;
 import com.gameif.portal.dao.IOccupationMstDao;
 import com.gameif.portal.dao.IPointMstDao;
+import com.gameif.portal.dao.IProviderMstDao;
+import com.gameif.portal.dao.IProviderTitleMstDao;
 import com.gameif.portal.dao.IQuestionMstDao;
 import com.gameif.portal.dao.IServerMstDao;
 import com.gameif.portal.dao.ITitleMstDao;
@@ -17,6 +19,8 @@ import com.gameif.portal.entity.InquiryKindMst;
 import com.gameif.portal.entity.InviteTemplateMst;
 import com.gameif.portal.entity.OccupationMst;
 import com.gameif.portal.entity.PointMst;
+import com.gameif.portal.entity.ProviderMst;
+import com.gameif.portal.entity.ProviderTitleMst;
 import com.gameif.portal.entity.QuestionMst;
 import com.gameif.portal.entity.ServerMst;
 import com.gameif.portal.entity.TitleMst;
@@ -33,6 +37,8 @@ public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	private IInquiryKindMstDao inquiryKindMstDao;
 	private IInviteTemplateDao inviteTemplateDao;
 	private IPointMstDao pointMstDao;
+	private IProviderMstDao providerMstDao;
+	private IProviderTitleMstDao providerTitleMstDao;
 
 	/**
 	 * 都道府県を取得する
@@ -160,14 +166,33 @@ public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	 */
 	@Override
 	public List<PointMst> getAllValidPointListByTitle(Integer titleId) {
+		
 		return pointMstDao.selectValidPointListByTitle(titleId);
 	}
 
 	@Override
 	public PointMst getPointMstByKey(Integer pointId) {
+		
 		PointMst pointMst = new PointMst();
 		pointMst.setPointId(pointId);
+		
 		return pointMstDao.selectByKey(pointMst);
+	}
+
+	@Override
+	public ProviderMst getProviderMstByKey(String providerId) {
+		
+		ProviderMst providerMst = new ProviderMst();
+		providerMst.setProviderId(providerId);
+		
+		return providerMstDao.selectByKey(providerMst);
+	}
+
+	@Override
+	public ProviderTitleMst getProviderTitleMstByKey(ProviderTitleMst providerTitle) {
+		
+		
+		return providerTitleMstDao.selectByKey(providerTitle);
 	}
 
 	/**
@@ -222,5 +247,13 @@ public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 	 */
 	public void setPointMstDao(IPointMstDao pointMstDao) {
 		this.pointMstDao = pointMstDao;
+	}
+
+	public void setProviderMstDao(IProviderMstDao providerMstDao) {
+		this.providerMstDao = providerMstDao;
+	}
+
+	public void setProviderTitleMstDao(IProviderTitleMstDao providerTitleMstDao) {
+		this.providerTitleMstDao = providerTitleMstDao;
 	}
 }

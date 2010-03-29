@@ -1,5 +1,7 @@
 package com.gameif.portal.businesslogic.titleif.entry;
 
+import java.util.Map;
+
 import com.gameif.common.util.SecurityUtil;
 
 public class DefaultEntryKeyGenerator implements IEntryKeyGenerator {
@@ -12,13 +14,9 @@ public class DefaultEntryKeyGenerator implements IEntryKeyGenerator {
 	private String validateCdKey;
 	/**紹介者IDのパラメータ名*/
 	private String parentKey;
-//	/** メディアコードのパラメータ名 */
-//	private String fromKey;
 	
 	/** サーバ間連携パスワード */
-	private String unionCd;
-//	/** メディアコードのデフォルト値 */
-//	private String defaultFrom;
+	private Map<Integer, String> unionCdMap;
 
 	/**
 	 * ゲームログイン必要なＵＲＬパラメータを取得する。
@@ -37,7 +35,7 @@ public class DefaultEntryKeyGenerator implements IEntryKeyGenerator {
 								.append(parameter.getMemNum())
 								.append(unixTime)
 								.append(parameter.getParentMemNum())
-								.append(unionCd)
+								.append(unionCdMap.get(parameter.getServerId()))
 								.toString());
 		
 		return new StringBuffer()
@@ -71,23 +69,11 @@ public class DefaultEntryKeyGenerator implements IEntryKeyGenerator {
 		this.validateCdKey = validateCdKey;
 	}
 
-//	public void setFromKey(String fromKey) {
-//		this.fromKey = fromKey;
-//	}
-
-	public void setUnionCd(String unionCd) {
-		this.unionCd = unionCd;
-	}
-
-	/**
-	 * @param parentKey the parentKey to set
-	 */
 	public void setParentKey(String parentKey) {
 		this.parentKey = parentKey;
 	}
 
-//	public void setDefaultFrom(String defaultFrom) {
-//		this.defaultFrom = defaultFrom;
-//	}
-
+	public void setUnionCdMap(Map<Integer, String> unionCdMap) {
+		this.unionCdMap = unionCdMap;
+	}
 }

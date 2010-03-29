@@ -2,11 +2,8 @@ package com.gameif.portal.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
 
-import com.gameif.portal.action.pointCharge.PointChargeBindMasterAction;
 import com.gameif.portal.businesslogic.IOpensocialMemberBusinessLogic;
 import com.gameif.portal.entity.OpensocialMember;
 import com.gameif.portal.util.ContextUtil;
@@ -25,7 +22,7 @@ public class OpensocialPointChargeInterceptor extends MethodFilterInterceptor {
         String result = null;
         boolean accessable = false;
         
-        if (ContextUtil.getExternalAccountId() != null && ContextUtil.getOpensocialProviderId() != null) {
+        if (ContextUtil.getExternalAccountId() != null && ContextUtil.getProviderId() != null) {
         	
         	accessable = true;
         	
@@ -33,8 +30,8 @@ public class OpensocialPointChargeInterceptor extends MethodFilterInterceptor {
         	
         	HttpServletRequest request = ServletActionContext.getRequest();
         	
-        	String memId = request.getParameter("account");
-        	String providerId = request.getParameter("provider");
+        	String memId = request.getParameter("memId");
+        	String providerId = request.getParameter("providerId");
         	
         	if (memId != null && providerId != null) {
 

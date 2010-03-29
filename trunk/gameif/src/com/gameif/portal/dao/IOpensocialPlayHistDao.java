@@ -5,6 +5,6 @@ import com.gameif.portal.entity.OpensocialPlayHist;
 
 public interface IOpensocialPlayHistDao extends IBaseDao<OpensocialPlayHist, OpensocialPlayHist> {
 
-	public Integer selectPlayHistCount(Long memNum, Integer titleId);
+	public Integer selectPlayHistCount(Long memNum, Integer titleId, Integer serverId);
 }
 

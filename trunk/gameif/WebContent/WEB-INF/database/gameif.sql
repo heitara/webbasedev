@@ -983,11 +983,11 @@ DROP TABLE IF EXISTS `opensocial_member`;
 CREATE TABLE  `opensocial_member` (
   `mem_num` bigint(20) NOT NULL AUTO_INCREMENT,
   `mem_id` varchar(150) NOT NULL,
-  `nick_name` varchar(32) NOT NULL,
+  `nick_name` varchar(32) DEFAULT NULL,
   `provider_id` varchar(5) NOT NULL,
   `mem_atbt_cd` char(1) NOT NULL,
   `mem_valid_yn_cd` char(1) NOT NULL,
-  `mail_pc` varchar(100) NOT NULL,
+  `mail_pc` varchar(100) DEFAULT NULL,
   `mail_mobile` varchar(10) DEFAULT NULL,
   `kanji_fname` varchar(10) DEFAULT NULL,
   `kanji_lname` varchar(10) DEFAULT NULL,
@@ -1013,7 +1013,7 @@ CREATE TABLE IF NOT EXISTS `opensocial_play_hist` (
   `play_date` datetime DEFAULT NULL,
   `play_ip` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`mem_num`,`title_id`,`server_id`,`play_date`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
 
@@ -1049,9 +1049,121 @@ CREATE TABLE  `opensocial_settlement_hist` (
   `last_update_date` datetime DEFAULT NULL,
   `last_update_user` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`settlement_num`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1000000000 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
+
+
+
+DROP TABLE IF EXISTS `joint_member`;
+CREATE TABLE  `joint_member` (
+  `mem_num` bigint(20) NOT NULL AUTO_INCREMENT,
+  `mem_id` varchar(150) NOT NULL,
+  `nick_name` varchar(32) DEFAULT NULL,
+  `provider_id` varchar(5) NOT NULL,
+  `mem_atbt_cd` char(1) NOT NULL,
+  `mem_valid_yn_cd` char(1) NOT NULL,
+  `mail_pc` varchar(100) DEFAULT NULL,
+  `mail_mobile` varchar(10) DEFAULT NULL,
+  `kanji_fname` varchar(10) DEFAULT NULL,
+  `kanji_lname` varchar(10) DEFAULT NULL,
+  `kana_fname` varchar(10) DEFAULT NULL,
+  `kana_lname` varchar(10) DEFAULT NULL,
+  `sex_cd` char(1) DEFAULT NULL,
+  `birth_ymd` datetime DEFAULT NULL,
+  `address` varchar(100) DEFAULT NULL,
+  `entry_date` datetime DEFAULT NULL,
+  `entry_ip` varchar(15) DEFAULT NULL,
+  `last_update_date` datetime DEFAULT NULL,
+  `last_update_ip` varchar(15) DEFAULT NULL,
+  `last_update_user` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`mem_num`)
+) ENGINE=InnoDB AUTO_INCREMENT=2000000000 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+DROP TABLE IF EXISTS `joint_play_hist`;
+CREATE TABLE IF NOT EXISTS `joint_play_hist` (
+  `mem_num` bigint(20) NOT NULL,
+  `title_id` int(11) NOT NULL,
+  `server_id` int(11) NOT NULL,
+  `play_date` datetime DEFAULT NULL,
+  `play_ip` varchar(15) DEFAULT NULL,
+  PRIMARY KEY (`mem_num`,`title_id`,`server_id`,`play_date`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+DROP TABLE IF EXISTS `joint_settlement_hist`;
+CREATE TABLE  `joint_settlement_hist` (
+  `settlement_num` bigint(20) NOT NULL AUTO_INCREMENT,
+  `settlement_trns_num` bigint(20) DEFAULT NULL,
+  `settlement_code` varchar(20) DEFAULT NULL,
+  `mem_num` bigint(20) DEFAULT NULL,
+  `mem_atbt_cd` char(1) DEFAULT NULL,
+  `provider_id` varchar(5) NOT NULL,
+  `title_id` int(11) DEFAULT NULL,
+  `server_id` int(11) DEFAULT NULL,
+  `point_id` int(11) DEFAULT NULL,
+  `settlement_date` datetime DEFAULT NULL,
+  `point_amount` decimal(10,0) DEFAULT NULL,
+  `point_amount_act` decimal(10,0) DEFAULT NULL,
+  `settlement_log` varchar(1000) DEFAULT NULL,
+  `settlement_remarks` varchar(200) DEFAULT NULL,
+  `res_result` varchar(2) DEFAULT NULL,
+  `res_tracking_id` varchar(14) DEFAULT NULL,
+  `res_sps_cust_no` varchar(12) DEFAULT NULL,
+  `res_sps_payment_no` varchar(3) DEFAULT NULL,
+  `res_payinfo_key` varchar(32) DEFAULT NULL,
+  `res_payment_date` varchar(14) DEFAULT NULL,
+  `res_err_code` varchar(4) DEFAULT NULL,
+  `res_date` varchar(14) DEFAULT NULL,
+  `limit_second` varchar(4) DEFAULT NULL,
+  `sps_hashcode` varchar(40) DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `created_user` varchar(50) DEFAULT NULL,
+  `last_update_date` datetime DEFAULT NULL,
+  `last_update_user` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`settlement_num`)
+) ENGINE=InnoDB AUTO_INCREMENT=2000000000 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+DROP TABLE IF EXISTS `provider_mst`;
+CREATE TABLE IF NOT EXISTS `provider_mst` (
+  `provider_id` varchar(5) NOT NULL,
+  `provider_name` varchar(50) NOT NULL,
+  `provider_kind_cd` char(1) DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `created_user` varchar(50) DEFAULT NULL,
+  `last_update_date` datetime DEFAULT NULL,
+  `last_update_user` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`provider_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+DROP TABLE IF EXISTS `provider_title_mst`;
+CREATE TABLE IF NOT EXISTS `provider_title_mst` (
+  `provider_id` varchar(5) NOT NULL,
+  `title_id` int(11) NOT NULL,
+  `title_name` varchar(30) DEFAULT NULL,
+  `security_code` varchar(32) DEFAULT NULL,
+  `agent_login` char(1) DEFAULT NULL,
+  `site_url` varchar(100) DEFAULT NULL,
+  `select_server_url` varchar(100) DEFAULT NULL,
+  `error_url` varchar(100) DEFAULT NULL,
+  `maintenance_url` varchar(100) DEFAULT NULL,
+  `charge_success_url` varchar(100) DEFAULT NULL,
+  `charge_cancel_url` varchar(100) DEFAULT NULL,
+  `charge_error_url` varchar(100) DEFAULT NULL,
+  `charge_maintenance_url` varchar(100) DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `created_user` varchar(50) DEFAULT NULL,
+  `last_update_date` datetime DEFAULT NULL,
+  `last_update_user` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`provider_id`, `title_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
 

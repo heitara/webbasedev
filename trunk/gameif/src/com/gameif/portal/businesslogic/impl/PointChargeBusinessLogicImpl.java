@@ -425,6 +425,7 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements I
 		params.setMemId(member.getMemId());
 		params.setOrderNo(settlementHist.getSettlementNum());
 		params.setTitleId(settlementHist.getTitleId());
+		params.setServerId(settlementHist.getServerId());
 		params.setChargePoint(settlementHist.getPointAmountAct().intValue());
 		params.setChargeDate(settlementHist.getSettlementDate());
 		params.setChargeUrl(server.getChargeUrl());
@@ -596,9 +597,9 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements I
 	 * @return プレイ回数
 	 */
 	@Override
-	public Integer countPlayHist(Integer titleId, Long memNum) {
+	public Integer countPlayHist(Long memNum, Integer titleId, Integer serverId) {
 		
-		return playHistDao.selectPlayHistCount(memNum, titleId);
+		return playHistDao.selectPlayHistCount(memNum, titleId, serverId);
 	}
 
 	@Override
