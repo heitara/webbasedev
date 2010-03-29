@@ -31,9 +31,10 @@ public interface IPointChargeBusinessLogic {
 	 * 会員番号とタイトルIDより、ゲームのプレイ回数を取得する
 	 * @param memNum 会員番号
 	 * @param titleId タイトルID
+	 * @param serverId サーバID
 	 * @return プレイ回数
 	 */
-	public Integer countPlayHist(Integer titleId, Long memNum);
+	public Integer countPlayHist(Long memNum, Integer titleId, Integer serverId);
 	
 	public List<MySettlementHist> getSettlementHistListByMemNum(Long memNum);
 

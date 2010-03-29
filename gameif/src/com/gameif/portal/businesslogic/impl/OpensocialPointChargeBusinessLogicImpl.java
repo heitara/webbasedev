@@ -78,9 +78,9 @@ public class OpensocialPointChargeBusinessLogicImpl extends PointChargeBusinessL
 	 * @return プレイ回数
 	 */
 	@Override
-	public Integer countPlayHist(Integer titleId, Long memNum) {
+	public Integer countPlayHist(Long memNum, Integer titleId, Integer serverId) {
 		
-		return opensocialPlayHistDao.selectPlayHistCount(memNum, titleId);
+		return opensocialPlayHistDao.selectPlayHistCount(memNum, titleId, serverId);
 	}
 
 	public void setOpensocialMemberDao(IOpensocialMemberDao opensocialMemberDao) {

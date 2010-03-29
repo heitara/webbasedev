@@ -133,6 +133,12 @@
 		<property name="pointMstDao">
 			<ref bean="pointMstDao" />
 		</property>
+		<property name="providerMstDao">
+			<ref bean="providerMstDao" />
+		</property>
+		<property name="providerTitleMstDao">
+			<ref bean="providerTitleMstDao" />
+		</property>
 	</bean>
 	
 	<!-- titlePlayBusinessLogic -->
@@ -391,4 +397,61 @@
             <ref bean="opensocialPlayHistDao" />
         </property>
     </bean>
+    
+	<!-- jointMemberBusinessLogic -->
+	<bean id="jointMemberBusinessLogic"
+		class="com.gameif.portal.businesslogic.impl.JointMemberBusinessLogicImpl">
+		<property name="jointMemberDao">
+			<ref bean="jointMemberDao" />
+		</property>
+	</bean>    
+	<!-- jointPointChargeBusinessLogic -->
+	<bean id="jointPointChargeBusinessLogic"
+		class="com.gameif.portal.businesslogic.impl.JointPointChargeBusinessLogicImpl">
+        
+        <!-- サービスポイントの失効時間（単位:日） -->
+        <property name="validDays">
+            <value>${servicePoint.validDays}</value>
+        </property>
+        <!-- 購入できるポイントの限度額（100,000） -->
+        <property name="limitAmountMax">
+            <value>${pointCharge.limitAmountMax}</value>
+        </property>
+        <!-- 購入できるポイントの限度額（30,000） -->
+        <property name="limitAmountMin">
+            <value>${pointCharge.limitAmountMin}</value>
+        </property>
+        <property name="memSettlementTrnsDao">
+            <ref bean="memSettlementTrnsDao" />
+        </property>
+        <property name="pointMstDao">
+            <ref bean="pointMstDao" />
+        </property>
+        <property name="titleCharge">
+            <ref bean="titleCharge" />
+        </property>
+        <property name="serverMstDao">
+            <ref bean="serverMstDao" />
+        </property>
+		<property name="settlementMstDao">
+			<ref bean="settlementMstDao" />
+		</property>
+		<property name="jointMemberDao">
+			<ref bean="jointMemberDao" />
+		</property>
+		<property name="jointSettlementHistDao">
+			<ref bean="jointSettlementHistDao" />
+		</property>
+		<property name="jointPlayHistDao">
+			<ref bean="jointPlayHistDao" />
+		</property>
+		
+	</bean>    
+	<!-- jointTitlePlayBusinessLogic -->
+	<bean id="jointTitlePlayBusinessLogic"
+		class="com.gameif.portal.businesslogic.impl.JointTitlePlayBusinessLogicImpl">
+		<property name="jointPlayHistDao">
+			<ref bean="jointPlayHistDao" />
+		</property>
+	</bean>
 </beans>

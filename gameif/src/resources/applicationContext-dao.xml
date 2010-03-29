@@ -330,4 +330,39 @@
             <value>opensocialSettlementHist</value>
         </property>
     </bean>
+    
+    <!-- jointMemberDao -->
+    <bean id="jointMemberDao" class="com.gameif.portal.dao.impl.JointMemberDaoImpl" parent="baseDao">
+        <property name="namespace">
+            <value>jointMember</value>
+        </property>
+    </bean>
+    
+    <!-- jointPlayHistDao -->
+    <bean id="jointPlayHistDao" class="com.gameif.portal.dao.impl.JointPlayHistDaoImpl" parent="baseDao">
+        <property name="namespace">
+            <value>jointPlayHist</value>
+        </property>
+    </bean>
+    
+    <!-- jointSettlementHistDao -->
+    <bean id="jointSettlementHistDao" class="com.gameif.portal.dao.impl.JointSettlementHistDaoImpl" parent="baseDao">
+        <property name="namespace">
+            <value>jointSettlementHist</value>
+        </property>
+    </bean>
+    
+    <!-- providerMstDao -->
+    <bean id="providerMstDao" class="com.gameif.portal.dao.impl.ProviderMstDaoImpl" parent="baseDao">
+        <property name="namespace">
+            <value>providerMst</value>
+        </property>
+    </bean>
+    
+    <!-- providerTitleMstDao -->
+    <bean id="providerTitleMstDao" class="com.gameif.portal.dao.impl.ProviderTitleMstDaoImpl" parent="baseDao">
+        <property name="namespace">
+            <value>providerTitleMst</value>
+        </property>
+    </bean>
 </beans>

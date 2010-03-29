@@ -83,13 +83,8 @@ public class PointChargeControlAction extends ModelDrivenActionSupport<MemSettle
 		
 		return "pointSelect";
 	}
-
-	/**
-	 * ポイントチャージ（決済方法選択）画面初期化
-	 * 
-	 * @return
-	 */
-	public String chargeSettleSelect() {
+	
+	public String chargePointSubmit() {
 		
 		// ゲームをプレーすることがあるかどうかのチェック
 		Integer count = getPlayHistCount();
@@ -102,6 +97,16 @@ public class PointChargeControlAction extends ModelDrivenActionSupport<MemSettle
 			return "pointSelect";
 		}
 		
+		return "pointSubmit";
+	}
+
+	/**
+	 * ポイントチャージ（決済方法選択）画面初期化
+	 * 
+	 * @return
+	 */
+	public String chargeSettleSelect() {
+		
 		// テスト会員の場合、すべての決済方法を取得する
 		// 上記以外の場合、稼動中の決済方法を取得する
 		settleList = getSettlementMstList();
@@ -109,9 +114,14 @@ public class PointChargeControlAction extends ModelDrivenActionSupport<MemSettle
 		return "settleSelect";
 	}
 	
+	public String chargeSettleSubmit() {
+		
+		return "settleSubmit";
+	}
+	
 	protected List<SettlementMst> getSettlementMstList() {
 		
-		return pointChargeBusinessLogic.getSettlementListForCharge(ContextUtil.getMemberNoWithExt());
+		return pointChargeBusinessLogic.getSettlementListForCharge(ContextUtil.getMemberNo());
 	}
 
 	/**
@@ -183,12 +193,12 @@ public class PointChargeControlAction extends ModelDrivenActionSupport<MemSettle
 
 	protected int getPlayHistCount() {
 		
-		return pointChargeBusinessLogic.countPlayHist(getModel().getTitleId(), ContextUtil.getMemberNoWithExt());
+		return pointChargeBusinessLogic.countPlayHist(ContextUtil.getMemberNo(), getModel().getTitleId(), getModel().getServerId());
 	}
 	
 	protected void setProviderId(MemSettlementTrns settlementTrns) {
 		
-		settlementTrns.setProviderId(PortalConstants.OpensocialProvider.NONE);
+		settlementTrns.setProviderId(PortalConstants.NO);
 	}
 	
 	/**

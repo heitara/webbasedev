@@ -12,12 +12,17 @@
         <pattern>/blChargeReceive.html*</pattern>
         <pattern>/opensocial/chargeSaveSettleTrns.html*</pattern>
         <pattern>/opensocial/chargeReceive.html*</pattern>
+        <pattern>/joint/chargeSaveSettleTrns.html*</pattern>
+        <pattern>/joint/chargeReceive.html*</pattern>
 	</excludes>
 	
-	<decorator name="layout" page="layout.jsp">
-		<pattern>/*</pattern>
-	</decorator>
     <decorator name="opensocial" page="opensocial.jsp">
         <pattern>/opensocial/*</pattern>
     </decorator>
+    <decorator name="joint" page="joint.jsp">
+        <pattern>/joint/*</pattern>
+    </decorator>
+	<decorator name="layout" page="layout.jsp">
+		<pattern>/*</pattern>
+	</decorator>
 </decorators>

@@ -20,13 +20,13 @@ public class OpensocialPointChargeControlAction extends PointChargeControlAction
 	@Override
 	protected int getPlayHistCount() {
 		
-		return opensocialPointChargeBusinessLogic.countPlayHist(getModel().getTitleId(), ContextUtil.getMemberNoWithExt());
+		return opensocialPointChargeBusinessLogic.countPlayHist(ContextUtil.getExternalMemberNo(), getModel().getTitleId(), getModel().getServerId());
 	}
 
 	@Override
 	protected void setProviderId(MemSettlementTrns settlementTrns) {
 		
-		settlementTrns.setProviderId(ContextUtil.getOpensocialProviderId());
+		settlementTrns.setProviderId(ContextUtil.getProviderId());
 	}
 
 	@Override
@@ -41,7 +41,7 @@ public class OpensocialPointChargeControlAction extends PointChargeControlAction
 		OpensocialSettlementHist settlementHist = new OpensocialSettlementHist();
 		
 		BeanUtils.copyProperties(getModel(), settlementHist);
-		settlementHist.setProviderId(ContextUtil.getOpensocialProviderId());
+		settlementHist.setProviderId(ContextUtil.getProviderId());
 		
 		opensocialPointChargeBusinessLogic.createSettlementHist(settlementHist);
 	}

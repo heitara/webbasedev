@@ -218,9 +218,15 @@ public class PortalConstants {
 		/** 保留 */
 		public final static String RESERVE = "8";
 	}
+	
+	/** 業務提携種別 */
+	public class ProviderKind {
 		
-	/** 決済サーバIPアドレス */
-	public class OpensocialProvider{
-		public final static String NONE = "0";
+		/** ゲームイフポータル（提携無し） */
+		public final static String PORTAL = "0";
+		/** Opensocial（SNS） */
+		public final static String OPENSOCIAL = "1";
+		/** 共同運営 */
+		public final static String JOINT = "2";
 	}
 }

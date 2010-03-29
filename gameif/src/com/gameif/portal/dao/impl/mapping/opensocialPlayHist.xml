@@ -43,6 +43,7 @@
         WHERE   
             mem_num = #memNum#
         AND title_id = #titleId#
+        AND server_id = #serverId#
       ]]>
     </select>
 	

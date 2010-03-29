@@ -41,7 +41,7 @@ public class BiglobePointChargeControlAction extends ModelDrivenActionSupport<Me
 		settlementTrns.setTitleId(getModel().getTitleId());
 		settlementTrns.setServerId(getModel().getServerId());
 		settlementTrns.setPointId(getModel().getPointId());
-		settlementTrns.setProviderId(PortalConstants.OpensocialProvider.NONE);
+		settlementTrns.setProviderId(PortalConstants.NO);
 
 		try {
 
@@ -61,6 +61,11 @@ public class BiglobePointChargeControlAction extends ModelDrivenActionSupport<Me
 		}
 
 		return "bigLobeDetail";
+	}
+
+	protected int getPlayHistCount() {
+		
+		return pointChargeBusinessLogic.countPlayHist(ContextUtil.getMemberNo(), getModel().getTitleId(), getModel().getServerId());
 	}
 	
 	private String getShopGoodsCode(Integer pointId) {

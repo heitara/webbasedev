@@ -11,12 +11,13 @@ public class OpensocialPlayHistDaoImpl extends
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Integer selectPlayHistCount(Long memNum, Integer titleId) {
+	public Integer selectPlayHistCount(Long memNum, Integer titleId, Integer serverId) {
 		
 		HashMap params = new HashMap();
 		
 		params.put("memNum", memNum);
 		params.put("titleId", titleId);
+		params.put("serverId", serverId);
 		
 		return (Integer) this.getSqlMapClientTemplate().queryForObject(namespace + ".selectPlayHistCount", params);
 	}

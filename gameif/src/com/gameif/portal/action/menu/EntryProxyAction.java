@@ -1,9 +1,13 @@
 package com.gameif.portal.action.menu;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
+
 import javax.servlet.http.Cookie;
+
 import org.apache.struts2.ServletActionContext;
 
+import com.gameif.common.util.ByteUtil;
 import com.gameif.portal.constants.PortalConstants;
 
 public class EntryProxyAction {
@@ -15,7 +19,7 @@ public class EntryProxyAction {
 	private Integer cookieAge;
 	private Map<String, String> titleEntryUrls;
 	
-	public String execute() {
+	public String execute() throws UnsupportedEncodingException {
 		
 		if (enc != null) {
 			
@@ -41,7 +45,7 @@ public class EntryProxyAction {
 	    
 	    if (enc != null) {
 
-		    cookie = new Cookie(PortalConstants.Key.SEURE_PARAM_KEY, enc);
+		    cookie = new Cookie(PortalConstants.Key.SEURE_PARAM_KEY, ByteUtil.stringToHexString(enc));
 		    cookie.setPath("/");
 		    cookie.setMaxAge(cookieAge);
 		    ServletActionContext.getResponse().addCookie(cookie);
