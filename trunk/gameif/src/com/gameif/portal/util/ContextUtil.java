@@ -284,4 +284,30 @@ public class ContextUtil {
 	
 		return memId;
 	}
+	
+	public static void setCookieValue(String key, String value, String path) {
+
+		Cookie cookie = new Cookie(key, value);
+	    cookie.setPath(path == null ? "/" : path);
+	    ServletActionContext.getResponse().addCookie(cookie);
+	}
+
+	public static String getCookieValue(String key) {
+		
+		String value = null;
+	    Cookie cookies[] = ServletActionContext.getRequest().getCookies();
+	    
+	    if (cookies != null) {
+	    	
+	        for (Cookie cookie : cookies) {
+	        	
+	        	if (cookie.getName().equals(key)) {
+	        	
+	        		value = cookie.getValue();
+	        	}
+	        }
+	    }
+		
+		return value;
+	}
 }

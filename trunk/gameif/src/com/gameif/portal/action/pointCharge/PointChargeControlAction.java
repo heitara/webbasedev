@@ -185,6 +185,48 @@ public class PointChargeControlAction extends ModelDrivenActionSupport<MemSettle
 
 		return "requestSbps";
 	}
+
+	/*
+	protected void saveReqInfoToCookie() {
+		
+	}
+	
+	protected void setTitleIdToCookie(String path) {
+
+		ContextUtil.setCookieValue("titleId", String.valueOf(getModel().getTitleId()), path);
+	}
+	
+	protected void setServerIdToCookie(String path) {
+		
+		ContextUtil.setCookieValue("serverId", String.valueOf(getModel().getServerId()), path);
+	}
+	
+	private Integer getTitleIdFromCookie() {
+		
+		Integer titleId = null;
+		
+		String titleIdStr = ContextUtil.getCookieValue("titleId");
+		if (titleIdStr != null) {
+			
+			titleId = Integer.valueOf(titleIdStr);
+		}
+		
+		return titleId;
+	}
+	
+	private Integer getServerIdFromCookie() {
+		
+		Integer titleId = null;
+		
+		String titleIdStr = ContextUtil.getCookieValue("serverId");
+		if (titleIdStr != null) {
+			
+			titleId = Integer.valueOf(titleIdStr);
+		}
+		
+		return titleId;
+	}
+	*/
 	
 	protected int createSettlementTrns(MemSettlementTrns settlementTrns) throws LogicException {
 		
@@ -473,7 +515,6 @@ public class PointChargeControlAction extends ModelDrivenActionSupport<MemSettle
 			
 			logger.warn(ContextUtil.getRequestBaseInfo() + " | " + ex.getMessage());	
 		}
-		
 	}
 	
 	/**
@@ -532,6 +573,7 @@ public class PointChargeControlAction extends ModelDrivenActionSupport<MemSettle
 	 * @return
 	 */
 	public String chargeCancel() {
+		
 		return "cancel";
 	}
 
@@ -565,7 +607,7 @@ public class PointChargeControlAction extends ModelDrivenActionSupport<MemSettle
 	/**
 	 * 購入結果を取得する
 	 */
-	private void getResponseParams() {
+	protected void getResponseParams() {
 		
 		HttpServletRequest request = ServletActionContext.getRequest();
 		
@@ -1423,5 +1465,4 @@ public class PointChargeControlAction extends ModelDrivenActionSupport<MemSettle
 	public void setSettleList(List<SettlementMst> settleList) {
 		this.settleList = settleList;
 	}
-
 }

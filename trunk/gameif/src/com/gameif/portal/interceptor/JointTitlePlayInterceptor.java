@@ -7,7 +7,6 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
 
 import com.gameif.common.util.SecurityUtil;
-import com.gameif.portal.action.titleif.JointTitlePlayControlAction;
 import com.gameif.portal.businesslogic.IMasterInfoBusinessLogic;
 import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.entity.ProviderMst;
@@ -50,11 +49,6 @@ public class JointTitlePlayInterceptor extends MethodFilterInterceptor {
 				providerTitle = masterInfoBusinessLogic.getProviderTitleMstByKey(providerTitle);
 				
 				if (checkSign(providerTitle)) {
-					
-					JointTitlePlayControlAction action = (JointTitlePlayControlAction)ai.getAction();
-					
-					action.setMaintenanceUrl(providerTitle.getMaintenanceUrl());
-					action.setErrorUrl(providerTitle.getErrorUrl());
 					
 					result = ai.invoke();
 				}

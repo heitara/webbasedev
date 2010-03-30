@@ -14,13 +14,6 @@ public class ProviderTitleMst extends BaseEntity {
 	private String securityCode;
 	private String agentLogin;
 	private String siteUrl;
-	private String selectServerUrl;
-	private String maintenanceUrl;
-	private String errorUrl;
-	private String chargeSuccessUrl;
-	private String chargeCancelUrl;
-	private String chargeErrorUrl;
-	private String chargeMaintenanceUrl;
 	private Date createdDate;
 	private String createdUser;
 	private Date lastUpdateDate;
@@ -61,48 +54,6 @@ public class ProviderTitleMst extends BaseEntity {
 	}
 	public void setSiteUrl(String siteUrl) {
 		this.siteUrl = siteUrl;
-	}
-	public String getSelectServerUrl() {
-		return selectServerUrl;
-	}
-	public void setSelectServerUrl(String selectServerUrl) {
-		this.selectServerUrl = selectServerUrl;
-	}
-	public String getMaintenanceUrl() {
-		return maintenanceUrl;
-	}
-	public void setMaintenanceUrl(String maintenanceUrl) {
-		this.maintenanceUrl = maintenanceUrl;
-	}
-	public String getErrorUrl() {
-		return errorUrl;
-	}
-	public void setErrorUrl(String errorUrl) {
-		this.errorUrl = errorUrl;
-	}
-	public String getChargeSuccessUrl() {
-		return chargeSuccessUrl;
-	}
-	public void setChargeSuccessUrl(String chargeSuccessUrl) {
-		this.chargeSuccessUrl = chargeSuccessUrl;
-	}
-	public String getChargeCancelUrl() {
-		return chargeCancelUrl;
-	}
-	public void setChargeCancelUrl(String chargeCancelUrl) {
-		this.chargeCancelUrl = chargeCancelUrl;
-	}
-	public String getChargeErrorUrl() {
-		return chargeErrorUrl;
-	}
-	public void setChargeErrorUrl(String chargeErrorUrl) {
-		this.chargeErrorUrl = chargeErrorUrl;
-	}
-	public String getChargeMaintenanceUrl() {
-		return chargeMaintenanceUrl;
-	}
-	public void setChargeMaintenanceUrl(String chargeMaintenanceUrl) {
-		this.chargeMaintenanceUrl = chargeMaintenanceUrl;
 	}
 	public Date getCreatedDate() {
 		return createdDate;

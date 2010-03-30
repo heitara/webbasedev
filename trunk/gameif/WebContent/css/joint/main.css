@@ -118,45 +118,27 @@ div.page_main_box {
 	width:980px;
 	margin:30px auto;
 }
-/*********【完了画面】完了メッセージ ********************************************/
-dl.finish {
-	font-size:12px;
-	margin:30px 10px;
-	background:none;
-}
-dl.finish dt {
-	font-size:14px;
-	font-weight:bold;
-	margin:20px 0px;
-	color:#F60;
-	background:none;
-}
-dl.finish dd div.msg {
-	margin:20px 8px;
-	margin-bottom:40px;
-	line-height:18px;
-}
-dl.finish dd div.msg p {
-	font-weight:bold;
-	color:#900;
-}
 
+div.alert {
+	width:80%;
+	height:400px;
+	margin-top:50px;
+}
 /*********【警告画面】完了メッセージ ********************************************/
 dl.warning {
 	font-size:12px;
 	margin:30px 10px;
-	background:none;
+	text-align:left;
 }
 dl.warning dt {
-	font-size:14px;
+	font-size:16px;
 	font-weight:bold;
 	margin:20px 0px;
-	color:#F60;
-	background:none;
+	color:#F30;
 }
 dl.warning dd  {
+	font-size:13px;
 	line-height:20px;
-	background:none;
 }
 dl.warning dd div.msg {
 	margin:20px 8px;

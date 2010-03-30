@@ -21,8 +21,6 @@ public class JointTitlePlayControlAction extends ProviderTitlePlayControlAction 
 	private IJointMemberBusinessLogic jointMemberBusinessLogic;
 	
 	private String playUrl;
-	private String maintenanceUrl;
-	private String errorUrl;
 	
 	@Override
 	protected MemberInfo saveMemberInfo() {
@@ -91,29 +89,11 @@ public class JointTitlePlayControlAction extends ProviderTitlePlayControlAction 
 		return playUrl;
 	}
 
-	public void setJointTitlePlayBusinessLogic(
-			IJointTitlePlayBusinessLogic jointTitlePlayBusinessLogic) {
+	public void setJointTitlePlayBusinessLogic(IJointTitlePlayBusinessLogic jointTitlePlayBusinessLogic) {
 		this.jointTitlePlayBusinessLogic = jointTitlePlayBusinessLogic;
 	}
 
-	public void setJointMemberBusinessLogic(
-			IJointMemberBusinessLogic jointMemberBusinessLogic) {
+	public void setJointMemberBusinessLogic(IJointMemberBusinessLogic jointMemberBusinessLogic) {
 		this.jointMemberBusinessLogic = jointMemberBusinessLogic;
-	}
-
-	public String getMaintenanceUrl() {
-		return maintenanceUrl;
-	}
-
-	public void setMaintenanceUrl(String maintenanceUrl) {
-		this.maintenanceUrl = maintenanceUrl;
-	}
-
-	public String getErrorUrl() {
-		return errorUrl;
-	}
-
-	public void setErrorUrl(String errorUrl) {
-		this.errorUrl = errorUrl;
 	}
 }
