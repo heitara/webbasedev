@@ -239,6 +239,7 @@ public class ServicePointBusinessLogicImpl extends BaseBusinessLogic implements
 		params.setMemId(ContextUtil.getAccountId());
 		params.setOrderNo(servicePointUseHist.getServicePointUseNo());
 		params.setTitleId(titleId);
+		params.setServerId(serverId);
 		params.setChargePoint(pointAmount.intValue());
 		params.setChargeDate(now);
 
