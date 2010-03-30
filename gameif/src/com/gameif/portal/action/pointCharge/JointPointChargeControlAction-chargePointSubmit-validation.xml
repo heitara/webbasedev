@@ -3,18 +3,6 @@
 	"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
 
 <validators>
-    <field name="titleId">
-        <field-validator type="fieldexpression">
-        	<param name="expression"><![CDATA[(titleId > 0)]]></param>
-        	<message><![CDATA[<br/>ゲームを選択してください。]]></message>
-        </field-validator>
-    </field>
-    <field name="serverId">
-        <field-validator type="fieldexpression">
-        	<param name="expression"><![CDATA[(serverId > 0)]]></param>
-        	<message><![CDATA[<br/>サーバを選択してください。]]></message>
-        </field-validator>
-    </field>
     <field name="pointId">
         <field-validator type="fieldexpression">
         	<param name="expression"><![CDATA[(pointId > 0)]]></param>

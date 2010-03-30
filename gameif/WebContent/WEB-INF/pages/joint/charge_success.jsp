@@ -9,7 +9,7 @@
 	<dt>ポイントチャージが完了しました。</dt>
 	<dd>
 		<div>引き続きお楽しみください。</div><br/><br/>
-		<input type="button" value="継続してチャージする" onclick="location='chargePointSelect.html?titleId=<s:property value="titleId"/>&serverId=<s:property value="serverId"/>';" />
+		<input type="button" value="継続してチャージする" onclick="location='joint/chargePointSelect.html';" />
 		<input type="button" value="画面を閉じる" onclick="window.close();"/>
 	<dd>
 </dl>

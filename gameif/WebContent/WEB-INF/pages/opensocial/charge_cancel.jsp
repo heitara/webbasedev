@@ -3,16 +3,17 @@
 <html>
 <head><title>決済処理キャンセル | ポイントチャージ</title></head>
 <body>
-<dl class="light_box tspace_n">
-	<dt><strong>決済キャンセル</strong><span>&nbsp;</span></dt>
+<center>
+<div class="alert">
+<dl class="warning">
+	<dt>決済処理がキャンセルされました。</dt>
 	<dd>
-		<dl class="finish">
-			<dt>決済処理がキャンセルされました。</dt>
-			<dd>
-				<div class="msg">引き続きお楽しみください。</div>
-			<dd>
-		</dl>
-	</dd>
+		<div>引き続きお楽しみください。</div><br/><br/>
+		<input type="button" value="もう一度やり直す" onclick="location='chargePointSelect.html?titleId=<s:property value="titleId"/>&serverId=<s:property value="serverId"/>';" />
+		<input type="button" value="画面を閉じる" onclick="window.close();"/>
+	<dd>
 </dl>
+</div>
+</center>
 </body>
 </html>

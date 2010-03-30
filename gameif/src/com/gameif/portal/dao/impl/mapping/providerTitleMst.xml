@@ -11,13 +11,6 @@
 		<result property="securityCode" column="security_code" />
 		<result property="agentLogin" column="agent_login" />
 		<result property="siteUrl" column="site_url" />
-		<result property="selectServerUrl" column="select_server_url" />
-		<result property="errorUrl" column="error_url" />
-		<result property="maintenanceUrl" column="maintenance_url" />
-		<result property="chargeSuccessUrl" column="charge_success_url" />
-		<result property="chargeCancelUrl" column="charge_cancel_url" />
-		<result property="chargeErrorUrl" column="charge_error_url" />
-		<result property="chargeMaintenanceUrl" column="charge_maintenance_url" />
 		<result property="createdDate" column="created_date"/>
 		<result property="createdUser" column="created_user"/>
 		<result property="lastUpdateDate" column="last_update_date"/>
@@ -32,13 +25,6 @@
 				security_code,
 				agent_login,
 				site_url,
-				select_server_url,
-				error_url,
-				maintenance_url,
-				charge_success_url,
-				charge_cancel_url,
-				charge_error_url,
-				charge_maintenance_url,
 				created_date,
 				created_user,
 				last_update_date,

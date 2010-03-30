@@ -18,11 +18,6 @@ public class JointPointChargeControlAction extends PointChargeControlAction {
 	private static final long serialVersionUID = -7492565950587701715L;
 
 	private IJointPointChargeBusinessLogic jointPointChargeBusinessLogic = null;
-
-	private String chargeSuccessUrl;
-	private String chargeCancelUrl;
-	private String chargeErrorUrl;
-	private String chargeMaintenanceUrl;
 	
 	private String titleName;
 	private String serverName;
@@ -84,38 +79,6 @@ public class JointPointChargeControlAction extends PointChargeControlAction {
 	public void setJointPointChargeBusinessLogic(
 			IJointPointChargeBusinessLogic jointPointChargeBusinessLogic) {
 		this.jointPointChargeBusinessLogic = jointPointChargeBusinessLogic;
-	}
-
-	public String getChargeSuccessUrl() {
-		return chargeSuccessUrl;
-	}
-
-	public void setChargeSuccessUrl(String chargeSuccessUrl) {
-		this.chargeSuccessUrl = chargeSuccessUrl;
-	}
-
-	public String getChargeCancelUrl() {
-		return chargeCancelUrl;
-	}
-
-	public void setChargeCancelUrl(String chargeCancelUrl) {
-		this.chargeCancelUrl = chargeCancelUrl;
-	}
-
-	public String getChargeErrorUrl() {
-		return chargeErrorUrl;
-	}
-
-	public void setChargeErrorUrl(String chargeErrorUrl) {
-		this.chargeErrorUrl = chargeErrorUrl;
-	}
-
-	public String getChargeMaintenanceUrl() {
-		return chargeMaintenanceUrl;
-	}
-
-	public void setChargeMaintenanceUrl(String chargeMaintenanceUrl) {
-		this.chargeMaintenanceUrl = chargeMaintenanceUrl;
 	}
 
 	public String getTitleName() {

@@ -30,18 +30,38 @@ public class JointPointChargeInterceptor extends JointTitlePlayInterceptor {
 		
 		boolean accessable = false;
 		
-		if (ContextUtil.getExternalAccountId() != null && ContextUtil.getProviderId() != null) {
+		if (ContextUtil.getExternalAccountId() != null 
+				&& ContextUtil.getProviderId() != null) {
 			
-			accessable = true;
+			String titleId = ServletActionContext.getRequest().getParameter("titleId");
+			String serverId = ServletActionContext.getRequest().getParameter("serverId");
+			
+			if (titleId == null || serverId == null) {
+
+				titleId = ContextUtil.getCookieValue("titleId");
+				serverId = ContextUtil.getCookieValue("titleId");
+				
+				if (titleId != null && serverId != null) {
+
+					JointPointChargeControlAction action = (JointPointChargeControlAction)ai.getAction();
+					
+					action.getModel().setTitleId(Integer.valueOf(titleId));
+					action.getModel().setServerId(Integer.valueOf(serverId));
+					
+					accessable = true;
+				}
+				
+			} else {
+
+				accessable = true;
+			}
 			
 		} else {
 			
-			HttpServletRequest request = ServletActionContext.getRequest();
-			
-			String memId = request.getParameter("memId");
-			String providerId = request.getParameter("providerId");
-			String titleId = request.getParameter("titleId");
-			String serverId = request.getParameter("serverId");
+			String titleId = ServletActionContext.getRequest().getParameter("titleId");
+			String serverId = ServletActionContext.getRequest().getParameter("serverId");
+			String memId = ServletActionContext.getRequest().getParameter("memId");
+			String providerId = ServletActionContext.getRequest().getParameter("providerId");
 			
 			if (memId != null && providerId != null && titleId != null && serverId != null && checkTime()) {
 
@@ -78,14 +98,11 @@ public class JointPointChargeInterceptor extends JointTitlePlayInterceptor {
 						}
 						
 						if (accessable) {
-							
-							JointPointChargeControlAction action = (JointPointChargeControlAction)ai.getAction();
-							action.setChargeSuccessUrl(providerTitle.getChargeSuccessUrl());
-							action.setChargeCancelUrl(providerTitle.getChargeCancelUrl());
-							action.setChargeErrorUrl(providerTitle.getChargeErrorUrl());
-							action.setChargeMaintenanceUrl(providerTitle.getChargeMaintenanceUrl());
 
 							ContextUtil.setExternalLoginSessionInfo(member.getMemNum(), memId, providerId);
+							
+							ContextUtil.setCookieValue("titleId", titleId, "/");
+							ContextUtil.setCookieValue("serverId", serverId, "/");
 						}
 					}
 				}

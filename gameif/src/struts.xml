@@ -390,6 +390,15 @@
         <interceptors>
             <interceptor name="opensocialChargeParameter" class="opensocialPointChargeInterceptor"/>
         </interceptors>
+		
+		<global-results>
+			<result name="unhandledException">/WEB-INF/pages/opensocial/error.jsp</result>
+            <result name="invalid.token">/WEB-INF/pages/opensocial/warning.jsp</result>
+			<result name="warning">/WEB-INF/pages/opensocial/warning.jsp</result>
+			<result name="error">/WEB-INF/pages/opensocial/error.jsp</result>
+            <result name="maintenance">/WEB-INF/pages/opensocial/maintenance.jsp</result>
+		</global-results>
+		
         <action name="charge*" class="opensocialPointChargeControlAction" method="charge{1}">
             <interceptor-ref name="scopedModelDriven">
                 <param name="scope">request</param>
@@ -413,10 +422,6 @@
             <result name="requestSbps">/WEB-INF/pages/opensocial/charge_detail.jsp</result>
             <result name="success">/WEB-INF/pages/opensocial/charge_success.jsp</result>
             <result name="cancel">/WEB-INF/pages/opensocial/charge_cancel.jsp</result>
-            <result name="error">/WEB-INF/pages/opensocial/charge_error.jsp</result>
-            <result name="warning">/WEB-INF/pages/opensocial/warning.jsp</result>
-            <result name="maintenance">/WEB-INF/pages/opensocial/maintenance.jsp</result>
-            <result name="invalid.token">/WEB-INF/pages/opensocial/warning.jsp</result>
         </action>
     </package>
 	
@@ -425,12 +430,19 @@
             <interceptor name="jointTitlePlayParameter" class="jointTitlePlayInterceptor"/>
             <interceptor name="jointPointChargeParameter" class="jointPointChargeInterceptor"/>
         </interceptors>
+		
+		<global-results>
+			<result name="unhandledException">/WEB-INF/pages/joint/error.jsp</result>
+            <result name="invalid.token">/WEB-INF/pages/joint/warning.jsp</result>
+			<result name="warning">/WEB-INF/pages/joint/warning.jsp</result>
+			<result name="error">/WEB-INF/pages/joint/error.jsp</result>
+            <result name="maintenance">/WEB-INF/pages/joint/maintenance.jsp</result>
+		</global-results>
+		
 		<action name="playGame" class="jointTitlePlayControlAction">
             <interceptor-ref name="gameifStack"></interceptor-ref>
             <interceptor-ref name="jointTitlePlayParameter"></interceptor-ref>
 			<result name="success" type="redirect">${playUrl}</result>
-			<result name="maintenance" type="redirect">${maintenanceUrl}</result>
-			<result name="error" type="redirect">${errorUrl}</result>
 		</action>
         <action name="charge*" class="jointPointChargeControlAction" method="charge{1}">
             <interceptor-ref name="scopedModelDriven">
@@ -454,12 +466,9 @@
 			<result name="settleSelect">/WEB-INF/pages/joint/charge_settle_select.jsp</result>
 			<result name="settleSubmit" type="redirect">chargeSaveSettleTrns.html?titleId=${titleId}&amp;serverId=${serverId}&amp;pointId=${pointId}&amp;settlementCode=${settlementCode}</result>
             <result name="requestSbps">/WEB-INF/pages/joint/charge_detail.jsp</result>
-            <result name="success" type="redirect">${chargeSuccessUrl}</result>
-            <result name="cancel" type="redirect">${chargeCancelUrl}</result>
-            <result name="error" type="redirect">${chargeErrorUrl}</result>
+            <result name="success">/WEB-INF/pages/joint/charge_success.jsp</result>
+            <result name="cancel">/WEB-INF/pages/joint/charge_cancel.jsp</result>
 			<result name="input" type="redirect">chargePointSelect.html?titleId=${titleId}&amp;serverId=${serverId}</result>
-            <result name="maintenance" type="redirect">${chargeMaintenanceUrl}</result>
-            <result name="invalid.token">/WEB-INF/pages/common/warning.jsp</result>
         </action>
     </package>
 	

@@ -4,8 +4,6 @@
 <head>
 	<title>ポイントチャージ</title>
 	<meta content="text/html; charset=shift-jis" http-equiv="content-type"/>
-	<script src="js/portal/validate.js" type="text/javascript"></script>
-	<script src="js/portal/bindMaster.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		function doSubmit() {
 			document.chargeForm.action = document.getElementById("requestUrl").value;
@@ -14,9 +12,7 @@
 		}
 	</script>
 </head>
-
 <body onload="doSubmit();">
-<!-- ポイントチャージ：開始 -->
 <dl>
 	<dd>
 		<form name="chargeForm" method="post">
@@ -57,12 +53,9 @@
 			<s:hidden name="request_date" />
 			<s:hidden name="limit_second" />
 			<s:hidden name="sps_hashcode" />
-			
 			<s:hidden name="requestUrl" id="requestUrl"></s:hidden>
 		</form>
 	</dd>
 </dl>
-<!-- ポイントチャージ：終了 -->
-
 </body>
 </html>

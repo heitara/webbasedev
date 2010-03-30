@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="s" uri="/struts-tags"%>
 <html>
-<head><title>メンテナンス</title></head>
+<head><title>エラー</title></head>
 <body>
 <center>
 <div class="alert">
 <dl class="warning">
-	<dt>ただいまシステムメンテナンス中ですので、一時閉鎖させて頂きます。</dt>
+	<dt>エラーが発生しました。</dt>
 	<dd>
-		<div>お客様には大変ご迷惑を掛け、誠に申し訳ございませんが、ご理解とご協力のほど宜しくお願致します。</div><br/><br/>
+		<div class="msg">同じ現象が何度も繰り返す場合、運営者に連絡してください。</div><br/><br/>
 		<input type="button" value="画面を閉じる" onclick="window.close();"/>
 	</dd>
 </dl>
