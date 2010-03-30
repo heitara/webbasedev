@@ -9,7 +9,7 @@
 	<dt>決済処理がキャンセルされました。</dt>
 	<dd>
 		<div>引き続きお楽しみください。</div><br/><br/>
-		<input type="button" value="もう一度やり直す" onclick="location='chargePointSelect.html?titleId=<s:property value="titleId"/>&serverId=<s:property value="serverId"/>';" />
+		<input type="button" value="もう一度やり直す" onclick="location='opensocial/chargePointSelect.html?titleId=<s:property value="titleId"/>&serverId=<s:property value="serverId"/>';" />
 		<input type="button" value="画面を閉じる" onclick="window.close();"/>
 	<dd>
 </dl>

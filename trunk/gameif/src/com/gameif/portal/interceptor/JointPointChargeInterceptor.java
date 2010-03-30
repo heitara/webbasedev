@@ -1,7 +1,5 @@
 package com.gameif.portal.interceptor;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
@@ -39,7 +37,7 @@ public class JointPointChargeInterceptor extends JointTitlePlayInterceptor {
 			if (titleId == null || serverId == null) {
 
 				titleId = ContextUtil.getCookieValue("titleId");
-				serverId = ContextUtil.getCookieValue("titleId");
+				serverId = ContextUtil.getCookieValue("serverId");
 				
 				if (titleId != null && serverId != null) {
 
