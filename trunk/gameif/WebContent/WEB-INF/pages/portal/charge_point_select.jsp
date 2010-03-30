@@ -39,22 +39,14 @@
 				<tr>
 				<td colspan="2">
 					<div style="border:1px solid #CCC;color:#668;padding:10px;background-color:#FFF;">
-						<table width="100%">
-							<tr>
-								<td align="left"><a href="http://www.webmoney.jp/service/walletplus/0318campaign/" target="_blank" style="margin-top:200px;"><img src="images/advert/wm_cp_1003_200X100.jpg"/></a></td>
-								<td style="font-size:60px;color:#F30;">+</td>
-								<td>
-									<div style="font-size:14px;font-weight:bold;color:#F30;margin-bottom:10px;">ゲームイフのキャンペーンでサービスポイントももらえます。</div>
-									<ul style="color:#600;margin-left:-20px;">
-										<li>500 GPをチャージした場合、サービスポイント 20 PTをプレゼント。</li>
-										<li>1,000 GPをチャージした場合、サービスポイント 50 PTをプレゼント。</li>
-										<li>3,000 GPをチャージした場合、サービスポイント 200 PTをプレゼント。</li>
-										<li>5,000 GPをチャージした場合、サービスポイント 400 PTをプレゼント。</li>
-										<li>10,000 GPをチャージした場合、サービスポイント 1,000 PTをプレゼント。</li>
-									</ul>
-								</td>
-							</tr>
-						</table>
+						<div style="font-size:14px;font-weight:bold;color:#F30;margin-bottom:10px;">ゲームイフのキャンペーンでサービスポイントももらえます。</div>
+						<ul style="color:#600;margin-left:-20px;">
+							<li>500 GPをチャージした場合、サービスポイント 20 PTをプレゼント。</li>
+							<li>1,000 GPをチャージした場合、サービスポイント 50 PTをプレゼント。</li>
+							<li>3,000 GPをチャージした場合、サービスポイント 200 PTをプレゼント。</li>
+							<li>5,000 GPをチャージした場合、サービスポイント 400 PTをプレゼント。</li>
+							<li>10,000 GPをチャージした場合、サービスポイント 1,000 PTをプレゼント。</li>
+						</ul>
 					</div>
 				</td>
 				</tr>
