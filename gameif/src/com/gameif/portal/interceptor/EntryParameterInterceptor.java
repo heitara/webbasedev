@@ -17,10 +17,18 @@ public class EntryParameterInterceptor extends BaseParameterInterceptor {
 
 	@Override
 	public String doIntercept(ActionInvocation ai) throws Exception {
-		
-		String encodedParams = ByteUtil.stringFromHexString(getParameterFromCookie(PortalConstants.Key.SEURE_PARAM_KEY));
+			
 		String title = getParameterFromCookie(PortalConstants.Key.ENTRY_PARAM_TITLE_KEY);
-		String apply = getParameterFromCookie(PortalConstants.Key.ENTRY_PARAM_APPLY_KEY);		
+		String apply = getParameterFromCookie(PortalConstants.Key.ENTRY_PARAM_APPLY_KEY);
+
+		String encodedParams = null;
+		
+		String encodedParamsHex = getParameterFromCookie(PortalConstants.Key.SEURE_PARAM_KEY);
+		
+		if (encodedParamsHex != null) {
+			
+			encodedParams = ByteUtil.stringFromHexString(encodedParamsHex);
+		}
 			
 		try {
 			
