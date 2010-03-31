@@ -93,7 +93,7 @@
 	
 	<filter-mapping>
 		<filter-name>opensocial-oauth-filter</filter-name>
-		<url-pattern>/mixiSignedVerify.html</url-pattern>
+		<url-pattern>/opensocialTitlePlay.html</url-pattern>
 	</filter-mapping>
 	
 	<filter-mapping>
