@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.gameif.common.action.BaseActionSupport;
+import com.gameif.common.util.DateUtil;
 import com.gameif.portal.businesslogic.IMasterInfoBusinessLogic;
 import com.gameif.portal.businesslogic.titleif.entry.EntryParameter;
 import com.gameif.portal.businesslogic.titleif.entry.TitleEntry;
@@ -11,7 +12,6 @@ import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.entity.MemberInfo;
 import com.gameif.portal.entity.ServerMst;
 import com.gameif.portal.entity.TitleMst;
-import com.gameif.portal.util.ContextUtil;
 
 public abstract class ProviderTitlePlayControlAction extends BaseActionSupport {
 
@@ -29,8 +29,11 @@ public abstract class ProviderTitlePlayControlAction extends BaseActionSupport {
 	private String kanaFname;
 	private String kanaLname;
 	private Integer sexCd;
-	private Date birthYmd;
 	private String address;
+	
+	private String birthY;
+	private String birthM;
+	private String birthD;
 	
 	private Integer titleId;
 	private Integer serverId;
@@ -102,6 +105,11 @@ public abstract class ProviderTitlePlayControlAction extends BaseActionSupport {
 		}
 		
 		return result;
+	}
+
+	public Date getBirthYmd() {
+
+		return DateUtil.createDate(birthY, birthM, birthD);
 	}
 	
 	protected abstract MemberInfo saveMemberInfo();
@@ -330,14 +338,6 @@ public abstract class ProviderTitlePlayControlAction extends BaseActionSupport {
 		this.sexCd = sexCd;
 	}
 
-	public Date getBirthYmd() {
-		return birthYmd;
-	}
-
-	public void setBirthYmd(Date birthYmd) {
-		this.birthYmd = birthYmd;
-	}
-
 	public String getAddress() {
 		return address;
 	}
@@ -377,5 +377,17 @@ public abstract class ProviderTitlePlayControlAction extends BaseActionSupport {
 	public void setMasterInfoBusinessLogic(
 			IMasterInfoBusinessLogic masterInfoBusinessLogic) {
 		this.masterInfoBusinessLogic = masterInfoBusinessLogic;
+	}
+
+	public void setBirthY(String birthY) {
+		this.birthY = birthY;
+	}
+
+	public void setBirthM(String birthM) {
+		this.birthM = birthM;
+	}
+
+	public void setBirthD(String birthD) {
+		this.birthD = birthD;
 	}
 }
