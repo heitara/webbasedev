@@ -123,6 +123,11 @@ public class PointChargeControlAction extends ModelDrivenActionSupport<MemSettle
 		
 		return pointChargeBusinessLogic.getSettlementListForCharge(ContextUtil.getMemberNo());
 	}
+	
+	protected void setMemberNum(MemSettlementTrns settlementTrns) {
+		
+		settlementTrns.setMemNum(ContextUtil.getMemberNo());
+	}
 
 	/**
 	 * 仮決済を登録する
@@ -133,10 +138,10 @@ public class PointChargeControlAction extends ModelDrivenActionSupport<MemSettle
 		MemSettlementTrns settlementTrns = new MemSettlementTrns();
 
 		settlementTrns.setSettlementCode(getModel().getSettlementCode());
-		settlementTrns.setMemNum(ContextUtil.getMemberNoWithExt());
 		settlementTrns.setTitleId(getModel().getTitleId());
 		settlementTrns.setServerId(getModel().getServerId());
 		settlementTrns.setPointId(getModel().getPointId());
+		setMemberNum(settlementTrns);
 		setProviderId(settlementTrns);
 
 		try {
