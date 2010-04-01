@@ -48,6 +48,12 @@ public class JointPointChargeControlAction extends PointChargeControlAction {
 	}
 
 	@Override
+	protected void setMemberNum(MemSettlementTrns settlementTrns) {
+		
+		settlementTrns.setMemNum(ContextUtil.getExternalMemberNo());
+	}
+
+	@Override
 	protected void setProviderId(MemSettlementTrns settlementTrns) {
 		
 		settlementTrns.setProviderId(ContextUtil.getProviderId());
@@ -73,7 +79,7 @@ public class JointPointChargeControlAction extends PointChargeControlAction {
 	@Override
 	protected List<SettlementMst> getSettlementMstList() {
 		
-		return jointPointChargeBusinessLogic.getSettlementListForCharge(ContextUtil.getMemberNoWithExt());
+		return jointPointChargeBusinessLogic.getSettlementListForCharge(ContextUtil.getExternalMemberNo());
 	}
 
 	public void setJointPointChargeBusinessLogic(

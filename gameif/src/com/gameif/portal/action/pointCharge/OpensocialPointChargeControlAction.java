@@ -24,6 +24,12 @@ public class OpensocialPointChargeControlAction extends PointChargeControlAction
 	}
 
 	@Override
+	protected void setMemberNum(MemSettlementTrns settlementTrns) {
+		
+		settlementTrns.setMemNum(ContextUtil.getExternalMemberNo());
+	}
+
+	@Override
 	protected void setProviderId(MemSettlementTrns settlementTrns) {
 		
 		settlementTrns.setProviderId(ContextUtil.getProviderId());
