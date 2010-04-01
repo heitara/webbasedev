@@ -10,13 +10,16 @@
 			<map>
 				<entry key="1">
 					<map>
-						<entry key="playGame" value="mixiPlay.ftl"/>
-						<entry key="selectServer" value="mixiSelectServer.ftl"/>
-						<entry key="maintenance" value="mixiMaintenance.ftl"/>
-						<entry key="error" value="mixiError.ftl"/>
+						<entry key="playGame" value="mixiPlay.htm"/>
+						<entry key="selectServer" value="mixiSelectServer.htm"/>
+						<entry key="maintenance" value="mixiMaintenance.htm"/>
+						<entry key="error" value="mixiError.htm"/>
 					</map>
 				</entry>
 			</map>
+		</property>
+		<property name="opensocialFreeMarkerConfigurer">
+			<ref bean="opensocialFreeMarkerConfigurer" />
 		</property>
 	</bean>
 	
