@@ -3,38 +3,98 @@
 <Module>
   <ModulePrefs title="Hello, world!">
     <Require feature="opensocial-0.8" />
+    <Require feature="dynamic-height" />
   </ModulePrefs>
   <Content type="html"><![CDATA[
 
-<div>Hello, <span id="target"></span>!</div>
-
-<div>Hello, <span id="dom_handle"></span>!</div>
+<input type="button" id="pointChargeBtn" value="ポイントチャージ" onclick="gotoCharge();"/>
+<div id="target"></div>
 
 <script type="text/javascript">
+
+	function gotoCharge() {
+	
+		mixi.util.requestExternalNavigateTo('https://www.game-if.com/opensocial/chargePointSelect.html?memNum=1000000001&providerId=1&titleId=1&serverId=2&time=1270079890&sign=1b0feabcaba287b38f7629f55b81c778', mixi.util.ExternalSiteType.PAYMENT);
+	}
+
  
-
 	function requestGameIF() {
-
-		var servletUrl="https://www.game-if.com/mixiSignedVerify.html";
-		
-		var params={};		
-		params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.GET;
-		params[gadgets.io.RequestParameters.AUTHORIZATION] = gadgets.io.AuthorizationType.SIGNED;
-		params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
-		
-		alert(servletUrl);
-		alert(params[gadgets.io.RequestParameters.METHOD]);
-		alert(params[gadgets.io.RequestParameters.AUTHORIZATION]);
-		alert(params[gadgets.io.RequestParameters.CONTENT_TYPE]);
-
-		gadgets.io.makeRequest(servletUrl, responseFunc, params);
-			
+	
+		var params = {};
+		params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [
+		    opensocial.Person.Field.ADDRESSES,
+		    opensocial.Person.Field.DATE_OF_BIRTH,
+		    opensocial.Person.Field.GENDER,
+		];
+		var req = opensocial.newDataRequest();
+		req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER, params), "viewer");
+		req.send(function(data) {
+			if (!data.hadError()) {
+				var item = data.get("viewer");
+				if (item.hadError()) {
+					var code = item.getErrorCode();
+					alert(code);
+				} else {
+					
+					var viewer = item.getData();
+					var id = viewer.getId();
+					var nickName = viewer.getDisplayName();
+					var address = viewer.getField(opensocial.Person.Field.ADDRESSES);
+					var region = null;
+					if (address != null) {
+						region = address[0].getField("region");
+					}
+					var birthday = viewer.getField(opensocial.Person.Field.DATE_OF_BIRTH);
+					var birthY = null;
+					var birthM = null;
+					var birthD = null;
+					if (birthday != null) {
+						birthY = new Date(birthday).getFullYear();
+						birthM = new Date(birthday).getMonth() + 1;
+						birthD = new Date(birthday).getDate();
+					}
+					var gender = viewer.getField(opensocial.Person.Field.GENDER);
+					var sexCd = null;
+					if (gender != null) {
+						if (gender.key == "MALE") {
+							sexCd = "1";
+						} else {
+							sexCd = "0";
+						}
+					}
+					
+					var servletUrl="https://www.game-if.com/opensocialTitlePlay.html";
+					
+					var params={};
+					params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
+					params[gadgets.io.RequestParameters.AUTHORIZATION] = gadgets.io.AuthorizationType.SIGNED;
+					params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
+					
+					
+					var postData = {};
+					postData["memId"] = id;
+					//postData["nickName"] = encodeURI(nickName);
+					postData["sexCd"] = sexCd;
+					postData["birthY"] = birthY;
+					postData["birthM"] = birthM;
+					postData["birthD"] = birthD;
+					//postData["address"] = encodeURI(region);
+					postData["providerId"] = "1";
+					postData["titleId"] = "1";
+					postData["serverId"] = "2";
+					params[gadgets.io.RequestParameters.POST_DATA] = gadgets.io.encodeValues(postData);
+					
+					gadgets.io.makeRequest(servletUrl, responseFunc, params);
+				}
+			}
+		});
 	}
 
 	var responseFunc = function responseGameIF(resdata) {
-		alert(resdata);
-		console.log(resdata);
-		document.getElementById('target').innerHTML = resdata.message;
+
+		//console.log(resdata.data);
+		document.getElementById('target').innerHTML = resdata.data.htmlText;
+		gadgets.window.adjustHeight(650);
 	}
 
 	gadgets.util.runOnLoadHandlers(
