@@ -179,7 +179,7 @@
 			(
 				#memId#,
 				#nickName#,
-				#providerId#
+				#providerId#,
 				#memAtbtCd#,
 				#memValidYNCd#,
 				#mailPc#,
