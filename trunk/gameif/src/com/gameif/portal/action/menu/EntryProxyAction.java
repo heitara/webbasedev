@@ -8,6 +8,7 @@ import javax.servlet.http.Cookie;
 import org.apache.struts2.ServletActionContext;
 
 import com.gameif.common.util.ByteUtil;
+import com.gameif.common.util.SecurityUtil;
 import com.gameif.portal.constants.PortalConstants;
 
 public class EntryProxyAction {
@@ -26,15 +27,7 @@ public class EntryProxyAction {
 			addEntryDataToCookie();
 		}
 		
-		if (title != null) {
-
-			titleEntryUrl = titleEntryUrls.get(title);
-		}
-		
-		if (titleEntryUrl == null) {
-
-			titleEntryUrl = titleEntryUrls.get("0");
-		}
+		setTitleEntryUrl();
 		
 		return "success";
 	}
@@ -66,6 +59,53 @@ public class EntryProxyAction {
 		    cookie.setMaxAge(cookieAge);
 		    ServletActionContext.getResponse().addCookie(cookie);
 	    }
+	}
+	
+	private void setTitleEntryUrl() {		
+		
+		String advertNum = getAdvertNum();
+		
+		if (title != null) {
+
+			if (advertNum != null) {
+
+				titleEntryUrl = titleEntryUrls.get(title + "." + advertNum);
+			}
+			
+			if (titleEntryUrl == null) {
+
+				titleEntryUrl = titleEntryUrls.get(title);
+			}
+		}
+		
+		if (titleEntryUrl == null) {
+
+			if (advertNum != null) {
+
+				titleEntryUrl = titleEntryUrls.get("0." + advertNum);
+			}
+			
+			if (titleEntryUrl == null) {
+
+				titleEntryUrl = titleEntryUrls.get("0");
+			}
+
+			titleEntryUrl = titleEntryUrls.get("0");
+		}
+	}
+	
+	private String getAdvertNum() {
+		
+		String advertNum = null;
+			
+		if (enc != null) {
+			
+			Map<String, String> paramMap = SecurityUtil.decodeParam(enc);
+			
+			advertNum = paramMap.get("advertNum");
+		}
+		
+		return advertNum;
 	}
 
 	public String getEnc() {
