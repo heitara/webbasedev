@@ -12,7 +12,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.struts2.ServletActionContext;
 
 import com.gameif.common.action.ModelDrivenActionSupport;
-import com.gameif.common.exception.LogicException;
 import com.gameif.portal.businesslogic.IMasterInfoBusinessLogic;
 import com.gameif.portal.businesslogic.IPointChargeBusinessLogic;
 import com.gameif.portal.constants.PortalConstants;
@@ -94,7 +93,7 @@ public class PointChargeControlAction extends ModelDrivenActionSupport<MemSettle
 			// プレーすることがない
 			addFieldError("errMessage", getText("title.noData"));
 			
-			return "pointSelect";
+			return chargePointSelect();
 		}
 		
 		return "pointSubmit";
@@ -144,43 +143,34 @@ public class PointChargeControlAction extends ModelDrivenActionSupport<MemSettle
 		setMemberNum(settlementTrns);
 		setProviderId(settlementTrns);
 
-		try {
-
-			// 仮決済を登録する
-			int rtn = createSettlementTrns(settlementTrns);
+		// 仮決済を登録する
+		int rtn = createSettlementTrns(settlementTrns);
+		
+		// 0:正常終了
+		if (rtn != 0) {
 			
-			// 0:正常終了
-			if (rtn != 0) {
-				
-				switch (rtn) {
-				// １：会員が18歳未満、クレジットカードは利用できない
-				case 1:
-					addFieldError("errMessage", getText("charge.limitAge"));
-					break;
-				// ２：18歳未満の方は、一ヶ月3万円以上を決済することができません。
-				case 2:
-					addFieldError("errMessage", getText("charge.limitAmountWithAge"));
-					break;
-				// ３：クレジットカード決済では、一ヶ月10万円以上を超えることができません。
-				case 3:
-					addFieldError("errMessage", getText("charge.limitAmountMax"));
-					break;
-				// ４：会員登録から一ヶ月未満の方は、クレジットカード決済で3万円以上を超えることができません
-				case 4:
-					addFieldError("errMessage", getText("charge.limitAmountMin"));
-					break;
-				}
-				
-				settleList = getSettlementMstList();
-				
-				return "settleSelect";
+			switch (rtn) {
+			// １：会員が18歳未満、クレジットカードは利用できない
+			case 1:
+				addFieldError("errMessage", getText("charge.limitAge"));
+				break;
+			// ２：18歳未満の方は、一ヶ月3万円以上を決済することができません。
+			case 2:
+				addFieldError("errMessage", getText("charge.limitAmountWithAge"));
+				break;
+			// ３：クレジットカード決済では、一ヶ月10万円以上を超えることができません。
+			case 3:
+				addFieldError("errMessage", getText("charge.limitAmountMax"));
+				break;
+			// ４：会員登録から一ヶ月未満の方は、クレジットカード決済で3万円以上を超えることができません
+			case 4:
+				addFieldError("errMessage", getText("charge.limitAmountMin"));
+				break;
 			}
 			
-		} catch (LogicException ex) {
-
-			logger.warn(ContextUtil.getRequestBaseInfo() + " | " + ex.getMessage());
-
-			return "warning";
+			settleList = getSettlementMstList();
+			
+			return "settleSelect";
 		}
 
 		// 仮決済情報をログに出力する
@@ -233,7 +223,7 @@ public class PointChargeControlAction extends ModelDrivenActionSupport<MemSettle
 	}
 	*/
 	
-	protected int createSettlementTrns(MemSettlementTrns settlementTrns) throws LogicException {
+	protected int createSettlementTrns(MemSettlementTrns settlementTrns) {
 		
 		return pointChargeBusinessLogic.createSettlementTrns(settlementTrns);
 	}

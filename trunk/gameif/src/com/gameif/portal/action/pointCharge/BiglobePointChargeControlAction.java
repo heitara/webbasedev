@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.ServletActionContext;
 
 import com.gameif.common.action.ModelDrivenActionSupport;
-import com.gameif.common.exception.LogicException;
 import com.gameif.portal.businesslogic.IPointChargeBusinessLogic;
 import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.entity.MemSettlementHist;
@@ -43,22 +42,13 @@ public class BiglobePointChargeControlAction extends ModelDrivenActionSupport<Me
 		settlementTrns.setPointId(getModel().getPointId());
 		settlementTrns.setProviderId(PortalConstants.NO);
 
-		try {
+		// 仮決済を登録する
+		pointChargeBusinessLogic.createSettlementTrns(settlementTrns);
 
-			// 仮決済を登録する
-			pointChargeBusinessLogic.createSettlementTrns(settlementTrns);
-
-			getModel().setSettlementTrnsNum(settlementTrns.getSettlementTrnsNum());
-			biglobeGoodsCode = getShopGoodsCode(settlementTrns.getPointId());
-			
-			outputPreLog(settlementTrns);
-			
-		} catch (LogicException ex) {
-
-			logger.warn(ContextUtil.getRequestBaseInfo() + " | " + ex.getMessage());
-
-			return "warning";
-		}
+		getModel().setSettlementTrnsNum(settlementTrns.getSettlementTrnsNum());
+		biglobeGoodsCode = getShopGoodsCode(settlementTrns.getPointId());
+		
+		outputPreLog(settlementTrns);
 
 		return "bigLobeDetail";
 	}

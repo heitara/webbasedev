@@ -48,7 +48,7 @@
             <value>${jointTitlePlayInterceptor.timeOutMinutes}</value>
         </property>
     </bean>
-    <bean id="jointPointChargeInterceptor" class="com.gameif.portal.interceptor.JointPointChargeInterceptor">
+    <bean id="jointPointChargeEntryInterceptor" class="com.gameif.portal.interceptor.JointPointChargeEntryInterceptor">
         <property name="masterInfoBusinessLogic">
             <ref bean="masterInfoBusinessLogic" />
         </property>
@@ -58,7 +58,13 @@
         <property name="timeOutMinutes">
             <value>${jointTitlePlayInterceptor.timeOutMinutes}</value>
         </property>
+		<property name="decorators">
+			<map>
+				<entry key="2" value="otakuma"/>
+			</map>
+		</property>
     </bean>
+    <bean id="jointPointChargeInterceptor" class="com.gameif.portal.interceptor.JointPointChargeInterceptor"/>
 	
 	<bean id="indexAction" class="com.gameif.portal.action.menu.IndexAction" scope="prototype" />
 	
@@ -352,7 +358,7 @@
 	<bean id="entryProxyAction" class="com.gameif.portal.action.menu.EntryProxyAction" scope="prototype">
 		<property name="cookieAge">
 			<value>3600</value>
-		</property>	
+		</property>
 		<property name="titleEntryUrls">
 			<map>
 				<entry key="0" value="https://www.game-if.com/"/>

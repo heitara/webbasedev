@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 
-import com.gameif.common.exception.LogicException;
 import com.gameif.portal.businesslogic.IOpensocialPointChargeBusinessLogic;
 import com.gameif.portal.entity.MemSettlementTrns;
 import com.gameif.portal.entity.OpensocialSettlementHist;
@@ -36,7 +35,7 @@ public class OpensocialPointChargeControlAction extends PointChargeControlAction
 	}
 
 	@Override
-	protected int createSettlementTrns(MemSettlementTrns settlementTrns) throws LogicException {
+	protected int createSettlementTrns(MemSettlementTrns settlementTrns) {
 		
 		return opensocialPointChargeBusinessLogic.createSettlementTrns(settlementTrns);
 	}

@@ -15,11 +15,15 @@
         <pattern>/joint/chargeSaveSettleTrns.html*</pattern>
         <pattern>/joint/chargeReceive.html*</pattern>
 	</excludes>
+	<!-- SessionDecoratorMapper -->
+    <decorator name="otakuma" page="joint/otakuma.jsp"/>
+    <decorator name="joint" page="joint/joint.jsp"/>
 	
-    <decorator name="opensocial" page="opensocial.jsp">
+	<!-- ConfigDecoratorMapper -->
+    <decorator name="opensocial" page="opensocial/layout.jsp">
         <pattern>/opensocial/*</pattern>
     </decorator>
-    <decorator name="joint" page="joint.jsp">
+    <decorator name="joint" page="joint/joint.jsp">
         <pattern>/joint/*</pattern>
     </decorator>
 	<decorator name="layout" page="layout.jsp">
