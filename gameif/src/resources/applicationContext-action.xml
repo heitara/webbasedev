@@ -351,12 +351,13 @@
 	<bean id="logoutProxyAction" class="com.gameif.portal.action.menu.LogoutProxyAction" scope="prototype" />
 	<bean id="entryProxyAction" class="com.gameif.portal.action.menu.EntryProxyAction" scope="prototype">
 		<property name="cookieAge">
-			<value>${entryProxyAction.cookieAge}</value>
+			<value>3600</value>
 		</property>	
 		<property name="titleEntryUrls">
 			<map>
-				<entry key="0" value="${entryProxyAction.titleEntryUrl.0}"/>
-				<entry key="1" value="${entryProxyAction.titleEntryUrl.1}"/>
+				<entry key="0" value="https://www.game-if.com/"/>
+				<entry key="1" value="http://legion.game-if.com/begin.htm"/>
+				<entry key="1.117" value="http://legion.game-if.com/biglobe.htm"/>
 			</map>
 		</property>
 	</bean>
