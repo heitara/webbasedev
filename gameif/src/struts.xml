@@ -428,15 +428,16 @@
     <package name="joint" extends="gameif" namespace="/joint">
         <interceptors>
             <interceptor name="jointTitlePlayParameter" class="jointTitlePlayInterceptor"/>
+            <interceptor name="jointPointChargeEntryParameter" class="jointPointChargeEntryInterceptor"/>
             <interceptor name="jointPointChargeParameter" class="jointPointChargeInterceptor"/>
         </interceptors>
 		
 		<global-results>
-			<result name="unhandledException">/WEB-INF/pages/joint/error.jsp</result>
-            <result name="invalid.token">/WEB-INF/pages/joint/warning.jsp</result>
-			<result name="warning">/WEB-INF/pages/joint/warning.jsp</result>
-			<result name="error">/WEB-INF/pages/joint/error.jsp</result>
-            <result name="maintenance">/WEB-INF/pages/joint/maintenance.jsp</result>
+			<result name="unhandledException">/WEB-INF/pages/joint/joint/error.jsp</result>
+            <result name="invalid.token">/WEB-INF/pages/joint/joint/warning.jsp</result>
+			<result name="warning">/WEB-INF/pages/joint/joint/warning.jsp</result>
+			<result name="error">/WEB-INF/pages/joint/joint/error.jsp</result>
+            <result name="maintenance">/WEB-INF/pages/joint/joint/maintenance.jsp</result>
 		</global-results>
 		
 		<action name="playGame" class="jointTitlePlayControlAction">
@@ -451,8 +452,11 @@
                 <param name="className">com.gameif.portal.entity.JointSettlementHist</param>
             </interceptor-ref>
             <interceptor-ref name="gameifStack"></interceptor-ref>
+            <interceptor-ref name="jointPointChargeEntryParameter">
+                <param name="includeMethods">chargePointSelect</param>
+            </interceptor-ref>
             <interceptor-ref name="jointPointChargeParameter">
-                <param name="includeMethods">chargePointSelect,chargeSettleSelect,chargeSaveSettleTrns</param>
+                <param name="excludeMethods">chargeReceive</param>
             </interceptor-ref>
             <interceptor-ref name="chargeMaintenance">
                 <param name="includeMethods">chargePointSelect,chargeSettleSelect,chargeSaveSettleTrns</param>
@@ -461,13 +465,14 @@
                 <param name="includeMethods">chargeSettleSelect,chargeSaveSettleTrns</param>
             </interceptor-ref>
 
-			<result name="pointSelect">/WEB-INF/pages/joint/charge_point_select.jsp</result>
+			<result name="pointSelect">/WEB-INF/pages/joint/${decorator}/charge_point_select.jsp</result>
 			<result name="pointSubmit" type="redirect">chargeSettleSelect.html?titleId=${titleId}&amp;serverId=${serverId}&amp;pointId=${pointId}</result>
-			<result name="settleSelect">/WEB-INF/pages/joint/charge_settle_select.jsp</result>
+			<result name="settleSelect">/WEB-INF/pages/joint/${decorator}/charge_settle_select.jsp</result>
 			<result name="settleSubmit" type="redirect">chargeSaveSettleTrns.html?titleId=${titleId}&amp;serverId=${serverId}&amp;pointId=${pointId}&amp;settlementCode=${settlementCode}</result>
             <result name="requestSbps">/WEB-INF/pages/joint/charge_detail.jsp</result>
-            <result name="success">/WEB-INF/pages/joint/charge_success.jsp</result>
-            <result name="cancel">/WEB-INF/pages/joint/charge_cancel.jsp</result>
+            <result name="success">/WEB-INF/pages/joint/${decorator}/charge_success.jsp</result>
+            <result name="cancel">/WEB-INF/pages/joint/${decorator}/charge_cancel.jsp</result>
+			<result name="error">/WEB-INF/pages/joint/${decorator}/error.jsp</result>
 			<result name="input" type="redirect">chargePointSelect.html?titleId=${titleId}&amp;serverId=${serverId}</result>
         </action>
     </package>

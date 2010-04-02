@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 
-import com.gameif.common.exception.LogicException;
 import com.gameif.portal.businesslogic.IJointPointChargeBusinessLogic;
 import com.gameif.portal.entity.JointSettlementHist;
 import com.gameif.portal.entity.MemSettlementTrns;
@@ -22,6 +21,8 @@ public class JointPointChargeControlAction extends PointChargeControlAction {
 	private String titleName;
 	private String serverName;
 	private List<PointMst> pointList;
+	
+	private String decorator;
 	
 	/**
 	 * ポイントチャージ（ポイント選択）画面に案内する
@@ -60,7 +61,7 @@ public class JointPointChargeControlAction extends PointChargeControlAction {
 	}
 
 	@Override
-	protected int createSettlementTrns(MemSettlementTrns settlementTrns) throws LogicException {
+	protected int createSettlementTrns(MemSettlementTrns settlementTrns) {
 		
 		return jointPointChargeBusinessLogic.createSettlementTrns(settlementTrns);
 	}
@@ -97,5 +98,13 @@ public class JointPointChargeControlAction extends PointChargeControlAction {
 
 	public List<PointMst> getPointList() {
 		return pointList;
+	}
+
+	public String getDecorator() {
+		return decorator;
+	}
+
+	public void setDecorator(String decorator) {
+		this.decorator = decorator;
 	}
 }

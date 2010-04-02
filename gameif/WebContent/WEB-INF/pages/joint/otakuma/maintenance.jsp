@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="s" uri="/struts-tags"%>
 <html>
-<head><title>メンテナンス</title></head>
+<head>
+<META name="decorator" content="otakuma">
+<title>メンテナンス</title>
+</head>
 <body>
 <center>
 <div class="alert">

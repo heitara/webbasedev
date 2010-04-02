@@ -3,9 +3,9 @@ body {
 	margin:0px;
 	padding:0px;
 	color:#333;
-	font-size:14px;
+	font-size:12px;
 	font-family:'Arial','Courier','ＭＳ Ｐゴシック',monospace;
-	background-color:#FFF9CC;
+	background-color:#FFFFF;
 }
 a {
 	color:#333;
@@ -146,4 +146,73 @@ dl.warning dd div.msg {
 dl.warning dd div.msg p {
 	font-weight:bold;
 	color:#900;
+}
+
+/*********【CST追加】 ********************************************/
+
+div.portal_bar {
+	height:29px;
+	background:url(../../images/joint/otakuma/bg_portal_bar.gif);
+}
+
+span.styletop a:link {
+    text-decoration: underline;
+    color: #FDF5E6;
+}
+
+span.styletop a:visited {
+    text-decoration: underline;
+    color: #FDF5E6;
+}
+
+span.styletop a:hover {
+    text-decoration: none;
+    color: #FFA500;
+}
+
+.f_left {
+	float:left;
+	padding:3px 0 0 10px;
+	margin:0 0 0 0;
+}
+.f_right {
+	float:right;
+	padding:5px 10px 0 0;
+	margin:0 0 0 0;
+}
+
+div.left_area {
+	float:left;
+	width:760px;
+	height:auto;
+}
+
+div.right_area {
+	float:right;
+	width:200px;
+	height:auto;
+	margin-left:20px;
+}
+
+div.line_bar {
+	width:735px;
+	height:19px;
+	padding:5px 0 0 15px;
+	background:url(../../images/joint/otakuma/bg_light_title.gif);
+	margin-bottom:30px;
+	color:#FFFFFF;
+	font-weight:bold;
+}
+
+span.charge_history {
+	width:120px;
+	height:19px;
+	float:right;
+	font-size:10px;
+	margin-top:-13px;
+}
+img.gray {
+	opacity: 0.5;                    /* Firefox, Safari(WebKit), Opera */
+	-ms-filter: "alpha(opacity=50)"; /* IE 8 */
+	filter: alpha(opacity=50);       /* IE 4-7 */
 }
