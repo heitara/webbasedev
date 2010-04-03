@@ -473,6 +473,7 @@
             <result name="success">/WEB-INF/pages/joint/${decorator}/charge_success.jsp</result>
             <result name="cancel">/WEB-INF/pages/joint/${decorator}/charge_cancel.jsp</result>
 			<result name="error">/WEB-INF/pages/joint/${decorator}/error.jsp</result>
+			<result name="settlementHist">/WEB-INF/pages/joint/${decorator}/charge_settle_hist.jsp</result>
 			<result name="input" type="redirect">chargePointSelect.html?titleId=${titleId}&amp;serverId=${serverId}</result>
         </action>
     </package>

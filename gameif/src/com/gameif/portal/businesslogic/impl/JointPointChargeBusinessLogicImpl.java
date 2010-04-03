@@ -1,5 +1,7 @@
 package com.gameif.portal.businesslogic.impl;
 
+import java.util.List;
+
 import com.gameif.common.exception.SystemException;
 import com.gameif.portal.businesslogic.IJointPointChargeBusinessLogic;
 import com.gameif.portal.dao.IJointMemberDao;
@@ -10,6 +12,7 @@ import com.gameif.portal.entity.MemSettlementTrns;
 import com.gameif.portal.entity.MemberInfo;
 import com.gameif.portal.entity.JointMember;
 import com.gameif.portal.entity.JointSettlementHist;
+import com.gameif.portal.entity.MySettlementHist;
 import com.gameif.portal.entity.ServerMst;
 
 public class JointPointChargeBusinessLogicImpl extends PointChargeBusinessLogicImpl implements IJointPointChargeBusinessLogic {
@@ -69,6 +72,12 @@ public class JointPointChargeBusinessLogicImpl extends PointChargeBusinessLogicI
 	@Override
 	protected void sendChargeMail(MemSettlementHist settlementHist, MemberInfo member, ServerMst server) {
 		
+	}
+
+	@Override
+	public List<MySettlementHist> getSettlementHistListByMemNum(Long memNum) {
+		
+		return jointSettlementHistDao.selectSettlementHistListByMemNum(memNum);
 	}
 	
 	/**

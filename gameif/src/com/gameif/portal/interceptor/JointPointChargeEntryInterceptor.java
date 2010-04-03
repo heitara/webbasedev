@@ -29,20 +29,15 @@ public class JointPointChargeEntryInterceptor extends JointTitlePlayInterceptor 
 
 		String result = "warning";
 		
-		if (ContextUtil.getExternalAccountId() != null && ContextUtil.getProviderId() != null) {
-
-			return ai.invoke();
-		}
-		
-		boolean accessable = false;
-		JointMember member = null;
-		
 		String titleId = ServletActionContext.getRequest().getParameter("titleId");
 		String serverId = ServletActionContext.getRequest().getParameter("serverId");
 		String memId = ServletActionContext.getRequest().getParameter("memId");
 		String providerId = ServletActionContext.getRequest().getParameter("providerId");
 		
 		if (memId != null && providerId != null && titleId != null && serverId != null && checkTime()) {
+			
+			boolean accessable = false;
+			JointMember member = null;
 
 			ProviderMst provider = getMasterInfoBusinessLogic().getProviderMstByKey(providerId);			
 			
@@ -74,23 +69,27 @@ public class JointPointChargeEntryInterceptor extends JointTitlePlayInterceptor 
 					}
 				}
 			}
-		}
-		
-		if (accessable) {
+			
+			if (accessable) {
 
-			ContextUtil.setExternalLoginSessionInfo(member.getMemNum(), memId, providerId);
-			
-			ContextUtil.setCookieValue("titleId", titleId, "/");
-			ContextUtil.setCookieValue("serverId", serverId, "/");
-			ContextUtil.setCookieValue("decorator", decorators.get(providerId), "/");
-			
-			JointPointChargeControlAction action = (JointPointChargeControlAction)ai.getAction();
-			
-			action.getModel().setTitleId(Integer.valueOf(titleId));
-			action.getModel().setServerId(Integer.valueOf(serverId));
-			action.setDecorator(decorators.get(providerId));
+				ContextUtil.setExternalLoginSessionInfo(member.getMemNum(), memId, providerId);
+				
+				ContextUtil.setCookieValue("titleId", titleId, "/");
+				ContextUtil.setCookieValue("serverId", serverId, "/");
+				ContextUtil.setCookieValue("decorator", decorators.get(providerId), "/");
+				
+				JointPointChargeControlAction action = (JointPointChargeControlAction)ai.getAction();
+				
+				action.getModel().setTitleId(Integer.valueOf(titleId));
+				action.getModel().setServerId(Integer.valueOf(serverId));
+				action.setDecorator(decorators.get(providerId));
 
-			result = ai.invoke();
+				result = ai.invoke();
+			}
+			
+		} else if (ContextUtil.getExternalAccountId() != null && ContextUtil.getProviderId() != null) {
+
+			return ai.invoke();
 		}
 		
 		return result;

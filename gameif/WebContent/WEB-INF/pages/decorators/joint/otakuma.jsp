@@ -21,11 +21,11 @@
 <!-- ページメインエリア：開始 -->
 <div class="page_main_box">
 	<div class="left_area">
-		<div class="line_bar">ポイントチャージ<span class="charge_history"><a href="">▸ ポイントチャージ履歴</a></span></div>
+		<div class="line_bar">ポイントチャージ<span class="charge_history"><a href="joint/chargeSettlementHist.html">▸ ポイントチャージ履歴</a></span></div>
 		<decorator:body />
 	</div>
 	<div class="right_area">
-		<a href="http://www.otakuma.net/index.php/login/chargeLegion"><img src="images/joint/otakuma/r_01.gif" border="0"/></a>　<a href=""><img src="images/joint/otakuma/r_02.gif" border="0"/></a><br />
+		<a href="http://www.otakuma.net/index.php/login/chargeLegion"><img src="images/joint/otakuma/r_01.gif" border="0"/></a>　<a href="joint/chargeSettlementHist.html"><img src="images/joint/otakuma/r_02.gif" border="0"/></a><br />
 		<br />
 		<a href="http://www.otakuma.net/index.php/home/prof_edit?"><img src="images/joint/otakuma/r_03.gif" border="0"/></a>　<a href="http://www.otakuma.net/index.php/home/config?"><img src="images/joint/otakuma/r_04.gif" border="0"/></a><br />
 		<br />
