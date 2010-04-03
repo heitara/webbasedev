@@ -827,7 +827,7 @@ public class PointChargeControlAction extends ModelDrivenActionSupport<MemSettle
 	 */
 	public String chargeSettlementHist() {
 		
-		settleHistList = pointChargeBusinessLogic.getSettlementHistListByMemNum(ContextUtil.getMemberNoWithExt());
+		settleHistList = pointChargeBusinessLogic.getSettlementHistListByMemNum(ContextUtil.getMemberNo());
 		
 		return "settlementHist";
 	}
@@ -1459,5 +1459,9 @@ public class PointChargeControlAction extends ModelDrivenActionSupport<MemSettle
 
 	public void setSettleList(List<SettlementMst> settleList) {
 		this.settleList = settleList;
+	}
+
+	public void setSettleHistList(List<MySettlementHist> settleHistList) {
+		this.settleHistList = settleHistList;
 	}
 }

@@ -209,10 +209,21 @@ span.charge_history {
 	height:19px;
 	float:right;
 	font-size:10px;
-	margin-top:-13px;
+	margin-top:-18px;
 }
 img.gray {
 	opacity: 0.5;                    /* Firefox, Safari(WebKit), Opera */
 	-ms-filter: "alpha(opacity=50)"; /* IE 8 */
 	filter: alpha(opacity=50);       /* IE 4-7 */
+}
+table.settle_list {
+	width:98%;
+}
+table.settle_list th {
+	height:30px;
+	background-color:#EEE;
+}
+table.settle_list td {
+	height:26px;
+	border-bottom:1px dashed #CCC;
 }

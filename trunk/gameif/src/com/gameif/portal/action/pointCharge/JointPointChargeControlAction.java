@@ -82,6 +82,17 @@ public class JointPointChargeControlAction extends PointChargeControlAction {
 		
 		return jointPointChargeBusinessLogic.getSettlementListForCharge(ContextUtil.getExternalMemberNo());
 	}
+	
+	/**
+	 * チャージ履歴画面に案内する
+	 * @return チャージ履歴画面
+	 */
+	public String chargeSettlementHist() {
+		
+		setSettleHistList(jointPointChargeBusinessLogic.getSettlementHistListByMemNum(ContextUtil.getExternalMemberNo()));
+		
+		return "settlementHist";
+	}
 
 	public void setJointPointChargeBusinessLogic(
 			IJointPointChargeBusinessLogic jointPointChargeBusinessLogic) {
