@@ -453,10 +453,10 @@
             </interceptor-ref>
             <interceptor-ref name="gameifStack"></interceptor-ref>
             <interceptor-ref name="jointPointChargeEntryParameter">
-                <param name="includeMethods">chargePointSelect</param>
+                <param name="includeMethods">chargeEntry</param>
             </interceptor-ref>
             <interceptor-ref name="jointPointChargeParameter">
-                <param name="excludeMethods">chargeReceive</param>
+                <param name="excludeMethods">chargeEntry,chargeReceive</param>
             </interceptor-ref>
             <interceptor-ref name="chargeMaintenance">
                 <param name="includeMethods">chargePointSelect,chargeSettleSelect,chargeSaveSettleTrns</param>
@@ -465,6 +465,7 @@
                 <param name="includeMethods">chargeSettleSelect,chargeSaveSettleTrns</param>
             </interceptor-ref>
 
+			<result name="entry" type="redirect">chargePointSelect.html</result>
 			<result name="pointSelect">/WEB-INF/pages/joint/${decorator}/charge_point_select.jsp</result>
 			<result name="pointSubmit" type="redirect">chargeSettleSelect.html?titleId=${titleId}&amp;serverId=${serverId}&amp;pointId=${pointId}</result>
 			<result name="settleSelect">/WEB-INF/pages/joint/${decorator}/charge_settle_select.jsp</result>

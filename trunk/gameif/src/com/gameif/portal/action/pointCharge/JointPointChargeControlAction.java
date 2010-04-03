@@ -24,6 +24,11 @@ public class JointPointChargeControlAction extends PointChargeControlAction {
 	
 	private String decorator;
 	
+	public String chargeEntry() {
+		
+		return "entry";
+	}
+	
 	/**
 	 * ポイントチャージ（ポイント選択）画面に案内する
 	 * @return
