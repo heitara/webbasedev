@@ -15,7 +15,9 @@
         <pattern>/joint/chargeSaveSettleTrns.html*</pattern>
         <pattern>/joint/chargeReceive.html*</pattern>
 	</excludes>
-	<!-- SessionDecoratorMapper -->
+	
+    <decorator name="mixi" page="opensocial/mixi.jsp"/>
+    <decorator name="opensocial" page="opensocial/opensocial.jsp"/>
     <decorator name="otakuma" page="joint/otakuma.jsp"/>
     <decorator name="joint" page="joint/joint.jsp"/>
 	

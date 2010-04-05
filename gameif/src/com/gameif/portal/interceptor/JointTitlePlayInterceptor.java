@@ -89,7 +89,7 @@ public class JointTitlePlayInterceptor extends MethodFilterInterceptor {
 		
 		boolean checkOk = false;
 		
-		if (provider != null && PortalConstants.ProviderKind.JOINT.equals(provider.getProviderKindCd())) {
+		if (provider != null && getProviderKind().equals(provider.getProviderKindCd())) {
 				
 			checkOk = true;
 			
@@ -99,6 +99,11 @@ public class JointTitlePlayInterceptor extends MethodFilterInterceptor {
 		}
 		
 		return checkOk;
+	}
+	
+	protected String getProviderKind() {
+		
+		return PortalConstants.ProviderKind.JOINT;
 	}
 	
 	protected boolean checkSign(ProviderTitleMst providerTitle) {

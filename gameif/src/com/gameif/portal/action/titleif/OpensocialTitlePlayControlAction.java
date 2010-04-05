@@ -7,11 +7,13 @@ import java.util.Map;
 
 import org.apache.struts2.ServletActionContext;
 
+import com.gameif.common.util.SecurityUtil;
 import com.gameif.portal.businesslogic.IOpensocialMemberBusinessLogic;
 import com.gameif.portal.businesslogic.IOpensocialTitlePlayBusinessLogic;
 import com.gameif.portal.entity.MemberInfo;
 import com.gameif.portal.entity.OpensocialMember;
 import com.gameif.portal.entity.OpensocialPlayHist;
+import com.gameif.portal.entity.ProviderTitleMst;
 import com.gameif.portal.entity.ServerMst;
 import com.gameif.portal.helper.OpensocialPageTemplater;
 import com.gameif.portal.util.ContextUtil;
@@ -25,6 +27,23 @@ public class OpensocialTitlePlayControlAction extends ProviderTitlePlayControlAc
 	private OpensocialPageTemplater opensocialPageTemplater;
 	
 	private String htmlText;
+	private String act;
+	
+	public String execute() {
+		
+		String result = SUCCESS;
+		
+		if ("charge".equals(act)) {
+			
+			htmlText = createChargeUrl(getMemId(), getProviderId(), getTitleId(), getServerId());
+			
+		} else {
+			
+			result = super.execute();
+		}
+		
+		return result;
+	}
 	
 	@Override
 	protected MemberInfo saveMemberInfo() {
@@ -64,10 +83,11 @@ public class OpensocialTitlePlayControlAction extends ProviderTitlePlayControlAc
 	}
 
 	@Override
-	protected String postPlay(String playUrl) {
+	protected String postPlay(String playUrl, ServerMst server) {
 
 		Map<String, Object> props = new HashMap<String, Object>();
 		props.put("playUrl", playUrl);
+		props.put("server", server);
 		htmlText = opensocialPageTemplater.getRenderedText(getProviderId(), "playGame", props);
 		
 		return SUCCESS;
@@ -100,6 +120,49 @@ public class OpensocialTitlePlayControlAction extends ProviderTitlePlayControlAc
 		
 		return SUCCESS;
 	}
+	
+	private String createChargeUrl(String memId, String providerId, Integer titleId, Integer serverId) {
+		
+		long time = System.currentTimeMillis() / 1000;
+		
+		return new StringBuffer()
+			.append(ServletActionContext.getRequest().getSession().getServletContext().getInitParameter("portalTopUrl"))
+			.append("/opensocial/chargeEntry.html?memId=")
+			.append(memId)
+			.append("&providerId=")
+			.append(providerId)
+			.append("&titleId=")
+			.append(titleId)
+			.append("&serverId=")
+			.append(serverId)
+			.append("&time=")
+			.append(time)
+			.append("&sign=")
+			.append(createSign(memId, providerId, titleId, serverId, time))
+			.toString();
+	}
+	
+	private String createSign(String memId, String providerId, Integer titleId, Integer serverId, long time) {
+		
+		return SecurityUtil.getMD5String(new StringBuffer()
+				.append(memId)
+				.append(providerId)
+				.append(titleId)
+				.append(serverId)
+				.append(time)
+				.append(getProviderTitle(providerId, titleId).getSecurityCode())
+				.toString());
+	}
+	
+	private ProviderTitleMst getProviderTitle(String providerId, Integer titleId) {
+		
+		ProviderTitleMst providerTitle = new ProviderTitleMst();			
+		providerTitle.setProviderId(providerId);
+		providerTitle.setTitleId(Integer.valueOf(titleId));			
+		providerTitle = getMasterInfoBusinessLogic().getProviderTitleMstByKey(providerTitle);
+		
+		return providerTitle;
+	}
 
 	public String getHtmlText() {
 		return htmlText;
@@ -122,5 +185,9 @@ public class OpensocialTitlePlayControlAction extends ProviderTitlePlayControlAc
 	public void setOpensocialPageTemplater(
 			OpensocialPageTemplater opensocialPageTemplater) {
 		this.opensocialPageTemplater = opensocialPageTemplater;
+	}
+
+	public void setAct(String act) {
+		this.act = act;
 	}
 }

@@ -75,7 +75,7 @@ public abstract class ProviderTitlePlayControlAction extends BaseActionSupport {
 
 					String playUrl = doPlay(server, memInfo);
 					// プレイ画面
-					result = postPlay(playUrl);
+					result = postPlay(playUrl, server);
 					
 				} else {
 
@@ -116,7 +116,7 @@ public abstract class ProviderTitlePlayControlAction extends BaseActionSupport {
 	
 	protected abstract void savePlayHist(MemberInfo memberInfo);
 	
-	protected abstract String postPlay(String playUrl);
+	protected abstract String postPlay(String playUrl, ServerMst server);
 	
 	protected abstract String postServerSelect(List<ServerMst> servers);
 	
@@ -389,5 +389,9 @@ public abstract class ProviderTitlePlayControlAction extends BaseActionSupport {
 
 	public void setBirthD(String birthD) {
 		this.birthD = birthD;
+	}
+
+	public IMasterInfoBusinessLogic getMasterInfoBusinessLogic() {
+		return masterInfoBusinessLogic;
 	}
 }

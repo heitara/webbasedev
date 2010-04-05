@@ -36,6 +36,17 @@
 		<result property="lastUpdateUser" column="last_update_user"/>
 	</resultMap>
 	
+	<resultMap class="com.gameif.portal.entity.MySettlementHist" id="mySettleHistResult">
+		<result property="settlementCode" column="settlement_code" />
+		<result property="settlementName" column="settlement_name" />
+		<result property="titleId" column="title_id" />
+		<result property="titleName" column="title_name" />
+		<result property="serverId" column="server_id" />
+		<result property="serverName" column="server_name" />
+		<result property="settlementDate" column="settlement_date" />
+		<result property="pointAmountAct" column="point_amount_act" />
+	</resultMap>
+	
 	<insert id = "save" parameterClass="opensocialSettlementHist"> 
         <![CDATA[
 		INSERT INTO opensocial_settlement_hist (
@@ -102,5 +113,23 @@
         	]]>
 		</selectKey>
 	</insert>
+
+	<select id="selectSettlementHistListByMemNum" parameterClass="java.lang.Long" resultMap="mySettleHistResult">   
+        <![CDATA[
+			SELECT	h.settlement_code,
+					h.title_id,
+					h.server_id,
+					h.settlement_date,
+					h.point_amount_act,
+					t.title_name,
+					s.server_name,
+					m.settlement_name
+			FROM	opensocial_settlement_hist h
+					LEFT JOIN title_mst t ON h.title_id = t.title_id
+					LEFT JOIN server_mst s ON h.server_id = s.server_id
+					LEFT JOIN settlement_mst m ON h.settlement_code = m.settlement_code
+			WHERE	h.mem_num = #value#
+        ]]>
+	</select>
 
 </sqlMap>

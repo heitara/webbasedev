@@ -46,7 +46,7 @@ public class JointPointChargeEntryInterceptor extends JointTitlePlayInterceptor 
 
 				if (checkSign(providerTitle)) {
 					
-					member = jointMemberBusinessLogic.getMemberByMemIdAndProviderId(memId, providerId);
+					member = getMemberByMemIdAndProviderId(memId, providerId);
 					
 					if (member != null) {
 						
@@ -54,11 +54,7 @@ public class JointPointChargeEntryInterceptor extends JointTitlePlayInterceptor 
 						
 					} else if (!PortalConstants.YES.equals(providerTitle.getAgentLogin())) {
 						
-						member = new JointMember();
-						member.setMemId(memId);
-						member.setProviderId(providerId);
-						
-						member = jointMemberBusinessLogic.createMemberInfo(member);
+						saveMemberInfo(memId, providerId);
 						
 						accessable = true;
 						
@@ -86,6 +82,20 @@ public class JointPointChargeEntryInterceptor extends JointTitlePlayInterceptor 
 		}
 		
 		return result;
+	}
+	
+	protected JointMember getMemberByMemIdAndProviderId(String memId, String providerId) {
+		
+		return jointMemberBusinessLogic.getMemberByMemIdAndProviderId(memId, providerId);
+	}
+	
+	protected void saveMemberInfo(String memId, String providerId) {
+		
+		JointMember member = new JointMember();
+		member.setMemId(memId);
+		member.setProviderId(providerId);
+		
+		member = jointMemberBusinessLogic.createMemberInfo(member);
 	}
 	
 	private ProviderTitleMst getProviderTitle(String providerId, Integer titleId) {

@@ -388,7 +388,8 @@
 	
     <package name="opensocial" extends="gameif" namespace="/opensocial">
         <interceptors>
-            <interceptor name="opensocialChargeParameter" class="opensocialPointChargeInterceptor"/>
+            <interceptor name="opensocialPointChargeEntryParameter" class="opensocialPointChargeEntryInterceptor"/>
+            <interceptor name="opensocialPointChargeParameter" class="opensocialPointChargeInterceptor"/>
         </interceptors>
 		
 		<global-results>
@@ -398,7 +399,6 @@
 			<result name="error">/WEB-INF/pages/opensocial/error.jsp</result>
             <result name="maintenance">/WEB-INF/pages/opensocial/maintenance.jsp</result>
 		</global-results>
-		
         <action name="charge*" class="opensocialPointChargeControlAction" method="charge{1}">
             <interceptor-ref name="scopedModelDriven">
                 <param name="scope">request</param>
@@ -406,8 +406,11 @@
                 <param name="className">com.gameif.portal.entity.OpensocialSettlementHist</param>
             </interceptor-ref>
             <interceptor-ref name="gameifStack"></interceptor-ref>
-            <interceptor-ref name="opensocialChargeParameter">
-                <param name="includeMethods">chargePointSelect,chargeSettleSelect,chargeSaveSettleTrns</param>
+            <interceptor-ref name="opensocialPointChargeEntryParameter">
+                <param name="includeMethods">chargeEntry</param>
+            </interceptor-ref>
+            <interceptor-ref name="opensocialPointChargeParameter">
+                <param name="excludeMethods">chargeEntry,chargeReceive</param>
             </interceptor-ref>
             <interceptor-ref name="chargeMaintenance">
                 <param name="includeMethods">chargePointSelect,chargeSettleSelect,chargeSaveSettleTrns</param>
@@ -415,13 +418,18 @@
             <interceptor-ref name="chargeTitleMaintenance">
                 <param name="includeMethods">chargeSettleSelect,chargeSaveSettleTrns</param>
             </interceptor-ref>
-            <result name="pointSelect">/WEB-INF/pages/opensocial/charge_point_select.jsp</result>
+
+			<result name="entry" type="redirect">chargePointSelect.html</result>
+			<result name="pointSelect">/WEB-INF/pages/opensocial/${decorator}/charge_point_select.jsp</result>
 			<result name="pointSubmit" type="redirect">chargeSettleSelect.html?titleId=${titleId}&amp;serverId=${serverId}&amp;pointId=${pointId}</result>
-			<result name="settleSelect">/WEB-INF/pages/opensocial/charge_settle_select.jsp</result>
+			<result name="settleSelect">/WEB-INF/pages/opensocial/${decorator}/charge_settle_select.jsp</result>
 			<result name="settleSubmit" type="redirect">chargeSaveSettleTrns.html?titleId=${titleId}&amp;serverId=${serverId}&amp;pointId=${pointId}&amp;settlementCode=${settlementCode}</result>
             <result name="requestSbps">/WEB-INF/pages/opensocial/charge_detail.jsp</result>
-            <result name="success">/WEB-INF/pages/opensocial/charge_success.jsp</result>
-            <result name="cancel">/WEB-INF/pages/opensocial/charge_cancel.jsp</result>
+            <result name="success">/WEB-INF/pages/opensocial/${decorator}/charge_success.jsp</result>
+            <result name="cancel">/WEB-INF/pages/opensocial/${decorator}/charge_cancel.jsp</result>
+			<result name="error">/WEB-INF/pages/opensocial/${decorator}/error.jsp</result>
+			<result name="settlementHist">/WEB-INF/pages/opensocial/${decorator}/charge_settle_hist.jsp</result>
+			<result name="input" type="redirect">chargePointSelect.html?titleId=${titleId}&amp;serverId=${serverId}</result>
         </action>
     </package>
 	
