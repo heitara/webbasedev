@@ -59,6 +59,7 @@ public abstract class ProviderTitlePlayControlAction extends BaseActionSupport {
 					
 					// サーバが一群のみの場合、サーバを設定して一覧はクリア
 					server = servers.get(0);
+					serverId = server.getServerId();
 					servers = null;
 				}
 				
@@ -100,6 +101,18 @@ public abstract class ProviderTitlePlayControlAction extends BaseActionSupport {
 			}
 			
 		} else {
+			
+			logger.warn(new StringBuffer()
+						.append("memId: ")
+						.append(memId)
+						.append(", providerId: ")
+						.append(providerId)
+						.append(", titleId: ")
+						.append(titleId)
+						.append(", serverId: ")
+						.append(serverId)
+						.toString()
+						);
 			
 			result = postError();
 		}
