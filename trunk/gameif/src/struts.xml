@@ -488,6 +488,14 @@
     </package>
 	
 	<package name="gamejax" extends="json-default">
+		<interceptors>
+			<interceptor name="actionLogger" class="actionLoggerInterceptor"/>
+			<interceptor-stack name="gameifStack">
+				<interceptor-ref name="defaultStack"/>
+				<interceptor-ref name="actionLogger"/>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="gameifStack"/>
 		<action name="*Exist" class="existCheckAction" method="{1}">
             <result type="json"></result>
 		</action>

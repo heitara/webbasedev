@@ -7,99 +7,164 @@
   </ModulePrefs>
   <Content type="html"><![CDATA[
 
-<input type="button" id="pointChargeBtn" value="ポイントチャージ" onclick="gotoCharge();"/>
 <div id="target"></div>
 
 <script type="text/javascript">
+				
+var _gameIFServletUrl = "https://www.game-if.com/opensocialTitlePlay.html";
+var _providerId = "1";
+var _titleId = "1";
 
-	function gotoCharge() {
+var _userId = null;
+var _birthY = null;
+var _birthM = null;
+var _birthD = null;
+var _sexCd = null;
+
+function _setUserProfile(viewer) {
 	
-		mixi.util.requestExternalNavigateTo('https://www.game-if.com/opensocial/chargePointSelect.html?memNum=1000000001&providerId=1&titleId=1&serverId=2&time=1270079890&sign=1b0feabcaba287b38f7629f55b81c778', mixi.util.ExternalSiteType.PAYMENT);
-	}
-
- 
-	function requestGameIF() {
+	var _birthday = null;
+	var _gender = null;
 	
-		var params = {};
-		params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [
-		    opensocial.Person.Field.ADDRESSES,
-		    opensocial.Person.Field.DATE_OF_BIRTH,
-		    opensocial.Person.Field.GENDER,
-		];
-		var req = opensocial.newDataRequest();
-		req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER, params), "viewer");
-		req.send(function(data) {
-			if (!data.hadError()) {
-				var item = data.get("viewer");
-				if (item.hadError()) {
-					var code = item.getErrorCode();
-					alert(code);
-				} else {
-					
-					var viewer = item.getData();
-					var id = viewer.getId();
-					var nickName = viewer.getDisplayName();
-					var address = viewer.getField(opensocial.Person.Field.ADDRESSES);
-					var region = null;
-					if (address != null) {
-						region = address[0].getField("region");
-					}
-					var birthday = viewer.getField(opensocial.Person.Field.DATE_OF_BIRTH);
-					var birthY = null;
-					var birthM = null;
-					var birthD = null;
-					if (birthday != null) {
-						birthY = new Date(birthday).getFullYear();
-						birthM = new Date(birthday).getMonth() + 1;
-						birthD = new Date(birthday).getDate();
-					}
-					var gender = viewer.getField(opensocial.Person.Field.GENDER);
-					var sexCd = null;
-					if (gender != null) {
-						if (gender.key == "MALE") {
-							sexCd = "1";
-						} else {
-							sexCd = "0";
-						}
-					}
-					
-					var servletUrl="https://www.game-if.com/opensocialTitlePlay.html";
-					
-					var params={};
-					params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
-					params[gadgets.io.RequestParameters.AUTHORIZATION] = gadgets.io.AuthorizationType.SIGNED;
-					params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
-					
-					
-					var postData = {};
-					postData["memId"] = id;
-					//postData["nickName"] = encodeURI(nickName);
-					postData["sexCd"] = sexCd;
-					postData["birthY"] = birthY;
-					postData["birthM"] = birthM;
-					postData["birthD"] = birthD;
-					//postData["address"] = encodeURI(region);
-					postData["providerId"] = "1";
-					postData["titleId"] = "1";
-					postData["serverId"] = "2";
-					params[gadgets.io.RequestParameters.POST_DATA] = gadgets.io.encodeValues(postData);
-					
-					gadgets.io.makeRequest(servletUrl, responseFunc, params);
-				}
-			}
-		});
+	_userId = viewer.getId();
+	
+	_birthday = viewer.getField(opensocial.Person.Field.DATE_OF_BIRTH);
+	
+	if (_birthday != null) {
+	
+		_birthY = new Date(_birthday).getFullYear();
+		_birthM = new Date(_birthday).getMonth() + 1;
+		_birthD = new Date(_birthday).getDate();
 	}
-
-	var responseFunc = function responseGameIF(resdata) {
-
-		//console.log(resdata.data);
-		document.getElementById('target').innerHTML = resdata.data.htmlText;
-		gadgets.window.adjustHeight(650);
+	
+	_gender = viewer.getField(opensocial.Person.Field.GENDER);
+	
+	if (_gender != null) {
+	
+		if (_gender.key == "MALE") {
+		
+			_sexCd = "1";
+			
+		} else {
+		
+			_sexCd = "0";
+		}
 	}
+}
 
-	gadgets.util.runOnLoadHandlers(
-			new function() { requestGameIF(); }
-		);
+function _doGameIFChargeResponse(resdata) {
+
+	mixi.util.requestExternalNavigateTo(resdata.data.htmlText, mixi.util.ExternalSiteType.PAYMENT);
+}
+
+function _getGameIFChargeParam() {
+
+	var params = _getGameIFBaseParam(serverId);
+	
+	var postData = {};
+	
+	postData["providerId"] = _providerId;
+	postData["titleId"] = _titleId;
+	postData["serverId"] = serverId;
+	
+	postData["act"] = "charge";
+	postData["memId"] = _userId;
+	
+	params[gadgets.io.RequestParameters.POST_DATA] = gadgets.io.encodeValues(postData);
+	
+	return params;
+}
+
+function _gotoGameIFCharge(serverId) {
+	
+	gadgets.io.makeRequest(_gameIFServletUrl, function(resdata) { _doGameIFChargeResponse(resdata); }, _getGameIFChargeParam(serverId));
+}
+
+function _getGameIFBaseParam() {
+
+	var params = {};
+	
+	params[gadgets.io.RequestParameters.METHOD] = gadgets.io.MethodType.POST;
+	params[gadgets.io.RequestParameters.AUTHORIZATION] = gadgets.io.AuthorizationType.SIGNED;
+	params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
+	
+	return params;
+}
+
+function _getGameIFTitlePlayParam(serverId) {
+
+	var params = _getGameIFBaseParam();
+	
+	var postData = {};
+	
+	postData["providerId"] = _providerId;
+	postData["titleId"] = _titleId;
+	
+	if (serverId != null) { postData["serverId"] = serverId; }
+	
+	postData["memId"] = _userId;
+	postData["sexCd"] = _sexCd;
+	postData["birthY"] = _birthY;
+	postData["birthM"] = _birthM;
+	postData["birthD"] = _birthD;
+	
+	params[gadgets.io.RequestParameters.POST_DATA] = gadgets.io.encodeValues(postData);
+	
+	console.log(params);
+	
+	return params;
+}
+
+function _doGameIFTitlePlay(serverId) {
+	
+	gadgets.io.makeRequest(_gameIFServletUrl, function(resdata) { _doGameIFResponse(resdata); }, _getGameIFTitlePlayParam(serverId));
+}
+
+function _doGameIFResponse(resdata) {
+
+	console.log(resdata);
+	document.getElementById('target').innerHTML = resdata.data.htmlText;
+	gadgets.window.adjustHeight(650);
+}
+
+function _doRequestAfterPageLoad(data) {
+
+	if (!data.hadError()) {
+	
+		var item = data.get("viewer");
+		
+		if (item.hadError()) {
+		
+			var code = item.getErrorCode();
+			alert("エラー[ " + code + " ]が発生しました。");
+			//TODO:画面遷移
+			
+		} else {
+			
+			_setUserProfile(item.getData());
+			
+			gadgets.io.makeRequest(_gameIFServletUrl, function(resdata) { _doGameIFResponse(resdata); }, _getGameIFTitlePlayParam(null));
+		}
+	}
+}
+
+function _doPageLoad() {
+
+	var req = opensocial.newDataRequest();
+	var params = {};
+	
+	params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [
+	
+		opensocial.Person.Field.DATE_OF_BIRTH,
+		opensocial.Person.Field.GENDER,
+	];
+	
+	req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER, params), "viewer");
+	
+	req.send( function(data) { _doRequestAfterPageLoad(data); } );
+}
+
+gadgets.util.runOnLoadHandlers( new function() { _doPageLoad(); });
 
 </script>
 

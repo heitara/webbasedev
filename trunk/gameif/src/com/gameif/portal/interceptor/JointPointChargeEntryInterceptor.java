@@ -6,6 +6,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
 
+import com.gameif.common.util.SecurityUtil;
 import com.gameif.portal.businesslogic.IJointMemberBusinessLogic;
 import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.entity.JointMember;
@@ -30,11 +31,22 @@ public class JointPointChargeEntryInterceptor extends JointTitlePlayInterceptor 
 		
 		boolean accessable = false;
 		JointMember member = null;
-		
+
+		String memNum = ServletActionContext.getRequest().getParameter("memNum");
+		String memId = ServletActionContext.getRequest().getParameter("memId");
 		String titleId = ServletActionContext.getRequest().getParameter("titleId");
 		String serverId = ServletActionContext.getRequest().getParameter("serverId");
-		String memId = ServletActionContext.getRequest().getParameter("memId");
 		String providerId = ServletActionContext.getRequest().getParameter("providerId");
+		
+		if (memNum != null && memId == null && providerId != null) {
+			
+			member = getMemberByMemNum(Long.valueOf(memNum));
+			
+			if (member != null) {
+
+				memId = member.getMemId();
+			}
+		}
 		
 		if (memId != null && providerId != null && titleId != null && serverId != null && checkTime()) {
 
@@ -44,9 +56,12 @@ public class JointPointChargeEntryInterceptor extends JointTitlePlayInterceptor 
 				
 				ProviderTitleMst providerTitle = getProviderTitle(providerId, Integer.valueOf(titleId));
 
-				if (checkSign(providerTitle)) {
+				if ((memNum == null && checkSign(providerTitle)) || (memNum != null && checkSignByMemNum(providerTitle))) {
 					
-					member = getMemberByMemIdAndProviderId(memId, providerId);
+					if (member == null) {
+
+						member = getMemberByMemIdAndProviderId(memId, providerId);
+					}
 					
 					if (member != null) {
 						
@@ -84,6 +99,11 @@ public class JointPointChargeEntryInterceptor extends JointTitlePlayInterceptor 
 		return result;
 	}
 	
+	protected JointMember getMemberByMemNum(Long memNum) {
+		
+		return jointMemberBusinessLogic.getMemberInfo(memNum);
+	}
+	
 	protected JointMember getMemberByMemIdAndProviderId(String memId, String providerId) {
 		
 		return jointMemberBusinessLogic.getMemberByMemIdAndProviderId(memId, providerId);
@@ -106,6 +126,34 @@ public class JointPointChargeEntryInterceptor extends JointTitlePlayInterceptor 
 		providerTitle = getMasterInfoBusinessLogic().getProviderTitleMstByKey(providerTitle);
 		
 		return providerTitle;
+	}
+	
+	protected boolean checkSignByMemNum(ProviderTitleMst providerTitle) {
+		
+		boolean checkOk = false;
+
+		if (createSignMemNum(providerTitle.getSecurityCode()).equals(ServletActionContext.getRequest().getParameter("sign"))) {
+			
+			checkOk = true;
+			
+		} else {
+
+			logger.warn(ContextUtil.getRequestBaseInfo() + " | The check of parameter sign is failed.");
+		}
+		
+		return checkOk;
+	}
+	
+	private String createSignMemNum(String securityCode) {
+		
+		return SecurityUtil.getMD5String(new StringBuffer()
+			.append(ServletActionContext.getRequest().getParameter("memNum"))
+			.append(ServletActionContext.getRequest().getParameter("providerId"))
+			.append(ServletActionContext.getRequest().getParameter("titleId"))
+			.append(ServletActionContext.getRequest().getParameter("serverId"))
+			.append(ServletActionContext.getRequest().getParameter("time"))
+			.append(securityCode)
+			.toString());
 	}
 
 	public void setJointMemberBusinessLogic(IJointMemberBusinessLogic jointMemberBusinessLogic) {

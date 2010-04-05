@@ -9,6 +9,12 @@ public class OpensocialPointChargeEntryInterceptor extends JointPointChargeEntry
 	private static final long serialVersionUID = -9119576446431831491L;
 	
 	private IOpensocialMemberBusinessLogic opensocialMemberBusinessLogic;
+
+	
+	protected JointMember getMemberByMemNum(Long memNum) {
+		
+		return opensocialMemberBusinessLogic.getMemberInfo(memNum);
+	}
 	
 	@Override
 	protected JointMember getMemberByMemIdAndProviderId(String memId, String providerId) {
