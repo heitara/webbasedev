@@ -77,7 +77,6 @@ public class JointPointChargeControlAction extends PointChargeControlAction {
 		JointSettlementHist settlementHist = new JointSettlementHist();
 		
 		BeanUtils.copyProperties(getModel(), settlementHist);
-		settlementHist.setProviderId(ContextUtil.getProviderId());
 		
 		jointPointChargeBusinessLogic.createSettlementHist(settlementHist);
 	}

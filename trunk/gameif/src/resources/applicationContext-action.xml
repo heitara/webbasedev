@@ -45,7 +45,7 @@
             <ref bean="masterInfoBusinessLogic" />
         </property>
         <property name="timeOutMinutes">
-            <value>${jointTitlePlayInterceptor.timeOutMinutes}</value>
+            <value>15</value>
         </property>
     </bean>
     <bean id="jointPointChargeEntryInterceptor" class="com.gameif.portal.interceptor.JointPointChargeEntryInterceptor">
@@ -56,7 +56,7 @@
             <ref bean="jointMemberBusinessLogic" />
         </property>
         <property name="timeOutMinutes">
-            <value>${jointTitlePlayInterceptor.timeOutMinutes}</value>
+            <value>15</value>
         </property>
 		<property name="decorators">
 			<map>
@@ -65,6 +65,24 @@
 		</property>
     </bean>
     <bean id="jointPointChargeInterceptor" class="com.gameif.portal.interceptor.JointPointChargeInterceptor"/>
+	
+    <bean id="opensocialPointChargeEntryInterceptor" class="com.gameif.portal.interceptor.OpensocialPointChargeEntryInterceptor">
+        <property name="masterInfoBusinessLogic">
+            <ref bean="masterInfoBusinessLogic" />
+        </property>
+        <property name="opensocialMemberBusinessLogic">
+            <ref bean="opensocialMemberBusinessLogic" />
+        </property>
+        <property name="timeOutMinutes">
+            <value>15</value>
+        </property>
+		<property name="decorators">
+			<map>
+				<entry key="1" value="mixi"/>
+			</map>
+		</property>
+    </bean>
+    <bean id="opensocialPointChargeInterceptor" class="com.gameif.portal.interceptor.OpensocialPointChargeInterceptor"/>
 	
 	<bean id="indexAction" class="com.gameif.portal.action.menu.IndexAction" scope="prototype" />
 	
@@ -367,13 +385,6 @@
 			</map>
 		</property>
 	</bean>
-	
-    <!-- opensocialPointChargeInterceptor -->
-    <bean id="opensocialPointChargeInterceptor" class="com.gameif.portal.interceptor.OpensocialPointChargeInterceptor">
-        <property name="opensocialMemberBusinessLogic">
-            <ref bean="opensocialMemberBusinessLogic" />
-        </property>
-    </bean>
 	
 	<!-- opensocialTitlePlayControlAction -->
 	<bean id="opensocialTitlePlayControlAction" class="com.gameif.portal.action.titleif.OpensocialTitlePlayControlAction" scope="prototype">

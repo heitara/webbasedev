@@ -10,7 +10,7 @@ import com.gameif.portal.entity.OpensocialSettlementHist;
 import com.gameif.portal.entity.SettlementMst;
 import com.gameif.portal.util.ContextUtil;
 
-public class OpensocialPointChargeControlAction extends PointChargeControlAction {
+public class OpensocialPointChargeControlAction extends JointPointChargeControlAction {
 
 	private static final long serialVersionUID = -7492565950587701715L;
 
@@ -20,18 +20,6 @@ public class OpensocialPointChargeControlAction extends PointChargeControlAction
 	protected int getPlayHistCount() {
 		
 		return opensocialPointChargeBusinessLogic.countPlayHist(ContextUtil.getExternalMemberNo(), getModel().getTitleId(), getModel().getServerId());
-	}
-
-	@Override
-	protected void setMemberNum(MemSettlementTrns settlementTrns) {
-		
-		settlementTrns.setMemNum(ContextUtil.getExternalMemberNo());
-	}
-
-	@Override
-	protected void setProviderId(MemSettlementTrns settlementTrns) {
-		
-		settlementTrns.setProviderId(ContextUtil.getProviderId());
 	}
 
 	@Override
@@ -46,7 +34,6 @@ public class OpensocialPointChargeControlAction extends PointChargeControlAction
 		OpensocialSettlementHist settlementHist = new OpensocialSettlementHist();
 		
 		BeanUtils.copyProperties(getModel(), settlementHist);
-		settlementHist.setProviderId(ContextUtil.getProviderId());
 		
 		opensocialPointChargeBusinessLogic.createSettlementHist(settlementHist);
 	}
@@ -54,8 +41,20 @@ public class OpensocialPointChargeControlAction extends PointChargeControlAction
 	@Override
 	protected List<SettlementMst> getSettlementMstList() {
 		
-		return opensocialPointChargeBusinessLogic.getSettlementListForCharge(ContextUtil.getMemberNoWithExt());
+		return opensocialPointChargeBusinessLogic.getSettlementListForCharge(ContextUtil.getExternalMemberNo());
 	}
+	
+	/**
+	 * チャージ履歴画面に案内する
+	 * @return チャージ履歴画面
+	 */
+	public String chargeSettlementHist() {
+		
+		setSettleHistList(opensocialPointChargeBusinessLogic.getSettlementHistListByMemNum(ContextUtil.getExternalMemberNo()));
+		
+		return "settlementHist";
+	}
+
 
 	public void setOpensocialPointChargeBusinessLogic(IOpensocialPointChargeBusinessLogic opensocialPointChargeBusinessLogic) {
 		

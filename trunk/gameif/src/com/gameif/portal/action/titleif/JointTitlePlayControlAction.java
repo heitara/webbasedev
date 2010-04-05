@@ -60,7 +60,7 @@ public class JointTitlePlayControlAction extends ProviderTitlePlayControlAction 
 	}
 
 	@Override
-	protected String postPlay(String playUrl) {
+	protected String postPlay(String playUrl, ServerMst server) {
 		
 		this.playUrl = playUrl;
 		
