@@ -21,6 +21,28 @@ var _birthM = null;
 var _birthD = null;
 var _sexCd = null;
 
+function _inviteFriends() {
+
+	opensocial.requestShareApp("VIEWER_FRIENDS", null, function(response) {
+	
+		if (response.hadError()) {
+		
+			var errCode = response.getErrorCode();
+			alert(errCode);
+		  
+		} else {
+		
+			var recipientIds = response.getData()["recipientIds"];
+			alert(recipientIds);
+		}
+	});
+}
+
+function _reloadPage() {
+
+	window.location.reload(true);
+}
+
 function _setUserProfile(viewer) {
 	
 	var _birthday = null;
@@ -57,7 +79,7 @@ function _doGameIFChargeResponse(resdata) {
 	mixi.util.requestExternalNavigateTo(resdata.data.htmlText, mixi.util.ExternalSiteType.PAYMENT);
 }
 
-function _getGameIFChargeParam() {
+function _getGameIFChargeParam(serverId) {
 
 	var params = _getGameIFBaseParam(serverId);
 	
@@ -71,7 +93,8 @@ function _getGameIFChargeParam() {
 	postData["memId"] = _userId;
 	
 	params[gadgets.io.RequestParameters.POST_DATA] = gadgets.io.encodeValues(postData);
-	
+
+	//console.log(params);
 	return params;
 }
 
@@ -110,7 +133,7 @@ function _getGameIFTitlePlayParam(serverId) {
 	
 	params[gadgets.io.RequestParameters.POST_DATA] = gadgets.io.encodeValues(postData);
 	
-	console.log(params);
+	//console.log(params);
 	
 	return params;
 }
@@ -122,9 +145,9 @@ function _doGameIFTitlePlay(serverId) {
 
 function _doGameIFResponse(resdata) {
 
-	console.log(resdata);
-	document.getElementById('target').innerHTML = resdata.data.htmlText;
+	//console.log(resdata);
 	gadgets.window.adjustHeight(650);
+	document.getElementById('target').innerHTML = resdata.data.htmlText;
 }
 
 function _doRequestAfterPageLoad(data) {
