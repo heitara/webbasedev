@@ -5,7 +5,6 @@ import java.util.List;
 import com.gameif.portal.businesslogic.IMasterInfoBusinessLogic;
 import com.gameif.portal.entity.PointMst;
 import com.gameif.portal.entity.ServerMst;
-import com.gameif.portal.util.ContextUtil;
 
 public class PointChargeBindMasterAction {
 	
@@ -22,22 +21,6 @@ public class PointChargeBindMasterAction {
 	public String bindServerAndPoint() {
 		// サーバ情報
 		serverList = masterInfoBusinessLogic.getAllValidServerListByTitle(titleId);
-		// ポイント情報
-		pointList = masterInfoBusinessLogic.getAllValidPointListByTitle(titleId);
-		return "success";
-	}
-
-	/**
-	 * タイトルIDにより、有効なサーバ情報とポイント情報を取得する
-	 * @return
-	 */
-	public String bindOpensocialServerAndPoint() {
-		
-		ServerMst serverMst = new ServerMst();
-		serverMst.setTitleId(titleId);
-		serverMst.setProviderId(ContextUtil.getProviderId());
-		// サーバ情報
-		serverList = masterInfoBusinessLogic.getAllValidServerListTitleAndProvider(serverMst);
 		// ポイント情報
 		pointList = masterInfoBusinessLogic.getAllValidPointListByTitle(titleId);
 		return "success";

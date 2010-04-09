@@ -21,6 +21,12 @@ public class ServerMstDaoImpl extends
 		return (ServerMst)getSqlMapClientTemplate().queryForObject(namespace + ".selectForUpdate", serverMst);
 	}
 
+	@Override
+	public ServerMst selectByProvider(ServerMst serverMst) {
+		
+		return (ServerMst)getSqlMapClientTemplate().queryForObject(namespace + ".selectByProvider", serverMst);
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ServerMst> selectValidServerList() {

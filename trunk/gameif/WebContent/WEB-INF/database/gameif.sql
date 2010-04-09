@@ -273,10 +273,24 @@ CREATE TABLE IF NOT EXISTS `server_mst` (
   `created_user` varchar(50) DEFAULT NULL,
   `last_update_date` datetime DEFAULT NULL,
   `last_update_user` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`server_id`)
+  PRIMARY KEY (`server_id`, `title_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
+ALTER TABLE `gameif_portal`.`server_mst` DROP COLUMN `provider_id`;
+
+
+DROP TABLE IF EXISTS `provider_server_mst`;
+CREATE TABLE IF NOT EXISTS `provider_server_mst` (
+  `server_id` int(11) NOT NULL,
+  `title_id` int(11) NOT NULL,
+  `provider_id` varchar(5) DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `created_user` varchar(50) DEFAULT NULL,
+  `last_update_date` datetime DEFAULT NULL,
+  `last_update_user` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`server_id`, `title_id`, `provider_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
 

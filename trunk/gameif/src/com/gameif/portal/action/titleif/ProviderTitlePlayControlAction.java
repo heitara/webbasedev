@@ -139,15 +139,16 @@ public abstract class ProviderTitlePlayControlAction extends BaseActionSupport {
 	
 	private ServerMst getServer() {
 
-		ServerMst server = new ServerMst();
-		server.setTitleId(titleId);
-		server.setServerId(serverId);
+		ServerMst server = null;
 		
-		server = masterInfoBusinessLogic.getServer(server);
-		
-		if (providerId == null || server == null || !providerId.equals(server.getProviderId())) {
-					
-			server = null;
+		if (titleId != null && serverId != null && providerId != null) {
+
+			ServerMst serverSelCond = new ServerMst();
+			serverSelCond.setTitleId(titleId);
+			serverSelCond.setServerId(serverId);
+			serverSelCond.setProviderId(providerId);
+						
+			server = masterInfoBusinessLogic.getServerByProvider(serverSelCond);
 		}
 		
 		return server;
