@@ -2,11 +2,14 @@ package com.gameif.portal.entity;
 
 import java.util.Date;
 
+import com.gameif.common.util.DateUtil;
+
 public class MyServer {	
 	
 	private Integer serverId;
 	private Integer titleId;
 	private String serverName;
+	private Date serviceStartDate;
 	private String serviceStatus;
 	private String serverDomain;
 	private String playUrl;
@@ -95,5 +98,15 @@ public class MyServer {
 	}
 	public void setPlayCount(Integer playCount) {
 		this.playCount = playCount;
+	}
+	public Date getServiceStartDate() {
+		return serviceStartDate;
+	}
+	public void setServiceStartDate(Date serviceStartDate) {
+		this.serviceStartDate = serviceStartDate;
+	}
+	
+	public String getServiceStartYmd() {
+		return DateUtil.date2Str(serviceStartDate, "yyyy-MM-dd hh:mm");
 	}
 }

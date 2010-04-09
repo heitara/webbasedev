@@ -1,7 +1,42 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <html>
-<head><title>ゲーム</title></head>
+<head>
+<title>ゲーム</title>
+<style type="text/css">
+div.game_play {
+	padding-top:2px;
+	width:180px;
+	height:20px;
+	background:url(images/btn_c_play.gif) no-repeat;
+}
+div.game_play a {
+	display:block;
+	margin:0px 10px;
+	color:#FFF;
+	font-weight:bold;
+}
+div.game_play a.new {
+	color:#FC3;
+}
+div.game_play a:hover {
+	margin-left:15px;
+}
+div.game_maintenance {
+	padding-top:2px;
+	width:180px;
+	height:20px;
+}
+div.game_maintenance a {
+	display:block;
+	margin:0px 10px;
+	color:#666;
+}
+div.start_ymd {
+	margin:0px 0px 10px 10px;
+}
+</style>
+</head>
 <body>	
 <dl class="light_box tspace_n">
 	<dt><strong>ゲーム</strong><span><!-- <a href="#">► マイゲーム</a> -->&nbsp;</span></dt>
@@ -53,27 +88,20 @@
 						<div class="play_info">ただいまメンテナンス中です。</div>
 					</s:if>
 					<s:elseif test='"2".equals(serviceStatus) || "3".equals(serviceStatus)'>								
-						<s:if test='"0".equals(recruitStatus) || (("2".equals(recruitStatus) || "3".equals(recruitStatus)) && "1".equals(electStatus))'>						
-							<s:if test="serverMap.get(#title.titleId).size() == 1">								
-								<a href="playGame.html?serverId=1&titleId=<s:property value="titleId"/>" title="ゲームプレイ！"><img src="images/btn_c_play.gif" alt="ゲームプレイ"/></a>
-							</s:if>
-							<s:else>
-								<dl class="warm_box tspace_n">
-									<dt><strong>ゲームプレイ</strong><span>&nbsp;</span></dt>
-									<dd>
-										<div class="g_servers">
-										<s:iterator value="serverMap.get(#title.titleId)" id="server" status="st">
-											<s:if test='"0".equals(serviceStatus)'>
-												<a href="<s:property value="playUrl"/>?serverId=<s:property value="serverId"/>&titleId=<s:property value="titleId"/>" style="background-color:#666;color:#DDD;" title="このサーバはただいま、メンテナンスしております。" onclick="return false;">S0<s:property value="serverId"/>: <s:property value="serverName"/>(メンテ中)</a>
-											</s:if>
-											<s:else>
-												<a href="playGame.html?serverId=<s:property value="serverId"/>&titleId=<s:property value="titleId"/>" title="第<s:property value="serverId"/>サーバ「<s:property value="serverName"/>」でプレイ！">S0<s:property value="serverId"/>: <s:property value="serverName"/></a>
-											</s:else>									
-										</s:iterator>
-										</div>
-									</dd>
-								</dl>
-							</s:else>
+						<s:if test='"0".equals(recruitStatus) || (("2".equals(recruitStatus) || "3".equals(recruitStatus)) && "1".equals(electStatus))'>
+							<s:iterator value="serverMap.get(#title.titleId)" id="server" status="st">
+								<s:if test='"0".equals(serviceStatus)'>
+									<div class="game_maintenance">
+										<a href="<s:property value="playUrl"/>?serverId=<s:property value="serverId"/>&titleId=<s:property value="titleId"/>" title="このサーバはただいま、メンテナンスしております。" onclick="return false;"><s:property value="serverName"/>(メンテ中)</a>
+									</div>
+								</s:if>
+								<s:else>
+									<div class="game_play">
+										<a href="playGame.html?serverId=<s:property value="serverId"/>&titleId=<s:property value="titleId"/>" title="サーバ「<s:property value="serverName"/>」でプレイ！" class="<s:if test='"1".equals(recommend)'>new</s:if>" ><s:property value="serverName" escape="false"/></a>
+									</div>
+								</s:else>
+								<div class="start_ymd"><s:property value="serviceStartYmd"/> ～</div>
+							</s:iterator>
 						</s:if>
 						<s:if test='"1".equals(recruitStatus)'>
 							<s:if test='electStatus == null'>
@@ -107,32 +135,25 @@
 						</s:if>
 					</s:elseif>
 					<s:else>
-						<s:if test="serverMap.get(#title.titleId).size() == 1">								
-							<a href="playGame.html?serverId=1&titleId=<s:property value="titleId"/>" title="ゲームプレイ！"><img src="images/btn_c_play.gif" alt="ゲームプレイ"/></a>
-						</s:if>
-						<s:else>
-							<dl class="warm_box tspace_n">
-								<dt><strong>ゲームプレイ</strong><span>&nbsp;</span></dt>
-								<dd>
-									<div class="g_servers">
-										<s:iterator value="serverMap.get(#title.titleId)" id="server" status="st">
-											<s:if test='"0".equals(serviceStatus)'>
-												<a href="playGame.html?serverId=<s:property value="serverId"/>&titleId=<s:property value="titleId"/>" style="background-color:#666;color:#DDD;" title="このサーバはただいま、メンテナンスしております。" onclick="return false;">S0<s:property value="serverId"/>: <s:property value="serverName"/>(メンテ中)</a>
-											</s:if>
-											<s:else>
-												<a href="playGame.html?serverId=<s:property value="serverId"/>&titleId=<s:property value="titleId"/>" title="第<s:property value="serverId"/>サーバ「<s:property value="serverName"/>」でプレイ！">S0<s:property value="serverId"/>: <s:property value="serverName"/></a>
-											</s:else>
-										</s:iterator>
-									</div>
-								</dd>
-							</dl>
-						</s:else>
+						<s:iterator value="serverMap.get(#title.titleId)" id="server" status="st">
+							<s:if test='"0".equals(serviceStatus)'>
+								<div class="game_maintenance">
+									<a href="<s:property value="playUrl"/>?serverId=<s:property value="serverId"/>&titleId=<s:property value="titleId"/>" title="このサーバはただいま、メンテナンスしております。" onclick="return false;"><s:property value="serverName"/>(メンテ中)</a>
+								</div>
+							</s:if>
+							<s:else>
+								<div class="game_play">
+									<a href="playGame.html?serverId=<s:property value="serverId"/>&titleId=<s:property value="titleId"/>" title="サーバ「<s:property value="serverName"/>」でプレイ！" class="<s:if test='"1".equals(recommend)'>new</s:if>" ><s:property value="serverName" escape="false"/></a>
+								</div>
+							</s:else>
+							<div class="start_ymd"><s:property value="serviceStartYmd"/> ～</div>
+						</s:iterator>
 					</s:else>
 					<s:if test="testUser">
 						<select style="width:180px;margin:10px 0px; font-size:12px;" onchange="if(this.selectedIndex > 0) location = this.options[this.selectedIndex].value;">
 							<option value="">テストプレイ（サーバ選択）</option>
 							<s:iterator value="serverMap.get(#title.titleId)" id="server" status="st">
-								<option value="playGame.html?serverId=<s:property value="serverId"/>&titleId=<s:property value="titleId"/>">S0<s:property value="serverId"/>: <s:property value="serverName"/></option>
+								<option value="playGame.html?serverId=<s:property value="serverId"/>&titleId=<s:property value="titleId"/>"><s:property value="serverName"/></option>
 							</s:iterator>
 						</select>
 					</s:if>

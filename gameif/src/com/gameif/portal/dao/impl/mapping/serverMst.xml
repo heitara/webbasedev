@@ -28,82 +28,117 @@
 	<resultMap class="com.gameif.portal.entity.ServerMst" id="serverResultForBind">
 		<result property="serverId" column="server_id" />
 		<result property="serverName" column="server_name" />
+		<result property="serviceStartDate" column="service_start_date" />
 	</resultMap>
 
 	<select id="selectByKey" parameterClass="com.gameif.portal.entity.ServerMst" resultMap="serverResult">   
         <![CDATA[
-		SELECT	server_id,
-				title_id,
-				server_name,
-				service_start_date,
-				service_end_date,
-				service_status,
-				provider_id,
-				server_domain,
-				play_url,
-				charge_url,
-				order_num,
-				players_num,
-				popularity_flag,
-				recommend_flag,
-				created_date,
-				created_user,
-				last_update_date,
-				last_update_user
-		FROM	server_mst
-		WHERE	server_id = #serverId#
-		AND		title_id = #titleId#
+		SELECT	s.server_id,
+				s.title_id,
+				s.server_name,
+				s.service_start_date,
+				s.service_end_date,
+				s.service_status,
+				ps.provider_id,
+				s.server_domain,
+				s.play_url,
+				s.charge_url,
+				s.order_num,
+				s.players_num,
+				s.popularity_flag,
+				s.recommend_flag,
+				s.created_date,
+				s.created_user,
+				s.last_update_date,
+				s.last_update_user
+		FROM	server_mst s
+				INNER JOIN provider_server_mst ps ON s.server_id = ps.server_id AND s.title_id = ps.title_id
+		WHERE	s.server_id = #serverId#
+		AND		s.title_id = #titleId#
+		AND		ps.provider_id = '0'
+        ]]>
+	</select>
+
+	<select id="selectByProvider" parameterClass="com.gameif.portal.entity.ServerMst" resultMap="serverResult">   
+        <![CDATA[
+		SELECT	s.server_id,
+				s.title_id,
+				s.server_name,
+				s.service_start_date,
+				s.service_end_date,
+				s.service_status,
+				ps.provider_id,
+				s.server_domain,
+				s.play_url,
+				s.charge_url,
+				s.order_num,
+				s.players_num,
+				s.popularity_flag,
+				s.recommend_flag,
+				s.created_date,
+				s.created_user,
+				s.last_update_date,
+				s.last_update_user
+		FROM	server_mst s
+				INNER JOIN provider_server_mst ps ON s.server_id = ps.server_id AND s.title_id = ps.title_id
+		WHERE	s.server_id = #serverId#
+		AND		s.title_id = #titleId#
+		AND		ps.provider_id = #providerId#
         ]]>
 	</select>
 
 	<select id="selectServerByDomain" resultMap="serverResult">
         <![CDATA[
-		SELECT	server_id,
-				title_id,
-				server_name,
-				service_start_date,
-				service_end_date,
-				service_status,
-				provider_id,
-				server_domain,
-				play_url,
-				charge_url,
-				order_num,
-				players_num,
-				popularity_flag,
-				recommend_flag,
-				created_date,
-				created_user,
-				last_update_date,
-				last_update_user
-		FROM	server_mst
-		WHERE	server_domain = #value#
+		SELECT	s.server_id,
+				s.title_id,
+				s.server_name,
+				s.service_start_date,
+				s.service_end_date,
+				s.service_status,
+				ps.provider_id,
+				s.server_domain,
+				s.play_url,
+				s.charge_url,
+				s.order_num,
+				s.players_num,
+				s.popularity_flag,
+				s.recommend_flag,
+				s.created_date,
+				s.created_user,
+				s.last_update_date,
+				s.last_update_user
+		FROM	server_mst s
+				INNER JOIN provider_server_mst ps ON s.server_id = ps.server_id AND s.title_id = ps.title_id
+		WHERE	s.server_domain = #value#
+		AND		ps.provider_id = '0'
         ]]>
 	</select>
 
 	<select id="selectForUpdate" parameterClass="com.gameif.portal.entity.ServerMst" resultMap="serverResult">   
         <![CDATA[
-		SELECT	server_id,
-				title_id,
-				server_name,
-				service_start_date,
-				service_end_date,
-				service_status,
-				provider_id,
-				server_domain,
-				play_url,
-				charge_url,
-				order_num,
-				players_num,
-				popularity_flag,
-				recommend_flag,
-				created_date,
-				created_user,
-				last_update_date,
-				last_update_user
-		FROM	server_mst
-		WHERE	server_id = #serverId#
-		AND		title_id = #titleId#
+		SELECT	s.server_id,
+				s.title_id,
+				s.server_name,
+				s.service_start_date,
+				s.service_end_date,
+				s.service_status,
+				ps.provider_id,
+				s.server_domain,
+				s.play_url,
+				s.charge_url,
+				s.order_num,
+				s.players_num,
+				s.popularity_flag,
+				s.recommend_flag,
+				s.created_date,
+				s.created_user,
+				s.last_update_date,
+				s.last_update_user
+		FROM	server_mst s
+				INNER JOIN provider_server_mst ps ON s.server_id = ps.server_id AND s.title_id = ps.title_id
+		WHERE	s.server_id = #serverId#
+		AND		s.title_id = #titleId#
+		AND		ps.provider_id = '0'
 		FOR 	UPDATE
         ]]>
 	</select>
@@ -111,76 +146,80 @@
 	<select id="selectValidServerList" resultMap="serverResult">
         <![CDATA[
         SELECT
-			server_id,
-			title_id,
-			server_name,
-			service_start_date,
-			service_end_date,
-			service_status,
-			provider_id,
-			server_domain,
-			play_url,
-			charge_url,
-			order_num,
-			players_num,
-			popularity_flag,
-			recommend_flag,
-			created_date,
-			created_user,
-			last_update_date,
-			last_update_user
+			s.server_id,
+			s.title_id,
+			s.server_name,
+			s.service_start_date,
+			s.service_end_date,
+			s.service_status,
+			ps.provider_id,
+			s.server_domain,
+			s.play_url,
+			s.charge_url,
+			s.order_num,
+			s.players_num,
+			s.popularity_flag,
+			s.recommend_flag,
+			s.created_date,
+			s.created_user,
+			s.last_update_date,
+			s.last_update_user
 		FROM
-			server_mst
+			server_mst s
+			INNER JOIN provider_server_mst ps ON s.server_id = ps.server_id AND s.title_id = ps.title_id
 		WHERE
-			service_start_date <= now()
-		AND service_end_date >= now()
-		AND	provider_id = 0
+			s.service_start_date <= now()
+		AND s.service_end_date >= now()
+		AND	ps.provider_id = '0'
         ]]>
 	</select>
 
 	<select id="selectValidServerListByTitle" resultMap="serverResultForBind">
         <![CDATA[
         SELECT
-			server_id,
-			server_name
+			s.server_id,
+			s.server_name,
+			s.service_start_date
 		FROM
-			server_mst
+			server_mst s
+			INNER JOIN provider_server_mst ps ON s.server_id = ps.server_id AND s.title_id = ps.title_id
 		WHERE
-			title_id = #value#
-		AND	service_start_date <= now()
-		AND service_end_date >= now()
-		AND	provider_id = 0
+			s.title_id = #value#
+		AND	s.service_start_date <= now()
+		AND s.service_end_date >= now()
+		AND	ps.provider_id = '0'
         ]]>
 	</select>
 
 	<select id="selectServersListByTitleAndProvider" resultMap="serverResult">
         <![CDATA[
         SELECT
-			server_id,
-			title_id,
-			server_name,
-			service_start_date,
-			service_end_date,
-			service_status,
-			provider_id,
-			server_domain,
-			play_url,
-			charge_url,
-			order_num,
-			players_num,
-			popularity_flag,
-			recommend_flag,
-			created_date,
-			created_user,
-			last_update_date,
-			last_update_user
+			s.server_id,
+			s.title_id,
+			s.server_name,
+			s.service_start_date,
+			s.service_end_date,
+			s.service_status,
+			ps.provider_id,
+			s.server_domain,
+			s.play_url,
+			s.charge_url,
+			s.order_num,
+			s.players_num,
+			s.popularity_flag,
+			s.recommend_flag,
+			s.created_date,
+			s.created_user,
+			s.last_update_date,
+			s.last_update_user
 		FROM
-			server_mst
+			server_mst s
+			INNER JOIN provider_server_mst ps ON s.server_id = ps.server_id AND s.title_id = ps.title_id
 		WHERE
-			service_start_date <= now()
-		AND service_end_date >= now()
-		AND provider_id = #providerId#
-		AND title_id = #titleId#
+			s.service_start_date <= now()
+		AND s.service_end_date >= now()
+		AND ps.provider_id = #providerId#
+		AND s.title_id = #titleId#
         ]]>
 	</select>
 

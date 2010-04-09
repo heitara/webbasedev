@@ -87,9 +87,10 @@ public class PointChargeControlAction extends ModelDrivenActionSupport<MemSettle
 		
 		// ゲームをプレーすることがあるかどうかのチェック
 		Integer count = getPlayHistCount();
-		
+		logger.warn("Play Count: " + count);
 		if (count < 1) {
 			
+			logger.warn("No play history.");
 			// プレーすることがない
 			addFieldError("errMessage", getText("title.noData"));
 			
@@ -110,6 +111,7 @@ public class PointChargeControlAction extends ModelDrivenActionSupport<MemSettle
 		// 上記以外の場合、稼動中の決済方法を取得する
 		settleList = getSettlementMstList();
 
+		logger.warn("settleList Size:" + settleList.size());
 		return "settleSelect";
 	}
 	

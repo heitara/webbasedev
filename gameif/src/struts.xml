@@ -415,9 +415,11 @@
             <interceptor-ref name="chargeMaintenance">
                 <param name="includeMethods">chargePointSelect,chargeSettleSelect,chargeSaveSettleTrns</param>
             </interceptor-ref>
+            <!--
             <interceptor-ref name="chargeTitleMaintenance">
                 <param name="includeMethods">chargeSettleSelect,chargeSaveSettleTrns</param>
             </interceptor-ref>
+			 -->
 
 			<result name="entry" type="redirect">chargePointSelect.html</result>
 			<result name="pointSelect">/WEB-INF/pages/opensocial/${decorator}/charge_point_select.jsp</result>
@@ -469,10 +471,11 @@
             <interceptor-ref name="chargeMaintenance">
                 <param name="includeMethods">chargePointSelect,chargeSettleSelect,chargeSaveSettleTrns</param>
             </interceptor-ref>
+            <!--
             <interceptor-ref name="chargeTitleMaintenance">
                 <param name="includeMethods">chargeSettleSelect,chargeSaveSettleTrns</param>
             </interceptor-ref>
-
+			 -->
 			<result name="entry" type="redirect">chargePointSelect.html</result>
 			<result name="pointSelect">/WEB-INF/pages/joint/${decorator}/charge_point_select.jsp</result>
 			<result name="pointSubmit" type="redirect">chargeSettleSelect.html?titleId=${titleId}&amp;serverId=${serverId}&amp;pointId=${pointId}</result>

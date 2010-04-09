@@ -386,16 +386,14 @@ response.setDateHeader("Expires",0);
 				for (int j = 0; j < servers.size(); j++) {
 					
 					MyServer server = servers.get(j);
-					String serverNo = "00" + server.getServerId();
-					serverNo = serverNo.substring(serverNo.length() - 2);
 					
 					if (PortalConstants.ServerStatus.MAINTENANCE.equals(server.getServiceStatus())) {
 %>
-								<li title="メンテナンス中です。">S<%=serverNo%> <%=server.getServerName()%><span style="color:#900;font-size:10px;">（メンテ）</span></li>
+								<li title="メンテナンス中です。"><%=server.getServerName()%><span style="color:#900;font-size:10px;">（メンテ）</span></li>
 <%
 					} else {
 %>
-								<li><a href="playGame.html?serverId=<%=server.getServerId()%>&titleId=<%=server.getTitleId()%>" title="サーバ「<%=server.getServerName()%>」でプレイ！">S<%=serverNo%> <%=server.getServerName()%></a></li><%
+								<li><a href="playGame.html?serverId=<%=server.getServerId()%>&titleId=<%=server.getTitleId()%>" title="サーバ「<%=server.getServerName()%>」でプレイ！"><%=server.getServerName()%></a></li><%
 					}
 				}
 %>

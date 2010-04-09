@@ -56,6 +56,7 @@
 		<result property="serverId" column="server_id"/>
 		<result property="titleId" column="title_id"/>
 		<result property="serverName" column="server_name"/>
+		<result property="serviceStartDate" column="service_start_date" />
 		<result property="serviceStatus" column="service_status"/>
 		<result property="serverDomain" column="server_domain"/>
 		<result property="playUrl" column="play_url"/>
@@ -157,6 +158,7 @@
 		SELECT	s.server_id,
 				s.title_id,
 				s.server_name,
+				s.service_start_date,
 				s.service_status,
 				s.server_domain,
 				s.play_url,
@@ -167,15 +169,17 @@
 				s.recommend_flag,
 				p.play_date,
 				p.play_count
-		FROM	server_mst s INNER JOIN (
+		FROM	server_mst s
+				INNER JOIN (
 					SELECT	server_id, MAX(play_date) AS play_date, COUNT(*) AS play_count
 					FROM	play_hist
 					WHERE	mem_num = #memNum#
 					AND		title_id = #titleId#
 					GROUP BY server_id
 				) p ON s.server_id = p.server_id
+				INNER JOIN provider_server_mst ps ON s.title_id = ps.title_id AND s.server_id = ps.server_id
 		WHERE	s.title_id=#titleId#
-		AND     s.provider_id = 0
+		AND     ps.provider_id = 0
 		ORDER BY p.play_date DESC, p.play_count DESC, s.order_num DESC
         ]]>
 	</select>
@@ -185,6 +189,7 @@
 		SELECT	s.server_id,
 				s.title_id,
 				s.server_name,
+				s.service_start_date,
 				s.service_status,
 				s.server_domain,
 				s.play_url,
@@ -195,15 +200,17 @@
 				s.recommend_flag,
 				p.play_date,
 				p.play_count
-		FROM	server_mst s LEFT JOIN (
+		FROM	server_mst s
+				LEFT JOIN (
 					SELECT	server_id, MAX(play_date) AS play_date, COUNT(*) AS play_count
 					FROM	play_hist
 					WHERE	mem_num = #memNum#
 					AND		title_id = #titleId#
 					GROUP BY server_id
 				) p ON s.server_id = p.server_id
+				INNER JOIN provider_server_mst ps ON s.title_id = ps.title_id AND s.server_id = ps.server_id
 		WHERE	s.title_id=#titleId#
-        AND		s.provider_id = 0
+        AND		ps.provider_id = 0
 		ORDER BY p.play_date DESC, p.play_count DESC, s.order_num DESC
         ]]>
 	</select>

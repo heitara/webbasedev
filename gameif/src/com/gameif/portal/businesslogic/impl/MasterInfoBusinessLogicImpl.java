@@ -112,6 +112,12 @@ public class MasterInfoBusinessLogicImpl extends BaseBusinessLogic implements IM
 		
 		return serverMstDao.selectByKey(serverMst);
 	}
+	
+	@Override
+	public ServerMst getServerByProvider(ServerMst serverMst) {
+		
+		return serverMstDao.selectByProvider(serverMst);
+	}
 
 	/**
 	 * ドメインより、サーバ情報を取得する
