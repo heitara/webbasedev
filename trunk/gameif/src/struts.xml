@@ -91,7 +91,8 @@
 				<param name="includeMethods">createOpenID</param>
 			</interceptor-ref>
 			<result name="input">/WEB-INF/pages/portal/mem_openid_registry.jsp</result>
-			<result name="success" type="redirect">${openIdReloginUrl}</result>
+			<result name="success">/WEB-INF/pages/portal/mem_openid_registry_success.jsp</result>
+			<!-- <result name="success" type="redirect">${openIdReloginUrl}</result> -->
 		</action>
 
 		<action name="*MemberInfo" class="memberInfoAction" method="{1}MemberInfo">

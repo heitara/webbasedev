@@ -180,7 +180,7 @@ response.setDateHeader("Expires",0);
 					</div>
 				</div>
 			</form>
-			<!-- 
+			
 			<br/>
 			<div style="width:130;height:70px;background:url('images/bg_pnl_openid.gif');">
 				<div style="padding:28px 5px 5px 5px;text-align:center;">
@@ -191,7 +191,7 @@ response.setDateHeader("Expires",0);
 					<a href="<%=getServletContext().getInitParameter("portalAuthTopUrl")%>/openIDSelect?_eventId=submit&op=Biglobe" title="Biglobe IDでログイン"><img src="images/btn_s_openid_biglobe.gif" alt="Biglobe IDでログイン"/></a>
 				</div>
 			</div>
-			-->
+			
 			<br/>
 <%
 		}
