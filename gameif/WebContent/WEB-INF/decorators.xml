@@ -20,6 +20,7 @@
     <decorator name="opensocial" page="opensocial/opensocial.jsp"/>
     <decorator name="otakuma" page="joint/otakuma.jsp"/>
     <decorator name="joint" page="joint/joint.jsp"/>
+    <decorator name="blank" page="blank.jsp"/>
 	
 	<!-- ConfigDecoratorMapper -->
     <decorator name="opensocial" page="opensocial/layout.jsp">
