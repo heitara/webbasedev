@@ -183,7 +183,7 @@ response.setDateHeader("Expires",0);
 			
 			<br/>
 			<div style="width:130;height:70px;background:url('images/bg_pnl_openid.gif');">
-				<div style="padding:28px 5px 5px 5px;text-align:center;">
+				<div style="padding:28px 2px 5px 2px;text-align:center;">
 					<a href="<%=getServletContext().getInitParameter("portalAuthTopUrl")%>/openIDSelect?_eventId=submit&op=Yahoo" title="Yahoo! IDでログイン"><img src="images/btn_s_openid_yahoo.gif" alt="Yahoo! IDでログイン"/></a>
 					<a href="<%=getServletContext().getInitParameter("portalAuthTopUrl")%>/openIDSelect?_eventId=submit&op=Mixi" title="Mixi IDでログイン"><img src="images/btn_s_openid_mixi.gif" alt="Mixi IDでログイン"/></a>
 					<a href="<%=getServletContext().getInitParameter("portalAuthTopUrl")%>/openIDSelect?_eventId=submit&op=Google" title="Google IDでログイン"><img src="images/btn_s_openid_google.gif" alt="Google IDでログイン"/></a>
