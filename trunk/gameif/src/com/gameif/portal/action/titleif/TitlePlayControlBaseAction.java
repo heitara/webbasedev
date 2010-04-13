@@ -44,6 +44,7 @@ public class TitlePlayControlBaseAction extends BaseActionSupport {
 
 			serverMstForSel.setTitleId(titleId);
 			serverMstForSel.setServerId(serverId);
+			serverMstForSel.setProviderId(PortalConstants.ProviderKind.PORTAL);
 
 			serverMst = masterInfoBusinessLogic.getServer(serverMstForSel);
 
