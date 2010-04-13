@@ -39,6 +39,7 @@ public class JointPointChargeControlAction extends PointChargeControlAction {
 		
 		serverMst.setServerId(getModel().getServerId());
 		serverMst.setTitleId(getModel().getTitleId());
+		serverMst.setProviderId(ContextUtil.getProviderId());
 		
 		serverName = getMasterInfoBusinessLogic().getServer(serverMst).getServerName();
 		titleName = getMasterInfoBusinessLogic().getValidTitle(getModel().getTitleId()).getTitleName();
