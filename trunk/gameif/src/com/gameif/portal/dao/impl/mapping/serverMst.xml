@@ -55,7 +55,7 @@
 				INNER JOIN provider_server_mst ps ON s.server_id = ps.server_id AND s.title_id = ps.title_id
 		WHERE	s.server_id = #serverId#
 		AND		s.title_id = #titleId#
-		AND		ps.provider_id = '0'
+		AND		ps.provider_id = #providerId#
         ]]>
 	</select>
 
