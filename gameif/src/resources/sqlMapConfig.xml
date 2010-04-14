@@ -58,6 +58,8 @@
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/opensocialMember.xml"/>
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/opensocialSettlementHist.xml"/>
     <sqlMap resource="com/gameif/portal/dao/impl/mapping/opensocialPlayHist.xml"/>
+    <sqlMap resource="com/gameif/portal/dao/impl/mapping/opensocialPlaySummary.xml"/>
+    <sqlMap resource="com/gameif/portal/dao/impl/mapping/opensocialInvite.xml"/>
     <sqlMap resource="com/gameif/portal/dao/impl/mapping/jointMember.xml"/>
     <sqlMap resource="com/gameif/portal/dao/impl/mapping/jointPlayHist.xml"/>
     <sqlMap resource="com/gameif/portal/dao/impl/mapping/jointSettlementHist.xml"/>

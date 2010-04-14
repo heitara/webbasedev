@@ -348,12 +348,21 @@
 		<property name="opensocialMemberDao">
 			<ref bean="opensocialMemberDao" />
 		</property>
+		<property name="opensocialInviteDao">
+			<ref bean="opensocialInviteDao" />
+		</property>
+		<property name="opensocialPlaySummaryDao">
+			<ref bean="opensocialPlaySummaryDao" />
+		</property>
 	</bean>
 	<!-- opensocialTitlePlayBusinessLogic -->
 	<bean id="opensocialTitlePlayBusinessLogic"
 		class="com.gameif.portal.businesslogic.impl.OpensocialTitlePlayBusinessLogicImpl">
 		<property name="opensocialPlayHistDao">
 			<ref bean="opensocialPlayHistDao" />
+		</property>
+		<property name="opensocialPlaySummaryDao">
+			<ref bean="opensocialPlaySummaryDao" />
 		</property>
 	</bean>
     <!-- opensocialTitlePlayBusinessLogic -->

@@ -1019,6 +1019,20 @@ CREATE TABLE  `opensocial_member` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1000000000 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
+DROP TABLE IF EXISTS `opensocial_play_summary`;
+CREATE TABLE IF NOT EXISTS `opensocial_play_summary` (
+  `mem_num` bigint(20) NOT NULL,
+  `title_id` int(11) NOT NULL,
+  `server_id` int(11) NOT NULL,
+  `first_play_date` datetime DEFAULT NULL,
+  `first_play_ip` varchar(15) DEFAULT NULL,
+  `last_play_date` datetime DEFAULT NULL,
+  `last_play_ip` varchar(15) DEFAULT NULL,
+  `play_count` varchar(15) DEFAULT NULL,
+  PRIMARY KEY (`mem_num`,`title_id`,`server_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
 DROP TABLE IF EXISTS `opensocial_play_hist`;
 CREATE TABLE IF NOT EXISTS `opensocial_play_hist` (
   `mem_num` bigint(20) NOT NULL,
@@ -1028,8 +1042,6 @@ CREATE TABLE IF NOT EXISTS `opensocial_play_hist` (
   `play_ip` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`mem_num`,`title_id`,`server_id`,`play_date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-
 
 
 DROP TABLE IF EXISTS `opensocial_settlement_hist`;
@@ -1066,6 +1078,23 @@ CREATE TABLE  `opensocial_settlement_hist` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1000000000 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
+DROP TABLE IF EXISTS `opensocial_invite`;
+CREATE TABLE  `opensocial_invite` (
+  `invite_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `mem_num` bigint(20) NOT NULL,
+  `friend_id` varchar(20) NOT NULL,
+  `provider_id` varchar(5) DEFAULT NULL,
+  `title_id` int(11) DEFAULT NULL,
+  `server_id` int(11) DEFAULT NULL,
+  `invite_status` char(1) DEFAULT NULL,
+  `invite_date` datetime DEFAULT NULL,
+  `freind_entry_date` datetime DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `created_user` varchar(50) DEFAULT NULL,
+  `last_update_date` datetime DEFAULT NULL,
+  `last_update_user` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`invite_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
 
