@@ -28,14 +28,36 @@ function _inviteFriends() {
 		if (response.hadError()) {
 		
 			var errCode = response.getErrorCode();
-			alert(errCode);
 		  
 		} else {
 		
 			var recipientIds = response.getData()["recipientIds"];
-			alert(recipientIds);
+			
+			if (recipientIds.length > 0) {
+			
+				gadgets.io.makeRequest(_gameIFServletUrl, function(resdata) { }, _getGameIFInviteFriendParam(recipientIds.join("|")));
+			}
 		}
 	});
+}
+
+function _getGameIFInviteFriendParam(friendIds) {
+
+	var params = _getGameIFBaseParam();
+	
+	var postData = {};
+	
+	postData["providerId"] = _providerId;
+	postData["titleId"] = _titleId;
+	
+	postData["act"] = "charge";
+	postData["memId"] = _userId;
+	postData["friendIds"] = friendIds;
+	
+	params[gadgets.io.RequestParameters.POST_DATA] = gadgets.io.encodeValues(postData);
+	
+	console.log(params);
+	return params;
 }
 
 function _reloadPage() {
@@ -94,7 +116,7 @@ function _getGameIFChargeParam(serverId) {
 	
 	params[gadgets.io.RequestParameters.POST_DATA] = gadgets.io.encodeValues(postData);
 
-	//console.log(params);
+	console.log(params);
 	return params;
 }
 
@@ -133,8 +155,7 @@ function _getGameIFTitlePlayParam(serverId) {
 	
 	params[gadgets.io.RequestParameters.POST_DATA] = gadgets.io.encodeValues(postData);
 	
-	//console.log(params);
-	
+	console.log(params);
 	return params;
 }
 
@@ -145,7 +166,7 @@ function _doGameIFTitlePlay(serverId) {
 
 function _doGameIFResponse(resdata) {
 
-	//console.log(resdata);
+	console.log(resdata);
 	gadgets.window.adjustHeight(650);
 	document.getElementById('target').innerHTML = resdata.data.htmlText;
 }

@@ -73,8 +73,10 @@ public abstract class ProviderTitlePlayControlAction extends BaseActionSupport {
 			if (server != null) {
 				
 				if (isPlayable(server, memInfo)) {
+					
+					Long inviteMemNum = getInviteMemNum(memInfo.getMemId(), providerId, titleId, server.getServerId());
 
-					String playUrl = doPlay(server, memInfo);
+					String playUrl = doPlay(server, memInfo, inviteMemNum);
 					// プレイ画面
 					result = postPlay(playUrl, server);
 					
@@ -137,6 +139,8 @@ public abstract class ProviderTitlePlayControlAction extends BaseActionSupport {
 	
 	protected abstract String postError();
 	
+	protected abstract Long getInviteMemNum(String friendId, String providerId, Integer titleId, Integer serverId);
+	
 	private ServerMst getServer() {
 
 		ServerMst server = null;
@@ -170,7 +174,7 @@ public abstract class ProviderTitlePlayControlAction extends BaseActionSupport {
 		return servers;
 	}
 		
-	public String doPlay(ServerMst server, MemberInfo memberInfo) {
+	public String doPlay(ServerMst server, MemberInfo memberInfo, Long inviteMemNum) {
 		
 		String playUrl = null;
 		Date date = new Date();
@@ -184,6 +188,7 @@ public abstract class ProviderTitlePlayControlAction extends BaseActionSupport {
 		parameter.setServerId(serverId);
 		parameter.setPlayDate(date);
 		parameter.setParentMemNum(Long.valueOf(0));
+		parameter.setParentMemNum(inviteMemNum);
 
 		playUrl = server.getPlayUrl() + "?" + titleEntry.getTitleEntryKey(parameter);
 

@@ -37,12 +37,29 @@ public class OpensocialTitlePlayControlAction extends ProviderTitlePlayControlAc
 			
 			htmlText = createChargeUrl(getMemId(), getProviderId(), getTitleId(), getServerId());
 			
+		} else if ("invite".equals(act)) {
+			
+			inviteFriends();
+			
 		} else {
 			
 			result = super.execute();
 		}
 		
 		return result;
+	}
+	
+	private void inviteFriends() {
+		
+		OpensocialMember member = opensocialMemberBusinessLogic.getMemberByMemIdAndProviderId(getMemId(), getProviderId());
+		
+		if (member != null) {
+			
+			String friendIds = ServletActionContext.getRequest().getParameter("friendIds");
+			String[] friendIdArr = friendIds.split("\\|");
+			
+			opensocialMemberBusinessLogic.inviteFriends(friendIdArr, member.getMemNum(), getProviderId(), getTitleId(), getServerId());
+		}
 	}
 	
 	@Override
@@ -119,6 +136,12 @@ public class OpensocialTitlePlayControlAction extends ProviderTitlePlayControlAc
 		htmlText = opensocialPageTemplater.getRenderedText(String.valueOf(getProviderId()), "error", props);
 		
 		return SUCCESS;
+	}
+
+	@Override
+	protected Long getInviteMemNum(String friendId, String providerId, Integer titleId, Integer serverId) {
+		
+		return opensocialMemberBusinessLogic.getLastInviteMemNumWithUpdate(friendId, providerId, titleId, serverId);
 	}
 	
 	private String createChargeUrl(String memId, String providerId, Integer titleId, Integer serverId) {

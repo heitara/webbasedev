@@ -85,6 +85,12 @@ public class JointTitlePlayControlAction extends ProviderTitlePlayControlAction 
 		return ERROR;
 	}
 
+	@Override
+	protected Long getInviteMemNum(String friendId, String providerId, Integer titleId, Integer serverId) {
+		
+		return Long.valueOf(0);
+	}
+
 	public String getPlayUrl() {
 		return playUrl;
 	}

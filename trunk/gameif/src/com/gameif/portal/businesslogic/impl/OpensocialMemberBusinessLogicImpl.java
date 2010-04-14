@@ -1,14 +1,19 @@
 package com.gameif.portal.businesslogic.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gameif.common.businesslogic.BaseBusinessLogic;
 import com.gameif.portal.businesslogic.IOpensocialMemberBusinessLogic;
 import com.gameif.portal.constants.PortalConstants;
+import com.gameif.portal.dao.IOpensocialInviteDao;
 import com.gameif.portal.dao.IOpensocialMemberDao;
+import com.gameif.portal.dao.IOpensocialPlaySummaryDao;
+import com.gameif.portal.entity.OpensocialInvite;
 import com.gameif.portal.entity.OpensocialMember;
+import com.gameif.portal.entity.OpensocialPlaySummary;
 import com.gameif.portal.util.ContextUtil;
 
 public class OpensocialMemberBusinessLogicImpl extends BaseBusinessLogic implements IOpensocialMemberBusinessLogic {
@@ -16,6 +21,8 @@ public class OpensocialMemberBusinessLogicImpl extends BaseBusinessLogic impleme
 	private static final long serialVersionUID = 1660920329138052444L;
 	
 	private IOpensocialMemberDao opensocialMemberDao;
+	private IOpensocialInviteDao opensocialInviteDao;
+	private IOpensocialPlaySummaryDao opensocialPlaySummaryDao;
 
 	@Override
 	public OpensocialMember getMemberInfo(Long memNum) {
@@ -101,8 +108,97 @@ public class OpensocialMemberBusinessLogicImpl extends BaseBusinessLogic impleme
 		return isEquals;
 	}
 
+	@Override
+	@Transactional
+	public void inviteFriends(String[] friendIds, Long memNum, String providerId, Integer titleId, Integer serverId) {
+		
+		OpensocialPlaySummary playSummaryCond = new OpensocialPlaySummary();
+		
+		playSummaryCond.setMemNum(memNum);
+		playSummaryCond.setTitleId(titleId);
+		
+		List<OpensocialPlaySummary> playSummaries = opensocialPlaySummaryDao.selectByMemNumAndTitleId(playSummaryCond);
+		
+		for (OpensocialPlaySummary playSummary : playSummaries) {
+			
+			for (String friendId : friendIds) {
+				
+				OpensocialInvite invite = new OpensocialInvite();
+				
+				invite.setMemNum(memNum);
+				invite.setFriendId(friendId);
+				invite.setProviderId(providerId);
+				invite.setTitleId(playSummary.getTitleId());
+				invite.setServerId(playSummary.getServerId());
+				
+				OpensocialInvite inviteFromDB = opensocialInviteDao.selectMyInviteForUpdate(invite);
+				
+				if (inviteFromDB == null) {
+					
+					invite.setInviteStatus(PortalConstants.InviteStatus.NO_RESPONSE);
+					invite.setInviteDate(new Date());
+					invite.setCreatedDate(invite.getInviteDate());
+					invite.setCreatedUser(String.valueOf(memNum));
+					
+					opensocialInviteDao.save(invite);
+					
+				} else {
+					
+					inviteFromDB.setInviteDate(new Date());
+					inviteFromDB.setLastUpdateDate(invite.getInviteDate());
+					inviteFromDB.setLastUpdateUser(String.valueOf(memNum));
+					
+					opensocialInviteDao.update(inviteFromDB);
+				}
+			}
+		}
+	}
+
+	@Override
+	@Transactional
+	public Long getLastInviteMemNumWithUpdate(String friendId, String providerId, Integer titleId, Integer serverId) {
+		
+		Long inviteMemNum = null;
+		
+		OpensocialInvite invite = new OpensocialInvite();
+		
+		invite.setFriendId(friendId);
+		invite.setProviderId(providerId);
+		invite.setTitleId(titleId);
+		invite.setServerId(serverId);
+		
+		OpensocialInvite inviteFromDB = opensocialInviteDao.selectLastInviteBeforePlayForUpdate(invite);
+		
+		if (inviteFromDB != null) {
+			
+			inviteFromDB.setInviteStatus(PortalConstants.InviteStatus.REGISTERED);
+			inviteFromDB.setFriendEntryDate(new Date());
+			inviteFromDB.setLastUpdateDate(inviteFromDB.getFriendEntryDate());
+			inviteFromDB.setLastUpdateUser(String.valueOf(ContextUtil.getExternalMemberNo()));
+			
+			opensocialInviteDao.update(inviteFromDB);
+			
+			inviteMemNum = inviteFromDB.getMemNum();
+			
+		} else {
+			
+			inviteMemNum = Long.valueOf(0);
+		}
+		
+		return inviteMemNum;
+	}
+
 	public void setOpensocialMemberDao(IOpensocialMemberDao opensocialMemberDao) {
 		
 		this.opensocialMemberDao = opensocialMemberDao;
+	}
+
+	public void setOpensocialInviteDao(IOpensocialInviteDao opensocialInviteDao) {
+		this.opensocialInviteDao = opensocialInviteDao;
+	}
+
+	public void setOpensocialPlaySummaryDao(
+			IOpensocialPlaySummaryDao opensocialPlaySummaryDao) {
+		this.opensocialPlaySummaryDao = opensocialPlaySummaryDao;
 	}
 }
