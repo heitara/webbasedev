@@ -107,6 +107,6 @@ public class MyServer {
 	}
 	
 	public String getServiceStartYmd() {
-		return DateUtil.date2Str(serviceStartDate, "yyyy-MM-dd hh:mm");
+		return DateUtil.date2Str(serviceStartDate, "yyyy-MM-dd HH:mm");
 	}
 }
