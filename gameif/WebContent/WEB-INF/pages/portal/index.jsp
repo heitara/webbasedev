@@ -59,8 +59,12 @@ window.onload = function() { setInterval(changeBana, 4000); };
 		ApplicationContext ctxt = WebApplicationContextUtils.getWebApplicationContext(request.getSession().getServletContext());
 		RSSReader rssReader = (RSSReader)ctxt.getBean("rssReader");
 		List<RSSNews> rssNewsList = rssReader.getRssByCache();		
-		for (RSSNews rssNews : rssNewsList) {%>
-			<li><span><%=rssNews.getCreateDateStr()%></span><a href="<%=rssNews.getLink()%>"><%=rssNews.getTitle()%></a></li><%
+		for (RSSNews rssNews : rssNewsList) {
+			String newStyle = "";
+			if (rssNews.getCreateDate().getTime() + 1000 * 60 * 60 * 24 > System.currentTimeMillis()) {
+				newStyle = "style='color:#F60;font-weight:bold;'";
+			}%>
+			<li><span><%=rssNews.getCreateDateStr()%></span><a href="<%=rssNews.getLink()%>" <%=newStyle%>><%=rssNews.getTitle()%></a></li><%
 		}%>
 	</ul>
 	</dd>
