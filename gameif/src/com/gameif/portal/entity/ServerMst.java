@@ -3,6 +3,7 @@ package com.gameif.portal.entity;
 import java.util.Date;
 
 import com.gameif.common.entity.BaseEntity;
+import com.gameif.common.util.DateUtil;
 
 public class ServerMst extends BaseEntity {
 
@@ -136,5 +137,7 @@ public class ServerMst extends BaseEntity {
 		this.lastUpdateUser = lastUpdateUser;
 	}
 	
-	
+	public String getServiceStartYmd() {
+		return DateUtil.date2Str(serviceStartDate, "yyyy-MM-dd HH:mm");
+	}
 }

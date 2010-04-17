@@ -10,8 +10,9 @@
 <div id="target"></div>
 
 <script type="text/javascript">
-				
+
 var _gameIFServletUrl = "https://www.game-if.com/opensocialTitlePlay.html";
+var _legionGuideUrl = "http://mixi.legion.game-if.com/";
 var _providerId = "1";
 var _titleId = "1";
 
@@ -28,14 +29,15 @@ function _inviteFriends() {
 		if (response.hadError()) {
 		
 			var errCode = response.getErrorCode();
-		  
+		
 		} else {
 		
 			var recipientIds = response.getData()["recipientIds"];
 			
 			if (recipientIds.length > 0) {
 			
-				gadgets.io.makeRequest(_gameIFServletUrl, function(resdata) { }, _getGameIFInviteFriendParam(recipientIds.join("|")));
+				//console.log(_getGameIFInviteFriendParam(recipientIds.join("|")));
+				gadgets.io.makeRequest(_gameIFServletUrl, function(resdata) { console.log(resdata); }, _getGameIFInviteFriendParam(recipientIds.join("|")));
 			}
 		}
 	});
@@ -50,19 +52,19 @@ function _getGameIFInviteFriendParam(friendIds) {
 	postData["providerId"] = _providerId;
 	postData["titleId"] = _titleId;
 	
-	postData["act"] = "charge";
+	postData["act"] = "invite";
 	postData["memId"] = _userId;
 	postData["friendIds"] = friendIds;
 	
 	params[gadgets.io.RequestParameters.POST_DATA] = gadgets.io.encodeValues(postData);
 	
-	console.log(params);
+	//console.log(params);
 	return params;
 }
 
-function _reloadPage() {
+function _gotoGuidePage() {
 
-	window.location.reload(true);
+	mixi.util.requestExternalNavigateTo(_legionGuideUrl);
 }
 
 function _setUserProfile(viewer) {
@@ -116,7 +118,7 @@ function _getGameIFChargeParam(serverId) {
 	
 	params[gadgets.io.RequestParameters.POST_DATA] = gadgets.io.encodeValues(postData);
 
-	console.log(params);
+	//console.log(params);
 	return params;
 }
 
@@ -155,7 +157,7 @@ function _getGameIFTitlePlayParam(serverId) {
 	
 	params[gadgets.io.RequestParameters.POST_DATA] = gadgets.io.encodeValues(postData);
 	
-	console.log(params);
+	//console.log(params);
 	return params;
 }
 
@@ -166,8 +168,8 @@ function _doGameIFTitlePlay(serverId) {
 
 function _doGameIFResponse(resdata) {
 
-	console.log(resdata);
-	gadgets.window.adjustHeight(650);
+	//console.log(resdata);
+	gadgets.window.adjustHeight(700);
 	document.getElementById('target').innerHTML = resdata.data.htmlText;
 }
 

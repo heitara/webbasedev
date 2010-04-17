@@ -13,6 +13,20 @@
 	</filter>
 </appender>
 
+<appender name="G_DEBUG" class="org.apache.log4j.DailyRollingFileAppender">
+	<param name="File" value="E:/Projects/Eclipse/gameif/log/gameif_debug.log" />
+	<!-- <param name="File" value="/var/log/java/gameif_info.log" /> -->
+	<param name="Threshold" value="DEBUG" />
+	<param name="DatePattern" value="'.'yyMMdd'.log'" />
+	<layout class="org.apache.log4j.PatternLayout">  
+		<param name="ConversionPattern" value="%-5p | %d{yy/MM/dd HH:mm:ss SSS} | %t | %m%n" />  
+	</layout>
+	<filter class="org.apache.log4j.varia.LevelRangeFilter">
+		<param name="LevelMin" value="DEBUG" />
+		<param name="LevelMax" value="DEBUG" />
+	</filter>
+ </appender>
+
 <appender name="G_INFO" class="org.apache.log4j.DailyRollingFileAppender">
 	<param name="File" value="E:/Projects/Eclipse/gameif/log/gameif_info.log" />
 	<!-- <param name="File" value="/var/log/java/gameif_info.log" /> -->
@@ -86,6 +100,7 @@
 <category name="com.gameif" additivity="false">
 	<priority value ="INFO" />
 	<appender-ref ref="STDOUT" />
+	<appender-ref ref="G_DEBUG" />
 	<appender-ref ref="G_INFO" />
 	<appender-ref ref="G_WARN" />
 	<appender-ref ref="G_ERROR" />
@@ -94,6 +109,7 @@
 <root>
 	<priority value="DEBUG" />
 	<appender-ref ref="STDOUT" />
+	<appender-ref ref="G_DEBUG" />
 	<appender-ref ref="C_WARN" />
 	<appender-ref ref="C_ERROR" />
 </root>
