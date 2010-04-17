@@ -97,6 +97,20 @@ public class TitlePlayControlBaseAction extends BaseActionSupport {
 	protected boolean isPlayable (ServerMst serverMst, Date date) {
 		
 		boolean playable = false;
+		
+		if (serverMst != null) {
+
+			// メンテナンス時、テストユーザはプレイ可能
+			MemberInfo memInfo = new MemberInfo();
+			memInfo.setMemNum(ContextUtil.getMemberNo());
+			memInfo = memberInfoBusinessLogic.getMemberInfo(memInfo);
+			
+			if (memInfo != null && PortalConstants.MemberAtbtCd.TEST.equals(memInfo.getMemAtbtCd())) {
+				
+				playable = true;
+				return playable;
+			}
+		}
 
 		// サーバが有効期間以内且つ稼動中の場合
 		if (serverMst != null 
@@ -107,20 +121,6 @@ public class TitlePlayControlBaseAction extends BaseActionSupport {
 			playable = true;
 			
 			TitleMst titleMst = masterInfoBusinessLogic.getValidTitle(serverMst.getTitleId());
-			
-			if (titleMst != null) {
-
-				// メンテナンス時、テストユーザはプレイ可能
-				MemberInfo memInfo = new MemberInfo();
-				memInfo.setMemNum(ContextUtil.getMemberNo());
-				memInfo = memberInfoBusinessLogic.getMemberInfo(memInfo);
-				
-				if (memInfo != null && PortalConstants.MemberAtbtCd.TEST.equals(memInfo.getMemAtbtCd())) {
-					
-					playable = true;
-					return playable;
-				}
-			}
 
 			// タイトルが有効期間以外或いはメンテナンス中の場合、プレイ不可
 			if (titleMst == null
