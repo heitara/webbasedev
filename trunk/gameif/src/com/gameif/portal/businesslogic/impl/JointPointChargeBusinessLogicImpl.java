@@ -1,9 +1,11 @@
 package com.gameif.portal.businesslogic.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.gameif.common.exception.SystemException;
 import com.gameif.portal.businesslogic.IJointPointChargeBusinessLogic;
+import com.gameif.portal.constants.PortalConstants;
 import com.gameif.portal.dao.IJointMemberDao;
 import com.gameif.portal.dao.IJointPlayHistDao;
 import com.gameif.portal.dao.IJointSettlementHistDao;
@@ -56,6 +58,12 @@ public class JointPointChargeBusinessLogicImpl extends PointChargeBusinessLogicI
 
 		super.setSettlementTrnsToHist(settlementHist, settleTrns, member);
 		((JointSettlementHist)settlementHist).setProviderId(settleTrns.getProviderId());
+	}
+	
+	protected BigDecimal getTheMonthAmountByCreditCard(Long memNum) {
+
+		// 最近一ヶ月間チャージするポイントを計算する
+		return jointSettlementHistDao.selectAmountByMonth(PortalConstants.SettlementCode.CREDIT, memNum);
 	}
 
 	@Override
