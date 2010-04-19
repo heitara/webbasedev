@@ -279,7 +279,7 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements I
 		if (PortalConstants.SettlementCode.CREDIT.equals(settlementTrns.getSettlementCode())) {
 			
 			// 最近一ヶ月間チャージするポイントを計算する
-			BigDecimal sumPointAmouont = memSettlementHistDao.selectAmountByMonth(PortalConstants.SettlementCode.CREDIT, settlementTrns.getMemNum());
+			BigDecimal sumPointAmouont = getTheMonthAmountByCreditCard(settlementTrns.getMemNum());
 			
 			Calendar c = Calendar.getInstance();
 			c.setTime(memEntryDate);
@@ -306,6 +306,12 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements I
 		}
 		
 		return retCode;
+	}
+	
+	protected BigDecimal getTheMonthAmountByCreditCard(Long memNum) {
+
+		// 最近一ヶ月間チャージするポイントを計算する
+		return memSettlementHistDao.selectAmountByMonth(PortalConstants.SettlementCode.CREDIT, memNum);
 	}
 	
 	private void saveSettlementTrns(MemSettlementTrns settlementTrns, PointMst pointMst, String memAtbtCd) {
