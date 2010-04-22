@@ -49,6 +49,12 @@ public class OpensocialTitlePlayControlAction extends ProviderTitlePlayControlAc
 		return result;
 	}
 	
+	@Override
+	protected Long getMemberNumForIdentifyInTitle(MemberInfo memberInfo) {
+		
+		return Long.valueOf(memberInfo.getMemId());
+	}
+	
 	private void inviteFriends() {
 		
 		OpensocialMember member = opensocialMemberBusinessLogic.getMemberByMemIdAndProviderId(getMemId(), getProviderId());
@@ -139,9 +145,9 @@ public class OpensocialTitlePlayControlAction extends ProviderTitlePlayControlAc
 	}
 
 	@Override
-	protected Long getInviteMemNum(String friendId, String providerId, Integer titleId, Integer serverId) {
+	protected Long getInviteMemNumForIdentifyInTitle(String friendId, String providerId, Integer titleId, Integer serverId) {
 		
-		return opensocialMemberBusinessLogic.getLastInviteMemNumWithUpdate(friendId, providerId, titleId, serverId);
+		return opensocialMemberBusinessLogic.getLastInviteMemIdWithUpdate(friendId, providerId, titleId, serverId);
 	}
 	
 	private String createChargeUrl(String memId, String providerId, Integer titleId, Integer serverId) {

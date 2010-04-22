@@ -74,9 +74,7 @@ public abstract class ProviderTitlePlayControlAction extends BaseActionSupport {
 				
 				if (isPlayable(server, memInfo)) {
 					
-					Long inviteMemNum = getInviteMemNum(memInfo.getMemId(), providerId, titleId, server.getServerId());
-
-					String playUrl = doPlay(server, memInfo, inviteMemNum);
+					String playUrl = doPlay(server, memInfo);
 					// プレイ画面
 					result = postPlay(playUrl, server);
 					
@@ -139,7 +137,7 @@ public abstract class ProviderTitlePlayControlAction extends BaseActionSupport {
 	
 	protected abstract String postError();
 	
-	protected abstract Long getInviteMemNum(String friendId, String providerId, Integer titleId, Integer serverId);
+	protected abstract Long getInviteMemNumForIdentifyInTitle(String friendId, String providerId, Integer titleId, Integer serverId);
 	
 	private ServerMst getServer() {
 
@@ -174,7 +172,7 @@ public abstract class ProviderTitlePlayControlAction extends BaseActionSupport {
 		return servers;
 	}
 		
-	public String doPlay(ServerMst server, MemberInfo memberInfo, Long inviteMemNum) {
+	public String doPlay(ServerMst server, MemberInfo memberInfo) {
 		
 		String playUrl = null;
 		Date date = new Date();
@@ -182,13 +180,13 @@ public abstract class ProviderTitlePlayControlAction extends BaseActionSupport {
 		// ゲームプレイ用ＵＲＬを生成する。
 		EntryParameter parameter = new EntryParameter();
 
-		parameter.setMemNum(memberInfo.getMemNum());
+		parameter.setMemNum(getMemberNumForIdentifyInTitle(memberInfo));
 		parameter.setMemId(memId);
 		parameter.setTitleId(titleId);
 		parameter.setServerId(serverId);
 		parameter.setPlayDate(date);
 		parameter.setParentMemNum(Long.valueOf(0));
-		parameter.setParentMemNum(inviteMemNum);
+		parameter.setParentMemNum(getInviteMemNumForIdentifyInTitle(memberInfo.getMemId(), providerId, titleId, server.getServerId()));
 
 		playUrl = server.getPlayUrl() + "?" + titleEntry.getTitleEntryKey(parameter);
 
@@ -196,6 +194,11 @@ public abstract class ProviderTitlePlayControlAction extends BaseActionSupport {
 		savePlayHist(memberInfo);
 		
 		return playUrl;
+	}
+	
+	protected Long getMemberNumForIdentifyInTitle(MemberInfo memberInfo) {
+		
+		return memberInfo.getMemNum();
 	}
 	
 	private boolean isTestUser(MemberInfo memInfo) {
