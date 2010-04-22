@@ -246,7 +246,8 @@ public class ServicePointBusinessLogicImpl extends BaseBusinessLogic implements
 		ServerMst server = new ServerMst();
 		server.setTitleId(titleId);
 		server.setServerId(serverId);
-		server = serverMstDao.selectForUpdate(server);
+		server.setProviderId(PortalConstants.ProviderKind.PORTAL);
+		server = serverMstDao.selectByKey(server);
 		if (server == null) {
 
 			// データが存在しない

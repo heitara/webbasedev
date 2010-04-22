@@ -9,24 +9,6 @@ import com.gameif.portal.entity.ServerMst;
 public class ServerMstDaoImpl extends
 	AbstractBaseDao<ServerMst, ServerMst> implements IServerMstDao {
 	
-	@Override
-	public ServerMst selectServerByDomain(String domain) {
-		
-		return (ServerMst)getSqlMapClientTemplate().queryForObject(namespace + ".selectServerByDomain", domain);
-	}
-
-	@Override
-	public ServerMst selectForUpdate(ServerMst serverMst) {
-		
-		return (ServerMst)getSqlMapClientTemplate().queryForObject(namespace + ".selectForUpdate", serverMst);
-	}
-
-	@Override
-	public ServerMst selectByProvider(ServerMst serverMst) {
-		
-		return (ServerMst)getSqlMapClientTemplate().queryForObject(namespace + ".selectByProvider", serverMst);
-	}
-
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ServerMst> selectValidServerList() {

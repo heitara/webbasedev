@@ -152,7 +152,7 @@ public abstract class ProviderTitlePlayControlAction extends BaseActionSupport {
 			serverSelCond.setServerId(serverId);
 			serverSelCond.setProviderId(providerId);
 						
-			server = masterInfoBusinessLogic.getServerByProvider(serverSelCond);
+			server = masterInfoBusinessLogic.getServer(serverSelCond);
 		}
 		
 		return server;
