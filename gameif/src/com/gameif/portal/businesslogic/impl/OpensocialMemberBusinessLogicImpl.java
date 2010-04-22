@@ -156,9 +156,9 @@ public class OpensocialMemberBusinessLogicImpl extends BaseBusinessLogic impleme
 
 	@Override
 	@Transactional
-	public Long getLastInviteMemNumWithUpdate(String friendId, String providerId, Integer titleId, Integer serverId) {
+	public Long getLastInviteMemIdWithUpdate(String friendId, String providerId, Integer titleId, Integer serverId) {
 		
-		Long inviteMemNum = null;
+		Long inviteMemId = null;
 		
 		OpensocialInvite invite = new OpensocialInvite();
 		
@@ -171,6 +171,7 @@ public class OpensocialMemberBusinessLogicImpl extends BaseBusinessLogic impleme
 		
 		if (inviteFromDB != null) {
 			
+			
 			inviteFromDB.setInviteStatus(PortalConstants.InviteStatus.REGISTERED);
 			inviteFromDB.setFriendEntryDate(new Date());
 			inviteFromDB.setLastUpdateDate(inviteFromDB.getFriendEntryDate());
@@ -178,14 +179,18 @@ public class OpensocialMemberBusinessLogicImpl extends BaseBusinessLogic impleme
 			
 			opensocialInviteDao.update(inviteFromDB);
 			
-			inviteMemNum = inviteFromDB.getMemNum();
+			OpensocialMember member = new OpensocialMember();
+			member.setMemNum(inviteFromDB.getMemNum());
+			member = opensocialMemberDao.selectByKey(member);
+			
+			inviteMemId = Long.valueOf(member.getMemId());
 			
 		} else {
 			
-			inviteMemNum = Long.valueOf(0);
+			inviteMemId = Long.valueOf(0);
 		}
 		
-		return inviteMemNum;
+		return inviteMemId;
 	}
 
 	public void setOpensocialMemberDao(IOpensocialMemberDao opensocialMemberDao) {

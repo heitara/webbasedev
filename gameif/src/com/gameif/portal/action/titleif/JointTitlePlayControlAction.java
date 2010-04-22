@@ -86,7 +86,7 @@ public class JointTitlePlayControlAction extends ProviderTitlePlayControlAction 
 	}
 
 	@Override
-	protected Long getInviteMemNum(String friendId, String providerId, Integer titleId, Integer serverId) {
+	protected Long getInviteMemNumForIdentifyInTitle(String friendId, String providerId, Integer titleId, Integer serverId) {
 		
 		return Long.valueOf(0);
 	}

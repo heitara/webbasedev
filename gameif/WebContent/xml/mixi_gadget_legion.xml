@@ -265,10 +265,10 @@ function _getGameIFTitlePlayParam(serverId) {
 	if (serverId != null) { postData["serverId"] = serverId; }
 	
 	postData["memId"] = _userId;
-	postData["sexCd"] = _sexCd;
-	postData["birthY"] = _birthY;
-	postData["birthM"] = _birthM;
-	postData["birthD"] = _birthD;
+	//postData["sexCd"] = _sexCd;
+	//postData["birthY"] = _birthY;
+	//postData["birthM"] = _birthM;
+	//postData["birthD"] = _birthD;
 	
 	params[gadgets.io.RequestParameters.POST_DATA] = gadgets.io.encodeValues(postData);
 	

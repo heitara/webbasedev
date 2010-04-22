@@ -7,6 +7,6 @@ public interface IOpensocialMemberBusinessLogic {
 	public OpensocialMember getMemberInfo(Long memNum);
 	public OpensocialMember getMemberByMemIdAndProviderId(String memId, String providerId);
 	public OpensocialMember saveMemberInfo(OpensocialMember memberInfo);
-	public Long getLastInviteMemNumWithUpdate(String friendId, String providerId, Integer titleId, Integer serverId);
+	public Long getLastInviteMemIdWithUpdate(String friendId, String providerId, Integer titleId, Integer serverId);
 	public void inviteFriends(String[] friendIds, Long memNum, String providerId,Integer titleId, Integer serverId);
 }
