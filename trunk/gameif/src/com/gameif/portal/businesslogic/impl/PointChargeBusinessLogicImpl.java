@@ -145,7 +145,7 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements I
 		// サービスポイントプレゼント
 		presentServicePoint(settlementHist, member);
 
-		ServerMst server = getServerMst(settleTrns.getTitleId(), settleTrns.getServerId());
+		ServerMst server = getServerMst(settleTrns.getTitleId(), settleTrns.getServerId(), settleTrns.getProviderId());
 
 		// ポイント付与
 		doCharge(settlementHist, member, server);
@@ -368,14 +368,15 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements I
 		return memSettlementTrnsDao.selectByKey(settleTrns);
 	}
 	
-	private ServerMst getServerMst(Integer titleId, Integer serverId) {
+	private ServerMst getServerMst(Integer titleId, Integer serverId, String providerId) {
 		
 		ServerMst server = new ServerMst();
 		
 		server.setTitleId(titleId);
 		server.setServerId(serverId);
+		server.setProviderId(providerId);
 		
-		server = serverMstDao.selectForUpdate(server);
+		server = serverMstDao.selectByKey(server);
 		
 		if (server == null) {
 

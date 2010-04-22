@@ -26,8 +26,6 @@ public interface IMasterInfoBusinessLogic {
 	public InviteTemplateMst getInviteTemplateByKey(Integer key);
 	
 	public ServerMst getServer(ServerMst serverMst);
-	public ServerMst getServerByDomain(String domain);
-	public ServerMst getServerByProvider(ServerMst serverMst);
 	public List<ServerMst> getAllValidServerList();
 	public List<ServerMst> getAllValidServerListByTitle(Integer titleId);
 	public List<ServerMst> getAllValidServerListTitleAndProvider(ServerMst serverMst);

@@ -14,6 +14,7 @@ import com.gameif.portal.entity.MemberInfo;
 import com.gameif.portal.entity.OpensocialMember;
 import com.gameif.portal.entity.OpensocialSettlementHist;
 import com.gameif.portal.entity.ServerMst;
+import com.gameif.portal.util.ContextUtil;
 
 public class OpensocialPointChargeBusinessLogicImpl extends PointChargeBusinessLogicImpl implements IOpensocialPointChargeBusinessLogic {
 

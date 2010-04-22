@@ -30,7 +30,6 @@ public class TitlePlayControlBaseAction extends BaseActionSupport {
 	private Integer titleId;
 	private Integer serverId;
 	private String playUrl;
-	private String server;
 	private String service4Login;
 	
 	protected ServerMst getServerMst() {
@@ -47,11 +46,6 @@ public class TitlePlayControlBaseAction extends BaseActionSupport {
 			serverMstForSel.setProviderId(PortalConstants.ProviderKind.PORTAL);
 
 			serverMst = masterInfoBusinessLogic.getServer(serverMstForSel);
-
-		} else if (server != null) {
-
-			// サーバ名が指定された場合、それを検索条件でサーバマスタを検索する。
-			serverMst = masterInfoBusinessLogic.getServerByDomain(server);
 		}
 		
 		return serverMst;
@@ -195,10 +189,6 @@ public class TitlePlayControlBaseAction extends BaseActionSupport {
 		this.serverId = serverId;
 	}
 
-	public void setServer(String server) {
-		this.server = server;
-	}
-
 	public void setMemberInfoBusinessLogic(
 			IMemberInfoBusinessLogic memberInfoBusinessLogic) {
 		this.memberInfoBusinessLogic = memberInfoBusinessLogic;
@@ -231,9 +221,4 @@ public class TitlePlayControlBaseAction extends BaseActionSupport {
 	public Integer getServerId() {
 		return serverId;
 	}
-
-	public String getServer() {
-		return server;
-	}
-	
 }

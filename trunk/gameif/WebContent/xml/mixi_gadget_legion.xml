@@ -1,11 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <Module>
-  <ModulePrefs title="Hello, world!">
-    <Require feature="opensocial-0.8" />
-    <Require feature="dynamic-height" />
-  </ModulePrefs>
-  <Content type="html"><![CDATA[
+	<ModulePrefs title="Hello, world!">
+		<Require feature="opensocial-0.8" />
+		<Require feature="dynamic-height" />
+	</ModulePrefs>
+	
+	<Content type="html" view="home"><![CDATA[
+<style>
+div.g_mx_profile {
+	margin:auto;
+	width:210px;
+	height:210px;
+	background:url(https://www.game-if.com/images/opensocial/mixi/mixi_home.jpg) no-repeat center;
+	text-align:right;
+}
+div.g_mx_profile a {
+	font-weight:bold;
+	color:#FFF;
+	font-size:12px;
+	text-decoration:none;
+	margin-top:5px;
+	margin-right:8px;
+	width:84px;
+	height:18px;
+	line-height:18px;
+	display:inline-block;
+	text-align:center;
+}
+div.g_mx_profile a:hover {
+	color:#FC3;
+}
+</style>
+<div class="g_mx_profile">
+	<a href="http://mixi.jp/view_appli.pl?id=16485" target="_top" title="「レジオン-創世伝説- for mixi」をプレイする。">スタート</a>
+</div>
+<script>
+gadgets.window.adjustHeight(220);
+</script>
+	]]></Content>
+
+	<Content type="html" view="profile"><![CDATA[
+<style>
+div.g_mx_profile {
+	margin:auto;
+	width:210px;
+	height:210px;
+	background:url(https://www.game-if.com/images/opensocial/mixi/mixi_profile.jpg) no-repeat center;
+	text-align:right;
+}
+div.g_mx_profile a {
+	font-weight:bold;
+	color:#FFF;
+	font-size:12px;
+	text-decoration:none;
+	margin-top:5px;
+	margin-right:8px;
+	width:84px;
+	height:18px;
+	line-height:18px;
+	display:inline-block;
+	text-align:center;
+}
+div.g_mx_profile a:hover {
+	color:#FC3;
+}
+</style>
+<div class="g_mx_profile">
+	<a href="http://mixi.jp/view_appli.pl?id=16485" target="_top" title="「レジオン-創世伝説- for mixi」をプレイする。">スタート</a>
+</div>
+<script>
+gadgets.window.adjustHeight(220);
+</script>
+	]]></Content>
+
+	<Content type="html" view="canvas"><![CDATA[
+
+<style>
+table.mx_g_top {
+	width:945px;
+}
+div.mx_g_server {
+	font-size:12px;
+	font-weight:bold;
+	color:#F60;
+	height:18px;
+}
+div.mx_g_start {
+	font-size:10px;
+	margin-bottom:10px;
+}
+td.mx_g_menu {
+	text-align:right;
+	line-height:18px;
+}
+td.mx_g_menu a {
+	display:inline-block;
+	width:120px;
+	height:26px;
+	font-size:12px;
+	line-height:26px;
+	text-align:center;
+	color:#FFF;
+	font-weight:bold;
+	text-decoration:none;
+	background:url(https://www.game-if.com/images/opensocial/mixi/bg_btn_mxi_legion.gif);
+}
+td.mx_g_menu a:visited {
+	color:#FFF;
+}
+td.mx_g_menu a:hover {
+	color:#FC3;
+}
+</style>
 
 <div id="target"></div>
 
@@ -23,7 +130,9 @@ var _birthD = null;
 var _sexCd = null;
 
 function _inviteFriends() {
-
+	
+	document.getElementById('mx_g_screen').style.visibility = 'hidden';
+	
 	opensocial.requestShareApp("VIEWER_FRIENDS", null, function(response) {
 	
 		if (response.hadError()) {
@@ -37,9 +146,11 @@ function _inviteFriends() {
 			if (recipientIds.length > 0) {
 			
 				//console.log(_getGameIFInviteFriendParam(recipientIds.join("|")));
-				gadgets.io.makeRequest(_gameIFServletUrl, function(resdata) { console.log(resdata); }, _getGameIFInviteFriendParam(recipientIds.join("|")));
+				gadgets.io.makeRequest(_gameIFServletUrl, function(resdata) { }, _getGameIFInviteFriendParam(recipientIds.join("|")));
 			}
 		}
+	
+		document.getElementById('mx_g_screen').style.visibility = 'visible';
 	});
 }
 
@@ -64,7 +175,11 @@ function _getGameIFInviteFriendParam(friendIds) {
 
 function _gotoGuidePage() {
 
-	mixi.util.requestExternalNavigateTo(_legionGuideUrl);
+	var windW = 800;
+	var windH = screen.height - 220;
+	var windL = (screen.width - windW) / 2;
+	var windT = 60;
+	window.open(_legionGuideUrl,'guide','height=' + windH + ',width=' + windW + ',left=' + windL + ',top=' + windT + ',toolbar=no,scrollbars=yes,menubar=no,resizable=no,location=no, status=no');
 }
 
 function _setUserProfile(viewer) {

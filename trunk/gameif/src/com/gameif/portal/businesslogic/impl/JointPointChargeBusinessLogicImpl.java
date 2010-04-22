@@ -16,6 +16,7 @@ import com.gameif.portal.entity.JointMember;
 import com.gameif.portal.entity.JointSettlementHist;
 import com.gameif.portal.entity.MySettlementHist;
 import com.gameif.portal.entity.ServerMst;
+import com.gameif.portal.util.ContextUtil;
 
 public class JointPointChargeBusinessLogicImpl extends PointChargeBusinessLogicImpl implements IJointPointChargeBusinessLogic {
 
