@@ -124,10 +124,6 @@ var _providerId = "1";
 var _titleId = "1";
 
 var _userId = null;
-var _birthY = null;
-var _birthM = null;
-var _birthD = null;
-var _sexCd = null;
 
 function _inviteFriends() {
 	
@@ -184,33 +180,7 @@ function _gotoGuidePage() {
 
 function _setUserProfile(viewer) {
 	
-	var _birthday = null;
-	var _gender = null;
-	
 	_userId = viewer.getId();
-	
-	_birthday = viewer.getField(opensocial.Person.Field.DATE_OF_BIRTH);
-	
-	if (_birthday != null) {
-	
-		_birthY = new Date(_birthday).getFullYear();
-		_birthM = new Date(_birthday).getMonth() + 1;
-		_birthD = new Date(_birthday).getDate();
-	}
-	
-	_gender = viewer.getField(opensocial.Person.Field.GENDER);
-	
-	if (_gender != null) {
-	
-		if (_gender.key == "MALE") {
-		
-			_sexCd = "1";
-			
-		} else {
-		
-			_sexCd = "0";
-		}
-	}
 }
 
 function _doGameIFChargeResponse(resdata) {
@@ -265,10 +235,6 @@ function _getGameIFTitlePlayParam(serverId) {
 	if (serverId != null) { postData["serverId"] = serverId; }
 	
 	postData["memId"] = _userId;
-	//postData["sexCd"] = _sexCd;
-	//postData["birthY"] = _birthY;
-	//postData["birthM"] = _birthM;
-	//postData["birthD"] = _birthD;
 	
 	params[gadgets.io.RequestParameters.POST_DATA] = gadgets.io.encodeValues(postData);
 	
@@ -313,12 +279,6 @@ function _doPageLoad() {
 
 	var req = opensocial.newDataRequest();
 	var params = {};
-	
-	params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [
-	
-		opensocial.Person.Field.DATE_OF_BIRTH,
-		opensocial.Person.Field.GENDER,
-	];
 	
 	req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER, params), "viewer");
 	
