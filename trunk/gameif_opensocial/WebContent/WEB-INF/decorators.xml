@@ -12,7 +12,7 @@
     <decorator name="opensocial" page="opensocial/opensocial.jsp"/>
 	
 	<!-- ConfigDecoratorMapper -->
-    <decorator name="opensocial" page="opensocial/layout.jsp">
+    <decorator name="opensocial" page="opensocial/opensocial.jsp">
         <pattern>/opensocial/*</pattern>
     </decorator>
 </decorators>
