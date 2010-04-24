@@ -16,6 +16,7 @@
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/serverMst.xml" />
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/pointMst.xml" />
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/settlementMst.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/memSettlementTrns.xml" />
 	<sqlMap resource="com/gameif/portal/dao/impl/mapping/maintenanceInfo.xml" />
     <sqlMap resource="com/gameif/portal/dao/impl/mapping/jointMember.xml"/>
     <sqlMap resource="com/gameif/portal/dao/impl/mapping/jointPlayHist.xml"/>
