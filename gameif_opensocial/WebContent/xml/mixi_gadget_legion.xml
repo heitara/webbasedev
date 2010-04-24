@@ -118,7 +118,7 @@ td.mx_g_menu a:hover {
 
 <script type="text/javascript">
 
-var _gameIFServletUrl = "https://www.game-if.com/opensocialTitlePlay.html";
+var _gameIFServletUrl = "https://www.game-if.com/opensocial/titlePlay.html";
 var _legionGuideUrl = "http://mixi.legion.game-if.com/";
 var _providerId = "1";
 var _titleId = "1";
