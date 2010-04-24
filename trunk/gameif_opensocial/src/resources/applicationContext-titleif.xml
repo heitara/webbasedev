@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+	
+	<!-- ゲーム入場用セキュリティキー生成クラスの定義 -->
+	<bean id="titleEntry" class="com.gameif.portal.businesslogic.titleif.entry.TitleEntry">
+		<!-- タイトルＩＤとキー生成クラスのマップ -->
+		<property name="entryKeyGenerators">
+			<map>
+				<entry key="1" value-ref="csEntryKeyGenerator"/>
+			</map>
+		</property>
+	</bean>
+
+	<!-- 創世伝説のゲーム入場用セキュリティキー生成クラスの定義 -->
+	<bean id="csEntryKeyGenerator" class="com.gameif.portal.businesslogic.titleif.entry.DefaultEntryKeyGenerator">
+		<!-- アカウントパラメータ名 -->
+		<property name="accountKey" value="u" />
+		<!-- UNIX時間のパラメータ名 -->
+		<property name="timeKey" value="t" />
+		<!-- セキュリティ文字列のパラメータ名-->
+		<property name="validateCdKey" value="p" />
+		<!-- 紹介者IDのパラメータ名-->
+		<property name="parentKey" value="f" />
+		
+		<!-- サーバ間連携パスワード -->
+		<property name="unionCdMap">
+			<map>
+				<entry key="1" value="PKSC45K85XMR3R8G4KV0"/>
+				<entry key="2" value="4AUQTW6I1ZJ6EYFWH5CW"/>
+				<entry key="3" value="lkwNxbC6ZhCPyGXBN3AIZu0Vewd8WBj6"/>
+			</map>
+		</property>
+	</bean>	
+	
+	
+	<!-- ポイント付与処理クラスの定義 -->
+	<bean id="titleCharge" class="com.gameif.portal.businesslogic.titleif.charge.TitleCharge">
+		<!-- タイトルＩＤとキー生成クラスのマップ -->
+		<property name="chargeKeyGenerators">
+			<map>
+				<entry key="1" value-ref="csChargeKeyGenerator"/>
+			</map>
+		</property>
+		<!-- タイトルＩＤと付与処理クラスのマップ -->
+		<property name="chargeExecutors">
+			<map>
+				<entry key="1" value-ref="csChargeExecutor"/>
+			</map>
+		</property>
+	</bean>
+	
+	<!-- 創世伝説のポイント付与処理クラスの定義 -->
+	<bean id="csChargeExecutor" class="com.gameif.portal.businesslogic.titleif.charge.DefaultChargeExecutor">
+		<!-- XMLの中から結果コード（result）の位置を示すXPATH -->
+		<property name="xmlResultNode" value="//response/result" />
+		<!-- XMLの中から処理番号（tradeNum）の位置を示すXPATH -->
+		<property name="xmlTradeNoNode" value="//response/tradeNum" />
+		<!-- 付与結果文字列とエラー番号のマッピング -->
+		<property name="resultMap">
+			<map>
+				<entry key="success" value="0"/>
+				<entry key="OUT_TRADE_NO_EXIST" value="-1"/>
+				<entry key="ACCOUNT_NOT_EXIST" value="1"/>
+				<entry key="ILLEGAL_ARGUMENT" value="2"/>
+				<entry key="ILLEGAL_SIGN" value="3"/>
+				<entry key="SYSTEM_ERROR" value="9"/>
+			</map>
+		</property>
+	</bean>
+
+	<!-- 創世伝説のポイント付与セキュリティキー生成クラスの定義 -->
+	<bean id="csChargeKeyGenerator" class="com.gameif.portal.businesslogic.titleif.charge.DefaultChargeKeyGenerator">
+		<!-- アカウントパラメータ名 -->
+		<property name="accountKey" value="account" />
+		<!-- UNIX時間のパラメータ名 -->
+		<property name="timeKey" value="time" />
+		<!-- セキュリティ文字列のパラメータ名-->
+		<property name="validateCdKey" value="sign" />
+		<!-- 受注番号のパラメータ名-->
+		<property name="orderKey" value="order_no" />
+		<!-- 付与ポイント数のパラメータ名-->
+		<property name="pointKey" value="point" />
+		<!-- ポイント区別のパラメータ名-->
+		<!-- 
+		<property name="spKey" value="sp" />
+		 -->
+		<!-- 親の会員番号のパラメータ名-->
+		<!-- 
+		<property name="parentAccountKey" value="parentAccount" />
+		 -->
+		
+		<!-- サーバ間連携パスワード -->
+		<property name="unionCdMap">
+			<map>
+				<entry key="1" value="9AND3DOB8TFUZW5ILGH5"/>
+				<entry key="2" value="IEU8R0IM06P0WQ674D6E"/>
+				<entry key="3" value="9AND3DOB8TFUZW5ILGH5"/>
+			</map>
+		</property>
+	</bean>
+	
+	<!-- ゲームに紹介結果検索用セキュリティキー生成クラスの定義 -->
+	<bean id="friendSearch" class="com.gameif.portal.businesslogic.titleif.search.FriendSearch">
+		<!-- タイトルＩＤとキー生成クラスのマップ -->
+		<property name="searchKeyGenerators">
+			<map>
+				<entry key="1" value-ref="csSearchKeyGenerator"/>
+			</map>
+		</property>
+	</bean>
+
+	<!-- 創世伝説の紹介結果検索用用セキュリティキー生成クラスの定義 -->
+	<bean id="csSearchKeyGenerator" class="com.gameif.portal.businesslogic.titleif.search.DefaultSearchKeyGenerator">
+		<!-- アカウントパラメータ名 -->
+		<property name="accountKey" value="u" />
+		<!-- セキュリティ文字列のパラメータ名-->
+		<property name="validateCdKey" value="p" />
+		
+		<!-- サーバ間連携パスワード -->
+		<property name="unionCd" value="6TN9HD75HQCTIHL7UDAT" />
+	</bean>	
+	
+</beans>

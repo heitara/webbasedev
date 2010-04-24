@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+	<bean id="actionLoggerInterceptor" class="com.gameif.portal.interceptor.ActionLogInterceptor" />
+    <bean id="opensocialPointChargeMaintenanceInterceptor" class="com.gameif.portal.interceptor.OpensocialPointChargeMaintenanceInterceptor">
+        <property name="maintenanceBusinessLogic">
+            <ref bean="maintenanceBusinessLogic" />
+        </property>
+		<property name="opensocialMemberBusinessLogic">
+			<ref bean="opensocialMemberBusinessLogic" />
+		</property>
+    </bean>
+	<!-- ポイントチャージ画面にて、マスタデータバインド用アクション -->
+	<!-- pointChargeBindMasterAction -->
+	<bean id="pointChargeBindMasterAction" class="com.gameif.portal.action.pointCharge.PointChargeBindMasterAction" scope="prototype">
+		<property name="masterInfoBusinessLogic">
+			<ref bean="masterInfoBusinessLogic" />
+		</property>
+	</bean>
+    <bean id="opensocialPointChargeTitleMaintenanceInterceptor" class="com.gameif.portal.interceptor.OpensocialPointChargeTitleMaintenanceInterceptor">
+        <property name="maintenanceBusinessLogic">
+            <ref bean="maintenanceBusinessLogic" />
+        </property>
+		<property name="opensocialMemberBusinessLogic">
+			<ref bean="opensocialMemberBusinessLogic" />
+		</property>
+    </bean>
+	
+    <bean id="opensocialPointChargeEntryInterceptor" class="com.gameif.portal.interceptor.OpensocialPointChargeEntryInterceptor">
+        <property name="masterInfoBusinessLogic">
+            <ref bean="masterInfoBusinessLogic" />
+        </property>
+        <property name="opensocialMemberBusinessLogic">
+            <ref bean="opensocialMemberBusinessLogic" />
+        </property>
+        <property name="timeOutMinutes">
+            <value>15</value>
+        </property>
+		<property name="decorators">
+			<map>
+				<entry key="1" value="mixi"/>
+			</map>
+		</property>
+    </bean>
+    <bean id="opensocialPointChargeInterceptor" class="com.gameif.portal.interceptor.OpensocialPointChargeInterceptor"/>
+	
+	<!-- opensocialTitlePlayControlAction -->
+	<bean id="opensocialTitlePlayControlAction" class="com.gameif.portal.action.titleif.OpensocialTitlePlayControlAction" scope="prototype">
+		<property name="titleEntry">
+			<ref bean="titleEntry" />
+		</property>
+		<property name="masterInfoBusinessLogic">
+			<ref bean="masterInfoBusinessLogic" />
+		</property>
+		<property name="opensocialTitlePlayBusinessLogic">
+			<ref bean="opensocialTitlePlayBusinessLogic" />
+		</property>
+		<property name="opensocialMemberBusinessLogic">
+			<ref bean="opensocialMemberBusinessLogic" />
+		</property>
+		<property name="opensocialPageTemplater">
+			<ref bean="opensocialPageTemplater" />
+		</property>
+	</bean>
+    
+    <!-- ポイントチャージ用アクション -->
+    <!-- pointChargeControlAction -->
+    <bean id="opensocialPointChargeControlAction" class="com.gameif.portal.action.pointCharge.OpensocialPointChargeControlAction" scope="prototype">
+        <property name="masterInfoBusinessLogic">
+            <ref bean="masterInfoBusinessLogic" />
+        </property>
+        <property name="opensocialPointChargeBusinessLogic">
+            <ref bean="opensocialPointChargeBusinessLogic" />
+        </property>
+        <!-- マーチャントID -->
+        <property name="merchant_id">
+            <value>${pointChargeControlAction.merchant_id}</value>
+        </property>
+        <!-- サービスID -->
+        <property name="service_id">
+            <value>${pointChargeControlAction.service_id}</value>
+        </property>
+        <!-- 購入要求接続先URL -->
+        <property name="requestUrl">
+            <value>${pointChargeControlAction.requestUrl}</value>
+        </property>
+        <!-- 決済完了時URL -->
+        <property name="success_url">
+            <value>${pointChargeControlAction.opensocial.success_url}</value>
+        </property>
+        <!-- キャンセル時URL -->
+        <property name="cancel_url">
+            <value>${pointChargeControlAction.opensocial.cancel_url}</value>
+        </property>
+        <!-- エラー時URL -->
+        <property name="error_url">
+            <value>${pointChargeControlAction.opensocial.error_url}</value>
+        </property>
+        <!-- 決済通知用CGI -->
+        <property name="pagecon_url">
+            <value>${pointChargeControlAction.opensocial.pagecon_url}</value>
+        </property>
+        <!-- SPSより払い出されたキー -->
+        <property name="spsKey">
+            <value>${pointChargeControlAction.spsKey}</value>
+        </property>
+        <!-- リクエスト許容時間（単位:秒） -->
+        <property name="limit_second">
+            <value>${pointChargeControlAction.limit_second}</value>
+        </property>
+    </bean>
+	
+</beans>
