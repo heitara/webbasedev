@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="tempMemberInfo">
+
+	<typeAlias alias="tempMemberInfo" type="com.gameif.portal.entity.TempMemberInfo" />
+	
+	<resultMap class="com.gameif.portal.entity.TempMemberInfo" id="tempMemberResult">
+		<result property="memNum" column="mem_num" />
+		<result property="memId" column="mem_id" />
+		<result property="nickName" column="nick_name" />
+		<result property="memPwd" column="mem_pwd" />
+		<result property="mailPc" column="mail_pc" />
+		<result property="authKey" column="auth_key"/>
+		<result property="inviteId" column="invite_id"/>
+		<result property="advertNum" column="advert_num"/>
+		<result property="linkKey" column="link_key"/>
+		<result property="titleId" column="title_id"/>
+		<result property="createdDate" column="created_date"/>
+		<result property="createdIp" column="created_ip"/>
+	</resultMap>
+
+	<insert id="save" parameterClass="tempMemberInfo">
+		<![CDATA[
+			INSERT INTO temp_member_info
+				(
+				mem_id,
+				nick_name,
+				mem_pwd,
+				mail_pc,
+				auth_key,
+				invite_id,
+				advert_num,
+				link_key,
+				title_id,
+				created_date,
+				created_ip)
+			VALUES
+				(
+				#memId#,
+				#nickName#,
+				#memPwd#,
+				#mailPc#,
+				#authKey#,
+				#inviteId#,
+				#advertNum#,
+				#linkKey#,
+				#titleId#,
+				#createdDate#,
+				#createdIp#
+				)
+		]]>
+		<selectKey resultClass="java.lang.Long" keyProperty="memNum">   
+        	<![CDATA[
+			SELECT last_insert_id() as mem_num
+        	]]>
+		</selectKey>
+	</insert>
+
+	<select id="selectValidInfoForUpdate" parameterClass="java.util.Map" resultMap="tempMemberResult">
+        <![CDATA[
+			SELECT	mem_num,
+					mem_id,
+					nick_name,
+					mem_pwd,
+					mail_pc,
+					auth_key,
+					invite_id,
+					advert_num,
+					link_key,
+					title_id,
+					created_date,
+					created_ip
+			FROM	temp_member_info
+			WHERE	mem_num = #memNum#
+			AND     auth_key = #authKey#
+			AND 	created_date >= DATE_SUB(now(), INTERVAL #invalidHour# HOUR)
+			FOR 	UPDATE
+        ]]>
+	</select>
+	
+	<delete id="deleteByKey">  
+        <![CDATA[
+	        DELETE
+			FROM
+				temp_member_info
+			WHERE
+				mem_num = #value#
+        ]]>
+	</delete>
+	
+	<select id="selectValidCountByMemId" parameterClass="java.util.Map" resultClass="int">
+      <![CDATA[
+        SELECT
+			count(mem_num)
+		FROM
+			temp_member_info
+		WHERE
+			mem_id = #memId#
+		AND created_ip != #createdIp#
+		AND created_date >= DATE_SUB(now(), INTERVAL #invalidHour# HOUR)
+      ]]>
+	</select>
+	
+	<select id="selectValidCountByNickName" parameterClass="java.util.Map" resultClass="int">
+      <![CDATA[
+        SELECT
+			count(mem_num)
+		FROM
+			temp_member_info
+		WHERE
+			nick_name = #nickName#
+		AND created_ip != #createdIp#
+		AND created_date >= DATE_SUB(now(), INTERVAL #invalidHour# HOUR)
+      ]]>
+	</select>
+	
+	<select id="selectValidCountByMailPc" parameterClass="java.util.Map" resultClass="int">
+      <![CDATA[
+        SELECT
+			count(mem_num)
+		FROM
+			temp_member_info
+		WHERE
+			mail_pc = #mailPc#
+		AND created_ip != #createdIp#
+		AND created_date >= DATE_SUB(now(), INTERVAL #invalidHour# HOUR)
+      ]]>
+	</select>
+	
+	<delete id="deleteInvalidData">  
+        <![CDATA[
+	        DELETE
+			FROM
+				temp_member_info
+			WHERE
+				created_date < DATE_SUB(now(), INTERVAL #invalidHour# HOUR)
+        ]]>
+	</delete>
+
+</sqlMap>

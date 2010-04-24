@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="betaTester">
+	<typeAlias alias="betaTester" type="com.gameif.portal.entity.BetaTester" />
+	
+	<resultMap class="com.gameif.portal.entity.BetaTester" id="betaTesterResult">
+		<result property="memNum" column="mem_num" />
+		<result property="titleId" column="title_id" />
+		<result property="electStatus" column="elect_status" />
+	</resultMap>
+	
+	<resultMap class="com.gameif.portal.entity.MyTitle" id="myTitleForBetaTestResult">
+		<result property="titleId" column="title_id"/>
+		<result property="titleName" column="title_name"/>
+		<result property="titleAbout" column="title_about"/>
+		<result property="serviceStatus" column="service_status"/>
+		<result property="recruitStatus" column="recruit_status"/>
+		<result property="siteUrl" column="site_url"/>
+		<result property="newsUrl" column="news_url"/>
+		<result property="forumUrl" column="forum_url"/>
+		<result property="paymentUrl" column="payment_url"/>
+		<result property="bigIconUrl" column="big_icon_url"/>
+		<result property="smallIconUrl" column="small_icon_url"/>
+		<result property="announce" column="announce"/>
+		<result property="electStatus" column="elect_status"/>
+	</resultMap>
+
+	<insert id="save" parameterClass="betaTester">
+		<![CDATA[
+			INSERT INTO beta_tester
+				(
+				mem_num,
+				title_id,
+				elect_status)
+			VALUES
+				(
+				#memNum#,
+				#titleId#,
+				#electStatus#
+				)
+		]]>
+	</insert>
+	<select id="selectByKey" parameterClass="java.util.Map" resultMap="betaTesterResult">   
+        <![CDATA[
+	        SELECT
+				mem_num,
+				title_id,
+				elect_status
+			FROM
+				beta_tester
+			WHERE
+				mem_num = #memNum#
+			AND title_id = #titleId#
+        ]]>
+	</select>
+
+	<select id="selectMyBetaTestTitleList" resultMap="myTitleForBetaTestResult">
+        <![CDATA[
+	        SELECT
+				t.title_id,
+				t.title_name,
+				ifnull(t.title_about, '') as title_about,
+				t.service_status,
+				t.recruit_status,
+				t.site_url,
+				t.news_url,
+				t.forum_url,
+				t.payment_url,
+				t.big_icon_url,
+				t.small_icon_url,
+				ifnull(t.announce, '') as announce,
+				c.elect_status
+			FROM
+				title_mst t
+			LEFT JOIN
+				beta_tester c
+			ON 	t.title_id = c.title_id
+			AND c.mem_num = #value#
+			WHERE
+				service_start_date <= now() AND service_end_date >= now()
+			AND	t.service_status IN ('2', '3')
+        ]]>
+	</select>
+	
+</sqlMap>

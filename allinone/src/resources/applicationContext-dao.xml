@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+	<bean id="gameifSqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="configLocation" value="classpath:/resources/sqlMapConfig.xml" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<bean id="baseDao" abstract="true">
+		<property name="sqlMapClient">
+			<ref local="gameifSqlMapClient" />
+		</property>
+	</bean>
+	
+	<!-- memberInfoDao -->
+	<bean id="memberInfoDao" class="com.gameif.portal.dao.impl.MemberInfoDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>memberInfo</value>
+		</property>
+	</bean>
+	
+	<!-- memberLoginInfoDao -->
+	<bean id="memberLoginInfoDao" class="com.gameif.portal.dao.impl.MemberLoginInfoDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>memberLoginInfo</value>
+		</property>
+	</bean>
+	
+	<!-- inquiryInfoDao -->
+	<bean id="inquiryInfoDao" class="com.gameif.portal.dao.impl.InquiryInfoDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>inquiryInfo</value>
+		</property>
+	</bean>
+	
+	<!-- inviteInfoDao -->
+	<bean id="inviteInfoDao" class="com.gameif.portal.dao.impl.InviteInfoDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>inviteInfo</value>
+		</property>
+	</bean>
+	
+	<!-- divisionMstDao -->
+	<bean id="divisionMstDao" class="com.gameif.portal.dao.impl.DivisionMstDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>divisionMst</value>
+		</property>
+	</bean>
+	
+	<!-- occupationMstDao -->
+	<bean id="occupationMstDao" class="com.gameif.portal.dao.impl.OccupationMstDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>occupationMst</value>
+		</property>
+	</bean>
+	
+	<!-- questionMstDao -->
+	<bean id="questionMstDao" class="com.gameif.portal.dao.impl.QuestionMstDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>questionMst</value>
+		</property>
+	</bean>
+	
+	<!-- titleMstDao -->
+	<bean id="titleMstDao" class="com.gameif.portal.dao.impl.TitleMstDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>titleMst</value>
+		</property>
+	</bean>
+	
+	<!-- inviteTemplateDao -->
+	<bean id="inviteTemplateDao" class="com.gameif.portal.dao.impl.InviteTemplateDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>inviteTemplateMst</value>
+		</property>
+	</bean>
+	
+	<!-- serverMstDao -->
+	<bean id="serverMstDao" class="com.gameif.portal.dao.impl.ServerMstDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>serverMst</value>
+		</property>
+	</bean>
+	
+	<!-- playHistDao -->
+	<bean id="playHistDao" class="com.gameif.portal.dao.impl.PlayHistDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>playHist</value>
+		</property>
+	</bean>
+	
+	<!-- inquiryKindMstDao -->
+	<bean id="inquiryKindMstDao" class="com.gameif.portal.dao.impl.InquiryKindMstDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>inquiryKindMst</value>
+		</property>
+	</bean>
+	
+	<!-- tempPwdInfoDao -->
+	<bean id="tempPwdInfoDao" class="com.gameif.portal.dao.impl.TempPwdInfoDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>tempPwdInfo</value>
+		</property>
+	</bean>
+	
+	<!-- pointMstDao -->
+	<bean id="pointMstDao" class="com.gameif.portal.dao.impl.PointMstDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>pointMst</value>
+		</property>
+	</bean>
+	
+	<!-- settlementMstDao -->
+	<bean id="settlementMstDao" class="com.gameif.portal.dao.impl.SettlementMstDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>settlementMst</value>
+		</property>
+	</bean>
+	
+	<!-- memSettlementHistDao -->
+	<bean id="memSettlementHistDao" class="com.gameif.portal.dao.impl.MemSettlementHistDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>memSettlementHist</value>
+		</property>
+	</bean>
+	
+	<!-- memSettlementTrnsDao -->
+	<bean id="memSettlementTrnsDao" class="com.gameif.portal.dao.impl.MemSettlementTrnsDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>memSettlementTrns</value>
+		</property>
+	</bean>
+	
+	<!-- betaTesterDao -->
+	<bean id="betaTesterDao" class="com.gameif.portal.dao.impl.BetaTesterDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>betaTester</value>
+		</property>
+	</bean>
+	
+	<!-- servicePointDao -->
+	<bean id="servicePointDao" class="com.gameif.portal.dao.impl.ServicePointDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>servicePoint</value>
+		</property>
+	</bean>
+	
+	<!-- gameLoginCountDao -->
+	<bean id="gameLoginCountDao" class="com.gameif.portal.dao.impl.GameLoginCountDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>gameLoginCount</value>
+		</property>
+	</bean>
+	
+	<!-- servicePointTypeMstDao -->
+	<bean id="servicePointTypeMstDao" class="com.gameif.portal.dao.impl.ServicePointTypeMstDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>servicePointTypeMst</value>
+		</property>
+	</bean>
+	
+	<!-- servicePointGiveHistDao -->
+	<bean id="servicePointGiveHistDao" class="com.gameif.portal.dao.impl.ServicePointGiveHistDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>servicePointGiveHist</value>
+		</property>
+	</bean>
+	
+	<!-- servicePointUseHistDao -->
+	<bean id="servicePointUseHistDao" class="com.gameif.portal.dao.impl.ServicePointUseHistDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>servicePointUseHist</value>
+		</property>
+	</bean>
+	
+	<!-- tempMemberInfoDao -->
+	<bean id="tempMemberInfoDao" class="com.gameif.portal.dao.impl.TempMemberInfoDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>tempMemberInfo</value>
+		</property>
+	</bean>
+	
+	<!-- advertAgencyMstDao -->
+	<bean id="advertAgencyMstDao" class="com.gameif.portal.dao.impl.AdvertAgencyMstDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>advertAgencyMst</value>
+		</property>
+	</bean>
+	
+	<!-- memAdvertActualInfoDao -->
+	<bean id="memAdvertActualInfoDao" class="com.gameif.portal.dao.impl.MemAdvertActualInfoDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>memAdvertActualInfo</value>
+		</property>
+	</bean>
+	
+	<!-- advertMstDao -->
+	<bean id="advertMstDao" class="com.gameif.portal.dao.impl.AdvertMstDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>advertMst</value>
+		</property>
+	</bean>
+	
+	<!-- inviteLinkDao -->
+	<bean id="inviteLinkDao" class="com.gameif.portal.dao.impl.InviteLinkDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>inviteLink</value>
+		</property>
+	</bean>
+	
+	<!-- inviteLinkHistDao -->
+	<bean id="inviteLinkHistDao" class="com.gameif.portal.dao.impl.InviteLinkHistDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>inviteLinkHist</value>
+		</property>
+	</bean>
+	
+	<!-- maintenanceInfoDao -->
+	<bean id="maintenanceInfoDao" class="com.gameif.portal.dao.impl.MaintenanceInfoDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>maintenanceInfo</value>
+		</property>
+	</bean>
+	
+	<!-- questionnaireMstDao -->
+	<bean id="questionnaireMstDao" class="com.gameif.portal.dao.impl.QuestionnaireMstDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>questionnaireMst</value>
+		</property>
+	</bean>
+	
+	<!-- questionnaireAnswerDao -->
+	<bean id="questionnaireAnswerDao" class="com.gameif.portal.dao.impl.QuestionnaireAnswerDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>questionnaireAnswer</value>
+		</property>
+	</bean>
+	
+	<!-- memberWithdrawInfoDao -->
+	<bean id="memberWithdrawInfoDao" class="com.gameif.portal.dao.impl.MemberWithdrawInfoDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>memberWithdrawInfo</value>
+		</property>
+	</bean>
+	
+	<!-- ticketMstDao -->
+	<bean id="ticketMstDao" class="com.gameif.portal.dao.impl.TicketMstDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>ticketMst</value>
+		</property>
+	</bean>
+	
+	<!-- ticketModelMstDao -->
+	<bean id="ticketModelMstDao" class="com.gameif.portal.dao.impl.TicketModelMstDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>ticketModelMst</value>
+		</property>
+	</bean>
+	
+	<!-- ticketModelDetailDao -->
+	<bean id="ticketModelDetailDao" class="com.gameif.portal.dao.impl.TicketModelDetailDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>ticketModelDetail</value>
+		</property>
+	</bean>
+	
+	<!-- ticketInfoDao -->
+	<bean id="ticketInfoDao" class="com.gameif.portal.dao.impl.TicketInfoDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>ticketInfo</value>
+		</property>
+	</bean>
+	
+	<!-- ticketGiveHistDao -->
+	<bean id="ticketGiveHistDao" class="com.gameif.portal.dao.impl.TicketGiveHistDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>ticketGiveHist</value>
+		</property>
+	</bean>
+	
+	<!-- ticketUseHistDao -->
+	<bean id="ticketUseHistDao" class="com.gameif.portal.dao.impl.TicketUseHistDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>ticketUseHist</value>
+		</property>
+	</bean>
+	
+	<!-- memberLoginHistDao -->
+	<bean id="memberLoginHistDao" class="com.gameif.portal.dao.impl.MemberLoginHistDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>memberLoginHist</value>
+		</property>
+	</bean>
+	
+	<!-- playGuarantyDao -->
+	<bean id="playGuarantyDao" class="com.gameif.portal.dao.impl.PlayGuarantyDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>playGuaranty</value>
+		</property>
+	</bean>
+	
+	<!-- functionControlInfoDao -->
+	<bean id="functionControlInfoDao" class="com.gameif.portal.dao.impl.FunctionControlInfoDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>functionControlInfo</value>
+		</property>
+	</bean>
+	
+	<!-- opensocialMemberDao -->
+	<bean id="opensocialMemberDao" class="com.gameif.portal.dao.impl.OpensocialMemberDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>opensocialMember</value>
+		</property>
+	</bean>
+	
+	<!-- playHistDao -->
+	<bean id="opensocialPlayHistDao" class="com.gameif.portal.dao.impl.OpensocialPlayHistDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>opensocialPlayHist</value>
+		</property>
+    </bean>
+	
+	<!-- playHistDao -->
+	<bean id="opensocialPlaySummaryDao" class="com.gameif.portal.dao.impl.OpensocialPlaySummaryDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>opensocialPlaySummary</value>
+		</property>
+    </bean>
+    
+    <!-- opensocialSettlementHistDao -->
+    <bean id="opensocialSettlementHistDao" class="com.gameif.portal.dao.impl.OpensocialSettlementHistDaoImpl" parent="baseDao">
+        <property name="namespace">
+            <value>opensocialSettlementHist</value>
+        </property>
+    </bean>
+    
+    <!-- opensocialInviteDao -->
+    <bean id="opensocialInviteDao" class="com.gameif.portal.dao.impl.OpensocialInviteDaoImpl" parent="baseDao">
+        <property name="namespace">
+            <value>opensocialInvite</value>
+        </property>
+    </bean>
+    
+    <!-- jointMemberDao -->
+    <bean id="jointMemberDao" class="com.gameif.portal.dao.impl.JointMemberDaoImpl" parent="baseDao">
+        <property name="namespace">
+            <value>jointMember</value>
+        </property>
+    </bean>
+    
+    <!-- jointPlayHistDao -->
+    <bean id="jointPlayHistDao" class="com.gameif.portal.dao.impl.JointPlayHistDaoImpl" parent="baseDao">
+        <property name="namespace">
+            <value>jointPlayHist</value>
+        </property>
+    </bean>
+    
+    <!-- jointSettlementHistDao -->
+    <bean id="jointSettlementHistDao" class="com.gameif.portal.dao.impl.JointSettlementHistDaoImpl" parent="baseDao">
+        <property name="namespace">
+            <value>jointSettlementHist</value>
+        </property>
+    </bean>
+    
+    <!-- providerMstDao -->
+    <bean id="providerMstDao" class="com.gameif.portal.dao.impl.ProviderMstDaoImpl" parent="baseDao">
+        <property name="namespace">
+            <value>providerMst</value>
+        </property>
+    </bean>
+    
+    <!-- providerTitleMstDao -->
+    <bean id="providerTitleMstDao" class="com.gameif.portal.dao.impl.ProviderTitleMstDaoImpl" parent="baseDao">
+        <property name="namespace">
+            <value>providerTitleMst</value>
+        </property>
+    </bean>
+</beans>

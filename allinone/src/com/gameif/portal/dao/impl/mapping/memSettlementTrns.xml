@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="memSettlementTrns">
+	<typeAlias alias="memSettlementTrns" type="com.gameif.portal.entity.MemSettlementTrns" />
+	
+	<resultMap class="com.gameif.portal.entity.MemSettlementTrns" id="settleTrnsResult">
+		<result property="settlementTrnsNum" column="settlement_trns_num" />
+		<result property="settlementCode" column="settlement_code" />
+        <result property="providerId" column="provider_id" />
+		<result property="memNum" column="mem_num" />
+		<result property="memAtbtCd" column="mem_atbt_cd" />
+		<result property="titleId" column="title_id" />
+		<result property="serverId" column="server_id" />
+		<result property="pointId" column="point_id" />
+		<result property="settlementDate" column="settlement_date" />
+		<result property="pointAmount" column="point_amount" />
+		<result property="pointAmountAct" column="point_amount_act" />
+		<result property="settlementLog" column="settlement_log"/>
+		<result property="createdDate" column="created_date"/>
+		<result property="createdUser" column="created_user"/>
+	</resultMap>
+	
+	<insert id = "save" parameterClass="memSettlementTrns"> 
+        <![CDATA[
+		INSERT INTO mem_settlement_trns (
+			settlement_code,
+			provider_id,
+			mem_num,
+			mem_atbt_cd,
+			title_id,
+			server_id,
+			point_id,
+			settlement_date,
+			point_amount,
+			point_amount_act,
+			settlement_log,
+			created_date,
+			created_user
+        ) VALUES (
+			#settlementCode#,
+			#providerId#,
+			#memNum#,
+			#memAtbtCd#,
+			#titleId#,
+			#serverId#,
+			#pointId#,
+			#settlementDate#,
+			#pointAmount#,
+			#pointAmountAct#,
+			#settlementLog#,
+			#createdDate#,
+			#createdUser#
+		)
+        ]]>
+		<selectKey resultClass="java.lang.Long" keyProperty="settlementTrnsNum">   
+        	<![CDATA[
+			SELECT last_insert_id() as settlement_trns_num
+        	]]>
+		</selectKey>
+	</insert>
+
+	<select id="selectByKey" parameterClass="memSettlementTrns" resultMap="settleTrnsResult">   
+        <![CDATA[
+        SELECT
+			settlement_trns_num,
+			settlement_code,
+            provider_id,
+			mem_num,
+			mem_atbt_cd,
+			title_id,
+			server_id,
+			point_id,
+			settlement_date,
+			point_amount,
+			point_amount_act,
+			settlement_log,
+			created_date,
+			created_user
+		FROM
+			mem_settlement_trns
+		WHERE
+			settlement_trns_num = #settlementTrnsNum#
+        ]]>
+	</select>
+
+	<select id="selectForUpdate" resultMap="settleTrnsResult">
+        <![CDATA[
+        SELECT
+			settlement_trns_num,
+			settlement_code,
+            provider_id,
+			mem_num,
+			mem_atbt_cd,
+			title_id,
+			server_id,
+			point_id,
+			settlement_date,
+			point_amount,
+			point_amount_act,
+			settlement_log,
+			created_date,
+			created_user
+		FROM
+			mem_settlement_trns
+		WHERE
+			settlement_trns_num = #settlementTrnsNum#
+		FOR UPDATE
+        ]]>
+	</select>
+	
+	<delete id="deleteByKey" parameterClass="java.lang.Long">  
+        <![CDATA[
+        DELETE
+		FROM
+			mem_settlement_trns
+		WHERE
+			settlement_trns_num = #settlementTrnsNum#
+        ]]>
+	</delete>
+
+</sqlMap>

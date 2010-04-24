@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0.2//EN" 
+	"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+
+<validators>
+    <field name="companyName">
+        <field-validator type="requiredstring" short-circuit="true">
+			<param name="trim">true</param>
+        	<message><![CDATA[<br/>御社名を入力してください。]]></message>
+        </field-validator>
+    </field>
+    <field name="companyMediaName">
+        <field-validator type="requiredstring" short-circuit="true">
+			<param name="trim">true</param>
+        	<message><![CDATA[<br/>御社媒体名を入力してください。]]></message>
+        </field-validator>
+    </field>
+    <field name="companyUserName">
+        <field-validator type="requiredstring" short-circuit="true">
+			<param name="trim">true</param>
+        	<message><![CDATA[<br/>担当者名を入力してください。]]></message>
+        </field-validator>
+    </field>
+    <field name="userMailadd">
+        <field-validator type="requiredstring" short-circuit="true">
+			<param name="trim">true</param>
+        	<message><![CDATA[<br/>メールアドレスを入力してください。]]></message>
+        </field-validator>
+        <field-validator type="email" short-circuit="true">
+        	<message><![CDATA[<br/>メールアドレスが不正です。]]></message>
+        </field-validator>
+    </field>
+    <field name="telNum">
+        <field-validator type="regex" short-circuit="true">
+        	<param name="expression"><![CDATA[([0-9]{8,15})]]></param>
+        	<message><![CDATA[<br/>ハイフンなしの半角数字で入力してください。]]></message>
+        </field-validator>
+    </field>
+    <field name="inquiryObject">
+        <field-validator type="requiredstring" short-circuit="true">
+			<param name="trim">true</param>
+        	<message><![CDATA[<br/>お問合せ件名を入力してください。]]></message>
+        </field-validator>
+    </field>
+    <field name="inquiryContents">
+        <field-validator type="requiredstring" short-circuit="true">
+			<param name="trim">true</param>
+        	<message><![CDATA[<br/>内容を入力してください。]]></message>
+        </field-validator>
+    </field>
+    <field name="kaptcha">
+        <field-validator type="requiredstring" short-circuit="true">
+			<param name="trim">true</param>
+        	<message><![CDATA[<br/>画像認証コードを入力してください。]]></message>
+        </field-validator>
+        <field-validator type="fieldexpression">
+        	<param name="expression"><![CDATA[(kaptcha == #session.KAPTCHA_SESSION_KEY)]]></param>
+        	<message><![CDATA[<br/>認証コードが不正です。]]></message>
+        </field-validator>
+    </field>
+</validators>

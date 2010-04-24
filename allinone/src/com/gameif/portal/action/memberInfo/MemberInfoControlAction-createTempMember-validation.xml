@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0.2//EN" 
+	"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+
+<validators>
+    <field name="memId">
+        <field-validator type="requiredstring" short-circuit="true">
+			<param name="trim">true</param>
+        	<message><![CDATA[<br/>アカウントＩＤを入力してください。]]></message>
+        </field-validator>
+        <field-validator type="regex" short-circuit="true">
+        	<param name="expression"><![CDATA[(\w{6,20})]]></param>
+        	<message><![CDATA[<br/>アカウントＩＤは6～20桁の半角英数字で入力してください。]]></message>
+        </field-validator>
+        <field-validator type="fieldexpression">
+        	<param name="expression"><![CDATA[(memberInfoBusinessLogic.countMembersByMemId(memId) < 1)]]></param>
+        	<message><![CDATA[<br/>入力されたアカウントＩＤは既に使われています。]]></message>
+        </field-validator>
+    </field>
+    <field name="memPwd">
+        <field-validator type="requiredstring" short-circuit="true">
+			<param name="trim">true</param>
+        	<message><![CDATA[<br/>パスワードを入力してください。]]></message>
+        </field-validator>
+        <field-validator type="regex">
+        	<param name="expression"><![CDATA[(\w{6,20})]]></param>
+        	<message><![CDATA[<br/>パスワードは6～20桁の半角英数字で入力してください。]]></message>
+        </field-validator>
+        <field-validator type="fieldexpression">
+        	<param name="expression"><![CDATA[(memPwd != memId)]]></param>
+        	<message><![CDATA[<br/>パスワードがアカウントＩＤと一致しないでください。]]></message>
+        </field-validator>
+    </field>
+    <field name="confirmPwd">
+        <field-validator type="requiredstring" short-circuit="true">
+			<param name="trim">true</param>
+        	<message><![CDATA[<br/>パスワード確認を入力してください。]]></message>
+        </field-validator>
+        <field-validator type="regex" short-circuit="true">
+        	<param name="expression"><![CDATA[(\w{6,20})]]></param>
+        	<message><![CDATA[<br/>パスワード確認は半角英数字で入力してください。]]></message>
+        </field-validator>
+        <field-validator type="fieldexpression">
+        	<param name="expression"><![CDATA[(confirmPwd == memPwd)]]></param>
+        	<message><![CDATA[<br/>パスワードが一致しません。]]></message>
+        </field-validator>
+    </field>
+    <field name="nickName">
+        <field-validator type="requiredstring" short-circuit="true">
+			<param name="trim">true</param>
+        	<message><![CDATA[<br/>ニックネームを入力してください。]]></message>
+        </field-validator>
+        <field-validator type="regex" short-circuit="true">
+        	<param name="expression"><![CDATA[([a-zA-Z0-9｡-ﾟぁ-ゞァ-ヶ一-龠Ａ-Ｚａ-ｚ]+)]]></param>
+        	<message><![CDATA[<br/>ニックネームに記号或いはスペースが含まれています。]]></message>
+        </field-validator>
+        <field-validator type="fieldexpression">
+        	<param name="expression"><![CDATA[(memberInfoBusinessLogic.countMembersByNickName(nickName) < 1)]]></param>
+        	<message><![CDATA[<br/>入力されたニックネームは既に使われています。]]></message>
+        </field-validator>
+        <field-validator type="fieldexpression">
+        	<param name="expression"><![CDATA[(nickName != memId)]]></param>
+        	<message><![CDATA[<br/>ニックネームがアカウントＩＤと一致しないでください。]]></message>
+        </field-validator>
+    </field>
+    <field name="mailPc">
+        <field-validator type="requiredstring" short-circuit="true">
+			<param name="trim">true</param>
+        	<message><![CDATA[<br/>メールアドレスを入力してください。]]></message>
+        </field-validator>
+        <field-validator type="email" short-circuit="true">
+        	<message><![CDATA[<br/>メールアドレスが不正です。]]></message>
+        </field-validator>
+        <field-validator type="fieldexpression">
+        	<param name="expression"><![CDATA[(memberInfoBusinessLogic.countMembersByMailPc(mailPc) < 1)]]></param>
+        	<message><![CDATA[<br/>入力されたメールアドレスは既に使われています。]]></message>
+        </field-validator>
+    </field>
+    <field name="kaptcha">
+        <field-validator type="requiredstring" short-circuit="true">
+			<param name="trim">true</param>
+        	<message><![CDATA[<br/>画像認証コードを入力してください。]]></message>
+        </field-validator>
+        <field-validator type="fieldexpression">
+        	<param name="expression"><![CDATA[(kaptcha == #session.KAPTCHA_SESSION_KEY)]]></param>
+        	<message><![CDATA[<br/>認証コードが不正です。]]></message>
+        </field-validator>
+    </field>
+</validators>

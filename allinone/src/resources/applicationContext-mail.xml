@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+	<bean id="simpleMailer" class="com.gameif.common.helper.SimpleMailer">
+		<property name="sender" ref="sender" />
+		<property name="juniorSender" ref="juniorSender" />
+		<property name="taskExecutor" ref="taskExecutor"/>
+		<property name="from">
+			<value>${simpleMailer.from}</value>
+		</property>
+	</bean>
+	
+	<bean id="templateMailer" class="com.gameif.common.helper.TemplateMailer">
+		<property name="sender" ref="sender" />
+		<property name="juniorSender" ref="juniorSender" />
+		<property name="freeMarkerConfigurer" ref="freeMarkerConfigurer"/>
+		<property name="taskExecutor" ref="taskExecutor"/>
+		<property name="from" value="${simpleMailer.from}" />
+		<property name="replyTo" value="${simpleMailer.from}" />
+		<property name="encoding" value="UTF-8" />
+		<property name="templates">
+			<map>
+				<entry key="createTempMember">
+					<map>
+						<entry key="title" value="【ゲームイフ】アカウント有効化のご案内"/>
+						<entry key="template" value="createTempMember.ftl"/>
+						<entry key="format" value="text"/>
+					</map>
+				</entry>
+				<entry key="createMember">
+					<map>
+						<entry key="title" value="【ゲームイフ】アカウント有効化完了のお知らせ"/>
+						<entry key="template" value="createMember.ftl"/>
+						<entry key="format" value="text"/>
+					</map>
+				</entry>
+				
+				<entry key="updateMemberInfo">
+					<map>
+						<entry key="title" value="【ゲームイフ】会員情報変更のお知らせ"/>
+						<entry key="template" value="updateMemberInfo.ftl"/>
+						<entry key="format" value="text"/>
+					</map>
+				</entry>
+				<entry key="updatePassword">
+					<map>
+						<entry key="title" value="【ゲームイフ】パスワード変更のお知らせ"/>
+						<entry key="template" value="updatePassword.ftl"/>
+						<entry key="format" value="text"/>
+					</map>
+				</entry>
+				<entry key="presentServicePoint">
+					<map>
+						<entry key="title" value="【ゲームイフ】サービスポイントプレゼントのお知らせ"/>
+						<entry key="template" value="presentServicePoint.ftl"/>
+						<entry key="format" value="text"/>
+					</map>
+				</entry>
+				<entry key="pointCharge">
+					<map>
+						<entry key="title" value="【ゲームイフ】ポイントチャージのお知らせ"/>
+						<entry key="template" value="pointCharge.ftl"/>
+						<entry key="format" value="text"/>
+					</map>
+				</entry>
+				<entry key="createPwdReget">
+					<map>
+						<entry key="title" value="【ゲームイフ】パスワード再設定のご案内"/>
+						<entry key="template" value="createPwdReget.ftl"/>
+						<entry key="format" value="text"/>
+					</map>
+				</entry>
+				<entry key="inviteFriend">
+					<map>
+						<entry key="title" value="【ゲームイフ】友達がゲームプレイを誘っています。"/>
+						<entry key="template" value="inviteFriend.ftl"/>
+						<entry key="format" value="text"/>
+					</map>
+				</entry>
+				<entry key="pointCharge">
+					<map>
+						<entry key="title" value="【ゲームイフ】ポイントチャージのお知らせ"/>
+						<entry key="template" value="pointCharge.ftl"/>
+						<entry key="format" value="text"/>
+					</map>
+				</entry>
+				<entry key="presentServicePoint">
+					<map>
+						<entry key="title" value="【ゲームイフ】サービスポイント贈与のお知らせ"/>
+						<entry key="template" value="presentServicePoint.ftl"/>
+						<entry key="format" value="text"/>
+					</map>
+				</entry>
+				<entry key="withdrawMember">
+					<map>
+						<entry key="title" value="【ゲームイフ】退会完了のお知らせ"/>
+						<entry key="template" value="withdrawMember.ftl"/>
+						<entry key="format" value="text"/>
+					</map>
+				</entry>
+				<entry key="friendLogin">
+					<map>
+						<entry key="title" value="【ゲームイフ】友達登録完了のお知らせ"/>
+						<entry key="template" value="friendLogin.ftl"/>
+						<entry key="format" value="text"/>
+					</map>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="sender"
+		class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host">
+			<value>${sender.host}</value>
+		</property>
+		<property name="username">
+			<value>${sender.username}</value>
+		</property>
+		<property name="password">
+			<value>${sender.password}</value>
+		</property>
+		<property name="port">
+			<value>${sender.port}</value>
+		</property>
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">${sender.mail.smtp.auth}</prop>
+				<prop key="mail.smtp.timeout">${sender.mail.smtp.timeout}</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="juniorSender"
+		class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host">
+			<value>${juniorSender.host}</value>
+		</property>
+		<property name="username">
+			<value>${juniorSender.username}</value>
+		</property>
+		<property name="password">
+			<value>${juniorSender.password}</value>
+		</property>
+		<property name="port">
+			<value>${juniorSender.port}</value>
+		</property>
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">${juniorSender.mail.smtp.auth}</prop>
+				<prop key="mail.smtp.timeout">${juniorSender.mail.smtp.timeout}</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="freeMarkerConfigurer"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="templateLoaderPath">
+			<value>WEB-INF/template/mail/</value>
+		</property>
+		<property name="freemarkerSettings">
+			<props>
+				<prop key="template_update_delay">1800</prop>
+				<prop key="default_encoding">UTF-8</prop>
+				<prop key="locale">ja_JP</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+	    <property name="corePoolSize">
+	    	<value>5</value>
+	    </property>
+	    <property name="maxPoolSize">
+	    	<value>30</value>
+	    </property>
+	</bean>
+</beans>

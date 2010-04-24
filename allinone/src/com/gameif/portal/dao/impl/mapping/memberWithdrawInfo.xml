@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="memberWithdrawInfo">
+	<typeAlias alias="memberWithdrawInfo" type="com.gameif.portal.entity.MemberWithdrawInfo" />
+	
+	<insert id = "save" parameterClass="memberWithdrawInfo"> 
+        <![CDATA[
+		INSERT INTO member_withdraw_info
+			(mem_num,
+			withdraw_date,
+			withdraw_reason,
+			remarks)
+		VALUES
+			(#memNum#,
+			#withdrawDate#,
+			#withdrawReasonDb#,
+			#remarks#)
+        ]]>
+	</insert>
+
+</sqlMap>
