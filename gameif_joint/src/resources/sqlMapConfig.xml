@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN"
+    "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+
+	<settings cacheModelsEnabled="false"
+		enhancementEnabled="false"
+		lazyLoadingEnabled="true"
+		errorTracingEnabled="true"
+		useStatementNamespaces="true"
+		maxRequests="32"
+		maxSessions="10"
+		maxTransactions="5" />
+	
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/titleMst.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/serverMst.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/pointMst.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/settlementMst.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/maintenanceInfo.xml" />
+    <sqlMap resource="com/gameif/portal/dao/impl/mapping/jointMember.xml"/>
+    <sqlMap resource="com/gameif/portal/dao/impl/mapping/jointPlayHist.xml"/>
+    <sqlMap resource="com/gameif/portal/dao/impl/mapping/jointSettlementHist.xml"/>
+    <sqlMap resource="com/gameif/portal/dao/impl/mapping/providerMst.xml"/>
+    <sqlMap resource="com/gameif/portal/dao/impl/mapping/providerTitleMst.xml"/>
+</sqlMapConfig>
