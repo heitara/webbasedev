@@ -70,20 +70,4 @@
 			<result name="input" type="redirect">chargePointSelect.html?titleId=${titleId}&amp;serverId=${serverId}</result>
         </action>
     </package>
-	
-	<package name="gamejax" extends="json-default">
-		<interceptors>
-			<interceptor name="actionLogger" class="actionLoggerInterceptor"/>
-			<interceptor-stack name="gameifStack">
-				<interceptor-ref name="defaultStack"/>
-				<interceptor-ref name="actionLogger"/>
-			</interceptor-stack>
-		</interceptors>
-		<default-interceptor-ref name="gameifStack"/>
-		
-		<!-- ポイントチャージに関するマスタ情報を取得する -->
-		<action name="*ForCharge" class="pointChargeBindMasterAction" method="{1}">
-            <result type="json"></result>
-		</action>
-	</package>
 </struts>
