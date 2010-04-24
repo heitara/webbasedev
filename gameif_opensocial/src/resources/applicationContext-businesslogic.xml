@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+	
+	<!-- masterInfoBusinessLogic -->
+	<bean id="masterInfoBusinessLogic"
+		class="com.gameif.portal.businesslogic.impl.MasterInfoBusinessLogicImpl">
+		<property name="titleMstDao">
+			<ref bean="titleMstDao" />
+		</property>
+		<property name="serverMstDao">
+			<ref bean="serverMstDao" />
+		</property>
+		<property name="pointMstDao">
+			<ref bean="pointMstDao" />
+		</property>
+		<property name="providerMstDao">
+			<ref bean="providerMstDao" />
+		</property>
+		<property name="providerTitleMstDao">
+			<ref bean="providerTitleMstDao" />
+		</property>
+	</bean>
+	
+	<!-- maintenanceBusinessLogic -->
+	<bean id="maintenanceBusinessLogic"
+		class="com.gameif.portal.businesslogic.impl.MaintenanceBusinessLogicImpl">
+		<property name="titleMstDao">
+			<ref bean="titleMstDao" />
+		</property>
+		<property name="maintenanceInfoDao">
+			<ref bean="maintenanceInfoDao" />
+		</property>
+	</bean>
+	
+	<!-- opensocialMemberBusinessLogic -->
+	<bean id="opensocialMemberBusinessLogic"
+		class="com.gameif.portal.businesslogic.impl.OpensocialMemberBusinessLogicImpl">
+		<property name="opensocialMemberDao">
+			<ref bean="opensocialMemberDao" />
+		</property>
+		<property name="opensocialInviteDao">
+			<ref bean="opensocialInviteDao" />
+		</property>
+		<property name="opensocialPlaySummaryDao">
+			<ref bean="opensocialPlaySummaryDao" />
+		</property>
+	</bean>
+	<!-- opensocialTitlePlayBusinessLogic -->
+	<bean id="opensocialTitlePlayBusinessLogic"
+		class="com.gameif.portal.businesslogic.impl.OpensocialTitlePlayBusinessLogicImpl">
+		<property name="opensocialPlayHistDao">
+			<ref bean="opensocialPlayHistDao" />
+		</property>
+		<property name="opensocialPlaySummaryDao">
+			<ref bean="opensocialPlaySummaryDao" />
+		</property>
+	</bean>
+    <!-- opensocialTitlePlayBusinessLogic -->
+    <bean id="opensocialPointChargeBusinessLogic"
+        class="com.gameif.portal.businesslogic.impl.OpensocialPointChargeBusinessLogicImpl">
+        
+        <!-- サービスポイントの失効時間（単位:日） -->
+        <property name="validDays">
+            <value>${servicePoint.validDays}</value>
+        </property>
+        <!-- 購入できるポイントの限度額（100,000） -->
+        <property name="limitAmountMax">
+            <value>${pointCharge.limitAmountMax}</value>
+        </property>
+        <!-- 購入できるポイントの限度額（30,000） -->
+        <property name="limitAmountMin">
+            <value>${pointCharge.limitAmountMin}</value>
+        </property>
+        <property name="memSettlementTrnsDao">
+            <ref bean="memSettlementTrnsDao" />
+        </property>
+        <property name="pointMstDao">
+            <ref bean="pointMstDao" />
+        </property>
+        <property name="titleCharge">
+            <ref bean="titleCharge" />
+        </property>
+        <property name="serverMstDao">
+            <ref bean="serverMstDao" />
+        </property>
+        <property name="settlementMstDao">
+            <ref bean="settlementMstDao" />
+        </property>
+        <property name="opensocialMemberDao">
+            <ref bean="opensocialMemberDao" />
+        </property>
+        <property name="opensocialSettlementHistDao">
+            <ref bean="opensocialSettlementHistDao" />
+        </property>
+        <property name="opensocialPlayHistDao">
+            <ref bean="opensocialPlayHistDao" />
+        </property>
+    </bean>
+</beans>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<decorators defaultdir="/WEB-INF/pages/decorators">
+
+	<excludes>
+        <pattern>/opensocial/chargeSaveSettleTrns.html*</pattern>
+        <pattern>/opensocial/chargeReceive.html*</pattern>
+	</excludes>
+	
+    <decorator name="mixi" page="opensocial/mixi.jsp"/>
+    <decorator name="opensocial" page="opensocial/opensocial.jsp"/>
+	
+	<!-- ConfigDecoratorMapper -->
+    <decorator name="opensocial" page="opensocial/layout.jsp">
+        <pattern>/opensocial/*</pattern>
+    </decorator>
+</decorators>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<include file="struts-default.xml" />
+	
+    <package name="opensocial" extends="struts-default" namespace="/opensocial">
+    
+        <interceptors>
+			<interceptor name="actionLogger" class="actionLoggerInterceptor"/>
+            <interceptor name="opensocialChargeMaintenance" class="opensocialPointChargeMaintenanceInterceptor"/>
+            <interceptor name="opensocialChargeTitleMaintenance" class="opensocialPointChargeTitleMaintenanceInterceptor"/>
+            <interceptor name="opensocialPointChargeEntryParameter" class="opensocialPointChargeEntryInterceptor"/>
+            <interceptor name="opensocialPointChargeParameter" class="opensocialPointChargeInterceptor"/>
+			<interceptor-stack name="gameifStack">
+				<interceptor-ref name="defaultStack"/>
+				<interceptor-ref name="actionLogger"/>
+			</interceptor-stack>
+        </interceptors>
+		
+		<default-interceptor-ref name="gameifStack"/>
+		
+		<global-results>
+			<result name="unhandledException">/WEB-INF/pages/opensocial/opensocial/error.jsp</result>
+            <result name="invalid.token">/WEB-INF/pages/opensocial/opensocial/warning.jsp</result>
+			<result name="warning">/WEB-INF/pages/opensocial/opensocial/warning.jsp</result>
+			<result name="error">/WEB-INF/pages/opensocial/opensocial/error.jsp</result>
+            <result name="maintenance">/WEB-INF/pages/opensocial/opensocial/maintenance.jsp</result>
+		</global-results>
+		
+        <action name="charge*" class="opensocialPointChargeControlAction" method="charge{1}">
+            <interceptor-ref name="scopedModelDriven">
+                <param name="scope">request</param>
+                <param name="name">memSettlementHist</param>
+                <param name="className">com.gameif.portal.entity.OpensocialSettlementHist</param>
+            </interceptor-ref>
+            <interceptor-ref name="gameifStack"></interceptor-ref>
+            <interceptor-ref name="opensocialPointChargeEntryParameter">
+                <param name="includeMethods">chargeEntry</param>
+            </interceptor-ref>
+            <interceptor-ref name="opensocialPointChargeParameter">
+                <param name="excludeMethods">chargeEntry,chargeReceive</param>
+            </interceptor-ref>
+            <interceptor-ref name="opensocialChargeMaintenance">
+                <param name="includeMethods">chargePointSelect,chargeSettleSelect,chargeSaveSettleTrns</param>
+            </interceptor-ref>
+            <!--
+            <interceptor-ref name="opensocialChargeTitleMaintenance">
+                <param name="includeMethods">chargeSettleSelect,chargeSaveSettleTrns</param>
+            </interceptor-ref>
+			 -->
+
+			<result name="entry" type="redirect">chargePointSelect.html</result>
+			<result name="pointSelect">/WEB-INF/pages/opensocial/${decorator}/charge_point_select.jsp</result>
+			<result name="pointSubmit" type="redirect">chargeSettleSelect.html?titleId=${titleId}&amp;serverId=${serverId}&amp;pointId=${pointId}</result>
+			<result name="settleSelect">/WEB-INF/pages/opensocial/${decorator}/charge_settle_select.jsp</result>
+			<result name="settleSubmit" type="redirect">chargeSaveSettleTrns.html?titleId=${titleId}&amp;serverId=${serverId}&amp;pointId=${pointId}&amp;settlementCode=${settlementCode}</result>
+            <result name="requestSbps">/WEB-INF/pages/opensocial/charge_detail.jsp</result>
+            <result name="success">/WEB-INF/pages/opensocial/${decorator}/charge_success.jsp</result>
+            <result name="cancel">/WEB-INF/pages/opensocial/${decorator}/charge_cancel.jsp</result>
+			<result name="error">/WEB-INF/pages/opensocial/${decorator}/error.jsp</result>
+			<result name="settlementHist">/WEB-INF/pages/opensocial/${decorator}/charge_settle_hist.jsp</result>
+			<result name="input" type="redirect">chargePointSelect.html?titleId=${titleId}&amp;serverId=${serverId}</result>
+        </action>
+    </package>
+	
+	<package name="gamejax" extends="json-default" namespace="/opensocial">
+		<interceptors>
+			<interceptor name="actionLogger" class="actionLoggerInterceptor"/>
+			<interceptor-stack name="gameifStack">
+				<interceptor-ref name="defaultStack"/>
+				<interceptor-ref name="actionLogger"/>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="gameifStack"/>
+		
+		<!-- Opensocialゲームプレイ -->
+		<action name="titlePlay" class="opensocialTitlePlayControlAction">
+            <result type="json"></result>
+		</action>
+	</package>
+</struts>

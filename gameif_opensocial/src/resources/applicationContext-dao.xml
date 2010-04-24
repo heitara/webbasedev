@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+	<bean id="gameifSqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="configLocation" value="classpath:/resources/sqlMapConfig.xml" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<bean id="baseDao" abstract="true">
+		<property name="sqlMapClient">
+			<ref local="gameifSqlMapClient" />
+		</property>
+	</bean>
+	
+	<!-- titleMstDao -->
+	<bean id="titleMstDao" class="com.gameif.portal.dao.impl.TitleMstDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>titleMst</value>
+		</property>
+	</bean>
+	
+	<!-- serverMstDao -->
+	<bean id="serverMstDao" class="com.gameif.portal.dao.impl.ServerMstDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>serverMst</value>
+		</property>
+	</bean>
+	
+	<!-- pointMstDao -->
+	<bean id="pointMstDao" class="com.gameif.portal.dao.impl.PointMstDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>pointMst</value>
+		</property>
+	</bean>
+	
+	<!-- settlementMstDao -->
+	<bean id="settlementMstDao" class="com.gameif.portal.dao.impl.SettlementMstDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>settlementMst</value>
+		</property>
+	</bean>
+	
+	<!-- maintenanceInfoDao -->
+	<bean id="maintenanceInfoDao" class="com.gameif.portal.dao.impl.MaintenanceInfoDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>maintenanceInfo</value>
+		</property>
+	</bean>
+	
+	<!-- memSettlementTrnsDao -->
+	<bean id="memSettlementTrnsDao" class="com.gameif.portal.dao.impl.MemSettlementTrnsDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>memSettlementTrns</value>
+		</property>
+	</bean>
+	
+	<!-- opensocialMemberDao -->
+	<bean id="opensocialMemberDao" class="com.gameif.portal.dao.impl.OpensocialMemberDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>opensocialMember</value>
+		</property>
+	</bean>
+	
+	<!-- opensocialPlayHistDao -->
+	<bean id="opensocialPlayHistDao" class="com.gameif.portal.dao.impl.OpensocialPlayHistDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>opensocialPlayHist</value>
+		</property>
+    </bean>
+	
+	<!-- opensocialPlaySummaryDao -->
+	<bean id="opensocialPlaySummaryDao" class="com.gameif.portal.dao.impl.OpensocialPlaySummaryDaoImpl" parent="baseDao">
+		<property name="namespace">
+			<value>opensocialPlaySummary</value>
+		</property>
+    </bean>
+    
+    <!-- opensocialSettlementHistDao -->
+    <bean id="opensocialSettlementHistDao" class="com.gameif.portal.dao.impl.OpensocialSettlementHistDaoImpl" parent="baseDao">
+        <property name="namespace">
+            <value>opensocialSettlementHist</value>
+        </property>
+    </bean>
+    
+    <!-- opensocialInviteDao -->
+    <bean id="opensocialInviteDao" class="com.gameif.portal.dao.impl.OpensocialInviteDaoImpl" parent="baseDao">
+        <property name="namespace">
+            <value>opensocialInvite</value>
+        </property>
+    </bean>
+    
+    <!-- providerMstDao -->
+    <bean id="providerMstDao" class="com.gameif.portal.dao.impl.ProviderMstDaoImpl" parent="baseDao">
+        <property name="namespace">
+            <value>providerMst</value>
+        </property>
+    </bean>
+    
+    <!-- providerTitleMstDao -->
+    <bean id="providerTitleMstDao" class="com.gameif.portal.dao.impl.ProviderTitleMstDaoImpl" parent="baseDao">
+        <property name="namespace">
+            <value>providerTitleMst</value>
+        </property>
+    </bean>
+</beans>
