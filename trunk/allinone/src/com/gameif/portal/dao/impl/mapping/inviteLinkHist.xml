@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="inviteLinkHist">
+	<typeAlias alias="inviteLinkHist" type="com.gameif.portal.entity.InviteLinkHist" />
+	
+	<resultMap class="com.gameif.portal.entity.InviteLinkHist" id="inviteLinkHistResult">
+		<result property="memNum" column="mem_num" />
+		<result property="childMemNum" column="child_mem_num" />
+		<result property="titleId" column="title_id" />
+		<result property="approveStatus" column="approve_status"/>
+		<result property="cookie" column="cookie"/>
+		<result property="approveCookie" column="approve_cookie"/>
+	</resultMap>
+	
+	<resultMap class="com.gameif.portal.entity.MyInviteLink" id="myInviteLinkHistResult">
+		<result property="nickName" column="nick_name" />
+		<result property="entryDate" column="entry_date" />
+		<result property="titleName" column="title_name" />
+		<result property="memNum" column="mem_num" />
+		<result property="childMemNum" column="child_mem_num" />
+		<result property="approveStatus" column="approve_status"/>
+	</resultMap>
+	
+	<insert id = "save" parameterClass="inviteLinkHist"> 
+        <![CDATA[
+			INSERT INTO invite_link_hist
+				(mem_num,
+				child_mem_num,
+				title_id,
+				approve_status,
+				cookie,
+				approve_cookie)
+			VALUES
+				(#memNum#,
+				#childMemNum#,
+				#titleId#,
+				#approveStatus#,
+				#cookie#,
+				#approveCookie#)
+	        ]]>
+	</insert>
+	
+	<select id="selectParentByChildNum" parameterClass="java.lang.Long" resultMap="inviteLinkHistResult">   
+        <![CDATA[
+	        SELECT
+				mem_num,
+				child_mem_num,
+				title_id,
+				approve_status,
+				cookie,
+				approve_cookie
+			FROM
+				invite_link_hist
+			WHERE
+				child_mem_num = #childMemNum#
+        ]]>
+	</select>
+
+	<select id="selectLinkMembersByMemNum" parameterClass="java.lang.Long" resultMap="myInviteLinkHistResult">   
+        <![CDATA[
+	        SELECT
+				member_info.nick_name, 
+				member_info.entry_date,
+				p.mem_num,
+				p.child_mem_num,
+				p.title_name,
+				p.approve_status
+			FROM
+				member_info
+			INNER JOIN 
+				(
+					SELECT 
+						invite_link_hist.mem_num,
+						invite_link_hist.child_mem_num,
+						invite_link_hist.approve_status,
+						ifnull(title_mst.title_name, '') as title_name
+					FROM
+						invite_link_hist
+					LEFT JOIN
+						title_mst
+					ON	
+						invite_link_hist.title_id = title_mst.title_id
+				) p
+			ON	
+				member_info.mem_num = p.child_mem_num
+			AND p.mem_num = #memNum#
+			ORDER BY member_info.mem_num DESC
+        ]]>
+	</select>
+	
+	<select id="selectForUpdate" parameterClass="java.util.HashMap" resultMap="inviteLinkHistResult">   
+        <![CDATA[
+	        SELECT
+				mem_num,
+				child_mem_num,
+				title_id,
+				approve_status,
+				cookie,
+				approve_cookie
+			FROM
+				invite_link_hist
+				
+			WHERE
+				mem_num = #memNum#
+			AND	child_mem_num = #childMemNum#
+			FOR UPDATE
+        ]]>
+	</select>
+
+	<update id="update" parameterClass="inviteLinkHist">
+		<![CDATA[
+			UPDATE invite_link_hist
+			SET	title_id = #titleId#,
+				approve_status = #approveStatus#,
+				cookie = #cookie#,
+				approve_cookie = #approveCookie#
+			WHERE
+				mem_num = #memNum#
+			AND child_mem_num = #childMemNum#
+		]]>
+	</update>
+
+</sqlMap>
