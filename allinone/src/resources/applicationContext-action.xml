@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+	<bean id="secureParameterInterceptor" class="com.gameif.portal.interceptor.SecureParameterInterceptor" scope="prototype"/>
+	<bean id="entryParameterInterceptor" class="com.gameif.portal.interceptor.EntryParameterInterceptor" scope="prototype"/>
+	<bean id="actionLoggerInterceptor" class="com.gameif.portal.interceptor.ActionLogInterceptor" />
+	<!-- actionLoggerInterceptor：同ＩＰで短時間以内に連続して会員登録を行った場合、制限をかける -->
+	<bean id="repetitionRegInterceptor" class="com.gameif.portal.interceptor.RepetitionRegInterceptor" scope="prototype">
+		<!-- 連続登録する最大回数 -->
+		<property name="repetitionMax">
+			<value>${repetitionRegInterceptor.repetitionMax}</value>
+		</property>
+		<!-- チェックする時間単位（秒） -->
+		<property name="checkTime">
+			<value>${repetitionRegInterceptor.checkTime}</value>
+		</property>
+		<property name="memberInfoBusinessLogic">
+			<ref bean="memberInfoBusinessLogic" />
+		</property>
+	</bean>
+    <bean id="pointChargeMaintenanceInterceptor" class="com.gameif.portal.interceptor.PointChargeMaintenanceInterceptor">
+        <property name="maintenanceBusinessLogic">
+            <ref bean="maintenanceBusinessLogic" />
+        </property>
+    </bean>
+    <bean id="pointChargeTitleMaintenanceInterceptor" class="com.gameif.portal.interceptor.PointChargeTitleMaintenanceInterceptor">
+        <property name="maintenanceBusinessLogic">
+            <ref bean="maintenanceBusinessLogic" />
+        </property>
+    </bean>
+    <bean id="biglobePointChargeInterceptor" class="com.gameif.portal.interceptor.BiglobePointChargeInterceptor">
+        <property name="memberInfoBusinessLogic">
+            <ref bean="memberInfoBusinessLogic" />
+        </property>
+        <property name="advertNum">
+            <value>${biglobePointChargeInterceptor.advertNum}</value>
+        </property>
+    </bean>
+    <bean id="jointTitlePlayInterceptor" class="com.gameif.portal.interceptor.JointTitlePlayInterceptor">
+        <property name="masterInfoBusinessLogic">
+            <ref bean="masterInfoBusinessLogic" />
+        </property>
+        <property name="timeOutMinutes">
+            <value>15</value>
+        </property>
+    </bean>
+    <bean id="jointPointChargeEntryInterceptor" class="com.gameif.portal.interceptor.JointPointChargeEntryInterceptor">
+        <property name="masterInfoBusinessLogic">
+            <ref bean="masterInfoBusinessLogic" />
+        </property>
+        <property name="jointMemberBusinessLogic">
+            <ref bean="jointMemberBusinessLogic" />
+        </property>
+        <property name="timeOutMinutes">
+            <value>15</value>
+        </property>
+		<property name="decorators">
+			<map>
+				<entry key="2" value="otakuma"/>
+			</map>
+		</property>
+    </bean>
+    <bean id="jointPointChargeInterceptor" class="com.gameif.portal.interceptor.JointPointChargeInterceptor"/>
+	
+    <bean id="opensocialPointChargeEntryInterceptor" class="com.gameif.portal.interceptor.OpensocialPointChargeEntryInterceptor">
+        <property name="masterInfoBusinessLogic">
+            <ref bean="masterInfoBusinessLogic" />
+        </property>
+        <property name="opensocialMemberBusinessLogic">
+            <ref bean="opensocialMemberBusinessLogic" />
+        </property>
+        <property name="timeOutMinutes">
+            <value>15</value>
+        </property>
+		<property name="decorators">
+			<map>
+				<entry key="1" value="mixi"/>
+			</map>
+		</property>
+    </bean>
+    <bean id="opensocialPointChargeInterceptor" class="com.gameif.portal.interceptor.OpensocialPointChargeInterceptor"/>
+	
+	<bean id="indexAction" class="com.gameif.portal.action.menu.IndexAction" scope="prototype" />
+	
+	<bean id="displayAction" class="com.gameif.portal.action.menu.DisplayAction" scope="prototype">
+		<property name="portalProperties">
+			<ref bean="portalProperties" />
+		</property>
+	</bean>
+			
+	<!-- memberInfoAction -->
+	<bean id="memberInfoAction" class="com.gameif.portal.action.memberInfo.MemberInfoControlAction" scope="prototype">
+		<property name="memberInfoBusinessLogic">
+			<ref bean="memberInfoBusinessLogic" />
+		</property>
+		<property name="portalProperties">
+			<ref bean="portalProperties" />
+		</property>
+		<property name="masterInfoBusinessLogic">
+			<ref bean="masterInfoBusinessLogic" />
+		</property>
+		<property name="urlAftLgnGames">
+			<value>${memberInfoControlAction.urlAftLgn.games}</value>
+		</property>
+		<property name="urlAftLgnApplyTest">
+			<value>${memberInfoControlAction.urlAftLgn.applyTest}</value>
+		</property>
+		<property name="openIdEntryTransKey">
+			<value>${memberInfoControlAction.openIdEntryTransKey}</value>
+		</property>
+	</bean>
+	
+	<!-- inquiryInfoAction -->
+	<bean id="inquiryInfoAction" class="com.gameif.portal.action.inquiry.InquiryInputAction" scope="prototype">
+		<property name="inquiryInfoBusinessLogic">
+			<ref bean="inquiryInfoBusinessLogic" />
+		</property>
+		<property name="masterInfoBusinessLogic">
+			<ref bean="masterInfoBusinessLogic" />
+		</property>
+		<property name="memberInfoBusinessLogic">
+			<ref bean="memberInfoBusinessLogic" />
+		</property>
+	</bean>
+	
+	<!-- inviteInputAction -->
+	<bean id="inviteInputAction" class="com.gameif.portal.action.invite.InviteInputAction" scope="prototype">
+		<property name="inviteInfoBusinessLogic">
+			<ref bean="inviteInfoBusinessLogic" />
+		</property>
+		<property name="masterInfoBusinessLogic">
+			<ref bean="masterInfoBusinessLogic" />
+		</property>
+		<property name="memberInfoBusinessLogic">
+			<ref bean="memberInfoBusinessLogic" />
+		</property>
+		<property name="portalProperties">
+			<ref bean="portalProperties" />
+		</property>
+		<property name="maintenanceBusinessLogic">
+			<ref bean="maintenanceBusinessLogic" />
+		</property>
+	</bean>
+	
+	<!-- inviteHistAction -->
+	<bean id="inviteHistAction" class="com.gameif.portal.action.invite.InviteHistAction" scope="prototype">
+		<property name="inviteInfoBusinessLogic">
+			<ref bean="inviteInfoBusinessLogic" />
+		</property>
+		<property name="portalProperties">
+			<ref bean="portalProperties" />
+		</property>
+		<property name="maintenanceBusinessLogic">
+			<ref bean="maintenanceBusinessLogic" />
+		</property>
+	</bean>
+	
+	<!-- existCheckAction -->
+	<bean id="existCheckAction" class="com.gameif.portal.action.memberInfo.MemberInfoExistCheckAction" scope="prototype">
+		<property name="memberInfoBusinessLogic">
+			<ref bean="memberInfoBusinessLogic" />
+		</property>
+	</bean>
+	
+	<!-- titlePlayControlAction -->
+	<bean id="titlePlayControlAction" class="com.gameif.portal.action.titleif.TitlePlayControlAction" scope="prototype">
+		<property name="masterInfoBusinessLogic">
+			<ref bean="masterInfoBusinessLogic" />
+		</property>
+		<property name="titlePlayBusinessLogic">
+			<ref bean="titlePlayBusinessLogic" />
+		</property>
+		<property name="betaTesterBusinessLogic">
+			<ref bean="betaTesterBusinessLogic" />
+		</property>
+		<property name="memberInfoBusinessLogic">
+			<ref bean="memberInfoBusinessLogic" />
+		</property>
+		<property name="titleEntry">
+			<ref bean="titleEntry" />
+		</property>
+	</bean>
+	
+	<!-- titleSelectControlAction -->
+	<bean id="titleSelectControlAction" class="com.gameif.portal.action.titleif.TitleSelectControlAction" scope="prototype">
+		<property name="titlePlayBusinessLogic">
+			<ref bean="titlePlayBusinessLogic" />
+		</property>
+		<property name="memberInfoBusinessLogic">
+			<ref bean="memberInfoBusinessLogic" />
+		</property>
+	</bean>
+	
+	<!-- memberPwdRegetAction -->
+	<bean id="memberPwdRegetAction" class="com.gameif.portal.action.pwdReget.MemberPwdRegetAction" scope="prototype">
+		<property name="tempPwdRegetBusinessLogic">
+			<ref bean="tempPwdRegetBusinessLogic" />
+		</property>
+		<property name="masterInfoBusinessLogic">
+			<ref bean="masterInfoBusinessLogic" />
+		</property>
+		<property name="portalProperties">
+			<ref bean="portalProperties" />
+		</property>
+	</bean>
+	
+	<!-- 友達紹介画面にて、マスタデータバインド用アクション -->
+	<!-- inviteBindMasterAction -->
+	<bean id="inviteBindMasterAction" class="com.gameif.portal.action.invite.InviteBindMasterAction" scope="prototype">
+		<property name="masterInfoBusinessLogic">
+			<ref bean="masterInfoBusinessLogic" />
+		</property>
+	</bean>
+	
+	<!-- ポイントチャージ用アクション -->
+	<!-- pointChargeControlAction -->
+	<bean id="pointChargeControlAction" class="com.gameif.portal.action.pointCharge.PointChargeControlAction" scope="prototype">
+		<property name="masterInfoBusinessLogic">
+			<ref bean="masterInfoBusinessLogic" />
+		</property>
+		<property name="pointChargeBusinessLogic">
+			<ref bean="pointChargeBusinessLogic" />
+		</property>
+		<!-- マーチャントID -->
+		<property name="merchant_id">
+			<value>${pointChargeControlAction.merchant_id}</value>
+		</property>
+		<!-- サービスID -->
+		<property name="service_id">
+			<value>${pointChargeControlAction.service_id}</value>
+		</property>
+		<!-- 購入要求接続先URL -->
+		<property name="requestUrl">
+			<value>${pointChargeControlAction.requestUrl}</value>
+		</property>
+		<!-- 決済完了時URL -->
+		<property name="success_url">
+			<value>${pointChargeControlAction.success_url}</value>
+		</property>
+		<!-- キャンセル時URL -->
+		<property name="cancel_url">
+			<value>${pointChargeControlAction.cancel_url}</value>
+		</property>
+		<!-- エラー時URL -->
+		<property name="error_url">
+			<value>${pointChargeControlAction.error_url}</value>
+		</property>
+		<!-- 決済通知用CGI -->
+		<property name="pagecon_url">
+			<value>${pointChargeControlAction.pagecon_url}</value>
+		</property>
+		<!-- SPSより払い出されたキー -->
+		<property name="spsKey">
+			<value>${pointChargeControlAction.spsKey}</value>
+		</property>
+		<!-- リクエスト許容時間（単位:秒） -->
+		<property name="limit_second">
+			<value>${pointChargeControlAction.limit_second}</value>
+		</property>
+	</bean>
+	
+	<!-- BIGLOBEポイントチャージ用アクション -->
+	<!-- biglobePointChargeControlAction -->
+	<bean id="biglobePointChargeControlAction" class="com.gameif.portal.action.pointCharge.BiglobePointChargeControlAction" scope="prototype">
+		<property name="pointChargeBusinessLogic">
+			<ref bean="pointChargeBusinessLogic" />
+		</property>
+		<!-- リクエスト先URL（For　Biglobe） -->
+		<property name="requestUrl">
+			<value>${biglobePointChargeControlAction.requestUrl}</value>
+		</property>
+		<!-- ショップコード（For　Biglobe） -->
+		<property name="biglobeShopCode">
+			<value>${biglobePointChargeControlAction.shopCode}</value>
+		</property>
+		<!-- プロバイダーＩＰ（For　Biglobe） -->
+		<property name="providerIps">
+            <value>${biglobePointChargeControlAction.providerIps}</value>
+		</property>
+        <property name="shopGoodsCodes">
+            <value>${biglobePointChargeControlAction.shopGoodsCodes}</value>
+        </property>
+	</bean>
+	
+	<!-- ポイントチャージ画面にて、マスタデータバインド用アクション -->
+	<!-- pointChargeBindMasterAction -->
+	<bean id="pointChargeBindMasterAction" class="com.gameif.portal.action.pointCharge.PointChargeBindMasterAction" scope="prototype">
+		<property name="masterInfoBusinessLogic">
+			<ref bean="masterInfoBusinessLogic" />
+		</property>
+	</bean>
+	
+	<!-- servicePointControlAction -->
+	<bean id="servicePointControlAction" class="com.gameif.portal.action.servicePoint.ServicePointControlAction" scope="prototype">
+		<property name="masterInfoBusinessLogic">
+			<ref bean="masterInfoBusinessLogic" />
+		</property>
+		<property name="servicePointBusinessLogic">
+			<ref bean="servicePointBusinessLogic" />
+		</property>
+		<property name="pointChargeBusinessLogic">
+			<ref bean="pointChargeBusinessLogic" />
+		</property>
+		<property name="maintenanceBusinessLogic">
+			<ref bean="maintenanceBusinessLogic" />
+		</property>
+	</bean>
+	
+	<!-- betaTesterControlAction -->
+	<bean id="betaTesterControlAction" class="com.gameif.portal.action.titleif.BetaTesterControlAction" scope="prototype">
+		<property name="betaTesterBusinessLogic">
+			<ref bean="betaTesterBusinessLogic" />
+		</property>
+		<property name="masterInfoBusinessLogic">
+			<ref bean="masterInfoBusinessLogic" />
+		</property>
+	</bean>
+	
+	<!-- questionnaireAnswerAction -->
+	<bean id="questionnaireAnswerAction" class="com.gameif.portal.action.questionnaire.QuestionnaireAnswerAction" scope="prototype">
+		<property name="questionnaireAnswerBusinessLogic">
+			<ref bean="questionnaireAnswerBusinessLogic" />
+		</property>
+	</bean>
+	
+	<!-- memberWithDrawAction -->
+	<bean id="memberWithDrawAction" class="com.gameif.portal.action.withdraw.MemberWithDrawAction" scope="prototype">
+		<property name="memberInfoBusinessLogic">
+			<ref bean="memberInfoBusinessLogic" />
+		</property>
+		<property name="portalProperties">
+			<ref bean="portalProperties" />
+		</property>
+	</bean>
+	
+	<!-- ticketControlAction -->
+	<bean id="ticketControlAction" class="com.gameif.portal.action.ticket.TicketControlAction" scope="prototype">
+		<property name="ticketBusinessLogic">
+			<ref bean="ticketBusinessLogic" />
+		</property>
+		<property name="servicePointBusinessLogic">
+			<ref bean="servicePointBusinessLogic" />
+		</property>
+		<property name="maintenanceBusinessLogic">
+			<ref bean="maintenanceBusinessLogic" />
+		</property>
+	</bean>
+	
+	<!-- ticketControlAction -->
+	<bean id="titlePlayGuarantyControlAction" class="com.gameif.portal.action.titleif.TitlePlayGuarantyControlAction" scope="prototype">
+		<property name="masterInfoBusinessLogic">
+			<ref bean="masterInfoBusinessLogic" />
+		</property>
+		<property name="titlePlayBusinessLogic">
+			<ref bean="titlePlayBusinessLogic" />
+		</property>
+		<property name="betaTesterBusinessLogic">
+			<ref bean="betaTesterBusinessLogic" />
+		</property>
+		<property name="memberInfoBusinessLogic">
+			<ref bean="memberInfoBusinessLogic" />
+		</property>
+		<property name="titleEntry">
+			<ref bean="titleEntry" />
+		</property>
+	</bean>
+		
+	<!-- loginStatusProxyAction -->
+	<bean id="loginStatusProxyAction" class="com.gameif.portal.action.menu.LoginStatusProxyAction" scope="prototype" />
+	<!-- logoutProxyAction -->
+	<bean id="logoutProxyAction" class="com.gameif.portal.action.menu.LogoutProxyAction" scope="prototype" />
+	<bean id="entryProxyAction" class="com.gameif.portal.action.menu.EntryProxyAction" scope="prototype">
+		<property name="cookieAge">
+			<value>3600</value>
+		</property>
+		<property name="titleEntryUrls">
+			<map>
+				<entry key="0" value="https://www.game-if.com/"/>
+				<entry key="1" value="http://legion.game-if.com/begin.htm"/>
+				<entry key="1.117" value="http://legion.game-if.com/biglobe.htm"/>
+			</map>
+		</property>
+	</bean>
+	
+	<!-- opensocialTitlePlayControlAction -->
+	<bean id="opensocialTitlePlayControlAction" class="com.gameif.portal.action.titleif.OpensocialTitlePlayControlAction" scope="prototype">
+		<property name="titleEntry">
+			<ref bean="titleEntry" />
+		</property>
+		<property name="masterInfoBusinessLogic">
+			<ref bean="masterInfoBusinessLogic" />
+		</property>
+		<property name="opensocialTitlePlayBusinessLogic">
+			<ref bean="opensocialTitlePlayBusinessLogic" />
+		</property>
+		<property name="opensocialMemberBusinessLogic">
+			<ref bean="opensocialMemberBusinessLogic" />
+		</property>
+		<property name="opensocialPageTemplater">
+			<ref bean="opensocialPageTemplater" />
+		</property>
+	</bean>
+    
+    <!-- ポイントチャージ用アクション -->
+    <!-- pointChargeControlAction -->
+    <bean id="opensocialPointChargeControlAction" class="com.gameif.portal.action.pointCharge.OpensocialPointChargeControlAction" scope="prototype">
+        <property name="masterInfoBusinessLogic">
+            <ref bean="masterInfoBusinessLogic" />
+        </property>
+        <property name="opensocialPointChargeBusinessLogic">
+            <ref bean="opensocialPointChargeBusinessLogic" />
+        </property>
+        <!-- マーチャントID -->
+        <property name="merchant_id">
+            <value>${pointChargeControlAction.merchant_id}</value>
+        </property>
+        <!-- サービスID -->
+        <property name="service_id">
+            <value>${pointChargeControlAction.service_id}</value>
+        </property>
+        <!-- 購入要求接続先URL -->
+        <property name="requestUrl">
+            <value>${pointChargeControlAction.requestUrl}</value>
+        </property>
+        <!-- 決済完了時URL -->
+        <property name="success_url">
+            <value>${pointChargeControlAction.opensocial.success_url}</value>
+        </property>
+        <!-- キャンセル時URL -->
+        <property name="cancel_url">
+            <value>${pointChargeControlAction.opensocial.cancel_url}</value>
+        </property>
+        <!-- エラー時URL -->
+        <property name="error_url">
+            <value>${pointChargeControlAction.opensocial.error_url}</value>
+        </property>
+        <!-- 決済通知用CGI -->
+        <property name="pagecon_url">
+            <value>${pointChargeControlAction.opensocial.pagecon_url}</value>
+        </property>
+        <!-- SPSより払い出されたキー -->
+        <property name="spsKey">
+            <value>${pointChargeControlAction.spsKey}</value>
+        </property>
+        <!-- リクエスト許容時間（単位:秒） -->
+        <property name="limit_second">
+            <value>${pointChargeControlAction.limit_second}</value>
+        </property>
+    </bean>
+	
+	<!-- jointTitlePlayControlAction -->
+	<bean id="jointTitlePlayControlAction" class="com.gameif.portal.action.titleif.JointTitlePlayControlAction" scope="prototype">
+		<property name="titleEntry">
+			<ref bean="titleEntry" />
+		</property>
+		<property name="masterInfoBusinessLogic">
+			<ref bean="masterInfoBusinessLogic" />
+		</property>
+		<property name="jointTitlePlayBusinessLogic">
+			<ref bean="jointTitlePlayBusinessLogic" />
+		</property>
+		<property name="jointMemberBusinessLogic">
+			<ref bean="jointMemberBusinessLogic" />
+		</property>
+	</bean>
+    
+    <!-- ポイントチャージ用アクション -->
+    <!-- pointChargeControlAction -->
+    <bean id="jointPointChargeControlAction" class="com.gameif.portal.action.pointCharge.JointPointChargeControlAction" scope="prototype">
+        <property name="masterInfoBusinessLogic">
+            <ref bean="masterInfoBusinessLogic" />
+        </property>
+        <property name="jointPointChargeBusinessLogic">
+            <ref bean="jointPointChargeBusinessLogic" />
+        </property>
+        <!-- マーチャントID -->
+        <property name="merchant_id">
+            <value>${pointChargeControlAction.merchant_id}</value>
+        </property>
+        <!-- サービスID -->
+        <property name="service_id">
+            <value>${pointChargeControlAction.service_id}</value>
+        </property>
+        <!-- 購入要求接続先URL -->
+        <property name="requestUrl">
+            <value>${pointChargeControlAction.requestUrl}</value>
+        </property>
+        <!-- 決済完了時URL -->
+        <property name="success_url">
+            <value>${pointChargeControlAction.joint.success_url}</value>
+        </property>
+        <!-- キャンセル時URL -->
+        <property name="cancel_url">
+            <value>${pointChargeControlAction.joint.cancel_url}</value>
+        </property>
+        <!-- エラー時URL -->
+        <property name="error_url">
+            <value>${pointChargeControlAction.joint.error_url}</value>
+        </property>
+        <!-- 決済通知用CGI -->
+        <property name="pagecon_url">
+            <value>${pointChargeControlAction.joint.pagecon_url}</value>
+        </property>
+        <!-- SPSより払い出されたキー -->
+        <property name="spsKey">
+            <value>${pointChargeControlAction.spsKey}</value>
+        </property>
+        <!-- リクエスト許容時間（単位:秒） -->
+        <property name="limit_second">
+            <value>${pointChargeControlAction.limit_second}</value>
+        </property>
+    </bean>
+	
+</beans>

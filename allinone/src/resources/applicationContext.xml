@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd 
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+
+	<!--propertyConfig-->
+	<bean id="propertyConfig"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:/resources/*.properties
+				</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- dataSource -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName">
+			<value>${jdbc.driverClassName}
+			</value>
+		</property>
+		<property name="url">
+			<value>${jdbc.url}</value>
+		</property>
+		<property name="username">
+			<value>${jdbc.username}</value>
+		</property>
+		<property name="password">
+			<value>${jdbc.password}</value>
+		</property>
+	</bean>
+
+	<!-- -->
+	<!--
+		aop:config> <aop:pointcut id="serviceOperation"
+		expression="execution(* lavasoft.*.service.*(..))" /> <aop:advisor
+		pointcut-ref="serviceOperation" advice-ref="txAdvice" /> </aop:config>
+
+		<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" /> </bean>
+	-->
+	<!--
+		<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes> <tx:method name="create*" rollback-for="Exception" />
+		<tx:method name="delete*" rollback-for="Exception" /> <tx:method
+		name="save*" rollback-for="Exception" /> <tx:method name="insert*"
+		rollback-for="Exception" /> <tx:method name="update*"
+		rollback-for="Exception" /> <tx:method name="del*"
+		rollback-for="Exception" /> <tx:method name="vote*"
+		rollback-for="Exception" /> <tx:method name="*" read-only="true"
+		rollback-for="Exception" /> </tx:attributes> </tx:advice>
+	-->
+
+	<!--
+		Transaction manager for a single JDBC DataSource -->
+	<bean id="txManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<tx:annotation-driven transaction-manager="txManager" />
+
+</beans>

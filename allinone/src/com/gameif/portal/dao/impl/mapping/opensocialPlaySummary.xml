@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+    
+<sqlMap namespace="opensocialPlaySummary">
+
+	<resultMap class="com.gameif.portal.entity.OpensocialPlaySummary" id="playSummary">
+		<result property="memNum" column="mem_num" />
+		<result property="titleId" column="title_id" />
+		<result property="serverId" column="server_id" />
+		<result property="firstPlayDate" column="first_play_date" />
+		<result property="firstPlayIp" column="first_play_ip" />
+		<result property="lastPlayDate" column="last_play_date" />
+		<result property="lastPlayIp" column="last_play_ip" />
+		<result property="playCount" column="play_count" />
+	</resultMap>
+
+	<select id="selectByKey" parameterClass="com.gameif.portal.entity.OpensocialPlaySummary" resultMap="playSummary">   
+		<![CDATA[
+		SELECT
+			mem_num,
+			title_id,
+			server_id,
+			first_play_date,
+			first_play_ip,
+			last_play_date,
+			last_play_ip,
+			play_count
+		FROM
+			opensocial_play_summary
+		WHERE
+			mem_num = #memNum#
+		AND	title_id = #titleId#
+		AND	server_id = #serverId#
+		]]>
+	</select>
+
+	<select id="selectForUpdate" parameterClass="com.gameif.portal.entity.OpensocialPlaySummary" resultMap="playSummary">   
+		<![CDATA[
+		SELECT
+			mem_num,
+			title_id,
+			server_id,
+			first_play_date,
+			first_play_ip,
+			last_play_date,
+			last_play_ip,
+			play_count
+		FROM
+			opensocial_play_summary
+		WHERE
+			mem_num = #memNum#
+		AND	title_id = #titleId#
+		AND	server_id = #serverId#
+		FOR UPDATE
+		]]>
+	</select>
+
+	<select id="selectByMemNumAndTitleId" parameterClass="com.gameif.portal.entity.OpensocialPlaySummary" resultMap="playSummary">   
+		<![CDATA[
+		SELECT
+			mem_num,
+			title_id,
+			server_id,
+			first_play_date,
+			first_play_ip,
+			last_play_date,
+			last_play_ip,
+			play_count
+		FROM
+			opensocial_play_summary
+		WHERE
+			mem_num = #memNum#
+		AND	title_id = #titleId#
+		]]>
+	</select>
+
+	<insert id="save" parameterClass="com.gameif.portal.entity.OpensocialPlaySummary">
+	<![CDATA[
+		INSERT INTO opensocial_play_summary
+			(
+			mem_num,
+			title_id,
+			server_id,
+			first_play_date,
+			first_play_ip,
+			last_play_date,
+			last_play_ip,
+			play_count
+			)
+		VALUES
+			(
+			#memNum#,
+			#titleId#,
+			#serverId#,
+			#firstPlayDate#,
+			#firstPlayIp#,
+			#lastPlayDate#,
+			#lastPlayIp#,
+			#playCount#
+			)
+	]]>
+	</insert>
+
+	<update id="update" parameterClass="com.gameif.portal.entity.OpensocialPlaySummary">
+	<![CDATA[
+		UPDATE opensocial_play_summary
+		SET	mem_num = #memNum#,
+			title_id = #titleId#,
+			server_id = #serverId#,
+			first_play_date = #firstPlayDate#,
+			first_play_ip = #firstPlayIp#,
+			last_play_date = #lastPlayDate#,
+			last_play_ip = #lastPlayIp#,
+			play_count = #playCount#
+		WHERE
+			mem_num = #memNum#
+		AND	title_id = #titleId#
+		AND	server_id = #serverId#
+	]]>
+	</update>
+	
+</sqlMap>

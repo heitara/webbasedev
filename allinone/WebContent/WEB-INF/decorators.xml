@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<decorators defaultdir="/WEB-INF/pages/decorators">
+
+	<excludes>
+		<pattern>/inputMailSelInvite.html*</pattern>
+		<pattern>/loginMailSelInvite.html*</pattern>
+		<pattern>/chargeSaveSettleTrns.html*</pattern>
+		<pattern>/chargeReceive.html*</pattern>
+        <pattern>/blChargePrepare.html*</pattern>
+        <pattern>/blChargeReceive.html*</pattern>
+        <pattern>/opensocial/chargeSaveSettleTrns.html*</pattern>
+        <pattern>/opensocial/chargeReceive.html*</pattern>
+        <pattern>/joint/chargeSaveSettleTrns.html*</pattern>
+        <pattern>/joint/chargeReceive.html*</pattern>
+	</excludes>
+	
+    <decorator name="mixi" page="opensocial/mixi.jsp"/>
+    <decorator name="opensocial" page="opensocial/opensocial.jsp"/>
+    <decorator name="otakuma" page="joint/otakuma.jsp"/>
+    <decorator name="joint" page="joint/joint.jsp"/>
+    <decorator name="blank" page="blank.jsp"/>
+	
+	<!-- ConfigDecoratorMapper -->
+    <decorator name="opensocial" page="opensocial/layout.jsp">
+        <pattern>/opensocial/*</pattern>
+    </decorator>
+    <decorator name="joint" page="joint/joint.jsp">
+        <pattern>/joint/*</pattern>
+    </decorator>
+	<decorator name="layout" page="layout.jsp">
+		<pattern>/*</pattern>
+	</decorator>
+</decorators>

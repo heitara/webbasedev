@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="gameLoginCount">
+	<typeAlias alias="gameLoginCount" type="com.gameif.portal.entity.GameLoginCount" />
+	
+	<resultMap class="com.gameif.portal.entity.GameLoginCount" id="gameLoginCountResult">
+		<result property="memNum" column="mem_num" />
+		<result property="titleId" column="title_id" />
+		<result property="gameLoginCount" column="game_login_count" />
+		<result property="lastLoginYmd" column="last_login_ymd" />
+		<result property="createdDate" column="created_date"/>
+		<result property="createdUser" column="created_user"/>
+		<result property="lastUpdateDate" column="last_update_date"/>
+		<result property="lastUpdateUser" column="last_update_user"/>
+	</resultMap>
+
+	<select id="selectByKeyForUpdate" parameterClass="java.util.Map" resultMap="gameLoginCountResult">   
+        <![CDATA[
+	        SELECT
+				mem_num,
+				title_id,
+				game_login_count,
+				last_login_ymd,
+				created_date,
+				created_user,
+				last_update_date,
+				last_update_user
+			FROM
+				game_login_count
+			WHERE
+				mem_num = #memNum#
+			AND title_id = #titleId#
+			FOR UPDATE
+        ]]>
+	</select>
+	
+	<insert id = "save" parameterClass="gameLoginCount"> 
+        <![CDATA[
+			INSERT INTO game_login_count
+				(mem_num,
+				title_id,
+				game_login_count,
+				last_login_ymd,
+				created_date,
+				created_user,
+				last_update_date,
+				last_update_user)
+			VALUES
+				(#memNum#,
+				#titleId#,
+				#gameLoginCount#,
+				#lastLoginYmd#,
+				#createdDate#,
+				#createdUser#,
+				#lastUpdateDate#,
+				#lastUpdateUser#)
+        ]]>
+	</insert>
+
+	<update id="update" parameterClass="gameLoginCount">
+		<![CDATA[
+			UPDATE game_login_count
+			SET	mem_num = #memNum#,
+				title_id = #titleId#,
+				game_login_count = #gameLoginCount#,
+				last_login_ymd = #lastLoginYmd#,
+				created_date = #createdDate#,
+				created_user = #createdUser#,
+				last_update_date = #lastUpdateDate#,
+				last_update_user = #lastUpdateUser#
+			WHERE
+				mem_num = #memNum#
+			AND title_id = #titleId#
+		]]>
+	</update>
+
+</sqlMap>

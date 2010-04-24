@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="playGuaranty">
+	<typeAlias alias="playGuaranty" type="com.gameif.portal.entity.PlayGuaranty" />
+
+	<select id="selectGuarantyByMenNum" parameterClass="java.util.Map" resultClass="int">
+      <![CDATA[
+        SELECT	count(mem_num)
+		FROM	play_guaranty
+		WHERE	mem_num = #memNum#
+		AND		title_id = #titleId#
+		AND		server_id = #serverId#
+      ]]>
+	</select>
+
+	<insert id="save" parameterClass="playGuaranty">
+		<![CDATA[
+			INSERT INTO play_guaranty
+				(
+				mem_num,
+				title_id,
+				server_id,
+				play_ip
+				)
+			VALUES
+				(
+				#memNum#,
+				#titleId#,
+				#serverId#,
+				#playIp#
+				)
+		]]>
+	</insert>
+
+</sqlMap>

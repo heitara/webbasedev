@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0.2//EN" 
+	"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+
+<validators>
+    <field name="titleId">
+        <field-validator type="fieldexpression">
+        	<param name="expression"><![CDATA[(titleId > 0)]]></param>
+        	<message><![CDATA[<br/>ゲームを選択してください。]]></message>
+        </field-validator>
+    </field>
+    <field name="serverId">
+        <field-validator type="fieldexpression">
+        	<param name="expression"><![CDATA[(serverId > 0)]]></param>
+        	<message><![CDATA[<br/>サーバを選択してください。]]></message>
+        </field-validator>
+    </field>
+    <field name="pointAmount">
+        <field-validator type="requiredstring" short-circuit="true">
+			<param name="trim">true</param>
+        	<message><![CDATA[<br/>チャージするポイントを入力してください。]]></message>
+        </field-validator>
+        <field-validator type="regex" short-circuit="true">
+        	<param name="expression"><![CDATA[([0-9]+)]]></param>
+        	<message><![CDATA[<br/>ポイントは半角数字で入力してください。]]></message>
+        </field-validator>
+        <field-validator type="fieldexpression" short-circuit="true">
+        	<param name="expression"><![CDATA[(pointAmount > 0)]]></param>
+        	<message><![CDATA[<br/>チャージポイントは0以上の数字を入力してください。]]></message>
+        </field-validator>
+        <!-- 
+        <field-validator type="fieldexpression" short-circuit="true">
+        	<param name="expression"><![CDATA[(pointAmount < balance)]]></param>
+        	<message><![CDATA[<br/>チャージポイントを選択してください。]]></message>
+        </field-validator>
+         -->
+    </field>
+</validators>
