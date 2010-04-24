@@ -86,16 +86,6 @@
 		 -->
 	</filter>
 	
-	<filter>
-		<filter-name>opensocial-oauth-filter</filter-name>
-		<filter-class>org.hidetake.opensocial.filter.RequestValidationFilter</filter-class>
-	</filter>
-	
-	<filter-mapping>
-		<filter-name>opensocial-oauth-filter</filter-name>
-		<url-pattern>/opensocialTitlePlay2.html</url-pattern>
-	</filter-mapping>
-	
 	<filter-mapping>
 		<filter-name>CAS Filter</filter-name>
 		<url-pattern>/loginStatusProxy.html</url-pattern>

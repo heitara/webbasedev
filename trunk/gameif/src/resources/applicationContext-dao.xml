@@ -309,62 +309,6 @@
 			<value>functionControlInfo</value>
 		</property>
 	</bean>
-	
-	<!-- opensocialMemberDao -->
-	<bean id="opensocialMemberDao" class="com.gameif.portal.dao.impl.OpensocialMemberDaoImpl" parent="baseDao">
-		<property name="namespace">
-			<value>opensocialMember</value>
-		</property>
-	</bean>
-	
-	<!-- playHistDao -->
-	<bean id="opensocialPlayHistDao" class="com.gameif.portal.dao.impl.OpensocialPlayHistDaoImpl" parent="baseDao">
-		<property name="namespace">
-			<value>opensocialPlayHist</value>
-		</property>
-    </bean>
-	
-	<!-- playHistDao -->
-	<bean id="opensocialPlaySummaryDao" class="com.gameif.portal.dao.impl.OpensocialPlaySummaryDaoImpl" parent="baseDao">
-		<property name="namespace">
-			<value>opensocialPlaySummary</value>
-		</property>
-    </bean>
-    
-    <!-- opensocialSettlementHistDao -->
-    <bean id="opensocialSettlementHistDao" class="com.gameif.portal.dao.impl.OpensocialSettlementHistDaoImpl" parent="baseDao">
-        <property name="namespace">
-            <value>opensocialSettlementHist</value>
-        </property>
-    </bean>
-    
-    <!-- opensocialInviteDao -->
-    <bean id="opensocialInviteDao" class="com.gameif.portal.dao.impl.OpensocialInviteDaoImpl" parent="baseDao">
-        <property name="namespace">
-            <value>opensocialInvite</value>
-        </property>
-    </bean>
-    
-    <!-- jointMemberDao -->
-    <bean id="jointMemberDao" class="com.gameif.portal.dao.impl.JointMemberDaoImpl" parent="baseDao">
-        <property name="namespace">
-            <value>jointMember</value>
-        </property>
-    </bean>
-    
-    <!-- jointPlayHistDao -->
-    <bean id="jointPlayHistDao" class="com.gameif.portal.dao.impl.JointPlayHistDaoImpl" parent="baseDao">
-        <property name="namespace">
-            <value>jointPlayHist</value>
-        </property>
-    </bean>
-    
-    <!-- jointSettlementHistDao -->
-    <bean id="jointSettlementHistDao" class="com.gameif.portal.dao.impl.JointSettlementHistDaoImpl" parent="baseDao">
-        <property name="namespace">
-            <value>jointSettlementHist</value>
-        </property>
-    </bean>
     
     <!-- providerMstDao -->
     <bean id="providerMstDao" class="com.gameif.portal.dao.impl.ProviderMstDaoImpl" parent="baseDao">

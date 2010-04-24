@@ -8,6 +8,9 @@ import com.gameif.common.exception.BetaTestException;
 import com.gameif.common.exception.LogicException;
 import com.gameif.common.exception.MaintenanceException;
 import com.gameif.portal.businesslogic.IMaintenanceBusinessLogic;
+import com.gameif.portal.businesslogic.IMemberInfoBusinessLogic;
+import com.gameif.portal.constants.PortalConstants;
+import com.gameif.portal.entity.MemberInfo;
 import com.gameif.portal.util.ContextUtil;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.ActionSupport;
@@ -20,6 +23,7 @@ public class PointChargeTitleMaintenanceInterceptor extends MethodFilterIntercep
 	private static final long serialVersionUID = -4908757732007241733L;
 	
 	private IMaintenanceBusinessLogic maintenanceBusinessLogic;
+	private IMemberInfoBusinessLogic memberInfoBusinessLogic;
 
     @Override
     protected String doIntercept(ActionInvocation ai) throws Exception {
@@ -30,7 +34,7 @@ public class PointChargeTitleMaintenanceInterceptor extends MethodFilterIntercep
         ActionSupport action = (ActionSupport)ai.getAction();
         String titleIdStr = ServletActionContext.getRequest().getParameter("titleId");
         
-        if (titleIdStr != null) {
+        if (!isTestUser() && titleIdStr != null) {
         	
         	titleId = Integer.valueOf(titleIdStr);
         	
@@ -67,6 +71,30 @@ public class PointChargeTitleMaintenanceInterceptor extends MethodFilterIntercep
 		
 		return result;
     }
+    
+    protected boolean isTestUser() {
+        
+    	boolean isTestUser = false;
+    	
+    	if (ContextUtil.getMemberNo() != null) {
+        	
+    		MemberInfo member = new MemberInfo();
+    		member.setMemNum(ContextUtil.getMemberNo());
+    		member = memberInfoBusinessLogic.getMemberInfo(member);
+    		
+    		if (member != null && member.getMemAtbtCd().equals(PortalConstants.MemberAtbtCd.TEST)) {
+    			
+    			isTestUser = true;
+    		}
+    	}
+		
+		return isTestUser;
+    }
+
+	public void setMemberInfoBusinessLogic(IMemberInfoBusinessLogic memberInfoBusinessLogic) {
+		
+		this.memberInfoBusinessLogic = memberInfoBusinessLogic;
+	}
 
 	public void setMaintenanceBusinessLogic(IMaintenanceBusinessLogic maintenanceBusinessLogic) {
 		
