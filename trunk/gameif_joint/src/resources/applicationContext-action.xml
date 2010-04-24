@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+	<bean id="actionLoggerInterceptor" class="com.gameif.portal.interceptor.ActionLogInterceptor" />
+    <bean id="jointPointChargeMaintenanceInterceptor" class="com.gameif.portal.interceptor.JointPointChargeMaintenanceInterceptor">
+        <property name="maintenanceBusinessLogic">
+            <ref bean="maintenanceBusinessLogic" />
+        </property>
+		<property name="jointMemberBusinessLogic">
+			<ref bean="jointMemberBusinessLogic" />
+		</property>
+    </bean>
+    <bean id="jointPointChargeTitleMaintenanceInterceptor" class="com.gameif.portal.interceptor.JointPointChargeTitleMaintenanceInterceptor">
+        <property name="maintenanceBusinessLogic">
+            <ref bean="maintenanceBusinessLogic" />
+        </property>
+		<property name="jointMemberBusinessLogic">
+			<ref bean="jointMemberBusinessLogic" />
+		</property>
+    </bean>
+    <bean id="jointTitlePlayInterceptor" class="com.gameif.portal.interceptor.JointTitlePlayInterceptor">
+        <property name="masterInfoBusinessLogic">
+            <ref bean="masterInfoBusinessLogic" />
+        </property>
+        <property name="timeOutMinutes">
+            <value>15</value>
+        </property>
+    </bean>
+    <bean id="jointPointChargeEntryInterceptor" class="com.gameif.portal.interceptor.JointPointChargeEntryInterceptor">
+        <property name="masterInfoBusinessLogic">
+            <ref bean="masterInfoBusinessLogic" />
+        </property>
+        <property name="jointMemberBusinessLogic">
+            <ref bean="jointMemberBusinessLogic" />
+        </property>
+        <property name="timeOutMinutes">
+            <value>15</value>
+        </property>
+		<property name="decorators">
+			<map>
+				<entry key="2" value="otakuma"/>
+			</map>
+		</property>
+    </bean>
+    <bean id="jointPointChargeInterceptor" class="com.gameif.portal.interceptor.JointPointChargeInterceptor"/>
+	
+	<!-- ポイントチャージ画面にて、マスタデータバインド用アクション -->
+	<!-- pointChargeBindMasterAction -->
+	<bean id="pointChargeBindMasterAction" class="com.gameif.portal.action.pointCharge.PointChargeBindMasterAction" scope="prototype">
+		<property name="masterInfoBusinessLogic">
+			<ref bean="masterInfoBusinessLogic" />
+		</property>
+	</bean>
+	
+	<!-- jointTitlePlayControlAction -->
+	<bean id="jointTitlePlayControlAction" class="com.gameif.portal.action.titleif.JointTitlePlayControlAction" scope="prototype">
+		<property name="titleEntry">
+			<ref bean="titleEntry" />
+		</property>
+		<property name="masterInfoBusinessLogic">
+			<ref bean="masterInfoBusinessLogic" />
+		</property>
+		<property name="jointTitlePlayBusinessLogic">
+			<ref bean="jointTitlePlayBusinessLogic" />
+		</property>
+		<property name="jointMemberBusinessLogic">
+			<ref bean="jointMemberBusinessLogic" />
+		</property>
+	</bean>
+    
+    <!-- ポイントチャージ用アクション -->
+    <!-- pointChargeControlAction -->
+    <bean id="jointPointChargeControlAction" class="com.gameif.portal.action.pointCharge.JointPointChargeControlAction" scope="prototype">
+        <property name="masterInfoBusinessLogic">
+            <ref bean="masterInfoBusinessLogic" />
+        </property>
+        <property name="jointPointChargeBusinessLogic">
+            <ref bean="jointPointChargeBusinessLogic" />
+        </property>
+        <!-- マーチャントID -->
+        <property name="merchant_id">
+            <value>${pointChargeControlAction.merchant_id}</value>
+        </property>
+        <!-- サービスID -->
+        <property name="service_id">
+            <value>${pointChargeControlAction.service_id}</value>
+        </property>
+        <!-- 購入要求接続先URL -->
+        <property name="requestUrl">
+            <value>${pointChargeControlAction.requestUrl}</value>
+        </property>
+        <!-- 決済完了時URL -->
+        <property name="success_url">
+            <value>${pointChargeControlAction.joint.success_url}</value>
+        </property>
+        <!-- キャンセル時URL -->
+        <property name="cancel_url">
+            <value>${pointChargeControlAction.joint.cancel_url}</value>
+        </property>
+        <!-- エラー時URL -->
+        <property name="error_url">
+            <value>${pointChargeControlAction.joint.error_url}</value>
+        </property>
+        <!-- 決済通知用CGI -->
+        <property name="pagecon_url">
+            <value>${pointChargeControlAction.joint.pagecon_url}</value>
+        </property>
+        <!-- SPSより払い出されたキー -->
+        <property name="spsKey">
+            <value>${pointChargeControlAction.spsKey}</value>
+        </property>
+        <!-- リクエスト許容時間（単位:秒） -->
+        <property name="limit_second">
+            <value>${pointChargeControlAction.limit_second}</value>
+        </property>
+    </bean>
+</beans>
