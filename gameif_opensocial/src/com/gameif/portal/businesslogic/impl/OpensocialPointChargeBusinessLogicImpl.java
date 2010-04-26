@@ -47,6 +47,12 @@ public class OpensocialPointChargeBusinessLogicImpl extends PointChargeBusinessL
 	}
 
 	@Override
+	protected Long getMemberNumForIdentifyInTitle(MemberInfo memberInfo) {
+		
+		return Long.valueOf(memberInfo.getMemId());
+	}
+
+	@Override
 	protected void updateMemberInfo(MemberInfo member) {
 				
 		opensocialMemberDao.update((OpensocialMember)member);
