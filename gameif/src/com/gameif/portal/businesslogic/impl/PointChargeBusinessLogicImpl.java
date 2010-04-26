@@ -428,7 +428,7 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements I
 		// ポイント付与
 		ChargeParameter params = new ChargeParameter();
 		
-		params.setMemNum(member.getMemNum());
+		params.setMemNum(getMemberNumForIdentifyInTitle(member));
 		params.setMemId(member.getMemId());
 		params.setOrderNo(settlementHist.getSettlementNum());
 		params.setTitleId(settlementHist.getTitleId());
@@ -451,6 +451,11 @@ public class PointChargeBusinessLogicImpl extends BaseBusinessLogic implements I
 			
 			throw new SystemException("Failed to charge.");
 		}
+	}
+	
+	protected Long getMemberNumForIdentifyInTitle(MemberInfo memberInfo) {
+		
+		return memberInfo.getMemNum();
 	}
 
 	/**
