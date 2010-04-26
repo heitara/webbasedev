@@ -7,15 +7,29 @@
 	<title><decorator:title default="遊びから生まれる可能性"/> | ゲームイフ | ブラウザゲームポータルサイト</title>
 	<meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
 	<base href="<%=getServletContext().getInitParameter("portalTopUrl")%>/"/>
-	<link type="text/css" href="css/opensocial/mixi.css" rel="stylesheet"></link>
+	<link type="text/css" href="css/opensocial/mixi/1.css" rel="stylesheet"></link>
 	<script src="js/jquery/jquery.js" type="text/javascript"></script>
 	<decorator:head />
 </head>
 <body>
-<div class="page_main_box">
-	<decorator:body />
+<div class="page">
+	<div class="page_title">ゲームポイント（GP）購入</div>
+	<div class="page_main">
+		<decorator:body />
+	</div>
+	<div class="about_sbps">
+		ゲームイフが運営するゲームでは、決済に「ソフトバンク・ペイメント・サービス」を利用しています。<br/>
+		クレジットカード情報（番号/有効期限等）等決済関連の個人情報はゲームイフで保存しておりませんので、安心してご利用ください。
+		<div class="sbps_logo">
+			<a href="https://www.sbpayment.jp/asp/reliability/index.html" target="_blank">
+				<img src="https://www.sbpayment.jp/shared/img/header_logo.gif" border="0"/>
+			</a>
+		</div>
+	</div>
+	<div class="copyright">
+		Copyright ©2010 Game-if Co., Ltd. All Rights Reserved.
+	</div>
 </div>
-
 <script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
 document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));

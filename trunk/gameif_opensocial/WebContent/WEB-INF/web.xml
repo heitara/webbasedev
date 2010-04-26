@@ -6,7 +6,7 @@
 	
 	<context-param>
 		<param-name>portalTopUrl</param-name>
-		<param-value>http://localhost:8080/gameif</param-value>
+		<param-value>http://localhost:8080/gameif_opensocial</param-value>
 	</context-param>
 
 	<filter>

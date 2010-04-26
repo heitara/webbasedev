@@ -1,4 +1,4 @@
-#Sat Apr 24 22:03:59 JST 2010
+#Sun Apr 25 22:50:22 JST 2010
 eclipse.preferences.version=1
 encoding//WebContent/WEB-INF/template/opensocial/mixiError.htm=UTF-8
 encoding//WebContent/WEB-INF/template/opensocial/mixiMaintenance.htm=UTF-8
@@ -6,6 +6,7 @@ encoding//WebContent/WEB-INF/template/opensocial/mixiPlay.htm=UTF-8
 encoding//WebContent/WEB-INF/template/opensocial/mixiSelectServer.htm=UTF-8
 encoding//WebContent/css/common.css=UTF-8
 encoding//WebContent/css/main.css=UTF-8
+encoding//WebContent/css/opensocial/mixi/1.css=UTF-8
 encoding//WebContent/css/popup.css=UTF-8
 encoding//src/messages.properties=UTF-8
 encoding//src/resources=UTF-8

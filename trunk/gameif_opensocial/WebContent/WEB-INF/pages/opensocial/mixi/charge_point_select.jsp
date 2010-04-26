@@ -15,7 +15,7 @@ td.oname { font-size:14px; font-weight:bold; color:#F90; }
 <body>
 <!-- ポイントチャージ：開始 -->
 <s:form name="frm_nosubmit_point_select" method="post" cssClass="entry">
-<div style="margin-bottom:20px;text-align:center;">
+<div style="text-align:center;">
 	<img src="images/point_flow_11.gif"/>
 	<img src="images/point_flow_00.gif"/>
 	<img src="images/point_flow_20.gif"/>
@@ -26,7 +26,7 @@ td.oname { font-size:14px; font-weight:bold; color:#F90; }
 	<img src="images/point_flow_00.gif"/>
 	<img src="images/point_flow_50.gif"/>
 </div>
-<table align="center" style="margin-bottom:50px;">
+<table align="center" style="margin-bottom:30px;">
 	<tr height="35">
 		<th width="120px;"></th>
 		<td>
@@ -57,6 +57,5 @@ td.oname { font-size:14px; font-weight:bold; color:#F90; }
 	</tr>
 </table>
 </s:form>
-<!-- ポイントチャージ：終了 -->
 </body>
 </html>
