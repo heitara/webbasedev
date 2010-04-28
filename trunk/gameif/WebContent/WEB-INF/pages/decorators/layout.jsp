@@ -205,7 +205,7 @@ response.setDateHeader("Expires",0);
 <%
 	}
 %>
-	<!-- <a href="http://www.webmoney.jp/service/walletplus/0318campaign/" target="_blank" style="margin-top:200px;"><img src="images/advert/wm_cp_1003_200X100.jpg"/></a> -->
+	<a href="http://www.webmoney.jp/campaign/2010gw/" target="_blank" style="margin-top:200px;"><img src="images/advert/wm_cp_0426_200x120.jpg"/></a>
 <%
 
 	/* =============================================== マイゲーム ===================================================== */
@@ -407,7 +407,7 @@ response.setDateHeader("Expires",0);
 %>
 			</dd>
 		</dl>
-		<a href="inputInvite.html" title="友達を紹介してサービスポイントを獲得しよう！"><img src="images/bn_b_friends.gif" alt="友達紹介"/></a>
+		<!-- <a href="inputInvite.html" title="友達を紹介してサービスポイントを獲得しよう！"><img src="images/bn_b_friends.gif" alt="友達紹介"/></a> -->
 <%
 	}
 %>
