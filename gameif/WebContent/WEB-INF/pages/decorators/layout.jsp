@@ -205,7 +205,7 @@ response.setDateHeader("Expires",0);
 <%
 	}
 %>
-	<a href="http://www.webmoney.jp/campaign/2010gw/" target="_blank" style="margin-top:200px;"><img src="images/advert/wm_cp_0426_200x120.jpg"/></a>
+	<!-- <a href="http://www.webmoney.jp/campaign/2010gw/" target="_blank" style="margin-top:200px;"><img src="images/advert/wm_cp_0426_200x120.jpg"/></a> -->
 <%
 
 	/* =============================================== マイゲーム ===================================================== */
@@ -215,7 +215,7 @@ response.setDateHeader("Expires",0);
 	
 	if (isLogined) {
 
-		titlePlayLogic = (ITitlePlayBusinessLogic)ctxt.getBean("titlePlayBusinessLogic");		
+		titlePlayLogic = (ITitlePlayBusinessLogic)ctxt.getBean("titlePlayBusinessLogic");
 		myTitles = titlePlayLogic.getPlayedTitles(memNum);
 	}
 
