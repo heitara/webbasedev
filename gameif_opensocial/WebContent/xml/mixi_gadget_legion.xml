@@ -169,13 +169,17 @@ function _getGameIFInviteFriendParam(friendIds) {
 	return params;
 }
 
-function _gotoGuidePage() {
+function _openGuidePage() {
 
 	var windW = 800;
 	var windH = screen.height - 220;
 	var windL = (screen.width - windW) / 2;
 	var windT = 60;
 	window.open(_legionGuideUrl,'guide','height=' + windH + ',width=' + windW + ',left=' + windL + ',top=' + windT + ',toolbar=no,scrollbars=yes,menubar=no,resizable=no,location=no, status=no');
+}
+function _gotoGuidePage() {
+
+	mixi.util.requestExternalNavigateTo(_legionGuideUrl);
 }
 
 function _setUserProfile(viewer) {
