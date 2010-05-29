@@ -7,7 +7,7 @@
 	<title><decorator:title default="遊びから生まれる可能性"/> | ゲームイフ | ブラウザゲームポータルサイト</title>
 	<meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
 	<base href="<%=getServletContext().getInitParameter("portalTopUrl")%>/"/>
-	<link type="text/css" href="css/opensocial/mixi/1.css" rel="stylesheet"></link>
+	<link type="text/css" href="css/mixi/1.css" rel="stylesheet"></link>
 	<script src="js/jquery/jquery.js" type="text/javascript"></script>
 	<decorator:head />
 </head>
