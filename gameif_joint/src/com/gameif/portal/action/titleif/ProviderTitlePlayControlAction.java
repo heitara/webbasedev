@@ -156,7 +156,7 @@ public abstract class ProviderTitlePlayControlAction extends BaseActionSupport {
 		return server;
 	}
 	
-	private List<ServerMst> getServers() {
+	protected List<ServerMst> getServers() {
 
 		List<ServerMst> servers = null;
 		
@@ -246,7 +246,7 @@ public abstract class ProviderTitlePlayControlAction extends BaseActionSupport {
 				// テストユーザの場合
 				playable = true;
 				
-			} else {
+			} else if (isValidTitle(titleId)) {
 				
 				// 一般ユーザの場合
 				if (PortalConstants.ServerStatus.RUNNING.equals(server.getServiceStatus())
@@ -263,7 +263,7 @@ public abstract class ProviderTitlePlayControlAction extends BaseActionSupport {
 		return playable;
 	}
 	
-	private boolean isSelectable (List<ServerMst> servers, MemberInfo memInfo) {
+	protected boolean isSelectable (List<ServerMst> servers, MemberInfo memInfo) {
 
 		boolean isSelectable = false;
 
