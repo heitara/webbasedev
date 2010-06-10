@@ -46,7 +46,7 @@ div.g_mx_profile {
 	margin:auto;
 	width:210px;
 	height:210px;
-	background:url(http://test.www.game-if.com/images/opensocial/mixi/mixi_profile.jpg) no-repeat center;
+	background:url(http://test.www.game-if.com/opensocial/images/opensocial/mixi/mixi_profile.jpg) no-repeat center;
 	text-align:right;
 }
 div.g_mx_profile a {
@@ -103,7 +103,7 @@ td.mx_g_menu a {
 	color:#FFF;
 	font-weight:bold;
 	text-decoration:none;
-	background:url(http://test.www.game-if.com/images/opensocial/mixi/bg_btn_mxi_legion.gif);
+	background:url(http://test.www.game-if.com/opensocial/images/opensocial/mixi/bg_btn_mxi_legion.gif);
 }
 td.mx_g_menu a:visited {
 	color:#FFF;
@@ -114,7 +114,7 @@ td.mx_g_menu a:hover {
 
 table.mx_g_bottom {
 	width:945px;
-	background-color:#333;
+	background-color:#222;
 }
 table.mx_g_bottom tr {
 	height:76px;
@@ -138,49 +138,70 @@ table.mx_g_bottom tr td.detail {
 	color:#FFF;
 }
 table.mx_g_bottom tr td a img {
-	border:1px solid #FFF;
+	border:0px;
 }
-div.friend_detail,div table tr {
+div.friend_detail table tr {
 	height:20px;
 	font-size:12px;
 	color:#FFF;
 }
-div.friend_detail,div table tr th {
+div.friend_detail table tr th {
 	width:70px;
 	text-align:center;
-	border:1px solid #444;
-	background-color:#222;
+	border:1px solid #333;
+	background-color:#111;
 	font-weight:normal;
 	color:#BBB;
 }
-div.friend_detail,div table tr td.data {
+div.friend_detail table tr td.data {
 	width:100px;
 	padding-left:5px;
 	text-align:left;
 	line-height:10px;
 }
-div.friend_detail,div table tr td.op {
+div.friend_detail table tr td.op {
 	vertical-align:top;
 }
-div.friend_detail,div table tr td.message {
+div.friend_detail table tr td.message {
 	vertical-align:top;
 	width:365px;
 }
+div#start table tr td {
+	line-height:17px;
+	padding-right:5px;
+}
+div#start table tr td a {
+	color:#FFF;
+}
+div#start table tr td a:hover {
+	color:#F90;
+}
 </style>
 
-<div id="proxyScript"></div>
+<div id="proxyScript" style="display:none;"></div>
 <div id="target"></div>
 <table class="mx_g_bottom" cellpadding="0" cellspacing="5" border="0" style="margin-top:1px;">
 	<tr valign="middle">
-		<td class="previous"><a href="javascript:;"><img src="http://test.www.game-if.com/opensocial/images/opensocial/mixi/btn_previous.png" alt="友達を誘いましょう！"/></a></td>
-		<td class="thumb"><a id="friend0" href="javascript:_inviteFriends();" title="友達を誘いましょう！"><img id="friendThumb0" src="http://test.www.game-if.com/opensocial/images/opensocial/mixi/img_no_friend.gif" alt="友達を誘いましょう！"/></a></td>
-		<td class="thumb"><a id="friend1" href="javascript:_inviteFriends();" title="友達を誘いましょう！"><img id="friendThumb1" src="http://test.www.game-if.com/opensocial/images/opensocial/mixi/img_no_friend.gif" alt="友達を誘いましょう！"/></a></td>
-		<td class="thumb"><a id="friend2" href="javascript:_inviteFriends();" title="友達を誘いましょう！"><img id="friendThumb2" src="http://test.www.game-if.com/opensocial/images/opensocial/mixi/img_no_friend.gif" alt="友達を誘いましょう！"/></a></td>
-		<td class="thumb"><a id="friend3" href="javascript:_inviteFriends();" title="友達を誘いましょう！"><img id="friendThumb3" src="http://test.www.game-if.com/opensocial/images/opensocial/mixi/img_no_friend.gif" alt="友達を誘いましょう！"/></a></td>
-		<td class="thumb"><a id="friend4" href="javascript:_inviteFriends();" title="友達を誘いましょう！"><img id="friendThumb4" src="http://test.www.game-if.com/opensocial/images/opensocial/mixi/img_no_friend.gif" alt="友達を誘いましょう！"/></a></td>
-		<td class="next" align="right"><a href="javascript:;"><img src="http://test.www.game-if.com/opensocial/images/opensocial/mixi/btn_next.png" alt="友達を誘いましょう！"/></a></td>
+		<td class="previous"><a href="javascript:_doShowPreviousFriendList();"><img src="http://test.www.game-if.com/opensocial/images/opensocial/mixi/btn_previous.png" alt="友達を誘いましょう！"/></a></td>
+		<td class="thumb" id="thumbCell0"><a id="friend0" href="javascript:_inviteFriends();" title="友達を誘いましょう！"><img id="friendThumb0" src="http://test.www.game-if.com/opensocial/images/opensocial/mixi/img_no_friend.gif" alt="友達を誘いましょう！"/></a></td>
+		<td class="thumb" id="thumbCell1"><a id="friend1" href="javascript:_inviteFriends();" title="友達を誘いましょう！"><img id="friendThumb1" src="http://test.www.game-if.com/opensocial/images/opensocial/mixi/img_no_friend.gif" alt="友達を誘いましょう！"/></a></td>
+		<td class="thumb" id="thumbCell2"><a id="friend2" href="javascript:_inviteFriends();" title="友達を誘いましょう！"><img id="friendThumb2" src="http://test.www.game-if.com/opensocial/images/opensocial/mixi/img_no_friend.gif" alt="友達を誘いましょう！"/></a></td>
+		<td class="thumb" id="thumbCell3"><a id="friend3" href="javascript:_inviteFriends();" title="友達を誘いましょう！"><img id="friendThumb3" src="http://test.www.game-if.com/opensocial/images/opensocial/mixi/img_no_friend.gif" alt="友達を誘いましょう！"/></a></td>
+		<td class="thumb" id="thumbCell4"><a id="friend4" href="javascript:_inviteFriends();" title="友達を誘いましょう！"><img id="friendThumb4" src="http://test.www.game-if.com/opensocial/images/opensocial/mixi/img_no_friend.gif" alt="友達を誘いましょう！"/></a></td>
+		<td class="next" align="right"><a href="javascript:_doShowNextFriendList();"><img src="http://test.www.game-if.com/opensocial/images/opensocial/mixi/btn_next.png" alt="友達を誘いましょう！"/></a></td>
 		<td class="detail">
 			<div id="start" class="friend_detail" style="block;">
+				<table width="100%">
+					<tr>
+						<td><img src="http://test.www.game-if.com/opensocial/images/opensocial/mixi/adv_invite.png"/></td>
+						<td align="right">
+							<a href="javascript:mixi.util.requestExternalNavigateTo('http://mixi.legion.game-if.com');">レジオンとは</a><br/>
+							<a href="javascript:mixi.util.requestExternalNavigateTo('http://mixi.legion.game-if.com/guide/guide_start.php');">スタート案内</a><br/>
+							<a href="javascript:mixi.util.requestExternalNavigateTo('http://mixi.legion.game-if.com/guide/guide_quest1.php');">初心者クエスト</a><br/>
+							<a href="javascript:mixi.util.requestExternalNavigateTo('http://mixi.legion.game-if.com/support/faq.php');">よくある質問</a><br/>
+						</td>
+					</tr>
+				</table>
 			</div>
 			<div id="friend_detail" class="friend_detail" style="display:none;">
 				<table cellspacing="3">
@@ -215,7 +236,7 @@ div.friend_detail,div table tr td.message {
 							<h3 id="success_message">メッセージを送信しました。</h3>ご利用ありがとうございました。
 						</td>
 						<td class="op">
-							<a href=""><img src="http://test.www.game-if.com/opensocial/images/opensocial/mixi/btn_back.gif"/></a>
+							<a href="javascript:_doBackToFriendDetail();"><img src="http://test.www.game-if.com/opensocial/images/opensocial/mixi/btn_back.gif"/></a>
 						</td>
 					</tr>
 				</table>
@@ -252,7 +273,7 @@ function _inviteFriends() {
 			if (recipientIds.length > 0) {
 			
 				//console.log(_getGameIFInviteFriendParam(recipientIds.join("|")));
-				gadgets.io.makeRequest(_gameIFServletUrl, function(resdata) { }, _getGameIFInviteFriendParam(recipientIds.join("|")));
+				gadgets.io.makeRequest(_gameIFServletUrl, function(resdata) {}, _getGameIFInviteFriendParam(recipientIds.join("|")));
 			}
 		}
 	
@@ -292,16 +313,6 @@ function _gotoGuidePage() {
 	mixi.util.requestExternalNavigateTo(_legionGuideUrl);
 }
 
-function _setUserProfile(viewer) {
-	
-	_userId = viewer.getId();
-}
-
-function _doGameIFChargeResponse(resdata) {
-
-	mixi.util.requestExternalNavigateTo(resdata.data.htmlText, mixi.util.ExternalSiteType.PAYMENT);
-}
-
 function _getGameIFChargeParam(serverId) {
 
 	var params = _getGameIFBaseParam(serverId);
@@ -323,7 +334,11 @@ function _getGameIFChargeParam(serverId) {
 
 function _gotoGameIFCharge(serverId) {
 	
-	gadgets.io.makeRequest(_gameIFServletUrl, function(resdata) { _doGameIFChargeResponse(resdata); }, _getGameIFChargeParam(serverId));
+	gadgets.io.makeRequest(_gameIFServletUrl, function(resdata) {
+	
+		mixi.util.requestExternalNavigateTo(resdata.data.htmlText, mixi.util.ExternalSiteType.PAYMENT);
+		
+	}, _getGameIFChargeParam(serverId));
 }
 
 function _getGameIFBaseParam() {
@@ -361,67 +376,6 @@ function _doGameIFTitlePlay(serverId) {
 	gadgets.io.makeRequest(_gameIFServletUrl, function(resdata) { _doGameIFResponse(resdata); }, _getGameIFTitlePlayParam(serverId));
 }
 
-function _doGameIFResponse(resdata) {
-
-	//console.log(resdata);
-	gadgets.window.adjustHeight(792);
-	document.getElementById('target').innerHTML = resdata.data.htmlText;
-	eval(document.getElementById("scriptSetServerId").innerHTML);
-	_doGetFriends();
-}
-
-function _doRequestAfterPageLoad(data) {
-
-	if (!data.hadError()) {
-	
-		var item = data.get("viewer");
-		
-		if (item.hadError()) {
-		
-			var code = item.getErrorCode();
-			alert("エラー[ " + code + " ]が発生しました。");
-			//TODO:画面遷移
-			
-		} else {
-			
-			_setUserProfile(item.getData());
-			
-			gadgets.io.makeRequest(_gameIFServletUrl, function(resdata) { _doGameIFResponse(resdata); }, _getGameIFTitlePlayParam(null));
-		}
-	}
-}
-
-function _doPageLoad() {
-
-	var req = opensocial.newDataRequest();
-	var params = {};
-	
-	req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER, params), "viewer");
-	
-	req.send( function(data) {
-
-		if (!data.hadError()) {
-		
-			var item = data.get("viewer");
-			
-			if (item.hadError()) {
-			
-				var code = item.getErrorCode();
-				alert("エラー[ " + code + " ]が発生しました。");
-				//TODO:画面遷移
-				
-			} else {
-				
-				_setUserProfile(item.getData());
-				
-				gadgets.io.makeRequest(_gameIFServletUrl, function(resdata) { _doGameIFResponse(resdata); }, _getGameIFTitlePlayParam(null));
-			}
-		}
-	
-	} );
-}
-
-
 function _getGameIFProxyParam(serverId, targetUri, targetParams) {
 
 	var params = _getGameIFBaseParam(serverId);
@@ -451,9 +405,9 @@ function _showFriendDetail(id) {
 
 	if (window._showFriend == null || window._showFriend != id) {
 		
-		if (window._showFriend != null && window._showFriend != id) {
+		if (window._showFriend != null && window._showFriend != id && window._idIndexMap[window._showFriend] != null) {
 		
-			document.getElementById("thumbCell" + window._idIndexMap[window._showFriend]).border = "solid 2px #FFF";
+			document.getElementById("thumbCell" + window._idIndexMap[window._showFriend]).style.border = "solid 2px #FFF";
 		}
 		
 		window._showFriend = id;
@@ -461,7 +415,7 @@ function _showFriendDetail(id) {
 		document.getElementById("friend_detail").style.display = "block";
 		document.getElementById("start").style.display = "none";
 	
-		document.getElementById("g_leader").innerHTML = window._gameFriends[id]["id"];
+		document.getElementById("g_leader").innerHTML = window._gameFriends[id]["leader"];
 		document.getElementById("g_city").innerHTML = window._gameFriends[id]["city"];
 		document.getElementById("g_city_x").innerHTML = window._gameFriends[id]["city_x"];
 		document.getElementById("g_city_y").innerHTML = window._gameFriends[id]["city_y"];
@@ -470,17 +424,81 @@ function _showFriendDetail(id) {
 		document.getElementById("g_godliness").innerHTML = window._gameFriends[id]["godliness"];
 		document.getElementById("g_church").innerHTML = window._gameFriends[id]["church"];
 		
-		document.getElementById("thumbCell" + window._idIndexMap[id]).border = "solid 2px #F60";
+		document.getElementById("thumbCell" + window._idIndexMap[id]).style.border = "solid 2px #F60";
 		
 	} else {
 	
 		window._showFriend = null;
-		document.getElementById("thumbCell" + window._idIndexMap[id]).border = "solid 2px #FFF";
+		document.getElementById("thumbCell" + window._idIndexMap[id]).style.border = "solid 2px #FFF";
 		document.getElementById("start").style.display = "block";
 		document.getElementById("friend_detail").style.display = "none";
 	}
 	
 	document.getElementById("friend_finish").style.display = "none";
+}
+
+function _doBackToFriendDetail() {
+
+	document.getElementById("friend_detail").style.display = "block";
+	document.getElementById("friend_finish").style.display = "none";
+}
+
+function _doShowPreviousFriendList() {
+	
+	if (window._curruntFriendListPage == null) { window._curruntFriendListPage = 1; }
+	
+	if (window._curruntFriendListPage > 1) {
+	
+		_doShowFriendList(window._curruntFriendListPage - 1);
+	}
+}
+
+function _doShowNextFriendList() {
+	
+	if (window._curruntFriendListPage == null) { window._curruntFriendListPage = 1; }
+		
+	_doShowFriendList(window._curruntFriendListPage + 1);
+}
+
+function _doShowFriendList(pageNo) {
+	
+	for(var k = 0; k < 5; k++) {
+
+		document.getElementById("friend" + k).href = "javascript:_inviteFriends();";
+		document.getElementById("friend" + k).title = "友達を誘いましょう！";
+		document.getElementById("friendThumb" + k).src = "http://test.www.game-if.com/opensocial/images/opensocial/mixi/img_no_friend.gif";
+		document.getElementById("friendThumb" + k).alt = "友達を誘いましょう！";
+		document.getElementById("thumbCell" + k).style.border = "solid 2px #FFF";
+	}
+	
+	if (pageNo == null) { pageNo = 1; }
+	
+	window._idIndexMap = {};
+	window._curruntFriendListPage = pageNo;
+	
+	var i = 0;
+	var j = 0;
+	
+	for(var key in window._gameFriends) {
+
+		if (i >= (pageNo - 1) * 5 && i < pageNo * 5) {
+			
+			document.getElementById("friend" + j).href = "javascript: _showFriendDetail(" + window._myFriends[key]["id"] + ");";
+			document.getElementById("friend" + j).title = window._myFriends[key]["nickname"];
+			document.getElementById("friendThumb" + j).src = window._myFriends[key]["thumbnailUrl"];
+			document.getElementById("friendThumb" + j).alt = window._myFriends[key]["nickname"];
+			
+			window._idIndexMap[key] = j;
+			
+			j++;
+		}
+		i++;
+	}
+		
+	window._showFriend = null;
+	document.getElementById("friend_detail").style.display = "none";
+	document.getElementById("friend_finish").style.display = "none";
+	document.getElementById("start").style.display = "block";
 }
 
 function _doGetFriendGameInfo(serverId) {
@@ -511,24 +529,12 @@ function _doGetFriendGameInfo(serverId) {
 
 		//console.log(resdata);
 		document.getElementById('proxyScript').innerHTML = resdata.data.htmlText;
-		eval(document.getElementById("scriptSetGameFriendsInfo").innerHTML);
+		eval(document.getElementById("proxyScript").innerHTML);
 		
-		var i = 0;
-		window._idIndexMap = {};
+		_doShowFriendList(1);
 		
-		for(var key in window._gameFriends) {
-	
-			document.getElementById("friend" + i).href = "javascript: _showFriendDetail(" + window._myFriends[key]["id"] + ");";
-			document.getElementById("friend" + i).title = window._myFriends[key]["nickname"];
-			document.getElementById("friendThumb" + i).src = window._myFriends[key]["thumbnailUrl"];
-			document.getElementById("friendThumb" + i).alt = window._myFriends[key]["nickname"];
-			
-			window._idIndexMap[key] = i;
-			
-			i++;
-			
-			if (i >= 5) { break; }
-		}
+		setInterval("_doOpensocialActivity()",　30000);
+		
 	}, reqParam);
 }
 
@@ -543,6 +549,7 @@ function _doGetFriends() {
 	var params = {};
 	params[opensocial.DataRequest.PeopleRequestFields.PROFILE_DETAILS] = [ opensocial.Person.Field.PROFILE_URL ];
 	params[opensocial.DataRequest.PeopleRequestFields.FILTER] = opensocial.DataRequest.FilterType.HAS_APP;
+	params[opensocial.DataRequest.PeopleRequestFields.MAX] = 100;
 	
 	var req = opensocial.newDataRequest();
 	
@@ -599,7 +606,42 @@ function _doGetFriends() {
 	});
 }
 
-gadgets.util.runOnLoadHandlers( new function() { _doPageLoad(); });
+gadgets.util.runOnLoadHandlers( new function() {
+
+	var req = opensocial.newDataRequest();
+	var params = {};
+	
+	req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER, params), "viewer");
+	
+	req.send( function(data) {
+
+		if (!data.hadError()) {
+		
+			var item = data.get("viewer");
+			
+			if (item.hadError()) {
+			
+				var code = item.getErrorCode();
+				alert("エラー[ " + code + " ]が発生しました。");
+				//TODO:画面遷移
+				
+			} else {
+				
+				_userId = item.getData().getId();
+				
+				gadgets.io.makeRequest(_gameIFServletUrl, function(resdata) {
+
+					//console.log(resdata);
+					gadgets.window.adjustHeight(792);
+					document.getElementById('target').innerHTML = resdata.data.htmlText;
+					eval(document.getElementById("scriptSetServerId").innerHTML);
+					_doGetFriends();
+				
+				}, _getGameIFTitlePlayParam(null));
+			}
+		}
+	});
+});
 
 function _doSendMessage() {
 
@@ -615,10 +657,10 @@ function _doSendMessage() {
 	
 	opensocial.requestSendMessage(recipient, msg, function(response) {
 		
+		document.getElementById('success_message').innerHTML = "メッセージの送信が完了しました。";
 		document.getElementById('mx_g_screen').style.visibility = 'visible';
 	});
 }
-
 
 function _doSendGameFriendRequest() {
 	
@@ -626,7 +668,7 @@ function _doSendGameFriendRequest() {
 	
 	targetParams["pr.friendId"] = window._showFriend;
 	
-	var reqParam = _getGameIFProxyParam(serverId, "opensocial/ReqFriendRel.asp", targetParams);
+	var reqParam = _getGameIFProxyParam(_serverId, "opensocial/ReqFriendRel.asp", targetParams);
 	
 	gadgets.io.makeRequest(_gameIFProxyUrl, function(resdata) {
 
@@ -635,9 +677,50 @@ function _doSendGameFriendRequest() {
 		document.getElementById("friend_detail").style.display = "none";
 		document.getElementById("friend_finish").style.display = "block";
 		
+		document.body.style.cursor = "auto";
+		
 	}, reqParam);
+	
+	document.body.style.cursor = "wait";
 }
 
+function _doOpensocialActivity() {
+
+	var reqParam = _getGameIFProxyParam(_serverId, "opensocial/GetOpensocialActivity.asp", {});
+	
+	gadgets.io.makeRequest(_gameIFProxyUrl, function(resdata) {
+
+		//console.log(resdata);
+		document.getElementById('proxyScript').innerHTML = resdata.data.htmlText;
+		eval(document.getElementById("proxyScript").innerHTML);
+		
+		if (window._gameActivity != null) {
+		
+			document.getElementById('mx_g_screen').style.visibility = 'hidden';
+			
+			var params = {};
+			params[opensocial.Activity.Field.TITLE] = window._gameActivity["message"];
+			
+			if (window._gameActivity["to_mem_id"] != null && window._gameActivity["to_mem_id"] != "") {
+			
+				params[mixi.ActivityField.RECIPIENTS] = [window._gameActivity["to_mem_id"]];
+			}
+			
+			var activity = opensocial.newActivity(params);
+			
+			opensocial.requestCreateActivity(activity, opensocial.CreateActivityPriority.HIGH, function(response){
+			
+				if (response.hadError()) {
+					var code = response.getErrorCode();
+					alert(code);
+				}
+
+				document.getElementById('mx_g_screen').style.visibility = 'visible';
+			});
+		}
+		
+	}, reqParam);
+}
 </script>
 
   ]]></Content>

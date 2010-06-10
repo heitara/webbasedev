@@ -80,5 +80,8 @@
 		<action name="titlePlay" class="opensocialTitlePlayControlAction">
             <result type="json"></result>
 		</action>
+		<action name="proxyTitleIF" class="opensocialProxyAction">
+            <result type="json"></result>
+		</action>
 	</package>
 </struts>
