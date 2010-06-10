@@ -122,6 +122,6 @@
 		
 		<!-- サーバ間連携パスワード -->
 		<property name="unionCd" value="6TN9HD75HQCTIHL7UDAT" />
-	</bean>	
+	</bean>
 	
 </beans>
