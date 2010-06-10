@@ -52,7 +52,11 @@
 		<filter-name>opensocial-oauth-filter</filter-name>
 		<url-pattern>/opensocialTitlePlay2.html</url-pattern>
 	</filter-mapping>
-		
+	<filter-mapping>
+		<filter-name>opensocial-oauth-filter</filter-name>
+		<url-pattern>/proxyTitleIF.html</url-pattern>
+	</filter-mapping>
+	
 	<filter-mapping>
 	    <filter-name>sitemesh</filter-name>
 	    <url-pattern>/*</url-pattern>

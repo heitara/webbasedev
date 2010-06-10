@@ -113,5 +113,15 @@
             <value>${pointChargeControlAction.limit_second}</value>
         </property>
     </bean>
+    
+	<!-- opensocialProxyAction -->
+	<bean id="opensocialProxyAction" class="com.gameif.portal.action.titleif.OpensocialProxyAction" scope="prototype">
+		<property name="titleProxy">
+			<ref bean="titleProxy" />
+		</property>
+		<property name="masterInfoBusinessLogic">
+			<ref bean="masterInfoBusinessLogic" />
+		</property>
+	</bean>
 	
 </beans>

@@ -124,4 +124,33 @@
 		<property name="unionCd" value="6TN9HD75HQCTIHL7UDAT" />
 	</bean>	
 	
+	<!-- ゲームIFアクセス用セキュリティキー生成クラスの定義 -->
+	<bean id="titleProxy" class="com.gameif.portal.businesslogic.titleif.proxy.TitleProxy">
+		<!-- タイトルＩＤとキー生成クラスのマップ -->
+		<property name="proxyKeyGenerators">
+			<map>
+				<entry key="1" value-ref="csProxyKeyGenerator"/>
+			</map>
+		</property>
+	</bean>
+
+	<!-- 創世伝説のゲームIFアクセス用セキュリティキー生成クラスの定義 -->
+	<bean id="csProxyKeyGenerator" class="com.gameif.portal.businesslogic.titleif.proxy.DefaultProxyKeyGenerator">
+		<!-- アカウントパラメータ名 -->
+		<property name="accountKey" value="u" />
+		<!-- UNIX時間のパラメータ名 -->
+		<property name="timeKey" value="t" />
+		<!-- セキュリティ文字列のパラメータ名-->
+		<property name="validateCdKey" value="p" />
+		
+		<!-- サーバ間連携パスワード -->
+		<property name="unionCdMap">
+			<map>
+				<entry key="1" value="PKSC45K85XMR3R8G4KV0"/>
+				<entry key="2" value="4AUQTW6I1ZJ6EYFWH5CW"/>
+				<entry key="3" value="lkwNxbC6ZhCPyGXBN3AIZu0Vewd8WBj6"/>
+			</map>
+		</property>
+	</bean>	
+	
 </beans>
