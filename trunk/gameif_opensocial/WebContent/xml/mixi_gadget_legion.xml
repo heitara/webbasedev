@@ -255,6 +255,7 @@ var _titleId = "1";
 var _serverId = null;
 
 var _userId = null;
+var _nickname = null;
 
 function _inviteFriends() {
 	
@@ -628,6 +629,7 @@ gadgets.util.runOnLoadHandlers( new function() {
 			} else {
 				
 				_userId = item.getData().getId();
+				_nickname = item.getData().getDisplayName();
 				
 				gadgets.io.makeRequest(_gameIFServletUrl, function(resdata) {
 
@@ -700,6 +702,7 @@ function _doOpensocialActivity() {
 			
 			var params = {};
 			params[opensocial.Activity.Field.TITLE] = window._gameActivity["message"];
+			params[opensocial.Activity.Field.TITLE] = params[opensocial.Activity.Field.TITLE].replace('#NICKNAME#', _nickname);
 			
 			if (window._gameActivity["to_mem_id"] != null && window._gameActivity["to_mem_id"] != "") {
 			
@@ -708,11 +711,10 @@ function _doOpensocialActivity() {
 			
 			var activity = opensocial.newActivity(params);
 			
-			opensocial.requestCreateActivity(activity, opensocial.CreateActivityPriority.HIGH, function(response){
+			opensocial.requestCreateActivity(activity, opensocial.CreateActivityPriority.HIGH, function(response) {
 			
 				if (response.hadError()) {
 					var code = response.getErrorCode();
-					alert(code);
 				}
 
 				document.getElementById('mx_g_screen').style.visibility = 'visible';
