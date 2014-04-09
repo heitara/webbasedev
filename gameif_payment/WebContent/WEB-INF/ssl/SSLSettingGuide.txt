@@ -1,0 +1,29 @@
+①ゲームイフ認証局ＣＡ証明書（gameif_ca.crt）をＪＡＶＡ環境にインストールする。
+%JAVA_HOME%/bin/keytool -import -v -trustcacerts -alias gameif_ca -file [認証局ＣＡ証明書保存フォルダ]/gameif_ca.crt -keystore %JAVA_HOME%/jre/lib/security/cacerts
+
+②ＴＯＭＣＡＴ設定ファイルで下記のようにＳＳＬ通信を設定する。
+--------------------------------------------------------------------------------
+<Connector 
+	port="8443"
+	minSpareThreads="5"
+	maxSpareThreads="75"
+	enableLookups="true"
+	disableUploadTimeout="true" 
+	acceptCount="100"
+	maxThreads="200"
+	scheme="https"
+	secure="true" SSLEnabled="true"
+	keystoreFile="[プロジェクト格納フォルダ]\gameif\WebContent\WEB-INF\ssl\gameif_test_auth.keystore" keystorePass="gameif"
+	clientAuth="false" sslProtocol="TLS"/>
+--------------------------------------------------------------------------------
+
+③「cas」プロジェクトをＴＯＭＣＡＴプロジェクトと設定して、「コンテキスト定義を更新」する。
+
+④ゲームイフ認証局ＣＡ証明書（gameif_ca.crt）をブラウザに導入する。
+ＩＥ：ツール(メニュー)→インターネットオプション→コンテンツ(タブ)→証明書(ボタン)→インポート(ボタン)
+ＦＦ：ツール(メニュー)→オプション→詳細(メニュー)→暗号化(タブ)→証明書を表示(ボタン)→認証局証明書(タブ)→インポート(ボタン)
+
+⑤「C:\Windows\System32\drivers\etc/hosts」ファイルで下記のように「auth.test.game-if.com」を追記する。
+--------------------------------------------------------------------------------
+127.0.0.1       localhost auth.test.game-if.com
+--------------------------------------------------------------------------------

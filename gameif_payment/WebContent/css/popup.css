@@ -1,0 +1,74 @@
+/*********【共通】トップ ********************************************************/
+dl.title_width {
+	 width:100%;
+	 overflow:hidden;
+	 text-align:left;
+}
+dl.title_width dt {
+	height:24px;
+	overflow:hidden;
+	background-image:url("../images/bg_portlet_title.gif");
+	clear:both;
+}
+dl.title_width dt strong {
+	float:left;
+	display:block;
+	height:24px;
+	line-height:24px;
+	padding:0px 12px;
+	color:#FFF;
+	background:url("../images/bg_portlet_title_left.gif") left top no-repeat;
+	letter-spacing:1px;
+}
+dl.title_width dt span {
+	float:right;
+	position:relative;
+	line-height:24px;
+	padding:0px 10px;
+	background:url("../images/bg_portlet_title_right.gif") right top no-repeat;
+}
+dl.title_width dt span::after {
+	content:"\b";
+}
+dl.title_width dd {
+	display:block;
+	margin-left:0px;
+	height:0px;
+}
+
+
+
+
+dl.top_align {
+	position:relative;
+	left:125px;
+	bottom:0px;
+}
+
+/*********【共通】フォーム ******************************************************/
+form > dl > dt {
+	width:150px!important;
+}
+form > dl > dd {
+	margin-left:160px!important;
+}
+form > div.submit {
+	margin-left:160px!important;
+}
+
+/*********【友達メールアドレスインポート】メールアドレス一覧 ********************/
+div.select_mail {
+	border:1px solid #DDD;
+	background-color:#F9F9F9;
+	height:270px;
+	padding:3px;
+	OVERFLOW-y:scroll;
+}
+div.select_mail > dl > dt {
+	float:left;
+	height:24;
+}
+div.select_mail > dl > dd {
+	height:24px;
+	margin-left:250px;
+}

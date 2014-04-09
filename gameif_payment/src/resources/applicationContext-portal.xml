@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+	<bean id="paymentProperties" class="com.gameif.payment.helper.PaymentProperties" scope="singleton">
+
+		<property name="actionTitles">
+			<map>
+				<entry key="createMember" value="会員登録"/>
+				<entry key="updateMember" value="会員情報変更"/>
+				<entry key="updatePasswd" value="パスワード変更"/>
+				<entry key="createInquiry" value="問合せ "/>
+				<entry key="createInvite" value="友達紹介"/>
+				<entry key="createPwdReget" value="仮パスワード発行"/>
+				<entry key="updateTempPwd" value="パスワード再設定"/>
+				<entry key="sendMailAgain" value="友達に再送信"/>
+				<entry key="deleteInvite" value="友達削除"/>
+				<entry key="getGameLoginServicePoint" value="サービスポイント受取"/>
+				<entry key="applyBetaTester" value="テスター応募"/>
+				<entry key="questionnaireAnswer" value="アンケート回答"/>
+				<entry key="chargeServicePoint" value="サービスポイント利用"/>
+			</map>
+		</property>
+		<property name="sexListMap">
+			<map>
+				<entry key="0" value="男"/>
+				<entry key="1" value="女"/>
+			</map>
+		</property>
+		<property name="monthListMap">
+			<map>
+				<entry key="1" value="1"/>
+				<entry key="2" value="2"/>
+				<entry key="3" value="3"/>
+				<entry key="4" value="4"/>
+				<entry key="5" value="5"/>
+				<entry key="6" value="6"/>
+				<entry key="7" value="7"/>
+				<entry key="8" value="8"/>
+				<entry key="9" value="9"/>
+				<entry key="10" value="10"/>
+				<entry key="11" value="11"/>
+				<entry key="12" value="12"/>
+			</map>
+		</property>
+		<property name="dayListMap">
+			<map>
+				<entry key="1" value="1"/>
+				<entry key="2" value="2"/>
+				<entry key="3" value="3"/>
+				<entry key="4" value="4"/>
+				<entry key="5" value="5"/>
+				<entry key="6" value="6"/>
+				<entry key="7" value="7"/>
+				<entry key="8" value="8"/>
+				<entry key="9" value="9"/>
+				<entry key="10" value="10"/>
+				<entry key="11" value="11"/>
+				<entry key="12" value="12"/>
+				<entry key="13" value="13"/>
+				<entry key="14" value="14"/>
+				<entry key="15" value="15"/>
+				<entry key="16" value="16"/>
+				<entry key="17" value="17"/>
+				<entry key="18" value="18"/>
+				<entry key="19" value="19"/>
+				<entry key="20" value="20"/>
+				<entry key="21" value="21"/>
+				<entry key="22" value="22"/>
+				<entry key="23" value="23"/>
+				<entry key="24" value="24"/>
+				<entry key="25" value="25"/>
+				<entry key="26" value="26"/>
+				<entry key="27" value="27"/>
+				<entry key="28" value="28"/>
+				<entry key="29" value="29"/>
+				<entry key="30" value="30"/>
+				<entry key="31" value="31"/>
+			</map>
+		</property>
+		<property name="inviteStatusList">
+			<map>
+				<entry key="0" value="応答なし"/>
+				<entry key="1" value="会員登録済"/>
+			</map>
+		</property>
+		<property name="domainListMap">
+			<map>
+				<entry key="@hotmail.co.jp" value="hotmail.co.jp"/>
+				<entry key="@hotmail.com" value="hotmail.com"/>
+				<entry key="@live.jp" value="live.jp"/>
+				<entry key="@gmail.com" value="gmail.com"/>
+				<entry key="@yahoo.co.jp" value="yahoo.co.jp"/>
+				<entry key="@yahoo.com" value="yahoo.com"/>
+			</map>
+		</property>
+		<property name="mailUrlMap">
+			<map>
+				<entry key="@hotmail.co.jp" value="http://mail.live.com"/>
+				<entry key="@hotmail.com" value="http://mail.live.com"/>
+				<entry key="@live.jp" value="http://mail.live.com"/>
+				<entry key="@nifmail.jp" value="https://login.nifty.com/service/login?s=fwm"/>
+				<entry key="@infoseek.jp" value="http://email.infoseek.co.jp"/>
+				<entry key="@gmail.com" value="http://www.gmail.com"/>
+				<entry key="@yahoo.co.jp" value="http://mail.yahoo.co.jp"/>
+				<entry key="@mail.goo.ne.jp" value="http://mail.goo.ne.jp"/>
+				<entry key="@livedoor.com" value="http://gmail.livedoor.com"/>
+				<entry key="@excite.co.jp" value="http://www.excite.co.jp/mail"/>
+			</map>
+		</property>
+		<property name="timeZoneList">
+			<map>
+				<!-- key:開始時間 (24時制)[HHmm]-->
+				<!-- value:終了時間 (24時制)[HHmm]-->
+				<entry key="0000" value="0300"/>
+				<entry key="1200" value="1300"/>
+				<entry key="1900" value="2000"/>
+			</map>
+		</property>
+		<property name="withdrawReason">
+			<map>
+				<entry key="1" value="ゲームに不満があるから"/>
+				<entry key="2" value="サポートの対応に不満があるから"/>
+				<entry key="3" value="ユーザー間のトラブルがあるから"/>
+				<entry key="10" value="その他"/>
+			</map>
+		</property>
+		<property name="approveStatus">
+			<map>
+				<entry key="1" value="未承認"/>
+				<entry key="2" value="IP重複"/>
+				<entry key="3" value="申請中"/>
+				<entry key="4" value="承認済"/>
+				<entry key="5" value="褒美済"/>
+				<entry key="6" value="ボーナス褒美済"/>
+				<entry key="7" value="却下"/>
+				<entry key="8" value="保留"/>
+			</map>
+		</property>
+		<!-- 
+		<property name="rejectReason">
+			<map>
+				<entry key="1" value="IP重複"/>
+				<entry key="2" value="ゲームをプレイすることがない"/>
+				<entry key="10" value="その他"/>
+			</map>
+		</property>
+	     -->
+	</bean>
+	
+</beans>

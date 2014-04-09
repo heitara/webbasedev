@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="inviteInfo">
+	<typeAlias alias="inviteInfo" type="com.gameif.payment.entity.InviteInfo" />
+	<typeAlias alias="deleteCondition" type="com.gameif.common.bean.ComSearchCondition" />
+	
+	<resultMap class="inviteInfo" id="inviteResult">
+		<result property="inviteId" column="invite_id"/>
+		<result property="memNum" column="mem_num"/>
+		<result property="inviteMailFrom" column="invite_mail_from"/>
+		<result property="inviteMailTo" column="invite_mail_to"/>
+		<result property="inviteDate" column="invite_date"/>
+		<result property="inviteMsg" column="invite_msg"/>
+		<result property="titleId" column="title_id"/>
+		<result property="inviteStatus" column="invite_status"/>
+		<result property="friendCreateDate" column="friend_create_date"/>
+		<result property="friendName" column="friend_name"/>
+		<result property="childMemNum" column="child_mem_num"/>
+		<result property="approveStatus" column="approve_status"/>
+		<result property="parentCookie" column="parent_cookie"/>
+		<result property="parentApproveCookie" column="parent_approve_cookie"/>
+		<result property="childCookie" column="child_cookie"/>
+		<result property="deleteFlag" column="delete_flag"/>
+		<result property="createdDate" column="created_date"/>
+		<result property="createdUser" column="created_user"/>
+		<result property="lastUpdateDate" column="last_update_date"/>
+		<result property="lastUpdateUser" column="last_update_user"/>
+	</resultMap>
+	
+	<insert id = "save" parameterClass="inviteInfo"> 
+        <![CDATA[
+		INSERT INTO invite_info
+			(mem_num,
+			invite_mail_from,
+			invite_mail_to,
+			invite_date,
+			invite_msg,
+			title_id,
+			invite_status,
+			friend_create_date,
+			friend_name,
+			child_mem_num,
+			approve_status,
+			parent_cookie,
+			parent_approve_cookie,
+			child_cookie,
+			delete_flag,
+			created_date,
+			created_user,
+			last_update_date,
+			last_update_user)
+		VALUES
+			(#memNum#,
+			#inviteMailFrom#,
+			#inviteMailTo#,
+			#inviteDate#,
+			#inviteMsg#,
+			#titleId#,
+			#inviteStatus#,
+			#friendCreateDate#,
+			#friendName#,
+			#childMemNum#,
+			#approveStatus#,
+			#parentCookie#,
+			#parentApproveCookie#,
+			#childCookie#,
+			#deleteFlag#,
+			#createdDate#,
+			#createdUser#,
+			#lastUpdateDate#,
+			#lastUpdateUser#)
+        ]]>
+		<selectKey resultClass="java.lang.Long" keyProperty="inviteId">   
+        	<![CDATA[
+			SELECT last_insert_id() as invite_id
+        	]]>
+		</selectKey>
+	</insert>
+
+	<select id="selectInviteHistByMemNum" parameterClass="inviteInfo" resultMap="inviteResult">   
+        <![CDATA[
+        SELECT
+			invite_id,
+			mem_num,
+			invite_mail_from,
+			invite_mail_to,
+			invite_date,
+			invite_msg,
+			title_id,
+			invite_status,
+			friend_create_date,
+			friend_name,
+			child_mem_num,
+			approve_status,
+			parent_cookie,
+			parent_approve_cookie,
+			child_cookie,
+			delete_flag,
+			created_date,
+			created_user,
+			last_update_date,
+			last_update_user
+		FROM
+			invite_info
+		WHERE
+			mem_num = #memNum#
+		AND delete_flag = '0'
+        ]]>
+        <isEqual compareProperty="inviteStatus" compareValue="0">
+        	AND invite_status = '0'
+        </isEqual>
+        <isEqual compareProperty="inviteStatus" compareValue="1">
+        	AND invite_status = '1'
+        </isEqual>
+	</select>
+	
+	<delete id="deleteInvalidInvite" parameterClass="deleteCondition">  
+        <![CDATA[
+        DELETE
+		FROM
+			invite_info
+		WHERE
+			mem_num = #memNum#
+		AND delete_flag = '1'
+		AND last_update_date < DATE_SUB(now(), INTERVAL #checkTime# DAY)
+		
+        ]]>
+	</delete>
+	
+	<select id="selectCountByMemNumInTime"  parameterClass="inviteInfo" resultClass="int">
+      <![CDATA[
+        SELECT
+			count(invite_id)
+		FROM
+			invite_info
+		WHERE
+			mem_num = #memNum#
+		AND	invite_date >= DATE_FORMAT(#inviteDate#,'%Y-%m-%d')
+		AND	invite_date < DATE_ADD(DATE_FORMAT(#inviteDate#,'%Y-%m-%d'), INTERVAL 1 DAY)
+      ]]>
+	</select>
+
+	<select id="selectForUpdate" resultMap="inviteResult">   
+        <![CDATA[
+        SELECT
+			invite_id,
+			mem_num,
+			invite_mail_from,
+			invite_mail_to,
+			invite_date,
+			invite_msg,
+			title_id,
+			invite_status,
+			friend_create_date,
+			friend_name,
+			child_mem_num,
+			approve_status,
+			parent_cookie,
+			parent_approve_cookie,
+			child_cookie,
+			delete_flag,
+			created_date,
+			created_user,
+			last_update_date,
+			last_update_user
+		FROM
+			invite_info
+		WHERE
+			invite_id = #inviteId#
+		AND delete_flag = '0'
+		FOR UPDATE
+        ]]>
+	</select>
+
+	<update id="update" parameterClass="inviteInfo">
+	<![CDATA[
+		UPDATE invite_info
+		SET	mem_num = #memNum#,
+			invite_mail_from = #inviteMailFrom#,
+			invite_mail_to = #inviteMailTo#,
+			invite_date = #inviteDate#,
+			invite_msg = #inviteMsg#,
+			title_id = #titleId#,
+			invite_status = #inviteStatus#,
+			friend_create_date = #friendCreateDate#,
+			friend_name = #friendName#,
+			child_mem_num = #childMemNum#,
+			approve_status = #approveStatus#,
+			parent_cookie = #parentCookie#,
+			parent_approve_cookie = #parentApproveCookie#,
+			child_cookie = #childCookie#,
+			delete_flag = #deleteFlag#,
+			created_date = #createdDate#,
+			created_user = #createdUser#,
+			last_update_date = #lastUpdateDate#,
+			last_update_user = #lastUpdateUser#
+		WHERE
+			invite_id = #inviteId#
+	]]>
+	</update>
+
+	<select id="selectByKey" parameterClass="inviteInfo" resultMap="inviteResult">   
+        <![CDATA[
+        SELECT
+			invite_id,
+			mem_num,
+			invite_mail_from,
+			invite_mail_to,
+			invite_date,
+			invite_msg,
+			title_id,
+			invite_status,
+			friend_create_date,
+			friend_name,
+			child_mem_num,
+			approve_status,
+			parent_cookie,
+			parent_approve_cookie,
+			child_cookie,
+			delete_flag,
+			created_date,
+			created_user,
+			last_update_date,
+			last_update_user
+		FROM
+			invite_info
+		WHERE
+			invite_id = #inviteId#
+		AND delete_flag = '0'
+        ]]>
+	</select>
+	
+	<select id="selectParentByChildNum" parameterClass="java.lang.Long" resultMap="inviteResult">   
+        <![CDATA[
+        SELECT
+			invite_id,
+			mem_num,
+			invite_mail_from,
+			invite_mail_to,
+			invite_date,
+			invite_msg,
+			title_id,
+			invite_status,
+			friend_create_date,
+			friend_name,
+			child_mem_num,
+			approve_status,
+			parent_cookie,
+			parent_approve_cookie,
+			child_cookie,
+			delete_flag,
+			created_date,
+			created_user,
+			last_update_date,
+			last_update_user
+		FROM
+			invite_info
+		WHERE
+			child_mem_num = #childMemNum#
+		AND invite_status = '1'
+		AND friend_create_date IS NOT NULL
+		AND delete_flag = '0'
+        ]]>
+	</select>
+
+
+</sqlMap>

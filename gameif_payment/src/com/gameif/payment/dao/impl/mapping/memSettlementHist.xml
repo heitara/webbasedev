@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="memSettlementHist">
+	<typeAlias alias="memSettlementHist" type="com.gameif.payment.entity.MemSettlementHist" />
+	
+	<resultMap class="com.gameif.payment.entity.MemSettlementHist" id="settleHistResult">
+		<result property="settlementNum" column="settlement_num" />
+		<result property="settlementTrnsNum" column="settlement_trns_num" />
+		<result property="settlementCode" column="settlement_code" />
+		<result property="memNum" column="mem_num" />
+		<result property="memAtbtCd" column="mem_atbt_cd" />
+		<result property="titleId" column="title_id" />
+		<result property="serverId" column="server_id" />
+		<result property="pointId" column="point_id" />
+		<result property="settlementDate" column="settlement_date" />
+		<result property="pointAmount" column="point_amount" />
+		<result property="pointAmountAct" column="point_amount_act" />
+		<result property="settlementLog" column="settlement_log"/>
+		<result property="settlementRemarks" column="settlement_remarks"/>
+		<result property="resResult" column="res_result"/>
+		<result property="resTrackingId" column="res_tracking_id"/>
+		<result property="resSpsCustNo" column="res_sps_cust_no"/>
+		<result property="resSpsPaymentNo" column="res_sps_payment_no"/>
+		<result property="resPayinfoKey" column="res_payinfo_key"/>
+		<result property="resPaymentDate" column="res_payment_date"/>
+		<result property="resErrCode" column="res_err_code"/>
+		<result property="resDate" column="res_date"/>
+		<result property="limitSecond" column="limit_second"/>
+		<result property="spsHashcode" column="sps_hashcode"/>
+		<result property="createdDate" column="created_date"/>
+		<result property="createdUser" column="created_user"/>
+		<result property="lastUpdateDate" column="last_update_date"/>
+		<result property="lastUpdateUser" column="last_update_user"/>
+	</resultMap>
+	
+	<resultMap class="com.gameif.payment.entity.MySettlementHist" id="mySettleHistResult">
+		<result property="settlementCode" column="settlement_code" />
+		<result property="settlementName" column="settlement_name" />
+		<result property="titleId" column="title_id" />
+		<result property="titleName" column="title_name" />
+		<result property="serverId" column="server_id" />
+		<result property="serverName" column="server_name" />
+		<result property="settlementDate" column="settlement_date" />
+		<result property="pointAmountAct" column="point_amount_act" />
+	</resultMap>
+	
+	<insert id = "save" parameterClass="memSettlementHist"> 
+        <![CDATA[
+		INSERT INTO mem_settlement_hist
+			(settlement_trns_num,
+			settlement_code,
+			mem_num,
+			mem_atbt_cd,
+			title_id,
+			server_id,
+			point_id,
+			settlement_date,
+			point_amount,
+			point_amount_act,
+			settlement_log,
+			settlement_remarks,
+			res_result,
+			res_tracking_id,
+			res_sps_cust_no,
+			res_sps_payment_no,
+			res_payinfo_key,
+			res_payment_date,
+			res_err_code,
+			res_date,
+			limit_second,
+			sps_hashcode,
+			created_date,
+			created_user,
+			last_update_date,
+			last_update_user)
+		VALUES
+			(#settlementTrnsNum#,
+			#settlementCode#,
+			#memNum#,
+			#memAtbtCd#,
+			#titleId#,
+			#serverId#,
+			#pointId#,
+			#settlementDate#,
+			#pointAmount#,
+			#pointAmountAct#,
+			#settlementLog#,
+			#settlementRemarks#,
+			#resResult#,
+			#resTrackingId#,
+			#resSpsCustNo#,
+			#resSpsPaymentNo#,
+			#resPayinfoKey#,
+			#resPaymentDate#,
+			#resErrCode#,
+			#resDate#,
+			#limitSecond#,
+			#spsHashcode#,
+			#createdDate#,
+			#createdUser#,
+			#lastUpdateDate#,
+			#lastUpdateUser#)
+        ]]>
+		<selectKey resultClass="java.lang.Long" keyProperty="settlementNum">   
+        	<![CDATA[
+			SELECT last_insert_id() as settlement_num
+        	]]>
+		</selectKey>
+	</insert>
+
+	<select id="selectAmountByMonth" parameterClass="java.util.HashMap" resultClass="java.math.BigDecimal">   
+        <![CDATA[
+	        SELECT
+				ifnull(sum(point_amount_act), 0) as point_amount_act
+			FROM
+				mem_settlement_hist
+			WHERE
+				mem_num = #memNum#
+			AND settlement_date >= DATE_SUB(now(), INTERVAL 1 MONTH )
+			AND settlement_date <= now()
+        ]]>
+	    <isNotEmpty property="settlementCode">
+	      	<![CDATA[ AND settlement_code = #settlementCode# ]]>
+	    </isNotEmpty>
+	</select>
+
+	<select id="selectSettlementHistListByMemNum" parameterClass="java.lang.Long" resultMap="mySettleHistResult">   
+        <![CDATA[
+	        SELECT
+	        	mem_settlement_hist.settlement_code,
+	        	mem_settlement_hist.title_id,
+	        	mem_settlement_hist.server_id,
+	        	mem_settlement_hist.settlement_date,
+	        	mem_settlement_hist.point_amount_act,
+	        	title_mst.title_name,
+	        	server_mst.server_name,
+	        	settlement_mst.settlement_name
+	        	
+			FROM
+				mem_settlement_hist
+			LEFT JOIN
+				title_mst
+			ON 
+				mem_settlement_hist.title_id = title_mst.title_id
+			LEFT JOIN
+				server_mst
+			ON 
+				mem_settlement_hist.server_id = server_mst.server_id
+			LEFT JOIN 
+				settlement_mst
+			ON
+				mem_settlement_hist.settlement_code = settlement_mst.settlement_code
+			WHERE
+				mem_settlement_hist.mem_num = #value#
+        ]]>
+	</select>
+
+</sqlMap>

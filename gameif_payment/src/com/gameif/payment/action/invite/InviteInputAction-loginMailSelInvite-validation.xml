@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0.2//EN" 
+	"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+
+<validators>
+    <field name="mailAdd">
+        <field-validator type="requiredstring" short-circuit="true">
+			<param name="trim">true</param>
+        	<message><![CDATA[<br/>メールアドレスを入力してください。]]></message>
+        </field-validator>
+    </field>
+    <field name="domain">
+        <field-validator type="required" short-circuit="true">
+			<param name="trim">true</param>
+        	<message><![CDATA[<br/>ドメインを選択してください。]]></message>
+        </field-validator>
+    </field>
+    <field name="memPwd">
+        <field-validator type="requiredstring" short-circuit="true">
+			<param name="trim">true</param>
+        	<message><![CDATA[<br/>パスワードを入力してください。]]></message>
+        </field-validator>
+    </field>
+</validators>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="functionControlInfo">
+	<typeAlias alias="functionControlInfo" type="com.gameif.payment.entity.FunctionControlInfo" />
+	
+	<resultMap class="com.gameif.payment.entity.FunctionControlInfo" id="functionControlResult">
+		<result property="functionCode" column="function_code" />
+		<result property="serviceStatus" column="service_status" />
+		<result property="serviceStartDate" column="service_start_date" />
+		<result property="serviceEndDate" column="service_end_date" />
+	</resultMap>
+
+	<select id="selectByKey" parameterClass="functionControlInfo" resultMap="functionControlResult">   
+        <![CDATA[
+        SELECT
+			function_code,
+			service_status,
+			service_start_date,
+			service_end_date
+		FROM
+			function_control_info
+		WHERE
+			function_code = #functionCode#
+        ]]>
+	</select>
+
+</sqlMap>

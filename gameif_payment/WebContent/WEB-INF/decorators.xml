@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<decorators defaultdir="/WEB-INF/pages/decorators">
+
+	<excludes>
+		<pattern>/inputMailSelInvite.html*</pattern>
+		<pattern>/loginMailSelInvite.html*</pattern>
+		<pattern>/chargeSaveSettleTrns.html*</pattern>
+		<pattern>/chargeReceive.html*</pattern>
+        <pattern>/blChargePrepare.html*</pattern>
+        <pattern>/blChargeReceive.html*</pattern>
+	</excludes>
+	
+    <decorator name="blank" page="blank.jsp"/>
+	
+	<decorator name="layout" page="layout.jsp">
+		<pattern>/*</pattern>
+	</decorator>
+</decorators>

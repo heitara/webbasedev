@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="questionMst">
+	<resultMap class="com.gameif.payment.entity.QuestionMst" id="questionResult">
+		<result property="questionCode" column="question_code" />
+		<result property="questionName" column="question_name" />
+		<result property="createdDate" column="created_date"/>
+		<result property="createdUser" column="created_user"/>
+		<result property="lastUpdateDate" column="last_update_date"/>
+		<result property="lastUpdateUser" column="last_update_user"/>
+	</resultMap>
+
+	<select id="selectAll" resultMap="questionResult">   
+        <![CDATA[
+        SELECT
+			question_code,
+			question_name,
+			created_date,
+			created_user,
+			last_update_date,
+			last_update_user
+		FROM
+			question_mst
+        ]]>
+	</select>
+
+</sqlMap>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="providerTitleMst">
+
+	<resultMap class="com.gameif.payment.entity.ProviderTitleMst" id="providerTitleResult">
+		<result property="providerId" column="provider_id" />
+		<result property="titleId" column="title_id" />
+		<result property="titleName" column="title_name" />
+		<result property="securityCode" column="security_code" />
+		<result property="agentLogin" column="agent_login" />
+		<result property="siteUrl" column="site_url" />
+		<result property="createdDate" column="created_date"/>
+		<result property="createdUser" column="created_user"/>
+		<result property="lastUpdateDate" column="last_update_date"/>
+		<result property="lastUpdateUser" column="last_update_user"/>
+	</resultMap>
+
+	<select id="selectByKey" parameterClass="com.gameif.payment.entity.ProviderTitleMst" resultMap="providerTitleResult">   
+        <![CDATA[
+		SELECT	provider_id,
+				title_id,
+				title_name,
+				security_code,
+				agent_login,
+				site_url,
+				created_date,
+				created_user,
+				last_update_date,
+				last_update_user
+		FROM	provider_title_mst
+		WHERE	provider_id = #providerId#
+		AND		title_id = #titleId#
+        ]]>
+	</select>
+
+</sqlMap>

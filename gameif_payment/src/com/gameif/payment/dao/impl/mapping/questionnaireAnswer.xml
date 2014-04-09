@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="questionnaireAnswer">
+
+	<typeAlias alias="questionnaireAnswer" type="com.gameif.payment.entity.QuestionnaireAnswer" />
+	
+	<resultMap class="com.gameif.payment.entity.QuestionnaireAnswer" id="questionnaireAnswerResult">
+		<result property="memNum" column="mem_num"/>
+		<result property="questionNo" column="question_no"/>
+		<result property="answerDate" column="answer_date"/>
+	</resultMap>
+
+	<select id="selectByKey" parameterClass="questionnaireAnswer" resultMap="questionnaireAnswerResult">   
+        <![CDATA[
+        SELECT
+			mem_num,
+			question_no,
+			answer_date
+		FROM
+			questionnaire_answer
+		WHERE
+			mem_num = #memNum#
+		AND	question_no = #questionNo#
+        ]]>
+	</select>
+
+	<insert id="save" parameterClass="questionnaireAnswer">
+	<![CDATA[
+		INSERT INTO questionnaire_answer
+			(
+			mem_num,
+			question_no,
+			answer_date,
+			question1,
+			remarks1,
+			question2,
+			remarks2,
+			question3,
+			remarks3,
+			question4,
+			remarks4,
+			question5,
+			remarks5,
+			question6,
+			remarks6,
+			question7,
+			remarks7,
+			question8,
+			remarks8,
+			question9,
+			remarks9,
+			question10,
+			remarks10,
+			question11,
+			remarks11,
+			question12,
+			remarks12,
+			question13,
+			remarks13,
+			question14,
+			remarks14,
+			question15,
+			remarks15,
+			question16,
+			remarks16,
+			question17,
+			remarks17,
+			question18,
+			remarks18,
+			question19,
+			remarks19,
+			question20,
+			remarks20,
+			question21,
+			question22,
+			question23,
+			question24,
+			question25)
+		VALUES
+			(
+			#memNum#,
+			#questionNo#,
+			#answerDate#,
+			#question1#,
+			#remarks1#,
+			#question2#,
+			#remarks2#,
+			#question3#,
+			#remarks3#,
+			#question4#,
+			#remarks4#,
+			#question5#,
+			#remarks5#,
+			#question6#,
+			#remarks6#,
+			#question7#,
+			#remarks7#,
+			#question8#,
+			#remarks8#,
+			#question9#,
+			#remarks9#,
+			#question10#,
+			#remarks10#,
+			#question11Db#,
+			#remarks11#,
+			#question12Db#,
+			#remarks12#,
+			#question13Db#,
+			#remarks13#,
+			#question14Db#,
+			#remarks14#,
+			#question15Db#,
+			#remarks15#,
+			#question16Db#,
+			#remarks16#,
+			#question17Db#,
+			#remarks17#,
+			#question18Db#,
+			#remarks18#,
+			#question19Db#,
+			#remarks19#,
+			#question20Db#,
+			#remarks20#,
+			#question21#,
+			#question22#,
+			#question23#,
+			#question24#,
+			#question25#
+			)
+	]]>
+	</insert>
+
+</sqlMap>
