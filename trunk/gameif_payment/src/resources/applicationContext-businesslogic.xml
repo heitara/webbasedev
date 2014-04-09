@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd 
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+	
+	<!-- memberInfoBusinessLogic -->
+	<bean id="memberInfoBusinessLogic"
+		class="com.gameif.payment.businesslogic.impl.MemberInfoBusinessLogicImpl">
+		<!-- パスワード再設定用臨時キーの期限きれ時間（単位：時間） -->
+		<property name="pwdRegetInvalidHour">
+			<value>${memberInfoBusinessLogic.pwdReget.invalidHour}</value>
+		</property>
+		<!-- 仮登録用臨時キーの期限きれ時間（単位：時間） -->
+		<property name="loginInvalidHour">
+			<value>${memberInfoBusinessLogic.login.invalidHour}</value>
+		</property>
+		<property name="memberInfoDao">
+			<ref bean="memberInfoDao" />
+		</property>
+		<property name="memberLoginInfoDao">
+			<ref bean="memberLoginInfoDao" />
+		</property>
+		<property name="templateMailer">
+			<ref bean="templateMailer" />
+		</property>
+		<property name="tempPwdInfoDao">
+			<ref bean="tempPwdInfoDao" />
+		</property>
+		<property name="inviteInfoDao">
+			<ref bean="inviteInfoDao" />
+		</property>
+		<property name="tempMemberInfoDao">
+			<ref bean="tempMemberInfoDao" />
+		</property>
+		<property name="advertAgencyMstDao">
+			<ref bean="advertAgencyMstDao" />
+		</property>
+		<property name="memAdvertActualInfoDao">
+			<ref bean="memAdvertActualInfoDao" />
+		</property>
+		<property name="advertMstDao">
+			<ref bean="advertMstDao" />
+		</property>
+		<property name="paymentProperties">
+			<ref bean="paymentProperties" />
+		</property>
+		<property name="inviteLinkDao">
+			<ref bean="inviteLinkDao" />
+		</property>
+		<property name="inviteLinkHistDao">
+			<ref bean="inviteLinkHistDao" />
+		</property>
+		<property name="memberWithdrawInfoDao">
+			<ref bean="memberWithdrawInfoDao" />
+		</property>
+	</bean>
+	
+	<!-- inquiryInfoBusinessLogic -->
+	<bean id="inquiryInfoBusinessLogic"
+		class="com.gameif.payment.businesslogic.impl.InquiryInfoBusinessLogicImpl">
+		<property name="inquiryInfoDao">
+			<ref bean="inquiryInfoDao" />
+		</property>
+	</bean>
+	
+	<!-- inviteInfoBusinessLogic -->
+	<bean id="inviteInfoBusinessLogic"
+		class="com.gameif.payment.businesslogic.impl.InviteInfoBusinessLogicImpl">
+		<property name="deleDays">
+			<value>${inviteInfoBusinessLogic.deleDays}</value>
+		</property>
+		<property name="maxMailCount">
+			<value>${inviteInfoBusinessLogic.maxMailCount}</value>
+		</property>
+		<property name="inviteUrl">
+			<value>${inviteInfoBusinessLogic.inviteUrl}</value>
+		</property>
+		<property name="playCount">
+			<value>${inviteInfoBusinessLogic.playCount}</value>
+		</property>
+		<property name="inviteInfoDao">
+			<ref bean="inviteInfoDao" />
+		</property>
+		<property name="templateMailer">
+			<ref bean="templateMailer" />
+		</property>
+		<property name="titleMstDao">
+			<ref bean="titleMstDao" />
+		</property>
+		<property name="inviteLinkDao">
+			<ref bean="inviteLinkDao" />
+		</property>
+		<property name="inviteLinkHistDao">
+			<ref bean="inviteLinkHistDao" />
+		</property>
+		<property name="memberInfoDao">
+			<ref bean="memberInfoDao" />
+		</property>
+		<property name="memberLoginHistDao">
+			<ref bean="memberLoginHistDao" />
+		</property>
+		<property name="playHistDao">
+			<ref bean="playHistDao" />
+		</property>
+	</bean>
+	
+	<!-- masterInfoBusinessLogic -->
+	<bean id="masterInfoBusinessLogic"
+		class="com.gameif.payment.businesslogic.impl.MasterInfoBusinessLogicImpl">
+		<property name="divisionMstDao">
+			<ref bean="divisionMstDao" />
+		</property>
+		<property name="occupationMstDao">
+			<ref bean="occupationMstDao" />
+		</property>
+		<property name="questionMstDao">
+			<ref bean="questionMstDao" />
+		</property>
+		<property name="titleMstDao">
+			<ref bean="titleMstDao" />
+		</property>
+		<property name="serverMstDao">
+			<ref bean="serverMstDao" />
+		</property>
+		<property name="inquiryKindMstDao">
+			<ref bean="inquiryKindMstDao" />
+		</property>
+		<property name="inviteTemplateDao">
+			<ref bean="inviteTemplateDao" />
+		</property>
+		<property name="pointMstDao">
+			<ref bean="pointMstDao" />
+		</property>
+		<property name="providerMstDao">
+			<ref bean="providerMstDao" />
+		</property>
+		<property name="providerTitleMstDao">
+			<ref bean="providerTitleMstDao" />
+		</property>
+	</bean>
+	
+	<!-- titlePlayBusinessLogic -->
+	<bean id="titlePlayBusinessLogic"
+		class="com.gameif.payment.businesslogic.impl.TitlePlayBusinessLogicImpl">
+		<property name="limitDays">
+			<value>${titlePlayBusinessLogic.limitDays}</value>
+		</property>
+		<property name="playHistDao">
+			<ref bean="playHistDao" />
+		</property>
+		<property name="gameLoginCountDao">
+			<ref bean="gameLoginCountDao" />
+		</property>
+		<property name="inviteInfoDao">
+			<ref bean="inviteInfoDao" />
+		</property>
+		<property name="inviteLinkHistDao">
+			<ref bean="inviteLinkHistDao" />
+		</property>
+		<property name="playGuarantyDao">
+			<ref bean="playGuarantyDao" />
+		</property>
+	</bean>
+	
+	<!-- tempPwdRegetBusinessLogic -->
+	<bean id="tempPwdRegetBusinessLogic"
+		class="com.gameif.payment.businesslogic.impl.TempPwdRegetBusinessLogicImpl">
+		<property name="tempPwdInfoDao">
+			<ref bean="tempPwdInfoDao" />
+		</property>
+		<property name="memberInfoDao">
+			<ref bean="memberInfoDao" />
+		</property>
+		<property name="templateMailer">
+			<ref bean="templateMailer" />
+		</property>
+	</bean>
+	
+	<!-- paymentBusinessLogic -->
+	<bean id="paymentBusinessLogic"
+		class="com.gameif.payment.businesslogic.impl.PaymentBusinessLogicImpl">
+		<!-- サービスポイントの失効時間（単位:日） -->
+		<property name="validDays">
+			<value>${servicePoint.validDays}</value>
+		</property>
+		<!-- 購入できるポイントの限度額（100,000） -->
+		<property name="limitAmountMax">
+			<value>${payment.limitAmountMax}</value>
+		</property>
+		<!-- 購入できるポイントの限度額（30,000） -->
+		<property name="limitAmountMin">
+			<value>${payment.limitAmountMin}</value>
+		</property>
+		<property name="memSettlementHistDao">
+			<ref bean="memSettlementHistDao" />
+		</property>
+		<property name="memSettlementTrnsDao">
+			<ref bean="memSettlementTrnsDao" />
+		</property>
+		<property name="memberInfoDao">
+			<ref bean="memberInfoDao" />
+		</property>
+		<property name="pointMstDao">
+			<ref bean="pointMstDao" />
+		</property>
+		<property name="titleMstDao">
+			<ref bean="titleMstDao" />
+		</property>
+		<property name="servicePointTypeMstDao">
+			<ref bean="servicePointTypeMstDao" />
+		</property>
+		<property name="servicePointDao">
+			<ref bean="servicePointDao" />
+		</property>
+		<property name="servicePointGiveHistDao">
+			<ref bean="servicePointGiveHistDao" />
+		</property>
+		<property name="templateMailer">
+			<ref bean="templateMailer" />
+		</property>
+		<property name="titleCharge">
+			<ref bean="titleCharge" />
+		</property>
+		<property name="playHistDao">
+			<ref bean="playHistDao" />
+		</property>
+		<property name="serverMstDao">
+			<ref bean="serverMstDao" />
+		</property>
+        <property name="settlementMstDao">
+            <ref bean="settlementMstDao" />
+        </property>
+		<property name="functionControlInfoDao">
+			<ref bean="functionControlInfoDao" />
+		</property>
+	</bean>
+	
+	<!-- maintenanceBusinessLogic -->
+	<bean id="maintenanceBusinessLogic"
+		class="com.gameif.payment.businesslogic.impl.MaintenanceBusinessLogicImpl">
+		<property name="titleMstDao">
+			<ref bean="titleMstDao" />
+		</property>
+		<property name="maintenanceInfoDao">
+			<ref bean="maintenanceInfoDao" />
+		</property>
+	</bean>
+	
+	<!-- servicePointBusinessLogic -->
+	<bean id="servicePointBusinessLogic"
+		class="com.gameif.payment.businesslogic.impl.ServicePointBusinessLogicImpl">
+		<!-- サービスポイントの失効時間（単位:日） -->
+		<property name="validDays">
+			<value>${servicePoint.validDays}</value>
+		</property>
+		<property name="gameLoginCountDao">
+			<ref bean="gameLoginCountDao" />
+		</property>
+		<property name="servicePointTypeMstDao">
+			<ref bean="servicePointTypeMstDao" />
+		</property>
+		<property name="servicePointDao">
+			<ref bean="servicePointDao" />
+		</property>
+		<property name="servicePointGiveHistDao">
+			<ref bean="servicePointGiveHistDao" />
+		</property>
+		<property name="templateMailer">
+			<ref bean="templateMailer" />
+		</property>
+		<property name="titleMstDao">
+			<ref bean="titleMstDao" />
+		</property>
+		<property name="servicePointUseHistDao">
+			<ref bean="servicePointUseHistDao" />
+		</property>
+		<property name="serverMstDao">
+			<ref bean="serverMstDao" />
+		</property>
+		<property name="titleCharge">
+			<ref bean="titleCharge" />
+		</property>
+		<property name="memberInfoDao">
+			<ref bean="memberInfoDao" />
+		</property>
+	</bean>
+	
+	<!-- betaTesterBusinessLogic -->
+	<bean id="betaTesterBusinessLogic"
+		class="com.gameif.payment.businesslogic.impl.BetaTesterBusinessLogicImpl">
+		<property name="betaTesterDao">
+			<ref bean="betaTesterDao" />
+		</property>
+		<property name="titleMstDao">
+			<ref bean="titleMstDao" />
+		</property>
+	</bean>
+	
+	<!-- questionnaireAnswerBusinessLogic -->
+	<bean id="questionnaireAnswerBusinessLogic"
+		class="com.gameif.payment.businesslogic.impl.QuestionnaireAnswerBusinessLogicImpl">
+		<property name="questionnaireMstDao">
+			<ref bean="questionnaireMstDao" />
+		</property>
+		<property name="questionnaireAnswerDao">
+			<ref bean="questionnaireAnswerDao" />
+		</property>
+	</bean>
+	
+	<!-- ticketBusinessLogic -->
+	<bean id="ticketBusinessLogic"
+		class="com.gameif.payment.businesslogic.impl.TicketBusinessLogicImpl">
+		<!-- サービスポイントの失効時間（単位:日） -->
+		<property name="validDays">
+			<value>${servicePoint.validDays}</value>
+		</property>
+		<property name="ticketInfoDao">
+			<ref bean="ticketInfoDao" />
+		</property>
+		<property name="ticketUseHistDao">
+			<ref bean="ticketUseHistDao" />
+		</property>
+		<property name="ticketModelMstDao">
+			<ref bean="ticketModelMstDao" />
+		</property>
+		<property name="ticketModelDetailDao">
+			<ref bean="ticketModelDetailDao" />
+		</property>
+		<property name="servicePointDao">
+			<ref bean="servicePointDao" />
+		</property>
+		<property name="servicePointGiveHistDao">
+			<ref bean="servicePointGiveHistDao" />
+		</property>
+		<property name="ticketGiveHistDao">
+			<ref bean="ticketGiveHistDao" />
+		</property>
+	</bean>
+    
+</beans>

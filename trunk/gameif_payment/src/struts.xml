@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<include file="struts-default.xml" />
+
+	<package name="gameif" extends="struts-default">
+	
+		<interceptors>
+			<interceptor name="secureParameter" class="secureParameterInterceptor"/>
+			<interceptor name="entryParameter" class="entryParameterInterceptor"/>
+			<interceptor name="actionLogger" class="actionLoggerInterceptor"/>
+			<interceptor name="repetitionReg" class="repetitionRegInterceptor"/>
+            <interceptor name="chargeMaintenance" class="paymentMaintenanceInterceptor"/>
+            <interceptor name="chargeTitleMaintenance" class="paymentTitleMaintenanceInterceptor"/>
+            <interceptor name="biglobeCharge" class="biglobePaymentInterceptor"/>
+			<interceptor-stack name="gameifStack">
+				<interceptor-ref name="defaultStack"/>
+				<interceptor-ref name="actionLogger"/>
+			</interceptor-stack>
+		</interceptors>
+		
+		<default-interceptor-ref name="gameifStack"/>
+		<default-action-ref name="index"/>
+		
+		<global-results>
+			<result name="unhandledException">/WEB-INF/pages/common/error.jsp</result>
+			<result name="warning">/WEB-INF/pages/common/warning.jsp</result>
+		</global-results>
+
+		<action name="index" class="indexAction">
+			<result name="index">/WEB-INF/pages/portal/index.jsp</result>
+		</action>
+
+		<action name="*Page" class="displayAction" method="{1}">
+			<result name="finish">/WEB-INF/pages/common/finish.jsp</result>
+			<result name="outOfDate">/WEB-INF/pages/common/outOfDate.jsp</result>
+			<result name="maintenance">/WEB-INF/pages/common/maintenance.jsp</result>
+		</action>
+
+		<action name="*Member" class="memberInfoAction" method="{1}">
+			<interceptor-ref name="scopedModelDriven">
+				<param name="scope">request</param>
+				<param name="name">memberInfo</param>
+				<param name="className">com.gameif.payment.entity.MemberInfo</param>
+			</interceptor-ref>
+			<interceptor-ref name="checkbox">
+				<param name="uncheckedValue">0</param>
+			</interceptor-ref>
+			<interceptor-ref name="token">
+				<param name="includeMethods">createTemp</param>
+			</interceptor-ref>
+			<interceptor-ref name="gameifStack"></interceptor-ref>
+			<interceptor-ref name="secureParameter">
+				<param name="includeMethods">activate,finishedCreate,finishedActivate</param>
+			</interceptor-ref>
+			<interceptor-ref name="entryParameter">
+				<param name="includeMethods">createTemp,finishedActivate</param>
+			</interceptor-ref>
+			<interceptor-ref name="repetitionReg">
+				<param name="includeMethods">createTemp,activate</param>
+			</interceptor-ref>
+			<result name="input">/WEB-INF/pages/portal/mem_registry.jsp</result>
+			<result name="success" type="redirect">/finishedCreateMember.html?enc=${enc}</result>
+			<result name="finish">/WEB-INF/pages/portal/mem_registry_success.jsp</result>
+			<result name="activate" type="redirect">/finishedActivateMember.html?enc=${enc}</result>
+			<result name="outOfDate" type="redirect">outOfDatePage.html</result>
+			<result name="finishedActivate">/WEB-INF/pages/portal/mem_activate_success.jsp</result>
+			<result name="invalid.token">/WEB-INF/pages/common/warning.jsp</result>
+		</action>
+
+		<action name="*OpenID" class="memberInfoAction" method="{1}OpenID">
+			<interceptor-ref name="scopedModelDriven">
+				<param name="scope">request</param>
+				<param name="name">memberInfo</param>
+				<param name="className">com.gameif.payment.entity.MemberInfo</param>
+			</interceptor-ref>
+			<interceptor-ref name="checkbox">
+				<param name="uncheckedValue">0</param>
+			</interceptor-ref>
+			<interceptor-ref name="token">
+				<param name="includeMethods">createOpenID</param>
+			</interceptor-ref>
+			<interceptor-ref name="gameifStack"></interceptor-ref>
+			<interceptor-ref name="entryParameter">
+				<param name="includeMethods">createOpenID</param>
+			</interceptor-ref>
+			<interceptor-ref name="repetitionReg">
+				<param name="includeMethods">createOpenID</param>
+			</interceptor-ref>
+			<result name="input">/WEB-INF/pages/portal/mem_openid_registry.jsp</result>
+			<result name="success">/WEB-INF/pages/portal/mem_openid_registry_success.jsp</result>
+			<!-- <result name="success" type="redirect">${openIdReloginUrl}</result> -->
+		</action>
+
+		<action name="*MemberInfo" class="memberInfoAction" method="{1}MemberInfo">
+			<interceptor-ref name="scopedModelDriven">
+				<param name="scope">request</param>
+				<param name="name">memberInfo</param>
+				<param name="className">com.gameif.payment.entity.MemberInfo</param>
+			</interceptor-ref>
+			<interceptor-ref name="checkbox">
+				<param name="uncheckedValue">0</param>
+			</interceptor-ref>
+			<interceptor-ref name="token">
+				<param name="includeMethods">updateMemberInfo</param>
+			</interceptor-ref>
+			<interceptor-ref name="gameifStack"></interceptor-ref>
+			<result name="input">/WEB-INF/pages/portal/mem_info_edit.jsp</result>
+			<result name="success" type="redirect">/finishedPage.html?action=updateMember</result>
+			<result name="invalid.token">/WEB-INF/pages/common/warning.jsp</result>
+		</action>
+
+		<action name="*Password" class="memberInfoAction" method="{1}Password">
+			<interceptor-ref name="scopedModelDriven">
+				<param name="scope">request</param>
+				<param name="name">memberInfo</param>
+				<param name="className">com.gameif.payment.entity.MemberInfo</param>
+			</interceptor-ref>
+			<interceptor-ref name="checkbox">
+				<param name="uncheckedValue">0</param>
+			</interceptor-ref>
+			<interceptor-ref name="token">
+				<param name="includeMethods">updatePassword</param>
+			</interceptor-ref>			
+			<interceptor-ref name="gameifStack"></interceptor-ref>
+			<result name="input">/WEB-INF/pages/portal/mem_passwd_edit.jsp</result>
+			<result name="success" type="redirect">/finishedPage.html?action=updatePasswd</result>
+			<result name="invalid.token">/WEB-INF/pages/common/warning.jsp</result>
+		</action>
+		
+		<action name="*Inquiry" class="inquiryInfoAction" method="{1}">
+			<interceptor-ref name="scopedModelDriven">
+				<param name="scope">request</param>
+				<param name="name">inquiryInfo</param>
+				<param name="className">com.gameif.payment.entity.InquiryInfo</param>
+			</interceptor-ref>
+			<interceptor-ref name="gameifStack" />
+			
+			<!-- 
+			<interceptor-ref name="token">
+				<param name="includeMethods">create</param>
+				<param name="includeMethods">createMedia</param>
+			</interceptor-ref>
+			 -->
+			 
+			<result name="input">/WEB-INF/pages/portal/inquiry_input.jsp</result>
+			<result name="inputMedia">/WEB-INF/pages/portal/inquiry_media_input.jsp</result>
+			<result name="inputMember">/WEB-INF/pages/portal/inquiry_member_input.jsp</result>
+			<result name="forMember" type="redirect">/inputMemberInquiry.html</result>
+			<result name="success"  type="redirect">/finishedPage.html?action=createInquiry</result>
+		</action>
+		
+		<action name="*Invite" class="inviteInputAction" method="{1}">
+			<interceptor-ref name="scopedModelDriven">
+				<param name="scope">request</param>
+				<param name="name">inviteInfo</param>
+				<param name="className">com.gameif.payment.entity.InviteInfo</param>
+			</interceptor-ref>
+			<interceptor-ref name="gameifStack" />
+			<interceptor-ref name="store">
+				<param name="operationMode">NONE</param>
+			</interceptor-ref>
+			
+			<!-- 友達招待案内する画面 -->
+			<result name="input">/WEB-INF/pages/portal/invite_guide.jsp</result>
+			<!-- メール導入画面に案内する -->
+			<result name="inputMailSel">/WEB-INF/pages/portal/invite_mail_select.jsp</result>
+			<!-- 友達選択画面に案内する -->
+			<result name="friendImport">/WEB-INF/pages/portal/invite_friend_import.jsp</result>
+			<!-- メールで友達招待に案内する -->
+			<result name="inputMail">/WEB-INF/pages/portal/invite_input.jsp</result>
+			<!-- リンクで友達招待に案内する -->
+			<result name="inputLink">/WEB-INF/pages/portal/invite_link_input.jsp</result>
+			<result name="success"  type="redirect">/finishedPage.html?action=createInvite</result>
+			<!-- メンテナンス画面に案内する -->
+			<result name="maintenance" type="redirect">/maintenancePage.html</result>
+			<!-- 
+			<result name="importFriends" type="chain">inputInvite</result>
+			 -->
+		</action>
+		
+		<action name="*InviteHist" class="inviteHistAction" method="{1}">
+			<!-- メールで招待履歴画面に案内する -->
+			<result name="showMail">/WEB-INF/pages/portal/invite_hist.jsp</result>
+			<!-- リンクで招待履歴画面に案内する -->
+			<result name="showLink">/WEB-INF/pages/portal/invite_link_hist.jsp</result>
+			<result name="sendMailSuccess"  type="redirect">/finishedPage.html?action=sendMailAgain</result>
+			<result name="deleteSuccess"  type="redirect">/finishedPage.html?action=deleteInvite</result>
+			<result name="finishedCheckMail"  type="redirect">/showMailInviteHist.html</result>
+			<result name="finishedCheckLink"  type="redirect">/showLinkInviteHist.html</result>
+			<!-- メンテナンス画面に案内する -->
+			<result name="maintenance" type="redirect">/maintenancePage.html</result>
+		</action>
+
+		<action name="playGame" class="titlePlayControlAction">
+			<result name="success" type="redirect">${playUrl}</result>
+			<result name="select" type="redirectAction">games</result>
+			<result name="guaranty" type="redirectAction">
+				<param name="actionName">inputPlayGuaranty</param>
+				<param name="serverId">${serverId}</param>
+				<param name="titleId">${titleId}</param>
+				<param name="server">${server}</param>
+			</result>
+		</action>
+
+		<action name="games" class="titleSelectControlAction">
+			<result name="success">/WEB-INF/pages/portal/title_list.jsp</result>
+		</action>
+		
+		<action name="*PwdReget" class="memberPwdRegetAction" method="{1}">
+			<interceptor-ref name="scopedModelDriven">
+				<param name="scope">request</param>
+				<param name="name">tempPwdInfo</param>
+				<param name="className">com.gameif.payment.entity.TempPwdInfo</param>
+			</interceptor-ref>
+			<interceptor-ref name="gameifStack" />
+			<interceptor-ref name="store">
+				<param name="operationMode">NONE</param>
+			</interceptor-ref>
+			<interceptor-ref name="secureParameter">
+				<param name="includeMethods">finished</param>
+			</interceptor-ref>
+			
+			<result name="input">/WEB-INF/pages/portal/temp_pwd_reget.jsp</result>
+			<result name="success"  type="redirect">/finishedPwdReget.html?enc=${enc}</result>
+			<result name="finish">/WEB-INF/pages/portal/temp_pwd_reget_finish.jsp</result>
+		</action>
+		
+		<action name="*TempPwd" class="memberInfoAction" method="{1}TempPwd">
+			<interceptor-ref name="scopedModelDriven">
+				<param name="scope">request</param>
+				<param name="name">memberInfo</param>
+				<param name="className">com.gameif.payment.entity.MemberInfo</param>
+			</interceptor-ref>
+			<interceptor-ref name="checkbox">
+				<param name="uncheckedValue">0</param>
+			</interceptor-ref>
+			<interceptor-ref name="token">
+				<param name="includeMethods">updateTempPwd</param>
+			</interceptor-ref>
+			<interceptor-ref name="gameifStack"></interceptor-ref>
+			<interceptor-ref name="secureParameter">
+				<param name="includeMethods">editTempPwd</param>
+			</interceptor-ref>
+			<result name="input">/WEB-INF/pages/portal/temp_pwd_edit.jsp</result>
+			<result name="success" type="redirect">/finishedPage.html?action=updateTempPwd</result>
+			<result name="invalid.token">/WEB-INF/pages/common/warning.jsp</result>
+		</action>
+
+		<action name="charge*" class="paymentControlAction" method="charge{1}">
+			<interceptor-ref name="scopedModelDriven">
+				<param name="scope">request</param>
+				<param name="name">memSettlementHist</param>
+				<param name="className">com.gameif.payment.entity.MemSettlementHist</param>
+			</interceptor-ref>
+			<interceptor-ref name="gameifStack"></interceptor-ref>
+            <interceptor-ref name="chargeMaintenance">
+                <param name="includeMethods">chargePointSelect,chargeSettleSelect,chargeSaveSettleTrns</param>
+            </interceptor-ref>
+            <interceptor-ref name="chargeTitleMaintenance">
+                <param name="includeMethods">chargeSettleSelect,chargeSaveSettleTrns</param>
+            </interceptor-ref>
+            <interceptor-ref name="biglobeCharge">
+                <param name="includeMethods">chargeSettleSelect</param>
+            </interceptor-ref>
+			<result name="pointSelect">/WEB-INF/pages/portal/charge_point_select.jsp</result>
+			<result name="pointSubmit" type="redirect">chargeSettleSelect.html?titleId=${titleId}&amp;serverId=${serverId}&amp;pointId=${pointId}</result>
+			<result name="settleSelect">/WEB-INF/pages/portal/charge_settle_select.jsp</result>
+			<result name="settleSubmit" type="redirect">chargeSaveSettleTrns.html?titleId=${titleId}&amp;serverId=${serverId}&amp;pointId=${pointId}&amp;settlementCode=${settlementCode}</result>
+			<result name="requestSbps">/WEB-INF/pages/portal/charge_detail.jsp</result>
+			<result name="success">/WEB-INF/pages/portal/charge_success.jsp</result>
+			<result name="cancel">/WEB-INF/pages/portal/charge_cancel.jsp</result>
+			<result name="error">/WEB-INF/pages/portal/charge_error.jsp</result>
+			<result name="settlementHist">/WEB-INF/pages/portal/charge_settle_hist.jsp</result>
+			<result name="maintenance" type="redirect">/maintenancePage.html</result>
+			<result name="invalid.token">/WEB-INF/pages/common/warning.jsp</result>
+            <result name="biglobeCharge" type="redirect">blChargePrepare.html?titleId=${titleId}&amp;serverId=${serverId}&amp;pointId=${pointId}</result>
+		</action>
+
+		<action name="blCharge*" class="biglobePaymentControlAction" method="charge{1}">
+			<interceptor-ref name="scopedModelDriven">
+				<param name="scope">request</param>
+				<param name="name">memSettlementHist</param>
+				<param name="className">com.gameif.payment.entity.MemSettlementHist</param>
+			</interceptor-ref>
+			<interceptor-ref name="gameifStack"></interceptor-ref>			
+			<result name="bigLobeDetail">/WEB-INF/pages/biglobe/charge_detail.jsp</result>
+            <result name="success">/WEB-INF/pages/portal/charge_success.jsp</result>
+			<result name="error">/WEB-INF/pages/portal/charge_error.jsp</result>
+			<result name="invalid.token">/WEB-INF/pages/common/warning.jsp</result>
+			<!-- メンテナンス画面に案内する -->
+			<result name="maintenance" type="redirect">/maintenancePage.html</result>
+		</action>
+
+		<action name="loginStatusProxy" class="loginStatusProxyAction">
+			<result name="success" type="redirect">${target}</result>
+		</action>
+		<action name="logoutProxy" class="logoutProxyAction">
+			<result name="success" type="redirect">${logoutUrl}</result>
+		</action>
+		<action name="entryProxy" class="entryProxyAction">
+			<result name="success" type="redirect">${titleEntryUrl}</result>
+		</action>
+
+		<!-- サービスポイントに関連するアクション -->
+		<action name="*ServicePoint" class="servicePointControlAction" method="{1}">
+			<!-- 
+			<interceptor-ref name="token">
+				<param name="includeMethods">getGameLoginServicePoint</param>
+			</interceptor-ref>
+			 -->
+			<result name="inputGet">/WEB-INF/pages/portal/service_point_get.jsp</result>
+			<result name="finishedGet" type="redirect">/finishedPage.html?action=getGameLoginServicePoint</result>
+			<result name="inputCharge">/WEB-INF/pages/portal/service_point_charge.jsp</result>
+			<result name="finishedCharge" type="redirect">/finishedPage.html?action=chargeServicePoint</result>
+			<result name="inputUseList">/WEB-INF/pages/portal/service_point_use_hist.jsp</result>
+			<result name="inputGiveList">/WEB-INF/pages/portal/service_point_give_hist.jsp</result>
+			<result name="input">/WEB-INF/pages/portal/service_point_list.jsp</result>
+			<!-- メンテナンス画面に案内する -->
+			<result name="maintenance" type="redirect">/maintenancePage.html</result>
+		</action>
+
+		<!-- テスター募集 -->
+		<action name="*BetaTester" class="betaTesterControlAction" method="{1}">
+			<interceptor-ref name="scopedModelDriven">
+				<param name="scope">request</param>
+				<param name="name">betaTester</param>
+				<param name="className">com.gameif.payment.entity.BetaTester</param>
+			</interceptor-ref>
+			<interceptor-ref name="gameifStack"></interceptor-ref>
+			<result name="success" type="redirect"><![CDATA[finishApplyBetaTester.html?titleId=${titleId}&status=${status}]]></result>
+			<result name="finish">/WEB-INF/pages/portal/tester_apply_success.jsp</result>
+		</action>
+
+		<!-- アンケート -->
+		<action name="*QuestionnaireAnswer" class="questionnaireAnswerAction" method="{1}">
+			<interceptor-ref name="scopedModelDriven">
+				<param name="scope">request</param>
+				<param name="name">questionnaireAnswer</param>
+				<param name="className">com.gameif.payment.entity.QuestionnaireAnswer</param>
+			</interceptor-ref>
+			<interceptor-ref name="gameifStack"></interceptor-ref>
+			<result name="input">/WEB-INF/pages/portal/questionnaire.jsp</result>
+			<result name="success" type="redirect">/finishedPage.html?action=questionnaireAnswer</result>
+		</action>
+
+		<action name="*WithDrawInfo" class="memberWithDrawAction" method="{1}WithDrawInfo">
+			<interceptor-ref name="scopedModelDriven">
+				<param name="scope">request</param>
+				<param name="name">memberWithdrawInfo</param>
+				<param name="className">com.gameif.payment.entity.MemberWithdrawInfo</param>
+			</interceptor-ref>
+			<interceptor-ref name="token">
+				<param name="includeMethods">createWithDrawInfo</param>
+			</interceptor-ref>
+			<interceptor-ref name="gameifStack"></interceptor-ref>
+			<result name="input">/WEB-INF/pages/portal/mem_withdraw.jsp</result>
+			<!--
+			<result name="success" type="redirect">/finishedWithDrawInfo.html</result>
+			-->
+			<result name="success" type="redirect">${logoutUrl}</result>
+			<!--			
+			<result name="finished" >/WEB-INF/pages/portal/mem_withdraw_finished.jsp</result>
+			-->			
+			<result name="invalid.token">/WEB-INF/pages/common/warning.jsp</result>
+		</action>
+
+		<action name="*Ticket" class="ticketControlAction" method="{1}">
+			<interceptor-ref name="gameifStack"></interceptor-ref>
+			<result name="inputList">/WEB-INF/pages/portal/ticket_list.jsp</result>
+			<result name="finishedUse" type="redirect">/inputListTicket.html?point=${point}</result>
+			<result name="inputUseList">/WEB-INF/pages/portal/ticket_use_list.jsp</result>
+			<result name="inputGiveList">/WEB-INF/pages/portal/ticket_give_list.jsp</result>
+			<!-- メンテナンス画面に案内する -->
+			<result name="maintenance" type="redirect">/maintenancePage.html</result>
+		</action>
+
+		<action name="*PlayGuaranty" class="titlePlayGuarantyControlAction" method="{1}">
+			<interceptor-ref name="gameifStack"></interceptor-ref>
+			<result name="input">/WEB-INF/pages/portal/play_guaranty.jsp</result>
+			<result name="success" type="redirect">${playUrl}</result>
+			<result name="select" type="redirectAction">games</result>
+		</action>
+		
+	</package>
+	
+	<package name="gamejax" extends="json-default">
+		<interceptors>
+			<interceptor name="actionLogger" class="actionLoggerInterceptor"/>
+			<interceptor-stack name="gameifStack">
+				<interceptor-ref name="defaultStack"/>
+				<interceptor-ref name="actionLogger"/>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="gameifStack"/>
+		<action name="*Exist" class="existCheckAction" method="{1}">
+            <result type="json"></result>
+		</action>
+		
+		<!-- タイトルIDより、紹介メッセージテンプレートデータを取得する -->
+		<action name="bindInviteTemplate" class="inviteBindMasterAction" method="bindInviteTemplate">
+            <result type="json"></result>
+		</action>
+		<!-- 紹介メッセージテンプレートIDより、紹介メッセージを取得する -->
+		<action name="changeInviteMsg" class="inviteBindMasterAction" method="changeInviteMsg">
+            <result type="json"></result>
+		</action>
+		
+		<!-- ポイントチャージに関するマスタ情報を取得する -->
+		<action name="*ForCharge" class="paymentBindMasterAction" method="{1}">
+            <result type="json"></result>
+		</action>
+	</package>
+</struts>

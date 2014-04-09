@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="tempPwdInfo">
+	<typeAlias alias="tempPwdInfo" type="com.gameif.payment.entity.TempPwdInfo" />
+	
+	<resultMap class="com.gameif.payment.entity.TempPwdInfo" id="tempPwdResult">
+		<result property="mailPc" column="mail_pc" />
+		<result property="createdDate" column="created_date" />
+		<result property="memNum" column="mem_num"/>
+		<result property="tempKey" column="temp_key"/>
+	</resultMap>
+
+	<delete id="deleteByMemNum">
+	<![CDATA[
+		DELETE
+		FROM temp_pwd_info
+		WHERE
+			mem_num = #value#
+	]]>
+	</delete>
+	
+	<insert id = "save" parameterClass="tempPwdInfo"> 
+        <![CDATA[
+		INSERT INTO temp_pwd_info
+			(mail_pc,
+			created_date,
+			mem_num,
+			temp_key)
+		VALUES
+			(#mailPc#,
+			#createdDate#,
+			#memNum#,
+			#tempKey#)
+        ]]>
+	</insert>
+
+	<select id="selectByMemNumAndTempKey" resultMap="tempPwdResult">   
+        <![CDATA[
+        SELECT
+			mail_pc,
+			created_date,
+			mem_num,
+			temp_key
+		FROM
+			temp_pwd_info
+		WHERE 
+			mem_num = #memNum#
+		AND temp_key = #tempKey#
+        ]]>
+	</select>
+
+</sqlMap>

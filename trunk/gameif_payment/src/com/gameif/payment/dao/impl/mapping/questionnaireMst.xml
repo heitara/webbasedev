@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="questionnaireMst">
+
+	<typeAlias alias="questionnaireMst" type="com.gameif.payment.entity.QuestionnaireMst" />
+	
+	<resultMap class="com.gameif.payment.entity.QuestionnaireMst" id="questionnaireMstResult">
+		<result property="questionNo" column="question_no"/>
+		<result property="questionName" column="question_name"/>
+		<result property="htmlContents" column="html_contents"/>
+	</resultMap>
+
+	<select id="selectByKey" parameterClass="questionnaireMst" resultMap="questionnaireMstResult">   
+        <![CDATA[
+        SELECT
+			question_no,
+			question_name,
+			html_contents
+		FROM
+			questionnaire_mst
+		WHERE
+			question_no = #questionNo#
+        ]]>
+	</select>
+
+</sqlMap>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="settlementMst">
+
+	<resultMap class="com.gameif.payment.entity.SettlementMst" id="settlementResult">
+		<result property="settlementCode" column="settlement_code" />
+		<result property="settlementName" column="settlement_name" />
+		<result property="iconUrl" column="icon_url" />
+		<result property="settlementStatus" column="settlement_status" />
+		<result property="orderBy" column="order_by" />
+		<result property="createdDate" column="created_date"/>
+		<result property="createdUser" column="created_user"/>
+		<result property="lastUpdateDate" column="last_update_date"/>
+		<result property="lastUpdateUser" column="last_update_user"/>
+	</resultMap>
+
+	<select id="selectAll" resultMap="settlementResult">
+        <![CDATA[
+        SELECT
+			settlement_code,
+			settlement_name,
+			icon_url,
+			settlement_status,
+			order_by,
+			created_date,
+			created_user,
+			last_update_date,
+			last_update_user
+		FROM
+			settlement_mst
+		ORDER BY order_by
+        ]]>
+	</select>
+
+	<select id="selectValidSettlementList" resultMap="settlementResult">
+        <![CDATA[
+        SELECT
+			settlement_code,
+			settlement_name,
+			icon_url,
+			settlement_status,
+			order_by,
+			created_date,
+			created_user,
+			last_update_date,
+			last_update_user
+		FROM
+			settlement_mst
+		WHERE
+			settlement_status = '1'
+		ORDER BY order_by
+        ]]>
+	</select>
+
+</sqlMap>

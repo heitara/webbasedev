@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="servicePointTypeMst">
+	<typeAlias alias="servicePointTypeMst" type="com.gameif.payment.entity.ServicePointTypeMst" />
+	
+	<resultMap class="com.gameif.payment.entity.ServicePointTypeMst" id="servicePointTypeResult">
+		<result property="servicePointTypeId" column="service_point_type_id" />
+		<result property="servicePointTypeCode" column="service_point_type_code" />
+		<result property="pointAmount" column="point_amount" />
+		<result property="standardLevel" column="standard_level" />
+	</resultMap>
+	
+	<select id="selectValidGameloginPoint" parameterClass="java.util.Map" resultMap="servicePointTypeResult">   
+        <![CDATA[
+	        SELECT
+				service_point_type_id,
+				service_point_type_code,
+				point_amount,
+				max(standard_level) as standard_level
+			FROM
+				service_point_type_mst
+			WHERE
+				service_point_type_code = #servicePointTypeCode#
+			AND standard_level <= #standardLevel#
+        ]]>
+	</select>
+	
+	<select id="selectChargePointRateForUpdate" parameterClass="java.util.Map" resultMap="servicePointTypeResult">   
+        <![CDATA[
+	        SELECT
+				service_point_type_id,
+				service_point_type_code,
+				point_amount,
+				max(standard_level) as standard_level
+			FROM
+				service_point_type_mst
+			WHERE
+				service_point_type_code = #servicePointTypeCd#
+			AND standard_level <= ( 
+					SELECT 
+						sum(ifnull(point_amount_act, 0)) as point_amount_act 
+					FROM 
+						mem_settlement_hist
+					WHERE mem_num = #memNum#
+					AND title_id = #titleId# 
+					AND settlement_date >= #chargeStartDate#
+					AND settlement_date <= #chargeEndDate#
+					)
+        ]]>
+	</select>
+	
+	<select id="selectChargeFixPointForUpdate" parameterClass="java.util.Map" resultMap="servicePointTypeResult">   
+        <![CDATA[
+	        SELECT
+				service_point_type_id,
+				service_point_type_code,
+				point_amount,
+				standard_level
+			FROM
+				service_point_type_mst
+			WHERE
+				service_point_type_code = #servicePointTypeCd#
+			AND standard_level = #chargePoint#
+        ]]>
+	</select>
+
+</sqlMap>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN"
+    "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+
+	<settings cacheModelsEnabled="false"
+		enhancementEnabled="false"
+		lazyLoadingEnabled="true"
+		errorTracingEnabled="true"
+		useStatementNamespaces="true"
+		maxRequests="32"
+		maxSessions="10"
+		maxTransactions="5" />
+
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/memberInfo.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/memberLoginInfo.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/inquiryInfo.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/inviteInfo.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/playHist.xml" />
+	
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/divisionMst.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/occupationMst.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/questionMst.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/titleMst.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/serverMst.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/inquiryKindMst.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/inviteTemplateMst.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/tempPwdInfo.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/pointMst.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/settlementMst.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/memSettlementTrns.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/memSettlementHist.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/betaTester.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/servicePoint.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/gameLoginCount.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/servicePointTypeMst.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/servicePointGiveHist.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/tempMemberInfo.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/advertAgencyMst.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/memAdvertActualInfo.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/advertMst.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/inviteLink.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/inviteLinkHist.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/maintenanceInfo.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/questionnaireAnswer.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/questionnaireMst.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/memberWithdrawInfo.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/servicePointUseHist.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/ticketMst.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/ticketModelMst.xml" />
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/ticketModelDetail.xml"/>
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/ticketInfo.xml"/>
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/ticketGiveHist.xml"/>
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/ticketUseHist.xml"/>
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/memberLoginHist.xml"/>
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/playGuaranty.xml"/>
+	<sqlMap resource="com/gameif/portal/dao/impl/mapping/functionControlInfo.xml"/>
+    <sqlMap resource="com/gameif/portal/dao/impl/mapping/providerMst.xml"/>
+    <sqlMap resource="com/gameif/portal/dao/impl/mapping/providerTitleMst.xml"/>
+</sqlMapConfig>

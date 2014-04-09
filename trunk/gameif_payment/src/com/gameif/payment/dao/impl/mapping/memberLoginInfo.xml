@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="memberLoginInfo">
+
+	<typeAlias alias="memberLoginInfo" type="com.gameif.payment.entity.MemberLoginInfo" />
+
+	<insert id="save" parameterClass="memberLoginInfo">
+	<![CDATA[
+		INSERT INTO member_login_info
+			(
+			mem_num,
+			mem_id,
+			nick_name,
+			mem_pwd,
+			mem_valid_yn_cd,
+			login_ip,
+			login_date,
+			login_fail_ip,
+			login_fail_date,
+			login_fail_cnt,
+			version_no)
+		VALUES
+			(
+			#memNum#,
+			#memId#,
+			#nickName#,
+			#memPwd#,
+			#memValidYNCd#,
+			null,
+			null,
+			null,
+			null,
+			0,
+			0
+			)
+	]]>
+	</insert>
+
+	<update id="update" parameterClass="memberLoginInfo">
+      <![CDATA[
+		UPDATE
+			member_login_info
+		SET
+			mem_id = #memId#,
+			nick_name = #nickName#,
+			mem_pwd = #memPwd#,
+			mem_valid_yn_cd = #memValidYNCd#,
+			version_no = version_no + 1
+		WHERE
+			mem_num = #memNum#
+      ]]>
+	</update>
+
+</sqlMap>

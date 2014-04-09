@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="memberInfo">
+
+	<typeAlias alias="memberInfo" type="com.gameif.payment.entity.MemberInfo" />
+	<typeAlias alias="searchCondition" type="com.gameif.common.bean.ComSearchCondition" />
+	
+	<resultMap class="com.gameif.payment.entity.MemberInfo" id="memberResult">
+		<result property="memNum" column="mem_num" />
+		<result property="memId" column="mem_id" />
+		<result property="nickName" column="nick_name" />
+		<result property="memPwd" column="mem_pwd" />
+		<result property="memKindCd" column="mem_kind_cd" />
+		<result property="memAtbtCd" column="mem_atbt_cd" />
+		<result property="memValidYNCd" column="mem_valid_yn_cd" />
+		<result property="questionCd" column="question_cd" />
+		<result property="answer" column="answer" />
+		<result property="mailPc" column="mail_pc" />
+		<result property="mailMobile" column="mail_mobile" />
+		<result property="kanjiFname" column="kanji_fname" />
+		<result property="kanjiLname" column="kanji_lname" />
+		<result property="kanaFname" column="kana_fname" />
+		<result property="kanaLname" column="kana_lname" />
+		<result property="sexCd" column="sex_cd" />
+		<result property="birthYmd" column="birth_ymd" />
+		<result property="divisCd" column="divis_cd" />
+		<result property="occupCd" column="occup_cd" />
+		<result property="cityName" column="city_name" />
+		<result property="buildingName" column="building_name" />
+		<result property="telNum" column="tel_num" />
+		<result property="mailmagReqCd" column="mailmag_req_cd" />
+		<result property="mailmagObjCd" column="mailmag_obj_cd" />
+		<result property="note" column="note" />
+		<result property="entryDate" column="entry_date" />
+		<result property="entryIp" column="entry_ip" />
+		<result property="withdrawDate" column="withdraw_date" />
+		<result property="withdrawIp" column="withdraw_ip" />
+		<result property="lastUpdateDate" column="last_update_date" />
+		<result property="lastUpdateIp" column="last_update_ip" />
+		<result property="lastUpdateUser" column="last_update_user" />
+		<result property="versionNo" column="version_no" />
+	</resultMap>
+	
+	<resultMap class="com.gameif.payment.entity.MemberInfo" id="memInviteLinkResult">
+		<result property="nickName" column="nick_name" />
+		<result property="entryDate" column="entry_date" />
+	</resultMap>
+
+	<select id="selectByKey" parameterClass="memberInfo" resultMap="memberResult">   
+        <![CDATA[
+        SELECT
+			mem_num,
+			mem_id,
+			nick_name,
+			mem_pwd,
+			mem_kind_cd,
+			mem_atbt_cd,
+			mem_valid_yn_cd,
+			question_cd,
+			answer,
+			mail_pc,
+			mail_mobile,
+			kanji_fname,
+			kanji_lname,
+			kana_fname,
+			kana_lname,
+			sex_cd,
+			birth_ymd,
+			divis_cd,
+			occup_cd,
+			city_name,
+			building_name,
+			tel_num,
+			mailmag_req_cd,
+			mailmag_obj_cd,
+			note,
+			entry_date,
+			entry_ip,
+			withdraw_date,
+			withdraw_ip,
+			last_update_date,
+			last_update_ip,
+			last_update_user,
+			version_no
+		FROM
+			member_info
+		WHERE
+			mem_num = #memNum#
+        ]]>
+	</select>
+
+	<select id="selectForUpdate" resultMap="memberResult">
+        <![CDATA[
+			SELECT
+				mem_num,
+				mem_id,
+				nick_name,
+				mem_pwd,
+				mem_kind_cd,
+				mem_atbt_cd,
+				mem_valid_yn_cd,
+				question_cd,
+				answer,
+				mail_pc,
+				mail_mobile,
+				kanji_fname,
+				kanji_lname,
+				kana_fname,
+				kana_lname,
+				sex_cd,
+				birth_ymd,
+				divis_cd,
+				occup_cd,
+				city_name,
+				building_name,
+				tel_num,
+				mailmag_req_cd,
+				mailmag_obj_cd,
+				note,
+				entry_date,
+				entry_ip,
+				withdraw_date,
+				withdraw_ip,
+				last_update_date,
+				last_update_ip,
+				last_update_user,
+				version_no
+			FROM
+				member_info
+			WHERE
+				mem_num = #memNum#
+			FOR UPDATE
+        ]]>
+	</select>
+
+	<select id="selectByMemId" resultMap="memberResult">   
+        <![CDATA[
+        SELECT
+			mem_num,
+			mem_id,
+			nick_name,
+			mem_pwd,
+			mem_kind_cd,
+			mem_atbt_cd,
+			mem_valid_yn_cd,
+			question_cd,
+			answer,
+			mail_pc,
+			mail_mobile,
+			kanji_fname,
+			kanji_lname,
+			kana_fname,
+			kana_lname,
+			sex_cd,
+			birth_ymd,
+			divis_cd,
+			occup_cd,
+			city_name,
+			building_name,
+			tel_num,
+			mailmag_req_cd,
+			mailmag_obj_cd,
+			note,
+			entry_date,
+			entry_ip,
+			withdraw_date,
+			withdraw_ip,
+			last_update_date,
+			last_update_ip,
+			last_update_user,
+			version_no
+		FROM
+			member_info
+		WHERE
+			mem_id = #value#
+		AND mem_valid_yn_cd IN ('1', '3')
+        ]]>
+	</select>
+
+	<insert id="save" parameterClass="memberInfo">
+	<![CDATA[
+		INSERT INTO member_info
+			(
+			mem_id,
+			nick_name,
+			mem_pwd,
+			mem_kind_cd,
+			mem_atbt_cd,
+			mem_valid_yn_cd,
+			question_cd,
+			answer,
+			mail_pc,
+			mail_mobile,
+			kanji_fname,
+			kanji_lname,
+			kana_fname,
+			kana_lname,
+			sex_cd,
+			birth_ymd,
+			divis_cd,
+			occup_cd,
+			city_name,
+			building_name,
+			tel_num,
+			mailmag_req_cd,
+			mailmag_obj_cd,
+			note,
+			entry_date,
+			entry_ip,
+			withdraw_date,
+			withdraw_ip,
+			last_update_date,
+			last_update_ip,
+			last_update_user,
+			version_no)
+		VALUES
+			(
+			#memId#,
+			#nickName#,
+			#memPwd#,
+			#memKindCd#,
+			#memAtbtCd#,
+			#memValidYNCd#,
+			#questionCd#,
+			#answer#,
+			#mailPc#,
+			#mailMobile#,
+			#kanjiFname#,
+			#kanjiLname#,
+			#kanaFname#,
+			#kanaLname#,
+			#sexCd#,
+			#birthYmd#,
+			#divisCd#,
+			#occupCd#,
+			#cityName#,
+			#buildingName#,
+			#telNum#,
+			#mailmagReqCd#,
+			#mailmagObjCd#,
+			#note#,
+			#entryDate#,
+			#entryIp#,
+			#withdrawDate#,
+			#withdrawIp#,
+			#lastUpdateDate#,
+			#lastUpdateIp#,
+			#lastUpdateUser#,
+			0
+			)
+	]]>
+	</insert>
+
+	<update id="update" parameterClass="memberInfo">
+	<![CDATA[
+		UPDATE member_info
+		SET	mem_id = #memId#,
+			nick_name = #nickName#,
+			mem_pwd = #memPwd#,
+			mem_kind_cd = #memKindCd#,
+			mem_atbt_cd = #memAtbtCd#,
+			mem_valid_yn_cd = #memValidYNCd#,
+			question_cd = #questionCd#,
+			answer = #answer#,
+			mail_pc = #mailPc#,
+			mail_mobile = #mailMobile#,
+			kanji_fname = #kanjiFname#,
+			kanji_lname = #kanjiLname#,
+			kana_fname = #kanaFname#,
+			kana_lname = #kanaLname#,
+			sex_cd = #sexCd#,
+			birth_ymd = #birthYmd#,
+			divis_cd = #divisCd#,
+			occup_cd = #occupCd#,
+			city_name = #cityName#,
+			building_name = #buildingName#,
+			tel_num = #telNum#,
+			mailmag_req_cd = #mailmagReqCd#,
+			mailmag_obj_cd = #mailmagObjCd#,
+			note = #note#,
+			entry_date = #entryDate#,
+			entry_ip = #entryIp#,
+			withdraw_date = #withdrawDate#,
+			withdraw_ip = #withdrawIp#,
+			last_update_date = #lastUpdateDate#,
+			last_update_ip = #lastUpdateIp#,
+			last_update_user = #lastUpdateUser#,
+			version_no = version_no + 1
+		WHERE
+			mem_num = #memNum#
+	]]>
+	</update>
+	
+	<select id="selectCountByIPAndTime" parameterClass="searchCondition" resultClass="int">
+      <![CDATA[
+        SELECT
+			count(mem_num)
+		FROM
+			member_info
+		WHERE
+			entry_ip = #clientIp#
+		AND entry_date >= DATE_SUB(now(), INTERVAL #checkTime# SECOND)
+		AND mem_atbt_cd IN ('1', '2')
+      ]]>
+	</select>
+	
+	<select id="selectCountByMemId" resultClass="int">
+      <![CDATA[
+        SELECT
+			count(mem_num)
+		FROM
+			member_info
+		WHERE
+			mem_id = #value#
+		AND 
+			mem_valid_yn_cd IN ('1', '3')
+      ]]>
+	</select>
+	
+	<select id="selectCountByMemIdForOther" parameterClass="searchCondition" resultClass="int">
+      <![CDATA[
+        SELECT
+			count(mem_num)
+		FROM
+			member_info
+		WHERE
+			mem_id = #memId#
+		AND
+			mem_num != #memNum#
+		AND 
+			mem_valid_yn_cd IN ('1', '3')
+	]]>
+	</select>
+	
+	<select id="selectCountByNickName" resultClass="int">
+      <![CDATA[
+        SELECT
+			count(mem_num)
+		FROM
+			member_info
+		WHERE
+			nick_name = #value#
+		AND 
+			mem_valid_yn_cd IN ('1', '3')
+      ]]>
+	</select>
+	
+	<select id="selectCountByNickNameForOther" parameterClass="searchCondition" resultClass="int">
+      <![CDATA[
+        SELECT
+			count(mem_num)
+		FROM
+			member_info
+		WHERE
+			nick_name = #nickName#
+		AND
+			mem_num != #memNum#
+		AND 
+			mem_valid_yn_cd IN ('1', '3')
+	]]>
+	</select>
+	
+	<select id="selectCountByMailPc" resultClass="int">
+      <![CDATA[
+        SELECT
+			count(mem_num)
+		FROM
+			member_info
+		WHERE
+			mail_pc = #value#
+		AND 
+			mem_atbt_cd IN ('1', '2')
+		AND 
+			mem_valid_yn_cd IN ('1', '3')
+      ]]>
+	</select>
+	
+	<select id="selectCountByMailPcForOther" parameterClass="searchCondition" resultClass="int">
+      <![CDATA[
+        SELECT
+			count(mem_num)
+		FROM
+			member_info
+		WHERE
+			mail_pc = #mailPc#
+		AND
+			mem_num != #memNum#
+		AND 
+			mem_atbt_cd IN ('1', '2')
+		AND 
+			mem_valid_yn_cd IN ('1', '3')
+	]]>
+	</select>
+
+	<select id="selectForPwdReget"  parameterClass="memberInfo" resultMap="memberResult">   
+        <![CDATA[
+        SELECT
+			mem_num,
+			mem_id,
+			nick_name,
+			mem_pwd,
+			mem_kind_cd,
+			mem_atbt_cd,
+			mem_valid_yn_cd,
+			question_cd,
+			answer,
+			mail_pc,
+			mail_mobile,
+			kanji_fname,
+			kanji_lname,
+			kana_fname,
+			kana_lname,
+			sex_cd,
+			birth_ymd,
+			divis_cd,
+			occup_cd,
+			city_name,
+			building_name,
+			tel_num,
+			mailmag_req_cd,
+			mailmag_obj_cd,
+			note,
+			entry_date,
+			entry_ip,
+			withdraw_date,
+			withdraw_ip,
+			last_update_date,
+			last_update_ip,
+			last_update_user,
+			version_no
+		FROM
+			member_info
+		WHERE
+			mail_pc = #mailPc#
+		AND mem_id = #memId#
+		AND mem_valid_yn_cd IN ('1', '3')
+        ]]>
+	</select>
+
+	<select id="selectByNumAndIDForUpdate" parameterClass="memberInfo" resultMap="memberResult">
+        <![CDATA[
+			SELECT
+				mem_num,
+				mem_id,
+				nick_name,
+				mem_pwd,
+				mem_kind_cd,
+				mem_atbt_cd,
+				mem_valid_yn_cd,
+				question_cd,
+				answer,
+				mail_pc,
+				mail_mobile,
+				kanji_fname,
+				kanji_lname,
+				kana_fname,
+				kana_lname,
+				sex_cd,
+				birth_ymd,
+				divis_cd,
+				occup_cd,
+				city_name,
+				building_name,
+				tel_num,
+				mailmag_req_cd,
+				mailmag_obj_cd,
+				note,
+				entry_date,
+				entry_ip,
+				withdraw_date,
+				withdraw_ip,
+				last_update_date,
+				last_update_ip,
+				last_update_user,
+				version_no
+			FROM
+				member_info
+			WHERE
+				mem_num = #memNum#
+			AND	mem_id = #memId#
+			FOR UPDATE
+        ]]>
+	</select>
+
+</sqlMap>
