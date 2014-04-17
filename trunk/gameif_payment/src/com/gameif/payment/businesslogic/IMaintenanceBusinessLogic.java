@@ -1,10 +1,7 @@
 package com.gameif.payment.businesslogic;
 
-import com.gameif.common.exception.LogicException;
 
 public interface IMaintenanceBusinessLogic {
-	
-	public void maintenanceCheckByTitleId(Integer titleId) throws LogicException;
 	
 	public Boolean maintenanceCheckByFunctionCd(String functionCd);
 

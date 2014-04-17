@@ -6,10 +6,10 @@ import java.util.List;
 
 import com.gameif.common.dao.impl.AbstractBaseDao;
 import com.gameif.payment.dao.IMemSettlementHistDao;
-import com.gameif.payment.entity.MemSettlementHist;
+import com.gameif.payment.entity.Settlement;
 import com.gameif.payment.entity.MySettlementHist;
 
-public class MemSettlementHistDaoImpl extends AbstractBaseDao<MemSettlementHist, MemSettlementHist>
+public class MemSettlementHistDaoImpl extends AbstractBaseDao<Settlement, Settlement>
 	implements IMemSettlementHistDao {
 
 	@SuppressWarnings("unchecked")

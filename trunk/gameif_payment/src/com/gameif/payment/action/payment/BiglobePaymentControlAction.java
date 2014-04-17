@@ -10,11 +10,11 @@ import org.apache.struts2.ServletActionContext;
 import com.gameif.common.action.ModelDrivenActionSupport;
 import com.gameif.payment.businesslogic.IPaymentBusinessLogic;
 import com.gameif.payment.constants.PortalConstants;
-import com.gameif.payment.entity.MemSettlementHist;
+import com.gameif.payment.entity.Settlement;
 import com.gameif.payment.entity.MemSettlementTrns;
 import com.gameif.payment.util.ContextUtil;
 
-public class BiglobePaymentControlAction extends ModelDrivenActionSupport<MemSettlementHist> {
+public class BiglobePaymentControlAction extends ModelDrivenActionSupport<Settlement> {
 	
 	private static final long serialVersionUID = -7492565950587701715L;
 
