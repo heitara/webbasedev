@@ -32,7 +32,7 @@ import com.gameif.payment.dao.IServicePointTypeMstDao;
 import com.gameif.payment.dao.ISettlementMstDao;
 import com.gameif.payment.dao.ITitleMstDao;
 import com.gameif.payment.entity.FunctionControlInfo;
-import com.gameif.payment.entity.MemSettlementHist;
+import com.gameif.payment.entity.Settlement;
 import com.gameif.payment.entity.MemSettlementTrns;
 import com.gameif.payment.entity.MemberInfo;
 import com.gameif.payment.entity.MySettlementHist;
@@ -54,14 +54,10 @@ public class PaymentBusinessLogicImpl extends BaseBusinessLogic implements IPaym
 	private IMemSettlementHistDao memSettlementHistDao;
 	private IMemberInfoDao memberInfoDao;
 	private IPointMstDao pointMstDao;
-	private ITitleMstDao titleMstDao;
-	private IServicePointTypeMstDao servicePointTypeMstDao;
-	private IServicePointDao servicePointDao;
-	private IServicePointGiveHistDao servicePointGiveHistDao;
+
 	private TemplateMailer templateMailer;
 	private TitleCharge titleCharge;
-	private IPlayHistDao playHistDao;
-	private IServerMstDao serverMstDao;
+	
 	private IFunctionControlInfoDao functionControlInfoDao;
 	private ISettlementMstDao settlementMstDao;
 	
@@ -117,7 +113,7 @@ public class PaymentBusinessLogicImpl extends BaseBusinessLogic implements IPaym
 	 */
 	@Transactional
 	@Override
-	public void createSettlementHist(MemSettlementHist settlementHist) throws Exception {
+	public void createSettlementHist(Settlement settlementHist) throws Exception {
 		
 		// 仮決済情報を取得する
 		MemSettlementTrns settleTrns = getSettlementTrnsForUpdate(settlementHist.getSettlementTrnsNum());
@@ -154,7 +150,7 @@ public class PaymentBusinessLogicImpl extends BaseBusinessLogic implements IPaym
 		sendChargeMail(settlementHist, member, server);
 	}
 	
-	protected void setSettlementTrnsToHist(MemSettlementHist settlementHist, MemSettlementTrns settleTrns, MemberInfo member) {
+	protected void setSettlementTrnsToHist(Settlement settlementHist, MemSettlementTrns settleTrns, MemberInfo member) {
 
 		settlementHist.setSettlementTrnsNum(settleTrns.getSettlementTrnsNum());
 		settlementHist.setSettlementCode(settleTrns.getSettlementCode());
@@ -192,12 +188,12 @@ public class PaymentBusinessLogicImpl extends BaseBusinessLogic implements IPaym
 		memberInfoDao.update(member);
 	}
 	
-	protected void saveSettlementHist(MemSettlementHist settlementHist) {
+	protected void saveSettlementHist(Settlement settlementHist) {
 		
 		memSettlementHistDao.save(settlementHist);
 	}
 	
-	protected void sendChargeMail(MemSettlementHist settlementHist, MemberInfo member, ServerMst server) {
+	protected void sendChargeMail(Settlement settlementHist, MemberInfo member, ServerMst server) {
 		
 		try {
 			
@@ -423,7 +419,7 @@ public class PaymentBusinessLogicImpl extends BaseBusinessLogic implements IPaym
 		logger.warn(chargeLog);
 	}
 	
-	private void doCharge(MemSettlementHist settlementHist, MemberInfo member, ServerMst server) {
+	private void doCharge(Settlement settlementHist, MemberInfo member, ServerMst server) {
 
 		// ポイント付与
 		ChargeParameter params = new ChargeParameter();
@@ -463,7 +459,7 @@ public class PaymentBusinessLogicImpl extends BaseBusinessLogic implements IPaym
 	 * @param settlementHist
 	 */
 	@SuppressWarnings("unchecked")
-	protected void presentServicePoint(MemSettlementHist settlementHist, MemberInfo member) {
+	protected void presentServicePoint(Settlement settlementHist, MemberInfo member) {
 
 		ServicePointTypeMst servicePointTypeMst = null;
 		BigDecimal amount = null;
@@ -643,80 +639,5 @@ public class PaymentBusinessLogicImpl extends BaseBusinessLogic implements IPaym
 		MemberInfo member = new MemberInfo();
 		member.setMemNum(memNum);
 		return memberInfoDao.selectByKey(member);
-	}
-
-	public void setMemSettlementTrnsDao(IMemSettlementTrnsDao memSettlementTrnsDao) {
-		this.memSettlementTrnsDao = memSettlementTrnsDao;
-	}
-
-	public void setMemSettlementHistDao(IMemSettlementHistDao memSettlementHistDao) {
-		this.memSettlementHistDao = memSettlementHistDao;
-	}
-
-	public void setMemberInfoDao(IMemberInfoDao memberInfoDao) {
-		this.memberInfoDao = memberInfoDao;
-	}
-
-	public void setPointMstDao(IPointMstDao pointMstDao) {
-		this.pointMstDao = pointMstDao;
-	}
-
-	public void setTitleMstDao(ITitleMstDao titleMstDao) {
-		this.titleMstDao = titleMstDao;
-	}
-
-	public void setServicePointTypeMstDao(
-			IServicePointTypeMstDao servicePointTypeMstDao) {
-		this.servicePointTypeMstDao = servicePointTypeMstDao;
-	}
-
-	public void setServicePointDao(IServicePointDao servicePointDao) {
-		this.servicePointDao = servicePointDao;
-	}
-
-	public void setServicePointGiveHistDao(
-			IServicePointGiveHistDao servicePointGiveHistDao) {
-		this.servicePointGiveHistDao = servicePointGiveHistDao;
-	}
-
-	public void setTemplateMailer(TemplateMailer templateMailer) {
-		this.templateMailer = templateMailer;
-	}
-
-	public void setTitleCharge(TitleCharge titleCharge) {
-		this.titleCharge = titleCharge;
-	}
-
-	public void setPlayHistDao(IPlayHistDao playHistDao) {
-		this.playHistDao = playHistDao;
-	}
-
-	public void setServerMstDao(IServerMstDao serverMstDao) {
-		this.serverMstDao = serverMstDao;
-	}
-
-	public void setFunctionControlInfoDao(
-			IFunctionControlInfoDao functionControlInfoDao) {
-		this.functionControlInfoDao = functionControlInfoDao;
-	}
-
-	public void setValidDays(Integer validDays) {
-		this.validDays = validDays;
-	}
-
-	public void setLimitAmountMax(BigDecimal limitAmountMax) {
-		this.limitAmountMax = limitAmountMax;
-	}
-
-	public void setLimitAmountMin(BigDecimal limitAmountMin) {
-		this.limitAmountMin = limitAmountMin;
-	}
-
-	public IMemSettlementTrnsDao getMemSettlementTrnsDao() {
-		return memSettlementTrnsDao;
-	}
-
-	public void setSettlementMstDao(ISettlementMstDao settlementMstDao) {
-		this.settlementMstDao = settlementMstDao;
 	}
 }

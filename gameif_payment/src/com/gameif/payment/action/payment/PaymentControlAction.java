@@ -15,14 +15,14 @@ import com.gameif.common.action.ModelDrivenActionSupport;
 import com.gameif.payment.businesslogic.IMasterInfoBusinessLogic;
 import com.gameif.payment.businesslogic.IPaymentBusinessLogic;
 import com.gameif.payment.constants.PortalConstants;
-import com.gameif.payment.entity.MemSettlementHist;
+import com.gameif.payment.entity.Settlement;
 import com.gameif.payment.entity.MemSettlementTrns;
 import com.gameif.payment.entity.MySettlementHist;
 import com.gameif.payment.entity.PointMst;
 import com.gameif.payment.entity.SettlementMst;
 import com.gameif.payment.util.ContextUtil;
 
-public class PaymentControlAction extends ModelDrivenActionSupport<MemSettlementHist> {
+public class PaymentControlAction extends ModelDrivenActionSupport<Settlement> {
 
 	private static final long serialVersionUID = -7492565950587701715L;
 
@@ -72,6 +72,14 @@ public class PaymentControlAction extends ModelDrivenActionSupport<MemSettlement
 	private String dtl_amount;
 	private String request_date;
 	private String limit_second;
+	private String res_result;
+	private String res_tracking_id;
+	private String res_sps_cust_no;
+	private String res_sps_payment_no;
+	private String res_payinfo_key;
+	private String res_payment_date;
+	private String res_err_code;
+	private String res_date;
 	private String sps_hashcode;
 
 	/**
@@ -84,18 +92,6 @@ public class PaymentControlAction extends ModelDrivenActionSupport<MemSettlement
 	}
 	
 	public String chargePointSubmit() {
-		
-		// ゲームをプレーすることがあるかどうかのチェック
-		Integer count = getPlayHistCount();
-		logger.warn("Play Count: " + count);
-		if (count < 1) {
-			
-			logger.warn("No play history.");
-			// プレーすることがない
-			addFieldError("errMessage", getText("title.noData"));
-			
-			return chargePointSelect();
-		}
 		
 		return "pointSubmit";
 	}
@@ -138,10 +134,10 @@ public class PaymentControlAction extends ModelDrivenActionSupport<MemSettlement
 		
 		MemSettlementTrns settlementTrns = new MemSettlementTrns();
 
-		settlementTrns.setSettlementCode(getModel().getSettlementCode());
-		settlementTrns.setTitleId(getModel().getTitleId());
-		settlementTrns.setServerId(getModel().getServerId());
-		settlementTrns.setPointId(getModel().getPointId());
+//		settlementTrns.setSettlementCode(getModel().getSettlementCode());
+//		settlementTrns.setTitleId(getModel().getTitleId());
+//		settlementTrns.setServerId(getModel().getServerId());
+//		settlementTrns.setPointId(getModel().getPointId());
 		setMemberNum(settlementTrns);
 		setProviderId(settlementTrns);
 
@@ -228,11 +224,6 @@ public class PaymentControlAction extends ModelDrivenActionSupport<MemSettlement
 	protected int createSettlementTrns(MemSettlementTrns settlementTrns) {
 		
 		return paymentBusinessLogic.createSettlementTrns(settlementTrns);
-	}
-
-	protected int getPlayHistCount() {
-		
-		return paymentBusinessLogic.countPlayHist(ContextUtil.getMemberNo(), getModel().getTitleId(), getModel().getServerId());
 	}
 	
 	protected void setProviderId(MemSettlementTrns settlementTrns) {
@@ -425,16 +416,16 @@ public class PaymentControlAction extends ModelDrivenActionSupport<MemSettlement
 		// 購入結果をログに出力する
 		outPutReceivesLog();
 
-		if ("NG".equals(getModel().getResResult())) {
+		if ("NG".equals(getRes_result())) {
 						
 			logger.warn(new StringBuilder()
 						.append(ContextUtil.getRequestBaseInfo())
 						.append(" | External I/F--Settlement ResResult: ")
-						.append("ResResult=").append(getModel().getResResult())
+						.append("ResResult=").append(getRes_result())
 						.toString()
 						);
 			
-			responseData("OK", "");
+			responseData("NG", "SBPS response is NG.");
 			
 			return;
 		}
@@ -539,25 +530,25 @@ public class PaymentControlAction extends ModelDrivenActionSupport<MemSettlement
 			.append(", amount=")
 			.append(getAmount())
 			.append(", resResult=")
-			.append(this.getModel().getResResult())
+			.append(getRes_result())
 			.append(", resTrackingId=")
-			.append(this.getModel().getResTrackingId())
+			.append(getRes_tracking_id())
 			.append(", resSpsCustNo=")
-			.append(this.getModel().getResSpsCustNo())
+			.append(getRes_sps_cust_no())
 			.append(", resSpsPaymentNo=")
-			.append(this.getModel().getResSpsPaymentNo())
+			.append(getRes_sps_payment_no())
 			.append(", resPayinfoKey=")
-			.append(this.getModel().getResPayinfoKey())
+			.append(getRes_payinfo_key())
 			.append(", resPaymentDate=")
-			.append(this.getModel().getResPaymentDate())
+			.append(getRes_payment_date())
 			.append(", resErrCode=")
-			.append(this.getModel().getResErrCode())
+			.append(getRes_err_code())
 			.append(", resDate=")
-			.append(this.getModel().getResDate())
+			.append(getRes_date())
 			.append(", limitSecond=")
-			.append(this.getModel().getLimitSecond())
+			.append(getLimit_second())
 			.append(", spsHashcode=")
-			.append(this.getModel().getSpsHashcode())
+			.append(getSps_hashcode())
 			.toString();
 		
 		logger.info(logBuff);
@@ -593,7 +584,7 @@ public class PaymentControlAction extends ModelDrivenActionSupport<MemSettlement
 
 		getResponseParams();
 
-		if (!"OK".equals(getModel().getResResult())) {
+		if (!"OK".equals(getRes_result())) {
 			
 			return "error";
 		}
@@ -665,29 +656,27 @@ public class PaymentControlAction extends ModelDrivenActionSupport<MemSettlement
 		setDtl_amount(request.getParameter("dtl_amount"));
 		setRequest_date(request.getParameter("request_date"));
 		// 仮決済番号
-		getModel().setSettlementTrnsNum(Long.parseLong(getOrder_id()));
+		//getModel().setSettlementTrnsNum(Long.parseLong(getOrder_id()));
 		// ステータス
-		getModel().setResResult(request.getParameter("res_result"));
+		setRes_result(request.getParameter("res_result"));
 		// トラッキングID
-		getModel().setResTrackingId(request.getParameter("res_tracking_id"));
+		setRes_tracking_id(request.getParameter("res_tracking_id"));
 		// SPS顧客ID
-		getModel().setResSpsCustNo(request.getParameter("res_sps_cust_no"));
+		setRes_sps_cust_no(request.getParameter("res_sps_cust_no"));
 		// SPS支払方法管理番号
-		getModel().setResSpsPaymentNo(request.getParameter("res_sps_payment_no"));
+		setRes_sps_payment_no(request.getParameter("res_sps_payment_no"));
 		// 顧客決済情報
-		getModel().setResPayinfoKey(request.getParameter("res_payinfo_key"));
+		setRes_payinfo_key(request.getParameter("res_payinfo_key"));
 		// 購入完了処理時間
-		getModel().setResPaymentDate(request.getParameter("res_payment_date"));
+		setRes_payment_date(request.getParameter("res_payment_date"));
 		// エラーコード
-		getModel().setResErrCode(request.getParameter("res_err_code"));
+		setRes_err_code(request.getParameter("res_err_code"));
 		// レスポンス日時
-		getModel().setResDate(request.getParameter("res_date"));
+		setRes_date(request.getParameter("res_date"));
 		// レスポンス許容時間
-		getModel().setLimitSecond(request.getParameter("limit_second"));
+		setLimit_second(request.getParameter("limit_second"));
 		// チェックサム
 		setSps_hashcode(request.getParameter("sps_hashcode"));
-		
-		getModel().setSpsHashcode(getSps_hashcode());
 	}
 	
 	/**
@@ -734,17 +723,15 @@ public class PaymentControlAction extends ModelDrivenActionSupport<MemSettlement
 			.append(getDtl_amount())
 			.append(getRequest_date())
 			.append(getPay_method())
-			.append(getModel()
-			.getResResult())
-			.append(getModel()
-			.getResTrackingId())
-		    .append(getModel().getResSpsCustNo())
-		    .append(getModel().getResSpsPaymentNo())
-		    .append(getModel().getResPayinfoKey())
-		    .append(getModel().getResPaymentDate())
-		    .append(getModel().getResErrCode())
-		    .append(getModel().getResDate())
-		    .append(getModel().getLimitSecond())
+			.append(getRes_result())
+			.append(getRes_tracking_id())
+		    .append(getRes_sps_cust_no())
+		    .append(getRes_sps_payment_no())
+		    .append(getRes_payinfo_key())
+		    .append(getRes_payment_date())
+		    .append(getRes_err_code())
+		    .append(getRes_date())
+		    .append(getLimit_second())
 		    .append(getSpsKey())
 		    .toString();
 		
@@ -793,16 +780,16 @@ public class PaymentControlAction extends ModelDrivenActionSupport<MemSettlement
 		Integer limitSecond = 0;
 		
 		// レスポンス日時
-		if (!StringUtils.isEmpty(getModel().getResDate())) {
+		if (!StringUtils.isEmpty(getRes_date())) {
 			
 			try {
 				
-				receiveDate = new SimpleDateFormat("yyyyMMddHHmmss").parse(getModel().getResDate());
+				receiveDate = new SimpleDateFormat("yyyyMMddHHmmss").parse(getRes_date());
 				
 				// レスポンス許容時間
-				if (!StringUtils.isEmpty(getModel().getLimitSecond())) {
+				if (!StringUtils.isEmpty(getLimit_second())) {
 					
-					limitSecond = Integer.parseInt(getModel().getLimitSecond());
+					limitSecond = Integer.parseInt(getLimit_second());
 				}
 				
 				// 制限時間 = レスポンス日時 + レスポンス 許容時間
@@ -1465,5 +1452,69 @@ public class PaymentControlAction extends ModelDrivenActionSupport<MemSettlement
 
 	public void setSettleHistList(List<MySettlementHist> settleHistList) {
 		this.settleHistList = settleHistList;
+	}
+
+	public String getRes_result() {
+		return res_result;
+	}
+
+	public void setRes_result(String res_result) {
+		this.res_result = res_result;
+	}
+
+	public String getRes_tracking_id() {
+		return res_tracking_id;
+	}
+
+	public void setRes_tracking_id(String res_tracking_id) {
+		this.res_tracking_id = res_tracking_id;
+	}
+
+	public String getRes_sps_cust_no() {
+		return res_sps_cust_no;
+	}
+
+	public void setRes_sps_cust_no(String res_sps_cust_no) {
+		this.res_sps_cust_no = res_sps_cust_no;
+	}
+
+	public String getRes_sps_payment_no() {
+		return res_sps_payment_no;
+	}
+
+	public void setRes_sps_payment_no(String res_sps_payment_no) {
+		this.res_sps_payment_no = res_sps_payment_no;
+	}
+
+	public String getRes_payinfo_key() {
+		return res_payinfo_key;
+	}
+
+	public void setRes_payinfo_key(String res_payinfo_key) {
+		this.res_payinfo_key = res_payinfo_key;
+	}
+
+	public String getRes_payment_date() {
+		return res_payment_date;
+	}
+
+	public void setRes_payment_date(String res_payment_date) {
+		this.res_payment_date = res_payment_date;
+	}
+
+	public String getRes_err_code() {
+		return res_err_code;
+	}
+
+	public void setRes_err_code(String res_err_code) {
+		this.res_err_code = res_err_code;
+	}
+
+	public String getRes_date() {
+		return res_date;
+	}
+
+	public void setRes_date(String res_date) {
+		this.res_date = res_date;
 	}
 }

@@ -6,9 +6,6 @@ import com.gameif.common.entity.BaseEntity;
 
 public class FunctionControlInfo extends BaseEntity {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -1476197840216571806L;
 
 	private String functionCode;
