@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="settlement">
+	<typeAlias alias="settlement" type="com.gameif.payment.entity.Settlement" />
+
+	<resultMap class="com.gameif.payment.entity.Settlement" id="settlementResult">
+		<result property="id" column="id" />
+		<result property="userId" column="user_id" />
+        <result property="itemId" column="item_id" />
+		<result property="itemName" column="item_name" />
+		<result property="price" column="price" />
+		<result property="paymentMethod" column="payment_method" />
+		<result property="status" column="status" />
+		<result property="settlementDate" column="settlement_date" />
+		<result property="settlementDate" column="settlement_date" />
+		<result property="clientId" column="client_id" />
+		<result property="clCatId" column="cl_cat_id" />
+		<result property="clOrderId" column="cl_settlement_id" />
+		<result property="clUserId" column="cl_user_id"/>
+		<result property="clItemId" column="cl_item_id"/>
+		<result property="clOrderDate" column="cl_settlement_date"/>
+		<result property="clCallback" column="cl_callback"/>
+		<result property="sbpsTrackingId" column="sbps_tracking_id"/>
+	</resultMap>
+	
+	<insert id = "save" parameterClass="settlement"> 
+        <![CDATA[
+		INSERT INTO settlement (
+			user_id,
+			item_id,
+			item_name,
+			price,
+			payment_method,
+			status,
+			settlement_date,
+			settlement_date,
+			client_id,
+			cl_cat_id,
+			cl_settlement_id,
+			cl_user_id,
+			cl_item_id,
+			cl_settlement_date,
+			cl_callback
+        ) VALUES (
+			#userId#,
+			#itemId#,
+			#itemName#,
+			#price#,
+			#paymentMethod#,
+			#status#,
+			#settlementDate#,
+			#settlementDate#,
+			#clientId#,
+			#clCatId#,
+			#clOrderId#,
+			#clUserId#,
+			#clItemId#,
+			#clOrderDate#,
+			#clCallback#
+		)
+        ]]>
+		<selectKey resultClass="java.lang.Long" keyProperty="id">   
+        	<![CDATA[
+			SELECT last_insert_id() as id
+        	]]>
+		</selectKey>
+	</insert>
+
+	<select id="selectByKey" parameterClass="settlement" resultMap="settlementResult">   
+        <![CDATA[
+        SELECT
+        	id,
+			user_id,
+			item_id,
+			item_name,
+			price,
+			payment_method,
+			status,
+			settlement_date,
+			settlement_date,
+			client_id,
+			cl_cat_id,
+			cl_settlement_id,
+			cl_user_id,
+			cl_item_id,
+			cl_settlement_date,
+			cl_callback
+		FROM
+			settlement
+		WHERE
+			id = #id#
+        ]]>
+	</select>
+
+	<select id="selectForUpdate" resultMap="settlementResult">
+        <![CDATA[
+        SELECT
+        	id,
+			user_id,
+			item_id,
+			item_name,
+			price,
+			payment_method,
+			status,
+			settlement_date,
+			settlement_date,
+			client_id,
+			cl_cat_id,
+			cl_settlement_id,
+			cl_user_id,
+			cl_item_id,
+			cl_settlement_date,
+			cl_callback
+		FROM
+			settlement
+		WHERE
+			id = #id#
+		FOR UPDATE
+        ]]>
+	</select>
+	
+	<delete id="deleteByKey" parameterClass="java.lang.Long">  
+        <![CDATA[
+        DELETE
+		FROM
+			settlement
+		WHERE
+			id = #id#
+        ]]>
+	</delete>
+
+</sqlMap>
