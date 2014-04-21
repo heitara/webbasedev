@@ -3,32 +3,28 @@ package com.gameif.payment.entity;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.gameif.common.entity.BaseEntity;
+import com.gameif.common.exception.SystemException;
 
 public class Order extends BaseEntity {
-
+	
 	private static final long serialVersionUID = 3484982922743471565L;
 
 	/**
 	 * オーダー番号
 	 */
 	private Long id;
-	/**
-	 * ユーザーID：  [clientId]-[clCatId]-[<clUserId]
-	 */
-	private String userId;
-	/**
-	 * 商品ID： [clientId]-[clCatId]-[clItemId]
-	 */
-	private String itemId;
-	/**
-	 * 商品名： [clItemName]
-	 */
-	private String itemName;
-	/**
-	 * 商品名： [clPrice]
-	 */
-	private BigDecimal price;
+	private String clientId;
+	private String clCatId;
+	private String clOrderId;
+	private String clUserId;
+	private String clItemId;
+	private String clItemName;
+	private BigDecimal clPrice;
+	private Date clOrderDate;
+	
 	/**
 	 * 支払い方法： credit3d | webmoney | bitcash | netcash
 	 */
@@ -42,17 +38,7 @@ public class Order extends BaseEntity {
 	 * 決済代行依頼日時
 	 */
 	private Date orderDate;
-	/**
-	 * 決済成約日時
-	 */
-	private Date settlementDate;
 
-	private String clientId;
-	private String clCatId;
-	private String clOrderId;
-	private String clUserId;
-	private String clItemId;
-	private Date clOrderDate;
 	/**
 	 * 決済通知受付URL
 	 */
@@ -63,30 +49,6 @@ public class Order extends BaseEntity {
 	}
 	public void setId(Long id) {
 		this.id = id;
-	}
-	public String getUserId() {
-		return userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-	public String getItemId() {
-		return itemId;
-	}
-	public void setItemId(String itemId) {
-		this.itemId = itemId;
-	}
-	public String getItemName() {
-		return itemName;
-	}
-	public void setItemName(String itemName) {
-		this.itemName = itemName;
-	}
-	public BigDecimal getPrice() {
-		return price;
-	}
-	public void setPrice(BigDecimal price) {
-		this.price = price;
 	}
 	public String getPaymentMethod() {
 		return paymentMethod;
@@ -105,12 +67,6 @@ public class Order extends BaseEntity {
 	}
 	public void setOrderDate(Date orderDate) {
 		this.orderDate = orderDate;
-	}
-	public Date getSettlementDate() {
-		return settlementDate;
-	}
-	public void setSettlementDate(Date settlementDate) {
-		this.settlementDate = settlementDate;
 	}
 	public String getClientId() {
 		return clientId;
@@ -153,5 +109,79 @@ public class Order extends BaseEntity {
 	}
 	public void setClCallback(String clCallback) {
 		this.clCallback = clCallback;
+	}
+	public String getClItemName() {
+		return clItemName;
+	}
+	public void setClItemName(String clItemName) {
+		this.clItemName = clItemName;
+	}
+	public BigDecimal getClPrice() {
+		return clPrice;
+	}
+	public void setClPrice(BigDecimal clPrice) {
+		this.clPrice = clPrice;
+	}
+	public String getUserId() {
+		if(StringUtils.isEmpty(this.clientId) || StringUtils.isEmpty(this.clCatId) || StringUtils.isEmpty(this.clUserId)) {
+			return null;
+		}
+		return new StringBuffer()
+				.append(this.clientId)
+				.append("-")
+				.append(this.clCatId)
+				.append("-")
+				.append(this.clUserId)
+				.toString();
+	}
+	public void setUserId(String userId) {
+		String[] v = userId.split("-");
+		if(v != null && v.length == 3) {
+			if(StringUtils.isEmpty(this.clientId)) {
+				this.clientId = v[0];
+			} else if(this.clientId != v[0]) {
+				throw new SystemException("ClientId is not match.");
+			}
+			if(StringUtils.isEmpty(this.clCatId)) {
+				this.clCatId = v[1];
+			} else if(this.clCatId != v[1]) {
+				throw new SystemException("ClCatId is not match.");
+			}
+			this.clUserId = v[2];
+		}
+	}
+	public String getItemId() {
+		if(StringUtils.isEmpty(this.clientId) || StringUtils.isEmpty(this.clCatId) || StringUtils.isEmpty(this.clItemId)) {
+			return null;
+		}
+		return new StringBuffer()
+				.append(this.clientId)
+				.append("-")
+				.append(this.clCatId)
+				.append("-")
+				.append(this.clItemId)
+				.toString();
+	}
+	public void setItemId(String itemId) {
+		String[] v = itemId.split("-");
+		if(v != null && v.length == 3) {
+			if(StringUtils.isEmpty(this.clientId)) {
+				this.clientId = v[0];
+			} else if(this.clientId != v[0]) {
+				throw new SystemException("ClientId is not match.");
+			}
+			if(StringUtils.isEmpty(this.clCatId)) {
+				this.clCatId = v[1];
+			} else if(this.clCatId != v[1]) {
+				throw new SystemException("ClCatId is not match.");
+			}
+			this.clItemId = v[2];
+		}
+	}
+	public BigDecimal getPrice() {
+		return this.getClPrice();
+	}
+	public void setPrice(BigDecimal price) {
+		this.setClPrice(price);
 	}
 }
